@@ -350,7 +350,7 @@ export default {
         //  'commercial_partner_id',
         //  'commercial_company_name',
         //  'company_name',
-        //  'image',
+          'image',
         //  'image_medium',
         //  'image_small'
       ],
