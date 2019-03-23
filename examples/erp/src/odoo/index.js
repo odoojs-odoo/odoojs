@@ -2,7 +2,8 @@ import ODOO from './odoojs';
 
 const get_odoo = () => {
   const host = '/api';
-  const db = 'TT';
+  //const db = 'TT';
+  const db = 'EDU';
 
   const { base } = ODOO.addons;
   const modules = { base };

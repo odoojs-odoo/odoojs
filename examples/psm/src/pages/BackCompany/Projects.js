@@ -29,19 +29,23 @@ class List extends React.Component {
       dataIndex: 'name',
     },
     {
-      title: '编码',
-      dataIndex: 'code',
-    },
-    {
       title: '项目经理',
       dataIndex: 'user_id.name',
+    },
+    {
+      title: '项目账号',
+      dataIndex: 'user_id.login',
+    },
+    {
+      title: '管理员手机号',
+      dataIndex: 'user_id.mobile',
     },
   ];
 
   async componentDidMount() {
     const Model = await odoo.env('project.project');
-    const records = await Model.search([], {}, { order: 'name' });
-    const data = records.look2();
+    const records = await Model.search([], {user_id:{}}, { order: 'name' });
+    const data = records.look2({user_id:{}});
     this.setState({ recordsList: data, ids: records.ids });
 
     const [, adminid] = (await odoo.ref('base.user_admin')) || [0, 0];
@@ -73,8 +77,14 @@ class List extends React.Component {
 
     validateFields(async (err, values) => {
       //     if (!err) {
-      const { name, code, user_id } = values;
-      const vals = { name, code, user_id };
+      const { name, user_name, login, mobile, password } = values;
+      const User = odoo.env('res.users');
+      const user = await User.create({ name:user_name, login, mobile, password });
+      const user_id = user.id
+      console.log(user_id, values)
+
+      const vals = { name, user_id };
+
       const Model = await odoo.env('project.project');
       const new_rec = await Model.create(vals);
 
@@ -117,27 +127,31 @@ class List extends React.Component {
                 rules: [{ required: true }],
               })(<Input />)}
             </FormItem>
-            <FormItem {...FormItemLayout} label="项目编码">
-              {getFieldDecorator('code', {
+            <FormItem {...FormItemLayout} label="项目账号">
+              {getFieldDecorator('login', {
+                rules: [{ required: true }],
+              })(<Input />)}
+            </FormItem>
+
+            <FormItem {...FormItemLayout} label="初始密码">
+              {getFieldDecorator('password', {
                 rules: [{ required: true }],
               })(<Input />)}
             </FormItem>
 
             <FormItem {...FormItemLayout} label="项目经理">
-              {getFieldDecorator('user_id', {
+              {getFieldDecorator('user_name', {
                 rules: [{ required: true }],
-              })(
-                <Select placeholder="请选择项目经理">
-                  {usersList.map(user => {
-                    return (
-                      <Option value={user.id} key="id">
-                        {user.login}
-                      </Option>
-                    );
-                  })}
-                </Select>
-              )}
+              })(<Input />)}
             </FormItem>
+
+            <FormItem {...FormItemLayout} label="管理员手机号">
+              {getFieldDecorator('mobile', {
+                rules: [{ required: true }],
+              })(<Input />)}
+            </FormItem>
+
+
           </Form>
         </Modal>
       </div>

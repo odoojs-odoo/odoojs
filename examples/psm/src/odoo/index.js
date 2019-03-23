@@ -11,7 +11,7 @@ const get_odoo = () => {
   const models = {
     'res.partner': [],
     'res.company': ['name', 'company_registry', 'user_id', 'user_ids'],
-    'res.users': ['name', 'email', 'login', 'company_id', 'partner_id'],
+    'res.users': ['name', 'email', 'login', 'company_id', 'partner_id','mobile'],
     'uom.uom': ['name', 'uom_type', 'measure_type'],
     'project.project': [
       'name',
