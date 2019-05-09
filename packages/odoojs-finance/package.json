@@ -1,0 +1,27 @@
+{
+  "name": "odoojs-finance",
+  "version": "0.1.2",
+  "description": "odoojs finance",
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/odoowww/odoojs"
+  },
+  "homepage": "https://gitee.com/odoowww/odoojs",
+  "keywords": [
+    "odoo",
+    "rpc"
+  ],
+  "author": "odoowww <odoowww@163.com>",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "devDependencies": {},
+  "peerDependencies": {},
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "@babel/runtime": "^7.0.0",
+    "odoojs-core": "^0.1.0"
+  }
+}
