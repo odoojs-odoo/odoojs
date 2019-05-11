@@ -3,7 +3,7 @@ const mail_channel_extend = BaseClass => {
 
   class cls extends BaseClass {
     async message_get(message) {
-      const msgModel = await cls.env('mail.message').init();
+      const msgModel = await cls.env['mail.message'].init();
       await msgModel.message_get(message);
       return;
     }
@@ -26,7 +26,7 @@ const mail_channel_extend = BaseClass => {
       { name: null, channel_type: null },
       1
     );
-    const msgModel = cls.env('mail.message');
+    const msgModel = cls.env['mail.message'];
     const msg = msgModel.message_get(message);
     msg.setAttr('channel_id', chn);
     msg.setAttr('channel_type', chn.attr('channel_type'));

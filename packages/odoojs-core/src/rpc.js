@@ -1,18 +1,5 @@
 // Only For Debug
-
 //import fetch from 'dva/fetch';
-
-/*
-
-TBD: 2019-4-25
-
-we get user info after login.
-save user info: uid, session_id, context={lang}, etc...
-
-call odoorpc with context={lang}
-so odoo update ir_translate auto
-
-*/
 
 const _fetch = (url, options, timeout) => {
   return Promise.race([
@@ -126,6 +113,11 @@ class RPC {
     this._user = user;
   }
 
+  setCallback({ success, error }) {
+    this.error = error || this._callbackerror;
+    this.success = success || this._callbacksuccess;
+  }
+
   _callbacksuccess({ url, params, result }) {}
 
   _callbackerror({ url, params, error }) {
@@ -173,9 +165,9 @@ class RPC {
       this.uid = uid;
       this._user = result;
     } else {
-      this.sid = null;
-      this.uid = null;
-      this._user = null;
+      //this.sid = null;
+      //this.uid = null;
+      //this._user = null;
     }
 
     return data;

@@ -134,7 +134,7 @@ const bus_bus_extend = BaseClass => {
       return;
     }
 
-    const MailChannel = cls.env(model);
+    const MailChannel = cls.env[model];
     await MailChannel.message_get(channel_id, message);
 
     return;

@@ -15,10 +15,6 @@ const modelCreator = options => {
       }
     }
 
-    //len(){
-    //    return this._ids.length
-    //}
-
     get length() {
       return this._ids.length;
     }
@@ -35,14 +31,7 @@ const modelCreator = options => {
       return cls.call(method, [this._ids, ...args], kwargs);
     }
 
-    async toggle_active() {
-      return this.call('toggle_active');
-    }
-
-    async browse(fields) {
-      const myCls = this.__proto__.constructor;
-      return myCls.browse(this._ids, fields);
-    }
+    /*
 
     list() {
       const myCls = this.__proto__.constructor;
@@ -64,6 +53,7 @@ const modelCreator = options => {
       const myCls = this.__proto__.constructor;
       return new myCls(id);
     }
+    */
 
     // only for single. //TBD , check typeof( value )
     setAttr(attr, value) {
@@ -90,8 +80,8 @@ const modelCreator = options => {
       return this.setAttr(attr, value);
     }
 
-    // only for single.
     /*  TBD 2019-1-29,  how about proxy?
+    // only for single.
         get record(){
             const rec = cls._records[this._id]
             return {
@@ -100,7 +90,8 @@ const modelCreator = options => {
                 m2m_ids:  new ref_cls( this.m2m_ids )
             }
         }
-        */
+    */
+
     attr(attr, ref = 0, ref_fields = {}) {
       // only for single
       if (ref) {
@@ -112,7 +103,7 @@ const modelCreator = options => {
       if (['many2one', 'one2many', 'many2many'].indexOf(type) < 0) {
         return raw;
       } else {
-        const ref_cls = cls.env(relation);
+        const ref_cls = cls._get_model(relation);
         return new ref_cls(raw);
       }
     }
@@ -122,7 +113,7 @@ const modelCreator = options => {
         relation: ref_cls_name,
         //type: ref_type,
       } = cls._fields[attr];
-      const ref_cls = cls.env(ref_cls_name);
+      const ref_cls = cls._get_model(ref_cls_name);
       const ref_ins = this.attr(attr);
       return await ref_cls.browse(ref_ins._ids, ref_fields);
     }
@@ -143,6 +134,15 @@ const modelCreator = options => {
 
     look2(fields) {
       return cls._get_multi(this._ids, fields);
+    }
+
+    async toggle_active() {
+      return this.call('toggle_active');
+    }
+
+    async browse(fields) {
+      const myCls = this.__proto__.constructor;
+      return myCls.browse(this._ids, fields);
     }
 
     async write(vals) {
@@ -173,89 +173,12 @@ const modelCreator = options => {
   cls._fields = {};
   cls._fields_raw = fields_raw || ['name'];
 
-  cls._template = null;
-
-  cls.fields = field => {
-    return cls._fields[field];
-  };
-
-  /*
-  cls._template_formview = () => {
-    const columns = cls._fields_raw.reduce((acc, cur) => {
-      const fld_meta = cls._fields[cur];
-      const item = {
-        title: cur,
-        dataIndex:
-          fld_meta && fld_meta.type === 'many2one' ? `${cur}.name` : cur,
-      };
-      acc.push(item);
-      return acc;
-    }, []);
-
-    return [
-      {
-        title: cls._name,
-        columns,
-      },
-    ];
-  };
-
-  cls._template_treeview = () => {
-    return [
-      {
-        title: 'id',
-        dataIndex: 'id',
-      },
-      {
-        title: '名称',
-        dataIndex: 'name',
-      },
-    ];
-  };
-
-  cls._template_editview = () => {
-    return cls._fields_raw.reduce((acc, cur) => {
-      const fld_meta = cls._fields[cur];
-
-      const item = {
-        label: cur,
-        field: cur,
-        type: fld_meta && fld_meta.type,
-      };
-
-      if (item.type === 'selection') {
-        item['selection'] = fld_meta.selection;
-      } else if (item.type === 'many2one') {
-        item['relation'] = fld_meta.relation;
-      }
-
-      acc.push(item);
-      return acc;
-    }, []);
-  };
-
-  cls.template = view => {
-    if (cls._template && cls._template[view]) {
-      return cls._template[view];
-    }
-
-    if (view === 'formview') {
-      return cls._template_formview();
-    } else if (view === 'editview') {
-      return cls._template_editview();
-    } else if (view === 'treeview') {
-      return cls._template_treeview();
-    } else {
-      return [];
-    }
-  };
-
-  */
+  cls.fields = cls._fields;
 
   cls.ref = async xmlid => {
     // get model and id from xmlid
     return cls
-      .env('ir.model.data')
+      ._get_model('ir.model.data')
       .call('xmlid_to_res_model_res_id', [xmlid, true]);
   };
 
@@ -263,7 +186,7 @@ const modelCreator = options => {
     // run only one  time. to set cls._fields for this cls
     //console.log( 'init:', cls._name, cls._fields_raw, cls._fields )
     if (Object.keys(cls._fields).length) {
-      return cls.env(cls._name);
+      return cls._get_model(cls._name);
     }
 
     cls._fields_raw = cls._env[cls._name]._fields_raw;
@@ -277,10 +200,12 @@ const modelCreator = options => {
         cls._fields[fld] = _fields[fld];
       }
     }
-    return cls.env(cls._name);
+    return cls._get_model(cls._name);
   };
 
-  cls.env = relation => {
+  cls.env = cls._env;
+
+  cls._get_model = relation => {
     let ref_cls = cls._env[relation];
     // if cls mot defined in env
     // then create a cls, and need not init()
@@ -360,7 +285,7 @@ const modelCreator = options => {
 
         let ref_fields = null;
         if (['many2one', 'one2many', 'many2many'].indexOf(type) >= 0) {
-          const ref_cls = cls.env(relation);
+          const ref_cls = cls._get_model(relation);
           await ref_cls.init();
           if (fields[cur]) {
             ref_fields = await ref_cls._get_fields2(fields[cur]);
@@ -406,7 +331,7 @@ const modelCreator = options => {
         return acc;
       }
 
-      const ref_cls = cls.env(relation);
+      const ref_cls = cls._get_model(relation);
       if (type === 'many2one') {
         if (!value) {
           acc[fld] = null;
@@ -484,13 +409,13 @@ const modelCreator = options => {
             item[fld] = cls._records[id][fld];
           }
         } else if (type === 'many2one') {
-          const ref_cls = cls.env(relation);
+          const ref_cls = cls._get_model(relation);
           const ref_id = cls._records[id] ? cls._records[id][fld] : null;
           const ref_fields = get_ref_fields(fld, fields);
           const noall = !(typeof fields[fld] === 'object');
           item[fld] = ref_id && ref_cls._get_one(ref_id, ref_fields, noall);
         } else {
-          const ref_cls = cls.env(relation);
+          const ref_cls = cls._get_model(relation);
           const ref_ids = cls._records[id] ? cls._records[id][fld] : null;
           const ref_fields = get_ref_fields(fld, fields);
           const noall = !(typeof fields[fld] === 'object');

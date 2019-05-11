@@ -1,4 +1,7 @@
 export default {
+  name: 'account_asset',
+  depends: ['account'],
+
   models: {
     'account.asset.category': {
       fields: [

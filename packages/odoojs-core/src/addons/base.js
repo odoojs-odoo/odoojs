@@ -120,75 +120,6 @@ const res_users_extend = BaseClass => {
   return cls;
 };
 
-const res_users_template = {
-  treeview: [],
-  formview: [
-    {
-      title: '基本信息',
-      columns: [
-        { title: '账号', dataIndex: 'login' },
-        { title: '名称', dataIndex: 'name' },
-      ],
-    },
-    {
-      title: '',
-      columns: [],
-    },
-    {
-      title: '其他信息',
-      columns: [
-        { title: '邮箱', dataIndex: 'partner_id.email' },
-        { title: '名称2', dataIndex: 'partner_id.name' },
-      ],
-    },
-  ],
-
-  editview: [
-    { label: '名称', field: 'name', type: 'char' },
-    { label: 'ref', field: 'ref', type: 'char' },
-  ],
-};
-
-const res_partner_template = {
-  formview: [
-    {
-      title: '基本信息',
-      columns: [{ title: '名称', dataIndex: 'name' }],
-    },
-    {
-      title: '',
-      columns: [],
-    },
-    {
-      title: '其他信息',
-      columns: [
-        { title: '邮箱', dataIndex: 'email' },
-        { title: 'ref', dataIndex: 'ref' },
-        {
-          title: 'child_ids',
-          dataIndex: 'child_ids',
-          type: 'one2many',
-          relation: 'res.partner',
-        },
-      ],
-    },
-  ],
-
-  editview2: [
-    { label: '名称', field: 'name', type: 'char' },
-    { label: '邮箱', field: 'email', type: 'char' },
-    { label: 'ref', field: 'ref', type: 'char', rules: [{ required: true }] },
-    { label: 'color', field: 'color', type: 'integer' },
-
-    { label: 'title', field: 'title', type: 'many2one' },
-  ],
-
-  treeview: [
-    { title: '名称', dataIndex: 'name' },
-    { title: 'ref', dataIndex: 'ref' },
-  ],
-};
-
 export default {
   name: 'base',
   depends: [],
@@ -374,8 +305,6 @@ export default {
         //  'image_small'
       ],
 
-      template: res_partner_template,
-
       extend: res_partner_extend,
     },
 
@@ -421,7 +350,7 @@ export default {
         'name',
         'email',
       ],
-      template: res_users_template,
+
       extend: res_users_extend,
     },
   },

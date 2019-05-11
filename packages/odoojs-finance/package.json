@@ -1,6 +1,6 @@
 {
   "name": "odoojs-finance",
-  "version": "0.1.2",
+  "version": "0.1.5",
   "description": "odoojs finance",
   "repository": {
     "type": "git",
@@ -9,7 +9,8 @@
   "homepage": "https://gitee.com/odoowww/odoojs",
   "keywords": [
     "odoo",
-    "rpc"
+    "rpc",
+    "finance"
   ],
   "author": "odoowww <odoowww@163.com>",
   "license": "MIT",

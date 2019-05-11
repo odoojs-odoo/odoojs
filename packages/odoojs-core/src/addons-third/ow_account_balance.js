@@ -64,6 +64,9 @@ const account_balance_extend = BaseClass => {
 };
 
 export default {
+  name: 'ow_account_balance',
+  depends: ['account'],
+
   models: {
     'account.account': {
       fields: ['general_code', 'general_name', 'sub_type'],

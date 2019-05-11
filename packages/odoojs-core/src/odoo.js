@@ -41,20 +41,15 @@ class Odoo {
             host:
             db:
             modules: all modules to install
-            models:  all model to set fields
+            //models:  all model to set fields.  2019-5-10, need not
         */
 
-    const { host, db, modules, models, success, error } = options;
+    const { host, db, modules, success, error } = options;
+
     const rpc = new RPC({ host, db, success, error });
     this._rpc = rpc;
-    this._models = models;
-
-    //if (error) {
-    //  this.setErrorCallback(error);
-    //}
 
     this._user = {};
-
     this._env = {};
     this._modules = {};
     const { base } = addons;
@@ -90,26 +85,12 @@ class Odoo {
   }
 
   _fn_one_model(model_name, model) {
-    // if no config this model,
-    // then this model is never used
-    if (!this._models[model_name]) {
-      return;
-    }
-
-    // if config this model fields  ,
-    // then only use this fields
-    // else use all fields
-
     let cls = this._env[model_name];
     if (cls) {
-      const fields0 = this._models[model_name];
-      if (fields0 && fields0.length === 0 && model.fields) {
-        cls._fields_raw = [...cls._fields_raw, ...model.fields];
-      }
+      cls._fields_raw = [...cls._fields_raw, ...model.fields];
     } else {
-      const fields0 = this._models[model_name];
+      const fields = model.fields || [];
 
-      const fields = fields0.length > 0 ? fields0 : model.fields || [];
       cls = modelCreator({
         model: model_name,
         fields,
@@ -117,10 +98,6 @@ class Odoo {
         env: this._env,
       });
       this._env[model_name] = cls;
-    }
-
-    if (model.template) {
-      cls._template = model.template;
     }
 
     if (model.extend) {
@@ -134,6 +111,60 @@ class Odoo {
 
       this._env[model_name] = extend_class;
     }
+  }
+
+  setCallback({ success, error }) {
+    this._rpc.setCallback({ success, error });
+  }
+
+  async login(params) {
+    const data = await this._rpc.login(params);
+    if (!data.code) {
+      Odoo._session[this._rpc.sid] = this;
+      this._user = data.result;
+      return data.result;
+    }
+    return null;
+  }
+
+  async logout() {
+    const sid = this._rpc.sid;
+    const data = this._rpc.logout();
+    this._user = {};
+    delete Odoo._session[sid];
+    return data;
+  }
+
+  get env() {
+    return this._env;
+  }
+
+  get_model(model) {
+    // get a model cls from odoo._env
+    let cls = this._env[model];
+    if (!cls) {
+      cls = modelCreator({ model, rpc: this._rpc, env: this._env });
+      this._env[model] = cls;
+    }
+    return cls;
+  }
+
+  get user() {
+    return this._user;
+  }
+
+  async me(fields) {
+    // get login user
+    const uid = this._rpc.uid;
+    return this.get_model('res.users').browse(uid, fields);
+  }
+
+  async ref(xmlid) {
+    // get model and id from xmlid
+    return this.get_model('ir.model.data').call('xmlid_to_res_model_res_id', [
+      xmlid,
+      true,
+    ]);
   }
 
   mock() {
@@ -199,67 +230,6 @@ class Odoo {
 
       return data;
     };
-  }
-
-  //setErrorCallback(callback) {
-  //  // to set callback function, if odoo request, error response
-  //  this._rpc.error = callback;
-  //}
-
-  async init() {
-    // to init all cls , so cls is used safely
-    // TBD, only request one time
-    for (const model in this._env) {
-      await this._env[model].init();
-    }
-  }
-
-  async login(params) {
-    const data = await this._rpc.login(params);
-    if (!data.code) {
-      Odoo._session[this._rpc.sid] = this;
-      //await this.init()
-      this._user = data.result;
-      //return this._rpc.sid;
-      return data.result;
-    }
-    return null;
-  }
-
-  async logout() {
-    const sid = this._rpc.sid;
-    const data = this._rpc.logout();
-    this._user = {};
-    delete Odoo._session[sid];
-    return data;
-  }
-
-  env(model) {
-    // get a model cls from odoo._env
-    let cls = this._env[model];
-    if (!cls) {
-      cls = modelCreator({ model, rpc: this._rpc, env: this._env });
-      this._env[model] = cls;
-    }
-    return cls;
-  }
-
-  get user() {
-    return this._user;
-  }
-
-  async me(fields) {
-    // get login user
-    const uid = this._rpc.uid;
-    return this.env('res.users').browse(uid, fields);
-  }
-
-  async ref(xmlid) {
-    // get model and id from xmlid
-    return this.env('ir.model.data').call('xmlid_to_res_model_res_id', [
-      xmlid,
-      true,
-    ]);
   }
 }
 
