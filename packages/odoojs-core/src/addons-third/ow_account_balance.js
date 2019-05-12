@@ -84,7 +84,7 @@ export default {
       ],
     },
 
-    'oba.account.sub.account': {
+    'account.sub.account': {
       fields: [
         'account_id',
         'account_code',
@@ -109,13 +109,13 @@ export default {
       fields: ['sub_account_id', 'sub_account_id_is_auto'],
     },
 
-    'oba.account.balance': {
+    'account.balance': {
       fields: ['company_id', 'date', 'line_ids', 'is_init'],
 
       extend: account_balance_extend,
     },
 
-    'oba.account.balance.line': {
+    'account.balance.line': {
       fields: [
         'balance_id',
         'company_id',
