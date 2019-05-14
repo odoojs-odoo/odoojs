@@ -1,9 +1,15 @@
 const account_move_extend = BaseClass => {
   class cls extends BaseClass {}
 
-  cls.carryover_profit = async (date, line_ids) => {
-    const data = await cls.call('carryover_profit', [date, line_ids]);
-    return data;
+  cls.carryover_profit = async (date, line_ids, fields = {}, kwargs = {}) => {
+    return cls.call_as_create_read(
+      {
+        method: 'carryover_profit',
+        args: [date, line_ids],
+        kwargs,
+      },
+      fields
+    );
   };
 
   return cls;
@@ -12,17 +18,29 @@ const account_move_extend = BaseClass => {
 const account_balance_extend = BaseClass => {
   class cls extends BaseClass {}
 
-  cls.find_open = async (date = null, fields = {}) => {
-    const data = await cls.call('find_open', [date]);
-    if (data) {
-      return cls.browse(data, fields);
-    }
-    return data;
+  cls.find_open = async (date = null, fields = {}, kwargs = {}) => {
+    return cls.call_as_create_read(
+      {
+        method: 'find_open',
+        args: [date],
+        kwargs,
+      },
+      fields
+    );
   };
 
-  cls.generate_balance = async date => {
-    const data = await cls.call('generate_balance', [date]);
-    return data;
+  cls.generate_balance = async (date, fields = {}, kwargs = {}) => {
+    //const data = await cls.call('generate_balance', [date] );
+    //return data;
+
+    return cls.call_as_create_read(
+      {
+        method: 'generate_balance',
+        args: [date],
+        kwargs,
+      },
+      fields
+    );
   };
 
   cls.get_balance_sheet = async date => {

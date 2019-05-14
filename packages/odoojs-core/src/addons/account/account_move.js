@@ -14,20 +14,26 @@ const account_move_extend = BaseClass => {
     }
   }
 
-  cls.post = async (id, fields = {}) => {
-    const data = await cls.call('post', [id]);
-    if (data) {
-      return await cls.browse(id, fields);
-    }
-    return data;
+  cls.post = async (id, fields = {}, kwargs = {}) => {
+    return cls.call_as_write_read(
+      {
+        method: 'post',
+        args: [id],
+        kwargs,
+      },
+      fields
+    );
   };
 
-  cls.button_cancel = async (id, fields = {}) => {
-    const data = await cls.call('button_cancel', [id]);
-    if (data) {
-      return await cls.browse(id, fields);
-    }
-    return data;
+  cls.button_cancel = async (id, fields = {}, kwargs = {}) => {
+    return cls.call_as_write_read(
+      {
+        method: 'button_cancel',
+        args: [id],
+        kwargs,
+      },
+      fields
+    );
   };
 
   return cls;

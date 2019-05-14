@@ -108,20 +108,30 @@ class RPC {
     this.timeout = timeout;
     this.sid = sid;
     this.uid = uid;
-    this.error = error || this._callbackerror;
-    this.success = success || this._callbacksuccess;
+    //this._error = error || this._callbackerror;
+    //this._success = success || this._callbacksuccess;
+    this._error = error;
+    this._success = success;
     this._user = user;
   }
 
   setCallback({ success, error }) {
-    this.error = error || this._callbackerror;
-    this.success = success || this._callbacksuccess;
+    this._success = success;
+    this._error = error;
   }
 
-  _callbacksuccess({ url, params, result }) {}
+  success({ url, params, result }) {
+    if (this._success) {
+      this._success({ url, params, result });
+    }
+  }
 
-  _callbackerror({ url, params, error }) {
-    console.log('rpc call error:', url, params, error);
+  error({ url, params, error }) {
+    if (this._error) {
+      this._error({ url, params, error });
+    } else {
+      console.log('rpc call error:', url, params, error);
+    }
   }
 
   async json(url, params, timeout) {
@@ -219,7 +229,7 @@ class RPC {
       //console.log('rpc call no sid:', params, this._callbackerror)
 
       this.error({ url, params, error: { message: 'no sid' } });
-      return { code: 1, error: { message: 'no sid' } };
+      return { code: 1, error: { code: 900, message: 'no sid' } };
     }
     const data = await this.json(url, {
       model,

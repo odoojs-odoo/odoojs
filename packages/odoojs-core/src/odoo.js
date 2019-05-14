@@ -46,7 +46,18 @@ class Odoo {
 
     const { host, db, modules, success, error } = options;
 
-    const rpc = new RPC({ host, db, success, error });
+    //this._success = success;
+    //this._error = error;
+
+    const rpc = new RPC({
+      host,
+      db,
+      success,
+      error,
+      //success: this.success.bind(this),
+      //error: this.error.bind(this)
+    });
+
     this._rpc = rpc;
 
     this._user = {};
@@ -59,6 +70,23 @@ class Odoo {
 
     for (const module_name in modules2) {
       this._fn_one_module(module_name);
+    }
+  }
+
+  success({ url, params, result }) {
+    console.log('odooo11');
+    console.log('odooo11', this);
+    //console.log('odooo11',this._success);
+    if (this._success) {
+      this._success({ url, params, result });
+    }
+  }
+
+  error({ url, params, result }) {
+    console.log('odooo11, eeerrr');
+    console.log('odooo11rrr', this);
+    if (this._error) {
+      this._error({ url, params, result });
     }
   }
 
@@ -114,6 +142,9 @@ class Odoo {
   }
 
   setCallback({ success, error }) {
+    //this._success = success;
+    //this._error = error;
+    //console.log('set cb success:', this)
     this._rpc.setCallback({ success, error });
   }
 

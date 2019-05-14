@@ -248,7 +248,13 @@ const modelCreator = options => {
     return extend_new_cls;
   };
 
-  cls.call = async (method, args = [], kwargs = {}) => {
+  cls.call = async (
+    method,
+    args = [],
+    kwargs = {},
+    success_callback,
+    error_callback
+  ) => {
     const params = {
       model: cls._name,
       method,
@@ -256,16 +262,33 @@ const modelCreator = options => {
       kwargs,
       sudo: cls._sudo,
     };
+
+    const { context = {} } = kwargs;
+    const { return_with_error } = context;
+
     const data = await cls._rpc.call(params);
-    const { code } = data;
-    if (!code) {
-      const { result } = data;
-      return result;
+
+    const { code, result, error } = data;
+
+    if (return_with_error) {
+      if (!code) {
+        return {
+          code,
+          result: success_callback ? success_callback(result) : result,
+        };
+      } else {
+        return {
+          code,
+          result: error_callback ? error_callback(error) : null,
+          error,
+        };
+      }
     } else {
-      // const { error } = data;
-      // if error, then redirect error page,
-      // and this function return null
-      return null;
+      if (!code) {
+        return success_callback ? success_callback(result) : result;
+      } else {
+        return error_callback ? error_callback(error) : null;
+      }
     }
   };
 
@@ -438,6 +461,7 @@ const modelCreator = options => {
 
   cls.fields_get = async (allfields, attributes) => {
     const data = await cls.call('fields_get', [allfields, attributes]);
+
     const fields = data || {};
 
     if (!allfields) {
@@ -457,15 +481,90 @@ const modelCreator = options => {
     return data;
   };
 
-  cls.search = async (domain, fields0 = {}, kwargs = {}) => {
-    //const {offset, limit, order} = kwargs
-    const fields2 = await cls._get_fields2(fields0);
-    const data = await cls.call('search_read2', [domain, fields2], kwargs);
-    const ids = await cls._set_multi(data || [], fields0);
-    return cls.view(ids);
+  cls.call_with_read = async ({ method, args, kwargs }, fields) => {
+    return cls.call(
+      method,
+      args,
+      kwargs,
+      result => {
+        const ids = cls._set_multi(result || [], fields);
+        return cls.view(ids);
+      },
+      error => {
+        return cls.view([]);
+      }
+    );
   };
 
-  cls.browse = async (ids, fields0 = {}, lazy = 0) => {
+  cls.call_as_create_read = async ({ method, args, kwargs = {} }, fields) => {
+    const fields2 = await cls._get_fields2(fields);
+    const { context = {} } = kwargs;
+
+    return cls.call_with_read(
+      {
+        method,
+        args,
+        kwargs: {
+          ...kwargs,
+          context: {
+            ...context,
+            create_read: fields2,
+          },
+        },
+      },
+      fields
+    );
+  };
+
+  cls.call_as_write_read = async ({ method, args, kwargs = {} }, fields) => {
+    const fields2 = await cls._get_fields2(fields);
+    const { context = {} } = kwargs;
+
+    return cls.call_with_read(
+      {
+        method,
+        args,
+        kwargs: {
+          ...kwargs,
+          context: {
+            ...context,
+            write_read: fields2,
+          },
+        },
+      },
+      fields
+    );
+  };
+
+  cls.search = async (domain, fields = {}, kwargs = {}) => {
+    // { offset=null,limit=null,order=null, context: {return_with_error} } = kwargs
+    const fields2 = await cls._get_fields2(fields);
+    return cls.call_with_read(
+      {
+        method: 'search_read2',
+        args: [domain, fields2],
+        kwargs,
+      },
+      fields
+    );
+  };
+
+  cls.browse = async (ids, fields = {}, kwargs = {}) => {
+    const fields2 = await cls._get_fields2(fields);
+    return cls.call_with_read(
+      {
+        method: 'read2',
+        args: [ids, fields2],
+        kwargs,
+      },
+      fields
+    );
+  };
+
+  /*
+
+  cls.browse2 = async (ids, { fields={}, lazy=0 }) => {
+
     // if lazy == 1, then try to get data from cls._records
     // if no data from cls._records, then call odoo request
     if (!ids) {
@@ -487,58 +586,55 @@ const modelCreator = options => {
       }
     }
 
-    const fields2 = await cls._get_fields2(fields0);
-    const data0 = await cls.call('read2', [ids, fields2]);
+    const fields2 = await cls._get_fields2(fields);
+    const data0 = await cls.call( 'read2', [ids, fields2] );
 
     const data = data0 ? data0 : [];
 
     if (typeof ids === 'object') {
-      const ids = cls._set_multi(data, fields0);
+      const ids = cls._set_multi(data, fields);
       return cls.view(ids);
     } else {
       const vals = data.length ? data[0] : {};
-      const id = cls._set_one(vals, fields0);
+      const id = cls._set_one(vals, fields);
       return cls.view(id);
     }
   };
 
-  cls.search_read = async (domain, fields, kwargs) => {
-    const ins = await cls.search(domain, fields, kwargs);
-    return ins.look2(fields);
+  */
+
+  cls.create = async (vals, fields = {}, kwargs = {}) => {
+    // { context: {return_with_error} } = kwargs
+    const fields2 = await cls._get_fields2(fields);
+    return cls.call_with_read(
+      {
+        method: 'create2',
+        args: [vals, fields2],
+        kwargs,
+      },
+      fields
+    );
   };
 
-  cls.search_count = async domain => {
-    const data0 = await cls.call('search_count', [domain]);
-    return data0;
+  cls.write = async (id, vals, fields = {}, kwargs = {}) => {
+    // { context: {return_with_error} } = kwargs
+    const fields2 = await cls._get_fields2(fields);
+    return cls.call_with_read(
+      {
+        method: 'write2',
+        args: [id, vals, fields2],
+        kwargs,
+      },
+      fields
+    );
   };
 
-  cls.read = async (ids, fields) => {
-    const ins = await cls.browse(ids, fields);
-    return ins.look2(fields);
-  };
-
-  cls.create = async (vals, fields = {}, context = {}) => {
-    const data = await cls.call('create', [vals], { context });
-    if (data) {
-      return cls.browse(data, fields);
-    }
-    return data;
-  };
-
-  cls.write = async (id, vals, fields = {}, context = {}) => {
-    const data = await cls.call('write', [id, vals], { context });
-    if (data) {
-      return cls.browse(id, fields);
-    }
-    return data;
-  };
-
-  cls.unlink = async id => {
-    const data = await cls.call('unlink', [id]);
-    if (data) {
+  cls.unlink = async (id, kwargs = {}) => {
+    console.log(kwargs);
+    const data = await cls.call('unlink', [id], kwargs, result => {
       delete cls._records[id];
-      return data;
-    }
+      return result;
+    });
 
     return data;
   };
@@ -549,6 +645,25 @@ const modelCreator = options => {
 
     // To Be Check, 2019-5-2, Why return all ids?
     //return new myCls(id || Object.keys(cls._records));
+  };
+
+  cls.search_read = async paylaod => {
+    const { fields = {}, context = {} } = paylaod;
+    console.log(context);
+    const ins = await cls.search(paylaod);
+    return ins.look2(fields);
+  };
+
+  cls.search_count = async ({ domain }) => {
+    const data0 = await cls.call('search_count', [domain]);
+
+    return data0;
+  };
+
+  cls.read = async (ids, payload) => {
+    const { fields = {} } = payload;
+    const ins = await cls.browse(ids, payload);
+    return ins.look2(fields);
   };
 
   return cls;
