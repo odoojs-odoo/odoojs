@@ -166,6 +166,8 @@ const modelCreator = options => {
   cls._rpc = rpc;
   cls._env = env;
   cls._records = {};
+  cls._context = {};
+  cls._context2 = {};
 
   cls._extends = [];
   cls._sudo_user = {};
@@ -180,6 +182,16 @@ const modelCreator = options => {
     return cls
       ._get_model('ir.model.data')
       .call('xmlid_to_res_model_res_id', [xmlid, true]);
+  };
+
+  cls.with_context = context => {
+    cls._context = { ...cls._context, ...context };
+    return cls.env[cls._name];
+  };
+
+  cls.with_context2 = context => {
+    cls._context2 = { ...cls._context2, ...context };
+    return cls.env[cls._name];
   };
 
   cls.init = async () => {
@@ -263,8 +275,7 @@ const modelCreator = options => {
       sudo: cls._sudo,
     };
 
-    const { context = {} } = kwargs;
-    const { return_with_error } = context;
+    const { return_with_error } = cls._context2;
 
     const data = await cls._rpc.call(params);
 
@@ -461,8 +472,10 @@ const modelCreator = options => {
 
   cls.fields_get = async (allfields, attributes) => {
     const data = await cls.call('fields_get', [allfields, attributes]);
+    const { return_with_error } = cls._context2;
+    const result = return_with_error ? data.result || {} : data;
 
-    const fields = data || {};
+    const fields = result || {};
 
     if (!allfields) {
       return fields;

@@ -1,20 +1,26 @@
 const account_invoice_extend = BaseClass => {
   class cls extends BaseClass {}
 
-  cls.compute_taxes = async (id, fields = {}) => {
-    const data = await cls.call('compute_taxes', [id]);
-    if (data) {
-      return await cls.browse(id, fields);
-    }
-    return data;
+  cls.compute_taxes = async (id, fields = {}, kwargs = {}) => {
+    return cls.call_as_write_read(
+      {
+        method: 'compute_taxes',
+        args: [id],
+        kwargs,
+      },
+      fields
+    );
   };
 
-  cls.action_invoice_open = async (id, fields = {}) => {
-    const data = await cls.call('action_invoice_open', [id]);
-    if (data) {
-      return await cls.browse(id, fields);
-    }
-    return data;
+  cls.action_invoice_open = async (id, fields = {}, kwargs = {}) => {
+    return cls.call_as_write_read(
+      {
+        method: 'action_invoice_open',
+        args: [id],
+        kwargs,
+      },
+      fields
+    );
   };
 
   return cls;
