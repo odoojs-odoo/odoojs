@@ -1,6 +1,6 @@
 {
   "name": "odoojs-finance",
-  "version": "0.1.6",
+  "version": "0.2.1",
   "description": "odoojs finance",
   "repository": {
     "type": "git",
@@ -23,6 +23,6 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.0.0",
-    "odoojs-core": "^0.1.0"
+    "odoojs-core": "^0.2.0"
   }
 }

@@ -172,7 +172,7 @@ const getDvamodel = (Model2, fields_default = {}) => {
     view(state, { payload }) {
       const { id, fields = fields_default } = payload;
       const rec = Model.view(id);
-      console.log(rec.look(fields));
+      //console.log(rec.look(fields))
 
       return {
         ...state,

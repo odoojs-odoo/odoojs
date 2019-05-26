@@ -12,6 +12,7 @@ import account from './account';
 import payment from './payment';
 import hr from './hr';
 import hr_contract from './hr_contract';
+import hr_expense from './hr_expense';
 import hr_payroll from './hr_payroll';
 import hr_payroll_account from './hr_payroll_account';
 
@@ -32,6 +33,7 @@ export default {
   payment,
   hr,
   hr_contract,
+  hr_expense,
   hr_payroll,
   hr_payroll_account,
 

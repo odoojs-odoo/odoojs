@@ -6,9 +6,11 @@ const get_modules = () => {
     base_address_city,
     account,
     analytic,
+    ow_account,
     ow_account_balance,
     hr,
     hr_contract,
+    hr_expense,
     hr_payroll,
     l10n_cn_hr_payroll,
   } = ODOO.addons;
@@ -18,9 +20,11 @@ const get_modules = () => {
     base_address_city,
     account,
     analytic,
+    ow_account,
     ow_account_balance,
     hr,
     hr_contract,
+    hr_expense,
     hr_payroll,
     l10n_cn_hr_payroll,
   };

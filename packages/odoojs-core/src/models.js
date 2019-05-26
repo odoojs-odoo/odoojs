@@ -260,6 +260,24 @@ const modelCreator = options => {
     return extend_new_cls;
   };
 
+  cls.rawcall = async (
+    method,
+    args = [],
+    kwargs = {},
+    success_callback,
+    error_callback
+  ) => {
+    const data = await cls.call(
+      method,
+      args,
+      kwargs,
+      success_callback,
+      error_callback
+    );
+    const { return_with_error } = cls._context2;
+    return return_with_error ? data.result : data;
+  };
+
   cls.call = async (
     method,
     args = [],

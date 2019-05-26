@@ -12,6 +12,88 @@ const account_move_extend = BaseClass => {
     );
   };
 
+  cls.carryover_vat = async (line_ids, fields = {}, kwargs = {}) => {
+    return cls.call_as_create_read(
+      {
+        method: 'carryover_vat',
+        args: [line_ids],
+        kwargs,
+      },
+      fields
+    );
+  };
+
+  cls.carryover_additional_tax = async (
+    line_ids,
+    tax_ids,
+    fields = {},
+    kwargs = {}
+  ) => {
+    return cls.call_as_create_read(
+      {
+        method: 'carryover_additional_tax',
+        args: [line_ids, tax_ids],
+        kwargs,
+      },
+      fields
+    );
+  };
+
+  return cls;
+};
+
+const account_stock_extend = BaseClass => {
+  class cls extends BaseClass {}
+
+  cls.post = async (id, fields = {}, kwargs = {}) => {
+    return cls.call_as_write_read(
+      {
+        method: 'post',
+        args: [id],
+        kwargs,
+      },
+      fields
+    );
+  };
+
+  cls.post_open = async (id, fields = {}, kwargs = {}) => {
+    return cls.call_as_write_read(
+      {
+        method: 'post_open',
+        args: [id],
+        kwargs,
+      },
+      fields
+    );
+  };
+
+  cls.unpost = async (id, fields = {}, kwargs = {}) => {
+    return cls.call_as_write_read(
+      {
+        method: 'unpost',
+        args: [id],
+        kwargs,
+      },
+      fields
+    );
+  };
+
+  cls.get_price = async id => {
+    const data = await cls.call('get_price', [id]);
+    return data;
+  };
+
+  cls.set_out_amount = async (id, fields = {}, kwargs = {}) => {
+    return cls.call_as_write_read(
+      {
+        method: 'set_out_amount',
+        args: [id],
+        kwargs,
+      },
+      fields
+    );
+  };
+
   return cls;
 };
 
@@ -83,25 +165,9 @@ const account_balance_extend = BaseClass => {
 
 export default {
   name: 'ow_account_balance',
-  depends: ['account'],
+  depends: ['ow_account'],
 
   models: {
-    'account.account': {
-      fields: ['general_code', 'general_name', 'sub_type'],
-    },
-
-    'account.account.tag': {
-      fields: [
-        'code',
-        'type',
-        'account_codes',
-        'group_num',
-        'code4',
-        'sign',
-        'gt_one_year',
-      ],
-    },
-
     'account.sub.account': {
       fields: [
         'account_id',
@@ -147,15 +213,53 @@ export default {
         'product_id',
         'analytic_account_id',
         'journal_id',
-        'balance_open',
-        'debit_open',
-        'credit_open',
+        'type',
+        'quantity',
+        'price',
         'balance',
         'debit',
         'credit',
-        'balance_close',
-        'debit_close',
-        'credit_close',
+      ],
+    },
+
+    'account.stock': {
+      fields: [
+        'company_id',
+        'name',
+        'ref',
+        'state',
+        'date',
+        'product_type',
+        'direction',
+        'move_type',
+        'journal_id',
+        'account_id',
+        'opp_account_id',
+        'line_ids',
+        'amount',
+      ],
+
+      extend: account_stock_extend,
+    },
+
+    'account.stock.line': {
+      fields: [
+        'stock_id',
+        'company_id',
+        'name',
+        'date',
+        'product_type',
+        'direction',
+        'move_type',
+        'journal_id',
+        'account_id',
+        'opp_account_id',
+        'product_id',
+        'amount',
+        'price',
+        'quantity_in',
+        'quantity_out',
+        'quantity',
       ],
     },
   },

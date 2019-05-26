@@ -4,13 +4,13 @@ const getDvamodel = (Model, fields_default = {}) => {
   const effects = {
     *computeTaxes({ payload }, { call, put }) {
       const { id, fields = fields_default } = payload;
-      const data = yield Model.computeTaxes(id, fields);
+      const data = yield Model.compute_taxes(id, fields);
       yield put({ type: 'save_one', payload: { data, fields } });
     },
 
     *actionInvoiceOpen({ payload }, { call, put }) {
       const { id, fields = fields_default } = payload;
-      const data = yield Model.actionInvoiceOpen(id, fields);
+      const data = yield Model.action_invoice_open(id, fields);
       yield put({ type: 'save_one', payload: { data, fields } });
     },
   };
