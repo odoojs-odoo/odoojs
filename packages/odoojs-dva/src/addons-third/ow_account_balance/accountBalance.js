@@ -11,6 +11,18 @@ const getDvamodel = (Model, fields_default = {}) => {
   };
 
   const effects = {
+    *post({ payload }, { call, put }) {
+      const { id, fields = fields_default } = payload;
+      const data = yield Model.post(id, fields);
+      yield put({ type: 'save_one', payload: { data, fields } });
+    },
+
+    *unpost({ payload }, { call, put }) {
+      const { id, fields = fields_default } = payload;
+      const data = yield Model.unpost(id, fields);
+      yield put({ type: 'save_one', payload: { data, fields } });
+    },
+
     *find_open({ payload }, { call, put }) {
       const { date, fields = fields_default } = payload;
       const data = yield Model.find_open(date, fields);

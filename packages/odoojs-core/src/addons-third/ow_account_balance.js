@@ -1,6 +1,11 @@
 const account_move_extend = BaseClass => {
   class cls extends BaseClass {}
 
+  cls.get_number_cn = async () => {
+    const data = await cls.call('get_number_cn', []);
+    return data;
+  };
+
   cls.carryover_profit = async (date, line_ids, fields = {}, kwargs = {}) => {
     return cls.call_as_create_read(
       {
@@ -100,6 +105,28 @@ const account_stock_extend = BaseClass => {
 const account_balance_extend = BaseClass => {
   class cls extends BaseClass {}
 
+  cls.post = async (id, fields = {}, kwargs = {}) => {
+    return cls.call_as_write_read(
+      {
+        method: 'post',
+        args: [id],
+        kwargs,
+      },
+      fields
+    );
+  };
+
+  cls.unpost = async (id, fields = {}, kwargs = {}) => {
+    return cls.call_as_write_read(
+      {
+        method: 'unpost',
+        args: [id],
+        kwargs,
+      },
+      fields
+    );
+  };
+
   cls.find_open = async (date = null, fields = {}, kwargs = {}) => {
     return cls.call_as_create_read(
       {
@@ -184,17 +211,17 @@ export default {
     },
 
     'account.move': {
-      fields: ['attachment_count'],
+      fields: ['name_cn', 'number_cn', 'attachment_count'],
 
       extend: account_move_extend,
     },
 
     'account.move.line': {
-      fields: ['sub_account_id', 'sub_account_id_is_auto'],
+      fields: ['sequence', 'sub_account_id', 'sub_account_id_is_auto'],
     },
 
     'account.balance': {
-      fields: ['company_id', 'date', 'line_ids', 'is_init'],
+      fields: ['state', 'company_id', 'date', 'line_ids', 'is_init'],
 
       extend: account_balance_extend,
     },
