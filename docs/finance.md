@@ -70,6 +70,7 @@ const line_vals = {
       account_id: 2,   // many2one 字段,  模型 account.account 
       debit:  100.00,  // 不能是负数
       credit:   0.00,  // debit 和 credit 必须有一个 为 0 
+                       // 多行明细的 debit credit 必须借贷平衡
       partner_id: 1,   // many2one 字段,  模型 res.partner 
       product_id: 1,   // many2one 字段,  模型 product.product
       date_maturity: '2019-6-13',  // 
