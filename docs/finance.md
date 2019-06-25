@@ -1,11 +1,16 @@
 
 ## 初始化
 
-```
+* 在VUE环境里 安装好 npm 模块 odoojs-finance
+* 创建一个文件 比如 myodoo.js, 写入以下代码
+
+
+``` 
 import ODOO from 'odoojs-finance'
 
 const host = 'http://www.bjssrs.cn:8069';
-const db = 'Finance_test';
+//const db = 'Finance_test';
+const db = 'T3';
 
 const error = ({url, params, error})=>{
     console.log('rpc call url:', url);
@@ -34,18 +39,22 @@ const odoo = ODOO({ host, db, success, error } );
 
 export default odoo
 
-```
+``` 
 
 ## 登录
 
-```
-odoo.login({login: 'username', password: 'psw' })
-```
+* 在其他任何地方 import odoo form myodoo
+* 然后就可以使用 odoo 里
+
+``` 
+import odoo from './myodoo'
+odoo.login({login: 'admin', password: '123' })
+``` 
 
 
 ## 查询凭证
 
-```
+``` 
 // 获取凭证模型
 model = odoo.env['account.move']
 
@@ -60,11 +69,12 @@ fields = {
 
 const records = await model.search(domain, fields)
 const recordsArray = records.look2(fields)
-```
+``` 
 
 ## 创建凭证
 
-```
+
+``` 
 const line_vals = {
       name: '这是明细行的摘要',  //
       account_id: 2,   // many2one 字段,  模型 account.account 
