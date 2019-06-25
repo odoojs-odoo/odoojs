@@ -39,12 +39,12 @@ const odoo = ODOO({ host, db, success, error } );
 
 export default odoo
 
-``` 
+```  
 
 ## 登录
 
-* 在其他任何地方 import odoo form myodoo
-* 然后就可以使用 odoo 里
+* 在其他任何地方 import odoo form './myodoo'
+* 然后就可以使用 odoo 了
 
 ``` 
 import odoo from './myodoo'
