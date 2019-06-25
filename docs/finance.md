@@ -5,7 +5,7 @@
 * 创建一个文件 比如 myodoo.js, 写入以下代码
 
 
-``` 
+```
 import ODOO from 'odoojs-finance'
 
 const host = 'http://www.bjssrs.cn:8069';
@@ -39,16 +39,18 @@ const odoo = ODOO({ host, db, success, error } );
 
 export default odoo
 
-```  
+```   
+
 
 ## 登录
 
 * 在其他任何地方 import odoo form './myodoo'
 * 然后就可以使用 odoo 了
 
-``` 
+```
 import odoo from './myodoo'
-odoo.login({login: 'admin', password: '123' })
+// 注意是 下面的方法是 异步的
+await odoo.login({login: 'admin', password: '123' })
 ``` 
 
 
@@ -67,6 +69,7 @@ fields = {
   }
 }
 
+// 注意是 下面的方法是 异步的
 const records = await model.search(domain, fields)
 const recordsArray = records.look2(fields)
 ``` 
@@ -74,7 +77,7 @@ const recordsArray = records.look2(fields)
 ## 创建凭证
 
 
-``` 
+```  
 const line_vals = {
       name: '这是明细行的摘要',  //
       account_id: 2,   // many2one 字段,  模型 account.account 
@@ -98,6 +101,7 @@ const vals = {
   ]
 }
 
+// 注意是 下面的方法是 异步的
 const record = await model.create( vals, fields )
 const recordObject = record.look(fields)
 ```
@@ -119,6 +123,7 @@ const vals = {
 
 const id = 1  // 凭证的id
 
+// 注意是 下面的方法是 异步的
 const record = await model.write( id, vals, fields )
 const recordObject = record.look(fields)
 ```
@@ -127,6 +132,7 @@ const recordObject = record.look(fields)
 
 ```
 const id = 1  // 凭证的id
+// 注意是 下面的方法是 异步的
 const result_of_boolean = await model.unlink( id )
 
 ```
@@ -141,6 +147,7 @@ fields = {
   default_credit_account_id:{},
 }
 
+// 注意是 下面的方法是 异步的
 const records = await model.search(domain, fields)
 const recordsArray = records.look2(fields)
 ```
@@ -152,6 +159,7 @@ model = odoo.env['account.account']
 domain = []
 fields = {}
 
+// 注意是 下面的方法是 异步的
 const records = await model.search(domain, fields)
 const recordsArray = records.look2(fields)
 ```
@@ -163,6 +171,7 @@ model = odoo.env['res.partner']
 domain = []
 fields = {}
 
+// 注意是 下面的方法是 异步的
 const records = await model.search(domain, fields)
 const recordsArray = records.look2(fields)
 ```
@@ -174,6 +183,7 @@ model = odoo.env['product.product']
 domain = []
 fields = {}
 
+// 注意是 下面的方法是 异步的
 const records = await model.search(domain, fields)
 const recordsArray = records.look2(fields)
 ```
