@@ -25,65 +25,80 @@ https://github.com/odooht/odoo-docs/tree/master/model
 
 # odoojs 使用教程
 
-导入 odoojs
+* 导入 odoojs
+* 已经打包为 npm 包可以直接使用
+* 在前端环境里 安装好 npm 模块 odoojs-core
+* 创建一个文件 比如 myodoo.js, 写入以下代码
+* 在其他任何地方 import odoo form './myodoo'
+* 然后就可以使用 odoo 了
 
-```
-import ODOO from ./odoo/odoojs
-```
 
-初始化参数, 创建odoo实例
-* modules 参数, 指明odoo中已经安装到模块
-* 所有的odoo模块在 ODOO.addons 中
-* modules 参数, 也包含odoo的第三方模块
-* models 参数, 初始化使用到的所有的odoo模型
-* models 中的模型, 指明了包括哪些字段. 若为空, 则是全部字段.
-* callbackerror 是网络请求出错时的回调函数
-
-```
-import ODOO from ./odoo/odoojs
-import third_partner_module from ./odoo/odoo.addons.third_partner_module
+``` 
+import ODOO from 'odoojs-core';
 
 const host = 'http://192.168.x.x:8069'
 const db = 'my_database_name'
-const {crm,project,product} = Odoo.addons
-const modules = {crm,project,product,third_partner_module}
+const { account, sale, hr } = Odoo.addons
+const modules = {account, sale, hr}
 
-const models = {
-    'res.partner': ['name','email', 'company_id','category_id'],
-    'res.users': ['name','login', 'company_id'],
-    'rec.partner.category': []
+const error = ({url, params, error})=>{
+    console.log('rpc call url:', url);
+    console.log('rpc call params:', params);
+    console.log('rpc call error:',  Object.keys( error) );
+    console.log('rpc call error:',  error);
+
+    Object.keys(error).forEach(item=>{
+        console.log( item, error[item] );
+    })
+
 }
 
-const callbackerror = (url,params,error)=>{
-    console.log('rpc call error:', url, params, error);
+const success = ({url, params, result})=>{
+    console.log('rpc call url:', url);
+    console.log('rpc call params:', params);
+    if(Array.isArray(result) ){
+      console.log('rpc call result is array, length=',result.length );
+    }
+    else{
+      console.log('rpc call result:',  result);
+    }
 }
 
-const odoo = ODOO({host,db,modules, models,callbackerror})
+const odoo = ODOO({ host, db, modules, success, error } );
+
+export default odoo
+ 
 ```
 
-登录, 使用 session\_id, 注销, 获取登录用户的登录信息 
-* 登录后, 返回 session\_id
-* 可以使用 session\_id 重新获取 ODOO 实例
-* 登录后, 可以查询登录用户的信息
-* 注销时, 将销毁session\_id
+
+## 登录
+
+``` 
+import odoo from './myodoo'
+// 注意是 下面的方法是 异步的
+const userinfo = await odoo.login({login: 'admin', password: '123' })
+
+
+``` 
+
+## 登出
+
 ```
-const session_id = await odoo.login({login:'my_account',password:'my_password'})
-const odoo = ODOO.load(session_id)
-const fields = {name:1,login:1}
-const user = odoo.user(fields)
+import odoo from './myodoo'
 const result = await odoo.logout()
 ```
 
+## 获取 odoo 模型    
 
-获取 odoo 模型    
 ```
-const PartnerModel = odoo.env('res.partner')
+const PartnerModel = odoo.env['res.partner']
 ```
 
 使用 odoo 模型, 调用 odoo服务中的方法  
 * 需要先登录
 * 所有方法都为异步方法, 需要用await
 * 返回结果, 参看 odoo model
+
 ```
 const method = 'search_read'
 const domain = [['is_company','=',true]]
@@ -95,7 +110,6 @@ cosnt partnerData = await PartnerModel.call(method, args, kwargs)
 
 条件查询数据  
 * search 返回 model-instance (含多条记录)
-* search_read 返回 list
 * fields 参数, 指定嵌套查询的 m2o, o2m, m2m 字段
 
 ```
@@ -106,18 +120,11 @@ const fields = {
 }
 
 cosnt partners = await PartnerModel.search(domain, fields)
-cosnt partners_list = await PartnerModel.search_read(domain, fields)
-```
-
-获取结果集 转为 列表(数组)形式
-```
-cosnt partner_list = partners.list()
 ```
 
 以 id 为参数获取其中的一条记录, 不发送网络请求
 ```
 const id = 99
-const partner = partners.byid(id)
 const partner = PartnerModel.view(id)
 ```
 
@@ -133,68 +140,20 @@ const fields = {
     category_id : {}
 }
 const partner = await PartnerModel.browse(id, fields)
-const partner_dict_or_list = await PartnerModel.read(id, fields)
 ```
 
-
-访问字段  
-* 确保 model-instance中 至少有一条记录
-* 若 model-instance 中有多条记录, 则认为访问的是第一条记录的字段
-* 如果在前面初始化时, 未声明该模型, 则只能使用该模型的 id, name 字段
-
-```
-const partner_id = partner.attr('id')
-const partner_name = partner.attr('name')
-const partner_email = partner.attr('email')
-const company =  partner.attr( company_id )
-const categorys =  partner.attr( category_id )
-
-```
-
-访问m2o字段, 以及对应模型的字段, 
-* 如果在前面初始化时, 未声明对应模型, 则只能使用对应模型的 id, name 字段
-* 如果m2o字段的数据需要访问网络请求, 重新获取数据, 请指定第二和第三个参数 ref 和 ref_fields
-
-```
-const company = partner.attr( company_id )
-company.attr('name')
-company.attr('email')
-
-const company2 = await partner.attr( company_id, 1, {name:1,email:1} )
-company2.attr('name')
-company2.attr('email')
-
-```
-
-访问o2m,m2m字段
-* 如果在前面初始化时, 未声明对应模型, 则只能使用对应模型的 id 字段
-* 如果o2m字段的数据需要访问网络请求, 重新获取数据, 请指定第二和第三个参数 ref 和 ref_fields
- 
-```
-const categorys = partner.attr( category_id )
-const categ0 = categorys.list()[0]
-const categ1 = categorys.list()[1]
-const categ0_name = categ0.attr(name)
-const categ1_name = categ1.attr(name)
-
-const categorys2 = await partner.attr( category_id, 1, {name:1} )
-
-```
 
 一次访问多个字段  
-* look方法, 返回一个对象
 * look1方法, 返回一个对象
 * look2方法, 返回一个数组
 * 参数fields为一个字段列表, 可以嵌套读取m2o,o2m,m2m字段对应模型的字段
 
 ```
 const fields = {
-    name:null,
-    company_id:{name:null,email:null},
-    category_id:{name:null}
+    company_id:{},
+    category_id:{}
 }
 
-const partner_dict =  partner.look(fields)
 const partner_dict =  partner.look1(fields)
 const partners_list = partner.look2(fields)
 
