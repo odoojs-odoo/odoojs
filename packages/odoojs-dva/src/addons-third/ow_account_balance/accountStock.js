@@ -1,24 +1,24 @@
-const getDvamodel = (Model, fields_default = {}) => {
+const getDvamodel = Model => {
   const state = {
     priceData: [],
   };
 
   const effects = {
     *post({ payload }, { call, put }) {
-      const { id, fields = fields_default } = payload;
-      const data = yield Model.post(id, fields);
+      const { id, fields } = payload;
+      const data = yield Model.post(id, null, { fields });
       yield put({ type: 'save_one', payload: { data, fields } });
     },
 
     *unpost({ payload }, { call, put }) {
-      const { id, fields = fields_default } = payload;
-      const data = yield Model.unpost(id, fields);
+      const { id, fields } = payload;
+      const data = yield Model.unpost(id, null, { fields });
       yield put({ type: 'save_one', payload: { data, fields } });
     },
 
     *post_open({ payload }, { call, put }) {
-      const { id, fields = fields_default } = payload;
-      const data = yield Model.post_open(id, fields);
+      const { id, fields } = payload;
+      const data = yield Model.post_open(id, null, { fields });
       yield put({ type: 'save_one', payload: { data, fields } });
     },
 
@@ -35,8 +35,8 @@ const getDvamodel = (Model, fields_default = {}) => {
     },
 
     *set_out_amount({ payload }, { call, put }) {
-      const { id, fields = fields_default } = payload;
-      const data = yield Model.set_out_amount(id, fields);
+      const { id, fields } = payload;
+      const data = yield Model.set_out_amount(id, null, { fields });
       yield put({ type: 'save_one', payload: { data, fields } });
     },
   };

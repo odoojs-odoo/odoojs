@@ -1,155 +1,59 @@
-const hr_payslip_extend = BaseClass => {
-  class cls extends BaseClass {}
+//  2019-8-10, ok
 
-  cls.compute_sheet = async (id, fields = {}, kwargs = {}) => {
-    return cls.call_as_write_read(
-      {
-        method: 'compute_sheet',
-        args: [id],
-        kwargs,
-      },
-      fields
-    );
-  };
+const models = {
+  'hr.payslip': {
+    extend: BaseClass => {
+      class cls extends BaseClass {}
 
-  cls.action_payslip_done = async (id, fields = {}, kwargs = {}) => {
-    return cls.call_as_write_read(
-      {
-        method: 'action_payslip_done',
-        args: [id],
-        kwargs,
-      },
-      fields
-    );
-  };
+      cls.compute_sheet = async (id, kwargs, context) => {
+        const method = 'compute_sheet';
+        const args = [id];
+        return await cls._rpc_call_as_write_read(method, args, kwargs, context);
+      };
 
-  cls.action_payslip_draft = async (id, fields = {}, kwargs = {}) => {
-    // TBD 20190430:
-    // 1: manualy unpost account.move of this payslip
-    // 2: then manualy del account.move of this payslip
-    // 3: check no account.move of this payslip
-    // 4: set payslip.state= draft
+      cls.action_payslip_done = async (id, kwargs, context) => {
+        const method = 'action_payslip_done';
+        const args = [id];
+        return await cls._rpc_call_as_write_read(method, args, kwargs, context);
+      };
 
-    return cls.call_as_write_read(
-      {
-        method: 'action_payslip_draft',
-        args: [id],
-        kwargs,
-      },
-      fields
-    );
-  };
+      cls.action_payslip_draft = async (id, kwargs, context) => {
+        // TBD 20190430:
+        // 1: manualy unpost account.move of this payslip
+        // 2: then manualy del account.move of this payslip
+        // 3: check no account.move of this payslip
+        // 4: set payslip.state= draft
 
-  return cls;
-};
+        const method = 'action_payslip_draft';
+        const args = [id];
+        return await cls._rpc_call_as_write_read(method, args, kwargs, context);
+      };
 
-const hr_payslip_run_extend = BaseClass => {
-  class cls extends BaseClass {}
+      return cls;
+    },
+  },
 
-  cls.draft_payslip_run = async (id, fields = {}, kwargs = {}) => {
-    return cls.call_as_write_read(
-      {
-        method: 'draft_payslip_run',
-        args: [id],
-        kwargs,
-      },
-      fields
-    );
-  };
+  'hr.payslip.run': {
+    extend: BaseClass => {
+      class cls extends BaseClass {}
 
-  cls.close_payslip_run = async (id, fields = {}, kwargs = {}) => {
-    return cls.call_as_write_read(
-      {
-        method: 'close_payslip_run',
-        args: [id],
-        kwargs,
-      },
-      fields
-    );
-  };
+      cls.draft_payslip_run = async (id, kwargs, context) => {
+        const method = 'draft_payslip_run';
+        const args = [id];
+        return await cls._rpc_call_as_write_read(method, args, kwargs, context);
+      };
 
-  return cls;
+      cls.close_payslip_run = async (id, kwargs, context) => {
+        const method = 'close_payslip_run';
+        const args = [id];
+        return await cls._rpc_call_as_write_read(method, args, kwargs, context);
+      };
+
+      return cls;
+    },
+  },
 };
 
 export default {
-  models: {
-    'hr.payslip': {
-      fields: [
-        'struct_id',
-        'name',
-        'number',
-        'employee_id',
-        'date_from',
-        'date_to',
-        'state',
-        'line_ids',
-        'company_id',
-        'worked_days_line_ids',
-        'input_line_ids',
-        'paid',
-        'note',
-        'contract_id',
-        'details_by_salary_rule_category',
-        'credit_note',
-        'payslip_run_id',
-        'payslip_count',
-      ],
-
-      extend: hr_payslip_extend,
-    },
-
-    'hr.payslip.line': {
-      fields: [
-        'name',
-        'code',
-        'sequence',
-        'appears_on_payslip',
-        'note',
-        'slip_id',
-        'salary_rule_id',
-        'employee_id',
-        'contract_id',
-        'rate',
-        'amount',
-        'quantity',
-        'total',
-      ],
-    },
-
-    'hr.payslip.worked_days': {
-      fields: [
-        'name',
-        'payslip_id',
-        'sequence',
-        'code',
-        'number_of_days',
-        'number_of_hours',
-        'contract_id',
-      ],
-    },
-
-    'hr.payslip.input': {
-      fields: [
-        'name',
-        'payslip_id',
-        'sequence',
-        'code',
-        'amount',
-        'contract_id',
-      ],
-    },
-
-    'hr.payslip.run': {
-      fields: [
-        'name',
-        'payslip_id',
-        'state',
-        'date_start',
-        'date_end',
-        'credit_note',
-      ],
-
-      extend: hr_payslip_run_extend,
-    },
-  },
+  models,
 };

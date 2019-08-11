@@ -69,21 +69,10 @@ const mail_channel_extend = BaseClass => {
 export default {
   models: {
     'mail.channel': {
-      fields: [
-        'name',
-        'channel_type',
-        // TBD
-      ],
-
       extend: mail_channel_extend,
     },
 
-    'mail.channel.partner': {
-      fields: ['partner_id'],
-    },
-
-    'mail.moderation': {
-      fields: ['email', 'status', 'channel_id'],
-    },
+    //    'mail.channel.partner': {},
+    //    'mail.moderation': {},
   },
 };

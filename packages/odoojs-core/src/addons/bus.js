@@ -1,3 +1,5 @@
+// Long long ago, 2018-6,
+
 const bus_bus_extend = BaseClass => {
   class cls extends BaseClass {}
 
@@ -159,20 +161,14 @@ export default {
   depends: [],
   models: {
     'bus.bus': {
-      fields: ['channel', 'message'],
       extend: bus_bus_extend,
     },
 
-    'bus.presence': {
-      fields: ['user_id', 'last_poll', 'last_presence', 'status'],
-    },
-
     'res.partner': {
-      fields: ['im_status'],
       extend: res_partner_extend,
     },
-    'res.users': {
-      fields: ['im_status'],
-    },
+
+    //    'bus.presence': {},
+    //    'res.users': {},
   },
 };

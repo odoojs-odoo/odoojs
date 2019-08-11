@@ -1,6 +1,9 @@
 // Only For Debug
 //import fetch from 'dva/fetch';
 
+const API_LOGIN = '/json/user/login';
+const API_CALL = '/json/api';
+
 const _fetch = (url, options, timeout) => {
   return Promise.race([
     fetch(url, options),
@@ -151,7 +154,7 @@ class RPC {
 
   async login(params) {
     const { db, login, password } = params;
-    const url = `${this.host}/json/user/login`;
+    const url = `${this.host}${API_LOGIN}`;
 
     if (db) {
       this.db = db;
@@ -212,7 +215,7 @@ class RPC {
     //console.log('rpc call', params)
     const { model, method, args = [], kwargs = {}, sudo = null } = params;
 
-    const { context = {} } = kwargs;
+    const { context = {} } = kwargs || {};
     const { lang: lang1 } = context;
     const {
       user_context: { lang: lang2 },
@@ -222,8 +225,8 @@ class RPC {
     //const url = `${this.host}/json/api?session_id=${this.sid}`;
 
     const url = this.sid
-      ? `${this.host}/json/api?session_id=${this.sid}`
-      : `${this.host}/json/api`;
+      ? `${this.host}${API_CALL}?session_id=${this.sid}`
+      : `${this.host}${API_CALL}`;
 
     if (!this.sid) {
       //console.log('rpc call no sid:', params, this._callbackerror)

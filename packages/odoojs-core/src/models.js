@@ -1,5 +1,10 @@
 const modelCreator = options => {
-  const { model, fields: fields_raw, rpc, env } = options;
+  const {
+    model: model_param,
+    rpc: rpc_param,
+    env: env_param,
+    config: config_param = {},
+  } = options;
 
   class cls {
     constructor(ids) {
@@ -13,6 +18,8 @@ const modelCreator = options => {
         this._id = ids;
         this._ids = ids ? [ids] : [];
       }
+
+      //this.id = this._id;
     }
 
     get length() {
@@ -27,104 +34,33 @@ const modelCreator = options => {
       return this._id;
     }
 
-    async call(method, args = [], kwargs = {}) {
-      return cls.call(method, [this._ids, ...args], kwargs);
+    async _rpc_call(method, args = [], kwargs = {}) {
+      return cls._rpc_call(method, [this._ids, ...args], kwargs);
     }
 
-    /*
-
-    list() {
-      const myCls = this.__proto__.constructor;
-      const instances = this._ids.reduce((acc, cur) => {
-        acc[cur] = new myCls(cur);
-        return acc;
-      }, {});
-      return Object.values(instances);
-    }
-
-    byid(id) {
-      const myCls = this.__proto__.constructor;
-      return new myCls(id);
-    }
-
-    // only for multi
-    view(id) {
-      // only for multi
-      const myCls = this.__proto__.constructor;
-      return new myCls(id);
-    }
-    */
-
-    // only for single. //TBD , check typeof( value )
-    setAttr(attr, value) {
-      // only for single
-      const rec = cls._records[this._id];
-
-      const {
-        type,
-        //relation ,
-      } = cls._fields[attr] || {};
-
-      if (['many2one', 'one2many', 'many2many'].indexOf(type) < 0) {
-        rec[attr] = value;
-      } else if (type === 'many2one') {
-        //TBD , check typeof( value )
-        rec[attr] = value._id;
-      } else {
-        //TBD , check typeof( value )
-        rec[attr] = value._ids;
-      }
-    }
-
-    setattr(attr, value) {
-      return this.setAttr(attr, value);
-    }
-
-    /*  TBD 2019-1-29,  how about proxy?
-    // only for single.
-        get record(){
-            const rec = cls._records[this._id]
-            return {
-                name:     this.name
-                m2o_id:   new ref_cls( this.m2o_id )
-                m2m_ids:  new ref_cls( this.m2m_ids )
-            }
+    _get_records() {
+      return this._ids.reduce((acc, cur) => {
+        const rec = cls._records[cur];
+        if (rec) {
+          acc.push(rec);
         }
-    */
-
-    attr(attr, ref = 0, ref_fields = {}) {
-      // only for single
-      if (ref) {
-        return this._get_ref(attr, ref_fields);
-      }
-
-      const raw = (cls._records[this._id] || {})[attr];
-      const { type, relation } = cls._fields[attr] || {};
-      if (['many2one', 'one2many', 'many2many'].indexOf(type) < 0) {
-        return raw;
-      } else {
-        const ref_cls = cls._get_model(relation);
-        return new ref_cls(raw);
-      }
+        return acc;
+      }, []);
     }
 
-    async _get_ref(attr, ref_fields) {
-      const {
-        relation: ref_cls_name,
-        //type: ref_type,
-      } = cls._fields[attr];
-      const ref_cls = cls._get_model(ref_cls_name);
-      const ref_ins = this.attr(attr);
-      return await ref_cls.browse(ref_ins._ids, ref_fields);
+    get _records() {
+      return this._get_records();
     }
 
-    // TBD, if after call setAttr, then we have custom field.
-    //  but look dont return custom field
-    look(fields) {
-      return this.look1(fields);
+    get _list() {
+      return this._get_records();
     }
 
-    look1(fields) {
+    _look(fields) {
+      return this._look1(fields);
+    }
+
+    _look1(fields) {
       if (this._id) {
         return cls._get_one(this._id, fields);
       } else {
@@ -132,243 +68,337 @@ const modelCreator = options => {
       }
     }
 
-    look2(fields) {
+    _look2(fields) {
       return cls._get_multi(this._ids, fields);
-    }
-
-    async toggle_active() {
-      return this.call('toggle_active');
-    }
-
-    async browse(fields) {
-      const myCls = this.__proto__.constructor;
-      return myCls.browse(this._ids, fields);
-    }
-
-    async write(vals) {
-      return cls.write(this._ids, vals);
-    }
-
-    async unlink() {
-      const data = cls.unlink(this._ids);
-      if (data) {
-        this._id = null;
-        this._ids = [];
-      }
-
-      return data;
     }
   }
 
-  Object.defineProperty(cls, 'name', { value: model, configurable: true });
+  Object.defineProperty(cls, 'name', {
+    value: model_param,
+    configurable: true,
+  });
 
-  cls._name = model;
-  cls._rpc = rpc;
-  cls._env = env;
+  cls._name = model_param;
+  cls._rpc = rpc_param;
+  cls._env = env_param;
+
+  cls._fields = {
+    id: { type: 'integer' },
+    display_name: { type: 'char' },
+    name: { type: 'char' },
+  };
+
+  cls._config = {
+    init: false,
+    //return_with_error: false,
+    fields_default: {},
+    ...config_param,
+  };
+
   cls._records = {};
-  cls._context = {};
-  cls._context2 = {};
 
-  cls._extends = [];
-  cls._sudo_user = {};
-
-  cls._fields = {};
-  cls._fields_raw = fields_raw || ['name'];
-
-  cls.fields = cls._fields;
-
-  cls.ref = async xmlid => {
-    // get model and id from xmlid
-    return cls
-      ._get_model('ir.model.data')
-      .call('xmlid_to_res_model_res_id', [xmlid, true]);
+  cls.env = model => {
+    return cls._get_model(model);
   };
 
-  cls.with_context = context => {
-    cls._context = { ...cls._context, ...context };
-    return cls.env[cls._name];
+  cls._get_model = model => {
+    let new_cls = cls._env[model];
+    if (!new_cls) {
+      new_cls = modelCreator({ model, rpc: cls._rpc, env: cls._env });
+      cls._env[model] = new_cls;
+    }
+    return new_cls;
   };
 
-  cls.with_context2 = context => {
-    cls._context2 = { ...cls._context2, ...context };
-    return cls.env[cls._name];
-  };
-
-  cls.init = async () => {
-    // run only one  time. to set cls._fields for this cls
-    //console.log( 'init:', cls._name, cls._fields_raw, cls._fields )
-    if (Object.keys(cls._fields).length) {
-      return cls._get_model(cls._name);
+  cls._view = ids => {
+    const myCls = cls._env[cls._name];
+    if (!ids) {
+      return new myCls(ids);
     }
 
-    cls._fields_raw = cls._env[cls._name]._fields_raw;
+    if (Array.isArray(ids) && ids.length !== 1) {
+      return new myCls(ids);
+    }
 
-    const _fields = await cls.fields_get(cls._fields_raw, ['type', 'relation']);
-    //const _fields = await cls.fields_get(cls._fields_raw, []);
-    //console.log(_fields)
+    const id = Array.isArray(ids) ? ids[0] : ids;
 
-    if (_fields && Object.keys(_fields).length > 0) {
-      for (const fld in _fields) {
-        cls._fields[fld] = _fields[fld];
+    if (cls._records[id] === undefined) {
+      cls._records[id] = new myCls(id);
+    }
+    return cls._records[id];
+  };
+
+  /*
+  cls._goto_wizard = async (id, wizard_params, kwargs) => {
+//    console.log( cls._name, id, wizard_model, wizard_id_field )
+
+    const {
+      wizard_model, wizard_id_field, wizard_vals, wizard_default_get,
+      wizard_onchange, wizard_fields,
+    } = wizard_params;
+
+    const wizard = cls.env(wizard_model)
+    //wizard._config.return_with_error = true;
+
+    let new_vals = {}
+
+    if(wizard_default_get){
+      const defaults = await wizard._rpc_call_with_code(
+        'default_get',
+        [[]],
+        {context:{ active_ids: [id], active_model: cls._name } },
+        {message: 'call wizard default'}
+      )
+
+      //const defaults = await wizard.default_get([], {
+      //  context:{ active_ids: [id], active_model: cls._name }
+      //})
+
+      if( defaults.code ){
+        return cls._return( defaults ) //cls.wizard_return(defaults);
       }
-    }
-    return cls._get_model(cls._name);
-  };
 
-  cls.env = cls._env;
+      new_vals = defaults.result;
 
-  cls._get_model = relation => {
-    let ref_cls = cls._env[relation];
-    // if cls mot defined in env
-    // then create a cls, and need not init()
 
-    if (!ref_cls) {
-      ref_cls = modelCreator({
-        model: relation,
-        rpc: cls._rpc,
-        env: cls._env,
-      });
-      ref_cls._fields = { id: { type: 'integer' }, name: { type: 'char' } };
-
-      cls._env[relation] = ref_cls;
-    }
-    return ref_cls;
-  };
-
-  cls.sudo = user => {
-    const new_cls0 = cls._sudo_user[user];
-    if (new_cls0) {
-      return new_cls0;
     }
 
-    const new_cls = modelCreator(options);
-    new_cls._fields = cls._fields;
-    new_cls._records = cls._records;
-    new_cls._extends = cls._extends;
-    new_cls._sudo_user = cls._sudo_user;
-    new_cls._sudo = user;
-
-    let extend_new_cls = new_cls;
-    for (const extend of cls._extends) {
-      extend_new_cls = extend(extend_new_cls);
+    if (wizard_vals){
+      new_vals = {...new_vals, ...wizard_vals }
     }
-    Object.defineProperty(extend_new_cls, 'name', {
-      value: cls._name,
-      configurable: true,
-    });
-    cls._sudo_user[user] = extend_new_cls;
-    return extend_new_cls;
-  };
 
-  cls.rawcall = async (
+//    console.log(new_vals)
+
+    let data = null
+    let domain = {}
+
+
+    if( wizard_onchange ){
+      data = await wizard.call('create', [new_vals], {
+        context:{ active_ids: [id], active_model: cls._name }
+      })
+
+      if(data.code){
+        return cls.wizard_return(data);
+      }
+
+      for( const onchange of wizard_onchange) {
+        const onchange_ret = await wizard.call(onchange, [ data.result ] )
+        console.log(onchange_ret)
+        if(onchange_ret.code){
+          return cls.wizard_return(onchange_ret);
+        }
+
+        domain = { ...domain,  ...(onchange_ret.result.domain)}
+        console.log(domain)
+
+
+      }
+
+//      const data6 = await arp.call('_onchange_amount', [wizard_id ] )
+//      console.log( data6 )
+//      const data7 = await arp.call('_onchange_journal', [wizard_id ] )
+//      console.log( data7 )
+
+
+      data = await wizard.browse(data.result, wizard_fields);
+
+    }
+    else{
+
+      data = await wizard.create(
+        new_vals,
+        { context:{ active_ids: [id], active_model: cls._name }
+        },
+        {
+          success: (result)=>{
+
+          }
+        }
+      )
+
+      //data = await wizard.create(new_vals, wizard_fields, {
+      //  context:{ active_ids: [id], active_model: cls._name }
+      //})
+
+    }
+
+    return cls.wizard_return(data, (result)=>{
+      const result2 = {id, }
+      result2[wizard_id_field] = result.look(wizard_fields);
+      result2.domain = domain;
+      return result2
+    })
+
+  }
+*/
+
+  cls._rpc_call_with_code = async (
     method,
     args = [],
     kwargs = {},
-    success_callback,
-    error_callback
+    context = {}
   ) => {
-    const data = await cls.call(
-      method,
-      args,
-      kwargs,
-      success_callback,
-      error_callback
-    );
-    const { return_with_error } = cls._context2;
-    return return_with_error ? data.result : data;
-  };
+    const { success: success_callback, error: error_callback } = context;
 
-  cls.call = async (
-    method,
-    args = [],
-    kwargs = {},
-    success_callback,
-    error_callback
-  ) => {
+    const context2 = { ...context };
+    delete context2.success;
+    delete context2.error;
+
     const params = {
       model: cls._name,
       method,
       args,
       kwargs,
-      sudo: cls._sudo,
     };
 
-    const { return_with_error } = cls._context2;
-
+    //console.log(cls._name, method,  args, kwargs)
     const data = await cls._rpc.call(params);
+    //console.log(data)
 
     const { code, result, error } = data;
 
-    if (return_with_error) {
-      if (!code) {
-        return {
-          code,
-          result: success_callback ? success_callback(result) : result,
-        };
-      } else {
-        return {
-          code,
-          result: error_callback ? error_callback(error) : null,
-          error,
-        };
-      }
+    if (!code) {
+      return {
+        code,
+        model: cls._name,
+        method,
+        ...context2,
+        result: success_callback ? await success_callback(result) : result,
+      };
     } else {
-      if (!code) {
-        return success_callback ? success_callback(result) : result;
-      } else {
-        return error_callback ? error_callback(error) : null;
-      }
+      return {
+        code,
+        model: cls._name,
+        method,
+        ...context2,
+        result: error_callback ? await error_callback(error) : null,
+        error,
+      };
     }
   };
 
-  cls._get_fields2 = async fields0 => {
-    const fields = fields0 || {};
-    await cls.init();
+  cls._rpc_call_without_code = async (method, args, kwargs, context) => {
+    const data = await cls._rpc_call_with_code(method, args, kwargs, context);
+    return data.result;
+  };
 
-    return Object.keys({ ...cls._fields, ...fields }).reduce(
-      async (accPromise, cur) => {
-        const acc = await accPromise;
-        if (!(cur in cls._fields)) {
-          acc.push(cur);
-          return acc;
+  cls._return = (data, error_value = null) => {
+    return data;
+    /*
+
+    if (cls._config.return_with_error){
+      return data;
+    }
+
+    const {code, result } = data;
+    if(code){
+      return error_value;
+    }
+
+    return result;
+
+    */
+  };
+
+  cls._rpc_call = async (method, args, kwargs, context = {}) => {
+    const { return_no_code } = context;
+    const data = await cls._rpc_call_with_code(method, args, kwargs, context);
+
+    if (return_no_code) {
+      return data.result;
+    } else {
+      return data;
+    }
+  };
+
+  cls._init_fields_to_call = async fields => {
+    const metas0 = await cls._rpc_call_without_code('fields_get2', [fields]);
+    const metas = metas0 || {};
+
+    //console.log(metas)
+
+    Object.keys(metas).forEach(model => {
+      const new_cls = cls._get_model(model);
+      new_cls._config.init = true;
+
+      const to_fields = new_cls._fields;
+      const from_fields = metas[model];
+
+      for (const fld in from_fields) {
+        to_fields[fld] = from_fields[fld];
+      }
+    });
+  };
+
+  cls._init_fields_check = fields => {
+    if (!cls._config.init) {
+      return true;
+    }
+
+    // fields must be dict
+    const fields2 = fields || {};
+
+    for (const fld in fields2) {
+      const { type, relation } = cls._fields[fld];
+      if (['many2one', 'one2many', 'many2many'].indexOf(type) < 0) {
+        continue;
+      }
+
+      const ref_cls = cls._get_model(relation);
+      const ref_check = ref_cls._init_fields_check(fields2[fld]);
+      if (ref_check) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  cls._init_fields = async fields => {
+    // TBD, 2019-7-19, to transfer fields from list to dict
+    const check_ret = cls._init_fields_check(fields);
+    if (check_ret) {
+      await cls._init_fields_to_call(fields);
+    }
+  };
+
+  cls._set_multi = (data, fields0) => {
+    // TBD, 2019-7-19, to transfer fields from list to dict
+    const fields = fields0 || cls._config.fields_default;
+    const ret = data.reduce(
+      (acc, cur) => {
+        const one_instance = cls._set_one(cur, fields);
+        if (one_instance) {
+          acc.ids.push(one_instance.id);
+          acc.records[one_instance.id] = one_instance;
         }
-
-        const { type, relation } = cls._fields[cur];
-
-        let ref_fields = null;
-        if (['many2one', 'one2many', 'many2many'].indexOf(type) >= 0) {
-          const ref_cls = cls._get_model(relation);
-          await ref_cls.init();
-          if (fields[cur]) {
-            ref_fields = await ref_cls._get_fields2(fields[cur]);
-          }
-        }
-        acc.push(ref_fields ? [cur, ref_fields] : cur);
         return acc;
       },
-      Promise.resolve([])
+      { ids: [], records: {} }
     );
-  };
 
-  cls._set_multi = (data, fields = {}) => {
-    const ids = data.reduce((acc, cur) => {
-      const id = cls._set_one(cur, fields);
-      if (id) {
-        // TBD
-      }
-      acc.push(cur.id);
-      return acc;
-    }, []);
-    return ids;
-  };
-
-  cls._set_one = (data, fields = {}) => {
-    const { id } = data;
-    if (!id) {
-      return id;
+    if (ret.ids.length === 1) {
+      return ret.records[ret.ids[0]];
     }
 
-    const vals = Object.keys(data).reduce((acc, fld) => {
+    return cls._view(ret.ids);
+  };
+
+  cls._set_one = (data, fields0) => {
+    const fields = fields0 || cls._config.fields_default;
+    const { id } = data;
+    if (!id) {
+      return null;
+    }
+
+    const record_one = cls._view(id);
+
+    return Object.keys(data).reduce((acc, fld) => {
+      if (fld === 'id') {
+        return acc;
+      }
+
       const value = data[fld];
       const { type, relation } = (cls._fields || {})[fld] || {};
 
@@ -378,7 +408,6 @@ const modelCreator = options => {
         } else {
           acc[fld] = value;
         }
-
         // TBD , bin , image ?
         return acc;
       }
@@ -391,6 +420,7 @@ const modelCreator = options => {
           acc[fld] = null;
         } else {
           // TBD: to set name, after to check cls._records
+
           const ref_vals = fields[fld]
             ? value[0]
             : {
@@ -399,44 +429,44 @@ const modelCreator = options => {
               };
 
           const ref_rec = ref_cls._records[ref_vals.id];
-
           if (!fields[fld] && !(ref_rec && ref_rec.name)) {
             ref_vals['name'] = value[1];
           }
 
-          ref_cls._set_one(ref_vals, fields[fld]);
-          acc[fld] = ref_vals.id;
+          acc[fld] = ref_cls._set_one(ref_vals, fields[fld]);
         }
       } else {
         if (fields[fld]) {
-          ref_cls._set_multi(value, fields[fld]);
-          acc[fld] = value.map(item => item.id);
+          acc[fld] = ref_cls._set_multi(value, fields[fld]);
         } else {
-          acc[fld] = value;
+          acc[fld] = ref_cls._view(value);
         }
       }
       return acc;
-    }, {});
-    cls._records[id] = { ...(cls._records[id] || {}), ...vals };
-    return id;
+    }, record_one);
+  };
+
+  // TBD 2019-8-9, notall ? what for?
+  cls._get_multi = (ids, fields, notall) => {
+    return ids.reduce((records, id) => {
+      const item = cls._get_one(id, fields, notall);
+      records.push(item);
+      return records;
+    }, []);
   };
 
   cls._get_one = (id, fields0, notall) => {
-    //    const fields = fields0 || Object.keys(cls._fields).reduce((acc,cur)=>{
-    //        acc[cur] = 1
-    //        return acc
-    //    },{})
-
     const fields1 = Object.keys(cls._fields).reduce((acc, cur) => {
       acc[cur] = 1;
       return acc;
     }, {});
 
-    const fields00 = fields0 || {};
+    //console.log(cls._name, fields0)
+    const fields00 = fields0 || cls._config.fields_default;
     const fields = !notall ? { ...fields1, ...fields00 } : fields0 || fields1;
 
     const get_ref_fields = (fld, fields) => {
-      let ref_fields = { name: null };
+      let ref_fields = { name: null, display_name: null };
       if (fld in fields) {
         const ref_flds = fields[fld];
         if (typeof ref_flds === 'object') {
@@ -462,13 +492,21 @@ const modelCreator = options => {
           }
         } else if (type === 'many2one') {
           const ref_cls = cls._get_model(relation);
-          const ref_id = cls._records[id] ? cls._records[id][fld] : null;
+
+          const ref_id =
+            cls._records[id] && cls._records[id][fld]
+              ? cls._records[id][fld]._id
+              : null;
+
           const ref_fields = get_ref_fields(fld, fields);
           const noall = !(typeof fields[fld] === 'object');
           item[fld] = ref_id && ref_cls._get_one(ref_id, ref_fields, noall);
         } else {
           const ref_cls = cls._get_model(relation);
-          const ref_ids = cls._records[id] ? cls._records[id][fld] : null;
+          const ref_ids =
+            cls._records[id] && cls._records[id][fld]
+              ? cls._records[id][fld]._ids
+              : null;
           const ref_fields = get_ref_fields(fld, fields);
           const noall = !(typeof fields[fld] === 'object');
           item[fld] = ref_ids && ref_cls._get_multi(ref_ids, ref_fields, noall);
@@ -480,221 +518,164 @@ const modelCreator = options => {
     );
   };
 
-  cls._get_multi = (ids, fields, notall) => {
-    return ids.reduce((records, id) => {
-      const item = cls._get_one(id, fields, notall);
-      records.push(item);
-      return records;
-    }, []);
+  cls._ref = async xmlid => {
+    // get model and id from xmlid
+    return cls
+      ._get_model('ir.model.data')
+      ._rpc_call('xmlid_to_res_model_res_id', [xmlid, true]);
   };
 
-  cls.fields_get = async (allfields, attributes) => {
-    const data = await cls.call('fields_get', [allfields, attributes]);
-    const { return_with_error } = cls._context2;
-    const result = return_with_error ? data.result || {} : data;
+  cls._rpc_call_with_read = async (method, args, kwargs = {}, context = {}) => {
+    // {fields={}, context={}} = kwargs
+    const { fields: fields0 } = kwargs || {};
+    const { fields: fields1, success: success_cb, error: error_cb } =
+      context || {};
+    const fields = fields0 || fields1 || cls._config.fields_default;
+    await cls._init_fields(fields);
 
-    const fields = result || {};
+    const success = result => {
+      const data = cls._set_multi(result || [], fields);
+      return success_cb ? success_cb(data) : data;
+    };
 
-    if (!allfields) {
-      return fields;
-    }
+    const error = error => {
+      const data = cls._view([]);
+      return error_cb ? error_cb(data) : data;
+    };
 
-    return Object.keys(fields).reduce((acc, cur) => {
-      if (allfields.indexOf(cur) >= 0) {
-        acc[cur] = fields[cur];
-      }
-      return acc;
-    }, {});
+    return cls._rpc_call(method, args, kwargs, { ...context, success, error });
   };
 
-  cls.default_get = async fields_list => {
-    const data = await cls.call('default_get', [fields_list]);
-    return data;
-  };
-
-  cls.call_with_read = async ({ method, args, kwargs }, fields) => {
-    return cls.call(
+  cls._rpc_call_as_create_read = async (
+    method,
+    args,
+    kwargs = {},
+    context = {}
+  ) => {
+    const { fields: fields0, context: context0 } = kwargs || {};
+    const { fields: fields1 } = context || {};
+    const fields = fields0 || fields1 || cls._config.fields_default;
+    return await cls._rpc_call_with_read(
       method,
       args,
-      kwargs,
-      result => {
-        const ids = cls._set_multi(result || [], fields);
-        return cls.view(ids);
-      },
-      error => {
-        return cls.view([]);
-      }
+      { ...kwargs, context: { ...context0, create_read: fields } },
+      context
     );
   };
 
-  cls.call_as_create_read = async ({ method, args, kwargs = {} }, fields) => {
-    const fields2 = await cls._get_fields2(fields);
-    const { context = {} } = kwargs;
+  cls._rpc_call_as_write_read = async (
+    method,
+    args,
+    kwargs = {},
+    context = {}
+  ) => {
+    const { fields: fields0, context: context0 } = kwargs || {};
+    const { fields: fields1 } = context || {};
+    const fields = fields0 || fields1 || cls._config.fields_default;
 
-    return cls.call_with_read(
-      {
-        method,
-        args,
-        kwargs: {
-          ...kwargs,
-          context: {
-            ...context,
-            create_read: fields2,
-          },
-        },
-      },
-      fields
+    return await cls._rpc_call_with_read(
+      method,
+      args,
+      { ...kwargs, context: { ...context0, write_read: fields } },
+      context
     );
   };
 
-  cls.call_as_write_read = async ({ method, args, kwargs = {} }, fields) => {
-    const fields2 = await cls._get_fields2(fields);
-    const { context = {} } = kwargs;
-
-    return cls.call_with_read(
-      {
-        method,
-        args,
-        kwargs: {
-          ...kwargs,
-          context: {
-            ...context,
-            write_read: fields2,
-          },
-        },
-      },
-      fields
+  cls.search = async (kwargs = {}, context) => {
+    // { domain=[], fields={}, offset=null,limit=null,order=null, context } = kwargs
+    const { fields: fields0 } = kwargs || {};
+    const fields = fields0 || cls._config.fields_default;
+    const method = 'search_read2';
+    const args = [];
+    return await cls._rpc_call_with_read(
+      method,
+      args,
+      { ...kwargs, fields },
+      context
     );
   };
 
-  cls.search = async (domain, fields = {}, kwargs = {}) => {
-    // { offset=null,limit=null,order=null, context: {return_with_error} } = kwargs
-    const fields2 = await cls._get_fields2(fields);
-    return cls.call_with_read(
-      {
-        method: 'search_read2',
-        args: [domain, fields2],
-        kwargs,
-      },
-      fields
+  cls.browse = async (ids, kwargs = {}, context) => {
+    const { fields: fields0 } = kwargs || {};
+    const fields = fields0 || cls._config.fields_default;
+    const method = 'read2';
+    const args = [ids];
+    return await cls._rpc_call_with_read(
+      method,
+      args,
+      { ...kwargs, fields },
+      context
     );
   };
 
-  cls.browse = async (ids, fields = {}, kwargs = {}) => {
-    const fields2 = await cls._get_fields2(fields);
-    return cls.call_with_read(
-      {
-        method: 'read2',
-        args: [ids, fields2],
-        kwargs,
-      },
-      fields
+  cls.create = async (vals, kwargs, context) => {
+    const { fields: fields0 } = kwargs || {};
+    const fields = fields0 || cls._config.fields_default;
+    const method = 'create2';
+    const args = [vals];
+    console.log('create');
+    return await cls._rpc_call_with_read(
+      method,
+      args,
+      { ...kwargs, fields },
+      context
     );
   };
 
-  /*
-
-  cls.browse2 = async (ids, { fields={}, lazy=0 }) => {
-
-    // if lazy == 1, then try to get data from cls._records
-    // if no data from cls._records, then call odoo request
-    if (!ids) {
-      return cls.view(ids);
-    }
-
-    if (lazy) {
-      const ids0 = typeof ids === 'object' ? ids : [ids];
-
-      const allin = ids0.reduce((acc, cur) => {
-        if (!cls._records[cur]) {
-          acc = 0;
-        }
-        return acc;
-      }, 1);
-
-      if (allin) {
-        return cls.view(ids);
-      }
-    }
-
-    const fields2 = await cls._get_fields2(fields);
-    const data0 = await cls.call( 'read2', [ids, fields2] );
-
-    const data = data0 ? data0 : [];
-
-    if (typeof ids === 'object') {
-      const ids = cls._set_multi(data, fields);
-      return cls.view(ids);
-    } else {
-      const vals = data.length ? data[0] : {};
-      const id = cls._set_one(vals, fields);
-      return cls.view(id);
-    }
-  };
-
-  */
-
-  cls.create = async (vals, fields = {}, kwargs = {}) => {
-    // { context: {return_with_error} } = kwargs
-    const fields2 = await cls._get_fields2(fields);
-    return cls.call_with_read(
-      {
-        method: 'create2',
-        args: [vals, fields2],
-        kwargs,
-      },
-      fields
+  cls.write = async (id, vals, kwargs, context) => {
+    const { fields: fields0 } = kwargs || {};
+    const fields = fields0 || cls._config.fields_default;
+    const method = 'write2';
+    const args = [id, vals];
+    return await cls._rpc_call_with_read(
+      method,
+      args,
+      { ...kwargs, fields },
+      context
     );
   };
 
-  cls.write = async (id, vals, fields = {}, kwargs = {}) => {
-    // { context: {return_with_error} } = kwargs
-    const fields2 = await cls._get_fields2(fields);
-    return cls.call_with_read(
-      {
-        method: 'write2',
-        args: [id, vals, fields2],
-        kwargs,
+  cls.unlink = async (ids, kwargs, context0 = {}) => {
+    // ids = [1,2,3] or ids = 1
+    const method = 'unlink';
+    const args = [ids];
+
+    const { success } = context0;
+    const context = {
+      ...context0,
+      success: result => {
+        // TBD check ids is [] or int
+        delete cls._records[ids];
+        return success ? success(result) : result;
       },
-      fields
-    );
+    };
+
+    return await cls._rpc_call(method, args, kwargs, context);
   };
 
-  cls.unlink = async (id, kwargs = {}) => {
-    console.log(kwargs);
-    const data = await cls.call('unlink', [id], kwargs, result => {
-      delete cls._records[id];
-      return result;
-    });
-
-    return data;
+  cls.toggle_active = async (id, kwargs, context) => {
+    const method = 'toggle_active';
+    const args = [id];
+    return await cls._rpc_call_as_write_read(method, args, kwargs, context);
   };
 
-  cls.view = id => {
-    const myCls = cls._env[cls._name];
-    return new myCls(id);
-
-    // To Be Check, 2019-5-2, Why return all ids?
-    //return new myCls(id || Object.keys(cls._records));
+  cls.search_count = async (domain, kwargs, context) => {
+    const method = 'search_count';
+    const args = [domain];
+    return await cls._rpc_call(method, args, kwargs, context);
   };
 
-  cls.search_read = async paylaod => {
-    const { fields = {}, context = {} } = paylaod;
-    console.log(context);
-    const ins = await cls.search(paylaod);
-    return ins.look2(fields);
+  cls.default_get = async (fields_list, kwargs, context) => {
+    const method = 'default_get';
+    const args = [fields_list];
+    return await cls._rpc_call(method, args, kwargs, context);
   };
 
-  cls.search_count = async ({ domain }) => {
-    const data0 = await cls.call('search_count', [domain]);
-
-    return data0;
-  };
-
-  cls.read = async (ids, payload) => {
-    const { fields = {} } = payload;
-    const ins = await cls.browse(ids, payload);
-    return ins.look2(fields);
+  cls.fields_get = async (kwargs, context) => {
+    // {allfields=null, attributes=null, context={}}
+    const method = 'fields_get';
+    const args = [];
+    return await cls._rpc_call(method, args, kwargs, context);
   };
 
   return cls;

@@ -1,4 +1,4 @@
-const getDvamodel = (Model, fields_default = {}) => {
+const getDvamodel = Model => {
   const state = {
     number_cn: 0,
   };
@@ -15,30 +15,25 @@ const getDvamodel = (Model, fields_default = {}) => {
     },
 
     *carryover_profit({ payload }, { call, put }) {
-      const { date, line_ids, fields = fields_default } = payload;
-      const data = yield Model.carryover_profit(date, line_ids, fields);
+      const { date, line_ids, fields } = payload;
+      const data = yield Model.carryover_profit(date, line_ids, {}, { fields });
       yield put({ type: 'save_one', payload: { data, fields } });
     },
 
     *carryover_vat({ payload }, { call, put }) {
-      const { line_ids, kwargs = {}, fields = fields_default } = payload;
-      const data = yield Model.carryover_vat(line_ids, fields, kwargs);
+      const { line_ids, kwargs = {}, fields } = payload;
+      const data = yield Model.carryover_vat(line_ids, kwargs, { fields });
       yield put({ type: 'save_one', payload: { data, fields } });
       return data;
     },
 
     *carryover_additional_tax({ payload }, { call, put }) {
-      const {
-        line_ids,
-        tax_ids,
-        kwargs = {},
-        fields = fields_default,
-      } = payload;
+      const { line_ids, tax_ids, kwargs = {}, fields } = payload;
       const data = yield Model.carryover_additional_tax(
         line_ids,
         tax_ids,
-        fields,
-        kwargs
+        kwargs,
+        { fields }
       );
       yield put({ type: 'save_one', payload: { data, fields } });
       return data;

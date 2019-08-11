@@ -15,13 +15,6 @@ const mail_message_extend = BaseClass => {
 export default {
   models: {
     'mail.message': {
-      fields: [
-        'subject',
-        'date',
-        'body',
-        // TBD
-      ],
-
       extend: mail_message_extend,
     },
   },

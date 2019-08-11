@@ -1,5 +1,5 @@
-//import ODOO from '../odoojs-core';
-import ODOO from 'odoojs-core';
+import ODOO from '../odoojs-core';
+//import ODOO from 'odoojs-core';
 
 import addons from './addons';
 import addonsThird from './addons-third';
@@ -10,8 +10,11 @@ for write and view
 id must integer , but web maybe string
 */
 
-const getDvamodel = (Model2, fields_default = {}) => {
-  const Model = Model2.with_context2({ return_with_error: 1 });
+const getDvamodel = (Model, fields_default = {}) => {
+  //const Model = Model2.with_context2({return_with_error: 1});
+
+  //Model._config.return_with_error = true;
+  Model._config.fields_default = fields_default;
 
   const state = {
     ids: [],
@@ -20,13 +23,22 @@ const getDvamodel = (Model2, fields_default = {}) => {
     record: {},
 
     error: {},
+    result: null,
   };
 
   const effects = {
     // replace recordsList and del record if not in recordsList
     *search({ payload }, { call, put }) {
-      const { domain, fields = fields_default, order } = payload;
-      const data = yield Model.search(domain, fields, { order });
+      //const { domain, fields, order } = payload;
+      const { fields } = payload;
+      const data = yield Model.search(payload);
+      yield put({ type: 'save_replace_multi', payload: { data, fields } });
+    },
+
+    // read and set record
+    *browse({ payload }, { call, put }) {
+      const { ids, fields, context = {} } = payload;
+      const data = yield Model.browse(ids, { fields, context });
       yield put({ type: 'save_replace_multi', payload: { data, fields } });
     },
 
@@ -39,53 +51,97 @@ const getDvamodel = (Model2, fields_default = {}) => {
 
     // insert recordsList and set record
     *create({ payload }, { call, put }) {
-      const { vals, fields = fields_default, context = {} } = payload;
-      const data = yield Model.create(vals, fields, { context });
+      const { vals, fields, context = {} } = payload;
+      const data = yield Model.create(vals, { context }, { fields });
       yield put({ type: 'save_one', payload: { data, fields } });
     },
 
     // update recordsList and set record
     *write({ payload }, { call, put }) {
-      const { id, vals, fields = fields_default, context = {} } = payload;
-      const data = yield Model.write(id, vals, fields, { context });
+      const { id, vals, fields, context = {} } = payload;
+      const data = yield Model.write(id, vals, { context }, { fields });
       yield put({ type: 'save_one', payload: { data, fields } });
     },
 
     // update or insert recordsList and set record
     *call_as_create_read({ payload }, { call, put }) {
-      const { method, args, kwargs = {}, fields = fields_default } = payload;
-      const data = yield Model.call_as_create_read(
-        { method, args, kwargs },
-        fields
-      );
+      const { method, args, kwargs, fields } = payload;
+      const data = yield Model._rpc_call_as_create_read(method, args, kwargs, {
+        fields,
+      });
       yield put({ type: 'save_one', payload: { data, fields } });
     },
 
     // update recordsList and set record
     *call_as_write_read({ payload }, { call, put }) {
-      const { method, args, kwargs = {}, fields = fields_default } = payload;
-      const data = yield Model.call_as_write_read(
-        { method, args, kwargs },
-        fields
-      );
+      const { method, args, kwargs, fields } = payload;
+      const data = yield Model._rpc_call_as_write_read(method, args, kwargs, {
+        fields,
+      });
       yield put({ type: 'save_one', payload: { data, fields } });
     },
+
+    // call  TBD, 2019-8-9, who call this fn?
+    *call({ payload }, { call, put }) {
+      const { method, args, kwargs } = payload;
+      const data = yield Model._rpc_call(method, args, kwargs);
+      const { code, result, error } = data;
+      const error2 = code ? error : {};
+      yield put({
+        type: 'save',
+        payload: { result, error: error2 },
+      });
+    },
+
+    /*
+    // TBD 2019-8-9
+    *goto_wizard({payload}, { call, put }) {
+      const { id,fields=fields_default,
+        wizard_model, wizard_id_field, wizard_vals,
+        wizard_default_get,
+      } = payload;
+      console.log( Model._name, id, wizard_model, wizard_id_field,  )
+      const data = yield Model.goto_wizard(id, {
+        wizard_model, wizard_id_field,
+        wizard_vals,
+        wizard_default_get,
+
+      }  );
+      yield put({ type: 'save_one', payload: { data, fields, wizard: 1 } });
+    },
+
+    // TBD 2019-8-9
+    *call_wizard({payload}, { call, put }) {
+      const { id,fields=fields_default,
+        wizard_id, wizard_vals,wizard_model, wizard_method,
+      } = payload;
+
+      const data = yield Model.call_wizard(id,fields,{
+        wizard_id, wizard_vals,
+        wizard_model,
+        wizard_method,
+      } );
+
+      yield put({ type: 'save_one', payload: { data, fields } });
+    },
+
+*/
   };
 
   const reducers = {
     save_replace_multi(state, { payload }) {
       const {
         data: { code, result, error },
-        fields,
+        fields = fields_default,
       } = payload;
 
       if (code) {
         return { ...state, error };
       }
 
-      //const { ids, recordsList } = state
+      const recordsList = result._look2(fields);
+      //const recordsList = result._list
 
-      const recordsList = result.look2(fields);
       const ids = recordsList.map(item => item.id);
 
       const { id: id_old, record: record_old } = state;
@@ -104,10 +160,10 @@ const getDvamodel = (Model2, fields_default = {}) => {
     },
 
     save_one(state, { payload }) {
-      const {
-        data: { code, result, error },
-        fields,
-      } = payload;
+      //console.log(Model._name, payload)
+      const { data = { code: 1 }, fields = fields_default, wizard } = payload;
+      const { code, result = {}, error } = data;
+
       if (code) {
         return { ...state, error };
       }
@@ -115,7 +171,8 @@ const getDvamodel = (Model2, fields_default = {}) => {
       const { ids, recordsList } = state;
 
       const id_new = result.id;
-      const record_new = result.look(fields);
+
+      const record_new = wizard ? result : result._look(fields);
 
       const ids_new = ids.includes(id_new) ? ids : [...ids, id_new];
 
@@ -170,14 +227,27 @@ const getDvamodel = (Model2, fields_default = {}) => {
     },
 
     view(state, { payload }) {
-      const { id, fields = fields_default } = payload;
-      const rec = Model.view(id);
-      //console.log(rec.look(fields))
+      const { id, ids, fields = fields_default } = payload;
+
+      const new_state = {};
+
+      if (id) {
+        const rec = Model._view(id);
+        new_state.id = id;
+        new_state.record = rec._look(fields);
+        //new_state.record = rec;
+      }
+
+      if (ids) {
+        const recs = Model._view(ids);
+        new_state.ids = ids;
+        new_state.recordsList = recs._look2(fields);
+        //new_state.recordsList = recs._list;
+      }
 
       return {
         ...state,
-        record: rec.look(fields),
-        id,
+        ...new_state,
       };
     },
 
@@ -194,7 +264,9 @@ const getDvamodel = (Model2, fields_default = {}) => {
 
 class Odoo extends ODOO {
   dvamodel({ model, fields }) {
-    const dva_model = getDvamodel(this.env[model], fields);
+    const Model = this.env(model);
+
+    const dva_model = getDvamodel(Model, fields);
     const { state, effects, reducers } = dva_model;
 
     const addons_all = { ...addons, ...addonsThird };
@@ -208,7 +280,7 @@ class Odoo extends ODOO {
         }
 
         const { state, effects, reducers } = acc;
-        const dva_model2 = fn(this.env[model], fields);
+        const dva_model2 = fn(Model, fields);
         const {
           state: state2 = {},
           effects: effects2 = {},
