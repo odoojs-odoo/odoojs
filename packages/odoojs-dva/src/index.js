@@ -1,5 +1,5 @@
-import ODOO from '../odoojs-core';
-//import ODOO from 'odoojs-core';
+//import ODOO from '../odoojs-core';
+import ODOO from 'odoojs-core';
 
 import addons from './addons';
 import addonsThird from './addons-third';

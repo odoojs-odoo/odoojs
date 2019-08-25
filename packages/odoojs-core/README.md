@@ -1,7 +1,7 @@
 # 文档结构说明
 
 * test文件夹是测试脚本
-* odoojs文件夹是 odoojs的源码
+* src文件夹是 odoojs的源码
 
 
 # odoojs
@@ -11,7 +11,7 @@ odoojs是一个前端的js库, 封装了odoo api.
 换言之, page页面, 直接调用 odoojs, 获取数据. 
 
 odoo api 是 odoo 对外的接口规范. 参看文档:  
-https://github.com/odooht/odoo-docs/tree/master/api
+https://gitee.com/odoowww/odoo-patch/blob/master/addons/ow_json/README.md
 
 因为odoojs 已经封装 odoo api, 所以在使用odoojs的情况下, 掌握odoo api, 重点是:  
 1 odoo定义的数据类型
@@ -20,12 +20,12 @@ https://github.com/odooht/odoo-docs/tree/master/api
  
 
 odoo model 参考文档  
-https://github.com/odooht/odoo-docs/tree/master/model  
+https://gitee.com/odoowww/docs/tree/master/odoo/model  
 
 
 # odoojs 使用教程
 
-* 导入 odoojs
+* 导入 odoojs-core
 * 已经打包为 npm 包可以直接使用
 * 在前端环境里 安装好 npm 模块 odoojs-core
 * 创建一个文件 比如 myodoo.js, 写入以下代码
@@ -78,7 +78,6 @@ import odoo from './myodoo'
 // 注意是 下面的方法是 异步的
 const userinfo = await odoo.login({login: 'admin', password: '123' })
 
-
 ``` 
 
 ## 登出
@@ -91,7 +90,7 @@ const result = await odoo.logout()
 ## 获取 odoo 模型    
 
 ```
-const PartnerModel = odoo.env['res.partner']
+const PartnerModel = odoo.env('res.partner')
 ```
 
 使用 odoo 模型, 调用 odoo服务中的方法  
@@ -105,7 +104,7 @@ const domain = [['is_company','=',true]]
 const fields = ['name','email']
 const args = [domain, fields]
 const kwargs = {limit=100, offset=10, order='name'}
-cosnt partnerData = await PartnerModel.call(method, args, kwargs)
+cosnt {code, result:partnerData, error} = await PartnerModel._rpc_call(method, args, kwargs)
 ```
 
 条件查询数据  
@@ -119,13 +118,13 @@ const fields = {
     category_id : {}
 }
 
-cosnt partners = await PartnerModel.search(domain, fields)
+cosnt {code, result:partners, error} = await PartnerModel.search({domain, fields})
 ```
 
 以 id 为参数获取其中的一条记录, 不发送网络请求
 ```
 const id = 99
-const partner = PartnerModel.view(id)
+const partner = PartnerModel._view(id)
 ```
 
 以 id或ids 为参数获取一条或多条记录, 需要发送网络请求
@@ -139,13 +138,13 @@ const fields = {
     company_id : {}
     category_id : {}
 }
-const partner = await PartnerModel.browse(id, fields)
+const {code, result:partner, error} = await PartnerModel.browse(id, {fields})
 ```
 
 
 一次访问多个字段  
-* look1方法, 返回一个对象
-* look2方法, 返回一个数组
+* _look1方法, 返回一个对象
+* _look2方法, 返回一个数组
 * 参数fields为一个字段列表, 可以嵌套读取m2o,o2m,m2m字段对应模型的字段
 
 ```
@@ -154,8 +153,8 @@ const fields = {
     category_id:{}
 }
 
-const partner_dict =  partner.look1(fields)
-const partners_list = partner.look2(fields)
+const partner_dict =  partner._look1(fields)
+const partners_list = partner._look2(fields)
 
 ```
 
@@ -164,13 +163,10 @@ const partners_list = partner.look2(fields)
 * 
 
 ```
-const partner = await PartnerModel.create({name:'new_partner'})
-const result = await partner.write({name:'other_name'})
-const result = await partner.unlink()
 
 const id = 99
-const result = await PartnerModel.write(id, {name:'other_name'})
-const result = await PartnerModel.unlink(id)
+const {code, result, error} = await PartnerModel.write(id, {name:'other_name'})
+const {code, result:partner, error} = await PartnerModel.unlink(id)
 
 ```
 
