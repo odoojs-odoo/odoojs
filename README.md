@@ -1,9 +1,10 @@
 # odoojs
 
 2020-8-30  
-使用 react 实现的  odoojs  
-后来 用 vue, 这个不再维护了  
-最新版的 odoojs 可以查看  vue-odoojs  
+之前使用 react 实现的  odoojs  
+之后 使用 vue  
+
+
 
 
 #### 介绍
