@@ -21,7 +21,7 @@
       <button @click="next">&gt;&gt;</button>
 
       <button @click="goCurrent">go</button>
-      <input v-model="currentGo" type="text" :size="2">
+      <input v-model="currentGo" type="text" :size="2" />
 
       <div>&nbsp;</div>
     </div>
@@ -98,7 +98,7 @@ export default {
       }
     },
 
-    prev(payload = {}) {
+    prev() {
       if (this.current2 > 1) {
         this.current2 = this.current2 - 1
         this.$emit('change', this.current2)

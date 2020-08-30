@@ -79,7 +79,7 @@ export default {
     // 自动展示列表页面时, 需要的字段
     columnsForList2() {
       const cols = this.state._config.columnsForList
-      const cols2 = Object.keys(cols).map(item => {
+      const cols2 = Object.keys(cols).map((item) => {
         const item2 = {
           title: cols[item].label,
           key: item
@@ -190,16 +190,15 @@ export default {
     //   },
     //   deep: true
     // },
-
-    '$route.meta': {
-      handler: function(val, oldval) {
-        // console.log('watch, $route.meta, val', val)
-        const moduleName = val.name
-        this.moduleName = moduleName
-        this.handleFlash()
-      },
-      deep: true
-    }
+    // '$route.meta': {
+    //   handler: function(val, oldval) {
+    //     // console.log('watch, $route.meta, val', val)
+    //     const moduleName = val.name
+    //     this.moduleName = moduleName
+    //     this.handleFlash()
+    //   },
+    //   deep: true
+    // }
   },
 
   async created() {},

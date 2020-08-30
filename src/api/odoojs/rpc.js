@@ -33,7 +33,11 @@ const PollUrl = '/longpolling/poll'
 
 const my_return = (res) => {
   return new Promise((resolve, reject) => {
-    setTimeout(resolve, 100, res)
+    try {
+      setTimeout(resolve, 100, res)
+    } catch {
+      reject()
+    }
   })
 }
 

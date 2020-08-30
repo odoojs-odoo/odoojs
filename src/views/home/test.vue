@@ -50,12 +50,9 @@ export default {
     console.log('odooMenus,', odooMenus)
 
     const testMenus = odooMenus.filter(
-      (item) => 1 === 1
+      () => 1 === 1
       // item.name.slice(0, 5) !== 'sport'
     )
-    // const sportMenus = odooMenus.filter(
-    //   (item) => item.name.slice(0, 5) === 'sport'
-    // )
 
     const menus_test = testMenus.map((item) => {
       return {
@@ -84,7 +81,7 @@ export default {
 
   methods: {
     logout() {
-      this.$store.dispatch('user/logout').then((res) => {
+      this.$store.dispatch('user/logout').then(() => {
         this.$router.push({ path: '/login' })
       })
     },

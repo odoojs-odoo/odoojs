@@ -23,7 +23,7 @@ const ResBank = {
     }
   },
 
-  extend: BaseClass => {
+  extend: (BaseClass) => {
     class ModelClass extends BaseClass {
       global_domain(payload = {}) {
         // const { domain = {}, domain2 = [] } = payload
@@ -78,12 +78,12 @@ const ResPartnerBank = {
     },
 
     forAppList: {
-      title: rec => {
+      title: (rec) => {
         return `${rec.display_name} ${rec.acc_holder_name ||
           rec.partner_id__name} `
       },
 
-      label: rec => {
+      label: (rec) => {
         return `${rec.bank_id__name}`
       }
     }
@@ -111,13 +111,13 @@ const ResPartnerTitle = {
     },
 
     forAppList: {
-      title: rec => {
+      title: (rec) => {
         return `${rec.display_name} ${rec.shortcut} `
-      },
-
-      label: rec => {
-        return ``
       }
+
+      // label: rec => {
+      //   return ``
+      // }
     }
   }
 }
@@ -147,16 +147,16 @@ const PartnerCategory = {
         // filter 为 最后渲染时 调用的函数
         fields: { name: null, parent_path: null },
 
-        filter: payload => {
+        filter: (payload) => {
           // const { self, formData, options } = payload
           const { formData: record, options } = payload
 
           // console.log('PartnerCategory,', record, options)
           // parent_id 不能选自己, 不能选儿孙
-          return options.filter(item => {
+          return options.filter((item) => {
             const parent_path = item.object.parent_path
               .split('/')
-              .map(item => Number(item))
+              .map((item) => Number(item))
             return item.value !== record.id && !parent_path.includes(record.id)
           })
         }
@@ -169,11 +169,11 @@ const PartnerCategory = {
     },
 
     forAppList: {
-      title: rec => {
+      title: (rec) => {
         return `${rec.display_name}`
       },
 
-      label: rec => {
+      label: (rec) => {
         return `${rec.parent_path}`
       }
     }

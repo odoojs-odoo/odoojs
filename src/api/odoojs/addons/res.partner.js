@@ -50,19 +50,19 @@ const ResPartner = {
     },
 
     forAppList: {
-      title: rec => {
+      title: (rec) => {
         return `${rec.display_name}`
       },
-      icon: rec => {
+      icon: (rec) => {
         return `${rec.image_128}`
         // get_image('res.partner', rec.id, 'image_1920')
       },
 
-      label: rec => {
+      label: (rec) => {
         return `${rec.email || ''}`
       },
-      value: rec => {
-        return ``
+      value: (rec) => {
+        return `${rec.email || ''}`
       }
     },
 
@@ -107,10 +107,10 @@ const ResPartner = {
     btnDel: { hidden: false, label: '删除' }
   },
 
-  extend: BaseClass => {
+  extend: (BaseClass) => {
     class ModelClass extends BaseClass {
       global_domain(payload = {}) {
-        const { domain = {}} = payload
+        const { domain = {} } = payload
         return super.global_domain({
           ...payload,
           domain: { ...domain, id___not_in: [1, 3] }
@@ -149,10 +149,10 @@ const ResPartnerEmployee = {
     filter: ['sale_or_purchase.customer']
   },
 
-  extend: BaseClass => {
+  extend: (BaseClass) => {
     class ModelClass extends BaseClass {
       global_domain(payload = {}) {
-        const { domain = {}} = payload
+        const { domain = {} } = payload
         return super.global_domain({
           ...payload,
           domain: { ...domain, employee: true }
@@ -175,12 +175,12 @@ const ResPartnerCompany = {
     description: '公司'
   },
 
-  extend: BaseClass => {
+  extend: (BaseClass) => {
     class ModelClass extends BaseClass {
       global_domain(payload = {}) {
         // const { domain = {}, domain2 = [] } = payload
         // return super.global_domain(payload)
-        const { domain = {}} = payload
+        const { domain = {} } = payload
         return super.global_domain({
           ...payload,
           domain: { ...domain, is_company: true }
@@ -203,12 +203,12 @@ const ResPartnerPerson = {
     description: '个人'
   },
 
-  extend: BaseClass => {
+  extend: (BaseClass) => {
     class ModelClass extends BaseClass {
       global_domain(payload = {}) {
         // const { domain = {}, domain2 = [] } = payload
         // return super.global_domain(payload)
-        const { domain = {}} = payload
+        const { domain = {} } = payload
         return super.global_domain({
           ...payload,
           domain: { ...domain, is_company: false }
