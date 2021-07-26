@@ -1,33 +1,29 @@
 {
-  "name": "test2",
+  "name": "odoorpc-odoojs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
-  "dependenciesReadme": {
-    "axios": "for request",
-    "vue-router": "for router",
-    "vuex": "for store",
-    "vuex-persistedstate": "for store, save in localstorage",
-    "core-js": "on init",
-    "vue": "on init"
-  },
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "view-design": "^4.6.1",
     "vue": "^2.6.11",
-    "vue-router": "^3.4.3",
-    "vuex": "^3.5.1",
-    "vuex-persistedstate": "^3.1.0"
+    "vue-router": "^3.5.1",
+    "xmldom": "^0.6.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-unit-mocha": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.1.0",
+    "chai": "^4.1.2",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "vue-template-compiler": "^2.6.11"
@@ -44,7 +40,18 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {},
+    "overrides": [
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "mocha": true
+        }
+      }
+    ]
   },
   "browserslist": [
     "> 1%",

@@ -41,8 +41,8 @@ module.exports = {
     proxy: {
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
-        // target: `http://106.13.191.63:8069`,
-        target: `http://192.168.56.101:8069`,
+        target: 'http://192.168.56.103:8069',
+        // target: 'http://192.168.56.103/odoo',
 
         changeOrigin: true,
         pathRewrite: {
@@ -50,7 +50,7 @@ module.exports = {
         }
       }
     }
-    // https: true,
+    // https: true
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
