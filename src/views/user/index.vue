@@ -8,7 +8,7 @@
     <Card style="width:350px">
       <p slot="title">
         <Icon type="ios-home"></Icon>
-        欢迎使用 odoorpc-js
+        欢迎使用 odoorpc odoojs
       </p>
 
       <Form
@@ -35,24 +35,24 @@
           </Select>
         </FormItem>
         <FormItem prop="username" label="账号">
-          <Input
+          <i-input
             type="text"
             v-model="form.username"
             placeholder="用户账号"
             style="width:200px"
           >
             <Icon type="ios-person-outline" slot="prepend"></Icon>
-          </Input>
+          </i-input>
         </FormItem>
         <FormItem prop="password" label="密码">
-          <Input
+          <i-input
             type="password"
             v-model="form.password"
             placeholder="密码"
             style="width:200px"
           >
             <Icon type="ios-lock-outline" slot="prepend"></Icon>
-          </Input>
+          </i-input>
         </FormItem>
         <FormItem>
           <Button type="primary" @click="onLogin('form')">登录</Button>

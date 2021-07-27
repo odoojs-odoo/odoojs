@@ -3,9 +3,25 @@
     <div>&nbsp;</div>
     <div>&nbsp;</div>
 
-    <div>Home page</div>
+    <!-- <div>Home page</div> -->
     <!-- <div>odoo version: {{ api.version_info.server_version }}</div> -->
-    <div>odoo version: {{ version_info.server_version }}</div>
+    <!-- <div>odoo version: {{ version_info.server_version }}</div> -->
+
+    <h1>主页设计说明</h1>
+    <p>在主页上, 可以展示一些当前用户个性化的内容</p>
+    <p>如下文展示的当前登录用户的用户信息</p>
+    <p>可以将该用户常用的功能按钮, 显示在主页上, 如下文的按钮 "财务报表"</p>
+
+    <Divider />
+
+    <Button @click="$router.push({ path: '/web/page.accountReport/list' })">
+      财务报表
+    </Button>
+
+    <Divider />
+
+    <!-- const path = `/web/${name}/list`
+        this.$router.push({ path }) -->
 
     <Card style="width:350px">
       <p slot="title">
@@ -17,7 +33,7 @@
       <div>语言: {{ (session_info.user_context || {}).lang }}</div>
       <div>服务版本: {{ session_info.server_version }}</div>
       <div>
-        公司:
+        所属公司:
         {{
           ((session_info.user_companies || {}).current_company || [
             null,
@@ -26,7 +42,7 @@
         }}
       </div>
       <div>
-        多公司:
+        管理的公司:
         {{
           ((session_info.user_companies || {}).allowed_companies || [])
             .map(item => item[1])
@@ -39,11 +55,26 @@
       }}</Button>
     </Card>
 
-    <div>&nbsp;</div>
-    <div>&nbsp;</div>
+    <Divider />
+    <h1>控制台说明</h1>
+    <p>1 左侧侧边栏, 展示一个树形多级菜单</p>
+    <p>2 自定义菜单是在 前端代码中定义的菜单项</p>
+    <p>3 我的控制台是当前登录账户个性化的功能菜单项</p>
+    <p>4 公共控制台是所有用户公用的功能菜单项</p>
+    <p>5 odoo官方菜单, 测试用, 展示 odoo 官方菜单树</p>
 
-    <div>&nbsp;</div>
-    <div>&nbsp;</div>
+    <Divider />
+    <h1>控制台设计说明</h1>
+    <p>1. 自定义菜单在前端中配置</p>
+    <p>
+      2. 我的控制台, 需要在服务端自行创建一个模块, 示例模块是:
+      odoojs_democompany_admin
+    </p>
+    <p>
+      3. 公共控制台, 需要在服务端自行创建一个模块, 示例模块是:
+      odoojs_democompany
+    </p>
+    <p>4. odoo 官方菜单是 测试, demo 演示用</p>
 
     <div>&nbsp;</div>
     <div>&nbsp;</div>

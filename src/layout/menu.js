@@ -1,7 +1,7 @@
 export const menus = [
   {
     name: 'tutorial',
-    title: '测试菜单',
+    title: '自定义菜单',
     icon: 'ios-school',
     children: [
       {

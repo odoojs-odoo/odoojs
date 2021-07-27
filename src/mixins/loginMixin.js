@@ -27,8 +27,11 @@ const Mixin = {
 
   methods: {
     async init() {
-      this.database_options = await api.web.datebase.list()
+      const db = process.env.VUE_APP_ODOO_DB
+      const dbs = await api.web.datebase.list()
+      this.database_options = dbs.filter(item => (db ? item === db : true))
     },
+
     async handleLogin(success, error) {
       try {
         // const res =

@@ -31,12 +31,9 @@ export class Menu {
     // console.log(my_menus)
     const comp_menus = await this._load_menus_comp()
     // console.log(comp_menus)
-
-    const odoojs_menus = [...my_menus, ...comp_menus]
-
     const odoo_menus = await this._load_menus_odoo()
     // const odoo_menus = []
-    const subMenus = [...odoo_menus, ...odoojs_menus]
+    const subMenus = [...my_menus, ...comp_menus, ...odoo_menus]
     this._menus = subMenus
     return subMenus
   }
@@ -62,7 +59,7 @@ export class Menu {
       icon: 'ios-apps',
       id: 0,
       name: 'comp_root',
-      title: '公司控制台',
+      title: '公共控制台',
       children: comp_menus
     }
 
