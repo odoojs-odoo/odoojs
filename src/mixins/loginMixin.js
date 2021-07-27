@@ -1,8 +1,7 @@
 import api from '@/api'
 const Mixin = {
   data() {
-    // const database = 'test_db'
-    const database = 'test_account_0521'
+    const database = process.env.VUE_APP_ODOO_DB
 
     return {
       form: {
