@@ -20,9 +20,6 @@
 
     <Divider />
 
-    <!-- const path = `/web/${name}/list`
-        this.$router.push({ path }) -->
-
     <Card style="width:350px">
       <p slot="title">
         <Icon type="ios-contact" />

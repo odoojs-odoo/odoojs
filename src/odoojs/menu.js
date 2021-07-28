@@ -59,7 +59,7 @@ export class Menu {
       icon: 'ios-apps',
       id: 0,
       name: 'comp_root',
-      title: '公共控制台',
+      title: '公用控制台',
       children: comp_menus
     }
 
