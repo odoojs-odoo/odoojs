@@ -1,37 +1,120 @@
 <template>
-  <div>
-    <Layout>
-      <Header class="layout-header-bar">
-        <Row>
-          <Col span="12"> <span>欢迎使用 odoojs</span></Col>
-          <Col span="12">
-            <span>
-              <Dropdown @on-click="onClickUser">
-                <a href="javascript:void(0)">
-                  {{ session_info.name }}
-                  <Icon type="ios-arrow-down"></Icon>
-                </a>
-                <DropdownMenu slot="list">
-                  <DropdownItem>姓名: {{ session_info.name }}</DropdownItem>
-                  <DropdownItem>数据库: {{ session_info.db }}</DropdownItem>
-                  <DropdownItem
-                    >语言:
-                    {{ (session_info.user_context || {}).lang }}</DropdownItem
-                  >
-                  <DropdownItem
-                    >服务版本: {{ session_info.server_version }}</DropdownItem
-                  >
-                  <DropdownItem
-                    >公司:
+  <!-- <div>
+    <router-view />
+  </div> -->
+
+  <a-layout id="components-layout-demo-custom-trigger">
+    <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
+      <div class="logo" />
+      <a-menu
+        theme="dark"
+        mode="inline"
+        :default-selected-keys="['home']"
+        @click="selectMenu"
+      >
+        <a-menu-item key="home">
+          <a-icon type="home" />
+          <span>首页</span>
+        </a-menu-item>
+        <a-menu-item key="test">
+          <a-icon type="video-camera" />
+          <span>Test</span>
+        </a-menu-item>
+
+        <template v-for="item in menus">
+          <a-menu-item v-if="item.action" :key="item.id">
+            <!-- <a-icon type="home" /> -->
+
+            <span v-if="item.web_icon">
+              <!-- :src="`data:image/png;base64,${item.web_icon_data}`" -->
+
+              <img
+                :src="`/dev-api/mail/static/description/icon.png`"
+                alt=""
+                width="12"
+              />
+            </span>
+            <span> {{ item.name }} </span>
+          </a-menu-item>
+
+          <a-sub-menu v-else :key="item.id">
+            <span slot="title">
+              <!-- <a-icon type="home" /> -->
+              <span v-if="item.web_icon">
+                <!-- :src="`data:image/png;base64,${item.web_icon_data}`" -->
+                <!-- `/dev-api/mail/static/description/icon.png` -->
+                <img :src="img_url(item.web_icon)" alt="" width="12" />
+              </span>
+              <span> {{ item.name }} </span>
+            </span>
+            <template v-for="submenu in item.children">
+              <a-menu-item v-if="submenu.action" :key="submenu.id">
+                <span> {{ submenu.name }} </span>
+              </a-menu-item>
+              <sub-menu
+                v-else
+                :key="submenu.id"
+                :menu-data="submenu"
+                :collapsed="collapsed"
+              />
+            </template>
+          </a-sub-menu>
+        </template>
+      </a-menu>
+    </a-layout-sider>
+    <a-layout>
+      <a-layout-header style="background: #fff; padding: 0">
+        <a-row>
+          <a-col :span="3">
+            <a-icon
+              class="trigger"
+              :type="collapsed ? 'menu-unfold' : 'menu-fold'"
+              @click="() => (collapsed = !collapsed)"
+            />
+          </a-col>
+
+          <a-col :span="8">
+            <span>欢迎使用 odoojs</span>
+          </a-col>
+
+          <a-col :span="7">
+            <CompanySelect />
+          </a-col>
+
+          <a-col :span="6">
+            <a-dropdown>
+              <a class="ant-dropdown-link" @click="e => e.preventDefault()">
+                {{ session_info.name }} <a-icon type="down" />
+              </a>
+              <a-menu slot="overlay">
+                <a-menu-item>
+                  <div>姓名: {{ session_info.name }}</div>
+                </a-menu-item>
+                <a-menu-item>
+                  <div>数据库: {{ session_info.db }}</div>
+                </a-menu-item>
+                <a-menu-item>
+                  <div>语言: {{ (session_info.user_context || {}).lang }}</div>
+                </a-menu-item>
+                <a-menu-item>
+                  <a href="javascript:;">
+                    服务版本: {{ session_info.server_version }}
+                  </a>
+                </a-menu-item>
+                <a-menu-item>
+                  <a href="javascript:;">
+                    公司:
                     {{
                       ((session_info.user_companies || {}).current_company || [
                         null,
                         null
                       ])[1]
-                    }}</DropdownItem
-                  >
-                  <DropdownItem
-                    >多公司:
+                    }}
+                  </a>
+                </a-menu-item>
+                <a-menu-item>
+                  <a href="javascript:;">
+                    多公司:
                     {{
                       (
                         (session_info.user_companies || {}).allowed_companies ||
@@ -39,61 +122,62 @@
                       )
                         .map(item => item[1])
                         .join(',')
-                    }}</DropdownItem
-                  >
-                  <DropdownItem name="logout" divided>{{
-                    session_info.uid ? '注销' : '登录'
-                  }}</DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </span>
-          </Col>
-        </Row>
-      </Header>
-      <Layout>
-        <Sider hide-trigger class="layout-sider">
-          <Menu width="auto" accordion @on-select="selectMenu">
-            <span>
-              <MenuItem name="home">
-                <Icon type="ios-home" />
-                <span>首页</span>
-              </MenuItem>
-            </span>
-          </Menu>
+                    }}
+                  </a>
+                </a-menu-item>
+                <a-menu-item>
+                  <a href="javascript:;" @click="onLogout">
+                    {{ session_info.uid ? '注销' : '登录' }}
+                  </a>
+                </a-menu-item>
+              </a-menu>
+            </a-dropdown>
+          </a-col>
+        </a-row>
+      </a-layout-header>
+      <a-layout-content
+        :style="{
+          margin: '24px 16px',
+          padding: '24px',
+          background: '#fff',
+          minHeight: '280px'
+        }"
+      >
+        <!-- <img
+          :src="`data:image/png;base64,${menus[0].web_icon_data}`"
+          alt=""
+          width="20"
+        /> -->
 
-          <Menu width="auto" accordion @on-select="selectMenu">
-            <SubmenuItem
-              v-for="submenu in menus"
-              :key="submenu.name"
-              :menu-data="submenu"
-            />
-          </Menu>
-        </Sider>
-        <Content>
-          <router-view />
-        </Content>
-      </Layout>
-      <Footer> odoowww@163.com </Footer>
-    </Layout>
-  </div>
+        <router-view />
+      </a-layout-content>
+      <a-layout-footer style="text-align: center">
+        antd-odoojs ©2021 Created by odoowww@163.com
+      </a-layout-footer>
+    </a-layout>
+  </a-layout>
 </template>
 
 <script>
 import api from '@/api'
-import { menus as local_menus } from './menu'
 
-import SubmenuItem from './SubmenuItem'
+import SubMenu from './SubMenu'
+import CompanySelect from './CompanySelect.vue'
 
 const HOME_PATH = '/'
 
 export default {
   name: 'Base',
-  components: { SubmenuItem },
+  components: { SubMenu, CompanySelect },
   mixins: [],
   data() {
     return {
-      currentMenu: '',
-      menus: []
+      collapsed: false,
+
+      currentMenu: 'home',
+      menus: [],
+      current_company: 0,
+      allowed_companies: []
     }
   },
 
@@ -103,41 +187,68 @@ export default {
     }
   },
 
-  async created() {
-    // console.log('created.  , ', this.$route)
-    const odoojs_menus = api.menu.menus
-    // console.log('created. odoojs_menus , ', odoojs_menus)
-    // console.log('created. local_menus , ', local_menus)
-    this.menus = [...local_menus, ...odoojs_menus]
+  created() {
+    const menu_data = api.menu_data
+    // console.log('created. menu_data , ', menu_data)
 
-    // console.log(this.menus)
+    this.menus = [...(menu_data.children || [])]
+
+    // (session_info.user_companies || {}).allowed_companies ||   []
+    const { user_companies = {} } = api.session_info || {}
+    const { allowed_companies = [], current_company = [0, ''] } = user_companies
+    console.log(user_companies)
+
+    this.allowed_companies = allowed_companies
+    this.current_company = current_company[0]
   },
 
   methods: {
-    async onClickUser(name) {
-      console.log('onClickUser.  , ', name)
-      if (name === 'logout') {
-        await api.logout()
-        this.$router.replace({ path: '/user/login' })
-      }
+    img_url(web_icon) {
+      const base_api = process.env.VUE_APP_BASE_API
+      const url = web_icon.split(',').join('/')
+      return `${base_api}/${url}`
     },
 
-    selectMenu(name) {
-      // console.log('selectMenu.  , ', this.currentMenu, name)
+    async onLogout() {
+      //   this.$router.push({ path: '/user/login' })
 
+      console.log('xxxxx')
+
+      await api.logout()
+      this.$router.replace({ path: '/user/login' })
+    },
+
+    selectMenu(e) {
+      // console.log('selectMenu.  , ', e, e.key)
+      const name = e.key
       // if (this.currentMenu === name) {
       //   return
       // }
-
-      // this.currentMenu = name
-
+      this.currentMenu = name
       if (name === 'home') {
         this.$router.push({ path: HOME_PATH })
+      } else if (name === 'test') {
+        this.$router.push({ path: '/test' })
       } else {
         // name 为 action_ref
         // path 为 /web/action_ref/list
-        const path = `/web/${name}/list`
-        this.$router.push({ path })
+        const keyPath = e.keyPath
+        // console.log('menu,id,', keyPath, this.menus)
+
+        const menu = keyPath.reverse().reduce(
+          (acc, cur) => {
+            const child = acc.children.find(item => item.id === cur)
+            return child || { children: [] }
+          },
+          { children: this.menus }
+        )
+        // console.log('menu,id,', keyPath, menu)
+        // const [action_model, action_id] = menu.action.split(',')
+        // if (action_model === 'ir.actions.act_window') {
+        // }
+
+        const action_id = menu.action.split(',')[1]
+        this.$router.push({ path: '/web', query: { action: action_id } })
       }
     }
   }
@@ -145,25 +256,21 @@ export default {
 </script>
 
 <style scoped>
-.layout {
-  border: 1px solid #d7dde4;
-  background: #f5f7f9;
-  position: relative;
-  border-radius: 4px;
-  overflow: hidden;
-  min-width: 1200px;
+#components-layout-demo-custom-trigger .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
 }
 
-.layout-header-bar {
-  height: 10vh;
-  color: #fff;
-  background: blue;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+#components-layout-demo-custom-trigger .trigger:hover {
+  color: #1890ff;
 }
 
-.layout-sider {
-  height: 82vh;
-  background: #fff;
-  background: #2d8cf0;
+#components-layout-demo-custom-trigger .logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
 }
 </style>

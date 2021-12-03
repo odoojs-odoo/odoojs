@@ -1,67 +1,47 @@
 <template>
   <div>
+    <!-- <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    Login Page -->
     <div>&nbsp;</div>
     <div>&nbsp;</div>
 
-    <!-- <Divider /> -->
+    <h1>欢迎使用 antd-odoojs</h1>
 
-    <Card style="width:350px">
-      <p slot="title">
-        <Icon type="ios-home"></Icon>
-        欢迎使用 odoorpc odoojs
-      </p>
-
-      <Form
-        ref="form"
-        :model="form"
-        :rules="login_rules"
-        label-position="left"
-        :label-width="100"
-        width="80"
-      >
-        <FormItem prop="database" label="数据库">
-          <Select
-            v-model="form.database"
-            prefix="md-reorder"
-            placeholder="数据库"
-            style="width:200px"
+    <!-- {{ form_data }} -->
+    <!-- -->
+    <a-form-model
+      ref="ruleForm"
+      :model="form2"
+      :rules="rules"
+      :label-col="{ span: 5 }"
+      :wrapper-col="{ span: 12 }"
+    >
+      <a-form-model-item prop="database" label="数据库">
+        <a-select v-model="form2.database">
+          <a-select-option
+            v-for="item in database_options"
+            :value="item"
+            :key="item"
+            >{{ item }}</a-select-option
           >
-            <Option
-              v-for="item in database_options"
-              :value="item"
-              :key="item"
-              >{{ item }}</Option
-            >
-          </Select>
-        </FormItem>
-        <FormItem prop="username" label="账号">
-          <i-input
-            type="text"
-            v-model="form.username"
-            placeholder="用户账号"
-            style="width:200px"
-          >
-            <Icon type="ios-person-outline" slot="prepend"></Icon>
-          </i-input>
-        </FormItem>
-        <FormItem prop="password" label="密码">
-          <i-input
-            type="password"
-            v-model="form.password"
-            placeholder="密码"
-            style="width:200px"
-          >
-            <Icon type="ios-lock-outline" slot="prepend"></Icon>
-          </i-input>
-        </FormItem>
-        <FormItem>
-          <Button type="primary" @click="onLogin('form')">登录</Button>
-        </FormItem>
-      </Form>
-    </Card>
+        </a-select>
+      </a-form-model-item>
 
-    <div>&nbsp;</div>
-    <div>&nbsp;</div>
+      <a-form-model-item prop="username" label="账号">
+        <a-input v-model="form2.username" placeholder="用户账号" />
+      </a-form-model-item>
+
+      <a-form-model-item prop="password" label="密码">
+        <a-input-password v-model="form2.password" placeholder="密码" />
+      </a-form-model-item>
+
+      <a-form-model-item :wrapper-col="{ span: 12, offset: 5 }">
+        <a-button type="primary" @click="onSubmit">
+          Submit
+        </a-button>
+      </a-form-model-item>
+    </a-form-model>
   </div>
 </template>
 
@@ -71,7 +51,6 @@ import loginMixin from '@/mixins/loginMixin'
 export default {
   name: 'AppLogin',
   components: {},
-
   mixins: [loginMixin],
 
   data() {
@@ -83,22 +62,35 @@ export default {
   },
 
   methods: {
-    onLogin(name) {
-      this.$refs[name].validate(valid => {
+    onSubmit() {
+      this.$refs.ruleForm.validate(valid => {
         if (valid) {
+          // alert('submit!')
+
+          console.log(this.form2)
+
           const success = res => {
-            this.$Message.success(res.name + '登录')
-            this.$router.replace({
+            console.log(res)
+            // Toast.success(res.name + '登录')
+
+            // this.$router.replace({
+            //   path: '/'
+            // })
+
+            this.$router.push({
               path: '/'
             })
           }
+
+          // eslint-disable-next-line no-unused-vars
           const error = e => {
-            this.$Message.error(e.data.message)
+            // console.log(e)
           }
 
-          this.handleLogin(success, error)
+          this.handleLogin(this.form2, success, error)
         } else {
-          //
+          console.log('error submit!!')
+          return false
         }
       })
     }

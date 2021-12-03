@@ -1,10 +1,8 @@
-import { Menu } from './menu'
-import { Action } from './action'
+import { action_load } from './action'
 
 class _ODOO {
   constructor(payload) {
     const { baseURL, timeout = 50000, ODOORPC } = payload
-
     this._odoorpc = new ODOORPC({ baseURL, timeout })
   }
 
@@ -18,6 +16,10 @@ class _ODOO {
 
   get env() {
     return this.odoorpc.env
+  }
+
+  get session() {
+    return this.web.session
   }
 
   get version_info() {
@@ -53,35 +55,59 @@ class _ODOO {
 export class ODOO extends _ODOO {
   constructor(payload) {
     super(payload)
-    const { menuLoad } = payload
+    const { is_mobile } = payload
 
-    // 自动 从 服务端 读取菜单
-    this._menu = new Menu(this.env)
+    // 适用于移动端
+    this.is_mobile = is_mobile
 
-    this.menuLoad = menuLoad
-    if (menuLoad) {
-      // 初始时 为 false
-      // 页面加载后, 设置菜单, 设置为 true
-      // 页面跳转时, 检测菜单已经设置过了, 则不再设置,
-      this.menu_is_set = false
-    } else {
-      this.menu_is_set = true
-    }
+    this._is_user = false
+    this._menu_data = {}
   }
 
-  get menu() {
-    return this._menu
+  get is_user() {
+    return this._is_user
+  }
+
+  get menu_data() {
+    return { ...this._menu_data }
   }
 
   async _get_user_info() {
-    await this.menu.load_menus()
+    // website/controllers/main.py/Website._login_redirect
+    const is_user = await this.env
+      .model('res.users')
+      .execute('has_group', 'base.group_user')
+    // console.log(is_user)
 
-    const res = await this.env.model('res.users').read(this.session_info.uid)
+    this._is_user = is_user
 
-    console.log(res)
+    if (is_user) {
+      // web.controller.main.home.web_client
+      // const context = await this.odoo.env
+      //   .model('ir.http')
+      //   .execute('webclient_rendering_context', [])
+      // console.log(context)
+      //
+      // web.controller.main.home.web_load_menus
+      // menus = request.env["ir.ui.menu"].load_menus(request.session.debug)
+      // const res = await this.web.home.load_menus()
+      // console.log(res)
 
-    // if (this.menuLoad) {
-    // }
+      // base.models.ir_ui_menu.IrUiMenu._search
+      // context = {'ir.ui.menu.full_list' }
+
+      const Menu = this.env.model('ir.ui.menu')
+      // const menus = await Menu.execute('load_menus', 'assets')
+      // 加上这个参数后, 会返回所有的 菜单,
+      const context = { ...this.env.context }
+      // context['ir.ui.menu.full_list'] = 1
+      const menus = await Menu.execute_kw('load_menus', ['1'], { context })
+
+      // mail.menu_root_discuss
+      // console.log(JSON.parse(JSON.stringify(menus)))
+
+      this._menu_data = menus
+    }
   }
 
   async login({ db, login, password }) {
@@ -90,17 +116,24 @@ export class ODOO extends _ODOO {
     return res
   }
 
-  async session_check() {
-    const is_new = !this.session_info.uid
+  async reload() {
     const res = await super.session_check()
-    if (is_new && res) {
-      await this._get_user_info()
-    }
+    await this._get_user_info()
     return res
   }
 
-  async action(xml_id, additional_context = {}) {
-    return Action.load(this.env, xml_id, additional_context)
+  async session_check() {
+    const is_new = !this.session_info.uid
+    const res = await super.session_check()
+    if (is_new && res) await this._get_user_info()
+    return res
+  }
+
+  async action(xml_id, kwargs = {}) {
+    return action_load(this.env, xml_id, {
+      ...kwargs,
+      is_mobile: this.is_mobile
+    })
   }
 
   download({ filename, filetype, data }) {

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div>&nbsp;</div>
-    <div>&nbsp;</div>
-
     <h1>{{ 'odoorpc-js tutorial' }}</h1>
 
+    <!-- <div>&nbsp;</div>
     <div>&nbsp;</div>
+    <button @click="onclickApiAddons"><H1> Test API Addons</H1></button>
+    <div>&nbsp;</div> -->
     <div>&nbsp;</div>
     <button @click="onclick"><H1> Test RPC</H1></button>
 
@@ -22,6 +22,8 @@
 import { test_rpc } from '@/odoorpc/test_rpc'
 import { test_odoojs } from '@/odoojs/test_odoojs'
 
+import { test_api_addons } from '@/api_addons/test_api_addons'
+
 export default {
   name: 'TestRpc',
   props: {},
@@ -32,6 +34,12 @@ export default {
 
   async created() {},
   methods: {
+    onclickApiAddons() {
+      console.log('click btn')
+      //   alert('click btn')
+      test_api_addons()
+    },
+
     onclick() {
       console.log('click btn')
       //   alert('click btn')

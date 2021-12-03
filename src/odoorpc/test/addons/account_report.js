@@ -54,7 +54,11 @@ export default class AccountReportTestCase extends LoginTestCase {
     const months = await Model.search_read_months()
     console.log(months)
 
-    const date_month = '2021-06-01'
+    const last_month = months[months.length - 1]
+
+    // const date_month = '2021-08-01'
+    const date_month = last_month.date_month
+
     const result = await Model.report_month(date_month)
     console.log(deep_copy(result))
 
@@ -62,7 +66,7 @@ export default class AccountReportTestCase extends LoginTestCase {
     // console.log(deep_copy(result2))
     console.log(result2)
 
-    this.api.download(result2)
+    // this.api.download(result2)
   }
 
   async profitandloss() {

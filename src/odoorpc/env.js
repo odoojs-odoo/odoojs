@@ -11,7 +11,7 @@ const AddonsModels = AddonsFiles.keys().reduce((models, modulePath) => {
 }, {})
 
 const AllModels = { ...AddonsModels }
-console.log('xxxx AllModels,', AddonsModels)
+// console.log('xxxx AllModels,', AddonsModels)
 
 export class Environment {
   constructor(payload) {
@@ -23,6 +23,9 @@ export class Environment {
   get _registry() {
     return this.constructor._registry
   }
+  get _ref_registry() {
+    return this.constructor._ref_registry
+  }
   get _model_registry() {
     return this.constructor._model_registry
   }
@@ -31,10 +34,12 @@ export class Environment {
     return this._odoo
   }
 
+  get uid() {
+    return this.odoo.session_info.uid
+  }
+
   get context() {
-    if (this._context) {
-      return this._context
-    }
+    if (this._context) return this._context
 
     // 登录后, context 不为空
     const context = this.odoo.web.session.context
@@ -44,9 +49,7 @@ export class Environment {
   async _set_model_registry(models2) {
     const old_models = Object.keys(this._model_registry)
     const models = models2.filter(item => !old_models.includes(item))
-    if (models.length === 0) {
-      return
-    }
+    if (models.length === 0) return
 
     const domain = [['model', 'in', models]]
 
@@ -89,10 +92,15 @@ export class Environment {
   }
 
   async ref(xml_id) {
+    const res = this._ref_registry[xml_id]
+    if (res) return res
+
     const Model = this.model('ir.model.data')
     const args = ['xmlid_to_res_model_res_id', xml_id, true]
     const [model, id_] = await Model.execute(...args)
-    return { model, id: id_ }
+    const res2 = { model, id: id_ }
+    this._ref_registry[xml_id] = res2
+    return res2
   }
 
   model(model, payload = {}) {
@@ -109,7 +117,10 @@ export class Environment {
   }
 
   _create_model_class({ model, fields = {} }) {
-    const BaseModel2 = AllModels[model] || BaseModel
+    // const BaseModel2 = AllModels[model] || BaseModel
+
+    const WebModels = this.odoo._addons || {}
+    const BaseModel2 = WebModels[model] || AllModels[model] || BaseModel
 
     const env = this
 
@@ -137,6 +148,8 @@ export class Environment {
     return Model
   }
 }
+
+Environment._ref_registry = {}
 
 Environment._registry = {}
 Environment._model_registry = {}

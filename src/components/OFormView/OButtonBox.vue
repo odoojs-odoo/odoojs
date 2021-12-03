@@ -1,24 +1,31 @@
 <template>
   <div>
-    <Divider />
+    <a-divider />
 
-    <span v-for="(btn, index) in children_visible" :key="index">
-      <OStatButton
-        v-if="btn.tagName === 'button'"
-        v-model="value2"
-        :dataDict="dataDict"
-        :node="btn"
-        :editable="editable"
-        :modelMethod="modelMethod"
-        @on-change="handleOnchange"
-      />
+    <template v-for="(btn, index) in children_visible">
+      <template v-if="btn.tagName === 'button'">
+        <OStatButton
+          :key="index"
+          :editable="editable"
+          :loading="loading"
+          :data-info="dataInfo"
+          :view-info="{ ...viewInfo, node: btn }"
+          :method-call="methodCall"
+          @on-event="handleOnEvent"
+        />
+      </template>
+      <template v-else-if="typeof btn === 'string'">
+        {{ btn }}
+        <!-- ==== in button box, not button -->
+      </template>
 
-      <span v-else>
+      <template v-else>
+        <!-- {{ [btn] }} -->
         ==== in button box, not button
-      </span>
-    </span>
+      </template>
+    </template>
 
-    <Divider />
+    <a-divider />
   </div>
 </template>
 
@@ -37,21 +44,13 @@ export default {
   data() {
     return {}
   },
-  computed: {
-    // children_visible() {
-    //   console.log(this.node.children)
-    //   console.log(this.childern_filter(this.node.children))
-    //   return this.childern_filter(this.node.children)
-    // }
-  },
+  computed: {},
 
   async created() {},
 
   mounted() {},
 
-  methods: {
-    //
-  }
+  methods: {}
 }
 </script>
 

@@ -1,10 +1,11 @@
 // import { Model } from '@/odoojs/models'
+// import { ResPartner as Model } from '@/odoojs/addons/res.partner'
 
-import { ResPartner as Model } from '@/odoojs/addons/res.partner'
+import { Model } from '@/odoorpc/models'
 
 export class ResPartner extends Model {
-  constructor() {
-    super()
+  constructor(payload = {}) {
+    super(payload)
   }
 
   static async search_location(category) {

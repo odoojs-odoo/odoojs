@@ -29,9 +29,7 @@ class ProxyJSON extends Proxy0 {
     service.interceptors.request.use(
       config => {
         // console.log('sid:', that._sid)
-        if (that._sid) {
-          config.headers['X-Openerp-Session-Id'] = that._sid
-        }
+        if (that._sid) config.headers['X-Openerp-Session-Id'] = that._sid
         return config
       },
       error => {
@@ -88,13 +86,34 @@ class ProxyJSON extends Proxy0 {
 
     return response
   }
+
+  // eslint-disable-next-line no-unused-vars
+  async call_get(url, payload = {}) {
+    const url2 = url[0] === '/' ? url : `/${url}`
+
+    // const data = {
+    //   jsonrpc: '2.0',
+    //   method: 'call',
+    //   params: payload,
+    //   id: Math.floor(Math.random() * 1000000000 + 1)
+    // }
+
+    const response = await this._service({
+      url: url2,
+      method: 'get'
+      // data
+    })
+
+    return response
+  }
 }
 
 class ProxyFileExport extends Proxy0 {
   constructor(payload) {
-    const { baseURL, timeout } = payload
+    const { baseURL, timeout, rpc, csrf_token } = payload
     super({ baseURL, timeout })
-
+    this._sid = rpc._sid
+    this.csrf_token = csrf_token
     this._service = this._get_service()
   }
 
@@ -111,9 +130,7 @@ class ProxyFileExport extends Proxy0 {
 
     service.interceptors.request.use(
       config => {
-        if (that._sid) {
-          config.headers['X-Openerp-Session-Id'] = that._sid
-        }
+        if (that._sid) config.headers['X-Openerp-Session-Id'] = that._sid
 
         const data = config.data
         const fd = new FormData()
@@ -153,22 +170,27 @@ class ProxyFileExport extends Proxy0 {
     return service
   }
 
-  async call(url, data) {
+  async call(url, payload = {}) {
+    const { data, context } = payload
     const url2 = url[0] === '/' ? url : `/${url}`
+    const csrf_token = this.csrf_token
     const token = 'dummy-because-api-expects-one'
     // const csrf_token = 'xxxxx'
+    const context_data = context ? { context: JSON.stringify(context) } : {}
+    const data2 = {
+      data: JSON.stringify(data),
+      ...context_data,
+      token,
+      csrf_token
+    }
 
     const response_data = await this._service({
       url: url2,
       method: 'post',
-      data: {
-        data: JSON.stringify(data),
-        token
-        // csrf_token
-      }
+      data: data2
     })
 
-    // console.log(response_data)
+    console.log(response_data)
 
     return response_data
   }
@@ -198,9 +220,7 @@ class ProxyFileImport extends Proxy0 {
 
     service.interceptors.request.use(
       config => {
-        if (that._sid) {
-          config.headers['X-Openerp-Session-Id'] = that._sid
-        }
+        if (that._sid) config.headers['X-Openerp-Session-Id'] = that._sid
 
         const data = config.data
         const fd = new FormData()
@@ -243,9 +263,7 @@ class ProxyFileImport extends Proxy0 {
       file
       // csrf_token
     }
-    if (jsonp) {
-      payload2.payload2 = jsonp
-    }
+    if (jsonp) payload2.payload2 = jsonp
 
     const response_data = await this._service({
       url: url2,

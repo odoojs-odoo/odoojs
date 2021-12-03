@@ -1,10 +1,13 @@
-import { Model } from '@/odoojs/models'
+// import { Model } from '@/odoojs/models'
+
+import { Model } from '@/odoorpc/models'
 
 export class ResUsers extends Model {
   constructor() {
     super()
   }
 
+  // eslint-disable-next-line no-unused-vars
   static async create_by_values(vals) {
     // const rec = await this.browse(null)
     // // rec.$name = vals.name

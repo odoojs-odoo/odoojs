@@ -1,83 +1,119 @@
 import py_utils from './py_utils'
-import viewsClass from './view'
+import { WebModel } from './web_models'
 
-class ActionBase {
+// eslint-disable-next-line no-unused-vars
+const cp = item => JSON.parse(JSON.stringify(item))
+
+class IrActions {
   constructor(env, payload) {
-    const { action_info, fields, views } = payload
-    this._env = env
+    const { action_info } = payload
+    const context = { ...env.context }
+    this._env = env.copy(context)
     this._action_info = action_info
-
-    this._fields = fields // 这个没用, 来自于  load view
-    this._views = views // 这个是 所有的 view, 来自于  load view 的 fields_views
-
-    this._views_registry = {}
   }
 
-  get xml_id() {
-    // 这个 ViewModel 读取 metadata 时 使用
-    return this._action_info.xml_id
-  }
-
-  // 所有这些参数只是 view_get 有用
   get env() {
-    // view get 用
     return this._env
   }
 
-  get res_model() {
-    // view get 用
-    return this._action_info.res_model
+  get action_info() {
+    return this._action_info
   }
 
-  get views() {
-    // view get 用
-    return this._views
+  get type() {
+    // type: "ir.actions.act_window"
+    return this._action_info.type
   }
 
-  get listview() {
-    return this.view_get('list')
+  get action_name() {
+    return this._action_info.name
   }
 
-  get treeview() {
-    return this.view_get('tree')
+  get id() {
+    return this._action_info.id
+  }
+  get xml_id() {
+    return this._action_info.xml_id
   }
 
-  get kanbanview() {
-    return this.view_get('kanban')
-  }
-
-  get formview() {
-    return this.view_get('form')
-  }
-
-  view_get(view_type) {
-    if (!this._views_registry[view_type]) {
-      this._views_registry[view_type] = this._create_view(view_type)
-    }
-    return this._views_registry[view_type]
-  }
-
-  _create_view(view_type) {
-    const views = this.views
-    const view_info = views[view_type] || {}
-    // console.log(view_type, view_info)
-    const View = viewsClass[view_type]
-    const view = new View(this.env, {
-      model: this.res_model,
-      action: this,
-      view_type,
-      view_info
-    })
-    // console.log(view)
-    return view
+  static async action_load(env, action_id, kwargs = {}) {
+    return tools.load(env, action_id, kwargs)
   }
 }
 
-ActionBase._registry = {}
-
-class ActionRoot extends ActionBase {
+class IrActionsActClient extends IrActions {
+  // action_type = ir.actions.client
+  // 菜单  讨论 是 client
   constructor(env, payload) {
     super(env, payload)
+  }
+
+  // tag
+}
+
+class IrActionsActUrl extends IrActions {
+  // action_type = ir.actions.act_url
+
+  // 结算单 预览
+  // url: '/my/invoices/6?access_token=850582b0-1ba3-4805-b9f7-71cad1f27a28'
+  constructor(env, payload) {
+    super(env, payload)
+    // console.log(payload)
+  }
+
+  get url() {
+    return this._action_info.url
+  }
+}
+
+class IrActionsServer extends IrActions {
+  // action_type = ir.actions.server
+  // act server 是代码. 直接 run, 之后再返回的是  null 或 其他 action
+  constructor(env, payload) {
+    super(env, payload)
+  }
+}
+
+// eslint-disable-next-line no-unused-vars
+class IrActionsReport extends IrActions {
+  // action_type = ir.actions.report
+  constructor(env, payload) {
+    super(env, payload)
+  }
+}
+
+class IrActionsActWindowclose extends IrActions {
+  // action_type = ir.actions.act_window_close
+  constructor(env, payload) {
+    super(env, payload)
+  }
+}
+
+class IrActionsActWindow extends IrActions {
+  // action_type = ir.actions.act_window
+  constructor(env, payload) {
+    super(env, payload)
+    const { fields, views, model_from } = payload
+
+    this._fields = fields // 这个没用, 来自于  load view
+    this._views = views // 这个是 所有的 view, 来自于  load view 的 fields_views
+    this._model_from = model_from
+
+    const Model = env.model(this.res_model, { fields })
+    this._model = new WebModel({ action: this, Model })
+    this._search_default = {}
+  }
+
+  get target() {
+    return this._action_info.target
+  }
+
+  get res_model() {
+    return this._action_info.res_model
+  }
+
+  get res_id() {
+    return this._action_info.res_id
   }
 
   get domain() {
@@ -85,122 +121,332 @@ class ActionRoot extends ActionBase {
     return this._action_info.domain
   }
 
-  static async load(env, action_xml_id, additional_context = {}) {
-    /*
-        1. xml_id is js.
-           account2.action_entry_open,account.move.line.open
-           逗号分割, 前面是 自定义的 xml_id, 后面是模型名
-           typeof xml_id === string && xml_id.split(',').length === 2
-        2. xml_id in odoo.  
-           account.action_move_journal_line
-           typeof xml_id === string && xml_id.split('.').length === 2
-        3. action_id in odoo.  
-           1
-           typeof xml_id === integer
-        4. 子查询,  call  load_sync 函数, 不在 load 里实现
-           account.action_move_journal_line;line_ids;partner_id
-           分号分割, xml_id,model_name(if js);field_name;field_name
-    */
-    if (this._registry[action_xml_id]) {
-      return this._registry[action_xml_id]
-    }
+  get view_mode() {
+    // web 页面获取 view_mode
+    return this._action_info.view_mode.split(',')
+  }
 
-    const get_action = async xml_id => {
-      const is_customer =
-        typeof xml_id === 'string' && xml_id.split(',').length === 2
-      if (is_customer) {
-        const [xml_ref, model] = xml_id.split(',')
-        // TBD 还未实现
-        const action = await this._load_by_model(env, xml_ref, model)
+  get model() {
+    return this._model
+  }
+
+  get fields() {
+    return this._fields
+  }
+
+  get model_from() {
+    return this._model_from
+  }
+
+  get views() {
+    return this._views
+  }
+
+  get search_default() {
+    return this._search_default
+  }
+
+  get_context() {
+    return get_context(this._action_info.context, {})
+  }
+
+  //  初始化的时候, o2m字段的 views 页面 可能无  form view
+  // 在 relation browse 前, 需要 更新下
+  async load_view_info(view_type) {
+    // console.log(
+    //   'load,11',
+    //   this.res_model,
+    //   this.views,
+    //   this._action_info.view_mode,
+    //   view_type
+    // )
+
+    if (!this.views[view_type]) {
+      const args = [[null, view_type]]
+      const info = await this.model.Model.execute('load_views', args)
+      console.log('xxxx,', cp(info))
+
+      this.views[view_type] = {
+        _is_load_async: 1,
+        ...info.fields_views[view_type]
+      }
+      // console.log(
+      //   'load,22',
+      //   this.res_model,
+      //   this._action_info.view_mode,
+      //   view_type
+      // )
+      // if (!this.view_mode.includes(view_type)) {
+      //   const modes = [this._action_info.view_mode, view_type]
+      //   this._action_info.view_mode = modes.join(',')
+      // }
+    }
+  }
+
+  async set_env_and_search_default(kwargs) {
+    // console.log('set env', this.env.context, kwargs)
+    const { additional_context, active_context } = kwargs
+    if (additional_context && active_context) {
+      this._env = tools._get_env(this.env, this.action_info.context, kwargs)
+      await this.set_search_default()
+    }
+  }
+
+  async set_search_default() {
+    const search_defaults = {}
+    for (const item in this.env.context) {
+      if (item.slice(0, 14) === 'search_default') {
+        console.log('search', item)
+        const field = item.slice(15)
+        const meta = this.fields[field] || {}
+        if (['many2one', 'selection'].includes(meta.type)) {
+          const key = `${field}-id_${this.env.context[item]}`
+          const val = this.env.context[item]
+          search_defaults[key] =
+            meta.type === 'many2one'
+              ? (await this.env.model(meta.relation).name_get([val])).find(
+                  item => item[0] === val
+                )
+              : meta.selection.find(item => item[0] === val)
+        } else {
+          search_defaults[field] = 1
+        }
+      }
+    }
+    this._search_default = search_defaults
+    // console.log('search_default2', search_defaults)
+  }
+}
+
+export const action_load = async (env, action_xml_id, kwargs2 = {}) => {
+  /*
+     *    1. load menu 之后, menu 中的 action 为 action_ref
+     *      如: account.action_move_journal_line
+           判断方式: typeof xml_id === string && xml_id.split('.').length === 2
+        2. 自定义菜单, 也是提供 action_ref
+        3. listview 和 formview 的 toolbar 中, 或者 formview 的 button 中,
+           action 为 action_id, 整形值 如: 1
+           为了 保证唯一性, 我们把 parent action 一起传过来
+           格式为数组: [parent_action_id,action_id]
+           判断方式: Arrar.isArray( xml_id) && typeof xml_id[xml_id.length-1] === integer
+             注意 buttonclick 事件中, 是否要先转换为 number
+        4. 自定义的 xml_id. 该功能保留. 暂时不需要
+          //  格式 需要再完善 与 上一条冲突
+           格式 account2.action_entry_open,account.move.line.open
+           逗号分割, 前面是 自定义的 xml_id, 后面是模型名
+           判断方式: typeof xml_id === string && xml_id.split(',').length === 2
+ 
+    */
+
+  // 自定义 action TBD
+  // const is_customer =
+  //   typeof xml_id === 'string' && xml_id.split(',').length === 2
+  // if (is_customer) {
+  //   throw 'Not define'
+  //   // const [xml_ref, model] = xml_id.split(',')
+  //   // TBD 还未实现
+  //   // const action = await this._load_by_model(env, xml_ref, model)
+  //   // return action
+  // }
+
+  // 如果是 action_ref 先 获取 action_id
+
+  const get_action_id = async xml_id => {
+    if (typeof xml_id === 'string' && xml_id.split('.').length === 2) {
+      const action = await env.ref(xml_id)
+      const action_id = action.id
+      return action_id
+    } else {
+      return xml_id
+    }
+  }
+
+  const action_id = await get_action_id(action_xml_id)
+
+  return tools.load(env, action_id, kwargs2)
+}
+
+const tools = {
+  _registry: {},
+  _registry_for_non_menu: {},
+
+  async load(env, action_id, kwargs2 = {}) {
+    //  is_mobile 的作用? TBD
+    // const { is_mobile, ...kwargs2 } = kwargs
+    // action.is_mobile = is_mobile
+    //
+    // * from web, 是 菜单点击事件  这时 只有 action_id
+    // * from web, 是 点击按钮之后的reload , 这时, 有额外的 active_id
+    //
+    // * from view.js 时:
+    // { active_context, additional_context} = kwargs2
+    // 1. 如果有 action_info, 是 button click 后, 返回 action_info 那么
+    //    context = env.odoo.env.context + additional_context + active_context + action_info.context
+    // 2. TBD:  若无, 则是 view.js call_action,
+    //    ?context = env.odoo.env.context + additional_context + active_context + action_info.context
+
+    const { active_id, ...kwargs } = kwargs2
+
+    // console.log('xxxxx,load', kwargs2)
+
+    const _for_menu = async () => {
+      if (tools._registry[action_id]) {
+        const action = tools._registry[action_id]
         return action
       } else {
-        // 这是 异步 load, 参数是  action.xml_id or action.id
-        const action = await this._load(env, xml_id, additional_context)
+        const action = await tools._load(env, action_id, kwargs)
+        if (!action) return action
+        if (action.id) tools._registry[action.id] = action
         return action
       }
     }
 
-    const action = await get_action(action_xml_id)
+    const _for_non_menu = async active_id => {
+      const active_context = { active_id, active_ids: [active_id] }
 
-    await action._load_model_ids()
+      if (action_id && tools._registry_for_non_menu[action_id]) {
+        const action = tools._registry_for_non_menu[action_id]
+        if (action.type === 'ir.actions.act_window')
+          await action.set_env_and_search_default({ active_context })
+        return action
+      } else {
+        const action = await tools._load(env, action_id, { active_context })
+        // 貌似应该 写入 tools._registry
+        // if (!action) return action
+        // if (action.id) tools._registry_for_non_menu[action.id] = action
+        return action
+      }
+    }
 
-    this._registry[action._action_info.xml_id] = action
-    this._registry[action._action_info.id] = action
+    const _for_inner = async () => {
+      // TBD. 需要确认下 不能 从 tools._registry_for_non_menu . reload
+      const action = await tools._load(env, action_id, kwargs)
+      if (!action) return action
+      if (action.id) tools._registry_for_non_menu[action.id] = action
+      return action
+
+      // if (action_id && tools._registry_for_non_menu[action_id]) {
+      //   const action = tools._registry_for_non_menu[action_id]
+      //   if (action.type === 'ir.actions.act_window')
+      //     await action.set_env_and_search_default(kwargs)
+      //   return action
+      // } else {
+      //   const action = await tools._load(env, action_id, kwargs)
+      //   if (!action) return action
+      //   if (action.id) tools._registry_for_non_menu[action.id] = action
+      //   return action
+      // }
+    }
+
+    const { additional_context } = kwargs2
+    // view.js  内部调用
+    if (additional_context) return _for_inner()
+
+    // console.log('xxxxx,load1', kwargs2)
+
+    // 页面 菜单 调用
+    if (!active_id) return _for_menu()
+
+    // 页面 非菜单 调用
+    if (active_id) return _for_non_menu(active_id)
+  },
+
+  async _load(env, action_id, kwargs = {}) {
+    const { action_info, additional_context, active_context } = kwargs
+    let action_info2 = action_info
+
+    if (!action_info) {
+      action_info2 = await env.odoo.web.action.load({
+        action_id,
+        additional_context: {
+          ...env.context,
+          ...(additional_context || {}),
+          ...(active_context || {})
+        }
+      })
+    }
+
+    const action = await this._load_by_info(env, action_info2, kwargs)
 
     return action
-  }
+  },
 
-  static async _load(env, action_xml_id, additional_context = {}) {
-    const get_action_id = async xml_id => {
-      if (typeof xml_id === 'string' && xml_id.split('.').length === 2) {
-        const action = await env.ref(xml_id)
-        const action_id = action.id
-        return action_id
-      } else {
-        return xml_id
-      }
+  async _load_by_info(env, action_info, kwargs) {
+    // console.log('action_info', action_info)
+
+    if (action_info.type === 'ir.actions.act_window') {
+      return await tools.load_act_window(env, action_info, kwargs)
+    } else if (action_info.type === 'ir.actions.act_window_close') {
+      return await tools.load_act_window_close(env, action_info, kwargs)
+    } else if (action_info.type === 'ir.actions.client') {
+      return await tools.load_act_client(env, action_info, kwargs)
+    } else if (action_info.type === 'ir.actions.act_url') {
+      return await tools.load_act_url(env, action_info, kwargs)
+    } else if (action_info.type === 'ir.actions.server') {
+      return await tools.load_server(env, action_info, kwargs)
+    } else {
+      console.log(' TBD  action', action_info.type, action_info, kwargs)
+      throw 'TBD action'
+    }
+  },
+
+  _get_env(env, context_str, kwargs) {
+    // context = env.odoo.env.context + additional_context + active_context + action_info.context
+    // console.log(env.context, env.odoo.env.context, kwargs)
+    const { additional_context = {}, active_context = {} } = kwargs
+    const globals = { ...env.context, ...active_context }
+    const context2 = get_context(context_str, globals)
+    const context = { ...context2, ...additional_context, ...active_context }
+    return env.copy({ ...env.odoo.env.context, ...context })
+  },
+
+  async load_server(env2, action_info, kwargs) {
+    const env = this._get_env(env2, action_info.context, kwargs)
+    return new IrActionsServer(env, { action_info })
+  },
+
+  async load_act_url(env2, action_info, kwargs) {
+    const env = this._get_env(env2, action_info.context, kwargs)
+    return new IrActionsActUrl(env, { action_info })
+  },
+
+  async load_act_client(env2, action_info, kwargs) {
+    const env = this._get_env(env2, action_info.context, kwargs)
+    return new IrActionsActClient(env, { action_info })
+  },
+
+  async load_act_window_close(env2, action_info, kwargs) {
+    const env = this._get_env(env2, action_info.context, kwargs)
+    return new IrActionsActWindowclose(env, { action_info })
+  },
+
+  async load_act_window(env2, action_info, kwargs = {}) {
+    const env = this._get_env(env2, action_info.context, kwargs)
+    const search_view_id = action_info.search_view_id
+    const model = action_info.res_model
+    const kwargs2 = {
+      views: [...action_info.views, [(search_view_id || [false])[0], 'search']],
+      options: { action_id: action_info.id, toolbar: true, load_filters: true }
     }
 
-    const action_id = await get_action_id(action_xml_id)
-    const action_info = await env.odoo.web.action.load(
-      action_id,
-      additional_context
-    )
+    const views_result = await tools._load_views(env, model, kwargs2)
+    // {filters, fields_views,fields, } = views_result
+    const { fields_views: views, fields } = views_result
 
-    // console.log(env)
-    const get_context = () => {
-      if (!action_info.context) {
-        return {}
-      }
+    await tools._load_model_ids(env, model, views)
 
-      // TBD 不同的action, 其 context 内容 eval 时, 需要参数,
-      // 如果 eval 时报错, 那么查找下, 缺少哪个参数, 在这里补充
-      // 目前看有 active_id 和 allowed_company_ids 都是 centext 里的 内容,
-      // 而 centext 来自于 页面点击按钮跳转时, 那个按钮应该携带的
-      // 如果是从 菜单 点击跳转的 action，应该 没有 context , active_id
+    // console.log('load_act_window', env.context, kwargs)
+    const action = new IrActionsActWindow(env, { action_info, fields, views })
+    await action.set_search_default()
+    return action
+  },
 
-      //
-      // odoo 中搜索 <field name="context">
-      // 有 active_id, allowed_company_ids[0], uid
-      //
+  async _load_model_ids(env, model, views) {
+    // 读取 action 的所有 子model 的 model_id , 并 set env
+    // 目的是 设置 model_id 为 pyeval 服务
+    //
+    // TBD 只对 act_window 有用? 其他 类型是什么情况?
 
-      // env.context 是 调用 该 action 的 上下文, 里面应该有这些东西
-
-      // console.log(action_info.context, env.context)
-      // const context = env.eval_safe(action_info.context, env.context)
-
-      const context = py_utils.eval(action_info.context, env.context)
-      // console.log(action_info.context, env.context, context)
-      return context
-    }
-
-    const context = get_context()
-    const env2 = env.copy({ ...env.odoo.env.context, ...context })
-
-    return this.load_by_info(env2, action_info)
-  }
-
-  static async load_by_info(env, action_info) {
-    const views_result = await this._load_views(
-      env,
-      action_info.res_model,
-      action_info.views
-    )
-
-    const views = views_result.fields_views
-    const fields = views_result.fields
-    const action2 = new this(env, { action_info, fields, views })
-    return action2
-  }
-
-  static async _load_views(env, model, views) {
-    const method = 'load_views'
-    const Model = env.model(model)
-    const res = await Model.execute_kw(method, [], { views })
-    return res
-  }
-
-  async _load_model_ids() {
     const get_all_models = views => {
       return Object.keys(views).reduce((acc, view_type) => {
         const fields = views[view_type].fields
@@ -219,70 +465,45 @@ class ActionRoot extends ActionBase {
       }, {})
     }
 
-    const all_models2 = get_all_models(this.views)
-    const all_models = { [this.res_model]: 12, ...all_models2 }
-    await this.env._set_model_registry(Object.keys(all_models))
+    const all_models2 = get_all_models(views)
+    const all_models = { [model]: 12, ...all_models2 }
+    await env._set_model_registry(Object.keys(all_models))
+  },
+
+  async _load_views(env, model, { views, options }) {
+    const method = 'load_views'
+    const Model = env.model(model)
+    const res = await Model.execute_kw(method, [], { views, options })
+
+    return res
   }
 }
 
-class SubAction extends ActionRoot {
-  constructor(env, payload) {
-    super(env, payload)
-    const { from_view } = payload
-    // formview 定义子 o2m 的 action 时, 需要这个
-    this._from_view = from_view
-  }
+const get_context = (todo_str, globals_dict = {}) => {
+  if (!todo_str) return {}
 
-  static load_sync(env, payload = {}) {
-    const { from_view } = payload
-    const { viewmodel: from_viewmodel, field: from_field } = from_view
-    // console.log(from_view)
+  // act_sever run 之后 返回的东西,  context 不是字符串, 无需转换
+  if (typeof todo_str !== 'string') return todo_str
 
-    const parent_xml_id = from_viewmodel.view.action.xml_id
-    const view_type = from_viewmodel.view.view_type
-    const xml_id = `${parent_xml_id},${view_type}.${from_field}`
-    // console.log(xml_id)
-    if (this._registry[xml_id]) {
-      return this._registry[xml_id]
-    }
+  // TBD 不同的action, 其 context 内容 eval 时, 需要参数,
+  // 如果 eval 时报错, 那么查找下, 缺少哪个参数, 在这里补充
+  // 目前看有 active_id 和 allowed_company_ids 都是 centext 里的 内容,
+  // 而 centext 来自于 页面点击按钮跳转时, 那个按钮应该携带的
+  // 如果是从 菜单 点击跳转的 action，应该 没有 context , active_id
 
-    const action = this._load_sync(env, { ...payload, xml_id })
-    this._registry[action._action_info.xml_id] = action
-    this._registry[action._action_info.id] = action
+  //
+  // odoo 中搜索 <field name="context">
+  // 有 active_id, allowed_company_ids[0], uid
+  //
 
-    return action
-  }
+  // env.context 是 调用 该 action 的 上下文, 里面应该有这些东西
 
-  static _load_sync(env, payload = {}) {
-    const { from_view, xml_id } = payload
-    const { viewmodel: from_viewmodel, field: from_field } = from_view
-    // console.log(from_view)
+  // console.log(action_info.context, env.context)
+  // const context = env.eval_safe(action_info.context, env.context)
 
-    const meta = from_viewmodel.view.view_info.fields[from_field]
-    // console.log(meta)
-
-    const action_info = {
-      id: xml_id,
-      domain: false,
-      res_model: meta.relation,
-      views: [
-        [false, 'list'],
-        [false, 'form']
-      ],
-      xml_id
-    }
-
-    const fields = {}
-    const views = meta.views
-    const action_payload = { action_info, fields, views, from_view }
-    return new this(env, { ...action_payload })
-  }
-}
-
-export class Action extends SubAction {
-  constructor(env, payload) {
-    super(env, payload)
-  }
+  const context = py_utils.eval(todo_str, globals_dict)
+  // console.log(action_info.context, env.context, context)
+  return context
 }
 
 //   id: 132,

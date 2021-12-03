@@ -12,21 +12,14 @@ export const new_list = len => {
 }
 
 export const is_node = node => {
-  if (typeof node !== 'object') {
-    return false
-  }
-  if (Array.isArray(node)) {
-    return false
-  }
-  if (typeof node === 'boolean') {
-    return false
-  }
+  if (typeof node !== 'object') return false
+  if (Array.isArray(node)) return false
+  if (typeof node === 'boolean') return false
   return true
 }
 
-export const is_virtual_id = id_ => {
-  return typeof id_ === 'string' && id_.slice(0, 8) === 'virtual_'
-}
+export const is_virtual_id = id_ =>
+  typeof id_ === 'string' && id_.slice(0, 8) === 'virtual_'
 
 export const get_cookie = function(c_name) {
   var cookies = document.cookie ? document.cookie.split('; ') : []

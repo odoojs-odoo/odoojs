@@ -9,6 +9,10 @@ odoojs 的对外 api 非常友好. 使用 odoojs 如同在直接使用 odoo.
 
 #### 更新历史
 
+2021-12-3  
+选择 ant-design-vue 做 UI  
+odoorpc/odoojs 代码优化
+
 2021-7-26  
 odoojs 重大改进  
 访问 odoo 的方式更简洁

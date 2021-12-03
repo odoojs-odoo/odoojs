@@ -1,59 +1,53 @@
+import { tools } from '@/odoojs'
+
 export default {
   components: {},
-  mixins: [],
-
   props: {
-    value: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    },
-
-    dataDict: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    },
-
+    loading: { type: Boolean, default: false },
     editable: { type: Boolean, default: false },
 
-    node: {
+    dataInfo: {
       type: Object,
       default: () => {
-        return {
-          children: []
-        }
+        return { dataDict: {} }
       }
     },
 
-    modelMethod: { type: Function, default: () => false }
-  },
+    viewInfo: {
+      type: Object,
+      default: () => {
+        return { fields: {}, node: { children: [] } }
+      }
+    },
 
+    methodCall: { type: Function, default: () => undefined }
+  },
   data() {
     return {}
   },
   computed: {
     debug() {
-      return 0
+      return tools.debug
+    },
+
+    node() {
+      return this.viewInfo.node || { children: [] }
+    },
+
+    res_model() {
+      return this.viewInfo.model
+    },
+
+    dataDict() {
+      return this.dataInfo.dataDict || {}
     },
 
     fullname() {
       return this.node.fullName
     },
 
-    model() {
-      return this.modelMethod()
-    },
-    value2: {
-      get() {
-        return this.value
-      },
-      set(/*value*/) {
-        // console.log(' value2, ', value, typeof value)
-        // this.$emit('input', value)
-      }
+    children_visible() {
+      return this.childern_filter(this.node.children)
     },
 
     invisible_by_oe_read_or_edit_only() {
@@ -61,30 +55,27 @@ export default {
       const oe_read_only = (node.class || '').includes('oe_read_only')
       const oe_edit_only = (node.class || '').includes('oe_edit_only')
       const editable = this.editable
-      return (editable && oe_read_only) || (!editable && oe_edit_only)
-    },
 
-    children_visible() {
-      return this.childern_filter(this.node.children)
+      // console.log(node, oe_read_only, oe_edit_only, editable)
+      return (editable && oe_read_only) || (!editable && oe_edit_only)
     }
   },
 
+  watch: {},
+
   async created() {},
+  async mounted() {},
 
   methods: {
-    async handleOnchange(field, value, text) {
-      // console.log('handleOnchange', this.fullname, [field, value, text])
-      this.$emit('on-change', field, value, text)
+    handleOnEvent(event_name, ...args) {
+      this.$emit('on-event', event_name, ...args)
     },
 
-    get_invisible(item) {
-      if (this.model) {
-        const invisible = this.model.get_invisible(item, this.dataDict)
-        // console.log(invisible, this.fullname, item)
-        return invisible
-      } else {
-        return false
-      }
+    get_invisible(node) {
+      return tools.node_invisible(node, {
+        data_info: this.dataInfo,
+        view_info: this.viewInfo
+      })
     },
 
     childern_filter(children) {
@@ -95,11 +86,6 @@ export default {
           return !this.get_invisible(item)
         }
       })
-    },
-
-    handleButtonClicked(payload) {
-      console.log(this.fullname, payload)
-      this.$emit('button-clicked', payload)
     }
   }
 }

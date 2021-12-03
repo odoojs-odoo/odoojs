@@ -1,104 +1,156 @@
 <template>
-  <div class="o_form_view">
-    <div class="o_form_sheet_bg">
-      <span v-for="(item, index) in children_visible" :key="index">
+  <div>
+    <!-- parentSpan22: {{ parentSpan }} -->
+
+    <template v-for="(item, index) in children_visible">
+      <template v-if="item.tagName === 'header'">
         <OHeader
-          v-if="item.tagName === 'header'"
-          v-model="value2"
-          :dataDict="dataDict"
-          :node="item"
+          :key="index"
           :editable="editable"
-          :modelMethod="modelMethod"
-          @on-change="handleOnchange"
-          @button-clicked="handleButtonClicked"
+          :loading="loading"
+          :data-info="dataInfo"
+          :view-info="{ ...viewInfo, node: item }"
+          :method-call="methodCall"
+          @on-event="handleOnEvent"
         />
+      </template>
+
+      <template v-else-if="item.tagName === 'sheet'">
+        <!-- {{ item.fullName }} -->
         <OSheet
-          v-else-if="item.tagName === 'sheet'"
-          v-model="value2"
-          :dataDict="dataDict"
-          :node="item"
+          :key="index"
           :editable="editable"
-          :modelMethod="modelMethod"
-          @on-change="handleOnchange"
+          :loading="loading"
+          :data-info="dataInfo"
+          :view-info="{ ...viewInfo, node: item }"
+          :parent-span="parentSpan"
+          :method-call="methodCall"
+          @on-event="handleOnEvent"
         />
+      </template>
 
-        <div v-else-if="item.tagName === 'div' && item.class === 'oe_chatter'">
-          <!-- chatter -->
-        </div>
+      <template
+        v-else-if="item.tagName === 'div' && item.class === 'oe_chatter'"
+      >
+        <!-- chatter -->
+      </template>
 
+      <template v-else-if="item.tagName === 'div'">
         <ONode
-          v-else-if="item.tagName === 'div'"
-          :dataDict="dataDict"
-          :node="item"
-          :modelMethod="modelMethod"
+          :key="index"
+          :editable="editable"
+          :loading="loading"
+          :data-info="dataInfo"
+          :view-info="{ ...viewInfo, node: item }"
+          :method-call="methodCall"
+          @on-event="handleOnEvent"
         />
-        <div v-else-if="item.tagName === 'link'"></div>
+      </template>
 
-        <div v-else-if="item.tagName === 'footer'">
-          <!-- footer: {{ item.fullName }} -->
+      <template v-else-if="item.tagName === 'p'">
+        <ONode
+          :key="index"
+          :editable="editable"
+          :loading="loading"
+          :data-info="dataInfo"
+          :view-info="{ ...viewInfo, node: item }"
+          :method-call="methodCall"
+          @on-event="handleOnEvent"
+        />
+      </template>
 
-          <OFooter
-            v-model="value2"
-            :dataDict="dataDict"
-            :node="item"
-            :editable="editable"
-            :modelMethod="modelMethod"
-            @on-change="handleOnchange"
-            @button-clicked="handleButtonClicked"
-          />
-        </div>
+      <template v-else-if="item.tagName === 'link'"></template>
 
-        <div v-else>
-          {{ item.fullName }}
-        </div>
-      </span>
-    </div>
+      <template v-else-if="item.tagName === 'footer'">
+        footer: {{ item.fullName }}
+
+        <!-- <OFooter
+              :node="item"
+              :editable="editable"
+              :modelMethod="modelMethod"
+              :parent-init-finished="initFinished"
+              :method-call="methodCall"
+              @on-event="handleOnEvent"
+            /> -->
+      </template>
+
+      <template v-else-if="item.tagName === 'group'">
+        <!--  o2m form 中出现 -->
+        <OGroup
+          :key="index"
+          :editable="editable"
+          :loading="loading"
+          :data-info="dataInfo"
+          :view-info="{ ...viewInfo, node: item }"
+          :parent-span="parentSpan"
+          :method-call="methodCall"
+          @on-event="handleOnEvent"
+        />
+      </template>
+
+      <template v-else-if="item.tagName === 'label'">
+        <!--  o2m form 中出现 -->
+        <OLabel
+          :key="index"
+          :editable="editable"
+          :loading="loading"
+          :data-info="dataInfo"
+          :view-info="{ ...viewInfo, node: item }"
+          :method-call="methodCall"
+          @on-event="handleOnEvent"
+        />
+      </template>
+
+      <template v-else-if="item.tagName === 'field'">
+        <!--  o2m form 中出现 -->
+        <OField
+          :key="index"
+          :editable="editable"
+          :loading="loading"
+          :data-info="dataInfo"
+          :view-info="{ ...viewInfo, node: item }"
+          :method-call="methodCall"
+          @on-event="handleOnEvent"
+        />
+      </template>
+
+      <template v-else>form else: {{ item.fullName }}</template>
+    </template>
   </div>
 </template>
 
 <script>
-/*
-Form 的 结构 tbd
-
-header
-sheet
-footer
-
-*/
-
 import OMixin from './OMixin'
-
 import OHeader from './OHeader'
 import OSheet from './OSheet'
-import OFooter from './OFooter'
-
 import ONode from './ONode'
 
+// import OFooter from './OFooter'
+
+import OGroup from './OGroup'
+import OLabel from './OLabel'
+import OField from './OField'
+
+// eslint-disable-next-line no-unused-vars
+const cp = item => JSON.parse(JSON.stringify(item))
+
 export default {
-  name: 'FormView',
-  components: { OHeader, OSheet, OFooter, ONode },
+  name: 'OFormView',
+  components: { OHeader, OSheet, ONode, OGroup, OLabel, OField },
   mixins: [OMixin],
-
-  props: {},
-
+  props: {
+    parentSpan: { type: Number, default: 24 }
+  },
   data() {
     return {}
   },
   computed: {},
 
-  async created() {},
-
-  mounted() {
-    // // eslint-disable-next-line no-unused-vars
-    // const deep_copy = node => {
-    //   return JSON.parse(JSON.stringify(node))
-    // }
-    // console.log('OFormView', deep_copy(this.node), this.node)
-    // console.log('OFormView', deep_copy(this.node))
-  },
+  created() {},
+  async mounted() {},
 
   methods: {}
 }
 </script>
 
-<style type="text/css"></style>
+<style scoped></style>

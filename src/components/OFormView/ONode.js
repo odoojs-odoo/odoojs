@@ -14,44 +14,39 @@ const node_map = {
   b: 'b',
   bold: 'b',
   p: 'p',
-  a: 'a',
+  // a: 'a',
   strong: 'strong',
-  newline: 'div'
+  newline: 'div',
+  hr: 'hr',
+  i: 'i',
+  br: 'br'
 }
 
 const node_map2 = {
-  i: 'OTooltip',
+  // i: 'OTooltip',
+  a: 'OA',
   button: 'OButton',
   label: 'OLabel',
-  field: 'OField',
-  img: 'OImg',
-  group: 'OGroup'
-
+  field: 'OField'
+  // img: 'OImg',
+  // group: 'OGroup'
   // // separator
 }
 
 export default {
   name: 'ONode',
   components: {
-    OImg: () => import('./OImg'),
+    // OImg: () => import('./OImg'),
+    OA: () => import('./OA'),
     OButton: () => import('./OButton'),
     OLabel: () => import('./OLabel'),
-    OField: () => import('./OField'),
-    OTooltip: () => import('./OTooltip'),
-    OGroup: () => import('./OGroupOut')
+    OField: () => import('./OField')
+    // OTooltip: () => import('./OTooltip'),
+    // OGroup: () => import('./OGroupOut')
   },
 
   mixins: [OMixin],
-  props: {
-    node: {
-      type: [Object, String, Array, Boolean, Number],
-      default: () => {
-        return {
-          children: []
-        }
-      }
-    }
-  },
+  props: {},
 
   computed: {},
 
@@ -78,14 +73,14 @@ export default {
 
       // 根据 oe_edit_only 和 oe_read_only, 隐藏节点
       const invisible = this.invisible_by_oe_read_or_edit_only
-      if (invisible) {
+      if (invisible && !this.debug) {
         return createElement('span', {}, [])
       }
 
       const tagName = node_map[node.tagName]
       if (!tagName) {
         return createElement('div', {}, [
-          createElement('div', {}, [this.fullname, '-- nook'])
+          createElement('div', {}, ['--Node nook ', this.fullname])
         ])
       }
 
@@ -97,12 +92,23 @@ export default {
 
       const children = [...debug_info, ...children1]
 
-      return createElement(tagName, { attrs: {}, class: node.class }, [
+      const tagName2 =
+        tagName === 'span' && node.class === 'o_stat_text' ? 'div' : tagName
+
+      return createElement(tagName2, { attrs: {}, class: node.class }, [
         ...children
       ])
     },
 
     getChildren(createElement, node) {
+      // name="qty_at_date_widget"
+      if (
+        node.tagName === 'widget' &&
+        node.attrs.name === 'qty_at_date_widget'
+      ) {
+        return ''
+      }
+
       const tagName2 = node_map2[node.tagName] || 'ONode'
 
       const self = this
@@ -112,26 +118,16 @@ export default {
         class: node.class,
 
         props: {
-          value: self.value,
-          node: node,
-          dataDict: self.dataDict,
           editable: self.editable,
-          modelMethod: self.modelMethod
+          loading: self.loading,
+          dataInfo: self.dataInfo,
+          viewInfo: { ...self.viewInfo, node },
+          methodCall: self.methodCall
         },
         on: {
-          // input: function(event) {
-          //   console.log(event.target.value)
-          //   self.$emit('input', event.target.value)
-          // }
-
-          'on-change': self.handleOnchange
+          'on-event': self.handleOnEvent
         }
       })
-    },
-
-    async handleOnchange(field, value, text) {
-      console.log('handleOnchange,', this.fullname, [field, value, text])
-      this.$emit('on-change', field, value, text)
     }
   }
 }

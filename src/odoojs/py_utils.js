@@ -1,4 +1,10 @@
-import py from './py.js/lib/py'
+// import py from './py.js/lib/py'
+import py from './py.js/lib/py_extras'
+
+// py.extras = py_extras.extras
+
+// console.log('py', py)
+// console.log('py_extras', py_extras)
 
 function wrap(value) {
   if (value === null) {
@@ -89,8 +95,8 @@ var wrapping_list = py.type('wrapping_list', null, {
 
 function wrap_context(context) {
   for (var k in context) {
-    // eslint-disable-next-line no-prototype-builtins
-    if (!context.hasOwnProperty(k)) {
+    // if (!context.hasOwnProperty(k)) {
+    if (!Object.prototype.hasOwnProperty.call(context, k)) {
       continue
     }
     var val = context[k]
@@ -114,9 +120,56 @@ function wrap_context(context) {
   return context
 }
 
+function context_today() {
+  var d = new Date()
+  return py.PY_call(py.extras.datetime.date, [
+    d.getFullYear(),
+    d.getMonth() + 1,
+    d.getDate()
+  ])
+}
+
+function tz_offset() {
+  var offset = new Date().getTimezoneOffset()
+  var kwargs = { minutes: py.float.fromJSON(offset) }
+  return py.PY_call(py.extras.datetime.timedelta, [], kwargs)
+}
+
+function pycontext() {
+  const d = new Date()
+  const today = `${String(d.getFullYear()).padStart(4, '0')}-${String(
+    d.getMonth() + 1
+  ).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+
+  const now = `${String(d.getUTCFullYear()).padStart(4, '0')}-${String(
+    d.getUTCMonth() + 1
+  ).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')} ${String(
+    d.getUTCHours()
+  ).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')}:${String(
+    d.getUTCSeconds()
+  ).padStart(2, '0')}`
+
+  const { datetime, relativedelta, time } = py.extras
+  return {
+    current_date: today,
+    datetime,
+    time,
+    now,
+    today,
+    relativedelta,
+    context_today,
+    tz_offset
+  }
+}
+
 const pyeval = (context, evaluation_context2) => {
-  const evaluation_context = JSON.parse(JSON.stringify(evaluation_context2))
+  // console.log('py,', context, evaluation_context2)
+  const evaluation_context3 = JSON.parse(JSON.stringify(evaluation_context2))
+  const ctx = pycontext()
+  const evaluation_context = { ...evaluation_context3, ...ctx }
+
   const evaluated = py.eval(context, wrap_context(evaluation_context))
+
   return evaluated
 }
 

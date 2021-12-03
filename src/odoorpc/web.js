@@ -2,11 +2,77 @@ class _WEB {
   constructor(payload) {
     const { odoo } = payload
     this._odoo = odoo
+    // this._menu_data = {}
+    // this._is_user = false
   }
 
   get odoo() {
     return this._odoo
   }
+
+  // get is_user() {
+  //   return this._is_user
+  // }
+
+  // get menu_data() {
+  //   return { ...this._menu_data }
+  // }
+}
+
+class Home extends _WEB {
+  constructor(payload) {
+    super(payload)
+  }
+
+  async login({ db, login, password }) {
+    await this.odoo.web.session.authenticate({ db, login, password })
+    //
+
+    // const is_user = await this.odoo.env
+    //   .model('res.users')
+    //   .execute('has_group', 'base.group_user')
+    // // console.log(is_user)
+
+    // this._is_user = is_user
+
+    // if (is_user) {
+    //   // web.controller.main.home.web_client
+    //   // const context = await this.odoo.env
+    //   //   .model('ir.http')
+    //   //   .execute('webclient_rendering_context', [])
+    //   // console.log(context)
+    //   //
+    //   //
+    //   // web.controller.main.home.web_load_menus
+    //   // menus = request.env["ir.ui.menu"].load_menus(request.session.debug)
+    //   const menus = await this.odoo.env
+    //     .model('ir.ui.menu')
+    //     .execute('load_menus', ['1'])
+    //   // console.log(menus)
+
+    //   this._menu_data = menus
+    // }
+
+    return true
+  }
+
+  async signup(payload = {}) {
+    const url = '/web2/signup'
+    return await this._odoo.json_call(url, payload)
+  }
+
+  // async load_menus() {
+  // 直接用 call_kw , 这个接口没有用
+  //   const url = '/web/webclient/load_menus'
+  //   const session_info = this.odoo.session_info
+  //   // const token = session_info.cache_hashes.load_menus
+
+  //   const token =
+  //     'b9d683172a28adedb5d38d5b55c2c3d78f01fa8e77f1d805496724bf2abff73a'
+
+  //   const url2 = `${url}/${token}`
+  //   return await this._odoo.json_get(url2, {})
+  // }
 }
 
 class Datebase extends _WEB {
@@ -100,18 +166,57 @@ class Session extends _WEB {
 
   get allowed_company_ids() {
     const cids_str = this.get_cookie('cids')
-    if (cids_str) {
-      return cids_str.split(',').map(item => Number(item))
-    } else {
-      const user_companies = this.session_info.user_companies || {}
-      const allowed_companies = user_companies.allowed_companies || []
-      return allowed_companies.map(item => item[0])
-    }
+    if (cids_str) return cids_str.split(',').map(item => Number(item))
+    return [this.current_company_id]
+    // const user_companies = this.session_info.user_companies || {}
+    // const allowed_companies = user_companies.allowed_companies || []
+    // return [allowed_companies[0][0]]
   }
 
   set allowed_company_ids(cids = []) {
     const cids_str = cids.join(',')
     this.set_cookie('cids', cids_str || String(this.current_company_id))
+  }
+
+  set_first_allowed_company(cid) {
+    const oids = this.allowed_company_ids
+    const get_ids = () => {
+      const oid = oids.find(item => item === cid)
+      if (oid) return [cid, ...oids.filter(item => item !== cid)]
+      else if (oids.length > 1) return [cid, ...oids]
+      else return [cid]
+    }
+    const cids = get_ids()
+    this.allowed_company_ids = cids
+  }
+
+  change_allowed_company(cid, checked) {
+    // console.log(cid, checked)
+    const oids = this.allowed_company_ids
+
+    const get_ids = () => {
+      const oid = oids.find(item => item === cid)
+      if (checked) {
+        if (oid) return [...oids]
+        else return [...oids, cid]
+      } else {
+        if (!oid) return [...oids]
+        else if (oids.length > 1) {
+          const nids = oids.filter(item => item !== cid)
+          if (oids[0] !== cid) return nids
+          else {
+            const cur = this.current_company_id
+            if (!nids.find(item => item === cur)) return nids
+            else return [cur, ...nids.filter(item => item !== cur)]
+          }
+        } else {
+          return [...oids]
+        }
+      }
+    }
+
+    const cids = get_ids()
+    this.allowed_company_ids = cids
   }
 
   get current_company_id() {
@@ -129,9 +234,7 @@ class Session extends _WEB {
       var name = parts.shift()
       var cookie = parts.join('=')
 
-      if (c_name && c_name === name) {
-        return cookie
-      }
+      if (c_name && c_name === name) return cookie
     }
     return ''
   }
@@ -202,6 +305,11 @@ class Session extends _WEB {
     const url = '/web/session/change_password'
     return await this._odoo.json_call(url, { fields })
   }
+
+  async csrf_token() {
+    const url = '/web2/session/csrf_token'
+    return await this._odoo.json_call(url, {})
+  }
 }
 
 class Dataset extends _WEB {
@@ -228,19 +336,65 @@ class Action extends _WEB {
     super(payload)
   }
 
-  async load(action_id, additional_context = {}) {
+  async load({ action_id, additional_context = {} }) {
     const url = '/web/action/load'
-    const payload = { action_id, additional_context }
+    return await this._odoo.json_call(url, { action_id, additional_context })
+  }
+
+  async run({ action_id, context }) {
+    const url = '/web/action/run'
+    const payload = { action_id, context }
     return await this._odoo.json_call(url, payload)
+  }
+}
+
+class Export extends _WEB {
+  constructor(payload) {
+    super(payload)
+  }
+
+  async _base(url, data) {
+    const payload = { data }
+    return await this._odoo.file_export(url, payload)
+  }
+
+  async xlsx(data) {
+    const url = '/web/export/xlsx'
+    return await this._base(url, data)
+  }
+
+  async csv(data) {
+    const url = '/web/export/csv'
+    return await this._base(url, data)
+  }
+}
+
+class Report extends _WEB {
+  constructor(payload) {
+    super(payload)
+  }
+
+  async check_wkhtmltopdf() {
+    const url = '/report/check_wkhtmltopdf'
+    return await this._odoo.json_call(url, {})
+  }
+
+  async download(data, context) {
+    const url = '/report/download'
+    const payload = { data, context }
+    return await this._odoo.file_export(url, payload)
   }
 }
 
 export class WEB {
   constructor(payload) {
+    this.home = new Home(payload)
     this.datebase = new Datebase(payload)
     this.session = new Session(payload)
     this.dataset = new Dataset(payload)
     this.action = new Action(payload)
+    this.export = new Export(payload)
+    this.report = new Report(payload)
   }
 }
 

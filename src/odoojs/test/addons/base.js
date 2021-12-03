@@ -1,9 +1,10 @@
 import { ODOO } from '@/odoojs'
+import { ODOO as ODOORPC } from '@/odoorpc'
 
 export class BaseTestCase {
   constructor({ baseURL }) {
     this.baseURL = baseURL
-    this.api = new ODOO({ baseURL })
+    this.api = new ODOO({ baseURL, ODOORPC })
   }
 
   async test_call_odoo() {

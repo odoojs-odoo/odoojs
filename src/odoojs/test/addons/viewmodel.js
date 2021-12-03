@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { LoginTestCase } from './base'
 
 export default class ViewModelTestCase extends LoginTestCase {
@@ -219,84 +220,164 @@ export default class ViewModelTestCase extends LoginTestCase {
 
     await model.onchange('date', '2021-06-01')
 
-    const line_ids_model = model.get_subviewmodel('line_ids', { node })
+    const line_ids_model = model.relation_model('line_ids', { node })
 
     console.log(model, line_ids_model, model.values)
+  }
+
+  async account_invoice_o2m_edit() {
+    await this.login()
+    const action_xml_id = 'account.action_move_out_invoice_type'
+    const action = await this.api.action(action_xml_id)
+    console.log(action)
+    const model = action.model
+    console.log(model)
+
+    // model.order = 'id desc'
+    // model.limit = 10
+    // // listmodel.domain = [['id', '<', 0]]
+
+    const dataList = await model.pageGoto(1)
+    console.log('listmodel,', model, dataList)
+
+    // const dataList2 = await model.with_view('kanban').pageGoto(1)
+    // console.log('listmodel,', model, dataList2)
+
+    const rid = dataList[0].id
+    await model.read(rid)
+    // console.log('formviewmodel,', model, model.values)
+
+    const node = model.views.form._debug_node_get('invoice_line_ids')
+
+    console.log('formviewmodel,', model, node)
+
+    // const line_model = model.relation_model('invoice_line_ids', {
+    //   node
+    // })
+
+    // console.log('invoice_line_ids', line_model)
+    const line_model = await model.relation_browse('invoice_line_ids', {
+      node,
+      view_type: 'kanban'
+    })
+
+    console.log('invoice_line_ids', line_model, line_model.values_list)
+
+    // const line_id1 =
+    //   line_model.values_list[line_model.values_list.length - 1].id
+
+    // await line_model.pick_one(line_id1)
+    // await line_model.onchange_one(line_id1, 'quantity', 1)
+    // await line_model.commit_one(line_id1)
+
+    // await line_model.pick_one(line_id1)
+    // await line_model.onchange_one(line_id1, 'price_unit', 120)
+    // await line_model.commit_one(line_id1)
+
+    // const new_line = await line_model.new_one()
+    // const new_line_id = new_line.id
+    // await line_model.onchange_one(new_line_id, 'quantity', 11)
+    // await line_model.onchange_one(new_line_id, 'price_unit', 110)
+    // await line_model.commit_one(new_line_id)
+
+    // await line_model.pick_one(new_line_id, { view_type: 'form' })
+    // await line_model.onchange_one(new_line_id, 'quantity', 13)
+    // await line_model.onchange_one(new_line_id, 'price_unit', 130)
+    // await line_model.commit_one(new_line_id)
+
+    // await model.commit()
+
+    // await line_model.remove_one(line_id1)
+    // await model.commit()
+
+    // TBD,
+    // 1 rollback, 2 remove, 3 new then edit
   }
 
   async account_move_o2m_edit() {
     await this.login()
     const action_xml_id = 'account.action_move_journal_line'
+
     const action = await this.api.action(action_xml_id)
     const listview = action.listview
     const listmodel = listview.model
+    listmodel.order = 'id desc'
+    listmodel.limit = 10
 
-    listmodel.domain = [['id', '=', 14]]
+    // listmodel.domain = [['id', '=', 14]]
     const dataList = await listmodel.pageGoto(1)
-    console.log(dataList)
+    console.log('listmodel,', listmodel, dataList)
     const rid = dataList[0].id
     const formview = action.formview
     const model = formview.model
     await model.read(rid)
     console.log(model, model.values)
 
-    const node_journal_id = model.view._debug_node_get('journal_id')
-    const journal_id_options = await model.get_selection('journal_id', {
-      node: node_journal_id
-    })
-    console.log('journal_id_options', journal_id_options)
+    // const node_journal_id = model.view._debug_node_get('journal_id')
+    // const journal_id_options = await model.get_selection('journal_id', {
+    //   node: node_journal_id
+    // })
+    // console.log('journal_id_options', journal_id_options)
 
     const node = model.view._debug_node_get('line_ids')
     await model.relation_browse('line_ids', { node })
-    const line_ids_model = model.get_subviewmodel('line_ids', { node })
-    console.log(line_ids_model, line_ids_model.values_list)
+    const line_ids_model = model.relation_model('line_ids', { node })
+    // console.log(line_ids_model, line_ids_model.values_list)
 
-    const line_id0 = line_ids_model.values_list[0].id
-    const m2m = await line_ids_model.relation_browse('tag_ids', {
-      row_id: line_id0
-    })
-    console.log('xxx, tag_ids', m2m)
-    console.log('values', model, model.values)
+    // const line_id0 = line_ids_model.values_list[0].id
+    // const m2m = await line_ids_model.relation_browse('tag_ids', {
+    //   row_id: line_id0
+    // })
+    // console.log('xxx, tag_ids', m2m)
+    // console.log('values', model, model.values)
 
-    await model.onchange('date', '2021-06-01')
-    console.log(model, model.values)
+    // await model.onchange('date', '2021-06-01')
+    // console.log(model, model.values)
 
-    const line_id1 = line_ids_model.values_list[1].id
+    // const line_id1 =
+    //   line_ids_model.values_list[line_ids_model.values_list.length - 1].id
 
-    line_ids_model.set_current(line_id1)
+    // const line_ids_form_model = model.relation_model('line_ids', {
+    //   node,
+    //   view_type: 'form'
+    // })
 
-    await line_ids_model.onchange_row(line_id1, 'credit', 100)
-    const record_edit = line_ids_model.record_edit
-    console.log(record_edit, record_edit.values)
-    await line_ids_model.commit_row(line_id1)
-    console.log(line_ids_model, line_ids_model.values_list)
+    // console.log('xxxxxx, line_ids_form_model1', [line_ids_form_model], line_id1)
+    // line_ids_model.pick_one(line_id1)
+    // console.log('xxxxxx, 2222')
 
-    console.log(model, model.values_onchange)
+    // await line_ids_model.onchange_one(line_id1, 'debit', 1200)
+    // const record_edit = line_ids_model.record_edit
+    // console.log(record_edit, record_edit.values)
+    // await line_ids_model.commit_one(line_id1)
+    // console.log(line_ids_model, line_ids_model.values_list)
 
-    const new_line = await line_ids_model.new()
-    console.log(line_ids_model, new_line, new_line.values)
+    // console.log(model, model.values_onchange)
 
-    const node_account_id = line_ids_model.view._debug_node_get('account_id')
-    console.log(node_account_id)
+    // const new_line = await line_ids_model.new()
+    // console.log(line_ids_model, new_line, new_line.values)
 
-    const new_line_id = new_line.id
+    // const node_account_id = line_ids_model.view._debug_node_get('account_id')
+    // console.log(node_account_id)
 
-    const account_id_options = await line_ids_model.get_selection(
-      'account_id',
-      { node: node_account_id, row_id: new_line_id, name: '400100' }
-    )
-    console.log('account_id_options', account_id_options)
+    // const new_line_id = new_line.id
 
-    const acc_id1 = account_id_options[0]
-    console.log('account_id_options', acc_id1)
-    await line_ids_model.onchange_row(new_line_id, 'account_id', ...acc_id1)
-    console.log(line_ids_model, new_line, new_line.values)
+    // const account_id_options = await line_ids_model.get_selection(
+    //   'account_id',
+    //   { node: node_account_id, row_id: new_line_id, name: '400100' }
+    // )
+    // console.log('account_id_options', account_id_options)
 
-    await line_ids_model.commit_row(new_line_id)
+    // const acc_id1 = account_id_options[0]
+    // console.log('account_id_options', acc_id1)
+    // await line_ids_model.onchange_one(new_line_id, 'account_id', ...acc_id1)
+    // console.log(line_ids_model, new_line, new_line.values)
 
-    console.log(model, model.values, model.records.values_for_write)
+    // await line_ids_model.commit_one(new_line_id)
 
-    await model.commit()
-    console.log(model, model.values, model.records.values_for_write)
+    // console.log(model, model.values, model.records.values_for_write)
+
+    // await model.commit()
+    // console.log(model, model.values, model.records.values_for_write)
   }
 }

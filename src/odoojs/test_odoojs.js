@@ -1,19 +1,17 @@
+/* eslint-disable no-unused-vars */
 import Test from './test'
-
 import py_utils from './py_utils'
 
 const baseURL = process.env.VUE_APP_BASE_API
 const master_pwd = 'admin'
 
-const menuLoad = true
-
 // const login_info = { db: 'test_db', login: 'admin', password: '123456' }
 const login_info = {
-  db: 'test_account_0521',
+  db: 't1',
   login: 'admin',
   password: '123456'
 }
-const config = { baseURL, menuLoad, master_pwd, login_info }
+const config = { baseURL, master_pwd, login_info }
 
 const test = new Test(config)
 
@@ -23,12 +21,36 @@ export const test_odoojs = async () => {
   // await test_action()
   // await test_view()
   // await test_viewmodel()
-  await test_o2m()
+  // await test_o2m()
+  // await test_sale()
+  // await test_pivot()
+  // await test_export()
+  await test_partner()
+
+  // test_py()
+}
+
+const test_partner = async () => {
+  await test.partner.test()
+}
+
+const test_export = async () => {
+  await test.export.test()
+}
+
+const test_pivot = async () => {
+  await test.pivot1.test()
+}
+
+const test_sale = async () => {
+  await test.sale.test()
 }
 
 const test_o2m = async () => {
   // await test.viewmodel.account_move()
-  await test.viewmodel.account_move_o2m_edit()
+
+  await test.viewmodel.account_invoice_o2m_edit()
+  // await test.viewmodel.account_move_o2m_edit()
 }
 
 const test_viewmodel = async () => {
@@ -38,7 +60,7 @@ const test_viewmodel = async () => {
   // await test.viewmodel.formview_new()
   // await test.viewmodel.formview_del()
   // await test.viewmodel.formview_read_partner_o2m()
-  await test.viewmodel.formview_read_country()
+  // await test.viewmodel.formview_read_country()
 }
 
 const test_view = async () => {
@@ -94,6 +116,8 @@ const test_py = () => {
     uid: 2,
     view_no_maturity: true
   }
+
+  // const evaluation_context = { ...my_context }
 
   const evaluation_context = {
     ...my_values,

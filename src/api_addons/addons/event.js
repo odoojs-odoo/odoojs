@@ -2,6 +2,8 @@ import { Model } from '@/odoorpc/models'
 
 // import { parseTime } from '@/utils'
 
+//
+
 const dateHelper = {
   // hour_min: 8,
   // hour_max: 20,
@@ -65,7 +67,6 @@ const get_hours = ({ date, hour_min, hour_max }) => {
     }
   })
 
-  // console.log('get_hours, ', oneday_hours, all_hours, new Date())
   return utc_hours
 }
 

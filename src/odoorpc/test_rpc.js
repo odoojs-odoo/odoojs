@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import Test from './test'
 
 const baseURL = process.env.VUE_APP_BASE_API
 const master_pwd = 'admin'
 // const login_info = { db: 'test_db', login: 'admin', password: '123456' }
 const login_info = {
-  db: 'test_account_0521',
+  db: 't1',
   login: 'admin',
   password: '123456'
 }
@@ -21,6 +22,7 @@ export const test_rpc = async () => {
   // for (const ch in childs) {
   //   console.log(ch)
   // }
+  // await test_home()
   // await test.base.test_call_odoo()
   // await test_session()
   // await test_dataset()
@@ -29,8 +31,27 @@ export const test_rpc = async () => {
   // await test_o2m_edit()
   // await test_account_open()
   // await test_account_report()
+  // await test_edu()
+  // await test_account()
 
-  await test_edu()
+  // await test_pivot()
+  await test_export()
+}
+
+const test_export = async () => {
+  await test.export.test()
+}
+
+const test_pivot = async () => {
+  await test.pivot1.test()
+}
+
+const test_home = async () => {
+  await test.home.test()
+}
+
+const test_account = async () => {
+  await test.account.test()
 }
 
 const test_edu = async () => {
@@ -41,7 +62,7 @@ const test_account_report = async () => {
   // await test.account_report.general_ledger()
   // await test.account_report.partner_ledger()
   await test.account_report.balancesheet()
-  await test.account_report.profitandloss()
+  // await test.account_report.profitandloss()
 }
 
 const test_account_open = async () => {

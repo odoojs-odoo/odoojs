@@ -9,10 +9,10 @@ export default class ActionTestCase extends LoginTestCase {
       .execute('xmlid_to_res_model_res_id', action_xml_id, true)
     const action_id = action[1]
     const additional_context = {}
-    const res = await this.api.odoorpc.web.action.load(
+    const res = await this.api.odoorpc.web.action.load({
       action_id,
       additional_context
-    )
+    })
     console.log(res)
     return res
   }
@@ -22,10 +22,10 @@ export default class ActionTestCase extends LoginTestCase {
     const action = await this.api.env.ref(action_xml_id)
     const action_id = action.id
     const additional_context = {}
-    const res = await this.api.odoorpc.web.action.load(
+    const res = await this.api.odoorpc.web.action.load({
       action_id,
       additional_context
-    )
+    })
     console.log(res)
     return res
   }

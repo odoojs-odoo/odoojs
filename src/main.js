@@ -1,12 +1,13 @@
 import Vue from 'vue'
-import App from './App.vue'
-
 import router from './router'
 
-import ViewUI from 'view-design'
-import 'view-design/dist/styles/iview.css'
+import App from './App.vue'
 
-Vue.use(ViewUI)
+import 'font-awesome/css/font-awesome.min.css'
+
+import Antd from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.css'
+Vue.use(Antd)
 
 Vue.config.productionTip = false
 

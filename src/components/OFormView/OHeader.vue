@@ -1,29 +1,30 @@
 <template>
   <div>
-    <!-- Header! to be done
-    {{ fullname }} -->
+    <a-row>
+      <a-col :span="1"> .</a-col>
+      <a-col :span="12">
+        <a-space> </a-space>
 
-    <div>
-      <Row>
-        <Col span="1"> .</Col>
-        <Col span="12">
-          <span v-for="(btn, index) in header_buttons" :key="index">
-            <Button :type="button_type(btn)" size="small" @click="onClick(btn)">
-              {{ btn.attrs.string }}
-            </Button>
-          </span>
-        </Col>
-        <Col span="11">
-          <span v-for="(btn, index) in header_statusbar_visible" :key="index">
-            <Tag :color="btn[0] === value2.state ? 'blue' : undefined">
-              {{ btn[1] }}
-            </Tag>
-          </span>
-        </Col>
-      </Row>
+        <a-button
+          v-for="(btn, index) in header_buttons"
+          :key="index"
+          :type="button_type(btn)"
+          size="small"
+          @click="onClick(btn)"
+        >
+          {{ btn.attrs.string }}
+        </a-button>
+      </a-col>
+      <a-col :span="11">
+        <span v-for="(btn, index) in header_statusbar_visible" :key="index">
+          <a-tag :color="btn[0] === dataDict.state ? 'blue' : undefined">
+            {{ btn[1] }}
+          </a-tag>
+        </span>
+      </a-col>
+    </a-row>
 
-      <Divider />
-    </div>
+    <a-divider />
   </div>
 </template>
 
@@ -64,13 +65,15 @@ export default {
         const states = str.split(',')
         const fname = node_statusbar.attrs.name
 
-        const current_state = this.value2[fname]
+        const current_state = this.dataDict[fname]
 
         if (!states.includes(current_state)) {
           states.push(current_state)
         }
 
-        const selections2 = this.model.fields.state.selection
+        const meta = this.viewInfo.fields || { state: { selection: [] } }
+
+        const selections2 = meta.state.selection || []
         const selections = selections2.reduce((acc, cur) => {
           return { ...acc, [cur[0]]: cur[1] }
         }, {})
@@ -87,27 +90,6 @@ export default {
   mounted() {},
 
   methods: {
-    childern_filter(children) {
-      // console.log(children)
-      // const children2 = [children[3]]
-
-      // const values_modifiers = this.model.values_modifiers
-      // console.log(this.model, values_modifiers)
-
-      return (children || []).filter(item => {
-        if (this.debug) {
-          return true
-        } else {
-          const invisible = this.get_invisible(item)
-
-          // console.log(item, invisible)
-
-          return !invisible
-          // return !this.get_invisible(item)
-        }
-      })
-    },
-
     onClick(btn) {
       // name: "button_draft"
       // string: "重置为草稿"
@@ -117,7 +99,7 @@ export default {
       // const name = btn.attrs.name
       // console.log(this.model, type, name)
 
-      this.$emit('button-clicked', { ...btn.attrs })
+      this.$emit('on-event', 'button-clicked', { node: btn })
     },
 
     button_type(btn_node) {

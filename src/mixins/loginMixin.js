@@ -3,14 +3,45 @@ const Mixin = {
   data() {
     const database = process.env.VUE_APP_ODOO_DB
 
+    const base_api = process.env.VUE_APP_BASE_API
+
+    const username = base_api === '/dev-api' ? 'admin' : ''
+    const password = base_api === '/dev-api' ? '123456' : ''
+    // username: 'admin',
+    // password: '123456'
+
     return {
-      form: {
+      form2: {
         database,
-        username: 'admin',
-        password: '123456'
+        username,
+        password
       },
 
-      database_options: []
+      database_options: [],
+
+      rules: {
+        database: [
+          {
+            required: true,
+            message: 'Please select database!',
+            trigger: ['change', 'blur']
+          }
+        ],
+        username: [
+          {
+            required: true,
+            message: 'Please input your username!',
+            trigger: 'blur'
+          }
+        ],
+        password: [
+          {
+            required: true,
+            message: 'Please input your password!',
+            trigger: 'blur'
+          }
+        ]
+      }
     }
   },
   computed: {
@@ -26,18 +57,20 @@ const Mixin = {
 
   methods: {
     async init() {
-      const db = process.env.VUE_APP_ODOO_DB
+      // const db = process.env.VUE_APP_ODOO_DB
       const dbs = await api.web.datebase.list()
-      this.database_options = dbs.filter(item => (db ? item === db : true))
+      // this.database_options = dbs.filter(item => (db ? item === db : true))
+      this.database_options = dbs
     },
 
-    async handleLogin(success, error) {
+    async handleLogin(values, success, error) {
       try {
         // const res =
+        console.log(values)
         await api.login({
-          db: this.form.database,
-          login: this.form.username,
-          password: this.form.password
+          db: values.database,
+          login: values.username,
+          password: values.password
         })
 
         console.log(api.session_info)

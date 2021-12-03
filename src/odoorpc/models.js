@@ -2,13 +2,32 @@ import { Field } from './fields'
 
 import { is_virtual_id } from './utils'
 
+import pivot from './pivot'
+
+// eslint-disable-next-line no-unused-vars
+const cp = item => JSON.parse(JSON.stringify(item))
+
+// import { sleep } from '@/odoorpc/utils'
+
 class MetaModel {
   constructor() {
     //
   }
 
+  get _name() {
+    return this.constructor._model
+  }
+
   static get _name() {
     return this._model
+  }
+
+  static get res_model() {
+    return this._model
+  }
+
+  get res_model() {
+    return this.constructor._model
   }
 
   static get env() {
@@ -40,27 +59,21 @@ class MetaModel {
   static async execute_kw(method, args = [], kwargs = {}) {
     const kwargs2 = { ...kwargs }
 
-    if (!Object.keys(kwargs).includes('context')) {
+    if (!Object.keys(kwargs).includes('context'))
       kwargs2.context = this.env.context
-    }
 
     const payload = { model: this._name, method, args, kwargs: kwargs2 }
     return this._odoo.web.dataset.call_kw(payload)
   }
 
-  static async button_execute_kw(method, args = [], kwargs = {}) {
-    const kwargs2 = { ...kwargs }
-
-    if (!Object.keys(kwargs).includes('context')) {
-      kwargs2.context = this.env.context
-    }
-
-    const payload = { model: this._name, method, args, kwargs: kwargs2 }
+  static async call_button(method, rid, kwargs = {}) {
+    const args = [rid]
+    const payload = { model: this._name, method, args, kwargs }
     return this._odoo.web.dataset.call_button(payload)
   }
 
-  static async button_execute(method, ...args) {
-    return this.button_execute_kw(method, args, {})
+  static async action_run(action_id, { context }) {
+    return this._odoo.web.action.run({ action_id, context })
   }
 
   static async execute(method, ...args) {
@@ -77,6 +90,10 @@ class MetaModel {
     return this.execute_kw(method, [domain], kwargs)
   }
 
+  static async read_group(kwargs) {
+    return this.execute_kw('read_group', [], kwargs)
+  }
+
   static async web_search_read(kwargs = {}) {
     return this.execute_kw('web_search_read', [], kwargs)
   }
@@ -88,19 +105,19 @@ class MetaModel {
   static async read(ids, kwargs = {}) {
     const method = 'read'
     const get_args_kwargs = () => {
-      if (Array.isArray(kwargs)) {
-        return [[ids, kwargs], {}]
-      } else {
-        const { fields = [] } = kwargs
-        const kwargs2 = { ...kwargs }
-        delete kwargs2.fields
-        return [[ids, fields], kwargs2]
-      }
+      if (Array.isArray(kwargs)) return [[ids, kwargs], {}]
+      const { fields = [], ...kwargs2 } = kwargs
+      return [[ids, fields], kwargs2]
     }
 
     const [args, kwargs2] = get_args_kwargs()
 
     return this.execute_kw(method, args, kwargs2)
+  }
+
+  static async copy(rid) {
+    const method = 'copy'
+    return this.execute(method, rid)
   }
 
   static async write(rid, vals) {
@@ -115,6 +132,16 @@ class MetaModel {
   static async unlink(rid) {
     const method = 'unlink'
     return this.execute(method, rid)
+  }
+
+  static async action_unarchive(ids) {
+    const method = 'action_unarchive'
+    return this.execute(method, ids)
+  }
+
+  static async action_archive(ids) {
+    const method = 'action_archive'
+    return this.execute(method, ids)
   }
 
   static async default_get(fields) {
@@ -139,11 +166,10 @@ class MetaModel {
       version == 13
 
     // console.log(version, is_call_default)
-    if (is_call_default) {
+    if (is_call_default)
       return this.default_get_onchange(values, field_onchange)
-    } else {
+    else
       return this.execute('onchange', ids, values, field_name, field_onchange)
-    }
   }
 
   static async default_get_onchange(values, field_onchange) {
@@ -151,23 +177,15 @@ class MetaModel {
       fld => fld.split('.').length === 1
     )
 
-    // console.log([field_onchange, fields])
-
     const default_get1 = await this.default_get(fields)
-    // console.log([field_onchange, fields])
 
     const _get_default = col => {
       const meta = this._fields[col]
 
-      if (['many2many'].includes(meta.type)) {
-        return [[6, false, []]]
-      } else if (['one2many'].includes(meta.type)) {
-        return []
-      } else if (['float', 'integer', 'monetary'].includes(meta.type)) {
-        return 0
-      } else if (['text', 'html'].includes(meta.type)) {
-        return ''
-      }
+      if (['many2many'].includes(meta.type)) return [[6, false, []]]
+      else if (['one2many'].includes(meta.type)) return []
+      else if (['float', 'integer', 'monetary'].includes(meta.type)) return 0
+      else if (['text', 'html'].includes(meta.type)) return ''
       return false
     }
 
@@ -181,10 +199,6 @@ class MetaModel {
     const field_name = fields
     const args = [[], values_onchange, field_name, field_onchange]
     const onchange = await this.execute('onchange', ...args)
-
-    // console.log(fields, default_get1, onchange)
-
-    // console.log('default get 2', onchange)
 
     // # TBD: default_get 里面 可能有 m2o o2m 需要处理
     // default_get, m2o 返回值 是 id, 需要 补充上 display_name
@@ -221,8 +235,6 @@ class MetaModel {
     const values_ret = { ...default_get2, ...onchange.value }
     const onchange2 = { ...onchange, value: values_ret }
 
-    // console.log('default get 3', onchange2)
-
     return onchange2
   }
 }
@@ -232,14 +244,8 @@ MetaModel._odoo = undefined
 MetaModel._model = undefined
 
 const _normalize_ids = ids => {
-  if (!ids) {
-    return []
-  }
-
-  if (Array.isArray(ids)) {
-    return [...ids]
-  }
-
+  if (!ids) return []
+  if (Array.isArray(ids)) return [...ids]
   return [ids]
 }
 
@@ -247,8 +253,10 @@ class BaseModel extends MetaModel {
   constructor(payload = {}) {
     super()
 
-    const { fields, from_record = {} } = payload
+    const { fields = {}, from_record = {}, field_onchange } = payload
     this._fields = fields
+    this._field_onchange = field_onchange
+
     this._from_record = from_record
     this._from_model = from_record.model
     this._from_field = from_record.field
@@ -259,7 +267,7 @@ class BaseModel extends MetaModel {
     this._ids = []
   }
 
-  copy() {
+  jscopy() {
     const fields = this._fields
     const from_record = this._from_record
     const record = new this.constructor({ fields, from_record })
@@ -269,7 +277,7 @@ class BaseModel extends MetaModel {
     const store2 = Object.keys(this._store_relations).reduce((acc, rid) => {
       const one_row = this._store_relations[rid]
       const one_row2 = Object.keys(one_row).reduce((acc2, fld) => {
-        return { ...acc2, [fld]: one_row[fld].copy() }
+        return { ...acc2, [fld]: one_row[fld].jscopy() }
       }, {})
       return { ...acc, [rid]: one_row2 }
     }, {})
@@ -296,6 +304,10 @@ class BaseModel extends MetaModel {
     return this._fields
   }
 
+  get field_onchange() {
+    return this._field_onchange
+  }
+
   get columns() {
     // 所有的 字段, 数据初始化时 设置
     return this._columns
@@ -306,25 +318,25 @@ class BaseModel extends MetaModel {
   }
 
   static async _get_fields_dict(fields_in = []) {
-    if (Array.isArray(fields_in)) {
-      const fgs = await this.fields_get(fields_in)
-      return fgs
-    } else {
-      return fields_in
-    }
+    if (Array.isArray(fields_in)) return await this.fields_get(fields_in)
+    else return fields_in
   }
 
   static async create_record(payload = {}) {
+    // console.log('create_record,', this._name, payload)
     const { fields: fields_in } = payload
     const fields_dict = await this._get_fields_dict(fields_in)
+    // console.log('create_record 2,', this._name, payload, fields_dict)
 
     this._updata_fields(fields_dict)
+    // console.log('create_record 3,', [this], this._name, payload, fields_dict)
 
     const record = new this({ ...payload, fields: fields_dict })
     return record
   }
 
   static async browse(ids, payload = {}) {
+    // console.log('browse,', this._name, ids, payload)
     const record = await this.create_record(payload)
     const fields_list = Object.keys(record.fields)
     // if (ids && Array.isArray(ids) && ids.length) {
@@ -339,11 +351,18 @@ class BaseModel extends MetaModel {
   }
 
   _init_data(res) {
+    this._init_data_for_store(res)
+    this._init_data_for_columns(res)
+  }
+
+  _init_data_for_store(res) {
     this._ids = _normalize_ids(res.map(item => item.id))
     this._values = {}
     this._values_to_write = {}
     this._store_relations = {}
+  }
 
+  _init_data_for_columns(res) {
     Object.keys(this.columns).forEach(item => {
       const col = this.columns[item]
       res.forEach(one => {
@@ -356,19 +375,80 @@ class BaseModel extends MetaModel {
     // 仅仅 被 parent 调用
     // parent 其他 字段 onchange 之后, 更新 o2m字段时, 走到这里
 
-    if (!this._ids.includes(rid)) {
-      this._ids = [...this._ids, rid]
-    }
+    if (!this._ids.includes(rid)) this._ids = [...this._ids, rid]
 
     Object.keys(vals).forEach(item => {
       const col = this.columns[item]
-      if (col) {
-        col.set_value_by_onchange(rid, vals[item])
-      } else {
-        console.log('Throw Error, ', `${item} is undefined in columns`)
-        // throw `${item} is undefined in columns`
-      }
+      if (col) col.set_value_by_onchange(rid, vals[item])
+
+      if (!col) console.log('Throw Error, ', `${item} is undefined in columns`)
+      // throw `${item} is undefined in columns`
     })
+  }
+
+  update_by_record(rec) {
+    const row_id = rec.id
+    // console.log('update_by_record ', this, rec)
+
+    const new_fields = Object.keys(rec.fields).reduce((acc, cur) => {
+      if (!(cur in this.fields)) acc[cur] = rec.fields[cur]
+      return acc
+    }, {})
+    // console.log('update_by_record ', this.fields, new_fields)
+
+    this._fields = { ...this.fields, ...new_fields }
+
+    const new_cols = this._init_columns(new_fields)
+    // console.log('update_by_record ', this.columns, new_cols)
+
+    this._columns = { ...this.columns, ...new_cols }
+
+    if (rec.field_onchange) {
+      const old_fo = this.field_onchange || {}
+      const new_fo = rec.field_onchange || {}
+      const all_fo = { ...old_fo, ...new_fo }
+      this._field_onchange = Object.keys(all_fo).reduce((acc, cur) => {
+        acc[cur] = old_fo[cur] || new_fo[cur] ? '1' : ''
+        return acc
+      }, {})
+    }
+
+    const is_new = !this.ids.includes(row_id)
+    if (is_new) this._ids = [...this.ids, row_id]
+
+    const _update_values = (old_vals, new_vals) => {
+      const old_one = old_vals[row_id] || {}
+      const new_one = JSON.parse(JSON.stringify(new_vals[row_id] || {}))
+      old_vals[row_id] = { ...old_one, ...new_one }
+    }
+
+    _update_values(this._values, rec._values)
+    _update_values(this._values_to_write, rec._values_to_write)
+
+    const _update_store_relations = () => {
+      //
+      // const old_rel = this._store_relations[row_id] || {}
+      // const new_rel = rec._store_relations[row_id] || {}
+      // console.log(
+      //   '_update_store_relations',
+      //   this.constructor._name,
+      //   old_rel,
+      //   new_rel
+      // )
+      // const to_append = Object.keys(new_rel).reduce((acc, cur) => {
+      //   if (old_rel[cur]) {
+      //     acc[cur] = old_rel[cur].update_by_record(new_rel[cur])
+      //   } else {
+      //     acc[cur] = new_rel[cur].jscopy()
+      //   }
+      //   return acc
+      // }, {})
+      // if (Object.keys(to_append).length) {
+      //   this._store_relations[row_id] = { ...old_rel, ...to_append }
+      // }
+    }
+
+    _update_store_relations()
   }
 
   get_values(rid) {
@@ -382,12 +462,11 @@ class BaseModel extends MetaModel {
   }
 
   get_values_onchange(rid, for_parent) {
-    // 给 onchange 事件准备参数用的 数据
     return Object.keys(this.columns).reduce((acc, cur) => {
-      // console.log('sssss,', this, cur, this.fields, this.columns)
       const col = this.columns[cur]
       const for_onchange = 1
       const value = col.get_value_for_server(rid, { for_onchange, for_parent })
+      // console.log('sssss,',  cur, this.fields, this.columns)
       return { ...acc, [cur]: value }
     }, {})
   }
@@ -424,7 +503,7 @@ class TreeModel extends BaseModel {
     return this.ids.map(item => this.get_values(item))
   }
 
-  _copy_one(row_id) {
+  _jscopy_one(row_id) {
     const fields = this._fields
     const from_record = this._from_record
 
@@ -445,7 +524,7 @@ class TreeModel extends BaseModel {
     const my_store_relations = this._store_relations[row_id]
     if (my_store_relations) {
       const store2 = Object.keys(my_store_relations).reduce((acc, fld) => {
-        return { ...acc, [fld]: my_store_relations[fld].copy() }
+        return { ...acc, [fld]: my_store_relations[fld].jscopy() }
       }, {})
 
       record._store_relations[row_id] = store2
@@ -455,10 +534,8 @@ class TreeModel extends BaseModel {
   }
 
   pick(row_id) {
-    if (!this.ids.includes(row_id)) {
-      return
-    }
-    return this._copy_one(row_id)
+    if (!this.ids.includes(row_id)) return
+    return this._jscopy_one(row_id)
   }
 }
 
@@ -474,6 +551,7 @@ class ListModel extends TreeModel {
     this.order = undefined
     this.offset = 0
     this.limit = PAGE_SIZE
+    this.finished = false
   }
 
   get total_length() {
@@ -499,20 +577,60 @@ class ListModel extends TreeModel {
   async pageGoto(page2 = 1) {
     // 前提用 create_record({fields: ['name']}) 创建空记录
     // 再做查询操作
-    if (this.page_count <= 0) {
-      this.page_current = 0
-    } else {
+    if (this.page_count <= 0) this.page_current = 0
+    else {
       const page = page2 - 1
-      if (page <= 0) {
-        this.page_current = 0
-      } else if (page >= this.page_count) {
-        this.page_current = this.page_count - 1
-      } else {
-        this.page_current = page
-      }
+      if (page <= 0) this.page_current = 0
+      else if (page >= this.page_count) this.page_current = this.page_count - 1
+      else this.page_current = page
     }
 
     return this._page_browse()
+  }
+
+  // _pageLoadMore_set_data(result) {
+  // }
+
+  async pageLoadMore() {
+    // console.log('model, pageLoadMore')
+
+    if (this.finished) return { finished: this.finished }
+
+    this.loading = true
+    const domain = this.domain
+    const limit = this.limit
+    const order = this.order
+    const offset = this.offset
+    const fields_list = Object.keys(this.fields)
+
+    const payload = { domain, offset, limit, order, fields: fields_list }
+    // console.log('model,pageLoadMore', payload)
+    const result = await this.constructor.web_search_read({ ...payload })
+
+    const { length, records } = result
+    this._total_length = length
+    const ids = _normalize_ids(records.map(item => item.id))
+    this._ids = [...this._ids, ...ids]
+    this._init_data_for_columns(records)
+    this.offset = this.offset + records.length
+    if (this.offset >= this._total_length) this.finished = true
+
+    return {
+      finished: this.finished
+    }
+
+    // console.log(this.total_length)
+    // const domain = this.domain
+    // const limit = this.limit
+    // const order = this.order
+    // const offset = this.offset
+    // const fields_list = Object.keys(this.fields)
+    // const paylaod2 = { ...payload, fields: fields_list }
+    // const fields_list = Object.keys(this.fields)
+    // const fields = this.fields
+    // const res = await this.Model.pageLoadMore({ fields })
+    // this._records = res
+    // return this.values_list
   }
 
   async _page_browse() {
@@ -542,12 +660,39 @@ class ListModel extends TreeModel {
     this._total_length = length
     return this
   }
+
+  async tree_call_action_run_recursion(action_id, { context }) {
+    const res = await this.constructor.action_run(action_id, { context })
+    console.log('action server1:', res)
+    if (!res) {
+      // TBD 是否 刷新 页面
+      return
+    }
+
+    // 返回 action, 前端自行处理
+    if (res.type !== ' ir.actions.server') return res
+
+    return this.tree_call_action_run_recursion(res.id, { context })
+  }
+
+  async tree_call_action_run(action_id, ids) {
+    console.log(action_id)
+    const active_model = this.res_model
+    const active_id = ids[0]
+    const active_ids = ids
+    const context2 = { active_model, active_id, active_ids }
+    const context = { ...this.env.odoo.env.context, ...context2 }
+
+    return this.tree_call_action_run_recursion(action_id, { context })
+  }
 }
 
 class O2mTreeModel extends ListModel {
   // 服务于 o2m treeview
   constructor(payload = {}) {
+    // console.log('O2mTreeModel ,', payload)
     super(payload)
+    // console.log('O2mTreeModel2 ,', this._name, payload)
   }
 
   tree_pick(row_id) {
@@ -573,58 +718,33 @@ class O2mTreeModel extends ListModel {
     const values2 = { ...this._values_to_write }
     delete values2[row_id]
     this._values_to_write = { ...values2 }
-
-    // const values0 = { ...this._values }
-    // delete values0[row_id]
-    // this._values = { ...values0 }
-
-    // const stores = { ...this._store_relations }
-    // delete stores[row_id]
-    // this._store_relations = { ...stores }
   }
 
   _tree_update_by_record(rec) {
     // update or insert this from new record
     // then: set value to parent:from_model
 
-    const row_id = rec.id
-
-    const is_new = !this.ids.includes(row_id)
-    if (is_new) {
-      this._ids = [...this.ids, row_id]
-    }
-    const my_values2 = rec._values_to_write[row_id]
-    if (my_values2) {
-      this._values_to_write[row_id] = JSON.parse(JSON.stringify(my_values2))
-    }
-    const my_store_relations = this._store_relations[row_id]
-
-    if (my_store_relations) {
-      this._store_relations[row_id] = my_store_relations
-    }
+    this.update_by_record(rec)
   }
 
   async tree_remove(row_id) {
-    if (!this.ids.includes(row_id)) {
-      return
-    }
-
+    if (!this.ids.includes(row_id)) return
     this._tree_remove(row_id)
-
     await this.from_model.set_and_onchange(this.from_field, [2, row_id, false])
   }
 
   async tree_update(row_id, rec) {
-    console.log(' tree_update')
-    if (rec.id !== row_id) {
-      return
-    }
+    // console.log(' tree_update')
+    if (rec.id !== row_id) return
 
-    const is_new = !this.ids.includes(row_id) || is_virtual_id(row_id)
     // 必须先判断 is_new, 否则 后面的函数会修改 ids
+    const is_new = !this.ids.includes(row_id) || is_virtual_id(row_id)
     this._tree_update_by_record(rec)
     const op = is_new ? 0 : 1
     await this.from_model.set_and_onchange(this.from_field, [op, row_id, {}])
+
+    // await sleep(1000)
+    // await this.from_model.set_and_onchange(this.from_field, [op, row_id, {}])
   }
 
   tree_rollback() {
@@ -634,6 +754,7 @@ class O2mTreeModel extends ListModel {
 
 class FormModel extends O2mTreeModel {
   constructor(payload = {}) {
+    // console.log('FormModel ,', payload)
     super(payload)
     this._relation_browsed = {}
     this._onchange_domain = {}
@@ -669,15 +790,26 @@ class FormModel extends O2mTreeModel {
     return res
   }
 
+  async copy() {
+    const new_id = await this.constructor.copy(this.id)
+    const fields = this.fields
+    const field_onchange = this.field_onchange
+    return this.constructor.browse(new_id, { fields, field_onchange })
+  }
+
   async relation_browse(fname, kwargs = {}) {
+    // console.log('model, relation_browse 1', fname)
     // m2m 字段 name_get
     // o2m 字段 read
+    // console.log(' fname ', fname)
     this._relation_browsed[fname] = kwargs
 
     // row_id 服务于  treemodel
 
     const { row_id } = kwargs
     const field = this.columns[fname]
+
+    // console.log(' fname ', field, row_id)
     return await field.relation_browse(row_id || this.id, kwargs)
   }
 
@@ -688,9 +820,7 @@ class FormModel extends O2mTreeModel {
     // console.log(this._onchange_domain)
 
     const domain = this._onchange_domain[fname]
-    if (domain) {
-      kwargs2.args = domain
-    }
+    if (domain) kwargs2.args = domain
 
     const field = this.columns[fname]
     return field.get_selection(kwargs2)
@@ -700,15 +830,10 @@ class FormModel extends O2mTreeModel {
     const { from_record } = payload
 
     const _get_default = meta => {
-      if (['many2many'].includes(meta.type)) {
-        return [[6, false, []]]
-      } else if (['one2many'].includes(meta.type)) {
-        return []
-      } else if (['float', 'integer', 'monetary'].includes(meta.type)) {
-        return 0
-      } else if (['text', 'html'].includes(meta.type)) {
-        return ''
-      }
+      if (['many2many'].includes(meta.type)) return [[6, false, []]]
+      else if (['one2many'].includes(meta.type)) return []
+      else if (['float', 'integer', 'monetary'].includes(meta.type)) return 0
+      else if (['text', 'html'].includes(meta.type)) return ''
       return false
     }
 
@@ -736,7 +861,21 @@ class FormModel extends O2mTreeModel {
       Object.keys(record.columns).reduce((acc, cur) => {
         return { ...acc, [cur]: '1' }
       }, {})
-    const args = [[], {}, '', field_onchange2]
+
+    const values = {}
+
+    if (record.from_model) {
+      const parent_vals = record.from_model.values_onchange_for_parent
+      const from_col = record.from_model.fields[record.from_field]
+      // console.log(record.from_model, record.from_field, from_col)
+      // console.log(from_col.meta)
+      const relation_field = from_col.relation_field
+      // console.log(record, relation_field)
+
+      values[relation_field] = parent_vals
+    }
+
+    const args = [[], values, [], field_onchange2]
     const res = await this.onchange(...args)
     record._after_onchange(res)
     return record
@@ -746,6 +885,7 @@ class FormModel extends O2mTreeModel {
     const { field_onchange } = kwargs
     const field_onchange2 =
       field_onchange ||
+      this.field_onchange ||
       Object.keys(this.columns).reduce((acc, cur) => {
         return { ...acc, [cur]: '1' }
       }, {})
@@ -754,11 +894,18 @@ class FormModel extends O2mTreeModel {
     field.set_value(this.id, value, kwargs)
 
     // fro debug, always call onchange
-    // const to_call = field_onchange[fname]
-    const to_call = field_onchange2[fname] || true
+    const to_call = field_onchange2[fname]
+    // const to_call = field_onchange2[fname] || true
     if (to_call) {
       const ids = this.id && !is_virtual_id(this.id) ? [this.id] : []
       const values = this.values_onchange
+
+      console.log(
+        'set_and_onchange 11',
+        this.constructor._name,
+        this,
+        JSON.parse(JSON.stringify(values))
+      )
 
       if (this.from_model) {
         const parent_vals = this.from_model.values_onchange_for_parent
@@ -771,7 +918,12 @@ class FormModel extends O2mTreeModel {
         values[relation_field] = parent_vals
       }
 
-      const args = [ids, values, fname, field_onchange2]
+      // 2021-10-20, 不知道什么原因, 这里的数据不稳定
+      const values2 = JSON.parse(JSON.stringify(values))
+
+      console.log('set_and_onchange 99', this.constructor._name, values2)
+
+      const args = [ids, values2, fname, field_onchange2]
       const res = await this.constructor.onchange(...args)
       this._after_onchange(res)
     }
@@ -787,13 +939,13 @@ class FormModel extends O2mTreeModel {
     const one = res.value
     Object.keys(one).forEach(fld => {
       const col = this._columns[fld]
-      if (col) {
-        col.set_value_by_onchange(this.id, one[fld])
-      } else {
+      if (col) col.set_value_by_onchange(this.id, one[fld])
+
+      if (!col) {
         // console.log(fld, one)
         console.log(
           'Trow Error.',
-          `${fld} in onchange.values, but not init in this.columns`
+          `${fld} in onchange.values, but not init in columns`
         )
         // throw `${fld} in onchange.values, but not init in this.columns`
       }
@@ -846,33 +998,542 @@ class FormModel extends O2mTreeModel {
     const store = this._store_relations[this.id] || {}
 
     Object.keys(store).forEach(fld => {
-      if (this.fields[fld].type === 'one2many') {
-        store[fld].tree_rollback()
-      }
+      if (this.fields[fld].type === 'one2many') store[fld].tree_rollback()
     })
   }
 
-  async button_clicked(type, method) {
-    // console.log(type, method)
-    if (type === 'object') {
-      // console.log(type, method)
-      const res = await this.constructor.button_execute(method, this.id)
+  async form_call_action_run_recursion(action_id, { context }) {
+    const res = await this.constructor.action_run(action_id, { context })
 
-      if (!res) {
-        await this._after_commit(this.id)
-        return
-      } else {
-        // 返回 action, 前端自行处理
-        console.log(type, method, res)
-        return res
-      }
-    } else if (type === 'action') {
-      console.log(type, method)
+    console.log('action server1:', res)
+    if (!res) {
+      await this._after_commit(this.id)
+      return
+    }
+
+    // 返回 action, 前端自行处理
+    if (res.type !== ' ir.actions.server') return res
+
+    return this.form_call_action_run_recursion(res.id, { context })
+  }
+
+  async form_call_action_run(action_id) {
+    // console.log(action_id, this)
+    const active_model = this.res_model
+    const active_id = this.id
+    const active_ids = [this.id]
+    const context2 = { active_model, active_id, active_ids }
+    const context = { ...this.env.odoo.env.context, ...context2 }
+
+    return this.form_call_action_run_recursion(action_id, { context })
+  }
+
+  async call_button(method, kwargs = {}) {
+    const res = await this.constructor.call_button(method, this.id, kwargs)
+    if (!res) {
+      await this._after_commit(this.id)
+      return
+    }
+    // 返回 action, 前端自行处理
+    if (res.type !== ' ir.actions.server') return res
+
+    return this.form_call_action_run_recursion(res.id, kwargs)
+  }
+
+  async wizard_call_button(method) {
+    const values = this.values_for_write
+    const rid = await this.constructor.create(values)
+    // const fields = Object.keys(this.fields)
+    // const res = await this.constructor.read(rid, { fields })
+    // console.log(method, rid, res)
+    const kw = { context: this.env.context }
+    const res = await this.constructor.call_button(method, rid, kw)
+    if (!res) {
+      return
     } else {
-      console.log(type, method)
-      throw 'error'
+      //  返回 ir.actions.act_window_close
+      console.log('wizard call button,', res)
+      return res
+      // throw 'wizard call button, return sth, TBD'
+      // // return res
     }
   }
 }
 
-export const Model = FormModel
+class OlapModel extends FormModel {
+  constructor(payload = {}) {
+    super(payload)
+    const { pivot_data = {} } = payload
+    const { fields = {}, domain = [], measures = [], groupbys } = pivot_data
+
+    const ms = pivot.fields_for_measure(fields)
+    const measures_all = Object.keys(ms)
+
+    this._olap_fields = fields
+    this._olap_domain = [...domain]
+    this._olap_datalist = []
+    this._olap_measures = measures
+    this._olap_measures_all = [...measures_all, '__count']
+    this._olap_groupbys = groupbys
+  }
+
+  get olap_groupbys() {
+    return this._olap_groupbys
+  }
+
+  get olap_demensions() {
+    const dims = this.olap_groupbys.reduce((acc, cur) => {
+      const { groupby } = cur
+      return [...acc, ...groupby]
+    }, [])
+
+    return [...new Set(dims)]
+  }
+
+  get olap_measures() {
+    return this._olap_measures
+  }
+
+  get olap_measures_all() {
+    return this._olap_measures_all
+  }
+
+  get olap_fields() {
+    return this._olap_fields
+  }
+
+  get olap_domain() {
+    return this._olap_domain
+  }
+
+  get olap_datalist() {
+    return this._olap_datalist
+  }
+
+  static async _mdx_read_group(kwargs) {
+    const { measures, domain, groupby = [] } = kwargs
+    const fields = measures
+      .filter(item => item !== '__count')
+      .map(item => `${item}:sum`)
+    const lazy = false
+    const res = await this.read_group({ fields, domain, groupby, lazy })
+
+    const records = groupby.length
+      ? res
+      : res.map(item => {
+          return { ...item, __domain: domain }
+        })
+
+    return records
+  }
+
+  static async _mdx_read_cell(kwargs) {
+    // console.log('_mdx_read_cell', kwargs)
+    const { fields, measures, domain, groupby = [] } = kwargs
+    const records2 = await this._mdx_read_group({ measures, domain, groupby })
+    const records = records2.map(rec => {
+      const rec2 = Object.keys(rec).reduce((acc, fld) => {
+        const val = rec[fld]
+        if (fld === 'id' || fld.slice(0, 2) === '__') acc[fld] = val
+        else {
+          const fld2 = fld.split(':')[0]
+          const meta = fields[fld2]
+          if (['many2one'].includes(meta.type)) {
+            const val2 = val || [val, '']
+            acc[fld] = val2[0]
+            acc[`${fld}__name`] = val2[1]
+          } else if (['selection'].includes(meta.type)) {
+            const ops = meta.selection.find(item => item[0] === val)
+            const ops2 = ops || ['', '']
+            acc[fld] = val
+            acc[`${fld}__name`] = ops2[1]
+          } else {
+            acc[fld] = val
+          }
+        }
+        return acc
+      }, {})
+      return rec2
+    })
+
+    return records
+  }
+
+  static async olap_read({ fields, measures, domain, groupbys }) {
+    const result = []
+    for (const groupbydict of groupbys) {
+      const { groupby, groupby2 } = groupbydict
+      const kw2 = { fields, measures, domain, groupby: groupby2 || groupby }
+      const records = await this._mdx_read_cell(kw2)
+      result.push({ groupby, records })
+    }
+    return result
+  }
+
+  async olap_read() {
+    const fields = this.olap_fields
+    const domain = this.olap_domain
+    const measures = this.olap_measures
+    const groupbys = this.olap_groupbys
+
+    const kwargs = { fields, measures, domain, groupbys }
+    const datalist = await this.constructor.olap_read(kwargs)
+    this._olap_datalist = datalist
+  }
+
+  async olap_change_measure(measure, ckecked) {
+    const ms1 = this.olap_measures
+    const ms2 = ms1.filter(item => item !== measure)
+    if (ckecked) ms2.push(measure)
+
+    const measures = this.olap_measures_all.filter(item => ms2.includes(item))
+    this._olap_measures = measures
+
+    if (measure !== '__count' && ckecked) await this.olap_read()
+  }
+
+  async olap_read_slice({ domain, filter, groupbys }) {
+    // console.log('xxxx, unfold,slice', domain, cp(filter), cp(groupbys))
+    const fields = this.olap_fields
+    const measures = this.olap_measures
+    const groupbys_old = this.olap_groupbys
+    const datalist = this.olap_datalist
+
+    const kwargs = { fields, measures, domain, groupbys }
+    const datalist_new = await this.constructor.olap_read(kwargs)
+
+    const groupbys2 = [...groupbys_old]
+
+    groupbys.forEach(item => {
+      const todo = !groupbys_old.includes(it =>
+        pivot.check_array_equ(it.groupby, item.groupby)
+      )
+      if (todo) groupbys2.push({ groupby: item.groupby })
+    })
+
+    this._olap_groupbys = groupbys2
+    this._olap_slice_merge(filter, datalist, datalist_new)
+  }
+
+  _olap_slice_merge(filter, datalist, datalist_new) {
+    const parent_rec = pivot.search_one({ datalist, filter })
+    const rec_to_patch = Object.keys(parent_rec).reduce((acc, cur) => {
+      if (Object.keys(filter).includes(cur.split('__')[0]))
+        acc[cur] = parent_rec[cur]
+      return acc
+    }, {})
+
+    const new2 = datalist_new.map(item => {
+      return {
+        ...item,
+        filter: Object.keys(filter).reduce((acc, cur) => {
+          return { ...acc, [cur]: [filter[cur]] }
+        }, {}),
+
+        records: item.records.map(it => {
+          return { ...it, ...rec_to_patch }
+        })
+      }
+    })
+
+    const datalist2 = this._olap_slice_merge_datalist(datalist, new2)
+    this._olap_datalist = datalist2
+  }
+
+  _olap_slice_merge_datalist(dest, src) {
+    const minus = (list1, list2) => {
+      return list1.reduce(
+        (acc, cur) => {
+          const patch = list2.find(item => {
+            return pivot.check_array_equ(item.groupby, cur.groupby)
+          })
+
+          if (patch) acc[1].push([cur, patch])
+          else acc[0].push(cur)
+          return acc
+        },
+        [[], []]
+      )
+    }
+
+    const merge = todo => {
+      const get_flt_obj = (rec, fs) => {
+        return Object.keys(rec).reduce((acc, cur) => {
+          if (fs.includes(cur)) acc[cur] = rec[cur]
+          return acc
+        }, {})
+      }
+
+      return todo.map(item => {
+        const [rec1, rec2] = item
+
+        const merge_records = () => {
+          const to_patch = rec2.records.filter(it => {
+            const my_obj2 = get_flt_obj(it, rec1.groupby)
+            return !rec1.records.find(it1 => {
+              const my_obj1 = get_flt_obj(it1, rec1.groupby)
+              return pivot.check_object_equ(my_obj1, my_obj2)
+            })
+          })
+
+          return [...rec1.records, ...to_patch]
+        }
+
+        const merge_filter = () => {
+          const filter = Array.from(
+            new Set(
+              [].concat(Object.keys(rec1.filter), Object.keys(rec2.filter))
+            )
+          ).reduce((acc, key) => {
+            acc[key] = [
+              ...(rec1.filter[key] || []),
+              ...(rec2.filter[key] || [])
+            ]
+
+            return acc
+          }, {})
+
+          return filter
+        }
+
+        const records = merge_records()
+
+        const filter = merge_filter()
+
+        // const filter = Object.keys(filter2).reduce((acc, key) => {
+        //   const val = filter2[key]
+        //   const val2 = [...new Set(records.map(rec => rec[key]))]
+        //   if (!pivot.check_array_equ(val, val2)) acc[key] = val
+        //   return acc
+        // }, {})
+
+        return { ...rec1, filter, records }
+      })
+    }
+
+    const [to_add1, to_patch1] = minus(dest, src)
+
+    const to_add2 = minus(src, dest)[0]
+    const to_add = merge(to_patch1)
+    const result = [...to_add1, ...to_add2, ...to_add]
+    // console.log('pivot_merge_datalist2:', result)
+    return result
+  }
+
+  _olap_remove(field, filter) {
+    const _get_bool = (flt, item) =>
+      Object.keys(flt).reduce((acc, cur) => {
+        return acc && flt[cur] === item[cur]
+      }, true)
+
+    const datalist = this.olap_datalist
+
+    const datalist2 = datalist.reduce((acc, item) => {
+      if (item.groupby.includes(field)) {
+        const { filter: filter_data = {}, records } = item
+        const records2 = records.filter(rec => !_get_bool(filter, rec))
+        if (records2.length) {
+          const filter2 = Object.keys(filter_data).reduce((acc, cur) => {
+            acc[cur] = filter_data[cur].filter(it => it !== filter[cur])
+            return acc
+          }, {})
+
+          acc.push({ ...item, filter: filter2, records: records2 })
+        }
+      } else {
+        acc.push(item)
+      }
+
+      return acc
+    }, [])
+
+    this._olap_datalist = datalist2
+
+    this._olap_groupbys = datalist2.map(item => {
+      const { groupby } = item
+      return { groupby }
+    })
+  }
+}
+
+class PivotModel extends OlapModel {
+  constructor(payload = {}) {
+    super(payload)
+    const { pivot_data = {} } = payload
+    const { rows = [], columns = [] } = pivot_data
+    this._pivot_rows = rows
+    this._pivot_columns = columns
+  }
+
+  get pivot_rows() {
+    return this._pivot_rows
+  }
+  get pivot_columns() {
+    return this._pivot_columns
+  }
+
+  get pivot_info() {
+    return {
+      rows: this.pivot_rows,
+      columns: this.pivot_columns,
+      measures: this.olap_measures
+    }
+  }
+
+  get pivot_datalist() {
+    return this.olap_datalist
+  }
+
+  get pivot_datalist_one() {
+    return this.olap_datalist.length ? this.olap_datalist[0].records : []
+  }
+
+  static _mdx_read_groupbys({ rows, columns }) {
+    const groupbys = []
+
+    let rowindex = 0
+    const groupby_rows = []
+    do {
+      let colindex = 0
+      const groupby_cols = []
+      do {
+        const groupby = [...groupby_rows, ...groupby_cols]
+        groupbys.push({ groupby })
+        groupby_cols.push(columns[colindex])
+        colindex = colindex + 1
+      } while (colindex <= columns.length)
+      groupby_rows.push(rows[rowindex])
+      rowindex = rowindex + 1
+    } while (rowindex <= rows.length)
+
+    return groupbys
+  }
+
+  static async mdx_read_one(kwargs) {
+    // console.log(' mdx_read ', kwargs)
+    const { rows = [], columns = [] } = kwargs
+    // const groupbys = this._mdx_read_groupbys({ rows, columns })
+    const groupbys = [{ groupby: [...rows, ...columns] }]
+    console.log(groupbys)
+    const obj = new this({ pivot_data: { ...kwargs, groupbys } })
+    await obj.olap_read()
+    return obj
+  }
+
+  static async mdx_read(kwargs) {
+    // console.log(' mdx_read ', kwargs)
+    const { rows = [], columns = [] } = kwargs
+    const groupbys = this._mdx_read_groupbys({ rows, columns })
+    const obj = new this({ pivot_data: { ...kwargs, groupbys } })
+    await obj.olap_read()
+    return obj
+  }
+
+  async pivot_change(payload) {
+    /*
+     * { command, type, field, next, search } = payload
+     * command:  swap, select, unselct
+     * type: row, column, measure
+     * field:
+     * next
+     * value: {filter, domain, }
+     */
+    const { command, type, field, next, search } = payload
+
+    if (command === 'swap') {
+      this.pivot_swap()
+    } else if (command === 'unfold') {
+      await this.olap_read()
+    } else if (type === 'measure') {
+      const { value } = payload
+      return await this.olap_change_measure(field, value)
+    } else if (command === 'fold') {
+      return this._pivot_fold(type, field, next, search)
+    } else {
+      // console.log('xxxx, unfold0,', type, field, next, search)
+      return await this.pivot_unfold(type, next, search)
+    }
+  }
+
+  _pivot_fold(type, field, next, search) {
+    const { filter } = search
+
+    this._olap_remove(next, filter)
+
+    const rows = this.pivot_rows
+    const cols = this.pivot_columns
+    const dimensions = this.olap_demensions
+
+    this._pivot_rows = rows.filter(item => dimensions.includes(item))
+    this._pivot_columns = cols.filter(item => dimensions.includes(item))
+  }
+
+  pivot_swap() {
+    const [rows, columns] = [this.pivot_rows, this.pivot_columns]
+    this._pivot_rows = [...columns]
+    this._pivot_columns = [...rows]
+  }
+
+  async pivot_unfold(type, field, value = {}) {
+    // console.log('xxxx, unfold,', type, field, cp(value))
+    const { domain, filter } = value
+
+    const rows = this.pivot_rows
+    const columns = this.pivot_columns
+
+    const new_axis = (axis, field) => {
+      return [...axis, field].reduce((acc, cur) => {
+        if (!acc.length || acc[acc.length - 1] !== field) acc.push(cur)
+        return acc
+      }, [])
+    }
+
+    const rows2 = type === 'row' ? new_axis(rows, field) : rows
+    const cols2 = type === 'row' ? columns : new_axis(columns, field)
+
+    const kw2 = { type, rows: rows2, columns: cols2, field }
+    const groupbys = this._pivot_slice_groupbys(kw2)
+
+    await this.olap_read_slice({ domain, filter, groupbys })
+
+    if (type === 'row') {
+      if (!rows.includes(field)) this._pivot_rows = [...rows, field]
+    } else {
+      if (!columns.includes(field)) this._pivot_columns = [...columns, field]
+    }
+  }
+
+  _pivot_slice_groupbys({ type, rows, columns, field }) {
+    // console.log('xxxx, unfold, grp,', type, rows, columns, field)
+    const loops = type === 'row' ? columns : rows
+    const groupbys = []
+    let index = 0
+    const groupby_loops = []
+    do {
+      const groupby2 = [...groupby_loops, field]
+      const groupby =
+        type === 'row'
+          ? [...rows, ...groupby_loops]
+          : [...groupby_loops, ...columns]
+      groupbys.push({ groupby, groupby2 })
+
+      groupby_loops.push(loops[index])
+      index = index + 1
+    } while (index <= loops.length)
+    return groupbys
+  }
+}
+
+export class Model extends PivotModel {
+  constructor(payload = {}) {
+    super(payload)
+  }
+
+  async call_action_run(action_id, ids) {
+    if (ids) {
+      return this.tree_call_action_run(action_id, ids)
+    } else {
+      return this.form_call_action_run(action_id)
+    }
+  }
+}

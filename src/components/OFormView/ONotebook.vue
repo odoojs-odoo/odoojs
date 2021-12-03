@@ -1,123 +1,139 @@
 <template>
   <div>
-    <Tabs v-if="children_visible.length" :animated="false" type="card">
-      <TabPane
-        v-for="(page, index) in children_visible"
-        :key="index"
-        :label="page.attrs.string"
-      >
-        <!-- {{ page }} -->
+    <a-tabs
+      v-if="children_visible.length"
+      type="card"
+      @change="handleTabsChange"
+    >
+      <template v-for="(page, index) in children_visible">
+        <a-tab-pane :key="index" :tab="page.attrs.string">
+          <template v-for="(item, index) in childern_filter(page.children)">
+            <!-- {{ item }} -->
 
-        <div
-          v-for="(item, index) in childern_filter(page.children)"
-          :key="index"
-        >
-          <!-- {{ item }} -->
+            <div :key="index" v-if="debug && get_invisible(item)">
+              hide
+            </div>
 
-          <div
-            v-if="
-              item.tagName === 'group' &&
-                (item.class || '').includes('oe_subtotal_footer')
-            "
-          >
-            <Row>
-              <Col span="18"> </Col>
-              <Col span="6">
-                <OGroupInner
-                  v-model="value2"
-                  :dataDict="dataDict"
-                  :node="item"
-                  :editable="editable"
-                  :modelMethod="modelMethod"
-                  @on-change="handleOnchange"
-                />
-              </Col>
-            </Row>
-          </div>
+            <template
+              v-if="
+                item.tagName === 'group' &&
+                  (item.class || '').includes('oe_subtotal_footer')
+              "
+            >
+              <a-row :key="index">
+                <a-col :span="18"> </a-col>
+                <a-col :span="6">
+                  <OGroup
+                    :editable="editable"
+                    :loading="loading"
+                    :data-info="dataInfo"
+                    :view-info="{ ...viewInfo, node: item }"
+                    :method-call="methodCall"
+                    @on-event="handleOnEvent"
+                  />
+                </a-col>
+              </a-row>
+            </template>
 
-          <OGroupOut
-            v-else-if="item.tagName === 'group'"
-            v-model="value2"
-            :dataDict="dataDict"
-            :node="item"
-            :editable="editable"
-            :modelMethod="modelMethod"
-            @on-change="handleOnchange"
-          />
+            <template v-else-if="item.tagName === 'group'">
+              <OGroup
+                :key="index"
+                :editable="editable"
+                :loading="loading"
+                :data-info="dataInfo"
+                :view-info="{ ...viewInfo, node: item }"
+                :method-call="methodCall"
+                @on-event="handleOnEvent"
+              />
+            </template>
 
-          <div
-            v-else-if="
-              item.tagName === 'field' && item.attrs.widget === 'payment'
-            "
-          >
-            <Row>
-              <Col span="12"> </Col>
-              <Col span="12">
-                <OWidgetPayment
-                  v-model="value2"
-                  :dataDict="dataDict"
-                  :node="item"
-                  :editable="editable"
-                  :modelMethod="modelMethod"
-                  @on-change="handleOnchange"
-                />
-              </Col>
-            </Row>
+            <template
+              v-else-if="
+                item.tagName === 'field' && item.attrs.widget === 'payment'
+              "
+            >
+              <a-row :key="index">
+                <a-col :span="12"> </a-col>
+                <a-col :span="12">
+                  OWidgetPayment
+                  <!-- <OWidgetPayment
+                    :node="item"
+                    :editable="editable"
+                    :method-call="methodCall"
+                    @on-event="handleOnEvent"
+                  /> -->
+                </a-col>
+              </a-row>
 
-            <!-- oe_invoice_outstanding_credits_debits
+              <!-- oe_invoice_outstanding_credits_debits
              -->
-          </div>
+            </template>
 
-          <OField
-            v-else-if="item.tagName === 'field'"
-            v-model="value2"
-            :dataDict="dataDict"
-            :node="item"
-            :editable="editable"
-            :modelMethod="modelMethod"
-            @on-change="handleOnchange"
-          />
+            <template v-else-if="item.tagName === 'field'">
+              <OField
+                :key="index"
+                :editable="editable"
+                :loading="loading"
+                :data-info="dataInfo"
+                :view-info="{ ...viewInfo, node: item }"
+                :method-call="methodCall"
+                @on-event="handleOnEvent"
+              />
+            </template>
 
-          <OLabel
-            v-else-if="item.tagName === 'label'"
-            v-model="value2"
-            :dataDict="dataDict"
-            :node="item"
-            :editable="editable"
-            :modelMethod="modelMethod"
-            @on-change="handleOnchange"
-          />
-          <ONode
-            v-else-if="['div', 'p'].includes(item.tagName)"
-            v-model="value2"
-            :dataDict="dataDict"
-            :node="item"
-            :editable="editable"
-            :modelMethod="modelMethod"
-            @on-change="handleOnchange"
-          />
+            <template v-else-if="item.tagName === 'label'">
+              <OLabel
+                :key="index"
+                :editable="editable"
+                :loading="loading"
+                :data-info="dataInfo"
+                :view-info="{ ...viewInfo, node: item }"
+                :method-call="methodCall"
+                @on-event="handleOnEvent"
+              />
+            </template>
 
-          <span v-else> in Notebook: {{ item }} </span>
-        </div>
-      </TabPane>
-    </Tabs>
+            <template v-else-if="['div', 'p'].includes(item.tagName)">
+              <ONode
+                :key="index"
+                :editable="editable"
+                :loading="loading"
+                :data-info="dataInfo"
+                :view-info="{ ...viewInfo, node: item }"
+                :method-call="methodCall"
+                @on-event="handleOnEvent"
+              />
+            </template>
+
+            <span v-else :key="index"> in Notebook: {{ item }} </span>
+          </template>
+        </a-tab-pane>
+      </template>
+    </a-tabs>
   </div>
 </template>
 
 <script>
+// import { sleep } from '@/odoorpc/utils'
+
 import OMixin from './OMixin'
 
 import OField from './OField'
-import OGroupOut from './OGroupOut'
-import OGroupInner from './OGroupInner'
+import OGroup from './OGroup'
 
 import OLabel from './OLabel'
 import ONode from './ONode'
-import OWidgetPayment from './OWidgetPayment'
+// import OWidgetPayment from './OWidgetPayment'
 
 export default {
-  name: 'FormView',
-  components: { OGroupOut, OGroupInner, OField, ONode, OLabel, OWidgetPayment },
+  name: 'ONotebook',
+  components: {
+    OGroup,
+    OField,
+    ONode,
+    OLabel
+    // , OWidgetPayment
+  },
   mixins: [OMixin],
 
   props: {},
@@ -131,7 +147,15 @@ export default {
 
   mounted() {},
 
-  methods: {}
+  methods: {
+    // eslint-disable-next-line no-unused-vars
+    async handleTabsChange(activeKey) {
+      // console.log(activeKey)
+      // this.initFinished = false
+      // await sleep(10)
+      // this.initFinished = true
+    }
+  }
 }
 </script>
 

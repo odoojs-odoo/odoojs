@@ -4,8 +4,9 @@ import { Environment } from './env'
 
 export class ODOO {
   constructor(payload) {
-    const { baseURL, timeout = 50000 } = payload
+    const { baseURL, timeout = 50000, addons } = payload
     this._baseURL = baseURL
+    this._addons = addons
 
     this._rpc = new request.ProxyJSON({ baseURL, timeout })
     this._web = new WEB({ odoo: this })
@@ -61,19 +62,32 @@ export class ODOO {
 
   async json_call(url, payload = {}) {
     const data = await this._rpc.call(url, payload)
-    if (data.error) {
-      throw data.error
-    } else {
-      return data.result
-    }
+    // console.log(data)
+    if (data.error) throw data.error
+    else return data.result
+  }
+
+  async json_get(url, payload = {}) {
+    const data = await this._rpc.call_get(url, payload)
+    // console.log(data)
+    return data
   }
 
   async file_export(url, payload) {
+    // console.log(url, payload)
+    // console.log(this._rpc)
+
+    const csrf_token = await this.web.session.csrf_token()
+    console.log(csrf_token)
+
     const rpc = new request.ProxyFileExport({
       baseURL: this.baseURL,
-      timeout: 50000
+      timeout: 50000,
+      rpc: this._rpc,
+      csrf_token
     })
     const data = await rpc.call(url, payload)
+
     if (data.error) {
       // TBD
       throw data.error
@@ -143,29 +157,48 @@ export class ODOO {
     // }
     */
 
-  async export_xlsx(data) {
-    const url = '/web2/export/xlsx'
-    const data2 = await this.file_export(url, data)
-
-    return data2
-  }
-
-  async export_csv(data) {
-    const url = '/web2/export/csv'
-    const data2 = await this.file_export(url, data)
-
-    return data2
-  }
-
   download({ filename, filetype, data }) {
     // //ArrayBuffer 转为 Blob
     const blob = new Blob([data], { type: filetype })
     const objectUrl = URL.createObjectURL(blob)
-
+    const filename2 = decodeURIComponent(filename)
     const a = document.createElement('a')
     a.setAttribute('href', objectUrl)
-    a.setAttribute('download', filename)
+    a.setAttribute('download', filename2)
     a.click()
+    return true
+  }
+
+  async report_download({ report_name, active_ids, report_type }) {
+    // call check_wkhtmltopdf 是否安装了 wkhtmltopdf
+    // if true then
+    // else: 可能 pattern 不同
+
+    if (report_type == 'qweb-pdf') {
+      const res = await this.web.report.check_wkhtmltopdf()
+      console.log(res)
+      if (res !== 'ok') {
+        throw 'wkhtmltopdf not ok '
+        // return false
+      }
+    }
+
+    const pattern = report_type == 'qweb-pdf' ? '/report/pdf/' : '/report/text/'
+    const url = `${pattern}${report_name}/${active_ids.join(',')}`
+    const data = [url, report_type]
+    const context = this.env.context
+    const res = await this.web.report.download(data, context)
+    return this.download(res)
+  }
+
+  async export_xlsx(data) {
+    const res = await this.web.export.xlsx(data)
+    return this.download(res)
+  }
+
+  async export_csv(data) {
+    const res = await this.web.export.csv(data)
+    this.download(res)
   }
 
   upload(callback) {
@@ -184,8 +217,9 @@ export class ODOO {
   }
 
   async login({ db, login, password }) {
-    await this.web.session.authenticate({ db, login, password })
-    return true
+    return this.web.home.login({ db, login, password })
+    // await this.web.session.authenticate({ db, login, password })
+    // return true
   }
 
   async logout() {
@@ -199,11 +233,8 @@ export class ODOO {
 
   async session_check() {
     try {
-      if (this.session_info.uid) {
-        await this.web.session.check()
-      } else {
-        await this.web.session.get_session_info()
-      }
+      if (this.session_info.uid) await this.web.session.check()
+      else await this.web.session.get_session_info()
       return true
     } catch (erorr) {
       return false

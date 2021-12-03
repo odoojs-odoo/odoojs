@@ -1,0 +1,85 @@
+<template>
+  <div>
+    <a-page-header
+      style="border: 1px solid rgb(235, 237, 240)"
+      title="设置"
+      @back="$router.go(-1)"
+    >
+      <a-space>
+        <a-button size="small" type="primary" @click="handleOnCommit">
+          保存
+        </a-button>
+        <!-- <a-button size="small" @click="handleOnCancel">放弃</a-button> -->
+      </a-space>
+    </a-page-header>
+
+    <div>
+      <!-- o_setting_container: {{ node_setting_container.class }} -->
+      <div>
+        <!-- settings_tab : {{ node_settings_tab.class }} -->
+        <!-- settings_tab -->
+      </div>
+      <div>
+        <!-- settings: {{ node_settings.class }} -->
+        <!-- settings -->
+
+        <a-row>
+          <a-col :span="8">
+            <a-menu v-model="selectedKeys" @click="handleClick">
+              <template v-for="item in childern_filter(node_settings.children)">
+                <template v-if="item.class.includes('app_settings_block')">
+                  <a-menu-item :key="item.attrs['data-key']">
+                    {{ item.attrs['string'] }}
+                    <!-- {{ item.attrs['data-string'] }} -->
+                    <!-- {{ item.attrs['data-key'] }}    -->
+                  </a-menu-item>
+                </template>
+              </template>
+            </a-menu>
+          </a-col>
+          <a-col :span="16">
+            <ONode
+              :editable="true"
+              :loading="false"
+              :data-info="dataInfo"
+              :view-info="{ ...formInfo, node: current_node }"
+              :method-call="methodCall"
+              @on-event="handleOnViewEvent"
+            />
+          </a-col>
+        </a-row>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import formConfigViewMixin from '@/mixins/formConfigViewMixin'
+
+import ONode from '@/components/OFormView/ONode'
+
+export default {
+  name: 'OConfig',
+  components: { ONode },
+  mixins: [formConfigViewMixin],
+
+  props: {},
+
+  data() {
+    return {}
+  },
+  computed: {},
+
+  async created() {},
+
+  mounted() {},
+
+  methods: {
+    handleClick({ key }) {
+      console.log('click', key)
+    }
+  }
+}
+</script>
+
+<style type="text/css"></style>
