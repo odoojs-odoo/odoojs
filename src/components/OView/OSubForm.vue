@@ -10,8 +10,10 @@
       <!-- {{ editable }} -->
 
       <!-- {{ fname }}
-      {{ subDataInfo }}
+ 
       {{ subViewInfo }} -->
+
+      <!-- {{ subDataInfo.dataDict.id }} -->
 
       <OFormView
         :parent-span="12"
@@ -103,6 +105,10 @@ export default {
         if (!form_info._is_load_async) return form_info
         if (!this.editable) return form_info
 
+        // 在  pick one 时, 会 load form view
+        // 原有的 tree view 可能为 空
+        if (!meta.views.tree) return form_info
+
         const tree_info = meta.views.tree || {}
         const field_nodes = tree_info.node.children.filter(
           item => item.tagName === 'field' && item.attrs.name !== 'sequence'
@@ -128,7 +134,7 @@ export default {
 
   methods: {
     subMethodCall(method, ...args) {
-      console.log(' subMethodCall ', method, args)
+      // console.log(' subMethodCall ', method, args)
 
       if (method === 'get_selection') {
         return this.method_get_selection(...args)
@@ -147,7 +153,7 @@ export default {
     },
 
     async handleRelationBrowse(payload) {
-      // console.log(' handleRelationBrowse 1', payload)
+      // console.log(' SUb handleRelationBrowse 1', payload)
       const { field } = payload
 
       const parent = {
@@ -184,12 +190,14 @@ export default {
     },
 
     async handleOnCommit(payload = {}) {
-      // console.log('handleOnRollback subform', this.fullname, payload)
+      console.log('handleOnCommit subform', this.fullname, payload)
       const { relation = [], callback: callback_relation } = payload
       const relation2 = [
         { field: this.fname, row_id: this.subDataInfo.dataDict.id },
         ...relation
       ]
+
+      console.log('handleOnCommit subform', this.dataInfo)
 
       const that = this
 

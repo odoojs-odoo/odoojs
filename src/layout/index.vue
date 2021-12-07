@@ -22,43 +22,55 @@
         </a-menu-item>
 
         <template v-for="item in menus">
-          <a-menu-item v-if="item.action" :key="item.id">
-            <!-- <a-icon type="home" /> -->
+          <!-- submenu.children &&
+          Array.isArray(submenu.children) &&
+          submenu.children.length -->
 
-            <span v-if="item.web_icon">
-              <!-- :src="`data:image/png;base64,${item.web_icon_data}`" -->
+          <!-- item.children &&
+          Array.isArray(item.children) &&
+          item.children.length -->
 
-              <img
-                :src="`/dev-api/mail/static/description/icon.png`"
-                alt=""
-                width="12"
-              />
-            </span>
-            <span> {{ item.name }} </span>
-          </a-menu-item>
+          <!-- v-if="!item.action" -->
 
-          <a-sub-menu v-else :key="item.id">
-            <span slot="title">
+          <template
+            v-if="
+              item.children &&
+              Array.isArray(item.children) &&
+              item.children.length
+            "
+          >
+            <a-sub-menu :key="item.id">
+              <span slot="title">
+                <!-- <a-icon type="home" /> -->
+                <span v-if="item.web_icon">
+                  <img :src="img_url(item.web_icon)" alt="" width="12" />
+                </span>
+                <span> {{ item.name }} </span>
+              </span>
+              <template v-for="submenu in item.children">
+                <a-menu-item v-if="submenu.action" :key="submenu.id">
+                  <span> {{ submenu.name }} </span>
+                </a-menu-item>
+                <sub-menu
+                  v-else
+                  :key="submenu.id"
+                  :menu-data="submenu"
+                  :collapsed="collapsed"
+                />
+              </template>
+            </a-sub-menu>
+          </template>
+
+          <template v-else>
+            <a-menu-item :key="item.id">
               <!-- <a-icon type="home" /> -->
+
               <span v-if="item.web_icon">
-                <!-- :src="`data:image/png;base64,${item.web_icon_data}`" -->
-                <!-- `/dev-api/mail/static/description/icon.png` -->
                 <img :src="img_url(item.web_icon)" alt="" width="12" />
               </span>
               <span> {{ item.name }} </span>
-            </span>
-            <template v-for="submenu in item.children">
-              <a-menu-item v-if="submenu.action" :key="submenu.id">
-                <span> {{ submenu.name }} </span>
-              </a-menu-item>
-              <sub-menu
-                v-else
-                :key="submenu.id"
-                :menu-data="submenu"
-                :collapsed="collapsed"
-              />
-            </template>
-          </a-sub-menu>
+            </a-menu-item>
+          </template>
         </template>
       </a-menu>
     </a-layout-sider>
@@ -189,20 +201,25 @@ export default {
 
   created() {
     const menu_data = api.menu_data
-    // console.log('created. menu_data , ', menu_data)
 
     this.menus = [...(menu_data.children || [])]
+
+    // console.log('created. menu_data , ', this.menus)
 
     // (session_info.user_companies || {}).allowed_companies ||   []
     const { user_companies = {} } = api.session_info || {}
     const { allowed_companies = [], current_company = [0, ''] } = user_companies
-    console.log(user_companies)
+    // console.log('xxxxx,user_companies ', user_companies)
 
     this.allowed_companies = allowed_companies
     this.current_company = current_company[0]
   },
 
   methods: {
+    test: submenu => {
+      console.log(submenu)
+    },
+
     img_url(web_icon) {
       const base_api = process.env.VUE_APP_BASE_API
       const url = web_icon.split(',').join('/')

@@ -43,8 +43,11 @@ export default {
 
     formInfo() {
       const info = this.formViewInfo
-      // console.log('node', cp(info))
+
       const node = this.node
+
+      console.log('node', cp(node))
+
       const children2 = node.children || []
       const children = children2.filter(item => item.tagName !== 'footer')
       return { ...info, node: { ...node, children } }
@@ -59,7 +62,9 @@ export default {
     }
   },
   watch: {
-    visible(newVal) {
+    // eslint-disable-next-line no-unused-vars
+    visible(newVal, oldVal) {
+      // console.log('watch, wizard ', newVal, oldVal)
       if (newVal) {
         this.init()
       }
@@ -85,6 +90,7 @@ export default {
     },
 
     async init() {
+      // console.log('wizard')
       const model = this.modelGet()
       const res = await try_call(async () => {
         await model.onchange()
@@ -101,7 +107,7 @@ export default {
 
         this.visible2 = true
 
-        console.log('init', model, cp(this.viewInfo), cp(this.dataInfo))
+        // console.log('init', model, cp(this.viewInfo), cp(this.dataInfo))
       }
     },
 

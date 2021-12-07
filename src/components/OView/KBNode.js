@@ -74,7 +74,7 @@ export default {
 
       const tagName = node_map[node.tagName]
       if (!tagName) {
-        console.log(node)
+        console.log('xxx', node)
         return createElement('div', {}, [
           createElement('div', {}, [this.fullname, '-- KB nook'])
         ])

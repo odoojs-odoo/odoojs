@@ -5,16 +5,39 @@
     </span>
 
     <template v-for="submenu in props.menuData.children">
-      <a-menu-item v-if="submenu.action" :key="submenu.id">
-        <span> {{ submenu.name }} </span>
-      </a-menu-item>
+      <template
+        v-if="
+          submenu.children &&
+          Array.isArray(submenu.children) &&
+          submenu.children.length
+        "
+      >
+        <sub-menu
+          :key="submenu.id"
+          :menu-data="submenu"
+          :collapsed="collapsed"
+        />
+      </template>
 
-      <sub-menu
-        v-else
-        :key="submenu.id"
-        :menu-data="submenu"
-        :collapsed="collapsed"
-      />
+      <template v-else>
+        <a-menu-item :key="submenu.id">
+          <span> {{ submenu.name }} </span>
+        </a-menu-item>
+      </template>
+
+      <!-- <template v-if="submenu.action">
+        <a-menu-item :key="submenu.id">
+          <span> {{ submenu.name }} </span>
+        </a-menu-item>
+      </template>
+
+      <template v-else>
+        <sub-menu
+          :key="submenu.id"
+          :menu-data="submenu"
+          :collapsed="collapsed"
+        />
+      </template> -->
     </template>
   </a-sub-menu>
 </template>
@@ -29,7 +52,11 @@ export default {
   // computed: {},
 
   // async created() {},
-  // methods: {}
+  // methods: {
+  //   test(submenu) {
+  //     console.log(submenu)
+  //   }
+  // }
 }
 </script>
 

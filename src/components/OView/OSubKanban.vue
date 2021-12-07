@@ -44,36 +44,27 @@
     />
   </div>
 
-  <div v-else>
-    找不到 Kanban 视图的 模版文件
-  </div>
+  <div v-else>找不到 Kanban 视图的 模版文件</div>
 </template>
 
 <script>
-import OMixin from '@/components/OFormView/OMixin'
-import KBNode from './KBNode'
-
+import subTreeMixin from './subTreeMixin'
 import { tools } from '@/odoojs'
-
 import OSubForm from './OSubForm.vue'
+
+import KBNode from './KBNode'
 
 export default {
   name: 'OSubKanban',
   components: { KBNode, OSubForm },
-  mixins: [OMixin],
+  mixins: [subTreeMixin],
 
   props: {},
 
   data() {
-    return {
-      showModal: false
-    }
+    return {}
   },
   computed: {
-    fname() {
-      return this.node.attrs.name
-    },
-
     subViewInfo() {
       const viewInfo = JSON.parse(JSON.stringify(this.viewInfo))
       const meta = viewInfo.fields[this.fname]
@@ -93,38 +84,13 @@ export default {
     }
   },
 
-  async created() {},
+  watch: {},
 
-  methods: {
-    handleOnCreate() {
-      console.log('handleOnCreate,', this.node)
-      this.$emit('on-event', 'relation-pick', {
-        type: 'one2many',
-        field: this.fname,
-        node: this.node
-      })
+  created() {},
 
-      this.showModal = true
-    },
+  mounted() {},
 
-    async handleOnRowClick(row) {
-      console.log('handleOnRowClick,', row)
-      this.$emit('on-event', 'relation-pick', {
-        type: 'one2many',
-        field: this.fname,
-        node: this.node,
-        row_id: row.id
-      })
-
-      this.showModal = true
-    },
-
-    async handleOnchange() {
-      console.log('handleOnchange SubKanban')
-
-      // this.$emit('on-change', field, value, text)
-    }
-  }
+  methods: {}
 }
 </script>
 

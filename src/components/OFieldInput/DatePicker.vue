@@ -5,7 +5,7 @@
       <!-- {{ [type] }} -->
       <a-date-picker
         :class="required ? 'input-required' : undefined"
-        :id="fname"
+        :id="elementId"
         :show-time="type === 'datetime'"
         v-model="value2[fname]"
         :placeholder="placeholder"

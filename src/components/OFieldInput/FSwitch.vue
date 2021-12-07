@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <a-form-model ref="ruleForm" :model="value2" :rules="rules">
-      <a-form-model-item :prop="fname">
-        <!-- {{ value2 }} -->
-        <a-switch v-model="value2[fname]" @change="handleChange" />
-      </a-form-model-item>
-    </a-form-model>
-  </div>
+  <a-switch v-model="value2[fname]" @change="handleChange" />
+  <!-- <a-form-model ref="ruleForm" :model="value2" :rules="rules">
+    <a-form-model-item :prop="fname">
+      <a-switch v-model="value2[fname]" @change="handleChange" />
+    </a-form-model-item>
+  </a-form-model> -->
 </template>
 <script>
 import inputMixin from './inputMixin'

@@ -1,7 +1,9 @@
 <template>
   <div>
+    <!-- visible: {{ visible }} -->
     <a-modal v-model="visible2" :title="formTitle">
       <!-- 建设中 ... -->
+
       <OFormView
         :editable="true"
         :view-info="formInfo"

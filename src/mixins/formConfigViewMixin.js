@@ -3,6 +3,16 @@ import viewMixin from './viewMixin'
 
 const cp = item => JSON.parse(JSON.stringify(item))
 
+const global_debug = 1
+const try_call = async (fn, debug) => {
+  if (global_debug || debug) return { result: await fn() }
+  try {
+    return { result: await fn() }
+  } catch (error) {
+    return { error }
+  }
+}
+
 export default {
   mixins: [viewMixin],
 
@@ -89,9 +99,9 @@ export default {
     handleOnViewEvent(event_name, ...args) {
       console.log(' handleOnViewEvent, ', event_name, args)
       // 点击按钮
-      // if (event_name === 'button-clicked') this.handleButtonClicked(...args)
-      // // 编辑页面 包括 relation 字段的的 子form view 的编辑
-      // else if (event_name === 'on-change') this.handleOnchange(...args)
+      if (event_name === 'button-clicked') this.handleButtonClicked(...args)
+      // 编辑页面 包括 relation 字段的的 子form view 的编辑
+      else if (event_name === 'on-change') this.handleOnchange(...args)
       // // relation 字段 刷新数据
       // else if (event_name === 'relation-browse')
       //   this.handleRelationBrowse(...args)
@@ -103,6 +113,35 @@ export default {
       // else if (event_name === 'on-rollback') this.handleOnRollback(...args)
       // // relation 字段 form 页面 删除
       // else if (event_name === 'on-unlink') this.handleOnEventUnlink(...args)
+    },
+
+    async handleButtonClicked(payload = {}) {
+      const model = this.modelGet()
+      console.log('btn click', payload, model)
+
+      const { error, result } = await try_call(async () => {
+        return await model.wizard_button_click(payload)
+      })
+
+      console.log('btn click2', error, result)
+
+      if (error) {
+        this.$error({ title: '用户错误', content: error.data.message })
+      } else {
+        if (result) this.$emit('on-action-return', result)
+        else {
+          // this.viewInfo = JSON.parse(JSON.stringify(model.view_info))
+          // this.dataInfo = JSON.parse(JSON.stringify(model.data_info))
+        }
+      }
+    },
+
+    async handleOnchange(payload = {}) {
+      // this.loading = true
+      const model = this.modelGet()
+      await model.onchange(payload)
+      this.dataInfo = JSON.parse(JSON.stringify(model.data_info))
+      // this.loading = false
     },
 
     get_invisible(node) {

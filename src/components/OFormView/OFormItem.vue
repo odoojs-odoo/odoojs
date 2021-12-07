@@ -8,13 +8,17 @@
     :wrapper-col="{ span: 12 }"
   >
     <!-- :id="get_fname(node, labelNode)" class="test" -->
+    <!-- :htmlFor="get_labelfor(node, labelNode)" -->
     <a-form-item>
       <span slot="label" v-if="labelNode.tagName || !node.attrs.nolabel">
         <div v-if="get_invisible(node)">hide</div>
         <!-- {{ node.attrs.string }} -->
 
         <template v-if="!labelNode.tagName">
-          <b> {{ node.attrs.string }} </b>
+          <!-- <b> {{ node.attrs.string }} </b> -->
+          <label :for="node.attrs.name">
+            <b> {{ node.attrs.string }} </b>
+          </label>
         </template>
         <template v-else>
           <!-- <b> {{ labelNode.tagName }} </b> -->
@@ -127,6 +131,16 @@ export default {
   mounted() {},
 
   methods: {
+    // get_labelfor(node, labelNode) {
+    //   //
+    //   const by_label_node = nd => {
+    //     //
+    //   }
+    //   if (labelNode) {
+    //     //
+    //   }
+    //   return node.attrs.name
+    // }
     // get_fname(field_node, label_node) {
     //   // console.log('fname', cp(field_node), cp(label_node))
     //   const fn = (node, tagName, attrName) => {

@@ -53,7 +53,7 @@
     </a-space>
 
     &nbsp;&nbsp;&nbsp;
-
+    
     <a-space
       style="float: right"
       v-if="

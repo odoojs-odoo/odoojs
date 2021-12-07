@@ -56,28 +56,20 @@
 </template>
 
 <script>
-import OMixin from '@/components/OFormView/OMixin'
+import subTreeMixin from './subTreeMixin'
 import { tools } from '@/odoojs'
-
-// import { sleep } from '@/odoorpc/utils'
-
 import OSubForm from './OSubForm.vue'
+// import { sleep } from '@/odoorpc/utils'
 
 export default {
   name: 'OSubTree',
   components: { OSubForm },
-  mixins: [OMixin],
+  mixins: [subTreeMixin],
   props: {},
   data() {
-    return {
-      showModal: false
-    }
+    return {}
   },
   computed: {
-    fname() {
-      return this.node.attrs.name
-    },
-
     view_columns() {
       return tools.view_columns({ view_info: this.viewInfo, field: this.fname })
     },
@@ -116,7 +108,7 @@ export default {
 
   watch: {},
 
-  async created() {},
+  created() {},
 
   mounted() {},
 
@@ -124,47 +116,14 @@ export default {
     tableCustomRow(record) {
       const that = this
       return {
-        // props: {
-        //   xxx... //属性
-        // },
         on: {
-          // 事件
           // eslint-disable-next-line no-unused-vars
           click: event => {
             // console.log(record, event)
             that.handleOnRowClick(record)
-          } // 点击行
-          // dblclick: (event) => {},
-          // contextmenu: (event) => {},
-          // mouseenter: (event) => {},  // 鼠标移入行
-          // mouseleave: (event) => {}
+          }
         }
       }
-    },
-
-    handleOnCreate() {
-      console.log('handleOnCreate,', this.node)
-      this.$emit('on-event', 'relation-pick', {
-        type: 'one2many',
-        field: this.fname,
-        node: this.node
-      })
-
-      this.showModal = true
-    },
-
-    async handleOnRowClick(row) {
-      console.log('handleOnRowClick,', row, this.node)
-
-      this.$emit('on-event', 'relation-pick', {
-        type: 'one2many',
-        field: this.fname,
-        node: this.node,
-        row_id: row.id,
-        editable: this.editable
-      })
-
-      this.showModal = true
     }
   }
 }

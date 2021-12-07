@@ -10,6 +10,7 @@ export default {
       }
     },
     fname: { type: String, default: undefined },
+    elementId: { type: String, default: undefined },
     required: { type: Boolean, default: false },
     placeholder: { type: String, default: '' }
   },

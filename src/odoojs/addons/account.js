@@ -27,6 +27,9 @@ const journal_kanban = `
   <div name="title">
     <field name="name" />
   </div>
+  <div name="content">
+    <div> <field name="name" /></div> 
+  </div>  
 </templates >
 `
 

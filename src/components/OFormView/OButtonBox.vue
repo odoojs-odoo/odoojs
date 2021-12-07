@@ -1,7 +1,5 @@
 <template>
   <div>
-    <a-divider />
-
     <template v-for="(btn, index) in children_visible">
       <template v-if="btn.tagName === 'button'">
         <OStatButton

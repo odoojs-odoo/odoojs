@@ -135,6 +135,7 @@ class ProxyFileExport extends Proxy0 {
         const data = config.data
         const fd = new FormData()
         Object.keys(data).forEach(item => fd.append(item, data[item]))
+
         config.data = fd
         return config
       },

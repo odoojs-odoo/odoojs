@@ -16,9 +16,7 @@
         v-if="render.mode.includes('kanban') || render.mode.includes('tree')"
       >
         <div align="left" v-if="editable">
-          <a-button size="small" @click="handleOnCreateO2m">
-            创建
-          </a-button>
+          <a-button size="small" @click="handleOnCreateO2m"> 创建 </a-button>
         </div>
 
         <!-- -->
@@ -70,52 +68,72 @@
       </span>
     </span>
 
-    <span v-else-if="render.tag === 'many2many'">
-      many2many: {{ node.attrs.name }}
-      {{ [render] }}
-    </span>
-
     <span v-else-if="!editable || readonly">
       <!-- readonly: {{ [readonly] }} edit: {{ editable }} -->
 
-      <span
+      <template
         v-if="!(node.class && node.class.includes('oe_edit_only'))"
         :class="node.class"
         :name="fname"
       >
-        <span v-if="node.attrs.widget === 'payment'">
+        <template v-if="node.attrs.widget === 'payment'">
           TBD: payment: {{ value_readonly }}
-        </span>
-        <span
-          v-else-if="
-            render.tag === 'select2' && render.widget === 'many2many_tags'
-          "
-        >
-          {{ dataDict[fname] }}
-          <a-tag
-            v-for="one in dataDict[`${fname}__record`] || []"
-            :key="one[0]"
-          >
-            {{ one[1] }}
-          </a-tag>
-        </span>
+        </template>
 
-        <span v-else> {{ value_readonly }} </span>
-      </span>
+        <template v-else-if="node.attrs.widget === 'CopyClipboardChar'">
+          TBD: CopyClipboardChar: {{ value_readonly }}
+        </template>
+
+        <template v-else-if="render.tag === 'many2many'">
+          <template v-if="render.widget === 'many2many_tags'">
+            <template v-for="one in dataDict[`${fname}__record`] || []">
+              <a-tag :key="one[0]"> {{ one[1] }} </a-tag>
+            </template>
+          </template>
+
+          <template v-else-if="render.widget === 'many2many_checkboxes'">
+            <div>
+              <template v-for="one in dataDict[`${fname}__record`] || []">
+                <a-tag :key="one[0]"> {{ one[1] }} </a-tag>
+              </template>
+            </div>
+          </template>
+
+          <template v-else> TBD: m2m, {{ value_readonly }} </template>
+        </template>
+
+        <template v-else> {{ value_readonly }} </template>
+      </template>
 
       <!-- only debug -->
       <!-- <span v-else> editonly:{{ fname }}:{{ dataDict[fname] }} </span> -->
     </span>
 
-    <template v-else>
+    <template v-else-if="render.tag === 'many2many'">
       <OFieldInput
+        :editable="editable"
         :dataDict="dataDict"
+        :dataReady="dataReady"
         :loading="loading"
         :fname="fname"
         :required="required"
         :render="render"
         :placeholder="node.attrs.placeholder"
-        :selection-options="selectionOptions"
+        :optionsMethod="selectOptionsMethod"
+        @on-change="onchange"
+      />
+    </template>
+
+    <template v-else>
+      <OFieldInput
+        :dataDict="dataDict"
+        :dataReady="dataReady"
+        :loading="loading"
+        :fname="fname"
+        :required="required"
+        :render="render"
+        :placeholder="node.attrs.placeholder"
+        :element-id="node.attrs.id || node.attrs.name"
         :optionsMethod="selectOptionsMethod"
         @on-change="onchange"
       />
@@ -150,16 +168,17 @@ export default {
   data() {
     return {
       one2many_viewType: 'tree',
-      kanbanKeyIndex: 0,
-
-      select_options: {},
-      selectionOptions: []
+      kanbanKeyIndex: 0
     }
   },
   computed: {
     fname() {
       return this.node.attrs.name
     },
+    dataReady() {
+      return this.dataInfo.dataReady
+    },
+
     readonly() {
       return tools.node_readonly(this.node, {
         data_info: this.dataInfo,
@@ -238,15 +257,13 @@ export default {
           mode: (this.node.attrs.mode || 'tree').split(',')
         }
       } else if (['many2many'].includes(type)) {
-        // field 有 m2m widget="many2many"
-        // stock pick_ids TBD
+        // widget="many2many"
+        // widget="many2many_binary"
+        // widget="many2many_tags"
+        // widget="many2many_tags_email"
+        // widget: "many2many_checkboxes"
 
-        if (node.attrs.widget === 'many2many_tags') {
-          // widget: "many2many_tags"
-          return { tag: 'select2', widget: node.attrs.widget }
-        } else {
-          return { tag: 'many2many', widget: node.attrs.widget }
-        }
+        return { tag: 'many2many', widget: node.attrs.widget }
       }
 
       //
@@ -262,7 +279,6 @@ export default {
   },
 
   async mounted() {
-    // console.log(' mounted', this.fname)
     this.handleOnInitFname()
   },
 
@@ -271,17 +287,16 @@ export default {
       const { tag, widget } = this.render
 
       // console.log('1,', this.render, this.fname, this.node)
-      if (tag === 'select2' && widget === 'many2many_tags') {
+      if (tag === 'many2many') {
         // console.log('viewinfo many2many_tags:', this.fname)
         this.$emit('on-event', 'relation-browse', {
           type: 'many2many',
-          widget: 'many2many_tags',
           field: this.fname,
           res_model: this.res_model,
           node: this.node
         })
       } else if (tag === 'one2many') {
-        console.log('viewinfo one2many:', this.fname)
+        // console.log('viewinfo one2many:', this.fname)
         this.one2many_viewType = this.render.mode[0]
 
         this.$emit('on-event', 'relation-browse', {
@@ -292,23 +307,20 @@ export default {
         })
       } else if (tag === 'selection' && widget === 'radio') {
         // console.log('viewinfo radio:', this.fname)
-        // const res = this.model.get_selection(this.fname)
-        // // console.log(this.fname, res)
-        // this.selectionOptions = res
       } else {
         // console.log('viewinfo else:', this.render, this.fname, this.node)
       }
     },
 
     onchange(value, text) {
-      console.log('handleOnchange', [this.fname, value, text])
+      // console.log('handleOnchange', [this.fname, value, text])
       // this.$emit('on-change', this.fname, value, text)
       this.$emit('on-event', 'on-change', { field: this.fname, value, text })
     },
 
     handleChangeO2mViewType(e) {
       const viewType = e.target.value
-      console.log(viewType, this.one2many_viewType)
+      console.log('xxxx', viewType, this.one2many_viewType)
     },
 
     handleOnCreateO2m() {
@@ -322,47 +334,25 @@ export default {
     },
 
     selectOptionsMethod(payload = {}) {
+      //
       const field = this.fname
 
-      // const options2 = this.select_options[field]
-      // if (options2) {
-      //   return options2
-      // }
+      // console.log('xxx, ', field, payload)
 
       return this.get_options({ field, ...payload })
     },
 
     get_options(payload = {}) {
-      const { field, query, limit } = payload
+      const { field, query, limit, ...kw } = payload
+      // console.log('get_options', field, payload)
       if (this.node.attrs.widget === 'radio') {
-        const kwargs = { field, query: '', limit: 0, node: this.node }
+        const kwargs = { field, query: '', limit: 0, node: this.node, ...kw }
         return this.methodCall('get_selection', kwargs)
       } else {
-        const kwargs = { field, query, limit, node: this.node }
+        const kwargs = { field, query, limit, node: this.node, ...kw }
         return this.methodCall('get_selection', kwargs)
       }
     }
-
-    // async get_options(payload = {}) {
-    //   // this.methodCall('get_options', payload,)
-    //   console.log('get_options ', payload, this.node.attrs.widget, this.node)
-    //   const { field, query, limit } = payload
-    //   // console.log(' get_options, ', field, this.model.select_options)
-    //   if (this.node.attrs.widget === 'radio') {
-    //     const kwargs = { field, query: '', limit: 0, node: this.node }
-    //     // const options = await this.model.get_selection(field, kwargs)
-    //     const options = await this.methodCall('get_selection', kwargs)
-    //     // console.log(options)
-    //     this.select_options[field] = [...options]
-    //     return options
-    //   } else {
-    //     const kwargs = { field, query, limit, node: this.node }
-    //     // const options = await this.model.get_selection(field, kwargs)
-    //     console.log('get_options 1', field, kwargs)
-    //     const options = await this.methodCall('get_selection', kwargs)
-    //     return options
-    //   }
-    // }
   }
 }
 </script>

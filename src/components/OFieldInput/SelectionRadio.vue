@@ -6,26 +6,13 @@
 
         <a-radio-group
           v-model="value2[fname]"
-          :options="
-            options.map(item => {
+          :selectionOptions="
+            selectionOptions.map(item => {
               return { value: item[0], label: item[1] }
             })
           "
           @change="onChangeRadio"
         />
-
-        <!-- <a-select
-          :class="required ? 'input-required' : undefined"
-          v-model="value2[fname]"
-          :id="fname"
-          :placeholder="placeholder"
-          style="width: 100%"
-          @change="handleChange"
-        >
-          <a-select-option v-for="d in options" :key="d[0]">
-            {{ d[1] }}
-          </a-select-option>
-        </a-select> -->
       </a-form-model-item>
     </a-form-model>
   </div>
@@ -40,13 +27,11 @@ export default {
   components: {},
   mixins: [inputMixin],
   props: {
-    optionsMethod: { type: Function, default: () => [] }
+    selectionOptions: { type: Array, default: () => [] }
   },
 
   data() {
-    return {
-      options: []
-    }
+    return {}
   },
 
   computed: {
@@ -64,17 +49,13 @@ export default {
     }
   },
 
-  async mounted() {
-    const ops = await this.optionsMethod()
-    // console.log('mounted:', this.fname, ops)
-    this.options = ops
-  },
+  async mounted() {},
 
   methods: {
     onChangeRadio(event) {
       const value = event.target.value
       // console.log('onChangeRadio', [this.fname, value, this.selectionOptions])
-      const kv = this.options.find(item => item[0] === value)
+      const kv = this.selectionOptions.find(item => item[0] === value)
       const text = kv ? kv[1] : ''
       this.handleChange(value, text)
     },

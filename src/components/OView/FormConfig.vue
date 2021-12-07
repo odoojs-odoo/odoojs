@@ -24,7 +24,7 @@
         <!-- settings -->
 
         <a-row>
-          <a-col :span="8">
+          <a-col :span="4">
             <a-menu v-model="selectedKeys" @click="handleClick">
               <template v-for="item in childern_filter(node_settings.children)">
                 <template v-if="item.class.includes('app_settings_block')">
@@ -37,8 +37,9 @@
               </template>
             </a-menu>
           </a-col>
-          <a-col :span="16">
+          <a-col :span="20">
             <ONode
+              style="padding: 2px 9px;"
               :editable="true"
               :loading="false"
               :data-info="dataInfo"

@@ -99,14 +99,17 @@ export class ODOO extends _ODOO {
       const Menu = this.env.model('ir.ui.menu')
       // const menus = await Menu.execute('load_menus', 'assets')
       // 加上这个参数后, 会返回所有的 菜单,
-      const context = { ...this.env.context }
+      const context = { ...this.env.context, 'ir.ui.menu.full_list': true }
       // context['ir.ui.menu.full_list'] = 1
+      // context = {'ir.ui.menu.full_list': True}
       const menus = await Menu.execute_kw('load_menus', ['1'], { context })
 
       // mail.menu_root_discuss
       // console.log(JSON.parse(JSON.stringify(menus)))
 
       this._menu_data = menus
+      const res = await this.env.model('res.users').read(this.session_info.uid)
+      return res
     }
   }
 

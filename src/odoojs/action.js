@@ -72,14 +72,56 @@ class IrActionsServer extends IrActions {
   constructor(env, payload) {
     super(env, payload)
   }
+
+  async run() {
+    console.log('action_run', this)
+    const context = this.env.context
+    return this.constructor._run_recursion(this.env, this.id, { context })
+  }
+
+  static async action_run(env, action_id, { context }) {
+    return env._odoo.web.action.run({ action_id, context })
+  }
+
+  static async _run_recursion(env, action_id, { context }) {
+    const res = await this.action_run(env, action_id, { context })
+    console.log('action server1:', res)
+    if (!res) return
+    if (res.type === ' ir.actions.server')
+      return this._run_recursion(env, res.id, { context })
+
+    // // 返回 action, 前端自行处理
+    return this.action_load(env, null, { action_info: res })
+  }
 }
 
-// eslint-disable-next-line no-unused-vars
 class IrActionsReport extends IrActions {
   // action_type = ir.actions.report
   constructor(env, payload) {
     super(env, payload)
   }
+
+  get report_name() {
+    return this._action_info.report_name
+  }
+
+  get report_type() {
+    return this._action_info.report_type
+  }
+
+  get data() {
+    return this._action_info.data
+  }
+
+  get name_string() {
+    return this._action_info.name
+  }
+
+  //   data: {product_id: 2, warehouse_ids: [1]}
+  // name: "产品路线报告"
+  // report_name: "stock.report_stock_rule"
+  // report_type: "qweb-html"
+  // type: "ir.actions.report"
 }
 
 class IrActionsActWindowclose extends IrActions {
@@ -123,7 +165,19 @@ class IrActionsActWindow extends IrActions {
 
   get view_mode() {
     // web 页面获取 view_mode
-    return this._action_info.view_mode.split(',')
+    const types = this._action_info.view_mode.split(',')
+    return types.filter(item =>
+      [
+        'tree',
+        'list',
+        'kanban',
+        'pivot',
+        'calendar',
+        'graph',
+        'form',
+        'search'
+      ].includes(item)
+    )
   }
 
   get model() {
@@ -139,7 +193,24 @@ class IrActionsActWindow extends IrActions {
   }
 
   get views() {
-    return this._views
+    const views = this._views
+    return Object.keys(views).reduce((acc, item) => {
+      if (
+        [
+          'tree',
+          'list',
+          'kanban',
+          'pivot',
+          'calendar',
+          'graph',
+          'form',
+          'search'
+        ].includes(item)
+      )
+        acc[item] = views[item]
+
+      return acc
+    }, {})
   }
 
   get search_default() {
@@ -161,15 +232,17 @@ class IrActionsActWindow extends IrActions {
     //   view_type
     // )
 
-    if (!this.views[view_type]) {
+    if (!this._views[view_type]) {
       const args = [[null, view_type]]
       const info = await this.model.Model.execute('load_views', args)
-      console.log('xxxx,', cp(info))
+      // console.log('load_view_info1,xxxx,', view_type, cp(info))
+      // console.log('load_view_info2, ,', this._views)
 
-      this.views[view_type] = {
+      this._views[view_type] = {
         _is_load_async: 1,
         ...info.fields_views[view_type]
       }
+
       // console.log(
       //   'load,22',
       //   this.res_model,
@@ -196,7 +269,7 @@ class IrActionsActWindow extends IrActions {
     const search_defaults = {}
     for (const item in this.env.context) {
       if (item.slice(0, 14) === 'search_default') {
-        console.log('search', item)
+        // console.log('search', item)
         const field = item.slice(15)
         const meta = this.fields[field] || {}
         if (['many2one', 'selection'].includes(meta.type)) {
@@ -384,6 +457,8 @@ const tools = {
       return await tools.load_act_url(env, action_info, kwargs)
     } else if (action_info.type === 'ir.actions.server') {
       return await tools.load_server(env, action_info, kwargs)
+    } else if (action_info.type === 'ir.actions.report') {
+      return await tools.load_report(env, action_info, kwargs)
     } else {
       console.log(' TBD  action', action_info.type, action_info, kwargs)
       throw 'TBD action'
@@ -392,12 +467,17 @@ const tools = {
 
   _get_env(env, context_str, kwargs) {
     // context = env.odoo.env.context + additional_context + active_context + action_info.context
-    // console.log(env.context, env.odoo.env.context, kwargs)
+    // console.log(context_str, env.context, env.odoo.env.context, kwargs)
     const { additional_context = {}, active_context = {} } = kwargs
     const globals = { ...env.context, ...active_context }
     const context2 = get_context(context_str, globals)
     const context = { ...context2, ...additional_context, ...active_context }
     return env.copy({ ...env.odoo.env.context, ...context })
+  },
+
+  async load_report(env2, action_info, kwargs) {
+    const env = this._get_env(env2, action_info.context, kwargs)
+    return new IrActionsReport(env, { action_info })
   },
 
   async load_server(env2, action_info, kwargs) {

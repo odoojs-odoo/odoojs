@@ -19,7 +19,7 @@
 
     <a-dropdown v-model="dropdownVisible" @visibleChange="handelVisibleChange">
       <a class="ant-dropdown-link" @click="e => e.preventDefault()">
-        <span style="height:1px"> . </span>
+        <span style="height: 1px"> . </span>
         <!-- <a-icon type="down" /> -->
       </a>
 
@@ -216,7 +216,7 @@ export default {
       const model = this.modelGet()
 
       const options = await model.call('search', 'get_selection', kwargs)
-      console.log(options)
+      console.log('xxxx', options)
 
       this.subOptions = {
         ...this.subOptions,

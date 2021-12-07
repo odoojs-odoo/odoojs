@@ -54,7 +54,7 @@ export default {
 
       const query = this.$route.query
       const resId = query.id ? parseInt(query.id) : undefined
-      // console.log(resId)
+      // console.log(model)
       this.loading = true
       if (resId) await model.read(resId)
       else await model.onchange()
@@ -203,13 +203,13 @@ export default {
     },
 
     async handleOnAction(action) {
-      console.log('action form0:', action)
+      // console.log('action form0:', action)
       const model = this.modelGet()
       const { error, result } = await try_call(async () => {
         return await model.action_call(action)
       })
 
-      console.log('action form:', error, result)
+      // console.log('action form:', error, result)
 
       if (error) {
         this.$error({ title: '用户错误', content: error.data.message })
@@ -244,17 +244,17 @@ export default {
     },
 
     async handleRelationBrowse(payload) {
-      console.log(' handleRelationBrowse', payload.field, payload)
+      // console.log(' handleRelationBrowse', payload.field, payload)
       const model = this.modelGet()
       await model.relation_to_browse(payload)
       this.viewInfo = JSON.parse(JSON.stringify(model.view_info))
       this.dataInfo = JSON.parse(JSON.stringify(model.data_info))
 
-      // console.log('xxxxxx,', JSON.parse(JSON.stringify(model.view_info)))
+      // console.log('handleRelationBrowse, xxxxxx,', cp(model.view_info))
     },
 
     async handleRelationPick(payload) {
-      console.log(' handleRelationPick ', payload)
+      // console.log(' handleRelationPick ', payload)
       const model = this.modelGet()
       this.loading = true
       // 新增o2m 页面. 先清理 formview. 避免 显示 旧的编辑 数据
@@ -265,7 +265,7 @@ export default {
       this.viewInfo = JSON.parse(JSON.stringify(model.view_info))
       this.dataInfo = JSON.parse(JSON.stringify(model.data_info))
 
-      // console.log('xxxxxx,', JSON.parse(JSON.stringify(model.view_info)))
+      // console.log('handleRelationPick, xxxxxx,', cp(model.view_info))
       this.loading = false
     },
 

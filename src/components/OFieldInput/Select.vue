@@ -1,13 +1,14 @@
 <template>
   <a-form-model ref="ruleForm" :model="value2" :rules="rules">
     <a-form-model-item :prop="fname">
-      <!-- {{ value2 }} -->
+      <!-- {{ value2[fname] }} -->
+      <!-- {{ value2 }}      -->
       <!-- {{ [required] }} -->
       <!-- :not-found-content="fetching ? undefined : null" -->
       <a-select
         :class="required ? 'input-required' : undefined"
         v-model="value2[fname]"
-        :id="fname"
+        :id="elementId"
         :mode="mode"
         show-search
         :showArrow="false"
@@ -24,13 +25,10 @@
 
         <div slot="dropdownRender" slot-scope="menu">
           <v-nodes :vnodes="menu" />
-          <a-divider
-            style="margin: 4px 0;"
-            v-if="options.length >= limit + 1"
-          />
+          <a-divider style="margin: 4px 0" v-if="options.length >= limit + 1" />
           <div
             v-if="options.length >= limit + 1"
-            style="padding: 4px 8px; cursor: pointer;"
+            style="padding: 4px 8px; cursor: pointer"
             @mousedown="e => e.preventDefault()"
             @click="handleSearchMore"
           >
@@ -64,6 +62,15 @@ const check_array_equ = (listA, listB) => {
     listA.length === listB.length &&
     listA.every(a => listB.some(b => a === b)) &&
     listB.every(_b => listA.some(_a => _a === _b))
+
+  return result
+}
+
+const check_array_equ2 = (listA, listB) => {
+  let result =
+    listA.length === listB.length &&
+    listA.every(a => listB.some(b => check_array_equ(a, b))) &&
+    listB.every(_b => listA.some(_a => check_array_equ(_a, _b)))
 
   return result
 }
@@ -127,19 +134,35 @@ export default {
 
   methods: {
     set_value_in_watch(newValue, oldValue) {
-      // console.log('watch dataDict:', this.fname, newValue, oldValue)
-
-      const valold = oldValue[this.fname]
-      const valnew = newValue[this.fname]
-      const myval = this.value2[this.fname]
-
       if (this.mode === 'multiple') {
-        const todo =
-          !check_array_equ(valold || [], valnew || []) &&
+        // console.log('xxx0,', this.fname, { newValue, oldValue })
+
+        const valold = oldValue[this.fname] || []
+        const valnew = newValue[this.fname] || []
+        const myval = this.value2[this.fname] || []
+
+        const valold2 = oldValue[this.frecord] || []
+        const valnew2 = newValue[this.frecord] || []
+
+        // console.log('xxx1,', { valold, valnew })
+
+        const todo1 =
+          !check_array_equ(valold, valnew) &&
           !check_array_equ(
-            valnew || [],
-            (myval || []).map(item => item.key)
+            valnew,
+            myval.map(item => item.key)
           )
+
+        // console.log('xxx2,', { valold2, valnew2 })
+
+        const todo2 =
+          !check_array_equ2(valold2, valnew2) &&
+          !check_array_equ2(
+            valnew2,
+            myval.map(item => [item.key, item.label])
+          )
+
+        const todo = todo1 || todo2
 
         if (todo) {
           const labels = newValue[this.frecord] || []
@@ -150,22 +173,35 @@ export default {
           }
         }
       } else {
-        if (valnew && valold !== valnew && valnew !== (myval || {}).key) {
+        const valold = oldValue[this.fname]
+        const valnew = newValue[this.fname]
+        const myval = this.value2[this.fname] || {}
+
+        if (valnew && valold !== valnew && valnew !== myval.key) {
           const label = newValue[this.flabel]
-          this.value2 = {
-            [this.fname]: { key: valnew, label }
-          }
+          this.value2 = { [this.fname]: { key: valnew, label } }
+        } else if (!valnew && myval.key) {
+          this.value2 = { [this.fname]: undefined }
         }
       }
     },
     set_value_in_mounted() {
-      // console.log('mounted:', this.fname, this.value2, this.dataDict)
-      const valnew = this.dataDict[this.fname]
-      const myval = this.value2[this.fname]
-
       if (this.mode === 'multiple') {
-        const mykey = (myval || []).map(item => item.key)
-        if (!check_array_equ(valnew || [], mykey)) {
+        const valnew = this.dataDict[this.fname] || []
+        const myval = this.value2[this.fname] || []
+        const mykey = myval.map(item => item.key)
+
+        const valnew2 = this.dataDict[this.frecord] || []
+
+        const todo1 = !check_array_equ(valnew, mykey)
+        const todo2 = !check_array_equ2(
+          valnew2,
+          myval.map(item => [item.key, item.label])
+        )
+        // console.log('mounted select:', this.fname, valnew, valnew2, myval)
+
+        const todo = todo1 || todo2
+        if (todo) {
           const labels = this.dataDict[this.frecord]
           this.value2 = {
             [this.fname]: labels.map(item => {
@@ -174,11 +210,13 @@ export default {
           }
         }
       } else {
-        if (valnew && valnew !== (myval || {}).key) {
+        const valnew = this.dataDict[this.fname]
+        const myval = this.value2[this.fname] || {}
+        if (valnew && valnew !== myval.key) {
           const label = this.dataDict[this.flabel]
-          this.value2 = {
-            [this.fname]: { key: valnew, label }
-          }
+          this.value2 = { [this.fname]: { key: valnew, label } }
+        } else if (!valnew && myval.key) {
+          this.value2 = { [this.fname]: undefined }
         }
       }
     },

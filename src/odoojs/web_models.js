@@ -164,7 +164,14 @@ class ModelBase {
     this._action = action
     this._Model = Model
 
-    this._view_type = action.view_mode[0]
+    // this._view_type = action.view_mode[0]
+
+    const view_mode = action.view_mode.filter(
+      mode => !['search', 'form', 'gantt', 'qweb', 'activity'].includes(mode)
+    )
+
+    this._view_type = view_mode[0]
+    // console.log('xxxxx,', action.view_mode)
 
     this.views = new Views(this)
   }

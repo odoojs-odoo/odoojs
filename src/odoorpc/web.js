@@ -164,18 +164,37 @@ class Session extends _WEB {
     return { ...context, allowed_company_ids }
   }
 
-  get allowed_company_ids() {
-    const cids_str = this.get_cookie('cids')
-    if (cids_str) return cids_str.split(',').map(item => Number(item))
-    return [this.current_company_id]
-    // const user_companies = this.session_info.user_companies || {}
-    // const allowed_companies = user_companies.allowed_companies || []
-    // return [allowed_companies[0][0]]
+  get current_company_id() {
+    const user_companies = this.session_info.user_companies || {}
+    const current_company = user_companies.current_company || [0, '']
+    return current_company[0]
   }
 
   set allowed_company_ids(cids = []) {
     const cids_str = cids.join(',')
     this.set_cookie('cids', cids_str || String(this.current_company_id))
+  }
+
+  get allowed_company_ids() {
+    const cids_str = this.get_cookie('cids')
+    if (!cids_str) return [this.current_company_id]
+
+    const cids = cids_str.split(',').map(item => Number(item))
+    const user_companies = this.session_info.user_companies || {}
+    const allowed_companies = user_companies.allowed_companies || []
+    const odoo_cids = allowed_companies.map(item => item[0])
+    const to_remove_cids = cids.filter(item => !odoo_cids.includes(item))
+    if (!to_remove_cids.length) return cids
+
+    const todo = cids.filter(item => odoo_cids.includes(item))
+    if (todo.length) {
+      this.allowed_company_ids = todo
+      return todo
+    }
+
+    const todo2 = odoo_cids.slice(0, 1)
+    this.allowed_company_ids = todo2
+    return todo2
   }
 
   set_first_allowed_company(cid) {
@@ -217,12 +236,6 @@ class Session extends _WEB {
 
     const cids = get_ids()
     this.allowed_company_ids = cids
-  }
-
-  get current_company_id() {
-    const user_companies = this.session_info.user_companies || {}
-    const current_company = user_companies.current_company || [0, '']
-    return current_company[0]
   }
 
   get_cookie(c_name) {

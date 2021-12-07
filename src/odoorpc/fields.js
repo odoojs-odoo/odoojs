@@ -165,11 +165,12 @@ class BaseField_edit extends BaseField_init {
 
   async get_selection_async(kwargs = {}) {
     //  m2o, m2m, get selection 需要
-    // console.log('xxxx, col', this.fname, kwargs)
+    // console.log('xxxx, col', this.fname, kwargs, this.meta)
 
     const { args, name: query = '', operator = 'ilike', limit = 8 } = kwargs
     const { context } = kwargs
     const Relation = this.env.copy(context).model(this.meta.relation)
+    // const domain = this.meta
     const kwargs2 = { args, name: query, operator, limit }
     const selection = await Relation.name_search(kwargs2)
     // const selection = await Relation.execute_kw('name_search', [], kwargs2)
@@ -201,6 +202,11 @@ class BaseField_edit extends BaseField_init {
 
   set_value_by_onchange(rid, value) {
     this.set_value_updated(rid, value)
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  async _after_onchange_async(rid) {
+    // To Be Override.  for many2many
   }
 
   _commit_get_readonly() {
@@ -437,7 +443,36 @@ class Many2many extends BaseField {
       return acc
     }, [])
 
+    // console.log('set_value_by_onchange2', this.fname, values2)
+
     this.set_value_updated(rid, [...values2])
+  }
+
+  async _after_onchange_async(rid) {
+    const check_array_equ = (listA, listB) => {
+      let result =
+        listA.length === listB.length &&
+        listA.every(a => listB.some(b => a === b)) &&
+        listB.every(_b => listA.some(_a => _a === _b))
+
+      return result
+    }
+
+    const ids = this.get_value(rid)
+    const store = this.get_store_for_values(rid)
+    const old_record = store[this.fname__record] || {}
+    const old_ids = Object.keys(old_record).reduce((acc, cur) => {
+      return [...acc, old_record[cur][0]]
+    }, [])
+
+    const todo = !check_array_equ(ids, old_ids)
+
+    // console.log('after onchange,', rid, this.fname, ids, old_ids)
+
+    if (!ids.length) return
+    if (todo) {
+      await this.relation_browse(rid)
+    }
   }
 
   get_value_for_write(rid) {
@@ -621,8 +656,9 @@ class One2many extends BaseField {
   }
 
   get_value_onchange(rid, for_parent) {
+    // console.log('get_value_onchange,  ', rid, for_parent)
     const value2 = this.get_value_updated(rid)
-    const value0 = this.get_value_init(rid)
+    const value0 = this.get_value_init(rid) || []
 
     if (value2 === undefined) return value0.map(item => [4, item, false])
 
@@ -827,6 +863,10 @@ export class Field {
 
   set_value_by_onchange(rid, value) {
     this.field.set_value_by_onchange(rid, value)
+  }
+
+  async _after_onchange_async(rid) {
+    return this.field._after_onchange_async(rid)
   }
 
   //   rollback() {

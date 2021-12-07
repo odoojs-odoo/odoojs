@@ -676,7 +676,7 @@ const compute_domain = (domain_in, record, debug) => {
 //         } else if (['many2one'].includes(type)) {
 //           return { tag: 'select' }
 //         } else if (['many2many'].includes(type)) {
-//           return { tag: 'select2' }
+//           return { tag: 'many2many' }
 //         }
 //         return { tag: 'input', type: 'text' }
 //       }

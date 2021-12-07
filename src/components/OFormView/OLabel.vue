@@ -4,36 +4,45 @@
       <span v-if="get_invisible(node) || invisible_by_oe_read_or_edit_only">
         hide2
       </span>
-      <b> {{ node.attrs.string }} </b>
+      <label :for="node.attrs.for">
+        <b> {{ node.attrs.string }} </b>
+      </label>
     </template>
 
     <template v-else-if="children_visible.length">
-      children: {{ children_visible }}
-      in Olabel, no string, have child
+      <!-- children: {{ children_visible }}
+      in Olabel, no string, have child -->
 
-      <!-- <ONode
-        v-for="(item, index) in children_visible"
-        :key="index"
-        
-        
-        :node="item"
-        :editable="editable"
-            :method-call="methodCall"
-@on-event="handleOnEvent"
-      /> -->
+      <template v-for="(item, index) in children_visible">
+        <ONode
+          :key="index"
+          :editable="editable"
+          :loading="loading"
+          :data-info="dataInfo"
+          :view-info="{ ...viewInfo, node: item }"
+          :method-call="methodCall"
+          @on-event="handleOnEvent"
+        />
+      </template>
+
+      <!-- -->
     </template>
-    <template v-else>{{ fullname }}, no string and child. </template>
+
+    <template v-else>
+      <div>label:</div>
+      <!-- {{ fullname }}, -->
+      no string and child.
+    </template>
   </span>
 </template>
 
 <script>
 import OMixin from './OMixin'
-
-// import ONode from './ONode'
+import ONode from './ONode'
 
 export default {
   name: 'OLabel',
-  // components: { ONode },
+  components: { ONode },
   mixins: [OMixin],
 
   props: {},

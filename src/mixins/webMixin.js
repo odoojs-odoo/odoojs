@@ -86,13 +86,13 @@ const Mixin = {
 
         this.actionTarget = action.target
 
-        console.log(
-          'view_info',
-          action.target,
-          JSON.parse(JSON.stringify(model.view_info))
-        )
+        // console.log(
+        //   'view_info',
+        //   action.target,
+        //   JSON.parse(JSON.stringify(model.view_info))
+        // )
 
-        if (action.target === 'current') {
+        if (['current', 'main'].includes(action.target)) {
           if (viewType === 'form') {
             this.viewType = 'form'
             this.hideButton = { ...model.hide_button() }
@@ -103,6 +103,8 @@ const Mixin = {
               mode =>
                 !['search', 'form', 'gantt', 'qweb', 'activity'].includes(mode)
             )
+
+            // tree, list, kanban, pivot, calendar, graph,
 
             // gantt view 只有 mrp 模块中出现三次
             // qweb view 只有 sale_timesheet 模块中出现一次
@@ -131,8 +133,20 @@ const Mixin = {
           // this.editable = true
         } else {
           console.log('TBD, action.target', action.target)
+          // ('current', 'Current Window'),
+          // ('new', 'New Window'),
+          // ('inline', 'Inline Edit'),
+          // ('fullscreen', 'Full Screen'),
+          // ('main', 'Main action of Current Window')
+
           throw 'TBD, action.target'
         }
+      } else if (action.type === 'ir.actions.server') {
+        console.log('TBD, action.type server ')
+        const action2 = await action.run()
+        console.log('TBD, action.type server 2', action2)
+        this.handleOnActionReturn(action2)
+        // throw 'TBD, action.type server'
       } else {
         console.log('TBD, action.type ', action.type)
         throw 'TBD, action.type'
@@ -150,14 +164,19 @@ const Mixin = {
       if (action.type === 'ir.actions.act_url') {
         console.log('建设中 act_url :', action.url)
         this.$message.info(`建设中..., act_url`)
+      } else if (action.type === 'ir.actions.report') {
+        console.log('建设中 report :', action.type)
+        this.$message.info(`建设中..., ${action.type}`)
       } else if (action.type === 'ir.actions.act_window') {
         // console.log('act_window :', action, action.target)
 
         if (action.target === 'new') {
-          console.log('new modal', action)
+          // console.log('new modal', this.showWizard, action)
+          // this.actionTarget = action.target
           this.wizardModel = action.model
           this.showWizard = this.showWizard + 1
-        } else if (action.target === 'current') {
+          // console.log('new modal2', this.showWizard, action)
+        } else if (['current', 'main'].includes(action.target)) {
           console.log(action.target, 'current  router', action)
           const res_id = action.res_id
           const action_id = action.id

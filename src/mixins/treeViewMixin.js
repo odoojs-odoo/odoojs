@@ -67,8 +67,15 @@ export default {
     async handleOnRowClick(row) {
       const model = this.modelGet()
       const actionId = model.action.id
+      // console.log(model.env.context.active_id)
+      const active_id = model.env.context.active_id
       const path = `/web`
-      const query = { action: actionId, view_type: 'form', id: row.id }
+      const query = {
+        action: actionId,
+        view_type: 'form',
+        id: row.id,
+        ...(active_id ? { active_id } : {})
+      }
       this.$router.push({ path, query })
     }
   }

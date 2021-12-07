@@ -1,8 +1,8 @@
 <template>
   <span v-if="node.attrs.string || node.attrs.title">
-    <span v-if="get_invisible(node)">
-      hide
-    </span>
+    <span v-if="get_invisible(node)"> hide </span>
+
+    <i :class="'fa ' + node.attrs.icon" v-if="node.attrs.icon" />
     <a-button :type="button_type(node)" @click="onclick">
       {{ node.attrs.string || node.attrs.title }}
     </a-button>

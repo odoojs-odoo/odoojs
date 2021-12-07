@@ -118,34 +118,39 @@ class ViewBase {
   get view_info() {
     return this.action.views[this.view_type]
   }
+  get _view_arch() {
+    const view_info = this.view_info
+    const view_type = this.view_type
+
+    const arch1 = view_info.arch
+    if (!arch1) return {}
+
+    const get_node = () => {
+      const node = xml2json.toJSON(arch1)
+      if (['list', 'tree'].includes(view_type) && node.tagName === 'tree')
+        return {
+          ...node,
+          children: [
+            ...node.children,
+            { tagName: 'templates', attrs: {}, class: '', children: [] }
+          ]
+        }
+      else return node
+    }
+
+    const node = get_node()
+
+    return node
+  }
 
   get view_node() {
     if (this._view_node !== undefined) return this._view_node
     if (!this.view_info) return {}
 
     const _get_view_node2 = () => {
-      const view_info = this.view_info
-      const view_type = this.view_type
-
-      const arch1 = view_info.arch
-      if (!arch1) return {}
-
-      const get_node = () => {
-        const node = xml2json.toJSON(arch1)
-        if (['list', 'tree'].includes(view_type) && node.tagName === 'tree')
-          return {
-            ...node,
-            children: [
-              ...node.children,
-              { tagName: 'templates', attrs: {}, class: '', children: [] }
-            ]
-          }
-        else return node
-      }
-
-      const node = get_node()
       // console.log('view node,', view_info, view_type, node)
 
+      const node = this._view_arch
       return this._get_view_node(node)
     }
 
@@ -231,9 +236,34 @@ class ViewBase {
   }
 
   _view_node_label(node, parent) {
-    let string = ''
+    const arch = this._view_arch
+    // console.log(node.attrs.for, node, arch)
+
+    const _get_field_by_for_recursion = (for2, node2) => {
+      if (node2.tagName === 'field') {
+        if (node2.attrs.id === for2 || node2.attrs.name === for2) return node2
+      }
+
+      for (const nd of node2.children || []) {
+        const to_ret = _get_field_by_for_recursion(for2, nd)
+        if (to_ret) return to_ret
+      }
+
+      return null
+    }
+
+    const _get_field_by_for = (for2, node2) => {
+      const nd = _get_field_by_for_recursion(for2, node2)
+      if (!nd) return nd
+      return nd.attrs.name
+    }
+
+    let string = 'UnKown'
     if (node.attrs.for) {
-      const meta = this.view_info.fields[node.attrs.for] || {}
+      const field_name = _get_field_by_for(node.attrs.for, arch)
+      // console.log(node.attrs.for, field_name)
+
+      const meta = this.view_info.fields[field_name] || {}
       string = node.attrs.string || meta.string || ''
     } else {
       //
@@ -390,7 +420,9 @@ export class TreeViewBase extends View {
     // odoo 源码中搜索 <field name="domain">[(
     //
 
-    const globals_dict = { uid: this.env.uid, context: this.env.context }
+    // console.log(this.env.context)
+
+    const globals_dict = { ...this.env.context }
     const domain =
       action && action.domain
         ? Array.isArray(action.domain)
@@ -525,6 +557,7 @@ export class ListViewBase extends TreeViewBase {
   }
 
   async action_call(action, ids) {
+    // listview ,  操作按钮下的 点击
     const active_model = this.action.res_model
     const active_id = ids[0]
     const active_ids = ids
@@ -542,10 +575,14 @@ export class ListViewBase extends TreeViewBase {
 
     if (!action) return action
     if (action.type === 'ir.actions.server') {
-      const res = await this.records.call_action_run(action.id)
-      if (!res) return
-      // TBD: 是否需要 active_context 和 additional_context?
-      return this._action_call(null, { action_info: res })
+      // 这里不对, 这里是call treeaction run
+      console.log(' TBD, call treeaction run', action)
+      throw ' TBD, call treeaction run'
+
+      // const res = await this.records.call_action_run(action.id, {ids, ...kwargs})
+      // if (!res) return
+      // // TBD: 是否需要 active_context 和 additional_context?
+      // return this._action_call(null, { action_info: res })
     }
 
     return action
@@ -736,7 +773,10 @@ export class FormView extends View {
       return acc
     }, {})
 
+    // console.log('data_info  ', this, cp(relation))
+
     return {
+      dataReady: this.record_one ? true : false,
       context: this.env.context,
       dataDict: this.values,
       values_modifiers: this.values_modifiers,
@@ -758,7 +798,7 @@ export class FormView extends View {
 
     for (const field in this.relations) {
       const rel = this.relations[field]
-      // console.log('new_and_onchange, call,relation_browse ')
+
       await this.relation_browse({ ...rel, field })
     }
 
@@ -766,6 +806,8 @@ export class FormView extends View {
   }
 
   async read(ids, kwargs = {}) {
+    // console.log('read,', this)
+
     await this.action.load_view_info('form')
 
     const field_onchange = this.field_onchange
@@ -778,7 +820,7 @@ export class FormView extends View {
 
     for (const field in this.relations) {
       const rel = this.relations[field]
-      console.log('read, call,relation_browse ')
+      // console.log('read, call,relation_browse ', field, rel)
       await this.relation_browse({ ...rel, field })
     }
 
@@ -823,7 +865,7 @@ export class FormView extends View {
     if (!relation.length) {
       this.record_one.rollback()
 
-      console.log(this.values)
+      // console.log(this.values)
 
       await sleep(10)
     } else {
@@ -845,8 +887,9 @@ export class FormView extends View {
   }
 
   async _commit_tree_update({ field, row_id }, payload = {}) {
+    // console.log('commit,', field, row_id, payload)
     const subModel = this.submodels[field]
-    const subTree = subModel.views.tree
+    const subTree = subModel.views[subModel.view_type]
     const subForm = subModel.views.form
 
     const { relation = [] } = payload
@@ -858,6 +901,7 @@ export class FormView extends View {
       // TBD .  new then new sub 时, subTree.records 还是  空的
       //
       await subTree.records.tree_update(row_id, subForm.record_one, {})
+      // console.log('commit3,', field, row_id, subTree.records)
       subForm._record_one = undefined
     }
   }
@@ -881,7 +925,8 @@ export class FormView extends View {
     // const sub = this.submodels[field]
 
     const subModel = this.submodels[field]
-    const subTree = subModel.views.tree
+    // const subTree = subModel.views.tree
+    const subTree = subModel.views[subModel.view_type]
 
     const { relation = [] } = payload
     if (relation.length) {
@@ -896,10 +941,12 @@ export class FormView extends View {
 
   _get_selection(payload = {}) {
     const { field, query, node } = payload
+
+    // console.log('xxxxx, _get_selection', this, field, payload)
+
     const meta = this.fields[field] || {}
-    if (meta.type === 'selection') {
-      return meta.selection || []
-    }
+
+    if (meta.type === 'selection') return meta.selection || []
 
     const payload2 = { ...payload, name: query }
     delete payload2.node
@@ -909,9 +956,23 @@ export class FormView extends View {
     if (!node) return this.record_one.get_selection(field, payload2)
     else {
       const row_id = this.record_one.id
+
       const get_domain = () => {
-        const domain1 = []
+        const get_dm1 = () => {
+          const dm = meta.domain
+          if (!dm) return []
+          if (Array.isArray(dm)) return dm
+          if (typeof dm === 'string') {
+            return this.eval_safe(dm, { row_id })
+          }
+
+          return []
+        }
+
+        const domain1 = get_dm1()
+
         const domain_str = node.attrs.domain
+        // console.log('xxxxx, _get_selection211', field, meta, domain1)
 
         const domain2 = domain_str ? this.eval_safe(domain_str, { row_id }) : []
         const args = [...(domain1 || []), ...(domain2 || [])]
@@ -930,9 +991,9 @@ export class FormView extends View {
     if (!relation.length) return this._get_selection(payload)
     const one = relation[0]
     const next = relation.slice(1, relation.length)
-    console.log('select, ', payload, relation, one, next)
+    // console.log('select, ', payload, relation, one, next)
     const sub = this.submodels[one.field]
-    console.log('select2, ', this.submodels, one.field, sub)
+    // console.log('select2, ', this.submodels, one.field, sub)
     return sub.get_selection({ ...payload, relation: next })
   }
 
@@ -989,12 +1050,14 @@ export class FormView extends View {
   }
 
   async relation_to_browse(kwargs = {}) {
-    console.log(' relation_to_browse', this, kwargs.field, kwargs)
+    // console.log(' relation_to_browse1', kwargs.field, kwargs)
     const { field, relation_field } = kwargs
 
     this._relations = _merge_relations(this.relations, { [field]: kwargs })
 
+    // console.log(' relation_to_browse2', kwargs.field, kwargs)
     if (!this._record_one) return
+    // console.log(' relation_to_browse3', kwargs.field, kwargs)
 
     const kwargs2 = this.relations[field]
     const sub_model = this.relation_model({ ...kwargs2, field })
@@ -1012,14 +1075,17 @@ export class FormView extends View {
   }
 
   async relation_browse(kwargs = {}) {
-    // console.log('relation_browse', kwargs)
+    // console.log('relation_browse1', this, kwargs)
 
     const { field, node } = kwargs
     const context = this.get_context({ node })
     const sub_model = this.relation_model({ ...kwargs, field })
+
     const subTreeView = sub_model.views[sub_model.view_type]
+
     const fields = subTreeView.fields
     const kwargs2 = { fields, context }
+    // console.log('relation_browse2', [this, fields, context])
     const res = await this.record_one.relation_browse(field, kwargs2)
 
     // console.log('relation_browse2', this)
@@ -1028,7 +1094,7 @@ export class FormView extends View {
   }
 
   async relation_pick_reset(kwargs = {}) {
-    console.log('relation_pick_reset', this, kwargs)
+    // console.log('relation_pick_reset', this, kwargs)
     const { field, row_id } = kwargs
     const submodel = this.submodels[field]
 
@@ -1096,20 +1162,19 @@ export class FormView extends View {
   // #  <-str---> product_uom [('category_id', '=', product_uom_category_id)]
   */
 
-    const _get_company_id = () => {
-      const session_info = this.env.odoo.session_info
-      // # company_id = session_info['company_id']
-      const user_companies = session_info.user_companies
-      const current_company = user_companies.current_company[0]
-      // # allowed_companies = user_companies['allowed_companies']
-      // # allowed_company_ids = [com[0] for com in allowed_companies]
-      return current_company
+    const _get_companies = () => {
+      const session = this.env.odoo.session
+      const allowed_company_ids = session.allowed_company_ids
+      const current_company_id = session.current_company_id
+      return { allowed_company_ids, current_company_id }
     }
 
     const _get_values_for_domain = () => {
-      const values = this.record_one.values_onchange
+      const values0 = this.record_one.values_modifiers
+      const { allowed_company_ids, current_company_id } = _get_companies()
+      const values = { ...values0, allowed_company_ids, current_company_id }
 
-      if (!values.company_id) values.company_id = _get_company_id()
+      if (!values.company_id) values.company_id = current_company_id
 
       const from_model = this.record_one && this.record_one.from_model
       if (from_model) values.parent = from_model.values_modifiers
@@ -1148,6 +1213,7 @@ export class FormView extends View {
   }
 
   async _form_action_call(action_id, kwargs) {
+    // console.log('action call ', action_id, kwargs)
     const active_model = this.action.res_model
     const active_id = this.id
     const active_ids = [this.id]
@@ -1160,7 +1226,7 @@ export class FormView extends View {
     if (!action) return action
 
     if (action.type === 'ir.actions.server') {
-      const res = await this.record_one.call_action_run(action.id)
+      const res = await this.record_one.call_action_run(action.id, kwargs)
       if (!res) return
       // TBD: 是否需要 active_context 和 additional_context?
       return this._action_call(null, { action_info: res })
@@ -1209,6 +1275,30 @@ export class FormView extends View {
     return this._form_action_call(action.id, {})
   }
 
+  async _wizard_action_call(action_id, kwargs = {}) {
+    const wizard_id = await this.record_one.create()
+
+    const active_model = this.action.res_model
+    const active_id = wizard_id
+    const active_ids = [wizard_id]
+    const active_context = { active_model, active_id, active_ids }
+    const action = await this._action_call(action_id, {
+      ...kwargs,
+      active_context
+    })
+
+    if (!action) return action
+
+    if (action.type === 'ir.actions.server') {
+      const res = await this.record_one.call_action_run(action.id, kwargs)
+      if (!res) return
+      // TBD: 是否需要 active_context 和 additional_context?
+      return this._action_call(null, { action_info: res })
+    }
+
+    return action
+  }
+
   async wizard_button_click(payload) {
     console.log(payload)
     // TBD wizard_button_click  携带 自己的 context
@@ -1220,6 +1310,12 @@ export class FormView extends View {
       console.log('wizard call button,', res)
       return res // 返回 ir.actions.act_window_close
       // throw 'wizard call button, return sth, TBD'
+    } else if (type === 'action') {
+      const res = await this._wizard_action_call(name)
+      console.log('wizard call action,', res)
+
+      if (!res) return
+      return res // 返回 ir.actions.act_window_close
     } else {
       console.log('wizard btn clicked', type, name)
       throw 'button_clicked, not object'
@@ -1681,9 +1777,13 @@ export class GraphView extends OlapView {
 
     const { rows, columns, measures } = pivot_info
 
+    // console.log(rows, columns, measures)
+
     const get_axis = axis => {
       return axis.map(item => {
-        const meta = fields[item]
+        // console.log(item, fields)
+        const fname = item.split(':')[0]
+        const meta = fields[fname]
 
         const name = ['many2one', 'selection'].includes(meta.type)
           ? `${item}__name`

@@ -4,6 +4,22 @@
       {{ 'Sheet ok' }}
     </div>
 
+    <!-- sheet_button_box -->
+    <template
+      v-if="
+        sheet_button_box && childern_filter(sheet_button_box.children).length
+      "
+    >
+      <OButtonBox
+        :editable="editable"
+        :loading="loading"
+        :data-info="dataInfo"
+        :view-info="{ ...viewInfo, node: sheet_button_box }"
+        :method-call="methodCall"
+        @on-event="handleOnEvent"
+      />
+    </template>
+
     <!-- sheet_title and  avatar -->
     <a-row>
       <a-col :span="18">
@@ -25,22 +41,6 @@
         <img v-if="avatar_url" :src="avatar_url" width="50%" />
       </a-col>
     </a-row>
-
-    <!-- sheet_button_box -->
-    <template
-      v-if="
-        sheet_button_box && childern_filter(sheet_button_box.children).length
-      "
-    >
-      <OButtonBox
-        :editable="editable"
-        :loading="loading"
-        :data-info="dataInfo"
-        :view-info="{ ...viewInfo, node: sheet_button_box }"
-        :method-call="methodCall"
-        @on-event="handleOnEvent"
-      />
-    </template>
 
     <!-- sheet_content -->
 

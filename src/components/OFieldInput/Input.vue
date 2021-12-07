@@ -6,7 +6,7 @@
         <a-input-number
           v-model="value2[fname]"
           :class="required ? 'input-required' : undefined"
-          :id="fname"
+          :id="elementId"
           :placeholder="placeholder"
           @change="onInputChange"
           @pressEnter="onInputEnter"
@@ -19,7 +19,7 @@
         <a-textarea
           v-model="value2[fname]"
           :class="required ? 'input-required' : undefined"
-          :id="fname"
+          :id="elementId"
           :placeholder="placeholder"
           :rows="4"
           @change="onInputChange"
@@ -32,7 +32,7 @@
         <a-input
           :class="required ? 'input-required' : undefined"
           v-model="value2[fname]"
-          :id="fname"
+          :id="elementId"
           :placeholder="placeholder"
           @change="onInputChange"
           @pressEnter="onInputEnter"
@@ -75,7 +75,7 @@ export default {
       if (this.changed) {
         this.changed = false
 
-        console.log(this.$refs.ruleForm)
+        // console.log('xxxx', this.$refs.ruleForm)
 
         this.$refs.ruleForm.validate(valid => {
           if (valid) {

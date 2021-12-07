@@ -14,6 +14,7 @@
         :initReady="initReady"
         :modelGet="modelGet"
         @on-reload="handleReload"
+        @on-action-return="handleOnActionReturn"
       />
     </template>
 
@@ -162,9 +163,9 @@
 
         <template v-else> {{ viewType }}</template>
       </div>
-
-      <WizardForm :visible="showWizard" :modelGet="wizardModelGet" />
     </template>
+
+    <WizardForm :visible="showWizard" :modelGet="wizardModelGet" />
   </div>
 </template>
 
@@ -220,7 +221,7 @@ export default {
   watch: {
     // 菜单切换时, 触发
     '$route.fullPath': {
-      handler: function(/*val*/) {
+      handler: function (/*val*/) {
         console.log('in watch, $route.fullPath')
         console.log('watch fullPath')
         this.init()

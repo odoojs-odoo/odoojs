@@ -452,13 +452,13 @@ class BaseModel extends MetaModel {
   }
 
   get_values(rid) {
-    const values_init = { id: rid }
-    return Object.keys(this.columns).reduce((acc, cur) => {
+    const res = Object.keys(this.columns).reduce((acc, cur) => {
       const col = this.columns[cur] || {}
       const values = col.get_values_display(rid) || {}
       acc = { ...acc, ...values }
       return acc
-    }, values_init)
+    }, {})
+    return { ...res, id: rid }
   }
 
   get_values_onchange(rid, for_parent) {
@@ -473,6 +473,7 @@ class BaseModel extends MetaModel {
 
   get_values_modifiers(rid) {
     // 给 计算 modifiers  准备数据
+    // console.log('get_values_modifiers, ', rid)
     return Object.keys(this.columns).reduce((acc, cur) => {
       // console.log('sssss,', this, cur, this.fields, this.columns)
       const col = this.columns[cur]
@@ -596,7 +597,6 @@ class ListModel extends TreeModel {
 
     if (this.finished) return { finished: this.finished }
 
-    this.loading = true
     const domain = this.domain
     const limit = this.limit
     const order = this.order
@@ -675,13 +675,18 @@ class ListModel extends TreeModel {
     return this.tree_call_action_run_recursion(res.id, { context })
   }
 
-  async tree_call_action_run(action_id, ids) {
+  async tree_call_action_run(action_id, ids, kwargs) {
     console.log(action_id)
+    const { additional_context = {} } = kwargs
     const active_model = this.res_model
     const active_id = ids[0]
     const active_ids = ids
     const context2 = { active_model, active_id, active_ids }
-    const context = { ...this.env.odoo.env.context, ...context2 }
+    const context = {
+      ...this.env.odoo.env.context,
+      ...context2,
+      ...additional_context
+    }
 
     return this.tree_call_action_run_recursion(action_id, { context })
   }
@@ -734,7 +739,7 @@ class O2mTreeModel extends ListModel {
   }
 
   async tree_update(row_id, rec) {
-    // console.log(' tree_update')
+    console.log(' tree_update', [row_id, rec])
     if (rec.id !== row_id) return
 
     // 必须先判断 is_new, 否则 后面的函数会修改 ids
@@ -817,7 +822,7 @@ class FormModel extends O2mTreeModel {
     // const kwargs2 = { args, name: query, operator, limit, context }
     const kwargs2 = { ...kwargs }
 
-    // console.log(this._onchange_domain)
+    // console.log(fname, kwargs, this._onchange_domain)
 
     const domain = this._onchange_domain[fname]
     if (domain) kwargs2.args = domain
@@ -877,11 +882,15 @@ class FormModel extends O2mTreeModel {
 
     const args = [[], values, [], field_onchange2]
     const res = await this.onchange(...args)
+    // console.log(' new onchange,', res)
     record._after_onchange(res)
+    // console.log(' new onchange 2,', record)
+    await record._after_onchange_async()
     return record
   }
 
   async set_and_onchange(fname, value, kwargs = {}) {
+    // console.log('set_and_onchange', this, fname, value, kwargs)
     const { field_onchange } = kwargs
     const field_onchange2 =
       field_onchange ||
@@ -900,12 +909,12 @@ class FormModel extends O2mTreeModel {
       const ids = this.id && !is_virtual_id(this.id) ? [this.id] : []
       const values = this.values_onchange
 
-      console.log(
-        'set_and_onchange 11',
-        this.constructor._name,
-        this,
-        JSON.parse(JSON.stringify(values))
-      )
+      // console.log(
+      //   'set_and_onchange 11',
+      //   this.constructor._name,
+      //   this,
+      //   JSON.parse(JSON.stringify(values))
+      // )
 
       if (this.from_model) {
         const parent_vals = this.from_model.values_onchange_for_parent
@@ -921,11 +930,13 @@ class FormModel extends O2mTreeModel {
       // 2021-10-20, 不知道什么原因, 这里的数据不稳定
       const values2 = JSON.parse(JSON.stringify(values))
 
-      console.log('set_and_onchange 99', this.constructor._name, values2)
+      // console.log('set_and_onchange 88', this.constructor._name, values2)
 
       const args = [ids, values2, fname, field_onchange2]
       const res = await this.constructor.onchange(...args)
       this._after_onchange(res)
+      await this._after_onchange_async()
+      // console.log('set_and_onchange 99', this)
     }
 
     return this.values
@@ -950,6 +961,14 @@ class FormModel extends O2mTreeModel {
         // throw `${fld} in onchange.values, but not init in this.columns`
       }
     })
+  }
+
+  async _after_onchange_async() {
+    for (const fld in this._columns) {
+      const col = this.columns[fld]
+      // console.log('after onchange,', fld, col)
+      await col._after_onchange_async(this.id)
+    }
   }
 
   async commit() {
@@ -1005,7 +1024,7 @@ class FormModel extends O2mTreeModel {
   async form_call_action_run_recursion(action_id, { context }) {
     const res = await this.constructor.action_run(action_id, { context })
 
-    console.log('action server1:', res)
+    // console.log('action server1:', res)
     if (!res) {
       await this._after_commit(this.id)
       return
@@ -1017,13 +1036,18 @@ class FormModel extends O2mTreeModel {
     return this.form_call_action_run_recursion(res.id, { context })
   }
 
-  async form_call_action_run(action_id) {
+  async form_call_action_run(action_id, kwargs) {
     // console.log(action_id, this)
+    const { additional_context = {} } = kwargs
     const active_model = this.res_model
     const active_id = this.id
     const active_ids = [this.id]
     const context2 = { active_model, active_id, active_ids }
-    const context = { ...this.env.odoo.env.context, ...context2 }
+    const context = {
+      ...this.env.odoo.env.context,
+      ...context2,
+      ...additional_context
+    }
 
     return this.form_call_action_run_recursion(action_id, { context })
   }
@@ -1038,6 +1062,13 @@ class FormModel extends O2mTreeModel {
     if (res.type !== ' ir.actions.server') return res
 
     return this.form_call_action_run_recursion(res.id, kwargs)
+  }
+
+  async create() {
+    const values = this.values_for_write
+    const rid = await this.constructor.create(values)
+    return rid
+    // console.log(action_id, rid, this.env.context)
   }
 
   async wizard_call_button(method) {
@@ -1529,11 +1560,12 @@ export class Model extends PivotModel {
     super(payload)
   }
 
-  async call_action_run(action_id, ids) {
+  async call_action_run(action_id, kwargs2) {
+    const { ids, ...kwargs } = kwargs2
     if (ids) {
-      return this.tree_call_action_run(action_id, ids)
+      return this.tree_call_action_run(action_id, ids, kwargs)
     } else {
-      return this.form_call_action_run(action_id)
+      return this.form_call_action_run(action_id, kwargs)
     }
   }
 }

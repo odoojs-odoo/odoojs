@@ -1,33 +1,39 @@
 <template>
-  <a-button style="height:100px" class="oe_stat_button" @click="onClick">
+  <a-button style="height: 100px" class="oe_stat_button" @click="onClick">
     <!-- {{ node.children }} -->
 
-    <!-- style="float: left" -->
     <i :class="'fa ' + node.attrs.icon" v-if="node.attrs.icon" />
-    <template v-for="(item, index) in children_visible">
-      <!-- {{ index }} {{ item }} -->
+    <template v-if="!children_visible.length">
+      <div>.</div>
+      <div>{{ node.attrs.string }}</div>
+    </template>
 
-      <template v-if="typeof item === 'string'">
-        <span :key="index" v-if="item.trim()">{{ item }}</span>
-      </template>
+    <template v-else>
+      <template v-for="(item, index) in children_visible">
+        <!-- {{ index }} {{ item }} -->
 
-      <template v-else-if="item.attrs.widget === 'statinfo'">
-        <!-- style="float: right" -->
-        <div :key="index">
-          <div>{{ dataDict[item.attrs.name] }}</div>
-          <div>{{ item.attrs.string }}</div>
-        </div>
-      </template>
-      <template v-else>
-        <!-- :editable="editable" -->
-        <ONode
-          :key="index"
-          :loading="loading"
-          :data-info="dataInfo"
-          :view-info="{ ...viewInfo, node: item }"
-          :method-call="methodCall"
-          @on-event="handleOnEvent"
-        />
+        <template v-if="typeof item === 'string'">
+          <span :key="index" v-if="item.trim()">{{ item }}</span>
+        </template>
+
+        <template v-else-if="item.attrs.widget === 'statinfo'">
+          <!-- style="float: right" -->
+          <div :key="index">
+            <div>{{ dataDict[item.attrs.name] }}</div>
+            <div>{{ item.attrs.string }}</div>
+          </div>
+        </template>
+        <template v-else>
+          <!-- :editable="editable" -->
+          <ONode
+            :key="index"
+            :loading="loading"
+            :data-info="dataInfo"
+            :view-info="{ ...viewInfo, node: item }"
+            :method-call="methodCall"
+            @on-event="handleOnEvent"
+          />
+        </template>
       </template>
     </template>
   </a-button>
