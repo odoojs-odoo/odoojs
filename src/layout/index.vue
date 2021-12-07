@@ -22,23 +22,7 @@
         </a-menu-item>
 
         <template v-for="item in menus">
-          <!-- submenu.children &&
-          Array.isArray(submenu.children) &&
-          submenu.children.length -->
-
-          <!-- item.children &&
-          Array.isArray(item.children) &&
-          item.children.length -->
-
-          <!-- v-if="!item.action" -->
-
-          <template
-            v-if="
-              item.children &&
-              Array.isArray(item.children) &&
-              item.children.length
-            "
-          >
+          <template v-if="is_sub_menu(item)">
             <a-sub-menu :key="item.id">
               <span slot="title">
                 <!-- <a-icon type="home" /> -->
@@ -48,15 +32,16 @@
                 <span> {{ item.name }} </span>
               </span>
               <template v-for="submenu in item.children">
-                <a-menu-item v-if="submenu.action" :key="submenu.id">
-                  <span> {{ submenu.name }} </span>
-                </a-menu-item>
                 <sub-menu
-                  v-else
+                  v-if="is_sub_menu(submenu)"
                   :key="submenu.id"
                   :menu-data="submenu"
                   :collapsed="collapsed"
                 />
+
+                <a-menu-item v-else :key="submenu.id">
+                  <span> {{ submenu.name }} </span>
+                </a-menu-item>
               </template>
             </a-sub-menu>
           </template>
@@ -113,30 +98,7 @@
                     服务版本: {{ session_info.server_version }}
                   </a>
                 </a-menu-item>
-                <a-menu-item>
-                  <a href="javascript:;">
-                    公司:
-                    {{
-                      ((session_info.user_companies || {}).current_company || [
-                        null,
-                        null
-                      ])[1]
-                    }}
-                  </a>
-                </a-menu-item>
-                <a-menu-item>
-                  <a href="javascript:;">
-                    多公司:
-                    {{
-                      (
-                        (session_info.user_companies || {}).allowed_companies ||
-                        []
-                      )
-                        .map(item => item[1])
-                        .join(',')
-                    }}
-                  </a>
-                </a-menu-item>
+
                 <a-menu-item>
                   <a href="javascript:;" @click="onLogout">
                     {{ session_info.uid ? '注销' : '登录' }}
@@ -155,12 +117,6 @@
           minHeight: '280px'
         }"
       >
-        <!-- <img
-          :src="`data:image/png;base64,${menus[0].web_icon_data}`"
-          alt=""
-          width="20"
-        /> -->
-
         <router-view />
       </a-layout-content>
       <a-layout-footer style="text-align: center">
@@ -187,9 +143,7 @@ export default {
       collapsed: false,
 
       currentMenu: 'home',
-      menus: [],
-      current_company: 0,
-      allowed_companies: []
+      menus: []
     }
   },
 
@@ -204,20 +158,15 @@ export default {
 
     this.menus = [...(menu_data.children || [])]
 
-    // console.log('created. menu_data , ', this.menus)
-
-    // (session_info.user_companies || {}).allowed_companies ||   []
-    const { user_companies = {} } = api.session_info || {}
-    const { allowed_companies = [], current_company = [0, ''] } = user_companies
-    // console.log('xxxxx,user_companies ', user_companies)
-
-    this.allowed_companies = allowed_companies
-    this.current_company = current_company[0]
+    // console.log('created. menu_data , ', api.menu_data, this.menus)
   },
 
   methods: {
-    test: submenu => {
-      console.log(submenu)
+    is_sub_menu: menu => {
+      const is_sub_menu =
+        menu.children && Array.isArray(menu.children) && menu.children.length
+
+      return is_sub_menu || !menu.action
     },
 
     img_url(web_icon) {

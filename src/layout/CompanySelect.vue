@@ -20,12 +20,12 @@
       <a-menu slot="overlay" @click="handleOnDropdownSelect">
         <!--  -->
         <template v-for="item in allowed_companies">
-          <a-menu-item :key="item[0]">
+          <a-menu-item :key="item.id">
             <a-checkbox
-              :checked="item[2]"
-              @change="e => handleOnCheckChange(e, item[0])"
+              :checked="item.checked"
+              @change="e => handleOnCheckChange(e, item.id)"
             />
-            <span> {{ item[1] }} </span>
+            <span> {{ item.name }} </span>
           </a-menu-item>
         </template>
       </a-menu>
@@ -60,28 +60,31 @@ export default {
 
   methods: {
     get_data() {
+      // const { user_companies = {} } = api.session_info || {}
+      // const { allowed_companies = [] } = user_companies
+
+      // // 下拉框 中的可选项目
+      // this.allowed_companies = allowed_companies.map(item => {
+      //   const checked = allowed_company_ids.includes(item[0])
+      //   return [...item, checked]
+      // })
+
+      const allowed_companies = api.session.allowed_companies_for_selection
+      this.allowed_companies = allowed_companies
+
       // 下拉框 中的可选项目 是否 checked
       const allowed_company_ids = api.session.allowed_company_ids
 
       // 当前排在第一个的
       const allowed_company_id = allowed_company_ids[0]
 
-      const { user_companies = {} } = api.session_info || {}
-      const { allowed_companies = [] } = user_companies
-
-      // 下拉框 中的可选项目
-      this.allowed_companies = allowed_companies.map(item => {
-        const checked = allowed_company_ids.includes(item[0])
-        return [...item, checked]
-      })
-
       const allowed_company = allowed_companies.find(
-        item => item[0] === allowed_company_id
+        item => item.id === allowed_company_id
       )
 
       this.allowed_company = {
-        key: allowed_company[0],
-        label: allowed_company[1]
+        key: allowed_company.id,
+        label: allowed_company.name
       }
 
       this.allowed_company_ids = [...allowed_company_ids]

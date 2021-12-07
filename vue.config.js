@@ -42,6 +42,7 @@ module.exports = {
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
         target: 'http://192.168.56.108:8069',
+        // target: 'http://192.168.56.110:8069',
         // target: 'http://192.168.56.108/odoo',
         // target: 'http://app.snowacres.net/odoo',
 

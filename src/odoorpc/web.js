@@ -121,6 +121,47 @@ class Session extends _WEB {
   }
 
   get session_info() {
+    // odoo 15
+    // {
+    //   "uid":2,
+    //   "is_system":true,
+    //   "is_admin":true,
+    //   "user_context":{"lang":"zh_CN","tz":false,"uid":2},
+    //   "db":"t1",
+    //   "server_version":"15.0-20211207",
+    //   "server_version_info":[15,0,0,"final",0,""],
+    //   "support_url":"https://www.odoo.com/buy",
+    //   "name":"Administrator",
+    //   "username":"admin",
+    //   "partner_display_name":"Administrator",
+    //   "company_id":1,
+    //   "partner_id":3,
+    //   "web.base.url":"http://192.168.56.110:8069",
+    //   "active_ids_limit":20000,
+    //   "profile_session":null,
+    //   "profile_collectors":null,
+    //   "profile_params":null,
+    //   "max_file_upload_size":134217728,
+    //   "home_action_id":false,
+    //   "cache_hashes":{
+    //     "translations":"c4415081f60338c8f7c8fad515c5e90748b4e6d6",
+    //     "load_menus":"7669c76a5eb9e58b4c0dcf0bca0321b08e5d4c9aa208e62846c5c55e9471a7c9",
+    //     "qweb":"e1fc8a09a1a7f8cc35eb9eccaba50fc70a1b0b1bac18b5ef48eb7c4073849f63",
+    //     "assets_discuss_public":"140eed482bb7f30d67278e00428755744ea80ea70bf553b3a19dcd84f000ef41"},
+    //   "currencies":{"7":{"symbol":"¥","position":"before","digits":[69,2]}},
+    //   "user_companies":{
+    //     "current_company":1,
+    //     "allowed_companies":{"1":{"id":1,"name":"My Company"}}},
+    //   "show_effect":"True",
+    //   "display_switch_company_menu":false,
+    //   "user_id":[2],
+    //   "web_tours":[],
+    //   "tour_disable":false,
+    //   "notification_type":"email",
+    //   "odoobot_initialized":true,
+    //   "iap_company_enrich":false}
+
+    // odoo 14
     // const session_info = {
     //   uid: 2,
     //   is_system: true,
@@ -154,7 +195,30 @@ class Session extends _WEB {
     //   web_tours: []
     // }
 
-    return { ...this._session_info }
+    const info = { ...this._session_info }
+
+    const get_user_companies = () => {
+      const { server_version_info = [15] } = info
+      const ver = server_version_info[0]
+
+      const { user_companies = {} } = info
+      if (ver >= 15) return user_companies
+
+      const { current_company, allowed_companies } = user_companies
+
+      return {
+        current_company: current_company[0],
+        allowed_companies: allowed_companies.reduce((acc, cur) => {
+          const [cid, name] = cur
+          acc[cid] = { id: cid, name }
+          return acc
+        }, {})
+      }
+    }
+
+    const user_companies = get_user_companies()
+
+    return { ...info, user_companies }
   }
 
   get context() {
@@ -164,10 +228,15 @@ class Session extends _WEB {
     return { ...context, allowed_company_ids }
   }
 
+  get server_version() {
+    const { server_version_info } = this.session_info
+    return server_version_info[0]
+  }
+
   get current_company_id() {
-    const user_companies = this.session_info.user_companies || {}
-    const current_company = user_companies.current_company || [0, '']
-    return current_company[0]
+    const { user_companies = {} } = this.session_info
+    const { current_company } = user_companies
+    return current_company
   }
 
   set allowed_company_ids(cids = []) {
@@ -175,14 +244,29 @@ class Session extends _WEB {
     this.set_cookie('cids', cids_str || String(this.current_company_id))
   }
 
+  get allowed_companies_for_selection() {
+    const { user_companies = {} } = this.session_info
+    const { allowed_companies = {} } = user_companies
+
+    const allowed_company_ids = this.allowed_company_ids
+
+    return Object.values(allowed_companies).map(item => {
+      const checked = allowed_company_ids.includes(item.id)
+      return { ...item, checked }
+    })
+  }
+
   get allowed_company_ids() {
     const cids_str = this.get_cookie('cids')
     if (!cids_str) return [this.current_company_id]
 
     const cids = cids_str.split(',').map(item => Number(item))
-    const user_companies = this.session_info.user_companies || {}
-    const allowed_companies = user_companies.allowed_companies || []
-    const odoo_cids = allowed_companies.map(item => item[0])
+
+    const { user_companies = {} } = this.session_info
+    const { allowed_companies = {} } = user_companies
+
+    const odoo_cids = Object.values(allowed_companies).map(item => item.id)
+
     const to_remove_cids = cids.filter(item => !odoo_cids.includes(item))
     if (!to_remove_cids.length) return cids
 

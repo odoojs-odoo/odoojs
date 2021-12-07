@@ -7,9 +7,10 @@
     <template v-for="submenu in props.menuData.children">
       <template
         v-if="
-          submenu.children &&
-          Array.isArray(submenu.children) &&
-          submenu.children.length
+          (submenu.children &&
+            Array.isArray(submenu.children) &&
+            submenu.children.length) ||
+            !submenu.action
         "
       >
         <sub-menu
@@ -24,20 +25,6 @@
           <span> {{ submenu.name }} </span>
         </a-menu-item>
       </template>
-
-      <!-- <template v-if="submenu.action">
-        <a-menu-item :key="submenu.id">
-          <span> {{ submenu.name }} </span>
-        </a-menu-item>
-      </template>
-
-      <template v-else>
-        <sub-menu
-          :key="submenu.id"
-          :menu-data="submenu"
-          :collapsed="collapsed"
-        />
-      </template> -->
     </template>
   </a-sub-menu>
 </template>

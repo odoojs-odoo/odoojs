@@ -73,6 +73,29 @@ export class ODOO extends _ODOO {
   }
 
   async _get_user_info() {
+    const get_menu = menus => {
+      const ver = this.session.server_version
+      if (ver <= 14) return menus
+      const root = Object.values(menus).filter(item => !item.parent_id)
+      // console.log(root)
+
+      const to_call = menu => {
+        const { children = [] } = menu
+        return {
+          ...menu,
+          children: children.map(item => {
+            return to_call(menus[item])
+          })
+        }
+      }
+
+      const root2 = root.map(item => to_call(item))
+
+      // console.log(root2)
+
+      return { children: root2 }
+    }
+
     // website/controllers/main.py/Website._login_redirect
     const is_user = await this.env
       .model('res.users')
@@ -107,7 +130,10 @@ export class ODOO extends _ODOO {
       // mail.menu_root_discuss
       // console.log(JSON.parse(JSON.stringify(menus)))
 
-      this._menu_data = menus
+      const menus2 = get_menu(menus)
+      // console.log(menus2)
+
+      this._menu_data = menus2
       const res = await this.env.model('res.users').read(this.session_info.uid)
       return res
     }
