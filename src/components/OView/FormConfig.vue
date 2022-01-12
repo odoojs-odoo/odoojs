@@ -14,10 +14,10 @@
     </a-page-header>
 
     <div>
-      <!-- o_setting_container: {{ node_setting_container.class }} -->
+      <!-- config: o_setting_container: {{ node_setting_container.class }} -->
       <div>
-        <!-- settings_tab : {{ node_settings_tab.class }} -->
-        <!-- settings_tab -->
+        <!-- settings_tab : {{ node_settings_tab.class }}
+        settings_tab -->
       </div>
       <div>
         <!-- settings: {{ node_settings.class }} -->
@@ -26,12 +26,15 @@
         <a-row>
           <a-col :span="4">
             <a-menu v-model="selectedKeys" @click="handleClick">
-              <template v-for="item in childern_filter(node_settings.children)">
-                <template v-if="item.class.includes('app_settings_block')">
+              <template v-for="item in node_settings.children">
+                <!-- {{ item }} -->
+                <template
+                  v-if="(item.attrs.class || '').includes('app_settings_block')"
+                >
                   <a-menu-item :key="item.attrs['data-key']">
                     {{ item.attrs['string'] }}
-                    <!-- {{ item.attrs['data-string'] }} -->
-                    <!-- {{ item.attrs['data-key'] }}    -->
+                    <!-- {{ item.attrs['data-string'] }}
+                    {{ item.attrs['data-key'] }} -->
                   </a-menu-item>
                 </template>
               </template>
@@ -39,12 +42,10 @@
           </a-col>
           <a-col :span="20">
             <ONode
-              style="padding: 2px 9px;"
+              style="padding: 2px 9px"
               :editable="true"
-              :loading="false"
-              :data-info="dataInfo"
-              :view-info="{ ...formInfo, node: current_node }"
-              :method-call="methodCall"
+              :data-info="data"
+              :view-info="{ ...viewInfo2, node: current_node }"
               @on-event="handleOnViewEvent"
             />
           </a-col>
@@ -57,7 +58,7 @@
 <script>
 import formConfigViewMixin from '@/mixins/formConfigViewMixin'
 
-import ONode from '@/components/OFormView/ONode'
+import ONode from '@/components/ONode/ONode'
 
 export default {
   name: 'OConfig',

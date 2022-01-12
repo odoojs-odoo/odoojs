@@ -53,24 +53,26 @@
     </a-space>
 
     &nbsp;&nbsp;&nbsp;
-    
+
     <a-space
       style="float: right"
       v-if="
         (viewType === 'form' && !editable) ||
-          (viewType === 'list' && activeIds.length)
+        (viewType === 'list' && activeIds.length)
       "
     >
-      <a-dropdown :trigger="['click']">
-        <a-button size="small" style="margin-left: 8px">
-          <a-icon type="printer" /> 打印
-        </a-button>
-        <a-menu slot="overlay" @click="handleOnPrint">
-          <template v-for="btn in printBtns">
-            <a-menu-item :key="btn.id"> {{ btn.display_name }} </a-menu-item>
-          </template>
-        </a-menu>
-      </a-dropdown>
+      <template v-if="printBtns.length">
+        <a-dropdown :trigger="['click']">
+          <a-button size="small" style="margin-left: 8px">
+            <a-icon type="printer" /> 打印
+          </a-button>
+          <a-menu slot="overlay" @click="handleOnPrint">
+            <template v-for="btn in printBtns">
+              <a-menu-item :key="btn.id"> {{ btn.display_name }} </a-menu-item>
+            </template>
+          </a-menu>
+        </a-dropdown>
+      </template>
 
       <a-dropdown :trigger="['click']">
         <a-button size="small" style="margin-left: 8px">
@@ -106,14 +108,12 @@
 </template>
 
 <script>
-import viewMixin from '@/mixins/viewMixin'
-
-// const cp = item => JSON.parse(JSON.stringify(item))
+import api from '@/odooapi'
 
 export default {
   name: 'ToolbarBtn',
   components: {},
-  mixins: [viewMixin],
+  mixins: [],
 
   props: {
     editable: { type: Boolean, default: false },
@@ -121,7 +121,14 @@ export default {
 
     activeIds: { type: Array, default: () => [] },
 
-    hideButton: {
+    viewInfo: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    },
+
+    action: {
       type: Object,
       default: () => {
         return {}
@@ -130,18 +137,30 @@ export default {
   },
 
   data() {
-    return {
-      // 判断 存档和取消存档 菜单是否显示
-      hasActive: undefined
-    }
+    return {}
   },
 
   computed: {
+    hideButton() {
+      return api.Views.hide_button(this.viewInfo, this.viewType)
+    },
+
+    hasActive() {
+      // 判断 存档和取消存档 菜单是否显示
+      const { views_info = {} } = this.action
+      const { fields = {} } = views_info
+      const active = fields.active
+      return active ? true : false
+    },
+
     toolbar() {
+      // console.log(this.viewInfo, this.viewType)
       const vt = this.viewType
       if (!['list', 'form'].includes(vt)) return {}
-      const { views = {} } = this.viewInfo || {}
-      const { toolbar = {} } = views[vt] || {}
+
+      const { views = {} } = this.viewInfo
+      const { fields_views = {} } = views
+      const { toolbar = {} } = fields_views[vt] || {}
       return toolbar
     },
 
@@ -165,14 +184,6 @@ export default {
   mounted() {},
 
   methods: {
-    async initData() {
-      const model = this.modelGet()
-      // const info = this.viewInfo
-      // console.log(cp(info), model)
-      const active = model.action.fields.active
-      this.hasActive = active
-    },
-
     // list view
     handleOnCreate() {
       this.$emit('on-event', 'on-new')
@@ -181,15 +192,16 @@ export default {
     // form view edit
     handleOnWrite() {
       console.log(' handleOnWrite ')
+      this.$emit('update:editable', true)
       this.$emit('on-event', 'on-form-event', 'on-edit')
-    },
-
-    handleOnCommit() {
-      this.$emit('on-event', 'on-form-event', 'on-commit')
     },
 
     handleOnCancel() {
       this.$emit('on-event', 'on-form-event', 'on-rollback')
+    },
+
+    handleOnCommit() {
+      this.$emit('on-event', 'on-form-event', 'on-commit')
     },
 
     async handleOnExportAll() {

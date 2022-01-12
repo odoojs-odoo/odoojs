@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-dropdown v-model="dropdownVisible">
+    <a-dropdown v-model="dropdownVisible" :trigger="['click']">
       <!-- <a class="ant-dropdown-link" @click="e => e.preventDefault()">
         <span style="height:1px"> . </span>
       </a> -->
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import api from '@/api'
+import api from '@/odooapi'
 
 export default {
   name: 'CompanySelect',
@@ -45,6 +45,7 @@ export default {
       dropdownVisible: false,
       checkedChanged: false,
 
+      session_info: {},
       allowed_companies: [],
       allowed_company_ids: [],
       allowed_company: undefined
@@ -55,25 +56,24 @@ export default {
 
   created() {},
   async mounted() {
+    const { session = {} } = this.$route.meta
+    this.session_info = session
+
     this.get_data()
   },
 
   methods: {
     get_data() {
-      // const { user_companies = {} } = api.session_info || {}
-      // const { allowed_companies = [] } = user_companies
+      const allowed_companies = api.web.session.allowed_companies_for_selection(
+        this.session_info
+      )
 
-      // // 下拉框 中的可选项目
-      // this.allowed_companies = allowed_companies.map(item => {
-      //   const checked = allowed_company_ids.includes(item[0])
-      //   return [...item, checked]
-      // })
-
-      const allowed_companies = api.session.allowed_companies_for_selection
       this.allowed_companies = allowed_companies
 
       // 下拉框 中的可选项目 是否 checked
-      const allowed_company_ids = api.session.allowed_company_ids
+      const allowed_company_ids = api.web.session.allowed_company_ids(
+        this.session_info
+      )
 
       // 当前排在第一个的
       const allowed_company_id = allowed_company_ids[0]
@@ -82,21 +82,19 @@ export default {
         item => item.id === allowed_company_id
       )
 
-      this.allowed_company = {
+      this.allowed_company = allowed_company && {
         key: allowed_company.id,
         label: allowed_company.name
       }
 
       this.allowed_company_ids = [...allowed_company_ids]
-
-      // console.log(api.env.context)
     },
 
     handleOnCheckChange(e, key) {
       const checked = e.target.checked
       this.checkedChanged = true
       // console.log('handleOnCheckChange ', key, checked)
-      api.session.change_allowed_company(key, checked)
+      api.web.session.change_allowed_company(this.session_info, key, checked)
       this.get_data()
       this.dropdownVisible = false
       this.$router.go(0)
@@ -111,7 +109,8 @@ export default {
           this.checkedChanged = false
         } else {
           // console.log('onClick2 ', key)
-          api.session.set_first_allowed_company(key)
+          api.web.session.set_first_allowed_company(this.session_info, key)
+
           this.get_data()
           this.dropdownVisible = false
           this.$router.go(0)

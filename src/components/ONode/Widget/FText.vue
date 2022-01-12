@@ -1,0 +1,100 @@
+<template>
+  <span v-if="invisible"></span>
+
+  <div v-else-if="widget === 'dashboard_graph'">
+    <WDashboardGraph
+      :value_readonly="value_readonly"
+      :value_edit="value_edit"
+      :editable="editable"
+      :data-info="dataInfo"
+      :view-info="{ ...viewInfo, node }"
+      @on-change="onchange"
+    />
+  </div>
+
+  <div v-else-if="widget === 'payment'">
+    <!-- widget: payment -->
+
+    <WPayment
+      :value_readonly="value_readonly"
+      :value_edit="value_edit"
+      :editable="editable"
+      :data-info="dataInfo"
+      :view-info="{ ...viewInfo, node }"
+      @on-change="onchange"
+    />
+  </div>
+
+  <div v-else-if="widget_todo">{{ [field.type, fname, widget] }}</div>
+
+  <span v-else-if="readonly || !editable" :class="className">
+    <!-- {{ [field.type, fname] }} -->
+    {{ value_display }}
+  </span>
+
+  <div v-else>
+    <!-- edit: {{ [field.type, fname] }} -->
+    <OInput
+      :value="value"
+      type="text"
+      :fname="fname"
+      :required="required"
+      :placeholder="node.attrs.placeholder"
+      :element-id="node.attrs.id || node.attrs.name"
+      :className="className"
+      @on-change="onchange"
+    />
+  </div>
+
+  <!-- <span v-else> TODO:edit, {{ record[fname] }} </span> -->
+</template>
+
+<script>
+import OFMixin from './OFMixin'
+
+import WDashboardGraph from './WDashboardGraph.vue'
+import WPayment from './WPayment.vue'
+
+import OInput from './OInput/OInput.vue'
+
+export default {
+  name: 'FText',
+  components: { WDashboardGraph, WPayment, OInput },
+  mixins: [OFMixin],
+  props: {},
+  data() {
+    return {}
+  },
+  computed: {
+    value_readonly() {
+      return this.record[this.fname] || ''
+    },
+
+    value() {
+      return this.value_edit || ''
+    },
+
+    widget_todo() {
+      const done = ['section_and_note_text', 'sms_widget']
+      return done.includes(this.widget) ? '' : this.widget
+    },
+
+    className() {
+      const arr = [...this.classNameByField]
+      arr.push('o_field_text')
+
+      return arr.join(' ')
+    }
+  },
+
+  watch: {},
+
+  created() {},
+
+  mounted() {},
+
+  methods: {}
+}
+</script>
+
+<style type="text/css"></style>

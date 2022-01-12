@@ -58,7 +58,8 @@
 import pivot from './pivot'
 import PivotDropdown from './PivotDropdown.vue'
 
-// const cp = item => JSON.parse(JSON.stringify(item))
+// eslint-disable-next-line no-unused-vars
+const cp = item => JSON.parse(JSON.stringify(item))
 
 export default {
   name: 'PivotTable',
@@ -66,12 +67,13 @@ export default {
   mixins: [],
 
   props: {
-    pivotData: {
+    pivotInfo: {
       type: Object,
       default: () => {
         return {}
       }
-    }
+    },
+    records: { type: Array, default: () => [] }
   },
 
   data() {
@@ -80,26 +82,64 @@ export default {
 
   computed: {
     groupbyDropdownData() {
-      const { groupbys } = this.pivotData
-      return groupbys
-    },
+      const { groupbys, rows, cols } = this.pivotInfo
+      const to_filter = [...rows, ...cols]
+      const groupbys2 = Object.keys(groupbys).map(fld => {
+        const meta = groupbys[fld]
 
-    payload2() {
-      return {
-        ...this.pivotData
-      }
+        const get_children = () => {
+          if (!['date', 'datetime'].includes(meta.type)) return {}
+
+          const dd = `${fld}:day`
+          const wk = `${fld}:week`
+          const mm = `${fld}:month`
+          const qt = `${fld}:quarter`
+          const yy = `${fld}:year`
+
+          return {
+            children: [
+              { name: dd, string: '天', disabled: to_filter.includes(dd) },
+              { name: wk, string: '周', disabled: to_filter.includes(wk) },
+              { name: mm, string: '月', disabled: to_filter.includes(mm) },
+              { name: qt, string: '季', disabled: to_filter.includes(qt) },
+              { name: yy, string: '年', disabled: to_filter.includes(yy) }
+            ]
+          }
+        }
+
+        const res = {
+          type: meta.type,
+          string: meta.string,
+          name: fld,
+          disabled: to_filter.includes(fld),
+          ...get_children()
+        }
+
+        return res
+      })
+
+      // console.log('groupbys', groupbys2)
+
+      return groupbys2
     },
 
     tableSlots() {
-      return pivot.title_slots(this.pivotData)
+      const { fields, rows, cols, measures } = this.pivotInfo
+      const records = this.records
+      return pivot.tableSlots({ fields, rows, cols, measures, records })
     },
 
     tableData() {
-      return pivot.table_data(this.pivotData)
+      const { fields, rows, cols, measures } = this.pivotInfo
+      const records = this.records
+      return pivot.tableData({ fields, rows, cols, measures, records })
     },
 
     tableColumns() {
-      return pivot.columns(this.pivotData)
+      const { fields, rows, cols, measures } = this.pivotInfo
+      const records = this.records
+
+      return pivot.tableColumns({ fields, rows, cols, measures, records })
     }
   },
 
@@ -117,7 +157,7 @@ export default {
 
     handleOnColChange(payload) {
       // console.log(' handleOnColChange, ', payload)
-      this.$emit('on-change', { type: 'column', ...payload })
+      this.$emit('on-change', { type: 'col', ...payload })
     }
   }
 }

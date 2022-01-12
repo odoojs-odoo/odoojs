@@ -1,48 +1,57 @@
-// const cp = item => JSON.parse(JSON.stringify(item))
+import api from '@/odooapi'
 
 export default {
   components: {},
-  props: {
-    debugName: { type: String, default: 'undefind' },
+  mixins: [],
 
-    initReady: { type: Boolean, default: false },
-    modelGet: { type: Function, default: () => undefined }
+  props: {
+    viewInfo: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    },
+
+    searchValue: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
   },
 
   data() {
     return {
-      viewInfo: {}
+      data: {}
     }
   },
-
-  computed: {},
-
-  watch: {
-    initReady(newVal) {
-      // console.log('watch,initReady,', this.debugName, newVal, oldVal)
-      if (newVal) this.init()
-    }
-  },
-
-  async created() {
-    // console.log('create', this.debugName, this.initReady)
-  },
-  async mounted() {
-    if (this.initReady) this.init()
-  },
-
-  methods: {
-    async init() {
-      const model = this.modelGet()
-      // const viewInfo = model.view_info
-      // console.log(viewInfo)
-      this.viewInfo = JSON.parse(JSON.stringify(model.view_info))
-
-      this.initData()
+  computed: {
+    viewType() {
+      // to override, set view type
+      return ''
     },
 
-    async initData() {
-      // To Override
+    records() {
+      const { records = [] } = this.data
+      return records
+    },
+
+    view() {
+      const { views = {} } = this.viewInfo
+      const { fields_views = {} } = views
+      const view = fields_views[this.viewType] || {}
+      return view
+    },
+
+    viewInfo2() {
+      return { ...this.viewInfo, view: this.view }
+    },
+
+    node() {
+      // console.log(this.viewType)
+      return api.Views[this.viewType].view_node(this.viewInfo2)
     }
-  }
+  },
+
+  methods: {}
 }

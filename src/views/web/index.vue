@@ -1,46 +1,35 @@
 <template>
   <div>
-    <!-- // 
-    <h1>{{ actionName }}</h1>
-    {{ viewType }} -->
-    <!-- labelAlign="left"
-      :colon="false" -->
-
     <!--control panel -->
 
-    <template v-if="actionTarget === 'inline'">
-      <FormConfig
-        debugName="FormConfig"
-        :initReady="initReady"
-        :modelGet="modelGet"
-        @on-reload="handleReload"
-        @on-action-return="handleOnActionReturn"
-      />
+    <template v-if="actionInfo.target === 'inline'">
+      <!-- @on-reload="handleReload" -->
+      <FormConfig :viewInfo="viewInfo" />
     </template>
 
-    <template v-else-if="actionType === 'ir.actions.client'">
-      {{ action.action_name }} 建设中...
+    <template v-else-if="actionInfo.type === 'ir.actions.client'">
+      {{ actionInfo.display_name }} 建设中...
     </template>
 
-    <template v-else-if="actionType === 'ir.actions.act_window'">
+    <template v-else-if="actionInfo.type === 'ir.actions.act_window'">
       <a-page-header
         style="border: 1px solid rgb(235, 237, 240)"
         @back="$router.go(-1)"
       >
-        <template slot="title"> {{ actionName }} </template>
+        <template slot="title"> {{ actionInfo.display_name }} </template>
         <template slot="subTitle">
-          <template v-if="viewType === 'calendar'">
-            ({{ calendarData.title }} )
-          </template>
+          {{
+            viewType === 'calendar' && calendarData ? calendarData.title : ''
+          }}
         </template>
 
         <template slot="extra">
           <template v-if="viewType !== 'form'">
             <SearchViewBox
-              debugName="SearchViewBox"
-              :initReady="initReady"
-              :modelGet="modelGet"
-              :searchChange="searchChange"
+              v-model="searchValue2"
+              :defaultValue="defaultSearchValue"
+              :searchValue.sync="searchValue"
+              :viewInfo="viewInfo"
               @on-event="handleToolbarEvent"
             />
           </template>
@@ -50,28 +39,25 @@
           <a-col :span="12">
             <template v-if="['kanban', 'list', 'form'].includes(viewType)">
               <ToolbarBtn
-                :initReady="initReady"
-                :modelGet="modelGet"
-                :editable="editable"
+                :editable.sync="editable"
+                :viewInfo="viewInfo"
                 :viewType="viewType"
                 :activeIds="activeIds"
-                :hideButton="hideButton"
                 @on-event="handleToolbarEvent"
               />
             </template>
             <template v-else-if="['pivot', 'graph'].includes(viewType)">
               <PivotViewToolbar
-                debugName="PivotViewToolbar"
                 :viewType="viewType"
                 :pivotData.sync="pivotData"
-                :initReady="initReady"
-                :modelGet="modelGet"
+                :viewInfo="viewInfo"
+                @on-event="handleToolbarEvent"
               />
             </template>
 
             <template v-else-if="['calendar'].includes(viewType)">
               <CalendarToolbar
-                debugName="CalendarToolbar"
+                v-model="calendarData"
                 @on-event="handleToolbarEvent"
               />
             </template>
@@ -81,17 +67,19 @@
             <SearchViewBtn
               style="float: left"
               v-if="viewType !== 'form'"
-              debugName="SearchViewBtn"
-              :searchChange="searchChange"
-              :initReady="initReady"
-              :modelGet="modelGet"
+              v-model="searchValue2"
+              :viewType2="viewType"
+              :defaultValue="defaultSearchValue"
+              :searchValue.sync="searchValue"
+              :viewInfo="viewInfo"
               @on-event="handleToolbarEvent"
             />
             <ToolbarViewmode
               style="float: right"
               v-model="viewType"
               :viewMode="viewMode"
-              :modelGet="modelGet"
+              :viewInfo="viewInfo"
+              @on-event="handleToolbarEvent"
             />
           </a-col>
         </a-row>
@@ -101,71 +89,64 @@
         <template v-if="viewType === 'list'">
           <TreeView
             ref="listView"
-            debugName="TreeView"
-            :initReady="initReady"
-            :modelGet="modelGet"
-            :searchChange="searchChange"
+            :searchValue="searchValue"
+            :viewInfo="viewInfo"
             @on-row-select="handleOnRowSelect"
-            @on-action-return="handleOnActionReturn"
           />
         </template>
 
         <template v-else-if="viewType === 'kanban'">
+          <!-- kanban -->
+
           <KanbanView
-            debugName="kanban"
-            :initReady="initReady"
-            :modelGet="modelGet"
-            :searchChange="searchChange"
+            ref="kanbanView"
+            :searchValue="searchValue"
+            :viewInfo="viewInfo"
           />
         </template>
 
         <template v-else-if="viewType === 'form'">
           <FormView
             ref="formView"
-            debugName="form"
-            :initReady="initReady"
-            :modelGet="modelGet"
             :editable.sync="editable"
-            @on-action-return="handleOnActionReturn"
+            :viewInfo="viewInfo"
           />
         </template>
 
         <template v-else-if="viewType === 'calendar'">
           <!-- ok {{ viewType }} -->
           <CalendarView
-            debugName="calendar"
-            :initReady="initReady"
-            :modelGet="modelGet"
-            :calendarData="calendarData"
-            :searchChange="searchChange"
+            ref="calendarView"
+            :calendarData.sync="calendarData"
+            :viewInfo="viewInfo"
           />
         </template>
 
         <template v-else-if="viewType === 'pivot'">
+          <!-- pivot -->
           <PivotView
-            debugName="pivot"
-            :toolbar="false"
-            :initReady="initReady"
-            :modelGet="modelGet"
+            ref="pivotView"
+            :searchValue="searchValue"
+            :viewInfo="viewInfo"
             :pivotData.sync="pivotData"
+            :toolbar="false"
           />
         </template>
 
         <template v-else-if="viewType === 'graph'">
+          <!-- graph -->
           <GraphView
-            debugName="graph"
-            :toolbar="false"
-            :initReady="initReady"
-            :modelGet="modelGet"
+            ref="graphView"
+            :searchValue="searchValue"
+            :viewInfo="viewInfo"
             :pivotData.sync="pivotData"
+            :toolbar="false"
           />
         </template>
 
-        <template v-else> {{ viewType }}</template>
+        <template v-else> todo:{{ viewType }}</template>
       </div>
     </template>
-
-    <WizardForm :visible="showWizard" :modelGet="wizardModelGet" />
   </div>
 </template>
 
@@ -187,10 +168,7 @@ import CalendarView from '@/components/OView/CalendarView.vue'
 import PivotView from '@/components/OView/PivotView.vue'
 import GraphView from '@/components/OView/GraphView.vue'
 
-import WizardForm from '@/components/OView/WizardForm.vue'
 import FormConfig from '@/components/OView/FormConfig.vue'
-
-// import { sleep } from '@/odoorpc/utils'
 
 export default {
   name: 'Web',
@@ -207,7 +185,7 @@ export default {
     CalendarView,
     PivotView,
     GraphView,
-    WizardForm,
+
     FormConfig
   },
   mixins: [webMixin],
@@ -222,8 +200,8 @@ export default {
     // 菜单切换时, 触发
     '$route.fullPath': {
       handler: function (/*val*/) {
-        console.log('in watch, $route.fullPath')
-        console.log('watch fullPath')
+        // console.log('in watch, $route.fullPath')
+        // console.log('watch fullPath')
         this.init()
       },
       deep: true

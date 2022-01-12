@@ -37,9 +37,7 @@
       </a-form-model-item>
 
       <a-form-model-item :wrapper-col="{ span: 12, offset: 5 }">
-        <a-button type="primary" @click="onSubmit">
-          Submit
-        </a-button>
+        <a-button type="primary" @click="onSubmit"> Submit </a-button>
       </a-form-model-item>
     </a-form-model>
   </div>
@@ -65,21 +63,14 @@ export default {
     onSubmit() {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
-          // alert('submit!')
-
-          console.log(this.form2)
-
           const success = res => {
-            console.log(res)
-            // Toast.success(res.name + '登录')
-
-            // this.$router.replace({
-            //   path: '/'
-            // })
-
-            this.$router.push({
-              path: '/'
+            console.log('login ok session:', res)
+            Object.keys(res).forEach(item => {
+              this.$route.meta[item] = res[item]
             })
+
+            // Toast.success(res.name + '登录')
+            this.$router.push({ path: '/' })
           }
 
           // eslint-disable-next-line no-unused-vars

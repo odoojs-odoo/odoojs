@@ -18,11 +18,12 @@
   </div>
 </template>
 
+//
 <script>
-import { test_rpc } from '@/odoorpc/test_rpc'
-import { test_odoojs } from '@/odoojs/test_odoojs'
+// import { test_rpc } from '@/odoorpc/test_rpc'
+// import { test_odoojs } from '@/odoojs/test_odoojs'
 
-import { test_api_addons } from '@/api_addons/test_api_addons'
+// import { test_api_addons } from '@/api_addons/test_api_addons'
 
 export default {
   name: 'TestRpc',
@@ -37,19 +38,19 @@ export default {
     onclickApiAddons() {
       console.log('click btn')
       //   alert('click btn')
-      test_api_addons()
+      // test_api_addons()
     },
 
     onclick() {
       console.log('click btn')
       //   alert('click btn')
-      test_rpc()
+      // test_rpc()
     },
 
     onclickJS() {
       console.log('click onclickJS')
       //   alert('click btn')
-      test_odoojs()
+      // test_odoojs()
     }
   }
 }

@@ -3,12 +3,18 @@
     <div>
       <PivotToolbar
         v-if="toolbar"
-        :measures="pivotData.measures"
+        :pivotInfo="pivotInfo"
         @on-change="handleOnPivotChange"
       />
     </div>
 
-    <PivotTable :pivotData="pivotData" @on-change="handleOnPivotChange" />
+    <!-- pivot -->
+
+    <PivotTable
+      :pivotInfo="pivotInfo"
+      :records="records"
+      @on-change="handleOnPivotChange"
+    />
 
     <div></div>
   </div>
@@ -22,18 +28,20 @@ import PivotTable from '@/components/OPivot/PivotTable.vue'
 
 export default {
   name: 'PivotView',
-  components: { PivotTable, PivotToolbar },
+  components: {
+    PivotToolbar,
+
+    PivotTable
+  },
 
   mixins: [pivotViewMixin],
 
-  props: {
-    toolbar: { type: Boolean, default: false }
-  },
+  props: {},
 
   data() {
     return {
-      columns: [],
-      rows: []
+      // columns: [],
+      // rows: []
     }
   },
   computed: {},

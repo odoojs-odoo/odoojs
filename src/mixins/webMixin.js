@@ -1,4 +1,4 @@
-import api from '@/api'
+import api from '@/odooapi'
 
 // eslint-disable-next-line no-unused-vars
 const cp = val => JSON.parse(JSON.stringify(val))
@@ -6,38 +6,23 @@ const cp = val => JSON.parse(JSON.stringify(val))
 const Mixin = {
   data() {
     return {
-      actionTarget: '',
+      viewInfo: {},
+      actionInfo: {}, // action view info
+      viewType: '', // kanban/list/pivot/... view 切换
+      viewMode: [], //  kanban/list/pivot/... view 切换
 
-      model: undefined,
-      initReady: false,
+      calendarData: undefined, // calendar toolbar  和  calendarview 通讯
+      searchValue2: undefined, // searchBox 和 searchBtn 通讯
+      defaultSearchValue: undefined,
+      searchValue: {}, // 全局用的 搜索条件
 
-      // for Wizard formview
-      showWizard: 0,
-      wizardModel: undefined,
-
-      // listview 通知 toolbar.
-      activeIds: [],
-
-      // searchBox 和  searchBtn 通讯
-      searchChange: 0,
-
-      // calendar toolbar  和  calendarview 通讯
-      calendarData: {},
-
-      // pivot toolbar  和  pivot view 通讯
-      pivotData: {},
+      activeIds: [], // listview 通知 toolbar.
 
       // for form view
       editable: false,
 
-      // for toolbar
-      actionId: '',
-      actionType: '',
-      actionName: '',
-
-      viewType: '',
-      viewMode: [],
-      hideButton: {}
+      // pivot toolbar  和  pivot view 通讯
+      pivotData: {}
     }
   },
   computed: {},
@@ -47,90 +32,117 @@ const Mixin = {
   async created() {},
 
   methods: {
-    modelGet() {
-      return this.model
-    },
-
     async init() {
-      this.initReady = false
-      this.model = undefined
-      this.editable = false
+      this.viewInfo = {}
+      this.actionInfo = {}
+
       this.viewMode = []
       this.viewType = ''
 
-      this.actionTarget = ''
+      this.searchValue2 = undefined
+      this.defaultSearchValue = undefined
+      this.searchValue = {}
+      this.calendarData = undefined
 
-      this.hideButton = {}
       this.activeIds = []
 
-      this.showWizard = 0
+      this.editable = false
 
+      // console.log('route', cp(this.$route.meta))
       const query = this.$route.query
-
       const { action: actionId, view_type: viewType } = query
       const { active_id } = query
       const active_id2 = active_id && Number(active_id)
 
-      this.actionId = actionId
+      const _get_view_info = async () => {
+        const session = this.$route.meta.session
+        const { viewInfo } = this.$route.meta
+        if (viewInfo) {
+          this.$route.meta.viewInfo = undefined
+          return { session, ...viewInfo }
+        } else {
+          const context2 = this.$route.meta.context
+          const active_context = active_id2
+            ? { active_id: active_id2, active_ids: [active_id2] }
+            : {}
+          const additional_context = active_id2 ? active_context : undefined
+          const kw = additional_context ? { additional_context } : {}
+          const action = await api.Action.load(
+            { session, context: context2 },
+            actionId,
+            kw
+          )
 
-      const action = await api.action(actionId, { active_id: active_id2 })
+          const context = { ...context2, ...active_context }
 
-      this.action = action
-      this.actionName = action.action_name
+          const views = await api.Action.load_views({
+            session,
+            context,
+            action
+          })
 
-      this.actionType = action.type
+          return { session, context, action, views }
+        }
+      }
 
-      if (action.type === 'ir.actions.act_window') {
-        const model = action.model
-        this.model = model
+      const viewInfo = await _get_view_info()
+      const { action } = viewInfo
+      this.actionInfo = action
+      this.viewInfo = viewInfo
+      const searchValue = await api.Views.search.default_value(viewInfo)
+      this.defaultSearchValue = searchValue
+      this.searchValue = searchValue
+      // console.log('viewinfo', cp([context, action, views]))
 
-        this.actionTarget = action.target
+      const actionType = action.type
 
-        // console.log(
-        //   'view_info',
-        //   action.target,
-        //   JSON.parse(JSON.stringify(model.view_info))
-        // )
-
-        if (['current', 'main'].includes(action.target)) {
+      if (actionType === 'ir.actions.act_window') {
+        if (['current', 'main'].includes(action.target) || !action.target) {
           if (viewType === 'form') {
-            this.viewType = 'form'
-            this.hideButton = { ...model.hide_button() }
             const resId = query.id ? parseInt(query.id) : undefined
             if (!resId) this.editable = true
+
+            const editable = this.$route.meta.editable
+            // console.log('this.$route', [editable], this.$route)
+            // form view 复制按钮 , 带过来的信息
+            if (editable) {
+              this.editable = true
+              this.$route.meta.editable = undefined
+            }
+
+            this.viewType = 'form'
           } else {
-            this.viewMode = action.view_mode.filter(
+            const view_mode = api.Action.view_mode(viewInfo)
+            this.viewMode = view_mode.filter(
               mode =>
                 !['search', 'form', 'gantt', 'qweb', 'activity'].includes(mode)
             )
 
             // tree, list, kanban, pivot, calendar, graph,
-
             // gantt view 只有 mrp 模块中出现三次
             // qweb view 只有 sale_timesheet 模块中出现一次
             // activity view 的 功能, form view 中 安排活动 按钮中实现
 
             if (!this.viewMode.length) {
               console.log('TBD, action.view_mode,', action.view_mode)
-              throw 'TBD, action.view_mode'
+              throw `TBD,view_mode,  ${action.view_mode}`
             }
 
-            this.viewType = this.viewMode[0]
-            model.with_view(this.viewType)
-            this.hideButton = { ...model.hide_button() }
+            const viewType2 = this.viewMode[0]
+
+            this.viewType = viewType2
           }
         } else if (action.target === 'inline') {
-          // res.config.settings/onchange
-          // model.env('res.config.settings').onchange()
-          // const res = await model.onchange()
-
-          const context = action.get_context()
-          console.log('TBD, inline.', context, action)
-
+          this.viewType = 'form'
+          // console.log('TBD, inline.')
+          // throw 'TBD, action.target'
+        } else if (action.target === 'new') {
           // this.viewType = 'form'
-          // this.hideButton = { ...model.hide_button() }
+          // 在 菜单点击事件中 已经过滤 该中情况.
+          // never here
 
-          // this.editable = true
+          console.log('TBD, new.')
+          throw 'TBD, action.target'
         } else {
           console.log('TBD, action.target', action.target)
           // ('current', 'Current Window'),
@@ -141,63 +153,10 @@ const Mixin = {
 
           throw 'TBD, action.target'
         }
-      } else if (action.type === 'ir.actions.server') {
-        console.log('TBD, action.type server ')
-        const action2 = await action.run()
-        console.log('TBD, action.type server 2', action2)
-        this.handleOnActionReturn(action2)
-        // throw 'TBD, action.type server'
       } else {
-        console.log('TBD, action.type ', action.type)
-        throw 'TBD, action.type'
-      }
+        console.log('TBD, actionType ', actionType)
 
-      this.initReady = true
-    },
-
-    wizardModelGet() {
-      return this.wizardModel
-    },
-
-    async handleOnActionReturn(action) {
-      // console.log('handleOnAction', action, action.type, action.target)
-      if (action.type === 'ir.actions.act_url') {
-        console.log('建设中 act_url :', action.url)
-        this.$message.info(`建设中..., act_url`)
-      } else if (action.type === 'ir.actions.report') {
-        console.log('建设中 report :', action.type)
-        this.$message.info(`建设中..., ${action.type}`)
-      } else if (action.type === 'ir.actions.act_window') {
-        // console.log('act_window :', action, action.target)
-
-        if (action.target === 'new') {
-          // console.log('new modal', this.showWizard, action)
-          // this.actionTarget = action.target
-          this.wizardModel = action.model
-          this.showWizard = this.showWizard + 1
-          // console.log('new modal2', this.showWizard, action)
-        } else if (['current', 'main'].includes(action.target)) {
-          console.log(action.target, 'current  router', action)
-          const res_id = action.res_id
-          const action_id = action.id
-          const query = {
-            action: action_id,
-            active_id: action.env.context.active_id,
-            ...(res_id ? { view_type: 'form', id: res_id } : {})
-          }
-          // console.log(action.target, query)
-          const path = `/web`
-          this.$router.push({ path, query })
-        } else {
-          console.log(action.target, 'TBD')
-          //     console.log(' TBD form:', action.type, action)
-          //     // TBD next action
-          //     //   this.showModal = true
-        }
-      } else {
-        console.log(' TBD form:', action.type, action)
-        // TBD next action
-        //   this.showModal = true
+        throw `TBD, ${actionType}`
       }
     },
 
@@ -205,6 +164,7 @@ const Mixin = {
       // 搜索条件 改变, 通知 listview 刷新数据
       if (event_name === 'on-search-change') this.handleOnSearchChange(...args)
       // for 日历视图,
+      else if (event_name === 'on-change-pivot') this.handleChangePivot(...args)
       else if (event_name === 'on-change-calendar')
         this.handleChangeCalendar(...args)
       // 创建按钮, 跳转到 formview,
@@ -215,19 +175,31 @@ const Mixin = {
       else if (event_name === 'on-form-event') this.handleFormEvent(...args)
     },
 
-    handleOnSearchChange() {
-      console.log(' handleOnSearchChange ')
-      this.searchChange = this.searchChange + 1
+    handleOnSearchChange(value) {
+      // console.log(' handleOnSearchChange ', value, cp(this.searchValue))
+      this.searchValue = value
+      const viewref = `${this.viewType}View`
+      console.log('viewref', viewref)
+      this.$refs[viewref].handleOnEvent('on-search-change', value)
     },
 
-    async handleChangeCalendar(calendar) {
-      this.calendarData = { ...calendar }
+    async handleChangePivot(value) {
+      const viewref = `${this.viewType}View`
+      console.log('viewref', viewref)
+      this.$refs[viewref].handleOnEvent('on-change-pivot', value)
+    },
+
+    async handleChangeCalendar(value) {
+      const viewref = `${this.viewType}View`
+      console.log('viewref', viewref)
+      this.$refs[viewref].handleOnEvent('on-change-calendar', value)
     },
 
     async handleOnCreate() {
-      // console.log(' handleOnCreate ')
+      // console.log(' handleOnCreate ',  )
+      const { action } = this.viewInfo
       const path = `/web`
-      const query = { action: this.actionId, view_type: 'form' }
+      const query = { action: action.id, view_type: 'form' }
       this.$router.push({ path, query })
     },
 
@@ -241,16 +213,16 @@ const Mixin = {
 
     handleOnRowSelect(activeIds) {
       this.activeIds = activeIds
-    },
-
-    async handleReload() {
-      console.log(' reload')
-
-      await api.reload()
-
-      const path = `/home`
-      this.$router.replace({ path })
     }
+
+    // async handleReload() {
+    //   console.log(' reload')
+
+    //   await api.reload()
+
+    //   const path = `/home`
+    //   this.$router.replace({ path })
+    // }
   }
 }
 

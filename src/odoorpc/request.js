@@ -5,9 +5,10 @@ class Proxy0 {
     const { baseURL, timeout = 500000 } = payload
     this._timeout = timeout
     this._baseURL = baseURL
-    this._sid = undefined
   }
 }
+
+Proxy0._sid = undefined
 
 class ProxyJSON extends Proxy0 {
   constructor(payload) {
@@ -24,12 +25,12 @@ class ProxyJSON extends Proxy0 {
       timeout: this._timeout
     })
 
-    const that = this
+    const session_id = this.constructor._sid
 
     service.interceptors.request.use(
       config => {
         // console.log('sid:', that._sid)
-        if (that._sid) config.headers['X-Openerp-Session-Id'] = that._sid
+        if (session_id) config.headers['X-Openerp-Session-Id'] = session_id
         return config
       },
       error => {
@@ -52,7 +53,7 @@ class ProxyJSON extends Proxy0 {
           if (cookie) {
             const cookie2 = cookie[0]
             const session_id = cookie2.slice(11, 51)
-            that._sid = session_id
+            Proxy0._sid = session_id
           }
         }
 
@@ -110,10 +111,8 @@ class ProxyJSON extends Proxy0 {
 
 class ProxyFileExport extends Proxy0 {
   constructor(payload) {
-    const { baseURL, timeout, rpc, csrf_token } = payload
+    const { baseURL, timeout } = payload
     super({ baseURL, timeout })
-    this._sid = rpc._sid
-    this.csrf_token = csrf_token
     this._service = this._get_service()
   }
 
@@ -126,11 +125,11 @@ class ProxyFileExport extends Proxy0 {
       responseType: 'blob'
     })
 
-    const that = this
+    const session_id = this.constructor._sid
 
     service.interceptors.request.use(
       config => {
-        if (that._sid) config.headers['X-Openerp-Session-Id'] = that._sid
+        if (session_id) config.headers['X-Openerp-Session-Id'] = session_id
 
         const data = config.data
         const fd = new FormData()
@@ -172,9 +171,9 @@ class ProxyFileExport extends Proxy0 {
   }
 
   async call(url, payload = {}) {
-    const { data, context } = payload
+    const { data, context, csrf_token } = payload
     const url2 = url[0] === '/' ? url : `/${url}`
-    const csrf_token = this.csrf_token
+    // const csrf_token = this.csrf_token
     const token = 'dummy-because-api-expects-one'
     // const csrf_token = 'xxxxx'
     const context_data = context ? { context: JSON.stringify(context) } : {}
@@ -197,6 +196,7 @@ class ProxyFileExport extends Proxy0 {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 class ProxyFileImport extends Proxy0 {
   constructor(payload) {
     const { baseURL, timeout } = payload
@@ -217,11 +217,11 @@ class ProxyFileImport extends Proxy0 {
       }
     })
 
-    const that = this
+    const session_id = this.constructor._sid
 
     service.interceptors.request.use(
       config => {
-        if (that._sid) config.headers['X-Openerp-Session-Id'] = that._sid
+        if (session_id) config.headers['X-Openerp-Session-Id'] = session_id
 
         const data = config.data
         const fd = new FormData()
@@ -258,13 +258,9 @@ class ProxyFileImport extends Proxy0 {
     const url2 = url[0] === '/' ? url : `/${url}`
     // const csrf_token = 'xxxxx'
 
-    const { import_id, file, jsonp } = payload
-    const payload2 = {
-      import_id,
-      file
-      // csrf_token
-    }
-    if (jsonp) payload2.payload2 = jsonp
+    const { import_id, file, jsonp, csrf_token } = payload
+    const payload2 = { import_id, file, csrf_token }
+    if (jsonp) payload2.jsonp = jsonp
 
     const response_data = await this._service({
       url: url2,
@@ -278,4 +274,144 @@ class ProxyFileImport extends Proxy0 {
   }
 }
 
-export default { ProxyJSON, ProxyFileExport, ProxyFileImport }
+// export default {
+//   ProxyJSON,
+//   ProxyFileExport,
+//   ProxyFileImport
+// }
+
+export class JsonRequest {
+  constructor() {}
+
+  static get baseURL() {
+    return this._baseURL
+  }
+
+  static set baseURL(val) {
+    this._baseURL = val
+  }
+
+  static get timeout() {
+    return this._timeout
+  }
+
+  static set timeout(val) {
+    this._timeout = val
+  }
+
+  static async json_call(url, payload = {}) {
+    const req = new ProxyJSON({
+      baseURL: this.baseURL,
+      timeout: this.timeout
+    })
+
+    const data = await req.call(url, payload)
+    // console.log(data)
+    if (data.error) throw data.error
+    else return data.result
+  }
+
+  // async json_get(url, payload = {}) {
+  //   const data = await this._rpc.call_get(url, payload)
+  //   // console.log(data)
+  //   return data
+  // }
+}
+
+JsonRequest._baseURL = undefined
+JsonRequest._timeout = undefined
+
+export class FileRequest extends JsonRequest {
+  constructor(payload) {
+    super(payload)
+  }
+
+  static async csrf_token() {
+    const url = '/web2/session/csrf_token'
+    return await this.json_call(url, {})
+  }
+
+  static async file_export(url, payload) {
+    const csrf_token = await this.csrf_token()
+    // console.log(csrf_token)
+
+    // console.log(this.baseURL, this.timeout)
+    // console.log(url, payload)
+
+    const req = new ProxyFileExport({
+      baseURL: this.baseURL,
+      timeout: this.timeout
+    })
+
+    const data = await req.call(url, { ...payload, csrf_token })
+
+    // console.log(url, payload, data)
+    if (data.error) {
+      // TBD
+      throw data.error
+      // raise error.RPCError(
+      //   data['error']['data']['message'],
+      //   data['error'])
+    } else {
+      return data
+    }
+  }
+
+  // async file_import(url, payload) {
+  //   const data = await this._connector.proxy_file_import.call(url, payload)
+  //   if (data.error) {
+  //     // TBD
+  //     throw data.error
+  //     // raise error.RPCError(
+  //     //   data['error']['data']['message'],
+  //     //   data['error'])
+  //   } else {
+  //     return data
+  //   }
+  // }
+
+  /*
+  // 数据导出 流程
+  // 1. call: /web/export/formats,
+  //    return: [{tag: "csv", label: "CSV"}, {tag: "xlsx", label: "XLSX", error: null}]
+  // 2. call /web/export/get_fields,
+  //    param: model, import_compat
+  //    return: [{id, value, string, field_type }]
+  // 3. call /web/dataset/call_kw/ir.exports/search_read
+  // 4. call export_xlsx()
+  //    param:
+ 
+    // param:
+    // const data = {
+    //   model: 'sale.order',
+    //   fields: [
+    //     { name: 'name', label: '订单关联' },
+    //     { name: 'create_date', label: '创建日期' },
+    //     { name: 'commitment_date', label: '交货日期' },
+    //     { name: 'expected_date', label: '预计日期' },
+    //     { name: 'partner_id', label: '客户' },
+    //     { name: 'user_id', label: '销售员' },
+    //     { name: 'amount_total', label: '合计' },
+    //     { name: 'state', label: '状态' },
+    //     { name: 'activity_exception_decoration', label: '活动例外勋章' }
+    //   ],
+    //   ids: [13],
+    //   domain: [['user_id', '=', 2]],
+    //   groupby: [],
+    //   context: {
+    //     lang: 'zh_CN',
+    //     tz: false,
+    //     uid: 2,
+    //     allowed_company_ids: [1],
+    //     params: {
+    //       action: 318,
+    //       cids: 1,
+    //       menu_id: 189,
+    //       model: 'sale.order',
+    //       view_type: 'list'
+    //     }
+    //   },
+    //   import_compat: false
+    // }
+    */
+}

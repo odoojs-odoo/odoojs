@@ -1,43 +1,59 @@
-import { tools } from '@/odoojs'
+import api from '@/odooapi'
+
 import viewMixin from './viewMixin'
 
 export default {
   mixins: [viewMixin],
 
   props: {
-    searchChange: { type: Number, default: 0 }
+    viewType2: { type: String, default: '' },
+    defaultValue: { type: Object, default: () => undefined },
+    value: { type: Object, default: () => undefined }
   },
 
   data() {
-    return {
-      searchInfo: {}
-    }
+    return {}
   },
   computed: {
-    // for search view
-
-    searchBtnOptions() {
-      return tools.search_btn_options({
-        search_info: this.searchInfo,
-        view_info: this.viewInfo
-      })
+    viewType() {
+      return 'search'
     },
 
-    searchValues() {
-      return tools.search_values({ search_info: this.searchInfo })
+    searchBoxValue() {
+      return api.Views.search.display_value(this.viewInfo2, this.searchValue)
+    },
+
+    searchBtnOptions() {
+      return api.Views.search.filter_options(this.viewInfo2, this.searchValue)
+    },
+
+    groupbyBtnOptions() {
+      return api.Views.search.groupby_options(this.viewInfo2, this.searchValue)
     },
 
     searchFields() {
-      return tools.search_fields({
-        view_info: this.viewInfo,
-        search_info: this.searchInfo
-      })
+      return api.Views.search.search_options(this.viewInfo2, this.searchValue)
     }
   },
   watch: {
-    searchChange() {
-      // console.log('watch,searchChange,', newVal, oldVal)
-      this.initData()
+    defaultValue: {
+      // eslint-disable-next-line no-unused-vars
+      handler: function (newVal, oldval) {
+        // console.log('watch, defaultValue, val', newVal, oldval)
+        if (newVal) this.$emit('update:searchValue', newVal)
+      },
+      deep: true,
+      immediate: true
+    },
+
+    value: {
+      // eslint-disable-next-line no-unused-vars
+      handler: function (newVal, oldval) {
+        // console.log('watch, value, val', newVal, oldval)
+        if (newVal) this.$emit('update:searchValue', newVal)
+      },
+      deep: true,
+      immediate: true
     }
   },
 
@@ -46,17 +62,20 @@ export default {
   mounted() {},
 
   methods: {
-    async initData() {
-      const model = this.modelGet()
-      this.searchInfo = JSON.parse(JSON.stringify(model.search_info))
+    searchM2oOptionMethod(payload) {
+      return api.Views.search.get_selection(this.viewInfo2, payload)
     },
 
     handleOnSearchSelect(name, value) {
-      const model = this.modelGet()
-      model.set_search(name, value)
-      this.searchInfo = JSON.parse(JSON.stringify(model.search_info))
-      // this.initChangeViewType(model)
-      this.$emit('on-event', 'on-search-change')
+      const value2 = api.Views.search.onchange(
+        this.viewInfo2,
+        this.searchValue,
+        { name, value }
+      )
+
+      this.$emit('input', value2)
+
+      this.$emit('on-event', 'on-search-change', value2)
     }
   }
 }

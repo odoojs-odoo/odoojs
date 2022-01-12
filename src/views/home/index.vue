@@ -46,13 +46,13 @@
 
     <a-button type="primary" @click="onLogout">注销再登录</a-button>
 
-    <div>odoo version: {{ api.version_info.server_version }}</div>
+    <div>odoo version: {{ version_info.server_version }}</div>
     <div>odoo version: {{ version_info.server_version }}</div>
   </div>
 </template>
 
 <script>
-import api from '@/api'
+import api from '@/odooapi'
 
 export default {
   name: 'Home',
@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       form: this.$form.createForm(this, { name: 'asdasda' }),
-      api,
+
       version_info: {},
 
       open: false
@@ -70,7 +70,7 @@ export default {
   },
   computed: {},
   async created() {
-    this.version_info = await api.version_info_promise
+    this.version_info = await api.web.webclient.version_info()
   },
 
   methods: {
@@ -87,10 +87,14 @@ export default {
 
     async onLogout() {
       //   this.$router.push({ path: '/user/login' })
+      // console.log('logout, xxxxx', cp(this.$route.meta))
+      await api.web.logout()
+      Object.keys(this.$route.meta).forEach(item => {
+        delete this.$route.meta[item]
+      })
 
-      console.log('xxxxx')
+      // console.log('logout, xxxxx2', cp(this.$route.meta))
 
-      await api.logout()
       this.$router.replace({ path: '/user/login' })
     }
   }

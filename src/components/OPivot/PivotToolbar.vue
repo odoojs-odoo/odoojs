@@ -39,7 +39,12 @@ export default {
 
   props: {
     viewType: { type: String, default: 'pivot' },
-    measures: { type: Array, default: () => [] }
+    pivotInfo: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
   },
 
   data() {
@@ -50,7 +55,26 @@ export default {
   },
   computed: {
     measuresDropdownData() {
-      return this.measures
+      const { measures_all, measures } = this.pivotInfo
+      const ms = Object.keys(measures_all).map(fld => {
+        const meta = measures_all[fld]
+        return {
+          name: fld,
+          string: meta.string,
+          type: meta.type,
+          checked: measures.includes(fld)
+        }
+      })
+
+      return [
+        ...ms,
+        { divider: 1 },
+        {
+          name: '__count',
+          string: '个数',
+          checked: measures.includes('__count')
+        }
+      ]
     }
   },
 

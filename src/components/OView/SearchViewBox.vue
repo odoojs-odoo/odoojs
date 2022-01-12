@@ -3,7 +3,7 @@
     <SearchBox
       v-model="value2"
       :searchFields="searchFields"
-      :modelGet="modelGet"
+      :optionMethod="searchM2oOptionMethod"
       @on-search-select="handleOnSearchSelect"
     />
   </div>
@@ -27,8 +27,8 @@ export default {
   computed: {
     value2: {
       get() {
-        // console.log(this.searchValues)
-        return this.searchValues
+        // console.log(this.searchBoxValue)
+        return this.searchBoxValue
       },
       set(val) {
         console.log(val)

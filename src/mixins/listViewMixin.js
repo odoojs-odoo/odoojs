@@ -1,6 +1,6 @@
 import treeViewMixin from '@/mixins/treeViewMixin'
-import { tools } from '@/odoojs'
-const cp = item => JSON.parse(JSON.stringify(item))
+
+import api from '@/odooapi'
 
 const try_call = async (fn, debug) => {
   if (debug) return { result: await fn() }
@@ -19,19 +19,42 @@ export default {
 
   data() {
     return {
-      activeIds: []
+      activeIdsWithGroupby: [],
+      expandedRowKeys: [],
+
+      showWizard: false,
+      wizardViewInfo: {}
     }
   },
   computed: {
-    // for tree
+    viewType() {
+      return 'list'
+    },
+
+    activeIds() {
+      return this.activeIdsWithGroupby.filter(item => typeof item === 'number')
+    },
+
     view_columns() {
-      return tools.view_columns({ view_info: this.viewInfo })
+      const { fields } = this.view
+      const node = this.node
+      const columns = (node.children || [])
+        .filter(item => item.tagName === 'field')
+        .map(item => {
+          const fname = item.attrs.name
+          const meta = fields[fname] || {}
+          const title = item.attrs.string || meta.string
+          return { key: fname, title, node: item, meta }
+        })
+
+      return columns
     },
 
     columns() {
       const cols = this.view_columns
-      // console.log(cols)
+      // console.log('tree cols:', cols)
       // TBD GROUPBY
+
       const cols2 = cols.filter(
         item =>
           !item.node.attrs.invisible &&
@@ -41,12 +64,49 @@ export default {
         // item.node.tagName !== 'groupbyb' &&
       )
       // console.log(JSON.parse(JSON.stringify(cols2)))
-      return [...cols2].map(col => {
-        return { ...col, dataIndex: col.key }
+      const get_render = col => {
+        if (col.meta.type === 'many2one') {
+          // eslint-disable-next-line no-unused-vars
+          return (value, row, index) => (value ? value[1] : '')
+        }
+        if (col.meta.type === 'selection') {
+          const get_label = value => {
+            const elm = col.meta.selection.find(item => item[0] === value)
+            return elm ? elm[1] : ''
+          }
+          // eslint-disable-next-line no-unused-vars
+          return (value, row, index) => (value ? get_label(value) : '')
+        }
+
+        return undefined
+      }
+
+      const cols3 = [...cols2].map(col => {
+        const ret = { ...col, dataIndex: col.key }
+        const render = get_render(col)
+        if (render) ret.customRender = render
+        return ret
       })
+
+      const cols6 = this.groupby.length
+        ? [{ key: '_keyval', title: '', dataIndex: '_keyval' }, ...cols3]
+        : [...cols3]
+
+      return cols6
     }
   },
-  watch: {},
+  watch: {
+    searchValue: {
+      // eslint-disable-next-line no-unused-vars
+      handler: function (newVal, oldval) {
+        // console.log('watch, searchValue, val', newVal, oldval)
+        this.expandedRowKeys = []
+        this.activeIdsWithGroupby = []
+      },
+      deep: true,
+      immediate: true
+    }
+  },
 
   async created() {},
 
@@ -54,13 +114,17 @@ export default {
 
   methods: {
     handleOnRowSelect(activeIds) {
-      this.activeIds = activeIds
+      this.activeIdsWithGroupby = activeIds
       this.$emit('on-row-select', activeIds)
     },
 
     handleOnEvent(event_name, ...args) {
+      // search value change
+
+      if (event_name === 'on-search-change') this.handleOnSearchChange(...args)
+      // 导出全部按钮, 直接下载
       // 打印按钮, 直接下载
-      if (event_name === 'on-print') this.handleOnPrint(...args)
+      else if (event_name === 'on-print') this.handleOnPrint(...args)
       // 导出全部按钮, 直接下载
       else if (event_name === 'on-export-all') this.handleOnExportAll(...args)
       // 导出按钮, 跳转到弹窗
@@ -83,74 +147,127 @@ export default {
     },
 
     async handleOnExportAll() {
-      const model = this.modelGet()
-      // const res =
-      await model.export_xlsx_all()
-      // console.log(res)
+      await api.Views.list.export_xlsx_all(this.viewInfo2)
     },
 
     async handleOnExport() {
-      this.$message.info('建设中..., 导出数据')
+      // this.$message.info('建设中..., 导出数据')
       // TBD
       // const active_ids = this.activeIds
     },
 
     async handleOnPrint(action) {
+      const { session, context } = this.viewInfo
       const ids = this.activeIds
-      const model = this.modelGet()
-      // const res =
-      await model.print(action, ids)
-      // console.log(res)
+      await api.Action.print({ session, context, action }, ids)
     },
 
     async handleOnBtnUnlink() {
       const ids = this.activeIds
       console.log(' handleUnlink ', ids)
-      const model = this.modelGet()
 
       const { error } = await try_call(async () => {
-        await model.unlink({ ids })
+        await api.Views.list.unlink(this.viewInfo2, ids)
         return true
       })
 
       if (error) {
         this.$error({ title: '用户错误', content: error.data.message })
       } else {
+        this.activeIds = []
         this.fresh_data()
       }
     },
 
     async handleOnUnarchive() {
       const ids = this.activeIds
-      const model = this.modelGet()
-      await model.unarchive(ids)
-      this.fresh_data()
+      await api.Views.list.unarchive(this.viewInfo2, ids)
+      // this.fresh_data()
     },
 
     async handleOnArchive() {
       const ids = this.activeIds
-      const model = this.modelGet()
-      await model.archive(ids)
+      await api.Views.list.archive(this.viewInfo2, ids)
       this.fresh_data()
     },
 
-    async handleOnAction(action) {
-      console.log(cp(action))
-      const ids = this.activeIds
-      const model = this.modelGet()
-      const { error, result } = await try_call(async () => {
-        return await model.action_call(action, ids)
-      })
+    async handleOnAction(action_todo) {
+      // 工具条 按钮 触发
+      // console.log('action list', cp(action_todo))
+      const active_ids = this.activeIds
+      const result = await api.Views.list.action_call(
+        this.viewInfo2,
+        action_todo,
+        { active_ids }
+      )
 
-      if (error) {
-        this.$error({ title: '用户错误', content: error.data.message })
+      console.log('action list ret:', result)
+
+      if (!result) {
+        this.fresh_data()
       } else {
-        if (!result) {
-          this.fresh_data()
-        } else {
-          this.$emit('on-action-return', result)
-        }
+        this._action_return(result)
       }
+    },
+
+    async _action_return(result) {
+      if (!result) {
+        return
+      }
+
+      const { context, action } = result
+      if (action.type === 'ir.actions.act_url') {
+        console.log('建设中 act_url :', action.url)
+        this.$message.info(`建设中..., act_url`)
+      } else if (action.type === 'ir.actions.report') {
+        console.log('建设中 report :', action.type)
+        this.$message.info(`建设中..., ${action.type}`)
+      } else if (action.type === 'ir.actions.act_window') {
+        if (action.target === 'new') {
+          console.log('TODO: btn clicked return action.target = new', action)
+          this.wizardViewInfo = result
+          this.showWizard = true
+          // throw 'TODO: btn clicked return action.target = new'
+        } else if (
+          ['current', 'main'].includes(action.target) ||
+          !action.target
+        ) {
+          console.log(action.target, 'current  router', action)
+          const res_id = action.res_id
+          const action_id = action.id
+          const query = {
+            action: action_id,
+            active_id: context.active_id,
+            ...(res_id ? { view_type: 'form', id: res_id } : {})
+          }
+
+          this.$route.meta.viewInfo = result
+          // console.log(action.target, query)
+          const path = `/web`
+          this.$router.push({ path, query })
+        } else {
+          console.log('TODO: btn clicked return action.target', action)
+          throw 'TODO: btn clicked return action.target'
+        }
+      } else {
+        console.log('TODO btn clicked return action:', action.type, action)
+        throw 'TODO btn clicked return action.type '
+        // TBD next action
+        //   this.showModal = true
+      }
+    },
+
+    handleOnViewEvent(event_name, ...args) {
+      // console.log(' handleOnViewEvent, ', event_name, args)
+      // 点击按钮
+      // action, wizard form, button click return, reload data
+      if (event_name === 'on-wizard-ok') this.handleOnWizardOk(...args)
+    },
+
+    async handleOnWizardOk(result) {
+      console.log('wizard btn click')
+      if (!result) this.fresh_data()
+      else return this._action_return(result)
     }
   }
 }

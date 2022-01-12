@@ -4,6 +4,12 @@
       :searchBtnOptions="searchBtnOptions"
       @on-search-select="handleOnSearchSelect"
     />
+
+    <GroupbyToolbar
+      v-if="viewType2 !== 'calendar'"
+      :groupbyBtnOptions="groupbyBtnOptions"
+      @on-search-select="handleOnSearchSelect"
+    />
   </div>
 </template>
 
@@ -11,10 +17,11 @@
 import searchViewMixin from '@/mixins/searchViewMixin'
 
 import SearchToolbar from '@/components/OSearch/SearchToolbar.vue'
+import GroupbyToolbar from '@/components/OSearch/GroupbyToolbar.vue'
 
 export default {
   name: 'SearchViewBtn',
-  components: { SearchToolbar },
+  components: { SearchToolbar, GroupbyToolbar },
   mixins: [searchViewMixin],
 
   props: {},

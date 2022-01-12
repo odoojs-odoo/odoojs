@@ -8,39 +8,44 @@
       />
     </div>
 
+    <!-- {{ records }} -->
+
     <div>row:</div>
-    <div v-for="item in rows" :key="item.name">
-      string: {{ item.string }}, name: {{ item.name }}
+    <div v-for="item in rows" :key="item">
+      string: {{ groupbys[item.split(':')[0]].string }}, name: {{ item }}
     </div>
     <div>----</div>
-
     <div>columns:</div>
-    <div v-for="item in columns" :key="item.name">
-      string: {{ item.string }}, name: {{ item.name }}
+    <div v-for="item in cols" :key="item">
+      string: {{ groupbys[item.split(':')[0]].string }}, name: {{ item }}
     </div>
     <div>----</div>
-
     <div>measures:</div>
 
-    <div v-for="item in measures" :key="item.name">
-      string: {{ item.string }}, name: {{ item.name }}
+    <div v-for="item in measures" :key="item">
+      string:
+      {{
+        { ...measures_all, __count: { string: '个数' } }[item.split(':')[0]]
+          .string
+      }}, name: {{ item }}
     </div>
 
     <div>----</div>
 
     <div>data:</div>
-    <div v-for="(rec, index) in pivotData.dataList" :key="index">
-      <div>--- {{ index }}: ---</div>
 
-      <div v-for="me in measures" :key="me.name">
-        {{ me.string }}: {{ rec[me.name] }}
-      </div>
-
-      <div v-for="ax in [...rows, ...columns]" :key="ax.name">
-        {{ ax.string }}: {{ rec[ax.name] }}
-      </div>
-
-      <!-- {{ rec }} -->
+    <div v-for="(rec, index) in records" :key="index">
+      <span>--- {{ index }}: ---</span>
+      <span v-for="me in measures" :key="me">
+        {{
+          { ...measures_all, __count: { string: '个数' } }[me.split(':')[0]]
+            .string
+        }}: {{ rec[me] }}
+      </span>
+      <span>-----</span>
+      <span v-for="ax in [...rows, ...cols]" :key="ax">
+        {{ groupbys[ax.split(':')[0]].string }}: {{ rec[ax] }}
+      </span>
     </div>
 
     <div></div>
@@ -48,15 +53,15 @@
 </template>
 
 <script>
-import pivotViewMixin from '@/mixins/pivotViewMixin'
+import graphMixin from '@/mixins/graphMixin'
 
 import PivotToolbar from '@/components/OPivot/PivotToolbar.vue'
 
 export default {
-  name: 'PivotView',
+  name: 'GraphView',
   components: { PivotToolbar },
 
-  mixins: [pivotViewMixin],
+  mixins: [graphMixin],
 
   props: {
     toolbar: { type: Boolean, default: false }
@@ -65,18 +70,7 @@ export default {
   data() {
     return {}
   },
-  computed: {
-    rows() {
-      return this.pivotData.rows || []
-    },
-    columns() {
-      return this.pivotData.columns || []
-    },
-
-    measures() {
-      return (this.pivotData.measures || []).filter(item => item.checked)
-    }
-  },
+  computed: {},
 
   watch: {},
 

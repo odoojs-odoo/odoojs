@@ -1,4 +1,8 @@
 import { Model as BaseModel } from './models'
+import controllers from './controllers'
+
+const web = controllers.web
+
 // ok
 const AddonsFiles = require.context('./addons', true, /\.js$/)
 
@@ -15,9 +19,13 @@ const AllModels = { ...AddonsModels }
 
 export class Environment {
   constructor(payload) {
-    const { odoo, context } = payload
-    this._odoo = odoo
-    this._context = context
+    const { context, session } = payload
+    this._session = session
+    if (context) this._context = context
+    else {
+      const ctx = web.session.context(session)
+      this._context = ctx
+    }
   }
 
   get _registry() {
@@ -30,20 +38,16 @@ export class Environment {
     return this.constructor._model_registry
   }
 
-  get odoo() {
-    return this._odoo
+  get session() {
+    return this._session
   }
 
   get uid() {
-    return this.odoo.session_info.uid
+    return this.session.uid
   }
 
   get context() {
-    if (this._context) return this._context
-
-    // 登录后, context 不为空
-    const context = this.odoo.web.session.context
-    return context
+    return this._context
   }
 
   async _set_model_registry(models2) {
@@ -52,12 +56,6 @@ export class Environment {
     if (models.length === 0) return
 
     const domain = [['model', 'in', models]]
-
-    // const model = 'ir.model'
-    // const method = 'search_read'
-    // const kwargs = { domain, fields: ['model'] }
-    // const payload = { model, method, args: [], kwargs }
-    // const model_ids = await this.odoo.web.dataset.call_kw(payload)
 
     const Model = this.model('ir.model')
     const model_ids = await Model.search_read({ domain, fields: ['model'] })
@@ -78,7 +76,7 @@ export class Environment {
   with_context(context) {
     // env.copy 前, 需要自己把 context 组织好
     // env里的 旧的 context 被全覆盖
-    const env = new this.constructor({ odoo: this._odoo, context })
+    const env = new this.constructor({ session: this.session, context })
     return env
   }
 
@@ -99,27 +97,35 @@ export class Environment {
     const args = ['xmlid_to_res_model_res_id', xml_id, true]
     const [model, id_] = await Model.execute(...args)
     const res2 = { model, id: id_ }
-    this._ref_registry[xml_id] = res2
+    // this._ref_registry[xml_id] = res2
     return res2
   }
 
   model(model, payload = {}) {
     const { fields } = payload
-    if (!Object.keys(this._registry).includes(model)) {
-      const MyClass = this._create_model_class({ model, fields })
-      this._registry[model] = MyClass
-    } else {
-      const MyClass = this._registry[model]
-      MyClass._updata_fields(fields)
-    }
-    const Model = this._registry[model]
-    return Model.with_env(this)
+    const Model = this._create_model_class({ model, fields })
+    return Model
   }
+
+  // model(model, payload = {}) {
+  //   const { fields } = payload
+  //   if (!Object.keys(this._registry).includes(model)) {
+  //     const MyClass = this._create_model_class({ model, fields })
+  //     this._registry[model] = MyClass
+  //   } else {
+  //     const MyClass = this._registry[model]
+  //     MyClass._updata_fields(fields)
+  //   }
+  //   const Model = this._registry[model]
+  //   return Model.with_env(this)
+  // }
 
   _create_model_class({ model, fields = {} }) {
     // const BaseModel2 = AllModels[model] || BaseModel
 
-    const WebModels = this.odoo._addons || {}
+    // const WebModels = this.odoo._addons || {}
+
+    const WebModels = {}
     const BaseModel2 = WebModels[model] || AllModels[model] || BaseModel
 
     const env = this
@@ -141,7 +147,6 @@ export class Environment {
     const cls_name = model.replace('.', '_')
     Object.defineProperty(Model, 'name', { value: cls_name })
     Model._env = this
-    Model._odoo = this._odoo
     Model._model = model
     Model._fields = fields
 
@@ -150,6 +155,5 @@ export class Environment {
 }
 
 Environment._ref_registry = {}
-
 Environment._registry = {}
 Environment._model_registry = {}

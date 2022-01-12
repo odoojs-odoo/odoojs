@@ -2,12 +2,12 @@
   <div>
     <template v-if="viewMode.length > 1">
       <div align="right">
+        <!-- @change="handleChangeViewType" -->
         <a-radio-group
           v-model="value2"
           :default-value="value2"
           button-style="solid"
           size="small"
-          @change="handleChangeViewType"
         >
           <a-radio-button
             v-for="mode in modeButtons"
@@ -31,7 +31,12 @@ export default {
   props: {
     value: { type: String, default: '' },
     viewMode: { type: Array, default: () => [] },
-    modelGet: { type: Function, default: () => undefined }
+    action: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
   },
 
   data() {
@@ -75,14 +80,8 @@ export default {
   mounted() {},
 
   methods: {
-    async handleChangeViewType(e) {
-      const viewType = e.target.value
-
-      const model = this.modelGet()
-      model.with_view(viewType)
-
-      // this.$emit('on-event', 'on-mode-change', viewType)
-    }
+    // eslint-disable-next-line no-unused-vars
+    async handleChangeViewType(e) {}
   }
 }
 </script>

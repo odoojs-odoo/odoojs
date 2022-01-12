@@ -29,7 +29,8 @@
 </template>
 
 <script>
-// const cp = item => JSON.parse(JSON.stringify(item))
+// eslint-disable-next-line no-unused-vars
+const cp = item => JSON.parse(JSON.stringify(item))
 
 export default {
   name: 'PivotDropdown',
@@ -72,28 +73,31 @@ export default {
     },
 
     handleClick(info) {
-      // console.log(' handleClick', info)
+      // console.log(' handleClick', cp(info))
 
       this.hasShowDropdown = true
       setTimeout(() => {
         this.hasShowDropdown = false
       }, 200)
 
-      const { key, open, field, next, search } = info
+      const { open, next } = info
 
       if (open) {
         // close
-        const payload = { command: 'fold', field, next, search }
+        const { dims, groupby } = info
+        const payload = { command: 'fold', dims, groupby, next }
         // console.log('fold,  ', info, payload)
         this.$emit('on-change', payload)
       } else if (next) {
         // 展开
-        const payload = { field, next, search }
-        // console.log(payload)
+        const { dims, groupby, domain } = info
+        const payload = { dims, groupby, next, domain }
+        // console.log('next', payload)
         this.$emit('on-change', payload)
       } else {
         this.currentInfo = info
         // console.log(' select,  ', info)
+        const { key } = info
         this.showDropdown = { ...this.showDropdown, [key]: true }
       }
     },
@@ -108,9 +112,9 @@ export default {
       }, {})
 
       const key = item.key
-      const { field, search } = currentInfo
-      const payload = { field, next: key, search }
-      // console.log(' select,  ', currentInfo)
+      const { dims, groupby, domain } = currentInfo
+      const payload = { dims, groupby, next: key, domain }
+      // console.log(' select,  ', item, currentInfo)
       // console.log(payload)
       this.$emit('on-change', payload)
     }

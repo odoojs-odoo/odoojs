@@ -118,6 +118,11 @@
         }"
       >
         <router-view />
+
+        <!-- @on-event="handleOnViewEvent" -->
+        <template v-if="showWizard">
+          <WizardForm :visible.sync="showWizard" :view-info="viewInfo" />
+        </template>
       </a-layout-content>
       <a-layout-footer style="text-align: center">
         antd-odoojs ©2021 Created by odoowww@163.com
@@ -127,38 +132,43 @@
 </template>
 
 <script>
-import api from '@/api'
+import api from '@/odooapi'
 
 import SubMenu from './SubMenu'
 import CompanySelect from './CompanySelect.vue'
+import WizardForm from '@/components/OView/WizardForm.vue'
+
+// eslint-disable-next-line no-unused-vars
+const cp = val => JSON.parse(JSON.stringify(val))
 
 const HOME_PATH = '/'
 
 export default {
   name: 'Base',
-  components: { SubMenu, CompanySelect },
+  components: { SubMenu, CompanySelect, WizardForm },
   mixins: [],
   data() {
     return {
       collapsed: false,
 
       currentMenu: 'home',
-      menus: []
+      menus: [],
+      session_info: {},
+
+      showWizard: false,
+      viewInfo: {}
     }
   },
 
-  computed: {
-    session_info() {
-      return { ...api.session_info }
-    }
-  },
+  computed: {},
 
   created() {
-    const menu_data = api.menu_data
-
-    this.menus = [...(menu_data.children || [])]
-
-    // console.log('created. menu_data , ', api.menu_data, this.menus)
+    console.log('layout,create', cp(this.$route.meta))
+    const { menus = { children: [] }, session = {} } = this.$route.meta
+    this.menus = [...(menus.children || [])].filter(
+      item => item.xmlid !== 'mail.menu_root_discuss'
+    )
+    this.session_info = session
   },
 
   methods: {
@@ -176,15 +186,38 @@ export default {
     },
 
     async onLogout() {
-      //   this.$router.push({ path: '/user/login' })
+      // console.log('xxxxx, logout')
 
-      console.log('xxxxx')
+      // console.log('logout, xxxxx', cp(this.$route.meta))
+      await api.web.logout()
+      Object.keys(this.$route.meta).forEach(item => {
+        delete this.$route.meta[item]
+      })
 
-      await api.logout()
+      // console.log('logout, xxxxx2', cp(this.$route.meta))
+
       this.$router.replace({ path: '/user/login' })
     },
 
-    selectMenu(e) {
+    async load_action(action_id) {
+      const session = this.$route.meta.session
+      const context = this.$route.meta.context
+      const action = await api.Action.load({ session, context }, action_id)
+      const views = await api.Action.load_views({ session, context, action })
+
+      const info = { session, context, action, views }
+
+      if (action.type === 'ir.actions.act_window' && action.target === 'new') {
+        console.log('new')
+        this.viewInfo = info
+        this.showWizard = true
+        return
+      } else {
+        return info
+      }
+    },
+
+    async selectMenu(e) {
       // console.log('selectMenu.  , ', e, e.key)
       const name = e.key
       // if (this.currentMenu === name) {
@@ -214,7 +247,12 @@ export default {
         // }
 
         const action_id = menu.action.split(',')[1]
-        this.$router.push({ path: '/web', query: { action: action_id } })
+        const info = await this.load_action(action_id)
+        console.log(info)
+        if (info) {
+          this.$route.meta.viewInfo = info
+          this.$router.push({ path: '/web', query: { action: action_id } })
+        }
       }
     }
   }

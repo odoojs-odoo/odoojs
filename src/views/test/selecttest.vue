@@ -25,12 +25,12 @@
           <div slot="dropdownRender" slot-scope="menu">
             <v-nodes :vnodes="menu" />
             <a-divider
-              style="margin: 4px 0;"
+              style="margin: 4px 0"
               v-if="options.length >= limit + 1"
             />
             <div
               v-if="options.length >= limit + 1"
-              style="padding: 4px 8px; cursor: pointer;"
+              style="padding: 4px 8px; cursor: pointer"
               @mousedown="e => e.preventDefault()"
               @click="handleSearchMore"
             >
@@ -75,7 +75,7 @@ export default {
   },
 
   props: {
-    dataDict: {
+    record: {
       type: Object,
       default: () => {
         return {}
@@ -130,8 +130,8 @@ export default {
   },
 
   watch: {
-    dataDict(newValue, oldValue) {
-      // console.log('watch dataDict:', this.fname, cp(newValue), cp(oldValue))
+    record(newValue, oldValue) {
+      // console.log('watch record:', this.fname, cp(newValue), cp(oldValue))
       if (this.mode === 'multiple') {
         const keyold = oldValue[this.fname] || []
         const key = newValue[this.fname] || []

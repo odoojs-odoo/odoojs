@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import api from '@/api'
+import api from '@/odooapi'
 
 Vue.use(Router)
 
@@ -103,9 +103,21 @@ router.beforeEach(async (to, from, next) => {
     next()
     return
   }
-  // console.log('beforeEach, 12  ')
-  const hasToken = await api.session_check()
-  if (!hasToken) {
+
+  const get_info = async () => {
+    const { session } = from.meta
+    if (session) return from.meta
+    else return await api.web.get_session()
+  }
+
+  const info = await get_info()
+
+  if (info)
+    Object.keys(info).forEach(item => {
+      to.meta[item] = info[item]
+    })
+
+  if (!info) {
     next(`/user/login?redirect=${to.path}`)
     return
   }

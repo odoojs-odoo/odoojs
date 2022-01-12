@@ -14,7 +14,7 @@
     </div> -->
 
     <selecttest
-      :dataDict="dataDict"
+      :record="record"
       :fname="fname"
       :required="required"
       :limit="7"
@@ -26,7 +26,7 @@
 
     <div>tags</div>
     <selecttest
-      :dataDict="dataDict"
+      :record="record"
       fname="user_ids"
       :required="required"
       :limit="7"
@@ -41,13 +41,13 @@
 <script>
 import selecttest from './selecttest.vue'
 
-import { sleep } from '@/odoojs/utils'
+// import { sleep } from '@/odoojs/utils'
 export default {
   components: { selecttest },
   data() {
     return {
       value: {},
-      dataDict: {},
+      record: {},
 
       fname: 'partner_id',
       required: true,
@@ -57,7 +57,7 @@ export default {
 
   async mounted() {
     setTimeout(() => {
-      this.dataDict = {
+      this.record = {
         partner_id: 1,
         partner_id__name: 'P1',
         user_ids: [1, 2],
@@ -72,9 +72,9 @@ export default {
   methods: {
     async onchange(fname, value, text) {
       console.log(' onchange', [value, text])
-      await sleep(600)
-      this.dataDict = {
-        ...this.dataDict,
+      // await sleep(600)
+      this.record = {
+        ...this.record,
         [fname]: value,
         [`${fname}__name`]: text,
         [`${fname}__record`]: text
@@ -84,7 +84,7 @@ export default {
     async optionsMethod({ query, limit }) {
       console.log(' optionsMethod', query, limit)
 
-      await sleep(100)
+      // await sleep(100)
 
       return [
         // [1, 'P1'],

@@ -1,43 +1,31 @@
 <template>
   <div>
-    <!-- visible: {{ visible }} -->
-    <a-modal v-model="visible2" :title="formTitle">
+    <!-- visible: {{ visible }} {{ visible2 }} -->
+    <a-modal v-model="visible2" :title="node.attrs.string">
       <!-- 建设中 ... -->
 
-      <OFormView
+      <!-- {{ node.attrs.string }}
+      {{ data }} -->
+
+      <OForm
         :editable="true"
-        :view-info="formInfo"
-        :data-info="dataInfo"
-        :parent-span="12"
-        :method-call="methodCall"
+        :view-info="{ ...viewInfo2, node: node_non_footer }"
+        :data-info="data"
         @on-event="handleOnViewEvent"
       />
 
       <template slot="footer">
-        <!-- footer, {{ formFooter.fullName }} -->
+        <!-- footer: , formFooter -->
+        <!-- {{ node_footer }} -->
         <a-space>
-          <template
-            v-for="(item, index) in childern_filter(formFooter.children)"
-          >
-            <template v-if="item.tagName === 'button'">
-              <OButton
-                :key="index"
-                :data-info="dataInfo"
-                :view-info="{ ...formInfo, node: item }"
-                :method-call="methodCall"
-                @on-event="handleOnViewEvent"
-              />
-            </template>
-
-            <template v-else>
-              <ONode
-                :key="index"
-                :data-info="dataInfo"
-                :view-info="{ ...formInfo, node: item }"
-                :method-call="methodCall"
-                @on-event="handleOnViewEvent"
-              />
-            </template>
+          <template v-for="(item, index) in node_footer.children">
+            <!-- {{ item.tagName }} {{ index }} -->
+            <ONode
+              :key="index"
+              :data-info="{ ...data }"
+              :view-info="{ ...viewInfo2, node: item }"
+              @on-event="handleOnViewEvent"
+            />
           </template>
         </a-space>
       </template>
@@ -47,17 +35,17 @@
 
 <script>
 import wizardmixin from '@/mixins/wizardmixin'
+import ONode from '@/components/ONode/ONode'
 
-import OButton from '@/components/OFormView/OButton.vue'
-import ONode from '@/components/OFormView/ONode'
+// import OButton from '@/components/ONode/OButton'
 
 export default {
   name: 'WizardForm',
 
   components: {
-    OFormView: () => import('@/components/OFormView/index.vue'),
-    ONode,
-    OButton
+    OForm: () => import('@/components/ONode/OForm.vue'),
+    ONode
+    // OButton
   },
 
   mixins: [wizardmixin],

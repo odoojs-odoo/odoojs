@@ -1,4 +1,5 @@
-import api from '@/api'
+import api from '@/odooapi'
+
 const Mixin = {
   data() {
     const database = process.env.VUE_APP_ODOO_DB
@@ -58,24 +59,29 @@ const Mixin = {
   methods: {
     async init() {
       // const db = process.env.VUE_APP_ODOO_DB
-      const dbs = await api.web.datebase.list()
+      const dbs = await api.web.database.list()
       // this.database_options = dbs.filter(item => (db ? item === db : true))
       this.database_options = dbs
     },
 
     async handleLogin(values, success, error) {
       try {
-        // const res =
-        console.log(values)
-        await api.login({
+        const info = await api.web.login({
           db: values.database,
           login: values.username,
           password: values.password
         })
 
-        console.log(api.session_info)
+        const { session, context } = info
+        const env = new api.Environment({ session, context })
+        const User = env.model('res.users')
+        const uid = session.uid
+        const fields = ['name', 'email', 'xxxx', 'yyy']
+        const user = await User.read(uid, { fields })
+        console.log(user)
+
         if (success) {
-          success(api.session_info)
+          success(info)
         }
       } catch (e) {
         console.log(e)
@@ -83,10 +89,6 @@ const Mixin = {
           error(e)
         }
       }
-    },
-
-    async handleLogout() {
-      await api.logout()
     }
   }
 }

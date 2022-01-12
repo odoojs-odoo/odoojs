@@ -10,7 +10,7 @@
           (submenu.children &&
             Array.isArray(submenu.children) &&
             submenu.children.length) ||
-            !submenu.action
+          !submenu.action
         "
       >
         <sub-menu

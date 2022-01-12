@@ -1,89 +1,71 @@
-import viewMixin from './viewMixin'
+import api from '@/odooapi'
+
+import treeSearchMixin from './treeSearchMixin'
 
 export default {
-  mixins: [viewMixin],
+  mixins: [treeSearchMixin],
 
   props: {
     calendarData: { type: Object, default: () => undefined }
   },
 
   data() {
-    return {
-      loading: false,
-      dataList: []
-    }
+    return {}
   },
   computed: {
+    viewType() {
+      return 'calendar'
+    },
+    defaultCalendarData() {
+      return api.Views.calendar.default_value()
+    },
+
+    calendarData2() {
+      return this.calendarData || this.defaultCalendarData
+    },
+
     date_start() {
-      const node = ((this.viewInfo.views || {}).calendar || {}).node || {}
-      // console.log(JSON.parse(JSON.stringify(node)))
+      const node = this.node
       return (node.attrs || {}).date_start
-    },
-
-    viewInfoForNode() {
-      const viewInfo = this.viewInfo || {}
-      const { model, views = {} } = viewInfo
-      const { calendar = {} } = views
-
-      // console.log(JSON.parse(JSON.stringify({ ...calendar, model })))
-      return { ...calendar, model }
-    },
-
-    node() {
-      const viewInfo = this.viewInfoForNode
-      const { node = { children: [] } } = viewInfo
-      // console
-      return node
-    },
-
-    children_visible() {
-      return this.node.children.filter(item => !item.attrs.invisible)
     }
   },
 
-  watch: {
-    calendarData: {
-      handler: function(newVal) {
-        if (newVal && Object.keys(newVal).length) {
-          this.fetch_calendar_data()
-        }
-      },
-      deep: true
-    }
-  },
+  watch: {},
 
   async created() {},
   async mounted() {},
 
   methods: {
-    async initData() {
-      // console.log(
-      //   ' fetch_calendar_data',
-      //   JSON.parse(JSON.stringify(this.calendarData || {}))
-      // )
+    async load_data(search, calendarData) {
+      // console.log('load_data', search, calendarData)
 
-      if (this.calendarData && Object.keys(this.calendarData).length) {
-        this.fetch_calendar_data()
-      }
+      const calendarData2 = calendarData || this.calendarData2
+
+      this.$emit('update:calendarData', calendarData2)
+
+      this.data = await api.Views[this.viewType].load_data(this.viewInfo2, {
+        value: calendarData2,
+        search: search || this.searchValue
+      })
+
+      console.log(this.data)
     },
 
-    async fetch_calendar_data() {
-      const model = this.modelGet()
-      this.loading = true
-      await model.calendar_search_browse(this.calendarData)
-
-      this.loading = false
-      this.dataList = [...model.values_list]
+    handleOnEvent(event_name, ...args) {
+      // search value change
+      if (event_name === 'on-search-change') this.handleOnSearchChange(...args)
+      if (event_name === 'on-change-calendar')
+        this.handleChangeCalendar(...args)
     },
 
-    getValue({ node, dataDict }) {
+    async handleChangeCalendar(value) {
+      this.load_data(null, value)
+    },
+
+    getValue({ node, record }) {
       const fname = node.attrs.name
-      const meta = this.viewInfoForNode.fields[fname]
-      const fname2 = ['many2one', 'selection'].includes(meta.type)
-        ? `${fname}__name`
-        : fname
 
-      return dataDict[fname2]
+      return record[fname]
     }
   }
 }

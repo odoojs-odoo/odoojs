@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <span>
     <a-dropdown :trigger="['click']">
       <a-button size="small">
         <a-icon type="filter" theme="filled" @click="e => e.preventDefault()" />
@@ -91,7 +91,7 @@
         </a-button>
       </a-space>
     </a-button-group> -->
-  </div>
+  </span>
 </template>
 
 <script>

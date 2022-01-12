@@ -1,82 +1,110 @@
-import viewMixin from './viewMixin'
+import api from '@/odooapi'
+
+import treeSearchMixin from './treeSearchMixin'
 
 export default {
-  mixins: [viewMixin],
+  mixins: [treeSearchMixin],
 
-  props: {
-    searchChange: { type: Number, default: 0 }
-  },
+  props: {},
 
   data() {
     return {
       loading: false,
-      dataList: [],
+
       pagination: {
         // position: 'top'
         total: 0,
-        pageSize: 10
+        pageSize: 2
       }
     }
   },
-  computed: {},
+  computed: {
+    pagination2() {
+      const { pagination } = this.data
+      if (pagination) return pagination
+
+      return { current: 1, total: 0, pageSize: 2 }
+    }
+  },
   watch: {
-    searchChange(newVal, oldVal) {
-      console.log('watch,searchChange,', newVal, oldVal)
-      this.resetData()
+    pagination2: {
+      // eslint-disable-next-line no-unused-vars
+      handler: function (newVal, oldval) {
+        // console.log('watch, pagination2, val', newVal, oldval)
+        // this.$emit('update:searchValue', newVal)
+        this.pagination = JSON.parse(JSON.stringify(newVal))
+      },
+      deep: true,
+      immediate: true
     }
   },
 
+  async created() {},
+
+  mounted() {},
+
   methods: {
-    async initData() {
-      const model = this.modelGet()
-      model.set_limit(this.pagination.pageSize)
-      this.resetData()
+    async load_data(search) {
+      // console.log('load_data', this.viewType)
+      this.data = await api.Views[this.viewType].load_data(this.viewInfo2, {
+        search: search || this.searchValue,
+        pagination: this.pagination
+      })
+      // console.log(this.data)
     },
 
-    async resetData() {
-      const model = this.modelGet()
-      this.pagination = JSON.parse(JSON.stringify(model.pagination))
-      await this.fetch_data_list()
-    },
-
-    async fetch_data_list() {
-      this.loading = true
-
-      const model = this.modelGet()
-      const pagination = { ...this.pagination }
-      await model.pageGoto(pagination.current || 1)
-
-      this.pagination = { ...this.pagination, total: model.total_length }
-      this.dataList = [...model.values_list]
-      this.loading = false
+    async handleOnSearchChange(search) {
+      this.handlePageChange(1, search)
     },
 
     fresh_data() {
-      // console.log(page)
-      const model = this.modelGet()
-      this.pagination = JSON.parse(JSON.stringify(model.pagination))
-      this.dataList = [...model.values_list]
+      this.handlePageChange(1)
+      // this.load_data()
     },
 
-    handlePageChange(page) {
-      // console.log(page)
+    async handlePageChange(page, search) {
       this.pagination = { ...this.pagination, current: page }
-      this.fetch_data_list()
+      this.load_data(search)
+    },
+
+    async onExpend(expanded, record) {
+      if (expanded) {
+        const res = await api.Views.list.web_read_group2(this.viewInfo2, {
+          groupby: this.groupby,
+          record
+        })
+
+        const { records } = res
+        record.children = records
+      }
     },
 
     async handleOnRowClick(row) {
-      const model = this.modelGet()
-      const actionId = model.action.id
-      // console.log(model.env.context.active_id)
-      const active_id = model.env.context.active_id
-      const path = `/web`
-      const query = {
-        action: actionId,
-        view_type: 'form',
-        id: row.id,
-        ...(active_id ? { active_id } : {})
+      const { action } = this.viewInfo
+      // console.log(row.id, this.expandedRowKeys)
+
+      if (typeof row.id === 'string') {
+        const expid = this.expandedRowKeys.find(item => item === row.id)
+
+        if (expid)
+          this.expandedRowKeys = this.expandedRowKeys.filter(
+            item => item !== row.id
+          )
+        else {
+          this.expandedRowKeys = [...this.expandedRowKeys, row.id]
+          this.onExpend(true, row)
+        }
+      } else {
+        // const active_id = model.env.context.active_id
+        const path = `/web`
+        const query = {
+          action: action.id,
+          view_type: 'form',
+          id: row.id
+          // ...(active_id ? { active_id } : {})
+        }
+        this.$router.push({ path, query })
       }
-      this.$router.push({ path, query })
     }
   }
 }

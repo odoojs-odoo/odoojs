@@ -1,27 +1,60 @@
 <template>
   <div>
-    <!-- tree
-    {{ columns }} -->
-    <a-table
-      :row-selection="rowSelection"
-      :columns="columns"
-      :data-source="dataList"
-      rowKey="id"
-      :pagination="pagination"
-      :loading="loading"
-      @change="handleTableChange"
-      :customRow="tableCustomRow"
-    >
-    </a-table>
+    <div v-show="groupby.length">
+      <!-- {{ expandedRowKeys }} -->
+      <!-- {{ activeIds }} -->
+
+      <a-table
+        :row-selection="rowSelection"
+        :columns="columns"
+        :data-source="records"
+        rowKey="id"
+        :pagination="pagination"
+        :expanded-row-keys.sync="expandedRowKeys"
+        :customRow="tableCustomRow"
+        @expand="onExpend"
+        @change="handleTableChange"
+      >
+        <!-- <span slot="key" slot-scope="text, record">
+          {{ text }}
+          <a-icon type="right" @click="onclickRow(record)" />
+          <a-icon type="down" />
+        </span> -->
+      </a-table>
+    </div>
+
+    <div v-show="!groupby.length">
+      <!-- {{ activeIds }} -->
+      <a-table
+        :row-selection="rowSelection"
+        :columns="columns"
+        :data-source="records"
+        rowKey="id"
+        :pagination="pagination"
+        :loading="loading"
+        :customRow="tableCustomRow"
+        @change="handleTableChange"
+      >
+      </a-table>
+    </div>
+
+    <template v-if="showWizard">
+      <WizardForm
+        :visible.sync="showWizard"
+        :view-info="wizardViewInfo"
+        @on-event="handleOnViewEvent"
+      />
+    </template>
   </div>
 </template>
 
 <script>
 import listViewMixin from '@/mixins/listViewMixin'
+import WizardForm from '@/components/OView/WizardForm.vue'
 
 export default {
   name: 'TreeView',
-  components: {},
+  components: { WizardForm },
   mixins: [listViewMixin],
 
   props: {},
@@ -34,6 +67,7 @@ export default {
   computed: {
     rowSelection() {
       return {
+        selectedRowKeys: this.activeIdsWithGroupby,
         onChange: (selectedRowKeys, selectedRows) => {
           this.handleOnRowSelect(selectedRowKeys, selectedRows)
         }
@@ -41,8 +75,14 @@ export default {
     }
   },
   watch: {},
+  async created() {},
 
+  mounted() {},
   methods: {
+    onclickRow(record) {
+      console.log(record)
+    },
+
     // eslint-disable-next-line no-unused-vars
     handleTableChange(pagination, filters, sorter) {
       // console.log(pagination, filters, sorter)
@@ -64,10 +104,6 @@ export default {
             // console.log(record, event)
             that.handleOnRowClick(record)
           } // 点击行
-          // dblclick: (event) => {},
-          // contextmenu: (event) => {},
-          // mouseenter: (event) => {},  // 鼠标移入行
-          // mouseleave: (event) => {}
         }
       }
     }

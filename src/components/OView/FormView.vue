@@ -1,16 +1,19 @@
 <template>
   <div>
-    <!-- form view -->
-    <!-- {{ dataInfo }} -->
-    <!-- <div></div>
-    {{ formInfo }} -->
-
-    <OFormView
+    <template v-if="showWizard">
+      <WizardForm
+        :visible.sync="showWizard"
+        :view-info="wizardViewInfo"
+        @on-event="handleOnViewEvent"
+      />
+    </template>
+    <!-- form view
+    {{ record }}
+    {{ node }} -->
+    <OForm
       :editable="editable"
-      :loading="loading"
-      :data-info="dataInfo"
-      :view-info="formInfo"
-      :method-call="methodCall"
+      :data-info="data"
+      :view-info="{ ...viewInfo2, node }"
       @on-event="handleOnViewEvent"
     />
   </div>
@@ -19,11 +22,12 @@
 <script>
 import formViewMixin from '@/mixins/formViewMixin'
 
-import OFormView from '@/components/OFormView/index.vue'
+import OForm from '@/components/ONode/OForm.vue'
+import WizardForm from '@/components/OView/WizardForm.vue'
 
 export default {
   name: 'FormView',
-  components: { OFormView },
+  components: { OForm, WizardForm },
 
   mixins: [formViewMixin],
 
