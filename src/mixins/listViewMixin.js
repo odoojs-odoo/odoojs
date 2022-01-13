@@ -157,9 +157,9 @@ export default {
     },
 
     async handleOnPrint(action) {
-      const { session, context } = this.viewInfo
+      const { context } = this.viewInfo
       const ids = this.activeIds
-      await api.Action.print({ session, context, action }, ids)
+      await api.Action.print({ context, action }, ids)
     },
 
     async handleOnBtnUnlink() {

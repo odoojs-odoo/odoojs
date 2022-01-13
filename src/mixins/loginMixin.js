@@ -72,13 +72,12 @@ const Mixin = {
           password: values.password
         })
 
-        const { session, context } = info
-        const env = new api.Environment({ session, context })
-        const User = env.model('res.users')
-        const uid = session.uid
-        const fields = ['name', 'email', 'xxxx', 'yyy']
-        const user = await User.read(uid, { fields })
-        console.log(user)
+        // const { session } = info
+        // const User = api.env.model('res.users')
+        // const uid = session.uid
+        // const fields = ['name', 'email']
+        // const user = await User.read(uid, { fields })
+        // console.log(user)
 
         if (success) {
           success(info)

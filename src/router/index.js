@@ -97,33 +97,21 @@ const createRouter = () => {
 const router = createRouter()
 
 router.beforeEach(async (to, from, next) => {
-  // console.log('beforeEach, 1  ', to, from)
   const whiteList = ['/user/login', '/test']
   if (whiteList.includes(to.path)) {
     next()
     return
   }
 
-  const get_info = async () => {
-    const { session } = from.meta
-    if (session) return from.meta
-    else return await api.web.get_session()
-  }
+  const hasToken = await api.web.session_check()
 
-  const info = await get_info()
-
-  if (info)
-    Object.keys(info).forEach(item => {
-      to.meta[item] = info[item]
-    })
-
-  if (!info) {
+  if (hasToken) {
+    next()
+    return
+  } else {
     next(`/user/login?redirect=${to.path}`)
     return
   }
-
-  next()
-  return
 })
 
 export default router

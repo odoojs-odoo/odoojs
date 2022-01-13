@@ -167,10 +167,6 @@ export class Calendar extends ViewBase {
   }
 
   static async search_read(info, { value, search }) {
-    // const { res_model } = action
-    // const context = this._context({ action })
-
-    // const fields = this._fields_list(info)
     const fields2 = this._fields_list(info)
     const fields = fields2.includes('display_name')
       ? fields2

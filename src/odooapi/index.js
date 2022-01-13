@@ -4,6 +4,12 @@ import { Node } from './view/node'
 
 import rpc from '@/odoorpc'
 
+rpc.Action = Action
+rpc.Views = Views
+rpc.Node = Node
+
+const api = rpc
+
 /*
   init,
   Environment,
@@ -13,7 +19,7 @@ import rpc from '@/odoorpc'
   Action, Views, Node,
 */
 
-export default { ...rpc, Action, Views, Node }
+export default api
 
 // const new_list = len => {
 //   return Array.from(new Array(len).keys())

@@ -1,6 +1,11 @@
 import { LoginTestCase } from './base'
+import rpc from '@/odoorpc'
 
 export default class DatasetTestCase extends LoginTestCase {
+  async test() {
+    await this.call_kw()
+  }
+
   async call_kw() {
     await this.login()
     const model = 'ir.module.module'
@@ -17,7 +22,7 @@ export default class DatasetTestCase extends LoginTestCase {
       kwargs: { domain, fields, limit, order }
     }
 
-    const res = await this.api.web.dataset.call_kw(payload)
+    const res = await rpc.web.dataset.call_kw(payload)
     console.log(res)
     return res
   }

@@ -1,4 +1,5 @@
 import { BaseTestCase } from './base'
+import rpc from '@/odoorpc'
 
 export default class DatabaseTestCase extends BaseTestCase {
   constructor(config) {
@@ -7,8 +8,16 @@ export default class DatabaseTestCase extends BaseTestCase {
     this.master_pwd = master_pwd
   }
 
+  async test() {
+    await this.list()
+    await this.create()
+    await this.list()
+    await this.drop()
+    await this.list()
+  }
+
   async list() {
-    const res = await this.api.web.datebase.list()
+    const res = await rpc.web.database.list()
     console.log('test database list:', res)
   }
 
@@ -24,7 +33,7 @@ export default class DatabaseTestCase extends BaseTestCase {
       phone: ''
     }
 
-    const database_list = await this.api.web.datebase.list()
+    const database_list = await rpc.web.database.list()
 
     if (database_list.includes(name)) {
       console.log('database: ', name, 'is exist')
@@ -34,7 +43,7 @@ export default class DatabaseTestCase extends BaseTestCase {
     console.log('test database create:', name)
     console.log('begin:', new Date().getTime(), new Date())
     const payload = [master_pwd, name, lang, password, kwargs]
-    const res = await this.api.web.datebase.create(...payload)
+    const res = await rpc.web.database.create(...payload)
     console.log('end:', new Date().getTime(), new Date())
     console.log('test database create:', res)
     return res
@@ -44,7 +53,7 @@ export default class DatabaseTestCase extends BaseTestCase {
     const master_pwd = this.master_pwd
     const name = 'db_for_test_create_drop'
 
-    const database_list = await this.api.web.datebase.list()
+    const database_list = await rpc.web.database.list()
 
     if (!database_list.includes(name)) {
       console.log('database: ', name, 'is not exist')
@@ -53,7 +62,7 @@ export default class DatabaseTestCase extends BaseTestCase {
 
     console.log('test database drop:', name)
     console.log('begin:', new Date().getTime(), new Date())
-    const res = await this.api.web.datebase.drop(master_pwd, name)
+    const res = await this.api.web.database.drop(master_pwd, name)
     console.log('end:', new Date().getTime(), new Date())
     console.log('test database drop:', res)
     return res

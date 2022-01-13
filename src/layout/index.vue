@@ -152,24 +152,31 @@ export default {
       collapsed: false,
 
       currentMenu: 'home',
-      menus: [],
-      session_info: {},
+      // menus: [],
 
       showWizard: false,
       viewInfo: {}
     }
   },
 
-  computed: {},
+  computed: {
+    session_info() {
+      return api.web.session.session_info || {}
+    },
 
-  created() {
-    console.log('layout,create', cp(this.$route.meta))
-    const { menus = { children: [] }, session = {} } = this.$route.meta
-    this.menus = [...(menus.children || [])].filter(
-      item => item.xmlid !== 'mail.menu_root_discuss'
-    )
-    this.session_info = session
+    is_user() {
+      return api.web.is_user
+    },
+
+    menus() {
+      const menus = api.web.menu_data || { children: [] }
+      return [...(menus.children || [])].filter(
+        item => item.xmlid !== 'mail.menu_root_discuss'
+      )
+    }
   },
+
+  created() {},
 
   methods: {
     is_sub_menu: menu => {
@@ -187,25 +194,16 @@ export default {
 
     async onLogout() {
       // console.log('xxxxx, logout')
-
-      // console.log('logout, xxxxx', cp(this.$route.meta))
       await api.web.logout()
-      Object.keys(this.$route.meta).forEach(item => {
-        delete this.$route.meta[item]
-      })
-
-      // console.log('logout, xxxxx2', cp(this.$route.meta))
-
       this.$router.replace({ path: '/user/login' })
     },
 
     async load_action(action_id) {
-      const session = this.$route.meta.session
-      const context = this.$route.meta.context
-      const action = await api.Action.load({ session, context }, action_id)
-      const views = await api.Action.load_views({ session, context, action })
+      const action = await api.Action.load(action_id)
+      const views = await api.Action.load_views({ action })
 
-      const info = { session, context, action, views }
+      const context = api.web.session.context
+      const info = { context, action, views }
 
       if (action.type === 'ir.actions.act_window' && action.target === 'new') {
         console.log('new')

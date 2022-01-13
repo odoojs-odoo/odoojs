@@ -1,14 +1,14 @@
-// import { ODOO } from '@/bak_api_NO_USED/odoojs/treeSearchMixin'
-// import { ODOO as ODOORPC } from '@/odoorpc'
+import api from '@/odooapi'
 
 export class BaseTestCase {
   constructor({ baseURL }) {
     this.baseURL = baseURL
-    this.api = new ODOO({ baseURL, ODOORPC })
+    console.log('test rpc')
+    api.init({ baseURL })
   }
 
-  async test_call_odoo() {
-    const res = await this.api.get_version_info()
+  async version_info() {
+    const res = await api.web.webclient.version_info()
     console.log(res)
   }
 }

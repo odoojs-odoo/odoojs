@@ -24,7 +24,7 @@ class Webclient extends JsonRequest {
   // }
 }
 
-class Datebase extends JsonRequest {
+class Database extends JsonRequest {
   constructor(payload) {
     super(payload)
   }
@@ -87,34 +87,43 @@ class Session extends JsonRequest {
     super(payload)
   }
 
-  static context(session) {
-    const context = session.user_context || {}
-    const allowed_company_ids = this.allowed_company_ids(session)
+  static get session_info() {
+    return this._session_info
+  }
+
+  static get context() {
+    return this.user_context
+  }
+
+  static get user_context() {
+    const session_info = this.session_info
+    const context = session_info.user_context || {}
+    const allowed_company_ids = this.allowed_company_ids
     // console.log(this.session_info)
     return { ...context, allowed_company_ids }
   }
 
-  static server_version(session) {
-    const { server_version_info } = session
+  static get server_version() {
+    const { server_version_info } = this.session_info
     return server_version_info[0]
   }
 
-  static current_company_id(session) {
-    const { user_companies = {} } = session
+  static get current_company_id() {
+    const { user_companies = {} } = this.session_info || {}
     const { current_company } = user_companies
     return current_company
   }
 
-  static set_allowed_company_ids(session, cids = []) {
-    const cids_str = cids.join(',') || String(this.current_company_id(session))
+  static set allowed_company_ids(cids = []) {
+    const cids_str = cids.join(',') || String(this.current_company_id)
     this.set_cookie('cids', cids_str)
   }
 
-  static allowed_companies_for_selection(session) {
-    const { user_companies = {} } = session
+  static get allowed_companies_for_selection() {
+    const { user_companies = {} } = this.session_info || {}
     const { allowed_companies = {} } = user_companies
 
-    const allowed_company_ids = this.allowed_company_ids(session)
+    const allowed_company_ids = this.allowed_company_ids
 
     return Object.values(allowed_companies).map(item => {
       const checked = allowed_company_ids.includes(item.id)
@@ -122,13 +131,13 @@ class Session extends JsonRequest {
     })
   }
 
-  static allowed_company_ids(session) {
+  static get allowed_company_ids() {
     const cids_str = this.get_cookie('cids')
-    if (!cids_str) return [this.current_company_id(session)]
+    if (!cids_str) return [this.current_company_id]
 
     const cids = cids_str.split(',').map(item => Number(item))
 
-    const { user_companies = {} } = session
+    const { user_companies = {} } = this.session_info || {}
     const { allowed_companies = {} } = user_companies
 
     const odoo_cids = Object.values(allowed_companies).map(item => item.id)
@@ -138,17 +147,17 @@ class Session extends JsonRequest {
 
     const todo = cids.filter(item => odoo_cids.includes(item))
     if (todo.length) {
-      this.set_allowed_company_ids(session, todo)
+      this.allowed_company_ids = todo
       return todo
     }
 
     const todo2 = odoo_cids.slice(0, 1)
-    this.set_allowed_company_ids(session, todo2)
+    this.allowed_company_ids = todo2
     return todo2
   }
 
-  static set_first_allowed_company(session, cid) {
-    const oids = this.allowed_company_ids(session)
+  static set_first_allowed_company(cid) {
+    const oids = this.allowed_company_ids
     const get_ids = () => {
       const oid = oids.find(item => item === cid)
       if (oid) return [cid, ...oids.filter(item => item !== cid)]
@@ -156,11 +165,11 @@ class Session extends JsonRequest {
       else return [cid]
     }
     const cids = get_ids()
-    this.set_allowed_company_ids(session, cids)
+    this.allowed_company_ids = cids
   }
 
-  static change_allowed_company(session, cid, checked) {
-    const oids = this.allowed_company_ids(session)
+  static change_allowed_company(cid, checked) {
+    const oids = this.allowed_company_ids
 
     const get_ids = () => {
       const oid = oids.find(item => item === cid)
@@ -173,7 +182,7 @@ class Session extends JsonRequest {
           const nids = oids.filter(item => item !== cid)
           if (oids[0] !== cid) return nids
           else {
-            const cur = this.current_company_id(session)
+            const cur = this.current_company_id
             if (!nids.find(item => item === cur)) return nids
             else return [cur, ...nids.filter(item => item !== cur)]
           }
@@ -184,7 +193,7 @@ class Session extends JsonRequest {
     }
 
     const cids = get_ids()
-    this.set_allowed_company_ids(session, cids)
+    this.allowed_company_ids = cids
   }
 
   static get_cookie(c_name) {
@@ -211,8 +220,8 @@ class Session extends JsonRequest {
     ].join(';')
   }
 
-  static _session(session) {
-    const info = { ...session }
+  static _session_info_get_after(session_info) {
+    const info = { ...session_info }
     const get_user_companies = () => {
       const { server_version_info = [15] } = info
       const ver = server_version_info[0]
@@ -241,13 +250,17 @@ class Session extends JsonRequest {
     const url = '/web/session/authenticate'
     const payload = { db, login, password }
     const session_info = await this.json_call(url, payload)
-    return this._session(session_info)
+    const info = this._session_info_get_after(session_info)
+    this._session_info = info
+    return info
   }
 
   static async get_session_info() {
     const url = '/web/session/get_session_info'
     const session_info = await this.json_call(url, {})
-    return this._session(session_info)
+    const info = this._session_info_get_after(session_info)
+    this._session_info = info
+    return info
   }
 
   static async check() {
@@ -258,6 +271,7 @@ class Session extends JsonRequest {
   static async destroy() {
     const url = '/web/session/destroy'
     await this.json_call(url, {})
+    this._session_info = undefined
     return true
   }
 
@@ -368,6 +382,14 @@ class Home extends JsonRequest {
     super(payload)
   }
 
+  static get is_user() {
+    return (this._login_info || {}).is_user
+  }
+
+  static get menu_data() {
+    return (this._login_info || {}).menus
+  }
+
   async signup(payload = {}) {
     const url = '/web2/signup'
     return await this.json_call(url, payload)
@@ -376,9 +398,10 @@ class Home extends JsonRequest {
   static async login({ db, login, password }) {
     const session = await Session.authenticate({ db, login, password })
     const info = await this._get_user_info(session)
+
     return {
       session,
-      context: Session.context(session),
+      context: Session.user_context,
       ...info
     }
   }
@@ -386,14 +409,15 @@ class Home extends JsonRequest {
   static async logout() {
     try {
       await Session.destroy()
+      this._login_info = undefined
       return true
     } catch {
       return true
     }
   }
 
-  static _is_user(session) {
-    const context = Session.context(session)
+  static _check_is_group_user() {
+    const context = Session.user_context
 
     return Dataset.call_kw({
       model: 'res.users',
@@ -403,24 +427,21 @@ class Home extends JsonRequest {
     })
   }
 
-  static async _menus(session) {
+  static async _menus_get() {
     const call_odoo = async () => {
       // web.controller.main.home.web_client
-      // const context = await this.odoo.env
-      //   .model('ir.http')
-      //   .execute('webclient_rendering_context', [])
-      // console.log(context)
+
       //
       // web.controller.main.home.web_load_menus
       // menus = request.env["ir.ui.menu"].load_menus(request.session.debug)
-      // const res = await this.web.home.load_menus()
+      // const res = await web.home.load_menus()
       // console.log(res)
 
       // base.models.ir_ui_menu.IrUiMenu._search
       // context = {'ir.ui.menu.full_list' }
 
       // 加上这个参数后, 会返回所有的 菜单,
-      const context2 = Session.context(session)
+      const context2 = Session.user_context
       const context = { ...context2, 'ir.ui.menu.full_list': true }
 
       const menus = await Dataset.call_kw({
@@ -495,44 +516,60 @@ class Home extends JsonRequest {
 
     const menus = await call_odoo()
 
-    const ver = Session.server_version(session)
+    const ver = Session.server_version
     if (ver <= 14) return for_odoo_14(menus)
 
     return for_odoo_15(menus)
   }
 
-  static async _get_user_info(session) {
+  static async _get_user_info() {
     // website/controllers/main.py/Website._login_redirect
-
-    const is_user = await this._is_user(session)
-
-    // const is_user = await this.env
-    //   .model('res.users')
-    //   .execute('has_group', 'base.group_user')
-    // // console.log(is_user)
-
+    const is_user = await this._check_is_group_user()
     if (is_user) {
-      const menus = await this._menus(session)
+      const menus = await this._menus_get()
       // this._qweb_xml = await this._get_qweb()
-      //   const res = await this.env.model('res.users').read(this.session_info.uid)
-      //   return res
 
+      this._login_info = { is_user, menus }
       return { is_user, menus }
     } else {
+      this._login_info = { is_user }
       return { is_user }
     }
   }
 
   static async get_session() {
-    const session = await Session.get_session_info()
-    const info = await this._get_user_info(session)
+    if (!this.session_info) {
+      await Session.get_session_info()
+    }
+    const session = Session.session_info
+
+    if (!this._login_info) {
+      await this._get_user_info(session)
+    }
+
+    const login_info = this._login_info
     return {
       session,
-      context: Session.context(session),
-      ...info
+      context: Session.user_context,
+      ...login_info
+    }
+  }
+
+  static async session_check() {
+    try {
+      if (this.session_info && this._login_info) {
+        await Session.check()
+      }
+      await this.get_session()
+
+      return true
+    } catch (error) {
+      return false
     }
   }
 }
+
+Home._login_info = undefined
 
 // async _get_qweb() {
 //   const Model = this.env.model('ir.module.module')
@@ -555,7 +592,7 @@ class Home extends JsonRequest {
 export const web = Home
 
 web.webclient = Webclient
-web.database = Datebase
+web.database = Database
 web.dataset = Dataset
 web.session = Session
 web.action = Action

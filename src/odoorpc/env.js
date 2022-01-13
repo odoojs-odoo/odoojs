@@ -18,12 +18,12 @@ const AllModels = { ...AddonsModels }
 // console.log('xxxx AllModels,', AddonsModels)
 
 export class Environment {
-  constructor(payload) {
-    const { context, session } = payload
-    this._session = session
+  constructor(payload = {}) {
+    const { context } = payload
+
     if (context) this._context = context
     else {
-      const ctx = web.session.context(session)
+      const ctx = web.session.user_context
       this._context = ctx
     }
   }
@@ -39,7 +39,7 @@ export class Environment {
   }
 
   get session() {
-    return this._session
+    return web.session.session_info
   }
 
   get uid() {
@@ -76,7 +76,7 @@ export class Environment {
   with_context(context) {
     // env.copy 前, 需要自己把 context 组织好
     // env里的 旧的 context 被全覆盖
-    const env = new this.constructor({ session: this.session, context })
+    const env = new this.constructor({ context })
     return env
   }
 

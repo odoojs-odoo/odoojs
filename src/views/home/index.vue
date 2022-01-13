@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>Home page</div>
-    <!-- <div>
+    <div>
       <a-form>
         <a-form-item>
           <span slot="label">
@@ -9,7 +9,7 @@
               <b> label</b>
             </label>
           </span>
-
+          <!---->
           <a-select
             ref="refSelect"
             :open.sync="open"
@@ -22,7 +22,7 @@
           </a-select>
         </a-form-item>
       </a-form>
-    </div> -->
+    </div>
 
     <div>-----</div>
     <!-- <a-form :form="form" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
@@ -86,15 +86,7 @@ export default {
     },
 
     async onLogout() {
-      //   this.$router.push({ path: '/user/login' })
-      // console.log('logout, xxxxx', cp(this.$route.meta))
       await api.web.logout()
-      Object.keys(this.$route.meta).forEach(item => {
-        delete this.$route.meta[item]
-      })
-
-      // console.log('logout, xxxxx2', cp(this.$route.meta))
-
       this.$router.replace({ path: '/user/login' })
     }
   }

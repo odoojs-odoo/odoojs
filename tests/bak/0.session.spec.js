@@ -1,13 +1,9 @@
 import { expect } from 'chai'
-
-import { get_odoo } from './config'
-
+import api from '@/odooapi'
 import Config from './config'
+const { authenticate, login_info } = Config
 
-const { ODOO, baseURL, login_info } = Config
-const { db, login, password } = login_info
-
-const session_check = async api => {
+const session_check = async () => {
   try {
     await api.web.session.check()
     return true
@@ -16,7 +12,20 @@ const session_check = async api => {
   }
 }
 
-const session_destroy = async api => {
+describe('api.session', async () => {
+  it('check. after no authenticate', async () => {
+    await session_destroy()
+    const check_ok = await session_check()
+    expect(check_ok).to.equal(false)
+  })
+  it('check. after authenticate', async () => {
+    await authenticate(login_info)
+    const check_ok = await session_check()
+    expect(check_ok).to.equal(true)
+  })
+})
+
+const session_destroy = async () => {
   try {
     await api.web.session.destroy()
     return true
@@ -24,30 +33,6 @@ const session_destroy = async api => {
     return false
   }
 }
-
-describe('Test Session', async () => {
-  // it('authenticate', async () => {
-  //   const api = new ODOO({ baseURL })
-  //   const session_info = await api.web.session.authenticate({
-  //     db,
-  //     login,
-  //     password
-  //   })
-  //   expect(session_info.username).to.equal(login)
-  //   expect(session_info.db).to.equal(db)
-  // })
-  // it('check after no authenticate', async () => {
-  //   const api = new ODOO({ baseURL })
-  //   await session_destroy()
-  //   const check_ok = await session_check(api)
-  //   expect(check_ok).to.equal(false)
-  // })
-  // it('check after authenticate', async () => {
-  //   const api = await get_odoo()
-  //   const check_ok = await session_check(api)
-  //   expect(check_ok).to.equal(true)
-  // })
-})
 
 describe('Test login ', async () => {
   // it('login with wrong db', async () => {
@@ -98,15 +83,15 @@ describe('Test login ', async () => {
   // })
 })
 
-describe('Test Login, get Session', async () => {
-  it('login', async () => {
-    const api = new ODOO({ baseURL })
-    const payload = { db, login, password }
-    await api.login(payload)
+// describe('Test Login, get Session', async () => {
+//   it('login', async () => {
+//     const api = new ODOO({ baseURL })
+//     const payload = { db, login, password }
+//     await api.login(payload)
 
-    const comp_ids = api.session.allowed_company_ids
+//     const comp_ids = api.session.allowed_company_ids
 
-    expect(comp_ids).to.be.instanceOf(Array)
-    expect(comp_ids).to.include(1)
-  })
-})
+//     expect(comp_ids).to.be.instanceOf(Array)
+//     expect(comp_ids).to.include(1)
+//   })
+// })

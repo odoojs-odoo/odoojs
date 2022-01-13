@@ -53,10 +53,6 @@ class MetaModel {
     return web.dataset.call_button(payload)
   }
 
-  //   static async action_run(action_id, { context }) {
-  //     return web.action.run({ action_id, context })
-  //   }
-
   static async execute(method, ...args) {
     return this.execute_kw(method, args, {})
   }

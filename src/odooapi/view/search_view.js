@@ -13,10 +13,10 @@ export class Search extends ViewBase {
     super()
   }
 
-  static async default_value({ session, context, action, views }) {
+  static async default_value({ context, action, views }) {
     const { fields = {} } = views
     const context2 = Action._context({ context, action })
-    // console.log('search_ default value', session, context2)
+    // console.log('search_ default value', context2)
     const search_defaults = {}
 
     for (const item in context2) {
@@ -31,11 +31,9 @@ export class Search extends ViewBase {
           const val = context2[item]
           search_defaults[key] =
             meta.type === 'many2one'
-              ? (
-                  await this.Relation({ session }, meta.relation).name_get([
-                    val
-                  ])
-                ).find(elm => elm[0] === val)
+              ? (await this.Relation(meta.relation).name_get([val])).find(
+                  elm => elm[0] === val
+                )
               : meta.selection.find(elm => elm[0] === val)
         } else {
           search_defaults[field] = 1

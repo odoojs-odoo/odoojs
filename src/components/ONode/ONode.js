@@ -82,10 +82,10 @@ export default {
       const tagName2 = node_map2[node.tagName]
 
       if (tagName2) {
-        if(node.attrs.attrs){
-          console.log('node.tagName2222,,,', node.attrs.attrs);
-        }
-        
+        // if(node.attrs.attrs){
+        //   console.log('node.tagName2222,,,', node.attrs.attrs);
+        // }
+
         return this.renderNode2(createElement, node, tagName2)
       }
 

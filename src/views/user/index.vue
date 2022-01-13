@@ -64,11 +64,7 @@ export default {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           const success = res => {
-            console.log('login ok session:', res)
-            Object.keys(res).forEach(item => {
-              this.$route.meta[item] = res[item]
-            })
-
+            console.log('login ok:', res)
             // Toast.success(res.name + '登录')
             this.$router.push({ path: '/' })
           }

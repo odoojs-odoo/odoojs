@@ -2,23 +2,27 @@ import { Environment } from './env'
 
 import { JsonRequest } from './request'
 
-import controllers from './controllers'
+import controller from './controllers'
+// const { web, rerport, web_editor } = controller
 
-const init = ({ baseURL, timeout }) => {
-  JsonRequest.baseURL = baseURL
-  JsonRequest.timeout = timeout
+export class RPC {
+  constructor() {}
+
+  static init({ baseURL, timeout }) {
+    JsonRequest.baseURL = baseURL
+    JsonRequest.timeout = timeout
+  }
+
+  static get env() {
+    return new Environment()
+  }
 }
+RPC.Environment = Environment
 
-/*
-  init,
-  Environment,
-  web,
-  rerport,
-  web_editor
-*/
+Object.keys(controller).forEach(item => {
+  RPC[item] = controller[item]
+})
 
-export default {
-  init,
-  Environment,
-  ...controllers
-}
+const rpc = RPC
+
+export default rpc

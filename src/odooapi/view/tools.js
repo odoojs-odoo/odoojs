@@ -86,11 +86,9 @@ export const Eval_Context = (info, { str: value_str, record }) => {
   const domain = value_str || false
   if (!domain || typeof domain !== 'string') return domain
 
-  const { context, session } = info
-
   const _get_values_for_domain = () => {
-    const allowed_company_ids = rpc.web.session.allowed_company_ids(session)
-    const current_company_id = rpc.web.session.current_company_id(session)
+    const allowed_company_ids = rpc.web.session.allowed_company_ids
+    const current_company_id = rpc.web.session.current_company_id
     const values0 = record
     const values = { ...values0, allowed_company_ids, current_company_id }
 
@@ -106,10 +104,11 @@ export const Eval_Context = (info, { str: value_str, record }) => {
 
   const values = _get_values_for_domain()
 
+  const { context } = info
   const globals_dict = {
     // TODO: res_model_id
     // res_model_id: this.Model._model_id,
-    //  // allowed_company_ids: this.env.odoo.session.allowed_company_ids,
+    //
     context,
     ...values,
     active_id: record.id

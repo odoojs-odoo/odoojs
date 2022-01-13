@@ -151,7 +151,7 @@ class NodeRead extends Form {
   }
 
   static _node_context(info, { node, record }) {
-    const { context: ctx_session, session } = info
+    const { context: ctx_session } = info
     const { context: ctx_str } = node.attrs
 
     const ctx_action = this._context(info)
@@ -159,10 +159,7 @@ class NodeRead extends Form {
     const ctx_for_global = { ...ctx_session, ...ctx_action, ...ctx_active }
 
     const ctx = ctx_str
-      ? Eval_Safe(
-          { session, context: ctx_for_global },
-          { str: ctx_str, record }
-        )
+      ? Eval_Safe({ context: ctx_for_global }, { str: ctx_str, record })
       : {}
     return ctx
   }
@@ -194,9 +191,7 @@ class NodeRead extends Form {
       const ctx_active = this._active_context(info, { record })
       const context2 = { ...ctx_action, ...ctx_node, ...ctx_active }
 
-      const { session } = info
       return await this.button_clicked_after({
-        session,
         context: context2,
         action: res
       })
@@ -238,7 +233,7 @@ class NodeRead extends Form {
     const args = domain
     // console.log(ctx, fname, relation, args)
 
-    const Relation = this.Relation(info, relation, { context: ctx })
+    const Relation = this.Relation(relation, { context: ctx })
 
     const result = await Relation.name_search({ args })
     return result
@@ -256,7 +251,7 @@ class NodeRead extends Form {
     const { relation } = meta
     // console.log(info, ids, fname, relation, meta)
 
-    const Relation = this.Relation(info, relation, { context: ctx })
+    const Relation = this.Relation(relation, { context: ctx })
 
     const result = await Relation.read(ids, { fields: ['display_name'] })
     return result
@@ -300,7 +295,7 @@ class NodeEdit extends NodeRead {
     const args3 = [...args, ...args2]
     // console.log(args3)
 
-    const Relation = this.Relation(info, relation)
+    const Relation = this.Relation(relation)
     const res = await Relation.name_search({ args: args3, name, limit })
     return res
   }
@@ -309,7 +304,7 @@ class NodeEdit extends NodeRead {
     // console.log(node, values)
     const wid = await this.create(info, { values })
 
-    const { session, context: ctx_action } = info
+    const { context: ctx_action } = info
     const { name, context: node_ctx_str } = node.attrs
     const ctx_node = node_ctx_str
       ? py_utils.eval(node_ctx_str, { context: ctx_action })
@@ -324,7 +319,6 @@ class NodeEdit extends NodeRead {
       console.log('button_clicked, return action ', res)
 
       return await this.button_clicked_after({
-        session,
         context,
         action: res
       })
@@ -332,10 +326,7 @@ class NodeEdit extends NodeRead {
   }
 
   static async wizard_button_clicked(info, { node, values }) {
-    // TBD wizard_button_click  携带 自己的 context
     // console.log('wizard, btn click 1,', values)
-
-    // const { session, node } = info
     const { type, name } = node.attrs
 
     if (type === 'object') {
@@ -358,7 +349,7 @@ class NodeRealtion extends NodeEdit {
 
   static async load_relation_info(info) {
     // console.log(info)
-    const { session, context, action, view, node } = info
+    const { context, action, view, node } = info
     const { fields } = view
     const fname = node.attrs.name
     const field_meta = fields[fname]
@@ -384,7 +375,7 @@ class NodeRealtion extends NodeEdit {
           ]
         }
         const method = 'load_views'
-        const Relation = this.Relation(info, relation)
+        const Relation = this.Relation(relation)
         const res = await Relation.execute_kw(method, [], { ...kwargs })
         return res
       }
@@ -393,7 +384,6 @@ class NodeRealtion extends NodeEdit {
     const views2 = await get_view()
 
     const info2 = {
-      session,
       context: ctx,
       action: { context: [], res_model: relation },
       views: views2
@@ -415,7 +405,7 @@ class NodeRealtion extends NodeEdit {
   }
 
   static async load_relation_data(info, ids, { node, record }) {
-    const { session, context, action, views } = info
+    const { context, action, views } = info
     // console.log('o2m', info, ids, record)
 
     const ctx_node = node.attrs.context
@@ -432,7 +422,7 @@ class NodeRealtion extends NodeEdit {
     const records = await Model.read(ids, fields)
 
     // console.log(result)
-    return { records, relation: { session, context, action: action2, views } }
+    return { records, relation: { context, action: action2, views } }
   }
 
   static async _relation_form_info(info, { editable }) {
@@ -648,7 +638,7 @@ export class Node extends NodeRealtion {
   }
 
   static image_url({ action, view, node }, record) {
-    console.log('xxxx, url,', action, view, node, record.id, record.id)
+    // console.log('xxxx, url,', action, view, node, record.id, record.id)
     const widget = node.attrs.widget
     const fname = node.attrs.name
 

@@ -1,14 +1,14 @@
-import { ODOO } from '@/odoorpc/odoo'
+import rpc from '@/odoorpc'
 
 export class BaseTestCase {
   constructor({ baseURL }) {
     this.baseURL = baseURL
     console.log('test rpc')
-    this.api = new ODOO({ baseURL })
+    rpc.init({ baseURL })
   }
 
-  async test_call_odoo() {
-    const res = await this.api.get_version_info()
+  async version_info() {
+    const res = await rpc.web.webclient.version_info()
     console.log('test get_version_info:', res)
   }
 }
@@ -22,7 +22,7 @@ export class LoginTestCase extends BaseTestCase {
 
   async login() {
     const { db, login, password } = this.login_info
-    return await this.api.web.session.authenticate({ db, login, password })
+    return await rpc.web.session.authenticate({ db, login, password })
   }
 }
 

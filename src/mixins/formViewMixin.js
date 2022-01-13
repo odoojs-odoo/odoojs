@@ -106,8 +106,8 @@ export default {
       const res_id = this.record.id
       if (res_id) {
         const ids = [res_id]
-        const { session, context } = this.viewInfo
-        await api.Action.print({ session, context, action }, ids)
+        const { context } = this.viewInfo
+        await api.Action.print({ context, action }, ids)
       }
     },
 

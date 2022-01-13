@@ -81,9 +81,7 @@ export default {
   methods: {
     async load_data() {
       this.data = await api.Views.form.load_data(this.viewInfo2)
-
       const context = api.Views.form._context(this.viewInfo2)
-      // console.log(this.data, context)
       this.selectedKeys = context.module ? [context.module] : []
     },
 

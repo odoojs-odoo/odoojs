@@ -1,6 +1,12 @@
 import { LoginTestCase } from './base'
+import rpc from '@/odoorpc'
 
 export default class EduTestCase extends LoginTestCase {
+  async test() {
+    // // await this.signup()
+    // await this.signup_prepare()
+  }
+
   async signup() {
     const { db } = this.login_info
     const name = 'user1'
@@ -10,13 +16,13 @@ export default class EduTestCase extends LoginTestCase {
 
     const payload = { db, name, login, password, confirm_password }
 
-    const res = await this.api.web.home.signup(payload)
+    const res = await rpc.web.home.signup(payload)
     console.log(res)
   }
 
   async signup_prepare() {
     await this.login()
-    const Model = this.api.env.model('res.partner')
+    const Model = rpc.env.model('res.partner')
     const ids = await Model.search([['name', '=', 'user2']])
     const res = await Model.execute('signup_prepare', ids)
     console.log(res)
@@ -38,13 +44,8 @@ export default class EduTestCase extends LoginTestCase {
 
     const payload = { db, token, login, password, confirm_password }
 
-    const res = await this.api.web.home.signup(payload)
+    const res = await rpc.web.home.signup(payload)
     console.log(res)
-  }
-
-  async test() {
-    // await this.signup()
-    await this.signup_prepare()
   }
 
   async test_portal_user() {
@@ -52,7 +53,7 @@ export default class EduTestCase extends LoginTestCase {
     const login = 'user1'
     const password = '123'
 
-    const session_info = await this.api.web.session.authenticate({
+    const session_info = await rpc.web.session.authenticate({
       db,
       login,
       password
@@ -62,7 +63,7 @@ export default class EduTestCase extends LoginTestCase {
     // const uid = session_info.uid
 
     const model = 'res.users'
-    const Model = this.api.env.model(model)
+    const Model = rpc.env.model(model)
     const res = await Model.execute('has_group', 'base.group_user')
 
     console.log(res)
@@ -82,7 +83,7 @@ export default class EduTestCase extends LoginTestCase {
 
   async _search_invoice() {
     const model = 'account.move'
-    const Model = this.api.env.model(model)
+    const Model = rpc.env.model(model)
     const res = await Model.search([])
     return res
   }

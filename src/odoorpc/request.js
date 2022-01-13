@@ -27,6 +27,8 @@ class ProxyJSON extends Proxy0 {
 
     const session_id = this.constructor._sid
 
+    // console.log(' session_id', session_id)
+
     service.interceptors.request.use(
       config => {
         // console.log('sid:', that._sid)
@@ -320,6 +322,7 @@ export class JsonRequest {
 
 JsonRequest._baseURL = undefined
 JsonRequest._timeout = undefined
+JsonRequest._session_info = undefined
 
 export class FileRequest extends JsonRequest {
   constructor(payload) {

@@ -27,10 +27,8 @@ const get_context = (todo_str, globals_dict = {}) => {
   // 有 active_id, allowed_company_ids[0], uid
   //
 
-  // env.context 是 调用 该 action 的 上下文, 里面应该有这些东西
-
   const context = py_utils.eval(todo_str, globals_dict)
-  // console.log(action_info.context, env.context, context)
+
   return context
 }
 
@@ -46,10 +44,10 @@ class IrActionsServer extends IrActions {
   }
 
   // eslint-disable-next-line no-unused-vars
-  static async run({ session, context, action }, kwargs = {}) {
+  static async run({ action }, kwargs = {}) {
     // console.log('action run', )
     const { additional_context } = kwargs
-    const context2 = additional_context || context
+    const context2 = additional_context || rpc.web.session.context
     return this._run_recursion(action.id, context2)
   }
 
@@ -117,16 +115,10 @@ export class Action {
     return mode2
   }
 
-  static env({ session, context }) {
-    return new rpc.Environment({ session, context })
-  }
-
-  static async load({ session, context }, action_xml_id, kwargs) {
+  static async load(action_xml_id, kwargs) {
     const get_action_id = async xml_id => {
       if (typeof xml_id === 'string' && xml_id.split('.').length === 2) {
-        const env = this.env({ session, context })
-
-        const action_one = await env.ref(xml_id)
+        const action_one = await rpc.env.ref(xml_id)
         const action_id = action_one.id
         return action_id
       } else {
@@ -136,19 +128,16 @@ export class Action {
 
     const action_id = await get_action_id(action_xml_id)
     const action = await rpc.web.action.load({ action_id, ...kwargs })
-    const res = await this._load_after({ session, context, action }, kwargs)
+    const res = await this._load_after({ action }, kwargs)
 
     return res
   }
 
-  static async _load_after({ session, context, action }, kwargs) {
+  static async _load_after({ action }, kwargs) {
     // console.log('action load,', cp(action))
 
     if (action.type === 'ir.actions.server') {
-      const res = await IrActionsServer.run(
-        { session, context, action },
-        kwargs
-      )
+      const res = await IrActionsServer.run({ action }, kwargs)
       // console.log('action server run ok:', res)
       return res
     } else if (action.type === 'ir.actions.act_window') {
@@ -195,20 +184,21 @@ export class Action {
     }
   }
 
-  static Model({ session, context, action }) {
+  static Model({ context, action }) {
     const { res_model } = action
-    const ctx = this._context({ context, action })
-    const env = this.env({ session, context: ctx })
+    const context2 = context || rpc.web.session.context
+    const ctx = this._context({ context: context2, action })
+    const env = rpc.env.with_context(ctx)
     return env.model(res_model)
   }
 
-  static async load_views({ session, context, action }) {
+  static async load_views({ context, action }) {
     if (action.type !== 'ir.actions.act_window') {
       // type: "ir.actions.client"
       return {}
     }
 
-    const Obj = this.Model({ session, context, action })
+    const Obj = this.Model({ context, action })
 
     const method = 'load_views'
     const search_view_id = action.search_view_id
@@ -258,7 +248,7 @@ export class Action {
     const active_ids = ids
 
     const { report_name, report_type, type } = action
-    // console.log(this.env)
+
     if (type === 'ir.actions.report') {
       const kw = { report_name, active_ids, report_type, context }
       const res = await rpc.report.print(kw)

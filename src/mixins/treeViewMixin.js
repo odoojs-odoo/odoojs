@@ -95,7 +95,7 @@ export default {
           this.onExpend(true, row)
         }
       } else {
-        // const active_id = model.env.context.active_id
+        // const active_id = context.active_id
         const path = `/web`
         const query = {
           action: action.id,

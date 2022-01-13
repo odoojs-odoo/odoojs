@@ -26,7 +26,6 @@ export class ViewBase {
 
   static _context({ context, action }) {
     return Action._context({ context, action })
-    // return { ...context, ...ctx }
   }
 
   static _default_domain({ context, action }) {
@@ -54,27 +53,25 @@ export class ViewBase {
     return Object.keys(fields)
   }
 
-  static env({ session, context }) {
-    return new rpc.Environment({ session, context })
+  static env({ context }) {
+    return new rpc.Environment({ context })
   }
 
-  static Model({ session, context, action }) {
+  static Model({ context, action }) {
     const { res_model } = action
     const ctx = this._context({ context, action })
-    const env = this.env({ session, context: ctx })
+    const env = rpc.env.with_context(ctx)
     return env.model(res_model)
   }
 
-  static Relation({ session }, relation, kwargs = {}) {
-    const context = kwargs.context || rpc.web.session.context(session)
-    const env = this.env({ session, context })
+  static Relation(relation, kwargs = {}) {
+    const { context = {} } = kwargs
+    const env = rpc.env.with_context(context)
     return env.model(relation)
   }
 
   static async load_action(info, action_xml_id, { additional_context }) {
-    const action = await Action.load(info, action_xml_id, {
-      additional_context
-    })
+    const action = await Action.load(action_xml_id, { additional_context })
 
     if (!action) {
       return
@@ -82,21 +79,20 @@ export class ViewBase {
 
     const context = additional_context
 
-    const views = await Action.load_views({ ...info, context, action })
+    const views = await Action.load_views({ context, action })
     return { ...info, context, action, views }
   }
 
-  static async button_clicked_after({ session, context, action }) {
-    const action2 = await Action._load_after({ session, context, action })
+  static async button_clicked_after({ context, action }) {
+    const action2 = await Action._load_after({ context, action })
     if (action2.type === 'ir.actions.act_window') {
       const views = await Action.load_views({
-        session,
         context,
         action: action2
       })
-      return { session, context, action: action2, views }
+      return { context, action: action2, views }
     } else {
-      return { session, context, action: action2 }
+      return { context, action: action2 }
     }
   }
 }

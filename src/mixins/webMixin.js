@@ -48,40 +48,31 @@ const Mixin = {
 
       this.editable = false
 
-      // console.log('route', cp(this.$route.meta))
       const query = this.$route.query
       const { action: actionId, view_type: viewType } = query
       const { active_id } = query
       const active_id2 = active_id && Number(active_id)
 
       const _get_view_info = async () => {
-        const session = this.$route.meta.session
         const { viewInfo } = this.$route.meta
         if (viewInfo) {
-          this.$route.meta.viewInfo = undefined
-          return { session, ...viewInfo }
+          delete this.$route.meta.viewInfo
+          return { ...viewInfo }
         } else {
-          const context2 = this.$route.meta.context
+          const context2 = api.web.session.context
+
           const active_context = active_id2
             ? { active_id: active_id2, active_ids: [active_id2] }
             : {}
           const additional_context = active_id2 ? active_context : undefined
           const kw = additional_context ? { additional_context } : {}
-          const action = await api.Action.load(
-            { session, context: context2 },
-            actionId,
-            kw
-          )
+          const action = await api.Action.load(actionId, kw)
 
           const context = { ...context2, ...active_context }
 
-          const views = await api.Action.load_views({
-            session,
-            context,
-            action
-          })
+          const views = await api.Action.load_views({ context, action })
 
-          return { session, context, action, views }
+          return { context, action, views }
         }
       }
 
@@ -92,7 +83,6 @@ const Mixin = {
       const searchValue = await api.Views.search.default_value(viewInfo)
       this.defaultSearchValue = searchValue
       this.searchValue = searchValue
-      // console.log('viewinfo', cp([context, action, views]))
 
       const actionType = action.type
 
@@ -107,7 +97,7 @@ const Mixin = {
             // form view 复制按钮 , 带过来的信息
             if (editable) {
               this.editable = true
-              this.$route.meta.editable = undefined
+              delete this.$route.meta.editable
             }
 
             this.viewType = 'form'
