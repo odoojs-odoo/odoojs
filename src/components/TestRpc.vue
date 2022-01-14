@@ -20,8 +20,8 @@
 
 //
 <script>
-import { test_rpc } from '@/odoorpc/test/test_rpc'
-import { test_api } from '@/odooapi/test/test_api'
+import { test_rpc } from '@/odoorpc_test/test_rpc'
+import { test_api } from '@/odooapi_test/test_api'
 
 // import { test_api_addons } from '@/api_addons/test_api_addons'
 
