@@ -1,5 +1,5 @@
 <template>
-  <span style="margin: 0 0 0 2px;">
+  <span style="margin: 0 0 0 2px">
     <!-- {{ groupbyBtnOptions }} -->
 
     <a-dropdown :trigger="['click']">
@@ -10,7 +10,9 @@
 
       <a-menu slot="overlay">
         <template v-for="(item, index) in groupbyBtnOptions">
-          <template v-if="item.date">
+          <a-menu-divider v-if="item.type === 'separator'" :key="index" />
+
+          <template v-else-if="item.date">
             <a-sub-menu :key="index" :title="item.string || item.help">
               <template v-for="child in item.children">
                 <a-menu-item :key="child.name">

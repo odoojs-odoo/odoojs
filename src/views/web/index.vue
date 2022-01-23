@@ -8,7 +8,7 @@
     </template>
 
     <template v-else-if="actionInfo.type === 'ir.actions.client'">
-      {{ actionInfo.display_name }} 建设中...
+      {{ pageHeaderTitle }} 建设中...
     </template>
 
     <template v-else-if="actionInfo.type === 'ir.actions.act_window'">
@@ -16,7 +16,7 @@
         style="border: 1px solid rgb(235, 237, 240)"
         @back="$router.go(-1)"
       >
-        <template slot="title"> {{ actionInfo.display_name }} </template>
+        <template slot="title"> {{ pageHeaderTitle }} </template>
         <template slot="subTitle">
           {{
             viewType === 'calendar' && calendarData ? calendarData.title : ''

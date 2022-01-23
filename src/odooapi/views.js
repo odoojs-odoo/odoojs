@@ -42,38 +42,6 @@ export class Views {
     return Form
   }
 
-  // static onchange(info, view_type, { calendarData }) {
-  //   if (view_type === 'calendar') {
-  //     const res =
-  //       calendarData && calendarData.date
-  //         ? calendarData
-  //         : Calendar.default_value()
-
-  //     return { calendarData: res }
-  //   }
-  //   return { calendarData }
-  // }
-
-  // static async load_data(info, payload) {
-  //   const { view_type, searchValue: search } = payload
-  //   const { views } = info
-  //   const { fields_views = {} } = views
-  //   const { calendar, list, kanban } = fields_views
-
-  //   if (view_type === 'calendar') {
-  //     const { calendarData: value } = payload
-  //     return Calendar.load_data({ ...info, view: calendar }, { value, search })
-  //   } else if (['list'].includes(view_type)) {
-  //     return List.load_data({ ...info, view: list }, { search })
-  //   } else if (['kanban'].includes(view_type)) {
-  //     return Kanban.load_data({ ...info, view: kanban }, { search })
-  //   } else {
-  //     return {}
-  //   }
-
-  //   // return {}
-  // }
-
   static hide_button({ views }, view_type) {
     const { fields_views = {} } = views
     const info = fields_views[view_type]

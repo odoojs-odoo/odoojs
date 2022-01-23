@@ -25,7 +25,11 @@ const Mixin = {
       pivotData: {}
     }
   },
-  computed: {},
+  computed: {
+    pageHeaderTitle() {
+      return this.actionInfo.display_name || this.actionInfo.name
+    }
+  },
 
   watch: {},
 
@@ -86,9 +90,25 @@ const Mixin = {
 
       const actionType = action.type
 
-      if (actionType === 'ir.actions.act_window') {
-        if (['current', 'main'].includes(action.target) || !action.target) {
-          if (viewType === 'form') {
+      if (action.type === 'ir.actions.act_url') {
+        console.log('建设中 act_url :', action.url)
+        this.$message.info(`建设中..., act_url`)
+      } else if (action.type === 'ir.actions.report') {
+        console.log('建设中 report :', action.type)
+        this.$message.info(`建设中..., ${action.type}`)
+      } else if (actionType === 'ir.actions.act_window') {
+        if (action.target === 'inline') {
+          this.viewType = 'form'
+          console.log('action.target=inline. config form')
+        } else if (
+          ['current', 'main'].includes(action.target) ||
+          !action.target
+        ) {
+          if (action.target === 'new') {
+            // never here. 在 菜单点击事件中 已经过滤该种情况.
+            console.log('error, action.target=new.')
+            throw 'error, action.target=new'
+          } else if (viewType === 'form') {
             const resId = query.id ? parseInt(query.id) : undefined
             if (!resId) this.editable = true
 
@@ -119,20 +139,8 @@ const Mixin = {
             }
 
             const viewType2 = this.viewMode[0]
-
             this.viewType = viewType2
           }
-        } else if (action.target === 'inline') {
-          this.viewType = 'form'
-          // console.log('TBD, inline.')
-          // throw 'TBD, action.target'
-        } else if (action.target === 'new') {
-          // this.viewType = 'form'
-          // 在 菜单点击事件中 已经过滤 该中情况.
-          // never here
-
-          console.log('TBD, new.')
-          throw 'TBD, action.target'
         } else {
           console.log('TBD, action.target', action.target)
           // ('current', 'Current Window'),
@@ -186,7 +194,9 @@ const Mixin = {
     },
 
     async handleOnCreate() {
-      // console.log(' handleOnCreate ',  )
+      console.log(' handleOnCreate ', this.viewInfo)
+      // this.$route.meta.viewInfo
+      this.$route.meta.viewInfo = this.viewInfo
       const { action } = this.viewInfo
       const path = `/web`
       const query = { action: action.id, view_type: 'form' }

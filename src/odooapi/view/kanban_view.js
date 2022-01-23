@@ -7,6 +7,7 @@ import { Kanban_Image } from './tools'
 import { Tree } from './list_view'
 
 const Render_XML = ({ xml, tname, fields, record }) => {
+  // console.log('Render_XML ', xml, tname, fields, record)
   const get_val = fld => {
     const meta = fields[fld] || {}
     const val = record[fld]
@@ -88,11 +89,19 @@ const Render_XML = ({ xml, tname, fields, record }) => {
 
   // TODO
   const widget = {
-    //
+    // o_kanban_project_tasks 里出现了
+    editable: true,
+    deletable: true
   }
 
   const kanban_image = (model, field, res_id) => {
-    return Kanban_Image(model, field, res_id)
+    // console.log(' kanban_image,', model, field, res_id)
+    if (typeof res_id === 'string') {
+      const base64 = record[field]
+      return `data:image/png;base64,${base64}`
+    } else {
+      return Kanban_Image(model, field, res_id)
+    }
   }
 
   const qweb_kwargs = {
@@ -135,6 +144,11 @@ const Render_kanban = ({ arch, fields, record }) => {
 export class Kanban extends Tree {
   constructor() {
     super()
+  }
+
+  static async load_data(info, kwargs) {
+    const view = info.views.fields_views.kanban
+    return super.load_data({ ...info, view }, kwargs)
   }
 
   static async web_read_group(info, { search, groupby }) {

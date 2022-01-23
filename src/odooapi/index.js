@@ -12,7 +12,6 @@ const api = rpc
 
 /*
   init,
-  Environment,
   web,
   rerport,
   web_editor,

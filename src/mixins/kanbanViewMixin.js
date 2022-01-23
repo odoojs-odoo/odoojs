@@ -2,6 +2,9 @@ import treeViewMixin from '@/mixins/treeViewMixin'
 
 import api from '@/odooapi'
 
+// eslint-disable-next-line no-unused-vars
+const cp = val => JSON.parse(JSON.stringify(val))
+
 export default {
   mixins: [treeViewMixin],
 
@@ -31,41 +34,31 @@ export default {
   methods: {
     render_kanban(record) {
       const node = api.Views.kanban.render_kanban(this.viewInfo2, record)
-      // console.log(node)
+      // console.log('render_kanban1', cp(this.viewInfo2), cp(this.node))
+      // console.log('render_kanban2', cp(record), cp(node))
       return node
     },
 
     async handleOnRowClick2(row) {
-      if (this.kanban_class.includes('o_account_kanban')) return
-      else this.handleOnRowClick(row)
-    }
+      this.handleOnRowClick(row)
+    },
 
-    // // 判断是否为base64
-    // isBase64(str) {
-    //   if (str === '' || str.trim() === '') {
-    //     return false
-    //   }
-    //   try {
-    //     return btoa(atob(str)) == str
-    //   } catch (err) {
-    //     return false
-    //   }
-    // }
-    // render_kanban(record) {
-    //   const node = action_view.kanban.render_kanban({
-    //     action: this.action,
-    //     record: this.isBase64(record.image_128)?Object.assign(record, {image_128: 'data:image/png;base64,' + record.image_128}):record
-    //   })
-    // console.log('viewInfoForNode,,', record, this.viewInfoForNode);
-    // isBase64(str) {
-    //   if (str === '' || str.trim() === '') {
-    //     return false
-    //   }
-    //   try {
-    //     return btoa(atob(str)) == str
-    //   } catch (err) {
-    //     return false
-    //   }
-    // },
+    handleOnEvent(event_name, ...args) {
+      // console.log(' handleOnViewEvent, ', event_name, args)
+      if (event_name === 'on-search-change') this.handleOnSearchChange(...args)
+      else if (event_name === 'on-write-ok') this.handleOnwriteOK(...args)
+      else if (event_name === 'action-return') this.handleActionReturn(...args)
+      // // action, wizard form, button click return, reload data
+      // if (event_name === 'on-wizard-ok') this.handleOnWizardOk(...args)
+    },
+
+    async handleOnwriteOK() {
+      this.fresh_data()
+    },
+
+    async handleActionReturn(result) {
+      // console.log('kanban view, action_return', result)
+      return this.action_return(result)
+    }
   }
 }

@@ -13,8 +13,8 @@
         :class="'fa o_button_icon ' + node.attrs.icon"
         v-if="node.attrs.icon"
       />
-      <template v-if="node.attrs.string || node.attrs.title">
-        {{ node.attrs.string || node.attrs.title }}
+      <template v-if="!node.children || !node.children.length">
+        {{ node.content || node.attrs.string || node.attrs.title }}
       </template>
       <template v-for="(item, index) in node.children">
         <ONode
@@ -67,8 +67,10 @@ export default {
   mounted() {},
 
   methods: {
-    async onclick() {
+    async onclick(e) {
       console.log('btn click', cp(this.node))
+      e.preventDefault()
+      e.stopPropagation()
       this.$emit('on-event', 'button-clicked', this.node)
     }
   }

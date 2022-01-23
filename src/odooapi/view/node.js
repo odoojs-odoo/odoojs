@@ -12,6 +12,9 @@ import { Eval_Context } from './tools'
 
 import { Form } from './form_view'
 
+// eslint-disable-next-line no-unused-vars
+const cp = val => JSON.parse(JSON.stringify(val))
+
 const is_node = node => {
   if (typeof node !== 'object') return false
   if (Array.isArray(node)) return false
@@ -426,6 +429,22 @@ class NodeRealtion extends NodeEdit {
   }
 
   static async _relation_form_info(info, { editable }) {
+    // console.log('_relation_form_info', cp(info))
+    const ctx_get = () => {
+      const ctx = info.context
+      const parent_node = info.parent.node
+      const parent_model = info.parent.action.res_model
+      const fname = parent_node.attrs.name
+      const ctx_parent = info.parent.context
+      // console.log('_relation_form_info222', parent_model, fname, ctx_parent)
+
+      if (parent_model === 'res.partner' && fname === 'child_ids')
+        return ctx_parent
+      else return ctx
+    }
+
+    const context = ctx_get()
+
     const Model = this.Model(info)
 
     const async_load_state = async () => {
@@ -453,6 +472,7 @@ class NodeRealtion extends NodeEdit {
 
       return {
         ...info,
+        context,
         views: {
           fields: { ...fields, ...fields2 },
           fields_views: { ...fields_views, ...fields_views2 }
@@ -467,7 +487,7 @@ class NodeRealtion extends NodeEdit {
       const { form: form_view } = fields_views
       if (form_view) {
         const from_node = this.view_node({ view: form_view })
-        return { ...info, view: form_view, node: from_node }
+        return { ...info, context, view: form_view, node: from_node }
       } else {
         const form_state = await async_load_state()
         return merge_state(info, form_state)
@@ -529,15 +549,20 @@ class NodeRealtion extends NodeEdit {
   }
 
   static async relation_new(info, { parentData }) {
-    // console.log(info, parentData)
     const viewInfo = await this._relation_form_info(info, { editable: true })
-    const data = await this.relation_onchange_new(info, { parentData })
+    // console.log('relation_new', cp(info), cp(viewInfo))
+    const data = await this.relation_onchange_new(viewInfo, { parentData })
     return { viewInfo, data }
   }
 
   static async relation_pick(info, { parentData, row, editable }) {
     // console.log('relation_pick', info, row, editable)
     const viewInfo = await this._relation_form_info(info, { editable })
+    console.log('relation_pick relation viewInfo', cp(viewInfo), row, editable)
+    // TODO: 如果是 行编辑, 则无需读取数据
+    // 如果是 form 编辑, 需要读取数据. 补充字段数据.
+    // 1. 新增的行 无需 读取
+    // 2. 已经编辑的行, 读取数据后, 需要把编辑后的数据 更新到 读取到的数据
     const data = editable
       ? { record: row, parentData }
       : await this.load_data(viewInfo, row.id)
@@ -594,7 +619,9 @@ class NodeRealtion extends NodeEdit {
     // console.log('relation_commit', cp(info), cp(payload))
 
     const to_write = (info2, records, values2) => {
-      return values2.map(item => {
+      const values3 = tuples_helper.to_onchange(values2)
+
+      return values3.map(item => {
         const op = item[0]
         if ([1, 0].includes(op)) {
           const record_me = op === 1 ? records.find(it => it.id) || {} : {}
@@ -618,13 +645,20 @@ class NodeRealtion extends NodeEdit {
       formData.value,
       formData.field.relation_field
     )
+    const values_write = to_write(info, records, values_ret)
 
-    const values_onchange = tuples_helper.to_onchange(values_ret)
+    const old_tuples = records.map(item => [4, item.id, false])
+    const tuples_todo = [...old_tuples, ...values_ret]
+    const tuples_merged = tuples_helper._to_merge(tuples_todo)
+    const values_onchange = tuples_helper.to_onchange(tuples_merged)
 
-    const values_write = to_write(info, records, values_onchange)
+    // console.log(' on commit1,tuples_todo', tuples_todo)
+    // console.log(' on commit1,tuples_merged', tuples_merged)
+    // console.log(' on commit1,values_onchange2', values_onchange)
 
     // console.log('relation_commit values_ret2', cp(values_ret))
     // console.log('relation_commit values_onchange3', cp(values_onchange))
+    // console.log(' on commit1', records)
     // console.log(' on commit', values_write)
     // console.log(' on commit, values_write', values_write)
 
@@ -638,11 +672,19 @@ export class Node extends NodeRealtion {
   }
 
   static image_url({ action, view, node }, record) {
-    // console.log('xxxx, url,', action, view, node, record.id, record.id)
+    // console.log('xxxx, url,', action, view, node, record)
     const widget = node.attrs.widget
     const fname = node.attrs.name
 
     // console.log(widget, node)
+    if (widget === 'many2one_avatar_employee') {
+      if (record[fname]) {
+        const { fields = {} } = view
+        const meta = fields[fname]
+        const model = meta.relation
+        return Kanban_Image(model, 'image_128', record[fname][0])
+      } else return undefined
+    }
 
     if (widget === 'many2one_avatar_user') {
       if (record[fname]) {

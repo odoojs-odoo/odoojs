@@ -12,17 +12,13 @@
             </div>
 
             <template v-for="item in one.children">
-              <div
-                class="oe_kanban_color_0 oe_kanban_global_click o_has_icon o_kanban_record"
+              <OKanban
                 :key="item.id"
-                @click="handleOnRowClick2(item)"
-              >
-                <ONode
-                  :data-info="{ record: item }"
-                  :view-info="{ ...viewInfo2, node: render_kanban(item) }"
-                />
-              </div>
-              <!-- <a-divider :key="item.id + 'divider'" /> -->
+                :data-info="{ record: item }"
+                :view-info="{ ...viewInfo2, node }"
+                @on-row-click="handleOnRowClick2(item)"
+                @on-event="handleOnEvent"
+              />
             </template>
           </div>
         </template>
@@ -31,38 +27,44 @@
     <div v-show="!groupby.length">
       <div :class="kanban_class || undefined">
         <template v-for="item in records">
-          <div
-            class="oe_kanban_color_0 oe_kanban_global_click o_has_icon o_kanban_record"
+          <OKanban
             :key="item.id"
-            @click="handleOnRowClick2(item)"
-          >
-            <ONode
-              :data-info="{ record: item }"
-              :view-info="{ ...viewInfo2, node: render_kanban(item) }"
-            />
-          </div>
-          <!-- <a-divider :key="item.id + 'divider'" /> -->
+            :data-info="{ record: item }"
+            :view-info="{ ...viewInfo2, node }"
+            @on-row-click="handleOnRowClick2(item)"
+            @on-event="handleOnEvent"
+          />
         </template>
       </div>
       <a-pagination
-        style="margin: 8px 0 0 0;"
+        style="margin: 8px 0 0 0"
         :total="pagination.total"
         :pageSize.sync="pagination.pageSize"
         @change="handlePageChange"
         show-less-items
       />
     </div>
+
+    <template v-if="showWizard">
+      <WizardForm
+        :visible.sync="showWizard"
+        :view-info="wizardViewInfo"
+        @on-event="handleOnEvent"
+      />
+    </template>
   </div>
 </template>
 
 <script>
 import kanbanViewMixin from '@/mixins/kanbanViewMixin'
+import OKanban from '@/components/OKBNode/OKanban'
+import WizardForm from '@/components/OView/WizardForm.vue'
 
-import ONode from '@/components/ONode/ONode'
+// import ONode from '@/components/ONode/ONode'
 
 export default {
   name: 'KanbanView',
-  components: { ONode },
+  components: { OKanban, WizardForm },
   mixins: [kanbanViewMixin],
 
   props: {},
@@ -74,8 +76,7 @@ export default {
   watch: {},
 
   async created() {},
-
-  mounted() {},
+  async mounted() {},
 
   methods: {}
 }

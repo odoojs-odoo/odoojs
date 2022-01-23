@@ -31,6 +31,10 @@ export default {
       return api.Views.search.groupby_options(this.viewInfo2, this.searchValue)
     },
 
+    filtersBtnOptions() {
+      return api.Views.search.filters_options(this.viewInfo2, this.searchValue)
+    },
+
     searchFields() {
       return api.Views.search.search_options(this.viewInfo2, this.searchValue)
     }
@@ -64,6 +68,26 @@ export default {
   methods: {
     searchM2oOptionMethod(payload) {
       return api.Views.search.get_selection(this.viewInfo2, payload)
+    },
+
+    async handleOnSearchUnlink(res_id, cb) {
+      // console.log(values)
+      const res = await api.Views.search.unlink_filter(
+        this.viewInfo2,
+        res_id,
+        this.searchValue
+      )
+      cb(res)
+    },
+
+    async handleOnSearchSubmit(values, cb) {
+      // console.log(values)
+      const res = await api.Views.search.submit_filter(
+        this.viewInfo2,
+        values,
+        this.searchValue
+      )
+      cb(res)
     },
 
     handleOnSearchSelect(name, value) {

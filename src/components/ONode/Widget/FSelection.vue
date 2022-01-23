@@ -47,7 +47,9 @@
   >
     <!-- 付款单 partner_type todo:
     <div>selection selection</div>
-    {{ [field.type, fname, widget] }} -->
+     -->
+
+    <!-- {{ [field.type, fname, widget] }} -->
 
     <WSelection
       :value_readonly="value_readonly"

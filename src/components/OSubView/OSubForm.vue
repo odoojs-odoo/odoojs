@@ -41,18 +41,7 @@
 </template>
 <script>
 import api from '@/odooapi'
-
-let global_debug = 0
-global_debug = 1
-
-const try_call = async (fn, debug) => {
-  if (global_debug || debug) return { result: await fn() }
-  try {
-    return { result: await fn() }
-  } catch (error) {
-    return { error }
-  }
-}
+import { try_call } from '@/odooapi/tools'
 
 import editMixin from '@/mixins/editMixin'
 
@@ -174,8 +163,9 @@ export default {
 
     async onRemove() {
       console.log('handleOnRemove', this.record)
-      const vals = [2, this.record.id, false]
-      this.$emit('on-event', 'on-commit', vals)
+      const value = [2, this.record.id, false]
+
+      this.$emit('on-event', 'on-commit', { value })
       this.showModal = false
     },
 
@@ -199,7 +189,7 @@ export default {
 
       const vals = vals_get()
 
-      this.$emit('on-event', 'on-commit', vals)
+      this.$emit('on-event', 'on-commit', { value: vals })
       this.showModal = false
     }
   }

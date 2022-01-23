@@ -3,6 +3,8 @@ import { Search } from './search_view'
 
 import rpc from '@/odoorpc'
 
+const PageSize = 10
+
 // eslint-disable-next-line no-unused-vars
 const cp = val => JSON.parse(JSON.stringify(val))
 
@@ -17,6 +19,7 @@ export class Tree extends ViewBase {
     const offset = (current - 1) * pageSize
 
     const domain1 = this._default_domain(info)
+
     const domain2 = Search.to_domain(info, search)
     const domain = [...domain1, ...domain2]
 
@@ -97,7 +100,7 @@ export class Tree extends ViewBase {
     const index = groupby.findIndex(item => item === grp)
 
     const next = groupby.slice(index + 1)
-    console.log('grp2', groupby, grp, index, count, next, record)
+    // console.log('grp2', groupby, grp, index, count, next, record)
 
     const domain = record.__domain
 
@@ -132,12 +135,13 @@ export class Tree extends ViewBase {
   static async web_search_read(info, { pagination, search }) {
     const Model = this.Model(info)
 
-    const { current = 1, pageSize = 2 } = pagination || {}
+    const { current = 1, pageSize = PageSize } = pagination || {}
     const limit = pageSize
     const offset = (current - 1) * pageSize
     const fields = this._fields_list(info)
 
     const domain1 = this._default_domain(info)
+    // console.log('xxxx,web_search_read,', domain1, search)
     const domain2 = Search.to_domain(info, search)
 
     const domain = [...domain1, ...domain2]
@@ -178,6 +182,16 @@ export class List extends Tree {
     super()
   }
 
+  static async web_search_read(info, kwargs) {
+    const view = info.views.fields_views.list
+    return super.web_search_read({ ...info, view }, kwargs)
+  }
+
+  static async load_data(info, kwargs) {
+    const view = info.views.fields_views.list
+    return super.load_data({ ...info, view }, kwargs)
+  }
+
   static async action_call(info, action_todo, { active_ids }) {
     // console.log(cp(info), cp(action_todo), active_ids, active_id)
     const { action } = info
@@ -195,7 +209,7 @@ export class List extends Tree {
   }
 
   static async unlink(info, ids) {
-    if (!ids.length) return true
+    if (!ids || (Array.isArray(ids) && !ids.length)) return true
     return await this.Model(info).unlink(ids)
   }
 

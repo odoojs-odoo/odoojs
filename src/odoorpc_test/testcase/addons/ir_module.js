@@ -4,7 +4,7 @@ import rpc from '@/odoorpc'
 export default class ModelTestCase extends BaseTestCase {
   async test() {
     await this.list_installed()
-    await this.install()
+    // await this.install()
     // await this.uninstall()
   }
 

@@ -56,6 +56,15 @@ class MetaModel {
   static async execute(method, ...args) {
     return this.execute_kw(method, args, {})
   }
+}
+
+MetaModel._env = undefined
+MetaModel._model = undefined
+
+export class Model extends MetaModel {
+  constructor(payload = {}) {
+    super(payload)
+  }
 
   static async fields_get(allfields, attributes) {
     const method = 'fields_get'
@@ -168,15 +177,6 @@ class MetaModel {
 
   static async onchange(ids, values, field_name, field_onchange) {
     return this.execute('onchange', ids, values, field_name, field_onchange)
-  }
-}
-
-MetaModel._env = undefined
-MetaModel._model = undefined
-
-export class Model extends MetaModel {
-  constructor(payload = {}) {
-    super(payload)
   }
 
   // static async onchange(ids, values, field_name, field_onchange) {

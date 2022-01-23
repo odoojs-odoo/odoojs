@@ -2,19 +2,9 @@ import api from '@/odooapi'
 import viewMixin from './viewMixin'
 import editMixin from './editMixin'
 
+import { try_call } from '@/odooapi/tools'
+
 const cp = item => JSON.parse(JSON.stringify(item))
-
-let global_debug = 0
-global_debug = 1
-
-const try_call = async (fn, debug) => {
-  if (global_debug || debug) return { result: await fn() }
-  try {
-    return { result: await fn() }
-  } catch (error) {
-    return { error }
-  }
-}
 
 export default {
   mixins: [viewMixin, editMixin],
@@ -25,9 +15,7 @@ export default {
 
   data() {
     return {
-      loading: false,
-      showWizard: false,
-      wizardViewInfo: {}
+      loading: false
     }
   },
   computed: {
@@ -127,6 +115,7 @@ export default {
         this.data = dataInfo
       } else {
         this.editable2 = false
+        this.$route.meta.viewInfo = this.viewInfo
         this.$router.go(-1)
       }
     },
@@ -168,6 +157,7 @@ export default {
           }
         } else {
           const { action } = this.viewInfo
+          this.$route.meta.viewInfo = this.viewInfo
           const path = `/web`
           const query = {
             action: action.id,
@@ -206,8 +196,6 @@ export default {
         id: res_id
       }
       this.$router.replace({ path, query })
-
-      // this.editable2 = true
     },
 
     async handleOnAction(action_todo) {
@@ -224,52 +212,8 @@ export default {
       this._action_return(info)
     },
 
-    async _action_return(result) {
-      const { context, action } = result
-      if (action.type === 'ir.actions.act_url') {
-        console.log('建设中 act_url :', action.url)
-        this.$message.info(`建设中..., act_url`)
-      } else if (action.type === 'ir.actions.report') {
-        console.log('建设中 report :', action.type)
-        this.$message.info(`建设中..., ${action.type}`)
-      } else if (action.type === 'ir.actions.act_window') {
-        if (action.target === 'new') {
-          console.log('TODO: btn clicked return action.target = new', action)
-          this.wizardViewInfo = result
-          this.showWizard = true
-          // throw 'TODO: btn clicked return action.target = new'
-        } else if (
-          ['current', 'main'].includes(action.target) ||
-          !action.target
-        ) {
-          console.log(action.target, 'current  router', action)
-          const res_id = action.res_id
-          const action_id = action.id
-          const query = {
-            action: action_id,
-            active_id: context.active_id,
-            ...(res_id ? { view_type: 'form', id: res_id } : {})
-          }
-
-          this.$route.meta.viewInfo = result
-          // console.log(action.target, query)
-          const path = `/web`
-          this.$router.push({ path, query })
-        } else {
-          console.log('TODO: btn clicked return action.target', action)
-          throw 'TODO: btn clicked return action.target'
-        }
-      } else {
-        console.log('TODO btn clicked return action:', action.type, action)
-        throw 'TODO btn clicked return action.type '
-        // TBD next action
-        //   this.showModal = true
-      }
-    },
-
     async handleButtonClicked(node) {
       console.log('btn click', node)
-
       const { error, result } = await try_call(async () => {
         return await api.Node.button_clicked(this.viewInfo2, {
           node,
@@ -299,6 +243,11 @@ export default {
       } else {
         return this._action_return(result)
       }
+    },
+
+    async _action_return(result) {
+      // console.log('form view, action_return', result)
+      return this.action_return(result)
     }
   }
 }

@@ -22,6 +22,7 @@
         @deselect="handleOnDeselect"
         @search="handleSearch"
       >
+        <!-- <a-icon slot="menuItemSelectedIcon" type="star" /> -->
         <a-icon slot="suffixIcon" type="search" />
       </a-select>
 
@@ -41,7 +42,7 @@
                         ? 'caret-down'
                         : 'caret-right'
                     "
-                    @click="handleOnClickArrow(item)"
+                    @click="e => handleOnClickArrow(e, item)"
                   />
                 </a-col>
                 <a-col :span="20">
@@ -124,6 +125,7 @@ export default {
   computed: {
     value2: {
       get() {
+        // console.log('this.value,', this.value);
         return this.value
       },
       set(val) {
@@ -161,7 +163,7 @@ export default {
     async handleSearch(query) {
       // 搜索内容变化, 暂存搜索内容, 显示下拉菜单
 
-      console.log('testClickBtn', this.$refs.refSelect)
+      // console.log('testClickBtn', this.$refs.refSelect)
 
       this.searchText = query
       this.dropdownVisible = query ? true : false
@@ -192,30 +194,33 @@ export default {
     },
 
     handleMenuClick({ key }) {
-      console.log('handleMenuClick', key, this.arrowClicked)
+      console.log('handleMenuClick', key)
       // console.log(new Date().toISOString())
-      if (!this.arrowClicked) {
-        const keys = key.split(',')
-        const item = this.searchOptions.find(it => it.name === keys[0])
-        const sub =
-          keys.length > 1
-            ? this.subOptions[keys[0]].options.find(
-                it =>
-                  it[0] ===
-                  (typeof it[0] === 'number' ? Number(keys[1]) : keys[1])
-              )
-            : undefined
-        // console.log('handleMenuClick2', key, item, this.searchText)
-        const value = sub || this.searchText
-        const name = sub ? `id_${sub[0]}` : `name_${this.searchText}`
-        this.$emit('on-search-select', `${item.name}-${name}`, value)
-        this.dropdownVisible = false
-      }
+      // if (!this.arrowClicked) {
+      const keys = key.split(',')
+      const item = this.searchOptions.find(it => it.name === keys[0])
+      const sub =
+        keys.length > 1
+          ? this.subOptions[keys[0]].options.find(
+              it =>
+                it[0] ===
+                (typeof it[0] === 'number' ? Number(keys[1]) : keys[1])
+            )
+          : undefined
+      // console.log('handleMenuClick2', key, item, this.searchText)
+      const value = sub || this.searchText
+      const name = sub ? `id_${sub[0]}` : `name_${this.searchText}`
+      this.$emit('on-search-select', `${item.name}-${name}`, value)
+      this.dropdownVisible = false
+      // }
     },
 
-    async handleOnClickArrow(item) {
+    async handleOnClickArrow(e, item) {
       // 展开  m2o / Selection 字段的搜索
       console.log('handleOnClickArrow', item)
+      e.preventDefault()
+      e.stopPropagation()
+
       // console.log(new Date().toISOString())
       this.arrowClicked = true
 
@@ -231,8 +236,6 @@ export default {
         ...this.subOptions,
         [item.name]: { open: true, options }
       }
-
-      // this.arrowClicked = false
     },
 
     handleOnDeselect(value) {

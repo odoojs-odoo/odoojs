@@ -41,7 +41,7 @@
       <OSubForm
         :visible.sync="showModal"
         :editable="editable"
-        :data-info.sync="formData"
+        :data.sync="formData"
         :view-info="formViewInfo"
         @on-event="handleSubFormOnEvent"
       />
@@ -59,6 +59,9 @@ import ONode from '@/components/ONode/ONode'
 import OSubForm from './OSubForm.vue'
 import OM2mForm from './OM2mForm.vue'
 import OM2mNew from './OM2mNew.vue'
+
+// eslint-disable-next-line no-unused-vars
+const cp = val => JSON.parse(JSON.stringify(val))
 
 export default {
   name: 'OSubKanban',
@@ -93,7 +96,7 @@ export default {
   methods: {
     render_kanban(record) {
       const node = api.Views.kanban.render_kanban(this.viewInfo2, record)
-
+      // console.log('render_kanban2', cp(record), cp(node), cp(this.viewInfo2))
       return node
     }
   }

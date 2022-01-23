@@ -23,7 +23,24 @@
     @on-change="handleSelectionChange"
   />
 
-  <div v-else-if="widget === 'many2one_avatar_user'">
+  <div v-else-if="widget === 'attachment_image'">
+    <!-- todo: {{ [field.type, fname, widget] }}
+    {{ value_display }} -->
+    <!-- {{ [field.type, fname, widget, value_display] }} -->
+
+    <WAttachmentImage
+      :value_readonly="value_readonly"
+      :value_edit="value_edit"
+      :data-info="dataInfo"
+      :view-info="{ ...viewInfo, node }"
+    />
+  </div>
+
+  <div
+    v-else-if="
+      ['many2one_avatar_user', 'many2one_avatar_employee'].includes(widget)
+    "
+  >
     <!-- {{ value_display }} -->
     <WImage
       :value_readonly="value_readonly"
@@ -70,13 +87,15 @@ import WRadio from './WRadio.vue'
 import WSelection from './WSelection.vue'
 import WImage from './WImage.vue'
 
+import WAttachmentImage from './WAttachmentImage.vue'
+
 import OSearchSelect from './OInput/OSelect/OSearchSelect.vue'
 
 const widget_to_load_options = ['selection', 'radio']
 
 export default {
   name: 'FMany2one',
-  components: { WRadio, WSelection, WImage, OSearchSelect },
+  components: { WRadio, WSelection, WImage, WAttachmentImage, OSearchSelect },
   mixins: [OFMixin],
   props: {},
   data() {
@@ -112,6 +131,7 @@ export default {
 
     widget_todo() {
       // many2one_avatar_user
+      // many2one_avatar_employee
       // res_partner_many2one
       // many2one_barcode
       // product_configurator

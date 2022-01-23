@@ -1,4 +1,5 @@
 import { JsonRequest, FileRequest } from '../request'
+JsonRequest._session_info = undefined
 
 class Webclient extends JsonRequest {
   constructor(payload) {
@@ -114,11 +115,6 @@ class Session extends JsonRequest {
     return current_company
   }
 
-  static set allowed_company_ids(cids = []) {
-    const cids_str = cids.join(',') || String(this.current_company_id)
-    this.set_cookie('cids', cids_str)
-  }
-
   static get allowed_companies_for_selection() {
     const { user_companies = {} } = this.session_info || {}
     const { allowed_companies = {} } = user_companies
@@ -154,6 +150,11 @@ class Session extends JsonRequest {
     const todo2 = odoo_cids.slice(0, 1)
     this.allowed_company_ids = todo2
     return todo2
+  }
+
+  static set allowed_company_ids(cids = []) {
+    const cids_str = cids.join(',') || String(this.current_company_id)
+    this.set_cookie('cids', cids_str)
   }
 
   static set_first_allowed_company(cid) {
@@ -298,6 +299,70 @@ class Session extends JsonRequest {
   }
 }
 
+async function file2Base64(file) {
+  const result = await new Promise(function (resolve, reject) {
+    const reader = new FileReader()
+    let imgResult = ''
+    reader.readAsDataURL(file)
+    reader.onload = function () {
+      imgResult = reader.result
+    }
+    reader.onerror = function (error) {
+      reject(error)
+    }
+    reader.onloadend = function () {
+      resolve(imgResult)
+    }
+  })
+
+  const data = result.slice(23)
+
+  return data
+}
+
+class Binary extends FileRequest {
+  constructor(payload) {
+    super(payload)
+  }
+
+  // static async upload({ file }) {
+  //   // '/web/binary/upload'
+  //   // odoo 原本是 http 请求. 这里改为 json 实现
+  // }
+
+  static async upload_attachment(payload) {
+    const url = '/web/binary/upload_attachment'
+    const { model, id, ufile } = payload
+    const payload2 = { model, id, ufile }
+    return await this.file_import(url, payload2)
+  }
+
+  static async _bak_upload_attachment_json({ res_model, res_id, file }) {
+    // '/web/binary/upload_attachment'
+    // odoo 原本是 http 请求. 这里是 json 实现 的样例. 暂存
+    // 在上面的函数中 upload_attachment, 已经可以直接发送 http 请求
+
+    const datas = await file2Base64(file)
+    const vals = { name: file.name, res_model, res_id, datas }
+    const context = Session.user_context
+    const attach_id = await Dataset.call_kw({
+      model: 'ir.attachment',
+      method: 'create',
+      args: [vals],
+      kwargs: { context }
+    })
+
+    await Dataset.call_kw({
+      model: 'ir.attachment',
+      method: 'register_as_main_attachment',
+      args: [attach_id],
+      kwargs: { force: false }
+    })
+
+    return attach_id
+  }
+}
+
 class Action extends JsonRequest {
   constructor(payload) {
     super(payload)
@@ -320,9 +385,9 @@ class Export extends FileRequest {
     super(payload)
   }
 
-  static async _base(url, data) {
-    const payload = { data }
-    return await this.file_export(url, payload)
+  static async _base(url, data2) {
+    const data = JSON.stringify(data2)
+    return await this.file_export(url, { data })
   }
 
   static async xlsx(data) {
@@ -353,7 +418,7 @@ class Report extends FileRequest {
 
     if (report_type == 'qweb-pdf') {
       const res = await this.check_wkhtmltopdf()
-      console.log(res)
+      // console.log(res)
 
       if (res !== 'ok') {
         throw 'wkhtmltopdf not ok '
@@ -364,9 +429,13 @@ class Report extends FileRequest {
     const pattern = report_type == 'qweb-pdf' ? '/report/pdf/' : '/report/text/'
     const url = `${pattern}${report_name}/${active_ids.join(',')}`
     const data = [url, report_type]
-    const res = await this.download(data, context)
 
-    console.log(res)
+    const data2 = JSON.stringify(data)
+    const context2 = JSON.stringify(context)
+
+    const res = await this.download(data2, context2)
+
+    // console.log(res)
     return res
   }
 
@@ -374,10 +443,15 @@ class Report extends FileRequest {
     const url = '/report/download'
     const payload = { data, context }
     return await this.file_export(url, payload)
+
+    // data: ["/report/pdf/sale.report_saleorder/13,12","qweb-pdf"]
+    // context: {"lang":"zh_CN","tz":"Asia/Shanghai","uid":2,"allowed_company_ids":[1]}
+    // token: dummy-because-api-expects-one
+    // csrf_token: a295fd8dd9bb53b7b551903cbc2797085aebeba5o1674440795
   }
 }
 
-class Home extends JsonRequest {
+class Home extends FileRequest {
   constructor(payload) {
     super(payload)
   }
@@ -567,6 +641,30 @@ class Home extends JsonRequest {
       return false
     }
   }
+
+  static async content(payload) {
+    // const { xmlid, model = 'ir.attachment', id, field = 'datas' } = payload
+    // const { filename, filename_field = 'name', unique, mimetype } = payload
+    // const { download, data, access_token } = payload
+
+    const { model = 'ir.attachment', id, field = 'datas' } = payload
+    const { filename, filename_field = 'name' } = payload
+    const { download } = payload
+
+    // model: ir.attachment
+    // id: 665
+    // field: datas
+    // filename_field: name
+    // filename: 3.jpg
+    // download: true
+    // data: null
+    // token: dummy-because-api-expects-one
+    // csrf_token: 55a066a3b01d20a5a1e490513c87b6938eb5089co1674436701
+
+    const url = '/web/content'
+    const payload2 = { model, id, field, filename, filename_field, download }
+    return await this.file_export(url, payload2)
+  }
 }
 
 Home._login_info = undefined
@@ -593,8 +691,9 @@ export const web = Home
 
 web.webclient = Webclient
 web.database = Database
-web.dataset = Dataset
 web.session = Session
+web.dataset = Dataset
+web.binary = Binary
 web.action = Action
 web.export = Export
 

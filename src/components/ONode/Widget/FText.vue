@@ -25,6 +25,26 @@
     />
   </div>
 
+  <div v-else-if="widget === 'section_and_note_text'">
+    <!-- widget: section_and_note_text -->
+    <span v-if="readonly || !editable" :class="className">
+      <!-- {{ [field.type, fname] }} -->
+      {{ value_display }}
+    </span>
+
+    <div v-else>
+      <OInput
+        :value="value"
+        :fname="fname"
+        :required="required"
+        :placeholder="node.attrs.placeholder"
+        :element-id="node.attrs.id || node.attrs.name"
+        :className="className"
+        @on-change="onchange"
+      />
+    </div>
+  </div>
+
   <div v-else-if="widget_todo">{{ [field.type, fname, widget] }}</div>
 
   <span v-else-if="readonly || !editable" :class="className">
@@ -34,6 +54,7 @@
 
   <div v-else>
     <!-- edit: {{ [field.type, fname] }} -->
+    <!-- section_and_note_text -->
     <OInput
       :value="value"
       type="text"
@@ -75,7 +96,8 @@ export default {
     },
 
     widget_todo() {
-      const done = ['section_and_note_text', 'sms_widget']
+      // section_and_note_text
+      const done = ['sms_widget']
       return done.includes(this.widget) ? '' : this.widget
     },
 
@@ -91,7 +113,9 @@ export default {
 
   created() {},
 
-  mounted() {},
+  mounted() {
+    // console.log(this.viewInfo)
+  },
 
   methods: {}
 }

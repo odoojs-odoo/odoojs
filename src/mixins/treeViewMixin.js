@@ -2,6 +2,8 @@ import api from '@/odooapi'
 
 import treeSearchMixin from './treeSearchMixin'
 
+const PageSize = 2
+
 export default {
   mixins: [treeSearchMixin],
 
@@ -14,7 +16,7 @@ export default {
       pagination: {
         // position: 'top'
         total: 0,
-        pageSize: 2
+        pageSize: PageSize
       }
     }
   },
@@ -23,7 +25,7 @@ export default {
       const { pagination } = this.data
       if (pagination) return pagination
 
-      return { current: 1, total: 0, pageSize: 2 }
+      return { current: 1, total: 0, pageSize: PageSize }
     }
   },
   watch: {
@@ -45,7 +47,7 @@ export default {
 
   methods: {
     async load_data(search) {
-      // console.log('load_data', this.viewType)
+      // console.log('load_data', [search, this.searchValue])
       this.data = await api.Views[this.viewType].load_data(this.viewInfo2, {
         search: search || this.searchValue,
         pagination: this.pagination
@@ -54,7 +56,7 @@ export default {
     },
 
     async handleOnSearchChange(search) {
-      this.handlePageChange(1, search)
+      this.handlePageChange(1, undefined, search)
     },
 
     fresh_data() {
@@ -62,7 +64,7 @@ export default {
       // this.load_data()
     },
 
-    async handlePageChange(page, search) {
+    async handlePageChange(page, pageSize, search) {
       this.pagination = { ...this.pagination, current: page }
       this.load_data(search)
     },
@@ -96,6 +98,7 @@ export default {
         }
       } else {
         // const active_id = context.active_id
+        this.$route.meta.viewInfo = this.viewInfo
         const path = `/web`
         const query = {
           action: action.id,

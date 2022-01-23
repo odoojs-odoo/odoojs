@@ -1,14 +1,24 @@
 <template>
   <div class="clearfix position-relative o_form_sheet">
     <template v-for="(item, index) in node.children">
-      <ONode
-        :key="index"
-        :editable="editable"
-        :loading="loading"
-        :data-info="dataInfo"
-        :view-info="{ ...viewInfo, node: item }"
-        @on-event="handleOnEvent"
-      />
+      <template v-if="!(item.attrs.class || '').includes('oe_chatter')">
+        <ONode
+          :key="index"
+          :editable="editable"
+          :loading="loading"
+          :data-info="dataInfo"
+          :view-info="{ ...viewInfo, node: item }"
+          @on-event="handleOnEvent"
+        />
+      </template>
+    </template>
+
+    <template v-for="(item, index) in node.children">
+      <template v-if="(item.attrs.class || '').includes('oe_chatter')">
+        <div :key="index">
+          <!-- oe_chatter -->
+        </div>
+      </template>
     </template>
   </div>
 </template>

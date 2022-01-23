@@ -116,6 +116,7 @@ class FormRead extends ViewBase {
   // }
 
   static async read(info, res_id) {
+    // console.log('form, read', cp(info), res_id)
     const Model = this.Model(info)
     const fields = this._fields_list(info)
     const result = await Model.read(res_id, fields)
@@ -170,13 +171,42 @@ class FormEdit extends FormRead {
     return this._values_for_onchange_and_modifiers({ view }, { record, values })
   }
 
+  static _onchange_spec_get(info) {
+    // console.log('_onchange_spec_get,', cp(info))
+    const { view, parent } = info
+    if (!parent) return _onchange_spec(view)
+
+    const fname = parent.node.attrs.name
+    const parent_view = parent.view
+
+    const parent_spec = _onchange_spec(parent_view)
+
+    const spec = Object.keys(parent_spec).reduce((acc, fld) => {
+      const fs = fld.split('.')
+      if (fs.length === 2) {
+        const [rel_fld, me_fld] = fs
+        if (rel_fld === fname) {
+          acc[me_fld] = parent_spec[fld]
+        }
+      }
+
+      return acc
+    }, {})
+
+    // console.log('_onchange_spec_get2,', fname, cp(parent_spec), cp(spec))
+
+    return spec
+  }
+
   //
   static async onchange_new(info, payload = {}) {
-    const { view } = info
+    console.log('onchange new,', cp(info))
+
     const { values = {} } = payload
 
     const Model = this.Model(info)
-    const field_onchange = _onchange_spec(view)
+    const field_onchange = this._onchange_spec_get(info)
+
     const result = await Model.onchange([], values, '', field_onchange)
     const { value: value_ret, ...res } = result
     const values_ret = { ...values, ...value_ret }
@@ -189,12 +219,11 @@ class FormEdit extends FormRead {
   // 返回  domain. 如何使用
   // TODO
   static async onchange(info, payload = {}) {
-    console.log('onchange,', payload)
-    const { view } = info
+    // console.log('onchange,', payload)
     const { record = {}, values = {}, fname, kwargs = {} } = payload
 
     const Model = this.Model(info)
-    const field_onchange = _onchange_spec(view)
+    const field_onchange = this._onchange_spec_get(info)
 
     // const to_call = field_onchange[fname]
     //  if (to_call)  then  onchange to server
@@ -303,6 +332,11 @@ export class Form extends FormEdit {
 
   static tuples_to_ids(tuples) {
     return tuples_to_ids(tuples)
+  }
+
+  static async read(info, res_id) {
+    const view = info.views.fields_views.form
+    return super.read({ ...info, view }, res_id)
   }
 
   static async load_data(info, res_id) {

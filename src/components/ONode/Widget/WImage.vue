@@ -53,6 +53,7 @@ export default {
     image_url() {
       const record = this.record
       // console.log(api)
+      // console.log('image_url,  ', this, this.editable)
       const url = api.Node.image_url(this.viewInfo, record)
       return url
     }

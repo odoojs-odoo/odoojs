@@ -34,6 +34,8 @@
 <script>
 import api from '@/odooapi'
 
+const PageSize = 10
+
 export default {
   name: 'OM2mNew',
   components: {},
@@ -59,7 +61,7 @@ export default {
       pagination: {
         // position: 'top'
         total: 0,
-        pageSize: 2
+        pageSize: PageSize
       },
 
       selectedRowKeys: [],
@@ -161,7 +163,7 @@ export default {
       const ids = recs.map(item => item.id)
       const vals = [6, false, ids]
 
-      this.$emit('on-event', 'on-commit', vals, recs)
+      this.$emit('on-event', 'on-commit', { value: vals, m2m_records: recs })
       this.showModal = false
 
       this.selectedRowKeys = []

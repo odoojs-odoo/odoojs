@@ -16,10 +16,10 @@
           <a-icon type="home" />
           <span>首页</span>
         </a-menu-item>
-        <a-menu-item key="test">
+        <!-- <a-menu-item key="test">
           <a-icon type="video-camera" />
           <span>Test</span>
-        </a-menu-item>
+        </a-menu-item> -->
 
         <template v-for="item in menus">
           <template v-if="is_sub_menu(item)">
@@ -143,6 +143,30 @@ const cp = val => JSON.parse(JSON.stringify(val))
 
 const HOME_PATH = '/'
 
+const todo = [
+  // 'account.menu_board_journal_1',
+  // 'stock.stock_picking_type_menu',
+  // 'mail.menu_root_discuss'
+]
+
+const _menus_filter = menus => {
+  const menus2 = menus.reduce((acc, menu) => {
+    if (!todo.includes(menu.xmlid))
+      if (!menu.children) acc.push(menu)
+      else acc.push({ ...menu, children: _menus_filter(menu.children) })
+
+    return acc
+  }, [])
+
+  return menus2
+}
+
+const menus_get = () => {
+  const menu_data = api.web.menu_data || { children: [] }
+  const menus = [...(menu_data.children || [])]
+  return _menus_filter(menus)
+}
+
 export default {
   name: 'Base',
   components: { SubMenu, CompanySelect, WizardForm },
@@ -169,10 +193,7 @@ export default {
     },
 
     menus() {
-      const menus = api.web.menu_data || { children: [] }
-      return [...(menus.children || [])].filter(
-        item => item.xmlid !== 'mail.menu_root_discuss'
-      )
+      return menus_get()
     }
   },
 

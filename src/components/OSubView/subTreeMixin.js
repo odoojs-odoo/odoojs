@@ -1,8 +1,11 @@
 import api from '@/odooapi'
 
+// eslint-disable-next-line no-unused-vars
+const cp = val => JSON.parse(JSON.stringify(val))
+
 export default {
   components: {},
-  // mixins: [OMixin],
+  mixins: [],
 
   props: {
     fname: { type: String, default: undefined },
@@ -14,6 +17,9 @@ export default {
     },
 
     editable: { type: Boolean, default: false },
+
+    rowEditchanged: { type: Boolean, default: false },
+
     viewInfo: {
       type: Object,
       default: () => {
@@ -43,7 +49,9 @@ export default {
 
   data() {
     return {
-      // values: [],
+      // 点击新增按钮, 设置标志, 便于 line edit 新增行
+      createClicked: false,
+
       formViewInfo: undefined,
       formData: {},
       showModal: false,
@@ -54,6 +62,15 @@ export default {
   },
 
   computed: {
+    rowEditchanged2: {
+      get() {
+        return this.rowEditchanged
+      },
+      set(val) {
+        this.$emit('update:rowEditchanged', val)
+      }
+    },
+
     viewType() {
       // to override, set view type
       return 'subtree'
@@ -69,6 +86,19 @@ export default {
       return values
     },
 
+    values_display_new() {
+      if (this.createClicked) {
+        const me = api.Node.values_display(this.viewInfoForCall, {
+          record: {},
+          values: { ...this.formData.values }
+        })
+        const values = [{ ...me }]
+        return values
+      } else {
+        return []
+      }
+    },
+
     values_display() {
       const records = this.records
       const values = [
@@ -76,8 +106,8 @@ export default {
         ...this.values
       ]
 
+      // console.log('values2,', cp(values), cp(this.formData))
       // console.log(records, values)
-
       // console.log('m2mSelectOptions,', this.m2mSelectOptions)
       const vals = values.reduce((acc, tup) => {
         const op = tup[0]
@@ -109,10 +139,11 @@ export default {
 
         return acc
       }, [])
-
       // console.log('values2,', vals)
 
-      return vals
+      const values_new = this.values_display_new
+
+      return [...vals, ...values_new]
     },
 
     view() {
@@ -148,16 +179,41 @@ export default {
 
     node() {
       return api.Views[this.viewType].view_node(this.viewInfo2)
+    },
+
+    tree_node_editable() {
+      // return ''
+      return this.node.attrs.editable
     }
   },
 
-  watch: {},
+  watch: {
+    editable(newVal, oldVal) {
+      // console.log(newVal, oldVal, this.data)
+      if (!oldVal && newVal) {
+        this.formData = {}
+      }
+    }
+  },
 
   async created() {},
-  async mounted() {},
+  async mounted() {
+    // console.log(cp(this.node))
+  },
 
   methods: {
+    setShowModel() {
+      if (!this.editable) {
+        this.showModal = true
+      } else if (!['top', 'bottom'].includes(this.tree_node_editable)) {
+        this.showModal = true
+      } else {
+        this.showModal = false
+      }
+    },
+
     async handleOnCreate() {
+      // console.log('handleOnCreate')
       if (this.field.type === 'many2many') {
         const info = this.viewInfo2
 
@@ -178,38 +234,75 @@ export default {
 
         const { viewInfo, data } = res
         this.formViewInfo = viewInfo
-        this.formData = data
+        this.formData = { ...data }
 
-        this.showModal = true
+        if (this.tree_node_editable) {
+          this.createClicked = true
+          const values_new = this.values_display_new
+          this.$refs.refSubTreeEdit.setCurrentRow(values_new)
+          this.rowEditchanged2 = true
+        }
+
+        this.setShowModel()
       }
     },
 
     async handleOnRowClick(row) {
+      return this.handleSubRowChange(row)
+    },
+
+    async handleSubRowChange(record) {
+      // console.log('handleSubRowChange', record)
       const info = this.viewInfoForCall
 
-      // console.log(' handleOnRowClick ', row, cp(this.viewInfo))
+      const row = { ...record }
+      if (!row.id) delete row.id
 
       const res = await api.Node.relation_pick(info, {
         parentData: this.parentData,
         row,
         editable: this.editable
       })
-      // console.log(' handleOnRowClick2 ', row, cp(res))
+      console.log(' handleOnRowClick2 ', row, cp(res))
 
       const { viewInfo, data } = res
       this.formViewInfo = viewInfo
       this.formData = data
-
-      this.showModal = true
+      this.createClicked = false
+      this.setShowModel()
     },
 
     handleSubFormOnEvent(event_name, ...args) {
+      // console.log(' handleSubFormOnEvent', event_name, ...args)
+
       if (event_name === 'on-commit') {
         this.handleOnCommit(...args)
+      } else if (event_name === 'on-rollback') {
+        this.subRowRollback(...args)
+      } else if (event_name === 'on-change-ok') {
+        this.subRowOnchangeOk(...args)
       }
     },
 
-    async handleOnCommit(tuple, m2m_records = []) {
+    async subRowOnchangeOk({ data }) {
+      // TODO:
+      // TREE line edit 需要 立即 调用 parent onchange
+      // 如果再取消, 则再触发一次  parent onchange
+
+      // this.formData = { ...this.formData, values: {} }
+      this.formData = { ...data }
+      this.rowEditchanged2 = true
+    },
+
+    async subRowRollback({ done }) {
+      // console.log('subRowRollback subform')
+      // this.formData = { ...this.formData, values: {} }
+      this.formData = {}
+      this.createClicked = false
+      done()
+    },
+
+    async handleOnCommit({ value, m2m_records = [], done }) {
       // console.log(
       //   'handleOnCommit from subform',
       //   records,
@@ -226,9 +319,14 @@ export default {
       const ret_commit = await api.Node.relation_commit(info, {
         records: this.records,
         values: this.values,
-        formData: { fname, field, value: tuple },
+        formData: { fname, field, value },
         parentData: this.parentData
       })
+
+      this.createClicked = false
+      this.formData = {}
+
+      if (done) done()
 
       // console.log('subtree,commit,', cp(ret_commit))
 

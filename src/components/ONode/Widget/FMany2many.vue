@@ -1,6 +1,19 @@
 <template>
   <span v-if="invisible"></span>
 
+  <!--  -->
+  <span v-else-if="widget === 'many2many_tags_email'">
+    todo: many2many_tags_email
+    <WM2mTags
+      :value_readonly="value_readonly"
+      :value_edit="value_edit"
+      :editable="editable"
+      :data-info="dataInfo"
+      :view-info="{ ...viewInfo, node }"
+      @on-change="onchange"
+    />
+  </span>
+
   <WM2mTags
     v-else-if="widget === 'many2many_tags'"
     :value_readonly="value_readonly"

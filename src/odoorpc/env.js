@@ -73,30 +73,26 @@ export class Environment {
     return this._model_registry[model]
   }
 
-  with_context(context) {
-    // env.copy 前, 需要自己把 context 组织好
-    // env里的 旧的 context 被全覆盖
+  with_context(kwargs = {}, context) {
+    const context2 = context ? context : this.context
+    const context3 = { ...context2, ...kwargs }
+    const env = new this.constructor({ context: context3 })
+    return env
+  }
+
+  copy(context) {
     const env = new this.constructor({ context })
     return env
   }
 
-  append_context(context) {
-    const context2 = { ...this.context, ...context }
-    return this.with_context(context2)
-  }
-
-  copy(context) {
-    return this.with_context(context)
-  }
-
   async ref(xml_id) {
-    const res = this._ref_registry[xml_id]
-    if (res) return res
+    // const res = this._ref_registry[xml_id]
+    // if (res) return res
 
     const Model = this.model('ir.model.data')
     const args = ['xmlid_to_res_model_res_id', xml_id, true]
-    const [model, id_] = await Model.execute(...args)
-    const res2 = { model, id: id_ }
+    const [model, res_id] = await Model.execute(...args)
+    const res2 = { model, id: res_id }
     // this._ref_registry[xml_id] = res2
     return res2
   }

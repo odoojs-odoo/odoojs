@@ -11,34 +11,21 @@
       </div>
     </template>
 
-    <div class="o_list_view o_list_optional_columns">
-      <!-- {{ values_display }} -->
-      <a-table
-        class="o_list_table o_list_table_ungrouped o_section_and_note_list_view"
-        :columns="columns"
-        :data-source="values_display"
-        rowKey="id"
-        :pagination="false"
-        :customRow="tableCustomRow"
-      >
-      </a-table>
-
-      <!-- <div class="table-responsive">
-        <table
-          class="o_list_table table table-sm table-hover table-striped o_list_table_ungrouped o_section_and_note_list_view"
-          stype="table-layout: fixed"
-        >
-          tab
-        </table>
-      </div>
-      <div class="o_optional_columns text-center dropdown">
-        o_optional_columns
-      </div> -->
-    </div>
+    <SubTreeEdit
+      ref="refSubTreeEdit"
+      :columns="columns"
+      :data-source="values_display"
+      :editable="editable"
+      :rowEditable="tree_node_editable ? true : false"
+      :rowEditchanged.sync="rowEditchanged2"
+      :view-info="viewInfo2"
+      :formData.sync="formData"
+      :formViewInfo="formViewInfo"
+      @on-row-change="handleSubRowChange"
+      @on-event="handleSubFormOnEvent"
+    />
 
     <template v-if="field.type === 'many2many'">
-      <!-- {{ values_display }}
-      {{ data }} -->
       <OM2mForm
         :visible.sync="showModal"
         :editable="editable"
@@ -79,13 +66,15 @@ import subTreeMixin from './subTreeMixin'
 // eslint-disable-next-line no-unused-vars
 const cp = val => JSON.parse(JSON.stringify(val))
 
+import SubTreeEdit from './SubTreeEdit.vue'
+
 import OSubForm from './OSubForm.vue'
 import OM2mForm from './OM2mForm.vue'
 import OM2mNew from './OM2mNew.vue'
 
 export default {
   name: 'OSubTree',
-  components: { OSubForm, OM2mForm, OM2mNew },
+  components: { SubTreeEdit, OSubForm, OM2mForm, OM2mNew },
   mixins: [subTreeMixin],
   props: {},
   data() {
@@ -99,6 +88,7 @@ export default {
     view_columns() {
       const { fields } = this.view
       const node = this.node
+      // console.log(cp(this.node))
       const columns = (node.children || [])
         .filter(item => item.tagName === 'field')
         .map(item => {
@@ -119,39 +109,20 @@ export default {
         item =>
           !item.node.attrs.invisible &&
           item.node.attrs.optional !== 'hide' &&
-          item.node.tagName === 'field'
+          item.node.tagName === 'field' &&
+          item.node.attrs.widget !== 'handle'
 
         // item.node.tagName !== 'groupbyb' &&
       )
       // console.log(JSON.parse(JSON.stringify(cols2)))
 
-      const get_render = col => {
-        if (col.meta.type === 'many2one') {
-          // eslint-disable-next-line no-unused-vars
-          return (value, row, index) => (value ? value[1] : '')
+      return cols2.map(item => {
+        if (item.node.attrs.widget === 'handle') {
+          return { ...item, title: '' }
+        } else {
+          return item
         }
-        if (col.meta.type === 'selection') {
-          const get_label = value => {
-            const elm = col.meta.selection.find(item => item[0] === value)
-            return elm ? elm[1] : ''
-          }
-          // eslint-disable-next-line no-unused-vars
-          return (value, row, index) => (value ? get_label(value) : '')
-        }
-
-        return undefined
-      }
-
-      return [...cols2].map(col => {
-        const ret = { ...col, dataIndex: col.key }
-        const render = get_render(col)
-        if (render) ret.customRender = render
-        return ret
       })
-
-      // return [...cols2].map(col => {
-      //   return { ...col, dataIndex: col.key }
-      // })
     }
   },
 
@@ -161,20 +132,7 @@ export default {
 
   mounted() {},
 
-  methods: {
-    tableCustomRow(record) {
-      const that = this
-      return {
-        on: {
-          // eslint-disable-next-line no-unused-vars
-          click: event => {
-            // console.log(record, event)
-            that.handleOnRowClick(record)
-          }
-        }
-      }
-    }
-  }
+  methods: {}
 }
 </script>
 

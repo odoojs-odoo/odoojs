@@ -15,6 +15,9 @@
       :className="className"
       @on-change="handleOnchange"
     />
+    <template v-if="!node.attrs.nolabel">
+      {{ value ? '从收藏移除' : '添加到收藏' }}
+    </template>
   </div>
 
   <ORate
@@ -72,13 +75,13 @@ export default {
   methods: {
     async handleOnchange(value) {
       console.log('handleOnchange', [this.fname, value])
-      //   this.$emit('on-event', 'on-write', { [this.fname]: value })
-    },
-
-    async onchange(value) {
-      console.log('handleOnchange', [this.fname, value])
-      //   this.$emit('on-event', 'on-write', { [this.fname]: value })
+      this.$emit('on-event', 'on-write', { [this.fname]: value })
     }
+
+    // async onchange(value) {
+    //   console.log('handleOnchange', [this.fname, value])
+    //   //   this.$emit('on-event', 'on-write', { [this.fname]: value })
+    // }
   }
 }
 </script>

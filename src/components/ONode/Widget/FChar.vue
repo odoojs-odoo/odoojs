@@ -12,7 +12,28 @@
     />
   </div>
 
-  <div v-else-if="widget_todo">{{ [field.type, fname, widget] }}</div>
+  <div v-else-if="widget === 'text'">
+    <!-- widget: text -->
+    <span v-if="readonly || !editable" :class="className">
+      <!-- {{ [field.type, fname] }} -->
+      {{ value_display }}
+    </span>
+
+    <div v-else>
+      <OInput
+        :value="value"
+        type="text"
+        :fname="fname"
+        :required="required"
+        :placeholder="node.attrs.placeholder"
+        :element-id="node.attrs.id || node.attrs.name"
+        :className="className"
+        @on-change="onchange"
+      />
+    </div>
+  </div>
+
+  <div v-else-if="widget_todo">todo: {{ [field.type, fname, widget] }}</div>
 
   <span v-else-if="readonly || !editable" :class="className">
     <!-- {{ [field.type, fname] }} -->
@@ -63,7 +84,8 @@ export default {
         'phone',
         'url',
         'email',
-        'field_partner_autocomplete'
+        'field_partner_autocomplete',
+        'section_and_note_text'
       ]
       return done.includes(this.widget) ? '' : this.widget
     },

@@ -4,16 +4,6 @@ import editMixin from './editMixin'
 
 // const cp = item => JSON.parse(JSON.stringify(item))
 
-// const global_debug = 1
-// const try_call = async (fn, debug) => {
-//   if (global_debug || debug) return { result: await fn() }
-//   try {
-//     return { result: await fn() }
-//   } catch (error) {
-//     return { error }
-//   }
-// }
-
 export default {
   mixins: [viewMixin, editMixin],
 

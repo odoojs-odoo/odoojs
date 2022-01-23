@@ -6,12 +6,13 @@ export default class DatasetTestCase extends BaseTestCase {
     await this.call_kw()
     await this.call_kw_with_context()
   }
+
   async call_kw() {
     await this.login()
     const model = 'ir.module.module'
     const method = 'search_read'
     const domain = []
-    const fields = ['name', 'display_name']
+    const fields = ['name']
     const limit = 10
     const order = 'name'
 
@@ -23,9 +24,10 @@ export default class DatasetTestCase extends BaseTestCase {
     }
 
     const res = await rpc.web.dataset.call_kw(payload)
-    console.log('module, en,', res)
+    console.log(res)
     return res
   }
+
   async call_kw_with_context() {
     await this.login()
     const model = 'ir.module.module'

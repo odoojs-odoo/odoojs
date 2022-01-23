@@ -65,6 +65,7 @@ class IrActionsServer extends IrActions {
 export class Action {
   constructor() {}
   static _context({ context = {}, action }) {
+    // console.log(action, context)
     const ctx = get_context(action.context, { ...context })
     return context ? { ...context, ...ctx } : { ...ctx }
   }
@@ -197,6 +198,8 @@ export class Action {
       // type: "ir.actions.client"
       return {}
     }
+
+    // console.log('load_views, ', cp([context, action]))
 
     const Obj = this.Model({ context, action })
 

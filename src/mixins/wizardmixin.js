@@ -1,20 +1,9 @@
 import api from '@/odooapi'
+import { try_call } from '@/odooapi/tools'
 
 import editMixin from './editMixin'
 
 const cp = val => JSON.parse(JSON.stringify(val))
-
-let global_debug = 0
-global_debug = 1
-
-const try_call = async (fn, debug) => {
-  if (global_debug || debug) return { result: await fn() }
-  try {
-    return { result: await fn() }
-  } catch (error) {
-    return { error }
-  }
-}
 
 export default {
   mixins: [editMixin],

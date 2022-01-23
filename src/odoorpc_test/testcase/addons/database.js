@@ -1,14 +1,16 @@
+import BaseTestCase from './base'
 import rpc from '@/odoorpc'
 
-export default class DatabaseTestCase {
+export default class DatabaseTestCase extends BaseTestCase {
   constructor(config) {
+    super(config)
     const { master_pwd } = config
     this.master_pwd = master_pwd
   }
 
   async test() {
     await this.list()
-    await this.create()
+    // await this.create()
     // await this.list()
     // await this.drop()
     // await this.list()
@@ -21,7 +23,7 @@ export default class DatabaseTestCase {
 
   async create() {
     const master_pwd = this.master_pwd
-    const name = 'test_db'
+    const name = 'db_for_test_create_drop'
     const lang = 'zh_CN'
     const password = '123456'
     const kwargs = {
@@ -60,7 +62,7 @@ export default class DatabaseTestCase {
 
     console.log('test database drop:', name)
     console.log('begin:', new Date().getTime(), new Date())
-    const res = await rpc.web.database.drop(master_pwd, name)
+    const res = await this.api.web.database.drop(master_pwd, name)
     console.log('end:', new Date().getTime(), new Date())
     console.log('test database drop:', res)
     return res

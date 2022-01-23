@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <div @click="onclick">
     <!-- {{ fname }}
     {{ selectionOptions }}
-
-    {{ [record[fname], value2[fname], value] }} -->
+     -->
 
     <a-rate
       v-model="value2[fname]"
@@ -34,7 +33,13 @@ export default {
   async mounted() {},
 
   methods: {
+    onclick(e) {
+      // console.log('onclick rate')
+      e.preventDefault()
+      e.stopPropagation()
+    },
     onChange(value) {
+      console.log('onChange rate')
       // console.log('onChangeRadio', [
       //   this.fname,
       //   value,
@@ -49,11 +54,11 @@ export default {
 </script>
 
 <style lang="less">
-  .o_field_widget{
-    .ant-rate{
-      position: absolute;
-      top: 0px;
-      left: 0px;
-    }
+.o_field_widget {
+  .ant-rate {
+    position: absolute;
+    top: 0px;
+    left: 0px;
   }
+}
 </style>

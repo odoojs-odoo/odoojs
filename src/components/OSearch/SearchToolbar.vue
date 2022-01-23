@@ -81,22 +81,12 @@
         </template>
       </a-menu>
     </a-dropdown>
-
-    <!-- <a-button-group>
-      <a-space>
-        <a-button icon="menu" size="small">分组 </a-button>
-        <a-button size="small">
-          <a-icon type="star" theme="filled" />
-          收藏
-        </a-button>
-      </a-space>
-    </a-button-group> -->
   </span>
 </template>
 
 <script>
 export default {
-  name: 'SearchViewBtn',
+  name: 'SearchToolbar',
   components: {},
   mixins: [],
 
@@ -126,7 +116,7 @@ export default {
 
   methods: {
     handleOnDropdownSelect(item) {
-      // console.log(item, item.valueString)
+      console.log(item, item.valueString)
 
       this.$emit('on-search-select', item.name, !item.checked)
     }

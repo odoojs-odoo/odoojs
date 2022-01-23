@@ -125,26 +125,6 @@ export default {
         ',',
         data_type
       ])
-
-      // var newNode = createElement(
-      //   'div',
-      //   {
-      //     domProps: {
-      //       innerHTML: this.record[this.fname]
-      //     },
-      //     attrs: {
-      //       // 'v-html': this.record[this.fname],
-      //     }
-      //   },
-      //   [
-      //     // this.record[this.fname]
-      //     // 'todo field:',
-      //     // this.fname,
-      //     // ',',
-      //     // data_type
-      //   ]
-      // )
-      // return newNode
     }
   },
 

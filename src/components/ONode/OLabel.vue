@@ -45,6 +45,13 @@ export default {
       const arr = [...this.classNameByNode]
       arr.push('o_form_label')
       // TODO: how to add [ o_form_label_empty ]
+      if (this.node.tagName === 'label')
+        console.log(
+          this.node.tagName,
+          this.node.attrs.for,
+          this.editable,
+          this.node
+        )
       return arr.join(' ')
     },
 

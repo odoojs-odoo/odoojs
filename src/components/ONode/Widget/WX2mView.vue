@@ -2,7 +2,24 @@
   <div>
     <div>
       <div align="left" v-if="editable && !readonly">
-        <a-button size="small" @click="handleOnCreateO2m">
+        <!-- rowEditchanged= {{ rowEditchanged }} -->
+
+        <a-popconfirm
+          v-if="rowEditchanged"
+          ok-text="确认"
+          cancel-text="取消"
+          @confirm="handleOnCreateO2m"
+        >
+          <template slot="title">
+            当前行已经编辑, <br />确认要放弃编辑, <br />创建一新行?
+          </template>
+
+          <a-button size="small">
+            {{ field.type === 'many2many' ? '添加' : '创建' }}
+          </a-button>
+        </a-popconfirm>
+
+        <a-button v-else size="small" @click="handleOnCreateO2m">
           {{ field.type === 'many2many' ? '添加' : '创建' }}
         </a-button>
       </div>
@@ -45,6 +62,7 @@
             :fname="fname"
             :field="field"
             :editable="editable"
+            :rowEditchanged.sync="rowEditchanged"
             :viewInfo="relationInfo"
             :data.sync="subData"
             :parentViewInfo="{ ...viewInfo, node }"
@@ -80,6 +98,8 @@ import OSubTree from '@/components/OSubView/OSubTree.vue'
 import OSubKanban from '@/components/OSubView/OSubKanban.vue'
 
 import api from '@/odooapi'
+// eslint-disable-next-line no-unused-vars
+const cp = val => JSON.parse(JSON.stringify(val))
 
 const check_array_equ = (listA, listB) => {
   let result =
@@ -98,6 +118,7 @@ export default {
 
   data() {
     return {
+      rowEditchanged: false,
       subViewType: 'tree',
       subData: { records: [] },
       relationInfo: undefined
@@ -121,17 +142,42 @@ export default {
       if (!ids) return 'wait_parent_data'
       if (!ids.length) return 'need_not_load'
       const ids_loaded = this.subRecords.map(item => item.id)
+      // console.log(
+      //   'o2m dataLoadStatus',
+      //   this.fname,
+      //   ids,
+      //   ids_loaded,
+      //   check_array_equ(ids, ids_loaded)
+      // )
       if (check_array_equ(ids, ids_loaded)) return 'loaded'
       else return 'toload'
     }
   },
 
   watch: {
-    // eslint-disable-next-line no-unused-vars
-    dataLoadStatus(newValue, oldValue) {
-      // console.log('o2m dataLoadStatus', this.fname, newValue, oldValue)
-      if (newValue === 'toload') {
-        this.load_relation_data()
+    // // eslint-disable-next-line no-unused-vars
+    // dataLoadStatus(newValue, oldValue) {
+    //   console.log('watch dataLoadStatus', this.fname, newValue, oldValue)
+    //   if (newValue === 'toload') {
+    //     this.load_relation_data()
+    //   }
+    // },
+
+    dataLoadStatus: {
+      // eslint-disable-next-line no-unused-vars
+      handler: function (newValue, oldValue) {
+        // console.log('watch dataLoadStatus', this.fname, newValue, oldValue)
+        if (newValue === 'toload') {
+          this.load_relation_data()
+        }
+      },
+      deep: true,
+      immediate: true
+    },
+    editable(newVal, oldVal) {
+      // console.log(newVal, oldVal, cp(this.subData))
+      if (!newVal && oldVal) {
+        this.subData = { records: [] }
       }
     }
   },

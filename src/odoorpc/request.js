@@ -173,23 +173,16 @@ class ProxyFileExport extends Proxy0 {
   }
 
   async call(url, payload = {}) {
-    const { data, context, csrf_token } = payload
     const url2 = url[0] === '/' ? url : `/${url}`
     // const csrf_token = this.csrf_token
-    const token = 'dummy-because-api-expects-one'
     // const csrf_token = 'xxxxx'
-    const context_data = context ? { context: JSON.stringify(context) } : {}
-    const data2 = {
-      data: JSON.stringify(data),
-      ...context_data,
-      token,
-      csrf_token
-    }
+    // const context_data = context ? { context: JSON.stringify(context) } : {}
+    const data = { ...payload }
 
     const response_data = await this._service({
       url: url2,
       method: 'post',
-      data: data2
+      data
     })
 
     console.log(response_data)
@@ -227,7 +220,16 @@ class ProxyFileImport extends Proxy0 {
 
         const data = config.data
         const fd = new FormData()
-        Object.keys(data).forEach(item => fd.append(item, data[item]))
+        Object.keys(data).forEach(item => {
+          if (item === 'ufile') {
+            const ufile = data[item]
+            const arr = Array.from(new Array(ufile.length).keys())
+            arr.forEach(index => fd.append(item, ufile[index]))
+          } else {
+            fd.append(item, data[item])
+          }
+        })
+
         config.data = fd
         return config
       },
@@ -257,6 +259,21 @@ class ProxyFileImport extends Proxy0 {
   }
 
   async call(url, payload) {
+    const url2 = url[0] === '/' ? url : `/${url}`
+    const data = { ...payload }
+
+    const response_data = await this._service({
+      url: url2,
+      method: 'post',
+      data
+    })
+
+    // console.log(response_data)
+
+    return response_data
+  }
+
+  async __backup_in_here_for_base_import_call(url, payload) {
     const url2 = url[0] === '/' ? url : `/${url}`
     // const csrf_token = 'xxxxx'
 
@@ -322,7 +339,6 @@ export class JsonRequest {
 
 JsonRequest._baseURL = undefined
 JsonRequest._timeout = undefined
-JsonRequest._session_info = undefined
 
 export class FileRequest extends JsonRequest {
   constructor(payload) {
@@ -335,18 +351,15 @@ export class FileRequest extends JsonRequest {
   }
 
   static async file_export(url, payload) {
-    const csrf_token = await this.csrf_token()
-    // console.log(csrf_token)
-
-    // console.log(this.baseURL, this.timeout)
-    // console.log(url, payload)
-
     const req = new ProxyFileExport({
       baseURL: this.baseURL,
       timeout: this.timeout
     })
 
-    const data = await req.call(url, { ...payload, csrf_token })
+    const token = 'dummy-because-api-expects-one'
+    const csrf_token = await this.csrf_token()
+
+    const data = await req.call(url, { ...payload, token, csrf_token })
 
     // console.log(url, payload, data)
     if (data.error) {
@@ -360,18 +373,26 @@ export class FileRequest extends JsonRequest {
     }
   }
 
-  // async file_import(url, payload) {
-  //   const data = await this._connector.proxy_file_import.call(url, payload)
-  //   if (data.error) {
-  //     // TBD
-  //     throw data.error
-  //     // raise error.RPCError(
-  //     //   data['error']['data']['message'],
-  //     //   data['error'])
-  //   } else {
-  //     return data
-  //   }
-  // }
+  static async file_import(url, payload) {
+    const req = new ProxyFileImport({
+      baseURL: this.baseURL,
+      timeout: this.timeout
+    })
+
+    const csrf_token = await this.csrf_token()
+    const data = await req.call(url, { ...payload, csrf_token })
+
+    // console.log(url, payload, data)
+    if (data.error) {
+      // TBD
+      throw data.error
+      // raise error.RPCError(
+      //   data['error']['data']['message'],
+      //   data['error'])
+    } else {
+      return data
+    }
+  }
 
   /*
   // 数据导出 流程

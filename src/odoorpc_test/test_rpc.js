@@ -13,6 +13,7 @@ const test = new Test(config)
 
 export const test_rpc = async () => {
   // alert('test rpc')
+  // await test.base_import.test()
   // await test_database_create()
   // await test_database_drop()
   // await test.base.version_info()
@@ -21,7 +22,7 @@ export const test_rpc = async () => {
   // await test.dataset.test()
   // await test.model.test()
   // await test.context.test()
-  await test.ir_module.test()
+  // await test.ir_module.test()
   // await test.home.test()()
   //
   // TODO

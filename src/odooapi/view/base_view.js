@@ -53,10 +53,6 @@ export class ViewBase {
     return Object.keys(fields)
   }
 
-  static env({ context }) {
-    return new rpc.Environment({ context })
-  }
-
   static Model({ context, action }) {
     const { res_model } = action
     const ctx = this._context({ context, action })

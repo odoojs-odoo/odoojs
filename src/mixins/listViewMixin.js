@@ -1,16 +1,7 @@
 import treeViewMixin from '@/mixins/treeViewMixin'
 
 import api from '@/odooapi'
-
-const try_call = async (fn, debug) => {
-  if (debug) return { result: await fn() }
-  try {
-    return { result: await fn() }
-  } catch (error) {
-    console.log(error)
-    return { error }
-  }
-}
+import { try_call } from '@/odooapi/tools'
 
 export default {
   mixins: [treeViewMixin],
@@ -20,10 +11,7 @@ export default {
   data() {
     return {
       activeIdsWithGroupby: [],
-      expandedRowKeys: [],
-
-      showWizard: false,
-      wizardViewInfo: {}
+      expandedRowKeys: []
     }
   },
   computed: {
@@ -120,7 +108,6 @@ export default {
 
     handleOnEvent(event_name, ...args) {
       // search value change
-
       if (event_name === 'on-search-change') this.handleOnSearchChange(...args)
       // 导出全部按钮, 直接下载
       // 打印按钮, 直接下载
@@ -174,7 +161,7 @@ export default {
       if (error) {
         this.$error({ title: '用户错误', content: error.data.message })
       } else {
-        this.activeIds = []
+        this.activeIdsWithGroupby = []
         this.fresh_data()
       }
     },
@@ -210,53 +197,6 @@ export default {
       }
     },
 
-    async _action_return(result) {
-      if (!result) {
-        return
-      }
-
-      const { context, action } = result
-      if (action.type === 'ir.actions.act_url') {
-        console.log('建设中 act_url :', action.url)
-        this.$message.info(`建设中..., act_url`)
-      } else if (action.type === 'ir.actions.report') {
-        console.log('建设中 report :', action.type)
-        this.$message.info(`建设中..., ${action.type}`)
-      } else if (action.type === 'ir.actions.act_window') {
-        if (action.target === 'new') {
-          console.log('TODO: btn clicked return action.target = new', action)
-          this.wizardViewInfo = result
-          this.showWizard = true
-          // throw 'TODO: btn clicked return action.target = new'
-        } else if (
-          ['current', 'main'].includes(action.target) ||
-          !action.target
-        ) {
-          console.log(action.target, 'current  router', action)
-          const res_id = action.res_id
-          const action_id = action.id
-          const query = {
-            action: action_id,
-            active_id: context.active_id,
-            ...(res_id ? { view_type: 'form', id: res_id } : {})
-          }
-
-          this.$route.meta.viewInfo = result
-          // console.log(action.target, query)
-          const path = `/web`
-          this.$router.push({ path, query })
-        } else {
-          console.log('TODO: btn clicked return action.target', action)
-          throw 'TODO: btn clicked return action.target'
-        }
-      } else {
-        console.log('TODO btn clicked return action:', action.type, action)
-        throw 'TODO btn clicked return action.type '
-        // TBD next action
-        //   this.showModal = true
-      }
-    },
-
     handleOnViewEvent(event_name, ...args) {
       // console.log(' handleOnViewEvent, ', event_name, args)
       // 点击按钮
@@ -268,6 +208,11 @@ export default {
       console.log('wizard btn click')
       if (!result) this.fresh_data()
       else return this._action_return(result)
+    },
+
+    async _action_return(result) {
+      // console.log('list view, action_return', result)
+      return this.action_return(result)
     }
   }
 }

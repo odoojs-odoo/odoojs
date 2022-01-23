@@ -11,7 +11,7 @@ const cp = item => JSON.parse(JSON.stringify(item))
 
 const Tags_Ready1 = ['span', 'div', 'p', 'br', 'hr', 'ul', 'li']
 const Tags_Ready2 = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'b']
-const Tags_Ready3 = ['link', 'code', 'small', 'i']
+const Tags_Ready3 = ['link', 'code', 'small', 'i', 'samp', 'time']
 
 const Tags_Ready = [...Tags_Ready1, ...Tags_Ready2, ...Tags_Ready3]
 const Tags_To_Map = {
@@ -37,7 +37,7 @@ const node_map2 = {
   a: 'OA',
   img: 'OImg',
   separator: 'OSeparator'
-  // i: 'OTooltip',
+  // i: 'OTooltip', TODO?
   // // separator
 }
 
@@ -93,7 +93,7 @@ export default {
       if (tagName) {
         // console.log('node.tagName,,,', node.tagName, tagName);
         const get_children = () => {
-          if (!node.isParent && node.content) {
+          if (!node.children || !node.children.length) {
             return [node.content]
           } else {
             const childs = node.children || []

@@ -1,7 +1,6 @@
 import { Environment } from './env'
 
 import { JsonRequest } from './request'
-
 import controller from './controllers'
 // const { web, rerport, web_editor } = controller
 
@@ -17,7 +16,6 @@ export class RPC {
     return new Environment()
   }
 }
-RPC.Environment = Environment
 
 Object.keys(controller).forEach(item => {
   RPC[item] = controller[item]

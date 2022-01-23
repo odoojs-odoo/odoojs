@@ -8,6 +8,13 @@ import py_utils from '../py_utils'
 import { Action } from '../action'
 import { ViewBase } from './base_view'
 
+import { Eval_Context, Domain_Str2Arr, Domain_Patch_And } from './tools'
+
+import rpc from '@/odoorpc'
+
+// eslint-disable-next-line no-unused-vars
+const cp = item => JSON.parse(JSON.stringify(item))
+
 export class Search extends ViewBase {
   constructor() {
     super()
@@ -16,7 +23,7 @@ export class Search extends ViewBase {
   static async default_value({ context, action, views }) {
     const { fields = {} } = views
     const context2 = Action._context({ context, action })
-    // console.log('search_ default value', context2)
+
     const search_defaults = {}
 
     for (const item in context2) {
@@ -29,10 +36,13 @@ export class Search extends ViewBase {
           // throw 'search default is m2o'
           const key = `${field}-id_${context2[item]}`
           const val = context2[item]
+          // console.log(val, typeof val)
+          const val2 = Array.isArray(val) ? val : [val]
+          const val_id = val2[0]
           search_defaults[key] =
             meta.type === 'many2one'
-              ? (await this.Relation(meta.relation).name_get([val])).find(
-                  elm => elm[0] === val
+              ? (await this.Relation(meta.relation).name_get(val2)).find(
+                  elm => elm[0] === val_id
                 )
               : meta.selection.find(elm => elm[0] === val)
         } else {
@@ -40,6 +50,8 @@ export class Search extends ViewBase {
         }
       }
     }
+
+    // console.log('search_ default value', search_defaults)
 
     return search_defaults
   }
@@ -103,15 +115,7 @@ export class Search extends ViewBase {
     return res.items
   }
 
-  static _search_info({ action, views }, value) {
-    const search_items = this._search_items({ action, views })
-
-    const filters = search_items.filter(item => item.type === 'filter')
-    const group_bys = search_items.filter(item => item.type === 'group_by')
-    const fields = search_items.filter(item => item.type === 'field')
-
-    const search_values = value
-
+  static _search_info_group_by(group_bys, search_values) {
     const group_by_checkeds = group_bys.filter(item =>
       Object.keys(search_values)
         .map(item => item.split('-')[0])
@@ -164,6 +168,38 @@ export class Search extends ViewBase {
       }, {})
     )
 
+    return group_by_values
+  }
+
+  static _search_info_field(fields, search_values) {
+    const fs = fields
+      .filter(item =>
+        Object.keys(search_values)
+          .map(item => item.split('-')[0])
+          .includes(item.name)
+      )
+      .map(item => {
+        const vals = Object.values(
+          Object.keys(search_values).reduce((acc, cur) => {
+            if (
+              cur.split('-')[0] === item.name
+
+              // cur.includes(item.name)
+            ) {
+              const value = search_values[cur]
+              const str = Array.isArray(value) ? value[1] : value
+              acc[cur] = { name: cur, string: str, value }
+            }
+            return acc
+          }, {})
+        )
+        return [{ ...item, children: vals }]
+      })
+
+    return fs
+  }
+
+  static _search_info_filter(filters, search_values) {
     const checkeds = filters.filter(item =>
       Object.keys(search_values)
         .map(item => item.split('-')[0])
@@ -226,29 +262,46 @@ export class Search extends ViewBase {
       }, {})
     )
 
-    const fs = fields
-      .filter(item =>
-        Object.keys(search_values)
-          .map(item => item.split('-')[0])
-          .includes(item.name)
-      )
-      .map(item => {
-        const vals = Object.values(
-          Object.keys(search_values).reduce((acc, cur) => {
-            if (
-              cur.split('-')[0] === item.name
+    return values
+  }
 
-              // cur.includes(item.name)
-            ) {
-              const value = search_values[cur]
-              const str = Array.isArray(value) ? value[1] : value
-              acc[cur] = { name: cur, string: str, value }
-            }
-            return acc
-          }, {})
-        )
-        return [{ ...item, children: vals }]
+  static _search_info_ir_filter(ir_filters, search_values) {
+    const res = ir_filters.map(item => {
+      const { domain, context, name: string, id: res_id } = item
+      const name = `ir.filters,${res_id}`
+      return { domain, context, string, name, type: 'ir.filters' }
+    })
+
+    const res2 = res
+      .filter(item => {
+        return Object.keys(search_values)
+          .map(sv => sv.split('-')[0])
+          .includes(item.name)
       })
+      .map(item => [item])
+
+    // console.log('_search_info_ir_filter,', ir_filters, res, res2, search_values)
+
+    return res2
+  }
+
+  static _search_info({ action, views }, value) {
+    const search_items = this._search_items({ action, views })
+
+    const filters = search_items.filter(item => item.type === 'filter')
+    const group_bys = search_items.filter(item => item.type === 'group_by')
+    const fields = search_items.filter(item => item.type === 'field')
+    const { filters: ir_filters = [] } = views
+
+    const search_values = value
+
+    const group_by_values = this._search_info_group_by(group_bys, search_values)
+    const fs = this._search_info_field(fields, search_values)
+    const values = this._search_info_filter(filters, search_values)
+    const ir_filters_values = this._search_info_ir_filter(
+      ir_filters,
+      search_values
+    )
 
     // const values2 = [...values, ...fs, ...group_by_values]
 
@@ -256,14 +309,17 @@ export class Search extends ViewBase {
     return {
       filters: values,
       fields: fs,
-      groupbys: group_by_values
+      groupbys: group_by_values,
+      ir_filters: ir_filters_values
     }
   }
 
   static display_value({ action, views }, value) {
     const search_info = this._search_info({ action, views }, value)
+    // console.log('display_value,', search_info, value)
     // const { values = [] } = search_info
     const values = [
+      ...search_info.ir_filters,
       ...search_info.filters,
       ...search_info.fields,
       ...search_info.groupbys
@@ -282,7 +338,8 @@ export class Search extends ViewBase {
             acc2.push({
               type: cur2.type,
               key: cur2.name,
-              label: `G${cur2.string || cur2.help}`
+              label: `≡${cur2.string || cur2.help}`,
+              icon: 'ordered-list'
               // label: `${char11}${cur2.string || cur2.help}`
             })
           } else {
@@ -292,16 +349,13 @@ export class Search extends ViewBase {
                 type: cur2.type,
                 key: item.name,
                 // label: `${char2}:${item.string}`
-                label: index2 ? `>${item.string}` : `G${char2}:${item.string}`
-
+                label: index2 ? `>${item.string}` : `≡${char2}:${item.string}`
                 // `${index2 ? '' : char2}${item.string}`
-
                 // label: `${index2 ? '' : char2}${item.string}`
               }
             })
             acc2 = [...acc2, ...res2]
           }
-
           return [...acc2]
         } else if (cur2.type === 'field' || cur2.date) {
           const char2 = `${cur2.string || cur2.help}`
@@ -309,18 +363,29 @@ export class Search extends ViewBase {
             return {
               type: cur2.type,
               key: item.name,
-              label: `${index || index2 ? '或' : ''}${index2 ? '' : char2}${
+              label: `${index || index2 ? '或' : ''} ${index2 ? '' : char2}${
                 item.string
               }`
             }
           })
           return [...acc2, ...res2]
-        } else {
+        } else if (cur2.type === 'filter') {
           acc2.push({
             type: cur2.type,
             key: cur2.name,
             label: `${char1}${cur2.string || cur2.help}`
           })
+          return acc2
+        } else if (cur2.type === 'ir.filters') {
+          acc2.push({
+            type: cur2.type,
+            key: cur2.name,
+            label: `★${cur2.string}`,
+            icon: 'star'
+            // label: `${char1}${cur2.string}`
+          })
+          return acc2
+        } else {
           return acc2
         }
       }, [])
@@ -497,6 +562,7 @@ export class Search extends ViewBase {
 
     const values2 = this._search_options_values(values)
     const items = this._search_items({ action, views })
+
     const ops3 = this._search_options_filter_by_type(items, 'group_by')
 
     const _get_today = (name, fname) => {
@@ -561,17 +627,95 @@ export class Search extends ViewBase {
     return fs
   }
 
+  static filters_options(info, value) {
+    const { views } = info
+    const { filters = [] } = views
+    // console.log('filters_options', cp(filters), cp(value))
+    return filters.map(item => {
+      const name = `ir.filters,${item.id}`
+      return { ...item, checked: value[name] ? true : false }
+    })
+  }
+
+  static async unlink_filter(info, res_id, search_values) {
+    //
+
+    const { views } = info
+
+    await rpc.web.dataset.call_kw({
+      model: 'ir.filters',
+      method: 'unlink',
+      args: [res_id],
+      kwargs: {}
+    })
+
+    views.filters = views.filters.filter(item => item.id !== res_id)
+    const name = `ir.filters,${res_id}`
+    delete search_values[name]
+
+    return true
+  }
+
+  static async submit_filter(info, filters_values, search_values) {
+    const { action, views } = info
+    const { name, is_default, is_public } = filters_values || {}
+
+    const action_id = action.id
+    const model_id = action.res_model
+    // ir.filters
+
+    const user_id = is_public ? false : rpc.env.uid
+    const user_name = is_public ? false : rpc.env.name
+
+    const group_by = this.to_groupby(info, search_values)
+    const group_by2 = group_by.map(item => `'${item}'`)
+    const group_by3 = group_by2.join(',')
+    const context = `{'group_by':[${group_by3}]}`
+
+    const domain = this.to_domain2(info, search_values)
+    const vals = {
+      action_id,
+      model_id,
+      context,
+      domain,
+      name,
+      sort: '[]',
+      is_default,
+      user_id
+    }
+    console.log('submit_filter', vals)
+
+    const res_id = await rpc.web.dataset.call_kw({
+      model: 'ir.filters',
+      method: 'create_or_replace',
+      args: [vals],
+      kwargs: {}
+    })
+
+    const vals_read = {
+      ...vals,
+      id: res_id,
+      user_id: user_id ? [user_id, user_name] : user_id
+    }
+    if (!views.filters.find(item => item.id === res_id))
+      views.filters.push(vals_read)
+
+    return true
+  }
+
   static onchange({ action, views }, search_values, payload) {
     const search_items = this._search_items({ action, views })
 
     const filters = search_items.filter(item => item.type === 'filter')
     const group_bys = search_items.filter(item => item.type === 'group_by')
     const fields = search_items.filter(item => item.type === 'field')
+    const { filters: ir_filters = [] } = views
 
-    const { name: names, value } = payload
+    const { name: name2, value } = payload
+    const names = Array.isArray(name2) ? name2 : [name2]
 
     const values = { ...search_values }
-    names.split(',').forEach(name => {
+    names.forEach(name => {
       if (!value) delete values[name]
       else if (filters.filter(item => item.name === name.split('-')[0]).length)
         values[name] = 1
@@ -581,6 +725,14 @@ export class Search extends ViewBase {
         group_bys.filter(item => item.name === name.split('-')[0]).length
       )
         values[name] = value
+      else {
+        const n2s = name.split(',')
+        if (n2s[0] === 'ir.filters') {
+          if (ir_filters.filter(item => item.id === Number(n2s[1]))) {
+            values[name] = value
+          }
+        }
+      }
     })
 
     // console.log(action, search_values, payload, values)
@@ -600,97 +752,48 @@ export class Search extends ViewBase {
 
   static to_groupby({ action, views }, search_values) {
     const search_info = this._search_info({ action, views }, search_values)
-    const values = [...search_info.groupbys]
-    return values.reduce((acc, item) => {
-      const res2 = item.reduce((acc2, item2) => {
-        const ctx = py_utils.eval(item2.context, {})
 
-        const childs = item2.date
-          ? item2.children.map(item3 => `${ctx.group_by}:${item3.type}`)
-          : [ctx.group_by]
+    // console.log('to_groupby,search_info:', search_info)
+    const arr_get = sin => {
+      return sin.reduce((acc, item) => {
+        const res2 = item.reduce((acc2, item2) => {
+          const ctx = py_utils.eval(item2.context, {})
 
-        return [...acc2, ...childs]
+          const childs = item2.date
+            ? item2.children.map(item3 => `${ctx.group_by}:${item3.type}`)
+            : [ctx.group_by]
+
+          return [...acc2, ...childs]
+        }, [])
+
+        return [...acc, ...res2]
       }, [])
+    }
 
-      return [...acc, ...res2]
-    }, [])
+    const arr_get2 = sin => {
+      return sin.reduce((acc, item) => {
+        const res2 = item.reduce((acc2, item2) => {
+          const ctx = py_utils.eval(item2.context, {})
+          return [...acc2, ...ctx.group_by]
+        }, [])
+
+        return [...acc, ...res2]
+      }, [])
+    }
+
+    const values = [...search_info.groupbys]
+    const grpbys1 = arr_get(values)
+    const values2 = [...search_info.ir_filters]
+    const grpbys2 = arr_get2(values2)
+    return [...grpbys2, ...grpbys1]
   }
 
-  static to_domain({ context, action, views }, search_values) {
-    const _patch_and_one = dms => {
-      // console.log('_patch_and_one', dms)
-      const return_error = () => {
-        console.log('parse domain error:', dms)
-        return [0, undefined, dms]
-      }
-
-      // console.log('domain:', dms)
-      let todo = [...dms]
-
-      if (!todo.length) return [null, todo]
-      const item = todo.shift()
-
-      if (Array.isArray(item)) return [1, item, todo]
-
-      if (item === '!') {
-        const [noerror, one, next] = _patch_and_one(todo)
-        if (!noerror) return return_error()
-        const one_ones = noerror === 1 ? [one] : [...one]
-        return [2, [item, ...one_ones], next]
-      }
-
-      if (!['&', '|'].includes(item)) return return_error()
-
-      const [noerror1, one1, next1] = _patch_and_one(todo)
-      if (!noerror1) return return_error()
-
-      const [noerror2, one2, next2] = _patch_and_one(next1)
-      if (!noerror2) return return_error()
-      const one11 = noerror1 === 1 ? [one1] : [...one1]
-      const one21 = noerror2 === 1 ? [one2] : [...one2]
-      return [2, [item, ...one11, ...one21], next2]
-    }
-
-    const _patch_and = dms => {
-      // console.log('_patch_and:', dms)
-
-      const dm = [...dms]
-      if (!dm.length) return []
-
-      const [noerror1, one1, next1] = _patch_and_one(dm)
-      if (!noerror1) {
-        // error
-        console.log('parse domain error:', dm)
-        return []
-      }
-
-      let result = noerror1 === 1 ? [one1] : [...one1]
-      let next_todo = [...next1]
-
-      while (next_todo.length) {
-        const [noerror, one, next] = _patch_and_one(next_todo)
-        if (!noerror) {
-          // error
-          console.log('parse domain error:', next_todo)
-          return []
-        }
-
-        const one_ones = noerror === 1 ? [one] : [...one]
-        result = ['&', ...result, ...one_ones]
-        next_todo = [...next]
-      }
-
-      // console.log('_patch_and 9:', result)
-
-      return result
-    }
-
-    const to_domain_insert_and = (str, globals_dict = {}) => {
-      const dms1 = py_utils.eval(str, globals_dict)
-      // console.log(dms1)
-      const dms = _patch_and(dms1) // 检查 数组, 补充 and
-      // console.log('domain:', dms)
-      return dms
+  static to_domain2(info, search_values) {
+    // console.log('to_domain2  1,', search_values)
+    const _shift_or = dms => {
+      if (!dms.length) return dms
+      else if (dms.length === 1) return dms
+      else return [...new Array(dms.length - 1).fill('"|"'), ...dms]
     }
 
     const _to_domain_date_str = (field, { type, year, quarter, month }) => {
@@ -703,7 +806,7 @@ export class Search extends ViewBase {
       const ret_fn = (first, last) => {
         const str1 = date2str(first)
         const str2 = date2str(new Date(last - 24 * 60 * 60 * 1000))
-        return `['&', ('${field}', '>=', '${str1}'), ('${field}', '<=', '${str2}')]`
+        return `'&',('${field}','>=','${str1}'),('${field}','<=','${str2}')`
       }
       if (type === 'year')
         return ret_fn(new Date(year, 0, 1), new Date(year + 1, 0, 1))
@@ -722,84 +825,321 @@ export class Search extends ViewBase {
       }
     }
 
-    const _shift_or = dms => {
-      if (!dms.length) return dms
-      const dms2 = dms.reduce((acc, cur) => [...acc, ...cur], [])
-      return [...new Array(dms.length - 1).fill('|'), ...dms2]
-    }
-
     const to_domain = node => {
-      // console.log('to_domain', context)
-      // uid
-      const globals_dict = { ...context }
-
       const _field_to_domain = (node, value) => {
         const field = node.name
         const operator = !Array.isArray(value) ? 'ilike' : node.operator || '='
         const value2 = Array.isArray(value) ? value[0] : value
-        return [[field, operator, value2]]
+        const value3 = typeof value2 === 'string' ? `'${value2}'` : value2
+        return `('${field}','${operator}',${value3})`
+        // [[field, operator, value2]]
+      }
+
+      const _patch_and = str => {
+        const res = Domain_Str2Arr(str)
+        const res1 = Domain_Patch_And(res)
+        const res2 = res1.join(', ')
+        return `[${res2}]`
+      }
+
+      const arr2str = arr => {
+        const val2str = val => {
+          if (typeof val === 'string') return `'${val}'`
+          else if (Array.isArray(val)) {
+            const val2 = val.map(item => {
+              if (typeof item === 'string') return `'${item}'`
+              else return item
+            })
+            return `[${val2.join(',')}]`
+          } else {
+            return val
+          }
+        }
+
+        const res = arr.reduce((acc, tup) => {
+          if (Array.isArray(tup)) {
+            const [fld, op, val] = tup
+            const val2 = val2str(val)
+            acc.push(`('${fld}','${op}', ${val2} )`)
+          } else {
+            acc.push(`'${tup}'`)
+          }
+          return acc
+        }, [])
+
+        return res.join(', ')
+
+        // const ch_str = JSON.stringify(arr).trim()
+        // const ch_str2 = ch_str.slice(1, ch_str.length - 1)
       }
 
       if (node.type === 'filter') {
-        if (node.domain) return to_domain_insert_and(node.domain, globals_dict)
-        else if (node.date) {
-          return _shift_or(
-            node.children.reduce((acc, item) => {
+        if (node.domain) {
+          return _patch_and(node.domain)
+        } else if (node.date) {
+          const res = _shift_or(
+            node.children.map(item => {
               const child_str = _to_domain_date_str(node.date, item)
-              const child_domain = to_domain_insert_and(child_str, globals_dict)
-              return [...acc, child_domain]
-            }, [])
+              return child_str
+            })
           )
+
+          const res2 = res.join(', ')
+          return `[${res2}]`
         }
       } else if (node.type === 'field') {
         if (node.filter_domain) {
-          const dms = _shift_or(
+          const str = _patch_and(node.filter_domain)
+          // console.log(node)
+          const res = _shift_or(
             node.children.reduce((acc, item) => {
-              const ch_domain = to_domain_insert_and(node.filter_domain, {
+              const ch_domain = py_utils.eval(str, {
                 self: item.value
               })
-              return [...acc, ch_domain]
+
+              const ch_str2 = arr2str(ch_domain)
+              return [...acc, ch_str2]
             }, [])
           )
 
-          // console.log('field,1', node, node.filter_domain, dms)
-
-          return dms
+          const res2 = res.join(', ')
+          return `[${res2}]`
         } else {
-          const dms = _shift_or(
-            node.children.reduce((acc, item) => {
-              const ch_domain = _field_to_domain(node, item.value)
-              return [...acc, ch_domain]
-            }, [])
+          const res = _shift_or(
+            node.children.map(item => _field_to_domain(node, item.value))
           )
-
-          // console.log('field,2', node, dms)
-          return dms
+          const res2 = res.join(', ')
+          return `[${res2}]`
         }
+      } else if (node.type === 'ir.filters') {
+        return node.domain
       }
-      return []
+
+      return '[]'
     }
 
-    const search_info = this._search_info({ action, views }, search_values)
+    const search_info = this._search_info(info, search_values)
 
     const values = [
       ...search_info.filters,
-      ...search_info.fields
+      ...search_info.fields,
+      ...search_info.ir_filters
       // ...search_info.groupbys,
     ]
 
-    // console.log('todomain', values)
+    // console.log('to_domain2  2,', values)
 
     const domain = values.reduce((acc, cur) => {
-      const dms2 = cur.map(item => to_domain(item))
-      const dms = _shift_or(dms2) // dms 补充 or
-      // console.log('or', dms)
+      const dms2 = cur.map(item => {
+        const dm2 = to_domain(item)
+        return dm2.slice(1, dm2.length - 1)
+      })
+      const dms = _shift_or(dms2)
 
-      if (acc.length) acc = ['&', ...acc, ...dms]
+      if (acc.length) acc = ["'&'", ...acc, ...dms]
       else acc = [...acc, ...dms]
       return acc
     }, [])
 
-    return domain
+    const domain2 = `[${domain.join(',')}]`
+    // console.log(domain2)
+    return domain2
+  }
+
+  static to_domain(info, search_values) {
+    // console.log('to_domain  1,', search_values)
+    const str = this.to_domain2(info, search_values)
+    // console.log('to_domain  9,', str)
+    const dms1 = Eval_Context(info, { str, record: {} })
+    // console.log(dms1)
+    return dms1
   }
 }
+
+// static to_domain_delllll(info, search_values) {
+//   const _patch_and_one = dms => {
+//     // console.log('_patch_and_one', dms)
+//     const return_error = () => {
+//       console.log('parse domain error:', dms)
+//       return [0, undefined, dms]
+//     }
+
+//     // console.log('domain:', dms)
+//     let todo = [...dms]
+
+//     if (!todo.length) return [null, todo]
+//     const item = todo.shift()
+
+//     if (Array.isArray(item)) return [1, item, todo]
+
+//     if (item === '!') {
+//       const [noerror, one, next] = _patch_and_one(todo)
+//       if (!noerror) return return_error()
+//       const one_ones = noerror === 1 ? [one] : [...one]
+//       return [2, [item, ...one_ones], next]
+//     }
+
+//     if (!['&', '|'].includes(item)) return return_error()
+
+//     const [noerror1, one1, next1] = _patch_and_one(todo)
+//     if (!noerror1) return return_error()
+
+//     const [noerror2, one2, next2] = _patch_and_one(next1)
+//     if (!noerror2) return return_error()
+//     const one11 = noerror1 === 1 ? [one1] : [...one1]
+//     const one21 = noerror2 === 1 ? [one2] : [...one2]
+//     return [2, [item, ...one11, ...one21], next2]
+//   }
+
+//   const _patch_and = dms => {
+//     // console.log('_patch_and:', dms)
+
+//     const dm = [...dms]
+//     if (!dm.length) return []
+
+//     const [noerror1, one1, next1] = _patch_and_one(dm)
+//     if (!noerror1) {
+//       // error
+//       console.log('parse domain error:', dm)
+//       return []
+//     }
+
+//     let result = noerror1 === 1 ? [one1] : [...one1]
+//     let next_todo = [...next1]
+
+//     while (next_todo.length) {
+//       const [noerror, one, next] = _patch_and_one(next_todo)
+//       if (!noerror) {
+//         // error
+//         console.log('parse domain error:', next_todo)
+//         return []
+//       }
+
+//       const one_ones = noerror === 1 ? [one] : [...one]
+//       result = ['&', ...result, ...one_ones]
+//       next_todo = [...next]
+//     }
+
+//     // console.log('_patch_and 9:', result)
+
+//     return result
+//   }
+
+//   const to_domain_insert_and = (str, globals_dict = {}) => {
+//     // const dms1 = Eval_Context({ context, action, views }, { str, record: {} })
+//     const dms1 = py_utils.eval(str, globals_dict)
+//     // console.log(dms1)
+//     const dms = _patch_and(dms1) // 检查 数组, 补充 and
+//     // console.log('domain:', dms)
+//     return dms
+//   }
+
+//   const _to_domain_date_str = (field, { type, year, quarter, month }) => {
+//     const date2str = date => {
+//       const year = (date.getFullYear() + 0).toString().padStart(4, '0')
+//       const month = (date.getMonth() + 1).toString().padStart(2, '0')
+//       const day = (date.getDate() + 0).toString().padStart(2, '0')
+//       return `${year}-${month}-${day}`
+//     }
+//     const ret_fn = (first, last) => {
+//       const str1 = date2str(first)
+//       const str2 = date2str(new Date(last - 24 * 60 * 60 * 1000))
+//       return `['&', ('${field}', '>=', '${str1}'), ('${field}', '<=', '${str2}')]`
+//     }
+//     if (type === 'year')
+//       return ret_fn(new Date(year, 0, 1), new Date(year + 1, 0, 1))
+//     else if (type === 'quarter') {
+//       const fst = new Date(year, (quarter - 1) * 3, 1)
+//       const lst2 = new Date(fst - -100 * 24 * 60 * 60 * 1000)
+//       const lst = new Date(lst2.getFullYear(), lst2.getMonth(), 1)
+//       return ret_fn(fst, lst)
+//     } else if (type === 'month') {
+//       const fst = new Date(year, month - 1, 1)
+//       const lst2 = new Date(fst - -40 * 24 * 60 * 60 * 1000)
+//       const lst = new Date(lst2.getFullYear(), lst2.getMonth(), 1)
+//       return ret_fn(fst, lst)
+//     } else {
+//       return ''
+//     }
+//   }
+
+//   const _shift_or = dms => {
+//     if (!dms.length) return dms
+//     const dms2 = dms.reduce((acc, cur) => [...acc, ...cur], [])
+//     return [...new Array(dms.length - 1).fill('|'), ...dms2]
+//   }
+
+//   const to_domain = node => {
+//     // console.log('to_domain', context)
+//     // uid
+//     const globals_dict = { ...context }
+
+//     const _field_to_domain = (node, value) => {
+//       const field = node.name
+//       const operator = !Array.isArray(value) ? 'ilike' : node.operator || '='
+//       const value2 = Array.isArray(value) ? value[0] : value
+//       return [[field, operator, value2]]
+//     }
+
+//     if (node.type === 'filter') {
+//       if (node.domain) return to_domain_insert_and(node.domain, globals_dict)
+//       else if (node.date) {
+//         return _shift_or(
+//           node.children.reduce((acc, item) => {
+//             const child_str = _to_domain_date_str(node.date, item)
+//             const child_domain = to_domain_insert_and(child_str, globals_dict)
+//             return [...acc, child_domain]
+//           }, [])
+//         )
+//       }
+//     } else if (node.type === 'field') {
+//       if (node.filter_domain) {
+//         const dms = _shift_or(
+//           node.children.reduce((acc, item) => {
+//             const ch_domain = to_domain_insert_and(node.filter_domain, {
+//               self: item.value
+//             })
+//             return [...acc, ch_domain]
+//           }, [])
+//         )
+
+//         // console.log('field,1', node, node.filter_domain, dms)
+
+//         return dms
+//       } else {
+//         const dms = _shift_or(
+//           node.children.reduce((acc, item) => {
+//             const ch_domain = _field_to_domain(node, item.value)
+//             return [...acc, ch_domain]
+//           }, [])
+//         )
+
+//         // console.log('field,2', node, dms)
+//         return dms
+//       }
+//     }
+//     return []
+//   }
+
+//   const search_info = this._search_info({ action, views }, search_values)
+
+//   const values = [
+//     ...search_info.filters,
+//     ...search_info.fields
+//     // ...search_info.groupbys,
+//   ]
+
+//   console.log('todomain', values)
+
+//   const domain = values.reduce((acc, cur) => {
+//     const dms2 = cur.map(item => to_domain(item))
+//     const dms = _shift_or(dms2) // dms 补充 or
+//     // console.log('or', dms)
+
+//     if (acc.length) acc = ['&', ...acc, ...dms]
+//     else acc = [...acc, ...dms]
+//     return acc
+//   }, [])
+
+//   return domain
+// }

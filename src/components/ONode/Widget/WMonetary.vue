@@ -37,10 +37,11 @@ export default {
     //   return this.value_edit
     // },
 
-    // value_display() {
-    //   // Number(val.toFixed(2))
-    //   return this.value
-    // },
+    value_display() {
+      const val = this.value || 0
+      const val2 = Number(val.toFixed(2))
+      return val2
+    },
 
     className() {
       const arr = [...this.classNameByField]

@@ -7,6 +7,7 @@
       @cancel="() => (showModal = false)"
     >
       <!-- {{ recordsOld }} -->
+      <!-- {{ dataInfo }} -->
       <OForm :editable="false" :data-info="dataInfo" :view-info="viewInfo" />
 
       <template slot="footer">
@@ -108,7 +109,7 @@ export default {
       const recs = this.recordsOld.filter(item => item.id !== this.record.id)
       const ids = recs.map(item => item.id)
       const vals = [6, false, ids]
-      this.$emit('on-event', 'on-commit', vals, recs)
+      this.$emit('on-event', 'on-commit', { value: vals, m2m_records: recs })
       this.showModal = false
     }
   }

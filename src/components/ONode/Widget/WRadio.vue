@@ -2,7 +2,7 @@
   <div v-if="readonly || !editable" :class="className">
     <!-- {{ [field.type, fname, widget] }} -->
     <span>
-      {{ value_display }}
+      {{ value_readonly }}
     </span>
   </div>
   <ORadio
@@ -35,6 +35,9 @@ export default {
   },
 
   computed: {
+    value_display() {
+      return this.value
+    },
     className() {
       const arr = [...this.classNameByField]
       arr.push('o_field_radio')

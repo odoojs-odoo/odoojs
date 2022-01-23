@@ -13,6 +13,10 @@
     />
   </div>
 
+  <div v-else-if="widget === 'handle'">
+    <!-- handle {{ [field.type, fname, widget] }} -->
+  </div>
+
   <div v-else-if="widget_todo">{{ [field.type, fname, widget] }}</div>
 
   <WInteger

@@ -27,7 +27,7 @@ export default {
   computed: {
     value2: {
       get() {
-        // console.log(this.searchBoxValue)
+        // console.log('searchBoxValue', this.searchBoxValue)
         return this.searchBoxValue
       },
       set(val) {
