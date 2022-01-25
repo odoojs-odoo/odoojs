@@ -1,16 +1,18 @@
 <template>
   <div>
-    <!-- :trigger="['click']" -->
-    <a-dropdown>
+    <!--  -->
+    <a-dropdown :trigger="['click']">
       <a href="javascript:;" @click="onclick" :class="className">
-        <template v-for="(item, index) in node.children">
+        <a-icon type="menu" />
+
+        <!-- <template v-for="(item, index) in node.children">
           <ONode
             :key="index"
             :data-info="dataInfo"
             :view-info="{ ...viewInfo, node: item }"
             @on-event="handleOnEvent"
           />
-        </template>
+        </template> -->
       </a>
 
       <a-menu slot="overlay">
@@ -124,7 +126,7 @@ export default {
 
   methods: {
     onclick(e) {
-      console.log('onclick')
+      console.log('onclick', this.node)
       e.preventDefault()
       e.stopPropagation()
     },

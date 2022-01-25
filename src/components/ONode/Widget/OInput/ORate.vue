@@ -56,7 +56,7 @@ export default {
 <style lang="less">
 .o_field_widget {
   .ant-rate {
-    position: absolute;
+    position: relative;
     top: 0px;
     left: 0px;
   }

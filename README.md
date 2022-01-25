@@ -10,34 +10,31 @@
 8. odoojs 的组件部分 odooweb. 包括 forview/listview
 9. odooweb 也包括 kanban/pivot/treeedit 等复杂组件
 
-#### 最新更新 2022-1-23
+#### 最新更新 2022-1-25
 
-###### odoorpc/odooapi 完善.
-
-1. session info store in request class
-2. ir.filters 功能
-3. o2m tree view. line edit
-4. kanban view. button click event
-5. file import api
-
-###### UI 组件完善
-
-1. pivot view / graph view / calendar view
-2. 收藏按钮
-3. o2m tree view. line edit
-4. kanban view. dropdown menu
+1. 使用 this.\$route.meta.routes 存路由历史
+2. 使用 localStorage 存 routes. 页面手动刷新时, 保留路由历史
+3. 页头 title. 数据取自 routes. 显示层级结构
+4. action.load 时,仅 load action。 不再直接 load_views, 而在需要时 由页面 load views
+5. 附件上传与下载
 
 ## 学习交流
 
 1. QQ 群 2684913
 
-## odoojs 培训课程计划
-
 ## 更新历史
 
-##### 2022-1-23
+#### 2022-1-25
 
-###### odoorpc/odooapi 完善.
+1. 使用 this.\$route.meta.routes 存路由历史
+2. 使用 localStorage 存 routes. 页面手动刷新时, 保留路由历史
+3. 页头 title. 数据取自 routes. 显示层级结构
+4. action.load 时,仅 load action。 不再直接 load_views, 而在需要时 由页面 load views
+5. 附件上传与下载
+
+#### 2022-1-23
+
+odoorpc/odooapi 完善.
 
 1. session info store in request class
 2. ir.filters 功能
@@ -45,27 +42,29 @@
 4. kanban view. button click event
 5. file import api
 
-###### UI 组件完善
+UI 组件完善
 
 1. pivot view / graph view / calendar view
 2. 收藏按钮
 3. o2m tree view. line edit
 4. kanban view. dropdown menu
 
-##### 历史
+#### 2022-1-12
 
-2022-1-12  
-odoorpc/odooapi 代码更新. 纯函数方式
+odoorpc/odooapi 代码更新. 纯函数方式  
 UI 组件完善
 
-2021-12-3  
+#### 2021-12-3
+
 选择 ant-design-vue 做 UI  
 odoorpc/odoojs 代码优化
 
-2021-7-26  
+#### 2021-7-26
+
 odoojs 重大改进  
 访问 odoo 的方式更简洁
 
-2020-8-30  
+#### 2020-8-30
+
 之前使用 react 实现的 odoojs  
 之后 使用 vue

@@ -76,7 +76,13 @@ export default {
     value() {
       return this.value_edit || ''
     },
-
+    widget_todo() {
+      // 'date'  暂时未知
+      // daterange 是 把两个关联的date字段, 用一个组件处理
+      //   需要设计一个很特别的组件才能完成. 可参考 OA 里的处理 Kanban下拉菜单的思路
+      const done = ['date', 'daterange']
+      return done.includes(this.widget) ? '' : this.widget
+    },
     className() {
       const arr = [...this.classNameByField]
       arr.push('o_field_date')

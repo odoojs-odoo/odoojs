@@ -1,13 +1,17 @@
 <template>
-  <div class="o_kanban_record" @click="handleOnRowClick2">
-    <!-- 可点击 oe_kanban_global_click
+  <div :class="className" @click="handleOnRowClick2">
+    <template v-for="(item, index) in node.children">
+      <!-- 可点击 oe_kanban_global_click
      TODO: 设置样式, 显示小手
      -->
-    <ONode
-      :data-info="dataInfo"
-      :view-info="{ ...viewInfo, node, dropdown_menu }"
-      @on-event="handleOnEvent"
-    />
+
+      <ONode
+        :key="index"
+        :data-info="dataInfo"
+        :view-info="{ ...viewInfo, node: item, dropdown_menu }"
+        @on-event="handleOnEvent"
+      />
+    </template>
   </div>
 </template>
 

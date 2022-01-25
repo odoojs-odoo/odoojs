@@ -1,5 +1,6 @@
 import api from '@/odooapi'
 import { try_call } from '@/odooapi/tools'
+import routesMixin from '@/mixins/routesMixin'
 
 import { search_dropdown_menu, node_remove_dropdown_menu } from './tools'
 
@@ -9,7 +10,7 @@ const cp = val => JSON.parse(JSON.stringify(val))
 export default {
   components: {},
 
-  mixins: [],
+  mixins: [routesMixin],
 
   props: {
     dataInfo: {
@@ -125,24 +126,18 @@ export default {
     },
 
     async handleButtonClicked_edit() {
-      // console.log(
-      //   'handleButtonClicked, edit',
-      //   node,
-      //   this.viewInfo,
-      //   this.dataInfo
-      // )
-      const { action } = this.viewInfo
+      console.log('handleButtonClicked, edit', this.$route)
+      const { query: query_old } = this.$route
+      const { active_id } = query_old
+      const active_query = active_id ? { active_id } : {}
 
-      this.$route.meta.viewInfo = this.viewInfo
       this.$route.meta.editable = true
-      const path = `/web`
-      const query = {
-        action: action.id,
-        view_type: 'form',
-        id: this.dataInfo.record.id
-        // ...(active_id ? { active_id } : {})
-      }
-      this.$router.push({ path, query })
+
+      const { action, context, views } = this.viewInfo
+      const res_id = this.dataInfo.record.id
+      const query_new = { action: action.id, view_type: 'form', id: res_id }
+      const query = { ...query_new, ...active_query }
+      this.push_route({ query, breadcrumbName: '', action, context, views })
 
       return
     },

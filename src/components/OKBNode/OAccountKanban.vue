@@ -1,11 +1,13 @@
 <template>
-  <div class="o_kanban_record" @click="handleOnRowClick2">
-    <!-- <div class="o_kanban_record"> -->
-    <ONode
-      :data-info="dataInfo"
-      :view-info="{ ...viewInfo, node, dropdown_menu }"
-      @on-event="handleOnEvent"
-    />
+  <div :class="className" @click="handleOnRowClick2">
+    <template v-for="(item, index) in node.children">
+      <ONode
+        :key="index"
+        :data-info="dataInfo"
+        :view-info="{ ...viewInfo, node: item, dropdown_menu }"
+        @on-event="handleOnEvent"
+      />
+    </template>
   </div>
 </template>
 
@@ -103,8 +105,8 @@ export default {
   methods: {
     async handleOnRowClick2() {
       console.log('handleOnRowClick to do nothing')
-      // console.log(cp(this.view_node))
-      // console.log('node_raw', cp(this.node_raw))
+      console.log(cp(this.view_node))
+      console.log('node_raw', cp(this.node_raw))
       // console.log('dropdown_menu_node', cp(this.dropdown_menu_node))
       // //   this.$emit('on-row-click')
     }

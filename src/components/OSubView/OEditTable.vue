@@ -1,11 +1,13 @@
 <template>
   <div>
     <a-table
+      :style="{ width: (columns2.length > 7 ? (maxContent - 350) : 800) + 'px'}"
       :columns="columns2"
       :data-source="dataSource2"
       rowKey="__key"
       :pagination="false"
       :customRow="tableCustomRow"
+      :scroll="{ x: columns2.length > 7 ? (maxContent + 500) : 800 }"
     >
       <template
         v-for="col in columns"
@@ -96,8 +98,8 @@ export default {
       // 已编辑后, 切换行
       clickedRow: undefined,
       popconfirmVisible: false,
-
-      currentRow: {}
+      currentRow: {},
+      maxContent: document.body.offsetWidth,
     }
   },
   computed: {
@@ -119,7 +121,7 @@ export default {
       })
 
       const cols2 = this.rowEditable
-        ? [{ scopedSlots: { customRender: 'action' } }, ...cols]
+        ? [{ scopedSlots: { customRender: 'action' }, title: '操作', fixed: 'left', width: '66' }, ...cols]
         : cols
 
       const cols3 = [

@@ -193,10 +193,11 @@ export class List extends Tree {
   }
 
   static async action_call(info, action_todo, { active_ids }) {
-    // console.log(cp(info), cp(action_todo), active_ids, active_id)
+    console.log(cp(info), cp(action_todo), active_ids)
     const { action } = info
     const ctx_action = this._context(info)
     const ctx_active = {
+      // TODO: active_domain取自 当前 domain 而非 默认domain
       active_domain: this._default_domain(info),
       active_id: active_ids[0],
       active_ids: active_ids,

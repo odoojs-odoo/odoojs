@@ -73,7 +73,20 @@ export default {
     },
 
     widget_todo() {
-      const done = ['product_discount', 'float', 'percentage']
+      const done = [
+        'product_discount',
+        'float',
+        'percentage',
+        'remaining_hours',
+        'timesheet_uom',
+        'planned_hours',
+        'timesheet_uom_no_toggle',
+        'progress',
+        'progressbar'
+      ]
+
+      // TODO 需要检查以上 widget是做什么用的
+
       return done.includes(this.widget) ? '' : this.widget
     },
 

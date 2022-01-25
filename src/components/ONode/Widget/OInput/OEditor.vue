@@ -171,7 +171,7 @@ export default {
       //   this.value2[this.fname] = null
       //初始化加载配置项
       tinymce.init({})
-      console.log('初始化加载配置项,,,', tinymce)
+      // console.log('初始化加载配置项,,,', tinymce)
     },
 
     // 上传本地 图片执行事件

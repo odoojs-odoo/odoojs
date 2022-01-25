@@ -1,11 +1,14 @@
 import api from '@/odooapi'
+import routesMixin from './routesMixin'
 
 // eslint-disable-next-line no-unused-vars
 const cp = val => JSON.parse(JSON.stringify(val))
 
 const Mixin = {
+  mixins: [routesMixin],
   data() {
     return {
+      routes: [],
       viewInfo: {},
       actionInfo: {}, // action view info
       viewType: '', // kanban/list/pivot/... view 切换
@@ -31,12 +34,12 @@ const Mixin = {
     }
   },
 
-  watch: {},
-
   async created() {},
 
   methods: {
     async init() {
+      this.load_routes()
+
       this.viewInfo = {}
       this.actionInfo = {}
 
@@ -58,10 +61,27 @@ const Mixin = {
       const active_id2 = active_id && Number(active_id)
 
       const _get_view_info = async () => {
-        const { viewInfo } = this.$route.meta
-        if (viewInfo) {
-          delete this.$route.meta.viewInfo
-          return { ...viewInfo }
+        console.log(cp(this.$route.meta.routes || []))
+        const { routes: routes_old = [] } = this.$route.meta
+
+        const route_me_index = routes_old.findIndex(
+          item => item.fullPath === this.$route.fullPath
+        )
+
+        if (route_me_index >= 0) {
+          const route_me = routes_old[route_me_index]
+          const { action, context } = route_me
+          const views_get = async () => {
+            const { views: views_in } = route_me
+            if (views_in) return views_in
+            const views_new = await api.Action.load_views({ context, action })
+            route_me.views = views_new
+            return views_new
+          }
+          const views = await views_get()
+          const info = { context, action, views }
+          this.$route.meta.routes = routes_old.slice(0, route_me_index + 1)
+          return info
         } else {
           const context2 = api.web.session.context
 
@@ -71,12 +91,33 @@ const Mixin = {
           const additional_context = active_id2 ? active_context : undefined
           const kw = additional_context ? { additional_context } : {}
           const action = await api.Action.load(actionId, kw)
-
           const context = { ...context2, ...active_context }
-
           const views = await api.Action.load_views({ context, action })
+          const info = { context, action, views }
 
-          return { context, action, views }
+          this.$route.meta.routes = []
+
+          const active_query = active_id ? { active_id } : {}
+
+          this.push_route_no_router({
+            query: { action: action.id, ...active_query },
+            breadcrumbName: action.display_name || action.name,
+            action,
+            context,
+            views
+          })
+
+          if (viewType === 'form') {
+            this.push_route_no_router({
+              query,
+              breadcrumbName: '',
+              action,
+              context,
+              views
+            })
+          }
+
+          return info
         }
       }
 
@@ -89,6 +130,12 @@ const Mixin = {
       this.searchValue = searchValue
 
       const actionType = action.type
+
+      const routes = this.$route.meta.routes || []
+      // console.log(this.$route)
+      this.routes = [...routes]
+
+      this.save_routes()
 
       if (action.type === 'ir.actions.act_url') {
         console.log('建设中 act_url :', action.url)
@@ -194,13 +241,22 @@ const Mixin = {
     },
 
     async handleOnCreate() {
-      console.log(' handleOnCreate ', this.viewInfo)
+      // console.log(' handleOnCreate ', this.viewInfo)
       // this.$route.meta.viewInfo
-      this.$route.meta.viewInfo = this.viewInfo
-      const { action } = this.viewInfo
-      const path = `/web`
-      const query = { action: action.id, view_type: 'form' }
-      this.$router.push({ path, query })
+      //
+
+      const { query: query_old } = this.$route
+      const { active_id } = query_old
+      const active_query = active_id ? { active_id } : {}
+
+      const { action, context, views } = this.viewInfo
+      const query = { action: action.id, view_type: 'form', ...active_query }
+
+      if (this.viewType === 'form') {
+        this.replace_route({ query })
+      } else {
+        this.push_route({ query, breadcrumbName: '', action, context, views })
+      }
     },
 
     handleFormEvent(event_name, ...args) {

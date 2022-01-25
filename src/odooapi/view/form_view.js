@@ -118,7 +118,11 @@ class FormRead extends ViewBase {
   static async read(info, res_id) {
     // console.log('form, read', cp(info), res_id)
     const Model = this.Model(info)
-    const fields = this._fields_list(info)
+    const fields2 = this._fields_list(info)
+    const fields = fields2.includes('display_name')
+      ? fields2
+      : ['display_name', ...fields2]
+
     const result = await Model.read(res_id, fields)
     const record = result.length ? result[0] : {}
     return { record, ready: true }

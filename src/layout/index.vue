@@ -133,6 +133,7 @@
 
 <script>
 import api from '@/odooapi'
+import routesMixin from '@/mixins/routesMixin'
 
 import SubMenu from './SubMenu'
 import CompanySelect from './CompanySelect.vue'
@@ -170,7 +171,7 @@ const menus_get = () => {
 export default {
   name: 'Base',
   components: { SubMenu, CompanySelect, WizardForm },
-  mixins: [],
+  mixins: [routesMixin],
   data() {
     return {
       collapsed: false,
@@ -221,14 +222,15 @@ export default {
 
     async load_action(action_id) {
       const action = await api.Action.load(action_id)
-      const views = await api.Action.load_views({ action })
+      // const views = await api.Action.load_views({ action })
 
       const context = api.web.session.context
-      const info = { context, action, views }
+      const info = { context, action }
 
       if (action.type === 'ir.actions.act_window' && action.target === 'new') {
         console.log('new')
-        this.viewInfo = info
+        const views = await api.Action.load_views({ context, action })
+        this.viewInfo = { ...info, views }
         this.showWizard = true
         return
       } else {
@@ -267,10 +269,16 @@ export default {
 
         const action_id = menu.action.split(',')[1]
         const info = await this.load_action(action_id)
-        console.log(info)
+        // console.log(info)
         if (info) {
-          this.$route.meta.viewInfo = info
-          this.$router.push({ path: '/web', query: { action: action_id } })
+          const { action, context } = info
+          this.$route.meta.routes = []
+          this.push_route({
+            query: { action: action_id },
+            breadcrumbName: info.action.display_name || info.action.name,
+            action,
+            context
+          })
         }
       }
     }

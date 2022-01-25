@@ -41,7 +41,10 @@ export default {
     widget_todo() {
       //   widget: "kanban_activity"
       // 'section_and_note_one2many'
-      const done = []
+      const done = ['timesheet_ids', 'so_line_one2many']
+
+      // TODO 需要检查 以上 widget 是做什么用的
+
       return done.includes(this.widget) ? '' : this.widget
     },
 

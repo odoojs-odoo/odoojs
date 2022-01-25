@@ -1,14 +1,17 @@
 <template>
-  <div class="o_kanban_record" @click="handleOnRowClick2">
+  <div :class="className" @click="handleOnRowClick2">
     <!-- OKBProjectTasks -->
     <!-- 可点击 oe_kanban_global_click
      TODO: 设置样式, 显示小手
      -->
-    <ONode
-      :data-info="dataInfo"
-      :view-info="{ ...viewInfo, node, dropdown_menu }"
-      @on-event="handleOnEvent"
-    />
+    <template v-for="(item, index) in node.children">
+      <ONode
+        :key="index"
+        :data-info="dataInfo"
+        :view-info="{ ...viewInfo, node: item, dropdown_menu }"
+        @on-event="handleOnEvent"
+      />
+    </template>
 
     <a-modal v-model="visible" title="设置一张封面图像">
       <div>
@@ -49,6 +52,8 @@
 
 <script>
 import api from '@/odooapi'
+import { upload } from '@/odooapi/tools'
+
 // import { try_call } from '@/odooapi/tools'
 
 import KBNodeMixin from './KBNodeMixin'
@@ -57,16 +62,6 @@ import { Color_Nodes } from './tools'
 
 // eslint-disable-next-line no-unused-vars
 const cp = val => JSON.parse(JSON.stringify(val))
-
-function upload(callback) {
-  const input = document.createElement('input')
-  input.type = 'file'
-  input.click()
-  input.onchange = async () => {
-    const files = input.files
-    callback(files)
-  }
-}
 
 export default {
   name: 'OKBProjectTasks',

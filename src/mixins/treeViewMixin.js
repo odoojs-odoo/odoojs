@@ -1,11 +1,12 @@
 import api from '@/odooapi'
+import routesMixin from './routesMixin'
 
 import treeSearchMixin from './treeSearchMixin'
 
 const PageSize = 2
 
 export default {
-  mixins: [treeSearchMixin],
+  mixins: [routesMixin, treeSearchMixin],
 
   props: {},
 
@@ -82,7 +83,6 @@ export default {
     },
 
     async handleOnRowClick(row) {
-      const { action } = this.viewInfo
       // console.log(row.id, this.expandedRowKeys)
 
       if (typeof row.id === 'string') {
@@ -97,16 +97,14 @@ export default {
           this.onExpend(true, row)
         }
       } else {
-        // const active_id = context.active_id
-        this.$route.meta.viewInfo = this.viewInfo
-        const path = `/web`
-        const query = {
-          action: action.id,
-          view_type: 'form',
-          id: row.id
-          // ...(active_id ? { active_id } : {})
-        }
-        this.$router.push({ path, query })
+        const { action, context, views } = this.viewInfo
+        const { query: query_old } = this.$route
+        const { active_id } = query_old
+        const active_query = active_id ? { active_id } : {}
+        const query_new = { action: action.id, view_type: 'form', id: row.id }
+        const query = { ...query_new, ...active_query }
+
+        this.push_route({ query, breadcrumbName: '', action, context, views })
       }
     }
   }

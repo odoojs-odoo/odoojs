@@ -327,7 +327,7 @@ class Binary extends FileRequest {
 
   // static async upload({ file }) {
   //   // '/web/binary/upload'
-  //   // odoo 原本是 http 请求. 这里改为 json 实现
+  //
   // }
 
   static async upload_attachment(payload) {

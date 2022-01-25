@@ -1,10 +1,13 @@
 <template>
-  <div class="o_kanban_record" @click="handleOnRowClick2">
-    <ONode
-      :data-info="dataInfo"
-      :view-info="{ ...viewInfo, node, dropdown_menu }"
-      @on-event="handleOnEvent"
-    />
+  <div :class="className" @click="handleOnRowClick2">
+    <template v-for="(item, index) in node.children">
+      <ONode
+        :key="index"
+        :data-info="dataInfo"
+        :view-info="{ ...viewInfo, node: item, dropdown_menu }"
+        @on-event="handleOnEvent"
+      />
+    </template>
   </div>
 </template>
 

@@ -10,7 +10,7 @@ const is_node = node => {
 const cp = item => JSON.parse(JSON.stringify(item))
 
 const Tags_Ready1 = ['span', 'div', 'p', 'br', 'hr', 'ul', 'li']
-const Tags_Ready2 = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'b']
+const Tags_Ready2 = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'b', 'em']
 const Tags_Ready3 = ['link', 'code', 'small', 'i', 'samp', 'time']
 
 const Tags_Ready = [...Tags_Ready1, ...Tags_Ready2, ...Tags_Ready3]

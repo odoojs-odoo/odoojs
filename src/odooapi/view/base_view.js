@@ -74,22 +74,25 @@ export class ViewBase {
     }
 
     const context = additional_context
+    return { context, action }
 
-    const views = await Action.load_views({ context, action })
-    return { ...info, context, action, views }
+    // const views = await Action.load_views({ context, action })
+    // return { ...info, context, action, views }
   }
 
   static async button_clicked_after({ context, action }) {
     const action2 = await Action._load_after({ context, action })
-    if (action2.type === 'ir.actions.act_window') {
-      const views = await Action.load_views({
-        context,
-        action: action2
-      })
-      return { context, action: action2, views }
-    } else {
-      return { context, action: action2 }
-    }
+    return { context, action: action2 }
+
+    // if (action2.type === 'ir.actions.act_window') {
+    //   const views = await Action.load_views({
+    //     context,
+    //     action: action2
+    //   })
+    //   return { context, action: action2, views }
+    // } else {
+    //   return { context, action: action2 }
+    // }
   }
 }
 

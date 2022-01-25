@@ -81,7 +81,7 @@ export default {
   created() {},
 
   mounted() {
-    console.log(this.viewInfo)
+    // console.log(this.viewInfo)
   },
 
   methods: {}

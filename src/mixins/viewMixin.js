@@ -1,8 +1,9 @@
 import api from '@/odooapi'
+import routesMixin from './routesMixin'
 
 export default {
   components: {},
-  mixins: [],
+  mixins: [routesMixin],
 
   props: {
     viewInfo: {
@@ -58,19 +59,22 @@ export default {
 
   methods: {
     async action_return(result) {
-      // console.log('_action_return', result)
-      const { action } = result
+      // console.log('action_return', result)
+      const { action, context } = result
 
       if (action.type === 'ir.actions.act_window' && action.target === 'new') {
         // console.log('btn clicked return action.target = new', action)
-        this.wizardViewInfo = result
+        const views = await api.Action.load_views({ context, action })
+
+        this.wizardViewInfo = { ...result, views }
         this.showWizard = true
       } else {
         this.action_return2(result)
       }
     },
+
     async action_return2(result) {
-      // console.log('_action_return2', result)
+      console.log('_action_return2', result)
 
       const view_type_get = action => {
         if (action.type === 'ir.actions.act_window') {
@@ -88,18 +92,28 @@ export default {
         return {}
       }
 
-      this.$route.meta.viewInfo = result
       const { context, action } = result
-      const query = {
-        action: action.id,
-        active_id: context.active_id,
-        ...view_type_get(action)
+
+      if (action.type === 'ir.actions.act_url') {
+        console.log('todo,ir.actions.act_url', action)
+        console.log('建设中 act_url :', action.url)
+        this.$message.info(`建设中...act_url, ${action.url}`)
+
+        return
       }
 
-      this.$route.meta.viewInfo = result
-      // console.log(action.target, query)
-      const path = `/web`
-      this.$router.push({ path, query })
+      const query = {
+        action: action.id,
+        ...view_type_get(action),
+        active_id: context.active_id
+      }
+
+      this.push_route({
+        query,
+        breadcrumbName: action.display_name || action.name,
+        context,
+        action
+      })
     }
   }
 }

@@ -26,15 +26,44 @@
   <div v-else-if="widget_todo">{{ [field.type, fname, widget] }}</div>
 
   <span v-else-if="readonly || !editable" :class="className">
-    <a-button type="link" icon="download" href="javascript:;" @click="onclick">
-      {{ record.display_name || record.name }}
-    </a-button>
+    <template v-if="value_readonly">
+      <a-button
+        type="link"
+        icon="download"
+        href="javascript:;"
+        @click="onDownload"
+      >
+        {{ record[filename_field] }}
+      </a-button>
+    </template>
   </span>
-  <div v-else>edit: {{ [field.type, fname] }}</div>
+  <div v-else>
+    <!-- edit: {{ [field.type, fname] }}   -->
+
+    <div :class="className">
+      <a-button type="primary" v-if="!value" @click="onUpload">
+        上传你的文件
+      </a-button>
+
+      <span v-else>
+        <span @click="onUpload">
+          <a-input
+            :value="values[filename_field] || record[filename_field]"
+            disabled
+          >
+          </a-input>
+        </span>
+        <a-button icon="edit" @click="onUpload" />
+        <a-button icon="rest" @click="onDelete" />
+      </span>
+    </div>
+  </div>
 </template>
 
 <script>
 import api from '@/odooapi'
+import { upload, file2Base64 } from '@/odooapi/tools'
+
 import OFMixin from './OFMixin'
 import WImage from './WImage.vue'
 import WTaxGroupCustomField from './WTaxGroupCustomField.vue'
@@ -60,6 +89,9 @@ export default {
     return {}
   },
   computed: {
+    filename_field() {
+      return this.node.attrs.filename
+    },
     widget_todo() {
       const done = []
       return done.includes(this.widget) ? '' : this.widget
@@ -67,7 +99,7 @@ export default {
 
     className() {
       const arr = [...this.classNameByField]
-      // arr.push('')
+      arr.push('o_field_binary_file')
       return arr.join(' ')
     }
   },
@@ -79,7 +111,28 @@ export default {
   mounted() {},
 
   methods: {
-    async onclick() {
+    async onUpload() {
+      // console.log('onUpload', this.node, this.values)
+
+      upload(async files => {
+        console.log('onUpload', files)
+        const file = files[0]
+        const filename_field = this.filename_field
+        const filename = file.name
+        const val = await file2Base64(file)
+        this.onchange(val)
+        this.$emit('on-event', 'on-change', filename_field, filename)
+      })
+    },
+
+    async onDelete() {
+      // console.log('onDelete')
+      const filename_field = this.filename_field
+      this.onchange(false)
+      this.$emit('on-event', 'on-change', filename_field, false)
+    },
+
+    async onDownload() {
       const res_model = this.viewInfo.action.res_model
       const res_id = this.record.id
       const field = this.fname
@@ -92,8 +145,8 @@ export default {
       // {model, id, field, filename, filename_field, download}
       const kw = { ...kw1, ...kw2 }
       const res = await api.web.content(kw)
-      // console.log('onclick', kw)
-      // console.log('onclick', res)
+      // console.log('onDownload', kw)
+      // console.log('onDownload', res)
       call_download(res)
     }
   }

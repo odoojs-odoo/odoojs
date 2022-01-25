@@ -47,7 +47,7 @@ export default {
   async created() {},
 
   mounted() {
-    console.log('mounted', this.viewType, cp(this.viewInfo2), cp(this.node))
+    // console.log('mounted', this.viewType, cp(this.viewInfo2), cp(this.node))
     this.load_data()
   },
 
@@ -57,6 +57,7 @@ export default {
       const query = this.$route.query
       const resId = query.id ? parseInt(query.id) : undefined
       this.data = await api.Views.form.load_data(this.viewInfo2, resId)
+      this.update_breadcrumbName(resId ? this.record.display_name : '新建')
     },
 
     handleOnEvent(event_name, ...args) {
@@ -113,9 +114,10 @@ export default {
         this.editable2 = false
         const dataInfo = await api.Views.form.read(this.viewInfo2, res_id)
         this.data = dataInfo
+        this.update_breadcrumbName(this.record.display_name)
       } else {
         this.editable2 = false
-        this.$route.meta.viewInfo = this.viewInfo
+
         this.$router.go(-1)
       }
     },
@@ -154,17 +156,17 @@ export default {
           if (result) {
             const dataInfo = await api.Views.form.read(this.viewInfo2, res_id)
             this.data = dataInfo
+            this.update_breadcrumbName(this.record.display_name)
           }
         } else {
           const { action } = this.viewInfo
-          this.$route.meta.viewInfo = this.viewInfo
-          const path = `/web`
-          const query = {
-            action: action.id,
-            view_type: 'form',
-            id: result
-          }
-          this.$router.replace({ path, query })
+          const { query: query_old } = this.$route
+          const { active_id } = query_old
+          const active_query = active_id ? { active_id } : {}
+          const query_mew = { action: action.id, view_type: 'form', id: result }
+          const query = { ...query_mew, active_query }
+
+          this.replace_route({ query })
         }
       }
     },
@@ -189,13 +191,14 @@ export default {
       const { action } = this.viewInfo
 
       this.$route.meta.editable = true
-      const path = `/web`
-      const query = {
-        action: action.id,
-        view_type: 'form',
-        id: res_id
-      }
-      this.$router.replace({ path, query })
+
+      const { query: query_old } = this.$route
+      const { active_id } = query_old
+      const active_query = active_id ? { active_id } : {}
+      const query_new = { action: action.id, view_type: 'form', id: res_id }
+      const query = { ...query_new, ...active_query }
+
+      this.replace_route({ query })
     },
 
     async handleOnAction(action_todo) {

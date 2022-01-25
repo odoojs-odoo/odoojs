@@ -199,8 +199,6 @@ export class Action {
       return {}
     }
 
-    // console.log('load_views, ', cp([context, action]))
-
     const Obj = this.Model({ context, action })
 
     const method = 'load_views'

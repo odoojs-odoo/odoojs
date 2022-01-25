@@ -5,7 +5,9 @@ import moment from 'moment'
 import { Kanban_Image } from './tools'
 
 import { Tree } from './list_view'
-
+const insertStr = (soure, start, newStr) =>{   
+  return soure.slice(0, start) + newStr + soure.slice(start);
+}
 const Render_XML = ({ xml, tname, fields, record }) => {
   // console.log('Render_XML ', xml, tname, fields, record)
   const get_val = fld => {
@@ -62,7 +64,7 @@ const Render_XML = ({ xml, tname, fields, record }) => {
 
   const kanban_color = variable => {
     var color = kanban_getcolor(variable)
-    return 'oe_kanban_color_' + color
+    return 'o_kanban_record oe_kanban_color_' + color
   }
 
   const kanban_getcolor = variable => {
@@ -176,6 +178,9 @@ export class Kanban extends Tree {
     const { arch, fields } = view
 
     const xml_node = Render_kanban({ arch, fields, record })
+    // if(xml_node.attrs.class.split(' ').includes('oe_kanban_card') || xml_node.attrs.class.split(' ').includes('oe_kanban_global_click')){
+    //   xml_node.attrs.class = insertStr(xml_node.attrs.class, 0, ' o_kanban_record ')
+    // }
     return xml_node
   }
 }
