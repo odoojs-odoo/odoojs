@@ -63,6 +63,10 @@ export class Calendar extends ViewBase {
     super()
   }
 
+  static view_node(info) {
+    return super.view_node(info, 'calendar')
+  }
+
   static _get_title({ type, date }) {
     const dateobj = new Date(date)
     const title =
@@ -167,7 +171,9 @@ export class Calendar extends ViewBase {
   }
 
   static async search_read(info, { value, search }) {
-    const fields2 = this._fields_list(info)
+    const fields1 = info.views.fields_views.calendar.fields
+    const fields2 = Object.keys(fields1)
+
     const fields = fields2.includes('display_name')
       ? fields2
       : ['display_name', ...fields2]

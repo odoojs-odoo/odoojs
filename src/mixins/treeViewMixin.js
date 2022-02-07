@@ -3,7 +3,7 @@ import routesMixin from './routesMixin'
 
 import treeSearchMixin from './treeSearchMixin'
 
-const PageSize = 2
+const PageSize = 10
 
 export default {
   mixins: [routesMixin, treeSearchMixin],

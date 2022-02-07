@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Qs from 'qs'
 
 class Proxy0 {
   constructor(payload) {
@@ -293,11 +294,149 @@ class ProxyFileImport extends Proxy0 {
   }
 }
 
-// export default {
-//   ProxyJSON,
-//   ProxyFileExport,
-//   ProxyFileImport
-// }
+class ProxyHTTP extends Proxy0 {
+  constructor(payload) {
+    const { baseURL, timeout } = payload
+    super({ baseURL, timeout })
+
+    this._service = this._get_service()
+  }
+
+  _get_service() {
+    const service = axios.create({
+      baseURL: this._baseURL,
+      timeout: this._timeout,
+      headers: {
+        Accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+
+        // text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
+
+    service.interceptors.request.use(
+      config => {
+        return config
+      },
+      error => {
+        return Promise.reject(error)
+      }
+    )
+
+    service.interceptors.response.use(
+      response => {
+        // console.log(response)
+        const res = response.data
+        return res
+      },
+      error => {
+        return Promise.reject(error)
+      }
+    )
+
+    return service
+  }
+
+  async call(url, payload = {}) {
+    const url2 = url[0] === '/' ? url : `/${url}`
+    const data = Qs.stringify(payload)
+
+    const response = await this._service({
+      url: url2,
+      method: 'post',
+      data
+    })
+
+    return response
+  }
+
+  async call_get(url, payload = {}) {
+    const url2 = url[0] === '/' ? url : `/${url}`
+    const data = Qs.stringify(payload)
+    // console.log(payload, data)
+
+    const response = await this._service({
+      url: url2,
+      method: 'get',
+      data
+    })
+
+    return response
+  }
+}
+
+class ProxyPdf extends Proxy0 {
+  constructor(payload) {
+    const { baseURL, timeout } = payload
+    super({ baseURL, timeout })
+
+    this._service = this._get_service()
+  }
+
+  _get_service() {
+    const service = axios.create({
+      baseURL: this._baseURL,
+      timeout: this._timeout,
+      headers: {
+        Accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+      },
+      responseType: 'blob'
+    })
+
+    service.interceptors.request.use(
+      config => {
+        return config
+      },
+      error => {
+        return Promise.reject(error)
+      }
+    )
+
+    service.interceptors.response.use(
+      response => {
+        // console.log(response)
+        const resp_headers = response.headers
+        const filename = resp_headers['content-disposition'].slice(29)
+        const filetype = resp_headers['content-type']
+        return { filetype, filename, data: response.data }
+      },
+      error => {
+        return Promise.reject(error)
+      }
+    )
+
+    return service
+  }
+
+  async call(url, payload = {}) {
+    const url2 = url[0] === '/' ? url : `/${url}`
+    const data = Qs.stringify(payload)
+
+    const response = await this._service({
+      url: url2,
+      method: 'post',
+      data
+    })
+
+    return response
+  }
+
+  async call_get(url, payload = {}) {
+    const url2 = url[0] === '/' ? url : `/${url}`
+    const data = Qs.stringify(payload)
+
+    const response = await this._service({
+      url: url2,
+      method: 'get',
+      data
+    })
+
+    return response
+  }
+}
 
 export class JsonRequest {
   constructor() {}
@@ -316,6 +455,44 @@ export class JsonRequest {
 
   static set timeout(val) {
     this._timeout = val
+  }
+
+  static async csrf_token() {
+    const url = '/web2/session/csrf_token'
+    return await this.json_call(url, {})
+  }
+
+  static async pdf_get(url, payload = {}) {
+    const req = new ProxyPdf({
+      baseURL: this.baseURL,
+      timeout: this.timeout
+    })
+
+    const csrf_token = await this.csrf_token()
+    const data = await req.call_get(url, { ...payload, csrf_token })
+    return data
+  }
+
+  static async http_call(url, payload = {}) {
+    const req = new ProxyHTTP({
+      baseURL: this.baseURL,
+      timeout: this.timeout
+    })
+
+    const csrf_token = await this.csrf_token()
+    const data = await req.call(url, { ...payload, csrf_token })
+    return data
+  }
+
+  static async http_get(url, payload = {}) {
+    const req = new ProxyHTTP({
+      baseURL: this.baseURL,
+      timeout: this.timeout
+    })
+
+    const csrf_token = await this.csrf_token()
+    const data = await req.call_get(url, { ...payload, csrf_token })
+    return data
   }
 
   static async json_call(url, payload = {}) {
@@ -343,11 +520,6 @@ JsonRequest._timeout = undefined
 export class FileRequest extends JsonRequest {
   constructor(payload) {
     super(payload)
-  }
-
-  static async csrf_token() {
-    const url = '/web2/session/csrf_token'
-    return await this.json_call(url, {})
   }
 
   static async file_export(url, payload) {

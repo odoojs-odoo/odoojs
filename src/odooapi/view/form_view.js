@@ -81,6 +81,10 @@ class FormRead extends ViewBase {
     super()
   }
 
+  static view_node(info) {
+    return super.view_node(info, 'form')
+  }
+
   // get fields() {
   //   if (!this.model_from) return this.view_info.fields
 
@@ -118,7 +122,10 @@ class FormRead extends ViewBase {
   static async read(info, res_id) {
     // console.log('form, read', cp(info), res_id)
     const Model = this.Model(info)
-    const fields2 = this._fields_list(info)
+
+    const fields1 = info.views.fields_views.form.fields
+    const fields2 = Object.keys(fields1)
+
     const fields = fields2.includes('display_name')
       ? fields2
       : ['display_name', ...fields2]

@@ -13,6 +13,16 @@ export class Tree extends ViewBase {
     super()
   }
 
+  static _fields_list({ view }) {
+    //
+    const { fields } = view
+    return Object.keys(fields)
+  }
+
+  static view_node(info, viewType = 'tree') {
+    return super.view_node(info, viewType)
+  }
+
   static async web_read_group(info, { pagination, search, groupby }) {
     const { current = 1, pageSize = 2 } = pagination || {}
     const limit = pageSize
@@ -182,6 +192,16 @@ export class List extends Tree {
     super()
   }
 
+  static view_node(info) {
+    return super.view_node(info, 'list')
+  }
+
+  static _fields_list({ views }) {
+    const view = views.fields_views.list
+    const { fields } = view
+    return Object.keys(fields)
+  }
+
   static async web_search_read(info, kwargs) {
     const view = info.views.fields_views.list
     return super.web_search_read({ ...info, view }, kwargs)
@@ -209,19 +229,19 @@ export class List extends Tree {
     return this.load_action(info, action_todo.id, { additional_context })
   }
 
-  static async unlink(info, ids) {
+  static async unlink({ context, action }, ids) {
     if (!ids || (Array.isArray(ids) && !ids.length)) return true
-    return await this.Model(info).unlink(ids)
+    return await this.Model({ context, action }).unlink(ids)
   }
 
-  static async unarchive(info, ids) {
+  static async unarchive({ context, action }, ids) {
     if (!ids.length) return true
-    return await this.Model(info).action_unarchive(ids)
+    return await this.Model({ context, action }).action_unarchive(ids)
   }
 
-  static async archive(info, ids) {
+  static async archive({ context, action }, ids) {
     if (!ids.length) return true
-    return await this.Model(info).action_archive(ids)
+    return await this.Model({ context, action }).action_archive(ids)
   }
 
   static async export_xlsx_all(info) {
@@ -229,7 +249,7 @@ export class List extends Tree {
     const model = action.res_model
 
     const node = this.view_node(info)
-    const fields_meta = this._fields(info)
+    const fields_meta = info.views.fields_views.list.fields
 
     const fields = node.children
       .filter(

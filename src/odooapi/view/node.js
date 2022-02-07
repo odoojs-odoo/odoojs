@@ -218,10 +218,9 @@ class NodeRead extends Form {
   }
 
   static async load_m2m_checkboxs_data(info) {
-    const { node } = info
+    const { node, view } = info
     const ctx = this._context(info)
-
-    const fields = this._fields(info)
+    const { fields } = view
     const fname = node.attrs.name
     const meta = fields[fname]
     const { relation } = meta
@@ -243,12 +242,9 @@ class NodeRead extends Form {
   }
 
   static async load_m2m_tags_data(info, ids) {
-    const { node } = info
-    // console.log(info, ids)
-
+    const { node, view } = info
     const ctx = this._context(info)
-
-    const fields = this._fields(info)
+    const { fields } = view
     const fname = node.attrs.name
     const meta = fields[fname]
     const { relation } = meta
@@ -261,8 +257,8 @@ class NodeRead extends Form {
   }
 
   static async m2m_search_read(info, { records }) {
-    const fields = this._fields_list(info)
-
+    const fields2 = info.views.fields_views.tree.fields
+    const fields = Object.keys(fields2)
     const domain1 = this._default_domain(info)
     const domain2 = ['!', ['id', 'in', records.map(item => item.id)]]
     const domain = [...domain1, ...domain2]
@@ -279,12 +275,14 @@ class NodeEdit extends NodeRead {
   }
 
   static async get_selection(info, payload) {
+    console.log(' get_selection ', cp(info), cp(payload))
     const { record, values } = payload
     // eslint-disable-next-line no-unused-vars
     const { args = [], field, name, operator = 'ilike', limit = 8 } = payload
 
-    // console.log(record, values, field)
-    const fields = this._fields(info)
+    const { view } = info
+    const { fields } = view
+
     const meta = fields[field]
     const { relation, domain } = meta
 
@@ -298,7 +296,40 @@ class NodeEdit extends NodeRead {
     const args3 = [...args, ...args2]
     // console.log(args3)
 
-    const Relation = this.Relation(relation)
+    const context_in_node_get = () => {
+      const { node } = info
+      if (!node) return null
+
+      const ctx_str = node.attrs.context
+      if (!ctx_str) return null
+
+      const parent_get = () => {
+        const { parent: parentInfo } = info
+        const { parentData: parentData } = payload
+
+        if ((parentInfo, parentData)) {
+          const parent_record = this._values_for_modifiers(parentInfo, {
+            ...parentData
+          })
+          return { parent: parent_record }
+        } else {
+          return {}
+        }
+      }
+
+      const parent_val = parent_get()
+
+      const record2 = this._values_for_modifiers(info, { record, values })
+
+      return Eval_Safe(info, {
+        str: ctx_str,
+        record: { ...record2, ...parent_val }
+      })
+    }
+
+    const ctx_in_node = context_in_node_get()
+    const Relation = this.Relation(relation, { context: ctx_in_node })
+
     const res = await Relation.name_search({ args: args3, name, limit })
     return res
   }
@@ -459,7 +490,7 @@ class NodeRealtion extends NodeEdit {
       // const { fields: fields2, fields_views: fields_views2 } = in_view_info
       // const { form: form2 } = fields_views2
       const form_view = views_by_load.fields_views.form
-      const form_node = this.view_node({ view: form_view })
+      const form_node = this.view_node({ ...info, view: form_view })
       return { views: views_by_load, view: form_view, node: form_node }
     }
 
@@ -486,7 +517,7 @@ class NodeRealtion extends NodeEdit {
       const { fields_views = {} } = info.views
       const { form: form_view } = fields_views
       if (form_view) {
-        const from_node = this.view_node({ view: form_view })
+        const from_node = this.view_node({ ...info, view: form_view })
         return { ...info, context, view: form_view, node: from_node }
       } else {
         const form_state = await async_load_state()

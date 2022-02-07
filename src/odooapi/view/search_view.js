@@ -741,7 +741,8 @@ export class Search extends ViewBase {
   }
 
   static async get_selection(info, { field, name }) {
-    const fields = this._fields(info)
+    const fields = info.views.fields_views.search.fields
+
     const meta = fields[field]
     const { relation } = meta
 

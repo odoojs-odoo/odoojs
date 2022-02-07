@@ -1,5 +1,6 @@
 import web from './web'
 import web_editor from './web_editor'
+import portal from './portal'
 
 /*
   web,
@@ -9,5 +10,6 @@ import web_editor from './web_editor'
 
 export default {
   ...web,
-  ...web_editor
+  ...web_editor,
+  ...portal
 }

@@ -3,7 +3,10 @@ import rpc from '@/odoorpc'
 import { JsonRequest } from '@/odoorpc/request'
 
 import xml2json from '../xml2json'
-import { Action } from '../action'
+import { Action, XML } from '../action'
+
+// eslint-disable-next-line no-unused-vars
+const cp = val => JSON.parse(JSON.stringify(val))
 
 export class ViewBase {
   constructor() {}
@@ -32,25 +35,40 @@ export class ViewBase {
     return Action._default_domain({ context, action })
   }
 
-  static view_node({ view }) {
-    const { arch } = view
-    const node = xml2json.toJSON(arch)
-    return node
+  static _view_get({ views, view }, viewType) {
+    if (view) return view
+    const { fields_views = {} } = views
+    const view2 = fields_views[viewType] || {}
+    return view2
   }
 
-  static _fields({ view }) {
-    const { fields } = view
-    return fields
+  static view_node(info, viewType) {
+    const view = this._view_get(info, viewType)
+    const { arch } = view
+    const node = xml2json.toJSON(arch)
+
+    const { action } = info
+    if (!action.$xml_id) {
+      return node
+    }
+
+    // console.log('view_node2 local 1', action.$xml_id)
+    // const action1 = XML.record_get(action.$xml_id)
+    // console.log('view_node2 local 2', action.$xml_id, action1)
+
+    const view2 = XML.search_view({
+      act_window_id: action.$xml_id,
+      type: view.type
+    })
+    console.log('view_node2 local 99', [XML], action.$xml_id, view2)
+
+    if (!view2) return node
+    else return view2.arch
   }
 
   static _fields_all({ views }) {
     const { fields } = views
     return fields
-  }
-
-  static _fields_list({ view }) {
-    const { fields } = view
-    return Object.keys(fields)
   }
 
   static Model({ context, action }) {

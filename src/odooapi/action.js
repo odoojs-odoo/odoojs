@@ -3,8 +3,129 @@ import py_utils from './py_utils'
 
 import rpc from '@/odoorpc'
 
+import axios from 'axios'
+
+import xml2json from './xml2json'
+
 // eslint-disable-next-line no-unused-vars
 const cp = val => JSON.parse(JSON.stringify(val))
+
+export class XML {
+  static _full_ref_id(mod, ref) {
+    return ref.split('.').length > 1 ? ref : `_${mod}.${ref}`
+  }
+
+  static _record_get(mod, node) {
+    const { id: ref, model } = node.attrs
+    const refid = this._full_ref_id(mod, ref)
+
+    const record_get = () => {
+      const record = (node.children || []).reduce((acc, fld) => {
+        const { name, type, ref } = fld.attrs
+        if (ref) acc[name] = this._full_ref_id(mod, ref)
+        else if (type && type === 'xml') acc[name] = fld.children[0]
+        else if (fld.content) acc[name] = fld.content
+        return acc
+      }, {})
+
+      record.$model = model
+      record.$xml_id = refid
+
+      const action_types = ['ir.actions.client2']
+      if (action_types.includes(model)) record.type = model
+
+      // console.log(record)
+
+      return record
+    }
+
+    const record = record_get()
+
+    return { [refid]: record }
+  }
+
+  static async _records_get() {
+    console.log('_records_get 1')
+    const addons_sync = this._addons_sync
+    if (addons_sync) {
+      return addons_sync
+    }
+
+    const addons = this._addons
+
+    let records = {}
+    for (const mod in addons) {
+      // console.log('_records_get 2', mod)
+      for (const file of addons[mod]) {
+        const fileName = `./static/xml/${mod}/${file}.xml`
+
+        // console.log('_records_get 3', fileName)
+
+        const res = await axios({ method: 'get', url: fileName })
+
+        // console.log('_records_get 31', res)
+
+        const xml = xml2json.toJSON(res.data)
+
+        const records_me = xml.children[0].children.reduce((acc, cur) => {
+          return { ...acc, ...this._record_get(mod, cur) }
+        }, {})
+
+        // console.log('_records_get 4', records_me)
+        records = { ...records, ...records_me }
+      }
+    }
+
+    this._addons_sync = records
+
+    // console.log('_records_get 99')
+
+    return records
+  }
+
+  static async _record_get_async(action_xml_id) {
+    const records = await this._records_get()
+    const record = records[action_xml_id]
+    // console.log(record)
+
+    return record
+  }
+
+  static record_get(action_xml_id) {
+    // console.log('record_get 1')
+    const addons_sync = this._addons_sync
+    if (addons_sync) {
+      return addons_sync[action_xml_id]
+    } else {
+      return this._record_get_async(action_xml_id)
+    }
+  }
+
+  static search_view({ act_window_id, type }) {
+    // console.log('record_get 1')
+    const addons1 = this._addons_sync || {}
+
+    const view = Object.values(addons1).find(
+      item => item.act_window_id === act_window_id && item.view_mode === type
+    )
+
+    if (!view) {
+      return view
+    }
+
+    return addons1[view.view_id]
+
+    // .map(item => {
+    //   return { ...addons1[item.view_id], type: item.view_mode }
+    // })
+
+    // return addons
+  }
+}
+
+XML._addons_sync = undefined
+
+XML._addons = {}
 
 const get_context = (todo_str, globals_dict = {}) => {
   // action
@@ -64,6 +185,19 @@ class IrActionsServer extends IrActions {
 
 export class Action {
   constructor() {}
+
+  static init_xml(addons) {
+    const old = XML._addons
+    const mods = Object.keys({ ...old, ...addons })
+    XML._addons = mods.reduce((acc, mod) => {
+      const old1 = old[mod] || []
+      const new1 = addons[mod] || []
+      acc[mod] = [...old1, ...new1]
+
+      return acc
+    }, {})
+  }
+
   static _context({ context = {}, action }) {
     // console.log(action, context)
     const ctx = get_context(action.context, { ...context })
@@ -116,7 +250,27 @@ export class Action {
     return mode2
   }
 
+  static async _load_local(action_xml_id) {
+    const action1 = await XML.record_get(action_xml_id)
+    const xml_id = action1.inherit_id
+    console.log('load_local', action_xml_id, action1)
+    if (xml_id) {
+      const action = await this._load_from_odoo(xml_id)
+      return { ...action, $xml_id: action1.$xml_id }
+    } else {
+      return { ...action1, id: action1.$xml_id }
+    }
+  }
+
   static async load(action_xml_id, kwargs) {
+    if (typeof action_xml_id === 'string' && action_xml_id[0] === '_') {
+      return this._load_local(action_xml_id)
+    } else {
+      return this._load_from_odoo(action_xml_id, kwargs)
+    }
+  }
+
+  static async _load_from_odoo(action_xml_id, kwargs) {
     const get_action_id = async xml_id => {
       if (typeof xml_id === 'string' && xml_id.split('.').length === 2) {
         const action_one = await rpc.env.ref(xml_id)
@@ -128,6 +282,7 @@ export class Action {
     }
 
     const action_id = await get_action_id(action_xml_id)
+
     const action = await rpc.web.action.load({ action_id, ...kwargs })
     const res = await this._load_after({ action }, kwargs)
 
@@ -194,6 +349,13 @@ export class Action {
   }
 
   static async load_views({ context, action }) {
+    if (action.$xml_id) {
+      // console.log('load_views local 1', action.$xml_id)
+      // const action1 =
+      await XML.record_get(action.$xml_id)
+      // console.log('load_views local 99', action.$xml_id, action1)
+    }
+
     if (action.type !== 'ir.actions.act_window') {
       // type: "ir.actions.client"
       return {}
@@ -220,6 +382,9 @@ export class Action {
     const options = options_get()
 
     const res = await Obj.execute_kw(method, [], { views, options })
+
+    // console.log('load_views, action. .', cp(action), cp(res))
+
     return res
   }
 
@@ -253,12 +418,15 @@ export class Action {
     if (type === 'ir.actions.report') {
       const kw = { report_name, active_ids, report_type, context }
       const res = await rpc.report.print(kw)
+      console.log('print', res)
       return this.download(res)
     } else {
       throw 'not ir.actions.report'
     }
   }
 }
+
+Action._XML = XML
 
 // async _load_model_ids(env, model, views) {
 //   // 读取 action 的所有 子model 的 model_id , 并 set env

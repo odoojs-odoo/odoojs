@@ -4,6 +4,7 @@ import editMixin from './editMixin'
 
 import { try_call } from '@/odooapi/tools'
 
+// eslint-disable-next-line no-unused-vars
 const cp = item => JSON.parse(JSON.stringify(item))
 
 export default {
@@ -53,8 +54,10 @@ export default {
 
   methods: {
     async load_data() {
-      // console.log('load_data')
-      const query = this.$route.query
+      // // const query = this.$route.query
+      const query = this.query_get()
+      // console.log('load_data', [query])
+
       const resId = query.id ? parseInt(query.id) : undefined
       this.data = await api.Views.form.load_data(this.viewInfo2, resId)
       this.update_breadcrumbName(resId ? this.record.display_name : '新建')
@@ -90,7 +93,7 @@ export default {
     },
 
     async handleOnPrint(action) {
-      // console.log(this.viewInfo)
+      console.log(action)
 
       const res_id = this.record.id
       if (res_id) {
@@ -149,7 +152,9 @@ export default {
       } else {
         this.editable2 = false
 
-        const query = this.$route.query
+        // const query = this.$route.query
+        const query = this.query_get()
+
         const res_id = query.id ? parseInt(query.id) : undefined
 
         if (res_id) {
@@ -159,14 +164,15 @@ export default {
             this.update_breadcrumbName(this.record.display_name)
           }
         } else {
-          const { action } = this.viewInfo
-          const { query: query_old } = this.$route
+          const { action, context, views } = this.viewInfo
+          // const { query: query_old } = this.$route
+          const query_old = query
           const { active_id } = query_old
           const active_query = active_id ? { active_id } : {}
           const query_mew = { action: action.id, view_type: 'form', id: result }
-          const query = { ...query_mew, active_query }
+          const query2 = { ...query_mew, active_query }
 
-          this.replace_route({ query })
+          this.replace_route({ query: query2, action, context, views })
         }
       }
     },

@@ -72,6 +72,14 @@ const Mixin = {
           password: values.password
         })
 
+        // const html = await api.web.http_call('/my/home')
+        // const h1 = html.split('<body>')[1]
+        // const h2 = h1.split('</body>')[0]
+        // console.log('/my/home', h2)
+
+        // const res2 = toJSON(h2)
+        // console.log('/my/home', res2)
+
         // const { session } = info
         // const User = api.env.model('res.users')
         // const uid = session.uid

@@ -18,7 +18,7 @@
       :editable="editable"
       :rowEditable="tree_node_editable ? true : false"
       :rowEditchanged.sync="rowEditchanged2"
-      :view-info="viewInfo2"
+      :view-info="{ ...viewInfo2, parent: parentViewInfo }"
       :formData.sync="formData"
       :formViewInfo="formViewInfo"
       @on-row-change="handleSubRowChange"

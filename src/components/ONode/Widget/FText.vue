@@ -25,6 +25,19 @@
     />
   </div>
 
+  <div v-else-if="widget === 'kanban_vat_activity'">
+    <!-- widget: kanban_vat_activity -->
+
+    <WKanbanVatActivity
+      :value_readonly="value_readonly"
+      :value_edit="value_edit"
+      :editable="editable"
+      :data-info="dataInfo"
+      :view-info="{ ...viewInfo, node }"
+      @on-change="onchange"
+    />
+  </div>
+
   <div v-else-if="widget === 'section_and_note_text'">
     <!-- widget: section_and_note_text -->
     <span v-if="readonly || !editable" :class="className">
@@ -75,12 +88,13 @@ import OFMixin from './OFMixin'
 
 import WDashboardGraph from './WDashboardGraph.vue'
 import WPayment from './WPayment.vue'
+import WKanbanVatActivity from './WKanbanVatActivity.vue'
 
 import OInput from './OInput/OInput.vue'
 
 export default {
   name: 'FText',
-  components: { WDashboardGraph, WPayment, OInput },
+  components: { WDashboardGraph, WPayment, WKanbanVatActivity, OInput },
   mixins: [OFMixin],
   props: {},
   data() {

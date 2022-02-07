@@ -6,6 +6,10 @@ export default {
   mixins: [routesMixin],
 
   props: {
+    // web2 用, 通过参数 传 query.
+    // web 直接 在路由里有 query
+    query: { type: Object, default: () => undefined },
+
     viewInfo: {
       type: Object,
       default: () => {
@@ -97,23 +101,30 @@ export default {
       if (action.type === 'ir.actions.act_url') {
         console.log('todo,ir.actions.act_url', action)
         console.log('建设中 act_url :', action.url)
-        this.$message.info(`建设中...act_url, ${action.url}`)
+
+        // this.$message.info(`建设中...act_url, ${action.url}`)
+
+        const path = action.url
+        this.$router.push({ path })
+
+        // const path = `/test/url`
+        // this.$router.push({ path, query: { url: action.url } })
 
         return
-      }
+      } else {
+        const query = {
+          action: action.id,
+          ...view_type_get(action),
+          active_id: context.active_id
+        }
 
-      const query = {
-        action: action.id,
-        ...view_type_get(action),
-        active_id: context.active_id
+        this.push_route({
+          query,
+          breadcrumbName: action.display_name || action.name,
+          context,
+          action
+        })
       }
-
-      this.push_route({
-        query,
-        breadcrumbName: action.display_name || action.name,
-        context,
-        action
-      })
     }
   }
 }

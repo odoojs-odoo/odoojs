@@ -132,10 +132,14 @@ export default {
 
     optionsMethod(payload = {}) {
       // console.log('get_options', payload)
+      const { parentData } = this.dataInfo
+      const parent_kw = parentData ? { parentData } : {}
+
       return api.Node.get_selection(this.viewInfo, {
         record: this.record,
         values: this.values,
         field: this.fname,
+        ...parent_kw,
         ...payload
       })
     }

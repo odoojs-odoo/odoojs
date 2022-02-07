@@ -216,6 +216,10 @@ export class Pivot extends Olap {
     super()
   }
 
+  static view_node(info) {
+    return super.view_node(info, 'pivot')
+  }
+
   static async _read_group(info, { domain, groupby, measures }) {
     const fields_all = this._fields_all(info)
 
@@ -459,6 +463,10 @@ export class Pivot extends Olap {
 export class Graph extends Olap {
   constructor() {
     super()
+  }
+
+  static view_node(info) {
+    return super.view_node(info, 'graph')
   }
 
   static default_pivot_data(info) {

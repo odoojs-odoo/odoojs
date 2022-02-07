@@ -5,8 +5,8 @@ import moment from 'moment'
 import { Kanban_Image } from './tools'
 
 import { Tree } from './list_view'
-const insertStr = (soure, start, newStr) =>{   
-  return soure.slice(0, start) + newStr + soure.slice(start);
+const insertStr = (soure, start, newStr) => {
+  return soure.slice(0, start) + newStr + soure.slice(start)
 }
 const Render_XML = ({ xml, tname, fields, record }) => {
   // console.log('Render_XML ', xml, tname, fields, record)
@@ -146,6 +146,16 @@ const Render_kanban = ({ arch, fields, record }) => {
 export class Kanban extends Tree {
   constructor() {
     super()
+  }
+
+  static _fields_list({ views }) {
+    const view = views.fields_views.kanban
+    const { fields } = view
+    return Object.keys(fields)
+  }
+
+  static view_node(info) {
+    return super.view_node(info, 'kanban')
   }
 
   static async load_data(info, kwargs) {

@@ -4,7 +4,7 @@
     <div></div>
 
     <div>-----</div>
-    <!-- <test-table /> -->
+    <testXML />
 
     <a-button type="primary" @click="onLogout">注销再登录</a-button>
 
@@ -16,11 +16,11 @@
 <script>
 import api from '@/odooapi'
 
-// import TestTable from './testTable.vue'
+import testXML from './testXML.vue'
 
 export default {
   name: 'Home',
-  // components: { TestTable },
+  components: { testXML },
   mixins: [],
 
   data() {

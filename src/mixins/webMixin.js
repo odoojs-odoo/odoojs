@@ -39,7 +39,7 @@ const Mixin = {
   methods: {
     async init() {
       this.load_routes()
-
+      // console.log(this.$route)
       this.viewInfo = {}
       this.actionInfo = {}
 
@@ -60,8 +60,10 @@ const Mixin = {
       const { active_id } = query
       const active_id2 = active_id && Number(active_id)
 
+      // console.log(cp(this.$route.meta || {}))
+
       const _get_view_info = async () => {
-        console.log(cp(this.$route.meta.routes || []))
+        // console.log(cp(this.$route.meta.routes || []))
         const { routes: routes_old = [] } = this.$route.meta
 
         const route_me_index = routes_old.findIndex(
@@ -100,7 +102,8 @@ const Mixin = {
           const active_query = active_id ? { active_id } : {}
 
           this.push_route_no_router({
-            query: { action: action.id, ...active_query },
+            path: '/web',
+            query: { action: actionId, ...active_query },
             breadcrumbName: action.display_name || action.name,
             action,
             context,
@@ -109,6 +112,7 @@ const Mixin = {
 
           if (viewType === 'form') {
             this.push_route_no_router({
+              path: '/web',
               query,
               breadcrumbName: '',
               action,
@@ -116,6 +120,8 @@ const Mixin = {
               views
             })
           }
+
+          this.save_routes()
 
           return info
         }
@@ -135,9 +141,12 @@ const Mixin = {
       // console.log(this.$route)
       this.routes = [...routes]
 
-      this.save_routes()
+      //
 
-      if (action.type === 'ir.actions.act_url') {
+      if (action.type === 'ir.actions.client2') {
+        console.log('建设中 client2 :', action)
+        // this.$message.info(`建设中..., act_url`)
+      } else if (action.type === 'ir.actions.act_url') {
         console.log('建设中 act_url :', action.url)
         this.$message.info(`建设中..., act_url`)
       } else if (action.type === 'ir.actions.report') {
@@ -253,9 +262,16 @@ const Mixin = {
       const query = { action: action.id, view_type: 'form', ...active_query }
 
       if (this.viewType === 'form') {
-        this.replace_route({ query })
+        this.replace_route({ path: '/web', query })
       } else {
-        this.push_route({ query, breadcrumbName: '', action, context, views })
+        this.push_route({
+          path: '/web',
+          query,
+          breadcrumbName: '',
+          action,
+          context,
+          views
+        })
       }
     },
 

@@ -7,6 +7,11 @@
       <FormConfig :viewInfo="viewInfo" />
     </template>
 
+    <template v-else-if="actionInfo.type === 'ir.actions.client2'">
+      <!-- client2 -->
+      <Client :viewInfo="viewInfo" />
+    </template>
+
     <template v-else-if="actionInfo.type === 'ir.actions.client'">
       {{ pageHeaderTitle }} 建设中...
     </template>
@@ -167,6 +172,7 @@
 
 <script>
 import webMixin from '@/mixins/webMixin'
+import Client from '@/components/Client/Client.vue'
 
 import ToolbarBtn from '@/components/OView/Toolbar/ToolbarBtn.vue'
 import ToolbarViewmode from '@/components/OView/Toolbar/ToolbarViewmode.vue'
@@ -188,6 +194,7 @@ import FormConfig from '@/components/OView/FormConfig.vue'
 export default {
   name: 'WebView',
   components: {
+    Client,
     SearchViewBox,
     ToolbarBtn,
     ToolbarViewmode,

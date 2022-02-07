@@ -246,7 +246,7 @@ export const Domain_Patch_And = arr => {
 
   do {
     const [one, next2] = _one_get(next)
-    console.log(one, next2)
+    // console.log(one, next2)
     if (result.length) result = ["'&'", ...result, ...one]
     else result = [...one]
     next = next2
