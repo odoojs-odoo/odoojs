@@ -10,19 +10,23 @@
 8. odoojs 的组件部分 odooweb. 包括 forview/listview
 9. odooweb 也包括 kanban/pivot/treeedit 等复杂组件
 
-#### 最新更新 2022-1-25
+#### 最新更新 2022-2-7
 
-1. 使用 this.\$route.meta.routes 存路由历史
-2. 使用 localStorage 存 routes. 页面手动刷新时, 保留路由历史
-3. 页头 title. 数据取自 routes. 显示层级结构
-4. action.load 时,仅 load action。 不再直接 load_views, 而在需要时 由页面 load views
-5. 附件上传与下载
+1. portal 页面. /my/home
+2. 自定义菜单.
+3. 自定义 xml
 
 ## 学习交流
 
 1. QQ 群 2684913
 
 ## 更新历史
+
+#### 2022-2-7
+
+1. portal 页面. /my/home
+2. 自定义菜单.
+3. 自定义 xml
 
 #### 2022-1-25
 
