@@ -285,8 +285,8 @@ export class Search extends ViewBase {
     return res2
   }
 
-  static _search_info({ action, views }, value) {
-    const search_items = this._search_items({ action, views })
+  static _search_info({ views }, value) {
+    const search_items = this._search_items({ views })
 
     const filters = search_items.filter(item => item.type === 'filter')
     const group_bys = search_items.filter(item => item.type === 'group_by')
@@ -314,8 +314,8 @@ export class Search extends ViewBase {
     }
   }
 
-  static display_value({ action, views }, value) {
-    const search_info = this._search_info({ action, views }, value)
+  static display_value({ views }, value) {
+    const search_info = this._search_info({ views }, value)
     // console.log('display_value,', search_info, value)
     // const { values = [] } = search_info
     const values = [
@@ -443,8 +443,8 @@ export class Search extends ViewBase {
     return ops3
   }
 
-  static filter_options({ action, views }, value) {
-    const search_info = this._search_info({ action, views }, value)
+  static filter_options({ views }, value) {
+    const search_info = this._search_info({ views }, value)
     // const { values = [] } = search_info
     const values = [
       ...search_info.filters,
@@ -454,7 +454,7 @@ export class Search extends ViewBase {
 
     const values2 = this._search_options_values(values)
 
-    const items = this._search_items({ action, views })
+    const items = this._search_items({ views })
 
     const ops3 = this._search_options_filter_by_type(items, 'filter')
 
@@ -551,8 +551,8 @@ export class Search extends ViewBase {
     return ops4
   }
 
-  static groupby_options({ action, views }, value) {
-    const search_info = this._search_info({ action, views }, value)
+  static groupby_options({ views }, value) {
+    const search_info = this._search_info({ views }, value)
     // const { values = [] } = search_info
     const values = [
       ...search_info.filters,
@@ -561,7 +561,7 @@ export class Search extends ViewBase {
     ]
 
     const values2 = this._search_options_values(values)
-    const items = this._search_items({ action, views })
+    const items = this._search_items({ views })
 
     const ops3 = this._search_options_filter_by_type(items, 'group_by')
 
@@ -599,15 +599,15 @@ export class Search extends ViewBase {
         ...children
       }
     })
-    // console.log('groupby_options', ops4)
+    // console.log('groupby_options999', ops4)
 
     return ops4
   }
 
-  static search_options({ action, views }) {
+  static search_options({ views }) {
     const { fields = {} } = views
 
-    const items = this._search_items({ action, views })
+    const items = this._search_items({ views })
 
     const fs = items
       .filter(
@@ -627,8 +627,7 @@ export class Search extends ViewBase {
     return fs
   }
 
-  static filters_options(info, value) {
-    const { views } = info
+  static filters_options({ views }, value) {
     const { filters = [] } = views
     // console.log('filters_options', cp(filters), cp(value))
     return filters.map(item => {
@@ -637,11 +636,7 @@ export class Search extends ViewBase {
     })
   }
 
-  static async unlink_filter(info, res_id, search_values) {
-    //
-
-    const { views } = info
-
+  static async unlink_filter({ views }, res_id, search_values) {
     await rpc.web.dataset.call_kw({
       model: 'ir.filters',
       method: 'unlink',
@@ -656,8 +651,7 @@ export class Search extends ViewBase {
     return true
   }
 
-  static async submit_filter(info, filters_values, search_values) {
-    const { action, views } = info
+  static async submit_filter({ action, views }, filters_values, search_values) {
     const { name, is_default, is_public } = filters_values || {}
 
     const action_id = action.id
@@ -667,12 +661,12 @@ export class Search extends ViewBase {
     const user_id = is_public ? false : rpc.env.uid
     const user_name = is_public ? false : rpc.env.name
 
-    const group_by = this.to_groupby(info, search_values)
+    const group_by = this.to_groupby({ views }, search_values)
     const group_by2 = group_by.map(item => `'${item}'`)
     const group_by3 = group_by2.join(',')
     const context = `{'group_by':[${group_by3}]}`
 
-    const domain = this.to_domain2(info, search_values)
+    const domain = this.to_domain2({ views }, search_values)
     const vals = {
       action_id,
       model_id,
@@ -703,8 +697,8 @@ export class Search extends ViewBase {
     return true
   }
 
-  static onchange({ action, views }, search_values, payload) {
-    const search_items = this._search_items({ action, views })
+  static onchange({ views }, search_values, payload) {
+    const search_items = this._search_items({ views })
 
     const filters = search_items.filter(item => item.type === 'filter')
     const group_bys = search_items.filter(item => item.type === 'group_by')
@@ -740,9 +734,8 @@ export class Search extends ViewBase {
     return values
   }
 
-  static async get_selection(info, { field, name }) {
-    const fields = info.views.fields_views.search.fields
-
+  static async get_selection({ views }, { field, name }) {
+    const fields = views.fields_views.search.fields
     const meta = fields[field]
     const { relation } = meta
 
@@ -751,10 +744,10 @@ export class Search extends ViewBase {
     return res
   }
 
-  static to_groupby({ action, views }, search_values) {
-    const search_info = this._search_info({ action, views }, search_values)
+  static to_groupby({ views }, search_values) {
+    const search_info = this._search_info({ views }, search_values)
 
-    // console.log('to_groupby,search_info:', search_info)
+    // console.log('to_groupby111,search_info:', search_info)
     const arr_get = sin => {
       return sin.reduce((acc, item) => {
         const res2 = item.reduce((acc2, item2) => {
@@ -789,8 +782,8 @@ export class Search extends ViewBase {
     return [...grpbys2, ...grpbys1]
   }
 
-  static to_domain2(info, search_values) {
-    // console.log('to_domain2  1,', search_values)
+  static to_domain2({ views }, search_values) {
+    // console.log('to_domain2aaa  1,', search_values)
     const _shift_or = dms => {
       if (!dms.length) return dms
       else if (dms.length === 1) return dms
@@ -919,7 +912,7 @@ export class Search extends ViewBase {
       return '[]'
     }
 
-    const search_info = this._search_info(info, search_values)
+    const search_info = this._search_info({ views }, search_values)
 
     const values = [
       ...search_info.filters,
@@ -928,7 +921,7 @@ export class Search extends ViewBase {
       // ...search_info.groupbys,
     ]
 
-    // console.log('to_domain2  2,', values)
+    // console.log('to_domain2aaa  2,', values)
 
     const domain = values.reduce((acc, cur) => {
       const dms2 = cur.map(item => {
@@ -947,200 +940,12 @@ export class Search extends ViewBase {
     return domain2
   }
 
-  static to_domain(info, search_values) {
-    // console.log('to_domain  1,', search_values)
-    const str = this.to_domain2(info, search_values)
-    // console.log('to_domain  9,', str)
-    const dms1 = Eval_Context(info, { str, record: {} })
+  static to_domain({ context, views }, search_values) {
+    // console.log('to_domain11  1,', search_values)
+    const str = this.to_domain2({ views }, search_values)
+    // console.log('to_domain11  9,', str)
+    const dms1 = Eval_Context({ context }, { str, record: {} })
     // console.log(dms1)
     return dms1
   }
 }
-
-// static to_domain_delllll(info, search_values) {
-//   const _patch_and_one = dms => {
-//     // console.log('_patch_and_one', dms)
-//     const return_error = () => {
-//       console.log('parse domain error:', dms)
-//       return [0, undefined, dms]
-//     }
-
-//     // console.log('domain:', dms)
-//     let todo = [...dms]
-
-//     if (!todo.length) return [null, todo]
-//     const item = todo.shift()
-
-//     if (Array.isArray(item)) return [1, item, todo]
-
-//     if (item === '!') {
-//       const [noerror, one, next] = _patch_and_one(todo)
-//       if (!noerror) return return_error()
-//       const one_ones = noerror === 1 ? [one] : [...one]
-//       return [2, [item, ...one_ones], next]
-//     }
-
-//     if (!['&', '|'].includes(item)) return return_error()
-
-//     const [noerror1, one1, next1] = _patch_and_one(todo)
-//     if (!noerror1) return return_error()
-
-//     const [noerror2, one2, next2] = _patch_and_one(next1)
-//     if (!noerror2) return return_error()
-//     const one11 = noerror1 === 1 ? [one1] : [...one1]
-//     const one21 = noerror2 === 1 ? [one2] : [...one2]
-//     return [2, [item, ...one11, ...one21], next2]
-//   }
-
-//   const _patch_and = dms => {
-//     // console.log('_patch_and:', dms)
-
-//     const dm = [...dms]
-//     if (!dm.length) return []
-
-//     const [noerror1, one1, next1] = _patch_and_one(dm)
-//     if (!noerror1) {
-//       // error
-//       console.log('parse domain error:', dm)
-//       return []
-//     }
-
-//     let result = noerror1 === 1 ? [one1] : [...one1]
-//     let next_todo = [...next1]
-
-//     while (next_todo.length) {
-//       const [noerror, one, next] = _patch_and_one(next_todo)
-//       if (!noerror) {
-//         // error
-//         console.log('parse domain error:', next_todo)
-//         return []
-//       }
-
-//       const one_ones = noerror === 1 ? [one] : [...one]
-//       result = ['&', ...result, ...one_ones]
-//       next_todo = [...next]
-//     }
-
-//     // console.log('_patch_and 9:', result)
-
-//     return result
-//   }
-
-//   const to_domain_insert_and = (str, globals_dict = {}) => {
-//     // const dms1 = Eval_Context({ context, action, views }, { str, record: {} })
-//     const dms1 = py_utils.eval(str, globals_dict)
-//     // console.log(dms1)
-//     const dms = _patch_and(dms1) // 检查 数组, 补充 and
-//     // console.log('domain:', dms)
-//     return dms
-//   }
-
-//   const _to_domain_date_str = (field, { type, year, quarter, month }) => {
-//     const date2str = date => {
-//       const year = (date.getFullYear() + 0).toString().padStart(4, '0')
-//       const month = (date.getMonth() + 1).toString().padStart(2, '0')
-//       const day = (date.getDate() + 0).toString().padStart(2, '0')
-//       return `${year}-${month}-${day}`
-//     }
-//     const ret_fn = (first, last) => {
-//       const str1 = date2str(first)
-//       const str2 = date2str(new Date(last - 24 * 60 * 60 * 1000))
-//       return `['&', ('${field}', '>=', '${str1}'), ('${field}', '<=', '${str2}')]`
-//     }
-//     if (type === 'year')
-//       return ret_fn(new Date(year, 0, 1), new Date(year + 1, 0, 1))
-//     else if (type === 'quarter') {
-//       const fst = new Date(year, (quarter - 1) * 3, 1)
-//       const lst2 = new Date(fst - -100 * 24 * 60 * 60 * 1000)
-//       const lst = new Date(lst2.getFullYear(), lst2.getMonth(), 1)
-//       return ret_fn(fst, lst)
-//     } else if (type === 'month') {
-//       const fst = new Date(year, month - 1, 1)
-//       const lst2 = new Date(fst - -40 * 24 * 60 * 60 * 1000)
-//       const lst = new Date(lst2.getFullYear(), lst2.getMonth(), 1)
-//       return ret_fn(fst, lst)
-//     } else {
-//       return ''
-//     }
-//   }
-
-//   const _shift_or = dms => {
-//     if (!dms.length) return dms
-//     const dms2 = dms.reduce((acc, cur) => [...acc, ...cur], [])
-//     return [...new Array(dms.length - 1).fill('|'), ...dms2]
-//   }
-
-//   const to_domain = node => {
-//     // console.log('to_domain', context)
-//     // uid
-//     const globals_dict = { ...context }
-
-//     const _field_to_domain = (node, value) => {
-//       const field = node.name
-//       const operator = !Array.isArray(value) ? 'ilike' : node.operator || '='
-//       const value2 = Array.isArray(value) ? value[0] : value
-//       return [[field, operator, value2]]
-//     }
-
-//     if (node.type === 'filter') {
-//       if (node.domain) return to_domain_insert_and(node.domain, globals_dict)
-//       else if (node.date) {
-//         return _shift_or(
-//           node.children.reduce((acc, item) => {
-//             const child_str = _to_domain_date_str(node.date, item)
-//             const child_domain = to_domain_insert_and(child_str, globals_dict)
-//             return [...acc, child_domain]
-//           }, [])
-//         )
-//       }
-//     } else if (node.type === 'field') {
-//       if (node.filter_domain) {
-//         const dms = _shift_or(
-//           node.children.reduce((acc, item) => {
-//             const ch_domain = to_domain_insert_and(node.filter_domain, {
-//               self: item.value
-//             })
-//             return [...acc, ch_domain]
-//           }, [])
-//         )
-
-//         // console.log('field,1', node, node.filter_domain, dms)
-
-//         return dms
-//       } else {
-//         const dms = _shift_or(
-//           node.children.reduce((acc, item) => {
-//             const ch_domain = _field_to_domain(node, item.value)
-//             return [...acc, ch_domain]
-//           }, [])
-//         )
-
-//         // console.log('field,2', node, dms)
-//         return dms
-//       }
-//     }
-//     return []
-//   }
-
-//   const search_info = this._search_info({ action, views }, search_values)
-
-//   const values = [
-//     ...search_info.filters,
-//     ...search_info.fields
-//     // ...search_info.groupbys,
-//   ]
-
-//   console.log('todomain', values)
-
-//   const domain = values.reduce((acc, cur) => {
-//     const dms2 = cur.map(item => to_domain(item))
-//     const dms = _shift_or(dms2) // dms 补充 or
-//     // console.log('or', dms)
-
-//     if (acc.length) acc = ['&', ...acc, ...dms]
-//     else acc = [...acc, ...dms]
-//     return acc
-//   }, [])
-
-//   return domain
-// }

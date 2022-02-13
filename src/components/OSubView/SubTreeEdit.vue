@@ -136,7 +136,7 @@ export default {
       this.rowEditchanged2 = true
 
       const res = await try_call(async () => {
-        // console.log('handleOnchange', cp(this.formData))
+        console.log('handleOnchange', cp(this.formViewInfo))
         return await api.Node.relation_onchange(this.formViewInfo, {
           record: this.formData.record,
           values: { ...this.formData.values, [fname]: value },

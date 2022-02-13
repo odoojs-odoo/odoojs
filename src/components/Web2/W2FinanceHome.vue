@@ -64,6 +64,7 @@ const buttons3 = [
   { title: '账本设置', action: 'account.action_account_journal_form' },
   { title: '科目表', action: 'account.action_account_form' },
   { title: '参与人', action: 'contacts.action_contacts' },
+  { title: '参与人标签', action: '_base.action_partner_category_form' },
   { title: '产品', action: 'sale.product_template_action' }
 ]
 

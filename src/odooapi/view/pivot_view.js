@@ -216,8 +216,8 @@ export class Pivot extends Olap {
     super()
   }
 
-  static view_node(info) {
-    return super.view_node(info, 'pivot')
+  static view_node({ action, views }) {
+    return super.view_node({ action, views }, 'pivot')
   }
 
   static async _read_group(info, { domain, groupby, measures }) {
@@ -242,6 +242,7 @@ export class Pivot extends Olap {
 
   static async pivot_read_group_total(info, { search, measures }) {
     const domain1 = this._default_domain(info)
+    // info TODO
     const domain2 = Search.to_domain(info, search)
     const domain = [...domain1, ...domain2]
 
@@ -314,13 +315,13 @@ export class Pivot extends Olap {
       })
       records = [...records, ...res2]
 
-      // console.log('read group1', groupby, res)
+      // console.log('read_group1', groupby, res)
       // if (callback) {
       //   callback({ records: records2 })
       // }
     }
 
-    // console.log('read group ok', groupbys)
+    // console.log('read_group ok', groupbys)
     return records
   }
 
@@ -366,7 +367,7 @@ export class Pivot extends Olap {
       // }
     }
 
-    // console.log('read group ok', groupbys)
+    // console.log('read_group ok', groupbys)
     // console.log('slice', is_row, dim, groupbys)
 
     return records
@@ -465,8 +466,8 @@ export class Graph extends Olap {
     super()
   }
 
-  static view_node(info) {
-    return super.view_node(info, 'graph')
+  static view_node({ action, views }) {
+    return super.view_node({ action, views }, 'graph')
   }
 
   static default_pivot_data(info) {
@@ -484,6 +485,7 @@ export class Graph extends Olap {
     const { rows, cols, measures, search } = kwargs
 
     const domain1 = this._default_domain(info)
+    // info TODO
     const domain2 = Search.to_domain(info, search)
     const domain = [...domain1, ...domain2]
 

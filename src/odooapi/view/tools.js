@@ -59,7 +59,7 @@ export const Kanban_Image = (model, field, res_id) => {
   return url
 }
 
-export const Eval_Context = (info, { str: value_str, record }) => {
+export const Eval_Context = ({ context }, { str: value_str, record }) => {
   // console.log('eval safe', value_str, record)
   /*
     // #  使用
@@ -104,7 +104,6 @@ export const Eval_Context = (info, { str: value_str, record }) => {
 
   const values = _get_values_for_domain()
 
-  const { context } = info
   const globals_dict = {
     // TODO: res_model_id
     // res_model_id: this.Model._model_id,

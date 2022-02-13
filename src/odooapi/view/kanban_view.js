@@ -154,8 +154,8 @@ export class Kanban extends Tree {
     return Object.keys(fields)
   }
 
-  static view_node(info) {
-    return super.view_node(info, 'kanban')
+  static view_node({ action, views }) {
+    return super.view_node({ action, views }, 'kanban')
   }
 
   static async load_data(info, kwargs) {

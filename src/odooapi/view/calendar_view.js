@@ -63,8 +63,8 @@ export class Calendar extends ViewBase {
     super()
   }
 
-  static view_node(info) {
-    return super.view_node(info, 'calendar')
+  static view_node({ action, views }) {
+    return super.view_node({ action, views }, 'calendar')
   }
 
   static _get_title({ type, date }) {
@@ -114,10 +114,10 @@ export class Calendar extends ViewBase {
     return { ...value, date, type, title }
   }
 
-  static _calendar_domain(info, value) {
+  static _calendar_domain({ action, views }, value) {
     const { date, type } = value
 
-    const node = this.view_node(info)
+    const node = this.view_node({ action, views })
 
     const date_start = node.attrs.date_start
     const get_date_range = () => {
@@ -170,28 +170,28 @@ export class Calendar extends ViewBase {
     ]
   }
 
-  static async search_read(info, { value, search }) {
-    const fields1 = info.views.fields_views.calendar.fields
+  static async search_read({ context, action, views }, { value, search }) {
+    const fields1 = views.fields_views.calendar.fields
     const fields2 = Object.keys(fields1)
 
     const fields = fields2.includes('display_name')
       ? fields2
       : ['display_name', ...fields2]
 
-    const domain1 = this._default_domain(info)
-    const domain2 = Search.to_domain(info, search)
-    const domain3 = this._calendar_domain(info, value)
+    const domain1 = this._default_domain({ context, action })
+    const domain2 = Search.to_domain({ context, views }, search)
+    const domain3 = this._calendar_domain({ action, views }, value)
     const domain = [...domain1, ...domain2, ...domain3]
 
-    const Model = this.Model(info)
+    const Model = this.Model({ context, action })
 
     const records = await Model.search_read({ domain, fields })
 
     return records
   }
 
-  static async load_data(info, kwargs) {
-    const records = await this.search_read(info, kwargs)
+  static async load_data({ context, action, views }, kwargs) {
+    const records = await this.search_read({ context, action, views }, kwargs)
     return { records }
   }
 }

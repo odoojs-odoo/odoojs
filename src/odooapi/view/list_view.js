@@ -19,8 +19,8 @@ export class Tree extends ViewBase {
     return Object.keys(fields)
   }
 
-  static view_node(info, viewType = 'tree') {
-    return super.view_node(info, viewType)
+  static view_node({ action, views }, viewType = 'tree') {
+    return super.view_node({ action, views }, viewType)
   }
 
   static async web_read_group(info, { pagination, search, groupby }) {
@@ -30,6 +30,7 @@ export class Tree extends ViewBase {
 
     const domain1 = this._default_domain(info)
 
+    // info TODO
     const domain2 = Search.to_domain(info, search)
     const domain = [...domain1, ...domain2]
 
@@ -152,6 +153,7 @@ export class Tree extends ViewBase {
 
     const domain1 = this._default_domain(info)
     // console.log('xxxx,web_search_read,', domain1, search)
+    // info TODO
     const domain2 = Search.to_domain(info, search)
 
     const domain = [...domain1, ...domain2]
@@ -171,9 +173,10 @@ export class Tree extends ViewBase {
   }
 
   static async load_data(info, kwargs) {
+    const { context, action, views, view } = info
     const { search } = kwargs
-    // console.log('search read', search)
-    const groupby = Search.to_groupby(info, search)
+    // console.log('search_read', search)
+    const groupby = Search.to_groupby({ views }, search)
 
     if (groupby.length) {
       const res = await this.web_read_group(info, { ...kwargs, groupby })
@@ -192,8 +195,8 @@ export class List extends Tree {
     super()
   }
 
-  static view_node(info) {
-    return super.view_node(info, 'list')
+  static view_node({ action, views }) {
+    return super.view_node({ action, views }, 'list')
   }
 
   static _fields_list({ views }) {
@@ -212,21 +215,20 @@ export class List extends Tree {
     return super.load_data({ ...info, view }, kwargs)
   }
 
-  static async action_call(info, action_todo, { active_ids }) {
-    console.log(cp(info), cp(action_todo), active_ids)
-    const { action } = info
-    const ctx_action = this._context(info)
+  static async action_call({ context, action }, action_todo, { active_ids }) {
+    // console.log(cp(context), cp(action_todo), active_ids)
+    const ctx_action = this._context({ context, action })
     const ctx_active = {
       // TODO: active_domain取自 当前 domain 而非 默认domain
-      active_domain: this._default_domain(info),
+      active_domain: this._default_domain({ context, action }),
       active_id: active_ids[0],
       active_ids: active_ids,
       active_model: action.res_model
     }
     const additional_context = { ...ctx_action, ...ctx_active }
 
-    console.log(action_todo.id, additional_context)
-    return this.load_action(info, action_todo.id, { additional_context })
+    // console.log(action_todo.id, additional_context)
+    return this.load_action(action_todo.id, { additional_context })
   }
 
   static async unlink({ context, action }, ids) {
@@ -244,12 +246,10 @@ export class List extends Tree {
     return await this.Model({ context, action }).action_archive(ids)
   }
 
-  static async export_xlsx_all(info) {
-    const { action } = info
+  static async export_xlsx_all({ context, action, views }) {
     const model = action.res_model
-
-    const node = this.view_node(info)
-    const fields_meta = info.views.fields_views.list.fields
+    const node = this.view_node({ action, views })
+    const fields_meta = views.fields_views.list.fields
 
     const fields = node.children
       .filter(
@@ -265,12 +265,20 @@ export class List extends Tree {
       })
 
     const ids = false
-    const domain = this._default_domain(info)
+    const domain = this._default_domain({ context, action })
     const groupby = []
 
-    const context = this._context(info)
+    const ctx = this._context({ context, action })
     const import_compat = false
-    const data = { model, fields, ids, domain, groupby, context, import_compat }
+    const data = {
+      model,
+      fields,
+      ids,
+      domain,
+      groupby,
+      context: ctx,
+      import_compat
+    }
 
     const res = await rpc.web.export.xlsx(data)
     console.log(res)

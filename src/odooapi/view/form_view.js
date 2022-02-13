@@ -81,8 +81,8 @@ class FormRead extends ViewBase {
     super()
   }
 
-  static view_node(info) {
-    return super.view_node(info, 'form')
+  static view_node({ action, views }) {
+    return super.view_node({ action, views }, 'form')
   }
 
   // get fields() {
@@ -119,11 +119,12 @@ class FormRead extends ViewBase {
   //   return field_onchange
   // }
 
-  static async read(info, res_id) {
+  // 仅被 load_data 调用
+  static async read({ context, action, views }, res_id) {
     // console.log('form, read', cp(info), res_id)
-    const Model = this.Model(info)
+    const Model = this.Model({ context, action })
 
-    const fields1 = info.views.fields_views.form.fields
+    const fields1 = views.fields_views.form.fields
     const fields2 = Object.keys(fields1)
 
     const fields = fields2.includes('display_name')
@@ -135,14 +136,16 @@ class FormRead extends ViewBase {
     return { record, ready: true }
   }
 
-  static async unlink(info, ids) {
-    return await this.Model(info).unlink(ids)
+  static async unlink({ context, action }, ids) {
+    // context, action, views
+    return await this.Model({ context, action }).unlink(ids)
   }
 
-  static async copy(info, ids) {
-    return await this.Model(info).copy(ids)
+  static async copy({ context, action }, ids) {
+    return await this.Model({ context, action }).copy(ids)
   }
 
+  // 实际上, 只需要 fields
   static _values_for_onchange_and_modifiers({ view }, payload) {
     const { record, values, for_modifiers } = payload
     // TODO parent_vals values_onchange_for_parent
@@ -178,13 +181,14 @@ class FormEdit extends FormRead {
     super()
   }
 
+  // 实际上, 只需要 fields
   static _values_for_onchange({ view }, { record, values }) {
     return this._values_for_onchange_and_modifiers({ view }, { record, values })
   }
 
-  static _onchange_spec_get(info) {
-    // console.log('_onchange_spec_get,', cp(info))
-    const { view, parent } = info
+  // 这里 需要 view.arch, view.fields
+  static _onchange_spec_get({ view, parent }) {
+    // console.log('_onchange_spec_get,', cp(view), cp(parent))
     if (!parent) return _onchange_spec(view)
 
     const fname = parent.node.attrs.name
@@ -209,15 +213,15 @@ class FormEdit extends FormRead {
     return spec
   }
 
-  //
-  static async onchange_new(info, payload = {}) {
+  // context, res_model, onchange_spec
+  static async onchange_new({ context, action, ...info }, payload = {}) {
     console.log('onchange new,', cp(info))
-
+    const { view, parent } = info
     const { values = {} } = payload
 
-    const Model = this.Model(info)
-    const field_onchange = this._onchange_spec_get(info)
+    const field_onchange = this._onchange_spec_get({ view, parent })
 
+    const Model = this.Model({ context, action })
     const result = await Model.onchange([], values, '', field_onchange)
     const { value: value_ret, ...res } = result
     const values_ret = { ...values, ...value_ret }
@@ -229,12 +233,23 @@ class FormEdit extends FormRead {
   // 若有 o2m 字段? ? 需要生成 虚拟id?
   // 返回  domain. 如何使用
   // TODO
-  static async onchange(info, payload = {}) {
-    // console.log('onchange,', payload)
+  // context, res_model, onchange_spec
+  static async onchange({ context, action, ...info }, payload = {}) {
+    // 1. form view 编辑时, 触发 onchange
+    // 2. 参数1: {context, action, view, parent},
+    //    参数2: {record, values, fname, kwargs:{for_write }}
+    // 3. relation field 的编辑,  额外携带参数 parent 和 kwargs.for_write
+    // 说明:
+    // 1. 正常情况下 view = views.fields_views.form
+    // 2. o2m 字段的行编辑时, view = views.fields_views.tree/kanban
+    // 3. 因此 view 参数必须提供
+    //
+    console.log('onchange,', cp({ context, action, ...info }), payload)
+    // relation 字段, onchange 时. 需要 parent
+    const { view, parent } = info
     const { record = {}, values = {}, fname, kwargs = {} } = payload
 
-    const Model = this.Model(info)
-    const field_onchange = this._onchange_spec_get(info)
+    const field_onchange = this._onchange_spec_get({ view, parent })
 
     // const to_call = field_onchange[fname]
     //  if (to_call)  then  onchange to server
@@ -242,11 +257,14 @@ class FormEdit extends FormRead {
     const ids = record.id && !is_virtual_id(record.id) ? [record.id] : []
     // eslint-disable-next-line no-unused-vars
     const { id: id_del, ...values2 } = values
-    const vals_onchg = this._values_for_onchange(info, {
-      record,
-      values: values2
-    })
+
+    // 实际上, 只需要 fields
+    const vals_onchg = this._values_for_onchange(
+      { view },
+      { record, values: values2 }
+    )
     // console.log(record, values, vals_onchg, fname)
+    const Model = this.Model({ context, action })
     const result = await Model.onchange(ids, vals_onchg, fname, field_onchange)
     const { value: value_ret, ...res } = result
     // console.log(record, values, value_ret, fname)
@@ -257,6 +275,7 @@ class FormEdit extends FormRead {
     // 2. set_value_by_onchange
     const values_ret = { ...values, ...value_ret }
 
+    // relation 字段, onchange 时. 需要  for_write
     if (kwargs.for_write !== undefined) {
       values_ret[fname] = kwargs.for_write
     }
@@ -287,7 +306,12 @@ class FormEdit extends FormRead {
     return meta.readonly
   }
 
+  // 实际上, 只需要 fields
   static values_for_write({ view }, { state, values }) {
+    // if (view) return view
+    // const { fields_views = {} } = views
+    // const view2 = fields_views[viewType] || {}
+
     const { fields = {} } = view
     const all_keys = Object.keys({ ...values })
 
@@ -305,27 +329,34 @@ class FormEdit extends FormRead {
     }, {})
   }
 
-  static async create(info, { values }) {
-    return this.commit(info, { record: {}, values })
+  // context, res_model, fields
+  static async create({ context, action, view }, { values }) {
+    return this.commit({ context, action, view }, { record: {}, values })
   }
 
-  static async write(info, { record, values }) {
+  // context, res_model, fields
+  static async write({ context, action, view }, { record, values }) {
     if (!record || !record.id) {
       console.log('throw error . write with no record.id')
       throw 'write No record.id'
     }
-    return this.commit(info, { record, values })
+    return this.commit({ context, action, view }, { record, values })
   }
 
-  static async commit(info, { record, values }) {
+  //  context, res_model, fields
+  static async commit({ context, action, view }, { record, values }) {
     if (!values) return
     if (!Object.keys(values).length) return
 
     const state_value = 'state' in values ? values.state : record.state
 
-    const values2 = this.values_for_write(info, { state: state_value, values })
+    // 实际上, 只需要 fields
+    const values2 = this.values_for_write(
+      { view },
+      { state: state_value, values }
+    )
 
-    const Model = this.Model(info)
+    const Model = this.Model({ context, action })
 
     if (record.id) {
       await Model.write(record.id, values2)
@@ -345,30 +376,29 @@ export class Form extends FormEdit {
     return tuples_to_ids(tuples)
   }
 
-  static async read(info, res_id) {
-    const view = info.views.fields_views.form
-    return super.read({ ...info, view }, res_id)
+  static async read({ context, action, views }, res_id) {
+    return super.read({ context, action, views }, res_id)
   }
 
   static async load_data(info, res_id) {
     if (res_id) {
-      return this.read(info, res_id)
+      const { context, action, views } = info
+      return this.read({ context, action, views }, res_id)
     } else {
       return this.onchange_new(info)
     }
   }
 
-  static async action_call(info, action_todo, { active_id }) {
-    // console.log(cp(info), cp(action_todo), active_ids, active_id)
-    const { action } = info
-    const ctx_action = this._context(info)
+  static async action_call({ context, action }, action_todo, { active_id }) {
+    // console.log(cp(context), cp(action_todo), active_ids, active_id)
+    const ctx_action = this._context({ context, action })
     const ctx_active = {
       active_id: active_id,
       active_ids: [active_id],
       active_model: action.res_model
     }
     const additional_context = { ...ctx_action, ...ctx_active }
-    return this.load_action(info, action_todo.id, { additional_context })
+    return this.load_action(action_todo.id, { additional_context })
   }
 
   static values_display({ view }, { record, values }) {
@@ -392,6 +422,7 @@ export class Form extends FormEdit {
   }
 
   static _values_for_modifiers({ view }, { record, values }) {
+    // 实际上, 只需要 fields
     return this._values_for_onchange_and_modifiers(
       { view },
       { record, values, for_modifiers: 1 }

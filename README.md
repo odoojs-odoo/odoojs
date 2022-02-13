@@ -10,7 +10,7 @@
 8. odoojs 的组件部分 odooweb. 包括 forview/listview
 9. odooweb 也包括 kanban/pivot/treeedit 等复杂组件
 
-#### 最新更新 2022-2-7
+#### 最新更新 2022-2-13
 
 1. portal 页面. /my/home
 2. 自定义菜单.
@@ -21,6 +21,12 @@
 1. QQ 群 2684913
 
 ## 更新历史
+
+#### 2022-2-13
+
+1. portal 页面. /my/home
+2. 自定义菜单.
+3. 自定义 xml
 
 #### 2022-2-7
 

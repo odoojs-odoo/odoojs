@@ -1,8 +1,13 @@
+import rpc from '@/odoorpc'
+import controller from './controllers'
+
 import { Action } from './action'
 import { Views } from './views'
 import { Node } from './view/node'
 
-import rpc from '@/odoorpc'
+Object.keys(controller).forEach(item => {
+  rpc[item] = controller[item]
+})
 
 rpc.Action = Action
 rpc.Views = Views
@@ -10,6 +15,7 @@ rpc.Node = Node
 
 const api = rpc
 
+console.log([api])
 /*
   init,
   web,

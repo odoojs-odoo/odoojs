@@ -42,12 +42,11 @@ export class ViewBase {
     return view2
   }
 
-  static view_node(info, viewType) {
-    const view = this._view_get(info, viewType)
-    const { arch } = view
+  static view_node({ action, views, view }, viewType) {
+    const view1 = this._view_get({ views, view }, viewType)
+    const { arch } = view1
     const node = xml2json.toJSON(arch)
 
-    const { action } = info
     if (!action.$xml_id) {
       return node
     }
@@ -58,7 +57,7 @@ export class ViewBase {
 
     const view2 = XML.search_view({
       act_window_id: action.$xml_id,
-      type: view.type
+      type: view1.type
     })
     console.log('view_node2 local 99', [XML], action.$xml_id, view2)
 
@@ -84,7 +83,7 @@ export class ViewBase {
     return env.model(relation)
   }
 
-  static async load_action(info, action_xml_id, { additional_context }) {
+  static async load_action(action_xml_id, { additional_context }) {
     const action = await Action.load(action_xml_id, { additional_context })
 
     if (!action) {

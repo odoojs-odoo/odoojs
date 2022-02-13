@@ -1,4 +1,4 @@
-import { JsonRequest } from '../request'
+import { JsonRequest } from '@/odoorpc/request'
 
 class Attachment extends JsonRequest {
   constructor(payload) {

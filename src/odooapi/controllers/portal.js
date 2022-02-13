@@ -1,6 +1,6 @@
-import { JsonRequest } from '../request'
+import { JsonRequest } from '@/odoorpc/request'
 
-import { toJSON } from '@/odooapi/xml2json'
+import { toJSON } from '../xml2json'
 
 class Potal extends JsonRequest {
   constructor(payload) {

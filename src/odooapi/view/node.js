@@ -175,7 +175,7 @@ class NodeRead extends Form {
 
     const additional_context = { ...ctx_action, ...ctx_node, ...ctx_active }
 
-    return this.load_action(info, name, { additional_context })
+    return this.load_action(name, { additional_context })
   }
 
   static async _button_clicked_object(info, { node, record }) {
@@ -459,80 +459,101 @@ class NodeRealtion extends NodeEdit {
     return { records, relation: { context, action: action2, views } }
   }
 
-  static async _relation_form_info(info, { editable }) {
-    // console.log('_relation_form_info', cp(info))
-    const ctx_get = () => {
-      const ctx = info.context
-      const parent_node = info.parent.node
-      const parent_model = info.parent.action.res_model
-      const fname = parent_node.attrs.name
-      const ctx_parent = info.parent.context
-      // console.log('_relation_form_info222', parent_model, fname, ctx_parent)
+  static _relation_form_info_context(context, pinfo) {
+    const parent_node = pinfo.node
+    const parent_model = pinfo.action.res_model
+    const fname = parent_node.attrs.name
+    const ctx_parent = pinfo.context
+    // console.log('_relation_form_info222', parent_model, fname, ctx_parent)
 
-      if (parent_model === 'res.partner' && fname === 'child_ids')
-        return ctx_parent
-      else return ctx
-    }
+    // 特殊处理, model: res.partner, field: child_ids
+    if (parent_model === 'res.partner' && fname === 'child_ids')
+      return ctx_parent
+    else return context
+  }
 
-    const context = ctx_get()
-
-    const Model = this.Model(info)
-
-    const async_load_state = async () => {
+  static async _relation_form_info_load_form({ context, action }) {
+    const async_load = () => {
       const kwargs = {
-        context: info.context,
+        context,
         options: { load_filters: false },
         views: [[null, 'form']]
       }
       const method = 'load_views'
-
-      const views_by_load = await Model.execute_kw(method, [], { ...kwargs })
-      // const { fields: fields2, fields_views: fields_views2 } = in_view_info
-      // const { form: form2 } = fields_views2
-      const form_view = views_by_load.fields_views.form
-      const form_node = this.view_node({ ...info, view: form_view })
-      return { views: views_by_load, view: form_view, node: form_node }
+      const Model = this.Model({ action })
+      return Model.execute_kw(method, [], { ...kwargs })
     }
 
-    const merge_state = (info, state2) => {
-      const { fields: fields2, fields_views: fields_views2 } = state2.views
-      const { form: form_view } = fields_views2
-      const form_node = state2.node
+    const views = await async_load()
 
-      const { fields, fields_views = {} } = info.views
+    return views
+  }
+
+  static _relation_form_info_merge_views(views, views2) {
+    const { fields: fields2, fields_views: fields_views2 = {} } = views2
+    const { fields, fields_views = {} } = views
+    const views_ret = {
+      fields: { ...fields, ...fields2 },
+      fields_views: { ...fields_views, ...fields_views2 }
+    }
+    return views_ret
+  }
+
+  static async _relation_form_info(info, { editable }) {
+    const { context, action, views } = info
+    console.log('_relation_form_info', cp(info))
+
+    // 特殊处理, model: res.partner, field: child_ids 时 用到. 获取 context
+    const { parent: parent_info } = info
+
+    // 编辑时, 用到 tree_view, tree_node. 来生成 form_view, form_node
+    const { view: tree_view, node: tree_node } = info
+
+    const get_form_info_readonly = async (context, action, views) => {
+      const views_get = async () => {
+        if (views.fields_views.form) {
+          return views
+        }
+
+        const views_by_load = await this._relation_form_info_load_form({
+          context,
+          action
+        })
+
+        const views_new = this._relation_form_info_merge_views(
+          views,
+          views_by_load
+        )
+
+        return views_new
+      }
+
+      const views2 = await views_get()
+
+      const ctx = this._relation_form_info_context(context, parent_info)
 
       return {
-        ...info,
-        context,
-        views: {
-          fields: { ...fields, ...fields2 },
-          fields_views: { ...fields_views, ...fields_views2 }
-        },
-        view: form_view,
-        node: form_node
+        context: ctx,
+        action,
+        views: views2,
+        parent: parent_info,
+        view: views2.fields_views.form,
+        node: this.view_node({ action, views: views2 })
       }
     }
 
-    const get_form_state_readonly = async () => {
-      const { fields_views = {} } = info.views
-      const { form: form_view } = fields_views
-      if (form_view) {
-        const from_node = this.view_node({ ...info, view: form_view })
-        return { ...info, context, view: form_view, node: from_node }
-      } else {
-        const form_state = await async_load_state()
-        return merge_state(info, form_state)
-      }
-    }
+    const info_for_form = await get_form_info_readonly(context, action, views)
+    if (!editable) return info_for_form
 
-    const get_form_state_editable = async form_state_read => {
-      // console.log('tree node:', info.view, info.node)
-      const tree_view = info.view
-      const tree_node = info.node
-      if (!tree_node.attrs.editable) return form_state_read
+    const get_form_info_editable = async info_for_form => {
+      // 如果 不允许行编辑, 则 打开 form view
+      if (!tree_node.attrs.editable) return info_for_form
 
+      // 否则: 允许行编辑. 那么 使用 tree view 拼接一个 form.node
+      // 2022-2-10, 行编辑 已经实现, 这个 拼接而成的 node 已经没有用了
       const form_node = {
-        ...form_state_read.node,
+        ...info_for_form.node,
+        debug_is_from_tree: 1,
         children: [
           {
             tagName: 'sheet',
@@ -555,7 +576,11 @@ class NodeRealtion extends NodeEdit {
       }
 
       const form_state2 = {
-        ...form_state_read,
+        ...info_for_form,
+        // 这里的 view 是 tree view. 不是 form view
+        // TODO, 那么,  后续. 编辑窗口. 的 node 读取数据时, 遇到 view? 必须提供?
+        // 无法从 views 中, 通过 views.fields_views.form 获得
+        // 需要检查, 编辑时, 用到哪些  FORM 的函数
         view: tree_view,
         node: form_node
       }
@@ -563,31 +588,23 @@ class NodeRealtion extends NodeEdit {
       return form_state2
     }
 
-    const form_state = await get_form_state_readonly()
-
-    if (!editable) {
-      return form_state
-      // const data = await this.load_data(form_state, row.id)
-      // console.log(info, row, form_state, data)
-      // return { viewInfo: form_state, data }
-    } else {
-      const form_state2 = await get_form_state_editable(form_state)
-      return form_state2
-      // const data = { record: row }
-      // console.log(info, row, form_state2, data)
-      // return { viewInfo: form_state2, data }
-    }
+    const info_for_form2 = await get_form_info_editable(info_for_form)
+    return info_for_form2
   }
 
   static async relation_new(info, { parentData }) {
+    // info is for relation field
     const viewInfo = await this._relation_form_info(info, { editable: true })
     // console.log('relation_new', cp(info), cp(viewInfo))
     const data = await this.relation_onchange_new(viewInfo, { parentData })
+
+    // viewInfo = { context, action, views, view, node }
+    // 返回页面的参数. 包括  view, node?
     return { viewInfo, data }
   }
 
   static async relation_pick(info, { parentData, row, editable }) {
-    // console.log('relation_pick', info, row, editable)
+    console.log('relation_pick', cp(info), row, editable)
     const viewInfo = await this._relation_form_info(info, { editable })
     console.log('relation_pick relation viewInfo', cp(viewInfo), row, editable)
     // TODO: 如果是 行编辑, 则无需读取数据
@@ -597,6 +614,14 @@ class NodeRealtion extends NodeEdit {
     const data = editable
       ? { record: row, parentData }
       : await this.load_data(viewInfo, row.id)
+    // load_data 这里的 viewInfo 只需要 { context, action, views}
+    // 可以直接 call Model.read(res_id, {fields} )
+    // 解耦  与 class Form 的关系
+    // 只读情况下. relation_pick 打开 form_view.
+
+    // viewInfo = { context, action, views, view, node }
+    // 返回页面的参数. 包括  view, node?
+    // if 行编辑: view is treeview. node is
 
     return { viewInfo, data }
   }
@@ -607,7 +632,7 @@ class NodeRealtion extends NodeEdit {
     const fname = node.attrs.name
     const field_meta = view.fields[fname]
     const { relation_field } = field_meta
-    const vals = this._values_for_onchange(info, { record, values })
+    const vals = this._values_for_onchange({ view }, { record, values })
     return {
       fname,
       relation_field,
@@ -618,6 +643,8 @@ class NodeRealtion extends NodeEdit {
 
   static async relation_onchange_new(info, { parentData }) {
     const parent = this._relation_onchange_parent_info(info.parent, parentData)
+
+    // onchange_new 的  info 中 需要 view 来 计算 onchange_spec
     const res = await this.onchange_new(info, { values: parent.values })
     const { values: values_ret } = res
     delete values_ret[parent.relation_field]
@@ -626,6 +653,9 @@ class NodeRealtion extends NodeEdit {
   }
 
   static async relation_onchange(info, payload = {}) {
+    // 1. relation 字段的 subForm 或 subTreeEdit 的编辑
+    // 2. 相比 普通的 onchange. 参数 额外有 parent_feild
+    //    返回值, 需要 对 parent_feild 特殊处理
     // console.log('relation_onchange,', payload)
 
     const { record = {}, values = {}, parentData, fname } = payload
@@ -643,13 +673,15 @@ class NodeRealtion extends NodeEdit {
     return res2
   }
 
-  static async relation_commit(info, payload) {
+  // 实际上, 只需要 fields
+  static async relation_commit({ view }, payload) {
+    // console.log('relation_commit', cp(view))
     // eslint-disable-next-line no-unused-vars
     const { records, values, formData, parentData } = payload
     // const {fname, field, value: tuple  } = formData
     // console.log('relation_commit', cp(info), cp(payload))
 
-    const to_write = (info2, records, values2) => {
+    const to_write = (view, records, values2) => {
       const values3 = tuples_helper.to_onchange(values2)
 
       return values3.map(item => {
@@ -660,10 +692,10 @@ class NodeRealtion extends NodeEdit {
           const state_value =
             'state' in values_me ? values_me.state : record_me.state
 
-          const vals_write = this.values_for_write(info2, {
-            state: state_value,
-            values: values_me
-          })
+          const vals_write = this.values_for_write(
+            { view },
+            { state: state_value, values: values_me }
+          )
           return [op, item[1], vals_write]
         } else {
           return item
@@ -676,7 +708,7 @@ class NodeRealtion extends NodeEdit {
       formData.value,
       formData.field.relation_field
     )
-    const values_write = to_write(info, records, values_ret)
+    const values_write = to_write(view, records, values_ret)
 
     const old_tuples = records.map(item => [4, item.id, false])
     const tuples_todo = [...old_tuples, ...values_ret]
