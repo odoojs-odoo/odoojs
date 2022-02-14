@@ -12,9 +12,9 @@
 
 #### 最新更新 2022-2-13
 
-1. portal 页面. /my/home
-2. 自定义菜单.
-3. 自定义 xml
+1. odoorpc 优化
+2. odooapi 优化
+3. 调整 api.my.home 接口. 从 odoorpc 移动到 odooapi
 
 ## 学习交流
 
@@ -24,9 +24,9 @@
 
 #### 2022-2-13
 
-1. portal 页面. /my/home
-2. 自定义菜单.
-3. 自定义 xml
+1. odoorpc 优化
+2. odooapi 优化
+3. 调整 api.my.home 接口. 从 odoorpc 移动到 odooapi
 
 #### 2022-2-7
 
