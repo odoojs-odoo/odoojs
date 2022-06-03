@@ -38,6 +38,7 @@ export default {
     },
 
     node_raw() {
+      // console.log('node_raw', cp(this.viewInfo))
       const node = api.Views.kanban.render_kanban(
         this.viewInfo,
         this.dataInfo.record

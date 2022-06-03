@@ -1,6 +1,9 @@
 import api from '@/odooapi'
 import viewMixin from './viewMixin'
 
+// eslint-disable-next-line no-unused-vars
+const cp = val => JSON.parse(JSON.stringify(val))
+
 export default {
   mixins: [viewMixin],
 

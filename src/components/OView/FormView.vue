@@ -16,6 +16,45 @@
       :view-info="{ ...viewInfo2, node }"
       @on-event="handleOnViewEvent"
     />
+
+    <template v-if="editable">
+      <!-- {{ field_nodes }} -->
+
+      <!-- {{ values }}
+
+     -->
+
+      {{ values_edit }}
+
+      <a-form-model
+        v-show="showForm"
+        ref="refForm"
+        :model="values_edit"
+        :rules="rules_edit"
+      >
+        <template v-for="(fn, fn_index) in field_nodes">
+          <a-form-model-item
+            :label="fn.attrs.name"
+            :prop="fn.attrs.name"
+            :key="fn_index"
+          >
+            <template v-if="Array.isArray(values_edit[fn.attrs.name])">
+              <a-select v-model="values_edit[fn.attrs.name]" mode="multiple">
+                <a-select-option
+                  v-for="m2m_id in values_edit[fn.attrs.name]"
+                  :key="m2m_id"
+                >
+                  {{ m2m_id }}
+                </a-select-option>
+              </a-select>
+            </template>
+            <template v-else>
+              <a-input v-model="values_edit[fn.attrs.name]" />
+            </template>
+          </a-form-model-item>
+        </template>
+      </a-form-model>
+    </template>
   </div>
 </template>
 
@@ -34,7 +73,9 @@ export default {
   props: {},
 
   data() {
-    return {}
+    return {
+      showForm: true
+    }
   },
   computed: {},
 

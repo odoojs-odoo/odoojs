@@ -256,6 +256,20 @@ class NodeRead extends Form {
     return result
   }
 
+  static async load_m2m_binary_data(info, ids) {
+    const { node, view } = info
+    const ctx = this._context(info)
+    const { fields } = view
+    const fname = node.attrs.name
+    const meta = fields[fname]
+    const { relation } = meta
+    // console.log(info, ids, fname, relation, meta, ctx)
+
+    const Relation = this.Relation(relation, { context: ctx })
+    const result = await Relation.read(ids, { fields: ['name', 'mimetype'] })
+    return result
+  }
+
   static async m2m_search_read(info, { records }) {
     const fields2 = info.views.fields_views.tree.fields
     const fields = Object.keys(fields2)

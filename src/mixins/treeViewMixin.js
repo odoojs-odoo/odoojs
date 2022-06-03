@@ -48,7 +48,7 @@ export default {
 
   methods: {
     async load_data(search) {
-      // console.log('load_data', [search, this.searchValue])
+      // console.log('load_data', [search, this.searchValue, this.node])
       this.data = await api.Views[this.viewType].load_data(this.viewInfo2, {
         search: search || this.searchValue,
         pagination: this.pagination

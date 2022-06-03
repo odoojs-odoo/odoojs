@@ -244,10 +244,17 @@ class FormEdit extends FormRead {
     // 2. o2m 字段的行编辑时, view = views.fields_views.tree/kanban
     // 3. 因此 view 参数必须提供
     //
+
     console.log('onchange,', cp({ context, action, ...info }), payload)
     // relation 字段, onchange 时. 需要 parent
     const { view, parent } = info
     const { record = {}, values = {}, fname, kwargs = {} } = payload
+
+    const { local_onchange } = kwargs
+
+    if (local_onchange) {
+      return { record, values }
+    }
 
     const field_onchange = this._onchange_spec_get({ view, parent })
 

@@ -5,11 +5,17 @@ import moment from 'moment'
 import { Kanban_Image } from './tools'
 
 import { Tree } from './list_view'
+
+// eslint-disable-next-line no-unused-vars
+const cp = val => JSON.parse(JSON.stringify(val))
+
 const insertStr = (soure, start, newStr) => {
   return soure.slice(0, start) + newStr + soure.slice(start)
 }
 const Render_XML = ({ xml, tname, fields, record }) => {
-  // console.log('Render_XML ', xml, tname, fields, record)
+  // console.log('Render_XML ')
+  // console.log('Render_XML ', tname, fields, cp(record))
+  // console.log('Render_XML2 ', cp([xml, tname, fields, record]))
   const get_val = fld => {
     const meta = fields[fld] || {}
     const val = record[fld]
@@ -33,6 +39,10 @@ const Render_XML = ({ xml, tname, fields, record }) => {
         raw_value: record[fld] ? new Date(record[fld]) : new Date(),
         value: record[fld]
       }
+    } else if (['many2many2', 'one2many'].includes(meta.type)) {
+      // kanban 分组查询后 record[fld] 可能为 空. 需要设置初始化值
+      const val2 = val || []
+      return { raw_value: val2, value: val2 }
     } else return { raw_value: record[fld], value: record[fld] }
   }
 
@@ -42,8 +52,6 @@ const Render_XML = ({ xml, tname, fields, record }) => {
     acc[fld] = value
     return acc
   }, {})
-
-  // console.log(fields, qweb_record)
 
   const KANBAN_RECORD_COLORS = [
     'No color',
@@ -154,13 +162,35 @@ export class Kanban extends Tree {
     return Object.keys(fields)
   }
 
+  static default_group_by({ action, views }) {
+    const node = this.view_node({ action, views })
+    console.log(node)
+    return []
+  }
+
   static view_node({ action, views }) {
     return super.view_node({ action, views }, 'kanban')
   }
 
+  static async _load_data_default(info, kwargs) {
+    const node = this.view_node(info)
+    const default_group_by = node.attrs.default_group_by
+    if (!default_group_by) {
+      return super.load_data(info, kwargs)
+    }
+    const groupby = [default_group_by]
+    return this.web_read_group(info, { ...kwargs, groupby })
+  }
+
   static async load_data(info, kwargs) {
+    const { default_load } = kwargs
     const view = info.views.fields_views.kanban
-    return super.load_data({ ...info, view }, kwargs)
+
+    if (default_load) {
+      return this._load_data_default({ ...info, view }, kwargs)
+    } else {
+      return super.load_data({ ...info, view }, kwargs)
+    }
   }
 
   static async web_read_group(info, { search, groupby }) {

@@ -173,9 +173,11 @@ export class Tree extends ViewBase {
   }
 
   static async load_data(info, kwargs) {
+    // eslint-disable-next-line no-unused-vars
     const { context, action, views, view } = info
     const { search } = kwargs
-    // console.log('search_read', search)
+    // console.log('load_data', info)
+
     const groupby = Search.to_groupby({ views }, search)
 
     if (groupby.length) {
@@ -212,6 +214,7 @@ export class List extends Tree {
 
   static async load_data(info, kwargs) {
     const view = info.views.fields_views.list
+
     return super.load_data({ ...info, view }, kwargs)
   }
 

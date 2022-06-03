@@ -76,14 +76,16 @@ export default {
       if (this.changed) {
         this.changed = false
 
-        // console.log('xxxx', this.$refs.ruleForm)
-
         this.$refs.ruleForm.validate(valid => {
+          // console.log('xxxx', valid)
           if (valid) {
             const value2 = event.target.value
             const value = this.type === 'number' ? Number(value2) : value2
 
             this.onchange(value)
+          } else {
+            const value2 = event.target.value
+            this.onchange(value2, { local_onchange: 1 })
           }
         })
       }

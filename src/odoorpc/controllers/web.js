@@ -320,6 +320,34 @@ async function file2Base64(file) {
   return data
 }
 
+class Binary2 extends JsonRequest {
+  constructor(payload) {
+    super(payload)
+  }
+
+  static async upload_attachment_one(payload) {
+    const { file } = payload
+    const datas = await file2Base64(file)
+    const vals = { name: file.name, datas }
+    const context = Session.user_context
+    const attach_id = await Dataset.call_kw({
+      model: 'ir.attachment',
+      method: 'create',
+      args: [vals],
+      kwargs: { context }
+    })
+
+    const attach = await Dataset.call_kw({
+      model: 'ir.attachment',
+      method: 'read',
+      args: [attach_id, ['name', 'mimetype']],
+      kwargs: { context }
+    })
+    // console.log(attach)
+    return attach[0]
+  }
+}
+
 class Binary extends FileRequest {
   constructor(payload) {
     super(payload)
@@ -700,6 +728,8 @@ web.database = Database
 web.session = Session
 web.dataset = Dataset
 web.binary = Binary
+web.binary2 = Binary2
+
 web.action = Action
 web.export = Export
 

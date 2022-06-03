@@ -32,6 +32,23 @@ export default {
   mounted() {},
 
   methods: {
+    async load_data() {
+      // console.log('load_data', [this.searchValue, this.node])
+      this.data = await api.Views[this.viewType].load_data(this.viewInfo2, {
+        search: this.searchValue,
+        pagination: this.pagination,
+        default_load: 1
+      })
+      // console.log(this.data)
+    },
+
+    async handleOnSearchChange(search) {
+      this.data = await api.Views[this.viewType].load_data(this.viewInfo2, {
+        search: search,
+        pagination: this.pagination
+      })
+    },
+
     render_kanban(record) {
       const node = api.Views.kanban.render_kanban(this.viewInfo2, record)
       // console.log('render_kanban1', cp(this.viewInfo2), cp(this.node))

@@ -56,9 +56,9 @@ export default {
       this.value2 = { [this.fname]: value }
     },
 
-    onchange(value) {
+    onchange(value, ...args) {
       // console.log('handleOnchange', [this.fname, value])
-      this.$emit('on-change', value)
+      this.$emit('on-change', value, ...args)
     }
   }
 }
