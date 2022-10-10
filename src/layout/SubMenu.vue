@@ -1,6 +1,11 @@
 <template functional>
   <a-sub-menu :key="props.menuData.id">
     <span slot="title">
+      <a-icon
+        v-if="props.menuData.icon"
+        :type="props.menuData.icon"
+        :theme="props.menuData.theme"
+      />
       <span> {{ props.menuData.name }}</span>
     </span>
 
@@ -22,6 +27,11 @@
 
       <template v-else>
         <a-menu-item :key="submenu.id">
+          <a-icon
+            v-if="submenu.icon"
+            :type="submenu.icon"
+            :theme="submenu.theme"
+          />
           <span> {{ submenu.name }} </span>
         </a-menu-item>
       </template>

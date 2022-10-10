@@ -3,8 +3,9 @@
     <div>Home page</div>
     <div></div>
 
+    <a-button type="primary" @click="onTest">Test</a-button>
+
     <div>-----</div>
-    <testXML />
 
     <a-button type="primary" @click="onLogout">注销再登录</a-button>
 
@@ -14,20 +15,16 @@
 </template>
 
 <script>
-import api from '@/odooapi'
-
-import testXML from './testXML.vue'
+import api from '@/odoorpc'
 
 export default {
   name: 'Home',
-  components: { testXML },
+  components: {},
   mixins: [],
 
   data() {
     return {
-      version_info: {},
-
-      open: false
+      version_info: {}
     }
   },
   computed: {},
@@ -36,6 +33,10 @@ export default {
   },
 
   methods: {
+    onTest() {
+      //
+      this.$router.push({ path: '/test' })
+    },
     async onLogout() {
       await api.web.logout()
       this.$router.replace({ path: '/user/login' })

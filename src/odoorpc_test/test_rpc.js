@@ -9,6 +9,8 @@ const master_pwd = '123'
 const login_info = { db: 'test_db', login: 'admin', password: '123456' }
 // const config = { master_pwd }
 const config = { master_pwd, login_info }
+
+// eslint-disable-next-line no-unused-vars
 const test = new Test(config)
 
 export const test_rpc = async () => {

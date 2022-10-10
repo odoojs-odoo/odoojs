@@ -17,7 +17,7 @@
       :label-col="{ span: 5 }"
       :wrapper-col="{ span: 12 }"
     >
-      <a-form-model-item prop="database" label="数据库">
+      <!-- <a-form-model-item prop="database" label="数据库">
         <a-select v-model="form2.database">
           <a-select-option
             v-for="item in database_options"
@@ -26,7 +26,7 @@
             >{{ item }}</a-select-option
           >
         </a-select>
-      </a-form-model-item>
+      </a-form-model-item> -->
 
       <a-form-model-item prop="username" label="账号">
         <a-input v-model="form2.username" placeholder="用户账号" />
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import loginMixin from '@/mixins/loginMixin'
+import loginMixin from './loginMixin'
 
 export default {
   name: 'AppLogin',

@@ -1,250 +1,215 @@
 <template>
-  <!-- <div>
-    <router-view />
-  </div> -->
-
-  <a-layout id="components-layout-demo-custom-trigger">
-    <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
-      <div class="logo" />
-
-      <a-menu
-        v-if="debug"
-        theme="dark"
-        mode="inline"
-        :default-selected-keys="['home']"
-        @click="selectMenuLocal"
+  <div>
+    <a-layout
+      style="height: 100vh; min-height: 100%; width: 100%; min-width: 1000px"
+    >
+      <a-layout-sider
+        v-model="collapsed"
+        :trigger="null"
+        collapsible
+        style="background: white; padding: 0"
       >
-        <a-sub-menu>
-          <span slot="title">
-            <!-- <a-icon type="video-camera" /> -->
+        <div id="logoPic">
+          <img src="../assets/logo.png" alt="logo" width="70%" height="30px" />
+        </div>
+        <div style="height: 92vh; overflow-y: auto">
+          <a-menu
+            theme="light"
+            mode="inline"
+            :default-selected-keys="['home']"
+            @click="selectMenu"
+          >
+            <a-menu-item key="home">
+              <a-icon type="home" theme="twoTone" />
+              <span>首页</span>
+            </a-menu-item>
 
-            <a-icon type="gold" theme="twoTone" />
-            自定义菜单
-          </span>
-
-          <a-menu-item key="home">
-            <a-icon type="home" theme="twoTone" />
-            <span>首页</span>
-          </a-menu-item>
-
-          <!-- <a-menu-item key="test">
+            <!-- <a-menu-item key="test">
             <a-icon type="video-camera" />
             <span>Test</span>
           </a-menu-item> -->
 
-          <template v-for="menu in localMenus">
-            <a-menu-item :key="menu.name">
-              <a-icon :type="menu.icon" :theme="menu.theme" />
-              <span>{{ menu.title }}</span>
-            </a-menu-item>
-          </template>
-        </a-sub-menu>
-      </a-menu>
+            <template v-for="item in menus_tree">
+              <template v-if="is_sub_menu(item)">
+                <sub-menu
+                  :key="item.id"
+                  :menu-data="item"
+                  :collapsed="collapsed"
+                />
+              </template>
 
-      <a-menu
-        theme="dark"
-        mode="inline"
-        :default-selected-keys="['home']"
-        @click="selectMenu"
-      >
-        <a-sub-menu>
-          <span slot="title">
-            <a-icon type="appstore" theme="twoTone" />
-            官方菜单
-          </span>
-
-          <template v-for="item in menus">
-            <template v-if="is_sub_menu(item)">
-              <a-sub-menu :key="item.id">
-                <span slot="title">
-                  <!-- <a-icon type="home" /> -->
-                  <span v-if="item.web_icon">
-                    <img :src="img_url(item.web_icon)" alt="" width="12" />
-                  </span>
-                  <span> {{ item.name }} </span>
-                </span>
-                <template v-for="submenu in item.children">
-                  <sub-menu
-                    v-if="is_sub_menu(submenu)"
-                    :key="submenu.id"
-                    :menu-data="submenu"
-                    :collapsed="collapsed"
+              <template v-else>
+                <a-menu-item :key="item.id">
+                  <a-icon
+                    v-if="item.icon"
+                    :type="item.icon"
+                    :theme="item.theme"
                   />
-
-                  <a-menu-item v-else :key="submenu.id">
-                    <span> {{ submenu.name }} </span>
-                  </a-menu-item>
-                </template>
-              </a-sub-menu>
+                  <span> {{ item.name }} </span>
+                </a-menu-item>
+              </template>
             </template>
+          </a-menu>
+        </div>
+      </a-layout-sider>
 
-            <template v-else>
-              <a-menu-item :key="item.id">
-                <!-- <a-icon type="home" /> -->
+      <a-layout>
+        <a-layout-header
+          style="
+            position: relative;
+            padding: 0;
+            background-color: #1c86ee;
+            height: 70px;
+            line-height: 70px;
+          "
+        >
+          <a-icon
+            class="triggerIcon"
+            :type="collapsed ? 'menu-unfold' : 'menu-fold'"
+            @click="() => (collapsed = !collapsed)"
+          />
 
-                <span v-if="item.web_icon">
-                  <img :src="img_url(item.web_icon)" alt="" width="12" />
-                </span>
-                <span> {{ item.name }} </span>
+          <div
+            style="
+              color: white;
+              display: inline-block;
+              font-size: x-large;
+              font-weight: bold;
+            "
+          >
+            {{ app_title }}
+          </div>
+
+          <a-dropdown>
+            <a class="userInfo" @click="e => e.preventDefault()">
+              {{ session_info.name }} <a-icon type="down" />
+            </a>
+            <a-menu slot="overlay">
+              <a-menu-item>
+                <div>姓名: {{ session_info.name }}</div>
               </a-menu-item>
-            </template>
-          </template>
-        </a-sub-menu>
-      </a-menu>
-    </a-layout-sider>
-    <a-layout>
-      <a-layout-header style="background: #fff; padding: 0">
-        <a-row>
-          <a-col :span="3">
-            <a-icon
-              class="trigger"
-              :type="collapsed ? 'menu-unfold' : 'menu-fold'"
-              @click="() => (collapsed = !collapsed)"
-            />
-          </a-col>
+              <a-menu-item>
+                <div>数据库: {{ session_info.db }}</div>
+              </a-menu-item>
+              <a-menu-item>
+                <div>语言: {{ (session_info.user_context || {}).lang }}</div>
+              </a-menu-item>
+              <a-menu-item>
+                <a href="javascript:;">
+                  服务版本: {{ session_info.server_version }}
+                </a>
+              </a-menu-item>
 
-          <a-col :span="8">
-            <span>欢迎使用 odoojs</span>
-          </a-col>
+              <a-menu-item>
+                <a href="javascript:;" @click="onLogout">
+                  {{ session_info.uid ? '注销' : '登录' }}
+                </a>
+              </a-menu-item>
+            </a-menu>
+          </a-dropdown>
 
-          <a-col :span="7">
-            <CompanySelect />
-          </a-col>
+          <CompanySelect class="companySelect" />
+        </a-layout-header>
 
-          <a-col :span="6">
-            <a-dropdown>
-              <a class="ant-dropdown-link" @click="e => e.preventDefault()">
-                {{ session_info.name }} <a-icon type="down" />
-              </a>
-              <a-menu slot="overlay">
-                <a-menu-item>
-                  <a href="javascript:;" @click="onChangePortal">
-                    切换到门户
-                  </a>
-                </a-menu-item>
-                <a-menu-item>
-                  <div>姓名: {{ session_info.name }}</div>
-                </a-menu-item>
-                <a-menu-item>
-                  <div>数据库: {{ session_info.db }}</div>
-                </a-menu-item>
-                <a-menu-item>
-                  <div>语言: {{ (session_info.user_context || {}).lang }}</div>
-                </a-menu-item>
-                <a-menu-item>
-                  <a href="javascript:;">
-                    服务版本: {{ session_info.server_version }}
-                  </a>
-                </a-menu-item>
+        <a-layout-content
+          style="padding: 10px 10px; height: 87vh; overflow: auto"
+        >
+          <!-- :style="{
+            margin: '10px 8px',
+            padding: '10px',
+            background: '#fff',
+            minHeight: '280px'
+          }" -->
 
-                <a-menu-item>
-                  <a href="javascript:;" @click="onLogout">
-                    {{ session_info.uid ? '注销' : '登录' }}
-                  </a>
-                </a-menu-item>
-              </a-menu>
-            </a-dropdown>
-          </a-col>
-        </a-row>
-      </a-layout-header>
-      <a-layout-content
-        :style="{
-          margin: '24px 16px',
-          padding: '24px',
-          background: '#fff',
-          minHeight: '280px'
-        }"
-      >
-        <router-view />
+          <!-- <div class="breadcrumbs"></div> -->
 
-        <!-- @on-event="handleOnViewEvent" -->
-        <template v-if="showWizard">
-          <WizardForm :visible.sync="showWizard" :view-info="viewInfo" />
-        </template>
-      </a-layout-content>
-      <a-layout-footer style="text-align: center">
-        antd-odoojs ©2021 Created by odoowww@163.com
-      </a-layout-footer>
+          <a-tabs
+            v-model="activeKey"
+            type="editable-card"
+            hideAdd
+            @edit="onEdit"
+            @change="onChangeTabs"
+            size="small"
+            style="height: 45px"
+          >
+            <a-tab-pane
+              v-for="pane in panes"
+              :key="pane.key"
+              :tab="pane.title"
+              :closable="pane.closable"
+            >
+            </a-tab-pane>
+          </a-tabs>
+
+          <!-- <router-view style="margin-left: 5px; margin-right: 5px" /> -->
+
+          <router-view />
+        </a-layout-content>
+        <a-layout-footer id="footer" style="text-align: center">
+          {{ app_footer }}
+        </a-layout-footer>
+      </a-layout>
     </a-layout>
-  </a-layout>
+  </div>
 </template>
 
 <script>
-import api from '@/odooapi'
-import routesMixin from '@/mixins/routesMixin'
+import api from '@/odoorpc'
 
-import { menus as localMenus } from './menu'
-
-// console.log(localMenus)
+import { menus_tree_get, menus_list_get } from '@/config/config'
+import { app_title, app_footer } from '@/config/config'
 
 import SubMenu from './SubMenu'
 import CompanySelect from './CompanySelect.vue'
-import WizardForm from '@/components/OView/WizardForm.vue'
-
-// eslint-disable-next-line no-unused-vars
-const cp = val => JSON.parse(JSON.stringify(val))
 
 const HOME_PATH = '/'
 
-const todo = [
-  // 'account.menu_board_journal_1',
-  // 'stock.stock_picking_type_menu',
-  // 'mail.menu_root_discuss'
-]
-
-const _menus_filter = menus => {
-  const menus2 = menus.reduce((acc, menu) => {
-    if (!todo.includes(menu.xmlid))
-      if (!menu.children) acc.push(menu)
-      else acc.push({ ...menu, children: _menus_filter(menu.children) })
-
-    return acc
-  }, [])
-
-  return menus2
-}
-
-const menus_get = () => {
-  const menu_data = api.web.menu_data || { children: [] }
-  const menus = [...(menu_data.children || [])]
-  return _menus_filter(menus)
-}
-
 export default {
   name: 'Base',
-  components: { SubMenu, CompanySelect, WizardForm },
-  mixins: [routesMixin],
+  components: { SubMenu, CompanySelect },
+  mixins: [],
   data() {
     return {
-      debug: 1,
+      app_title,
+      app_footer,
+
       collapsed: false,
 
-      currentMenu: 'home',
-      // menus: [],
-
-      showWizard: false,
-      viewInfo: {}
+      activeKey: 'home',
+      panes: [{ title: '首页', key: 'home', closable: false }]
     }
   },
 
   computed: {
-    localMenus() {
-      return localMenus
-    },
     session_info() {
       return api.web.session.session_info || {}
     },
 
-    is_user() {
-      return api.web.is_user
+    menus_list() {
+      return menus_list_get()
     },
 
-    menus() {
-      return menus_get()
+    menus_tree() {
+      return menus_tree_get()
     }
   },
 
   created() {},
+
+  mounted() {
+    console.log('layout mounted', this.$route.fullPath)
+
+    const name = this.$route.query.menu
+
+    if (name) {
+      const menu = this.menus_list[name]
+      const old = this.panes.find(item => item.key === name)
+      if (!old) {
+        this.panes = [...this.panes, { title: menu.name, key: name }]
+      }
+      this.activeKey = name
+    }
+  },
 
   methods: {
     is_sub_menu: menu => {
@@ -254,103 +219,116 @@ export default {
       return is_sub_menu || !menu.action
     },
 
-    img_url(web_icon) {
-      const base_api = process.env.VUE_APP_BASE_API
-      const url = web_icon.split(',').join('/')
-      return `${base_api}/${url}`
-    },
-
-    onChangePortal() {
-      this.$router.push({ path: '/my' })
-    },
-
     async onLogout() {
       // console.log('xxxxx, logout')
       await api.web.logout()
       this.$router.replace({ path: '/user/login' })
     },
 
-    async load_action(action_id) {
-      const action = await api.Action.load(action_id)
-
-      const context = api.web.session.context
-      const info = { context, action }
-
-      if (action.type === 'ir.actions.act_window' && action.target === 'new') {
-        console.log('new')
-        const views = await api.Action.load_views({ context, action })
-        this.viewInfo = { ...info, views }
-        this.showWizard = true
-        return
-      } else {
-        return info
-      }
-    },
-
-    selectMenuLocal(e) {
-      console.log('selectMenuLocal.  , ', e, e.key, typeof e.key)
+    selectMenu(e) {
+      // console.log('selectMenu.  , ', e, e.key, typeof e.key)
       const name = e.key
 
-      if (name === 'home') {
-        this.$router.push({ path: HOME_PATH })
-      } else {
-        this.$router.push({ path: `/web2/${e.key}` })
-      }
+      this.clickMenu(name)
     },
 
-    async selectMenu(e) {
-      console.log('selectMenu.  , ', e, e.key, typeof e.key)
-      const name = e.key
+    clickMenu(name) {
       // if (this.currentMenu === name) {
       //   return
       // }
-      this.currentMenu = name
+
       if (name === 'home') {
-        this.$router.push({ path: HOME_PATH })
-      } else if (name === 'test') {
-        this.$router.push({ path: '/test' })
-      } else if (typeof name === 'string' && name[0] === '_') {
-        this.$router.push({ path: '/web2', query: { action: name } })
+        this.$router.push({ path: HOME_PATH, query: { menu: name } })
+        // } else if (name === 'test') {
+        //   this.$router.push({ path: '/test', query: { menu: name } })
       } else {
         const action_id_get = () => {
-          if (typeof name === 'string' && name[0] === '_') {
-            return name
-          } else {
-            const keyPath = e.keyPath.filter(item => typeof item === 'number')
-            // console.log('menu,id,', keyPath, this.menus)
+          const menu = this.menus_list[name] || {}
+          return menu.action
+        }
+        const action_id = action_id_get() || name
 
-            const menu = keyPath.reverse().reduce(
-              (acc, cur) => {
-                const child = acc.children.find(item => item.id === cur)
-                return child || { children: [] }
-              },
-              { children: this.menus }
-            )
-            // console.log('menu,id,', keyPath, menu)
-            // const [action_model, action_id] = menu.action.split(',')
-            // if (action_model === 'ir.actions.act_window') {
-            // }
-
-            const action_id = menu.action.split(',')[1]
-
-            return action_id
-          }
+        const action_get = () => {
+          const action = api.env.action_info_get(action_id)
+          return action
+          // try {
+          //   const action = api.env.action_info_get(action_id)
+          //   //
+          //   return action
+          // } catch {
+          //   console.log('action_id is error: ', name, action_id)
+          //   return undefined
+          // }
         }
 
-        const action_id = action_id_get()
+        const action = action_get()
 
-        const info = await this.load_action(action_id)
-        // console.log(info)
-        if (info) {
-          const { action, context } = info
-          this.$route.meta.routes = []
-          this.push_route({
-            path: '/web',
-            query: { action: action_id },
-            breadcrumbName: info.action.display_name || info.action.name,
-            action,
-            context
-          })
+        if (!action) {
+          const path = '/error'
+          const query = { action: action_id, menu: name }
+          this.$router.push({ path, query })
+          return
+        } else {
+          const xml_id = action.xml_id
+          const path = ['', 'web', ...xml_id.split('.')].join('/')
+
+          if (
+            action.type === 'ir.actions.act_window' &&
+            action.target === 'new'
+          ) {
+            // console.log('new')
+            // this.showWizard = true
+            return
+          } else {
+            const query = { view_type: 'tree', menu: name }
+            this.$router.push({ path, query })
+          }
+        }
+      }
+
+      // console.log('11')
+
+      // sleep(100)
+      // console.log('22')
+      // sleep(100)
+      // console.log('33')
+      // sleep(100)
+      // console.log('44')
+
+      const menu = this.menus_list[name]
+      const old = this.panes.find(item => item.key === name)
+      if (!old) {
+        this.panes = [...this.panes, { title: menu.name, key: name }]
+      }
+
+      this.activeKey = name
+    },
+
+    onChangeTabs(targetKey) {
+      console.log('change', targetKey)
+      this.clickMenu(targetKey)
+    },
+
+    // onTabClick(...ppp) {
+    //   // console.log('tabClick', ppp)
+    // },
+
+    // onChangeTabs(...ppp) {
+    //   console.log('change', ppp)
+    // },
+
+    onEdit(targetKey, action) {
+      console.log('edit', targetKey, action)
+
+      if (action === 'remove') {
+        const index = this.panes.findIndex(item => item.key === targetKey)
+        if (index > 0) {
+          const last = index - 1
+          const lastkey = this.panes[last].key
+          this.panes = this.panes.filter(item => item.key !== targetKey)
+          if (this.activeKey === targetKey) {
+            this.clickMenu(lastkey)
+          }
         }
       }
     }
@@ -359,21 +337,36 @@ export default {
 </script>
 
 <style scoped>
-#components-layout-demo-custom-trigger .trigger {
-  font-size: 18px;
-  line-height: 64px;
-  padding: 0 24px;
-  cursor: pointer;
-  transition: color 0.3s;
+#logoPic {
+  width: 100%;
+  height: 8vh;
+  text-align: center;
+  padding-top: 20px;
 }
-
-#components-layout-demo-custom-trigger .trigger:hover {
-  color: #1890ff;
+.triggerIcon {
+  width: 40px;
+  position: relative;
+  top: -5px;
 }
-
-#components-layout-demo-custom-trigger .logo {
-  height: 32px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px;
+.companySelect {
+  float: right;
+  margin-right: 10px;
+  margin-top: 20px;
+  /* background-color: white; */
+}
+.userInfo {
+  float: right;
+  margin-right: 10px;
+  color: white;
+}
+#footer {
+  height: 5vh;
+  line-height: 5vh;
+  padding: 0px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: bolder;
+  background-color: #1c86ee;
+  color: white;
 }
 </style>

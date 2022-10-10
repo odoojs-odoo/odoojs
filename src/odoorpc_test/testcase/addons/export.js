@@ -1,5 +1,4 @@
 import BaseTestCase from './base'
-import rpc from '@/odoorpc'
 
 export default class SessionTestCase extends BaseTestCase {
   async test() {

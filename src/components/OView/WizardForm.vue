@@ -1,69 +1,115 @@
 <template>
   <div>
-    <!-- visible: {{ visible }} {{ visible2 }} -->
-    <a-modal v-model="visible2" :title="node.attrs.string">
-      <!-- 建设中 ... -->
-
-      <!-- {{ node.attrs.string }}
-      {{ data }} -->
-
-      <OForm
-        :editable="true"
-        :view-info="{ ...viewInfo2, node: node_non_footer }"
-        :data-info="data"
-        @on-event="handleOnViewEvent"
-      />
-
+    <!--
+      :confirm-loading="confirmLoading"
+       @ok="handleOk" @cancel="handleCancel" -->
+    <a-modal :title="title" :visible="visible2">
       <template slot="footer">
-        <!-- footer: , formFooter -->
-        <!-- {{ node_footer }} -->
-        <a-space>
-          <template v-for="(item, index) in node_footer.children">
-            <!-- {{ item.tagName }} {{ index }} -->
-            <ONode
-              :key="index"
-              :data-info="{ ...data }"
-              :view-info="{ ...viewInfo2, node: item }"
-              @on-event="handleOnViewEvent"
+        <a-button key="back" @click="handleCancel"> Return </a-button>
+
+        <a-button
+          v-for="btn in arch_buttons"
+          :key="btn.name"
+          :type="btn.btn_type"
+          :loading="loading"
+          @click="handleBtnClick(btn)"
+        >
+          {{ btn.string }}
+        </a-button>
+      </template>
+
+      <a-form-model
+        ref="refForm"
+        :label-col="labelCol"
+        :wrapper-col="wrapperCol"
+        :model="formValues"
+        :rules="rules_edit"
+      >
+        <template v-for="meta in fields">
+          <template v-if="invisible_get(meta)">
+            <!-- invisible: {{ meta.name }}: {{ record[meta.name] }} -->
+          </template>
+
+          <template v-else>
+            <FormField
+              :key="meta.name"
+              :field-name="meta.name"
+              ref="refField"
+              width="120px"
+              v-model="formValues"
+              :editable="editable"
+              :fields="fields"
+              :view-info="viewInfo"
+              :data-info="dataInfo"
+              @change="handleChange"
             />
           </template>
-        </a-space>
-      </template>
+        </template>
+      </a-form-model>
     </a-modal>
   </div>
 </template>
 
 <script>
-import wizardmixin from '@/mixins/wizardmixin'
-import ONode from '@/components/ONode/ONode'
-
-// import OButton from '@/components/ONode/OButton'
+import formWizardMixin from '@/odooui/formWizardMixin'
+import FormField from '@/components/OView/FormField.vue'
 
 export default {
-  name: 'WizardForm',
+  name: 'WizardFormView',
+  components: { FormField },
 
-  components: {
-    OForm: () => import('@/components/ONode/OForm.vue'),
-    ONode
-    // OButton
+  mixins: [formWizardMixin],
+
+  props: {
+    visible: { type: Boolean, default: false }
   },
-
-  mixins: [wizardmixin],
-
-  props: {},
 
   data() {
-    return {}
-  },
-  computed: {},
-  watch: {},
+    return {
+      loading: false,
 
-  async created() {},
+      labelCol: { span: 4 },
+      wrapperCol: { span: 14 }
+    }
+  },
+  computed: {
+    visible2: {
+      get() {
+        return this.visible
+      },
+      set(val) {
+        this.$emit('update:visible', val)
+      }
+    }
+  },
+
+  watch: {
+    visible(val) {
+      if (val) {
+        this.init()
+      }
+    }
+  },
+
+  created() {},
 
   mounted() {},
 
-  methods: {}
+  methods: {
+    async handleBtnClick(btn) {
+      // this.ModalText = 'The modal will be closed after two seconds'
+      this.loading = true
+      await this.button_click(btn)
+      this.$emit('done')
+      this.visible2 = false
+      this.loading = false
+    },
+    handleCancel() {
+      console.log('Clicked cancel button')
+      this.visible2 = false
+    }
+  }
 }
 </script>
 
-<style type="text/css"></style>
+<style scoped type="text/css"></style>

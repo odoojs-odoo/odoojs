@@ -36,6 +36,7 @@ class Database extends JsonRequest {
   }
 
   static async create(master_pwd, name, lang, password, kwargs = {}) {
+    // /web/database/create'
     const { demo = false, login, country_code = false, phone } = kwargs
     const url = '/jsonrpc'
     return await this.json_call(url, {
@@ -46,6 +47,7 @@ class Database extends JsonRequest {
   }
 
   static async drop(master_pwd, name) {
+    // /web/database/drop
     const url = '/jsonrpc'
     return await this.json_call(url, {
       service: 'db',
@@ -97,7 +99,7 @@ class Session extends JsonRequest {
   }
 
   static get user_context() {
-    const session_info = this.session_info
+    const session_info = this.session_info || {}
     const context = session_info.user_context || {}
     const allowed_company_ids = this.allowed_company_ids
     // console.log(this.session_info)
@@ -493,7 +495,9 @@ class Home extends FileRequest {
   }
 
   static get menu_data() {
-    return (this._login_info || {}).menus
+    return { children: [] }
+
+    // return (this._login_info || {}).menus
   }
 
   async signup(payload = {}) {
@@ -631,18 +635,18 @@ class Home extends FileRequest {
   static async _get_user_info() {
     // website/controllers/main.py/Website._login_redirect
     const is_user = await this._check_is_group_user()
+    this._login_info = { is_user }
+    return { is_user }
 
-    if (is_user) {
-      const menus = await this._menus_get()
-      // this._qweb_xml = await this._get_qweb()
-
-      this._login_info = { is_user, menus }
-      return { is_user, menus }
-    } else {
-      // portal/controllers/portal.py/CustomerPortal.home
-      this._login_info = { is_user }
-      return { is_user }
-    }
+    // if (is_user) {
+    //   const menus = await this._menus_get()
+    //   this._login_info = { is_user, menus }
+    //   return { is_user, menus }
+    // } else {
+    //   // portal/controllers/portal.py/CustomerPortal.home
+    //   this._login_info = { is_user }
+    //   return { is_user }
+    // }
   }
 
   static async get_session() {
@@ -731,6 +735,7 @@ web.binary = Binary
 web.binary2 = Binary2
 
 web.action = Action
+
 web.export = Export
 
 export const report = Report

@@ -1,40 +1,32 @@
 <template>
-  <div>
-    <a-dropdown v-model="dropdownVisible" :trigger="['click']">
-      <!-- <a class="ant-dropdown-link" @click="e => e.preventDefault()">
-        <span style="height:1px"> . </span>
-      </a> -->
+  <a-dropdown v-model="dropdownVisible" :trigger="['click']">
+    <a-select
+      :value="allowed_company"
+      style="width: 160px"
+      label-in-value
+      :open="false"
+      class="ant-dropdown-link"
+      @click="e => e.preventDefault()"
+    >
+    </a-select>
 
-      <!-- @focus="handleOnFocus"
-        @blur="handleOnBlur" -->
-      <a-select
-        :value="allowed_company"
-        style="width: 160px"
-        label-in-value
-        :open="false"
-        class="ant-dropdown-link"
-        @click="e => e.preventDefault()"
-      >
-      </a-select>
-
-      <a-menu slot="overlay" @click="handleOnDropdownSelect">
-        <!--  -->
-        <template v-for="item in allowed_companies">
-          <a-menu-item :key="item.id">
-            <a-checkbox
-              :checked="item.checked"
-              @change="e => handleOnCheckChange(e, item.id)"
-            />
-            <span> {{ item.name }} </span>
-          </a-menu-item>
-        </template>
-      </a-menu>
-    </a-dropdown>
-  </div>
+    <a-menu slot="overlay" @click="handleOnDropdownSelect">
+      <!--  -->
+      <template v-for="item in allowed_companies">
+        <a-menu-item :key="item.id">
+          <a-checkbox
+            :checked="item.checked"
+            @change="e => handleOnCheckChange(e, item.id)"
+          />
+          <span> {{ item.name }} </span>
+        </a-menu-item>
+      </template>
+    </a-menu>
+  </a-dropdown>
 </template>
 
 <script>
-import api from '@/odooapi'
+import api from '@/odoorpc'
 
 export default {
   name: 'CompanySelect',
@@ -62,6 +54,8 @@ export default {
       const allowed_company = this.allowed_companies.find(
         item => item.id === allowed_company_id
       )
+
+      // console.log(allowed_company)
 
       return (
         allowed_company && {

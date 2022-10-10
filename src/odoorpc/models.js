@@ -3,9 +3,7 @@ import controllers from './controllers'
 const web = controllers.web
 
 class MetaModel {
-  constructor() {
-    //
-  }
+  constructor() {}
 
   static get _name() {
     return this._model
@@ -38,10 +36,12 @@ class MetaModel {
   }
 
   static async execute_kw(method, args = [], kwargs = {}) {
-    const kwargs2 = { ...kwargs }
+    const { context = this.env.context } = kwargs
 
-    if (!Object.keys(kwargs).includes('context'))
-      kwargs2.context = this.env.context
+    const kwargs2 = { ...kwargs, context }
+
+    // if (!Object.keys(kwargs).includes('context'))
+    //   kwargs2.context = this.env.context
 
     const payload = { model: this._name, method, args, kwargs: kwargs2 }
     return web.dataset.call_kw(payload)
@@ -61,7 +61,7 @@ class MetaModel {
 MetaModel._env = undefined
 MetaModel._model = undefined
 
-export class Model extends MetaModel {
+class BaseModel extends MetaModel {
   constructor(payload = {}) {
     super(payload)
   }
@@ -112,12 +112,45 @@ export class Model extends MetaModel {
 
     return this.execute_kw('web_read_group', [], kwargs)
   }
+
   static async web_search_read(kwargs = {}) {
     return this.execute_kw('web_search_read', [], kwargs)
   }
 
+  static _format_dict(one) {
+    // console.log(' _format_dict ', one)
+    const fmt = (fld, val) => {
+      const meta = this._fields[fld] || {}
+      if (meta.type === 'boolean') {
+        return val
+      } else if (meta.type === 'integer') {
+        return val || 0
+      } else if (meta.type === 'float') {
+        return val || 0.0
+      } else if (meta.type === 'monetary') {
+        return val || 0.0
+      } else if (meta.type === 'integer') {
+        return val || 0
+      } else {
+        return val || null
+      }
+    }
+
+    return Object.keys(one).reduce((acc, fld) => {
+      acc[fld] = fmt(fld, one[fld])
+      return acc
+    }, {})
+  }
+
+  static _format_result(result) {
+    return result.map(one => {
+      return this._format_dict(one)
+    })
+  }
+
   static async search_read(kwargs = {}) {
-    return this.execute_kw('search_read', [], kwargs)
+    const res = await this.execute_kw('search_read', [], kwargs)
+    return this._format_result(res)
   }
 
   static async read(ids, kwargs = {}) {
@@ -129,8 +162,8 @@ export class Model extends MetaModel {
     }
 
     const [args, kwargs2] = get_args_kwargs()
-
-    return this.execute_kw(method, args, kwargs2)
+    const res = await this.execute_kw(method, args, kwargs2)
+    return this._format_result(res)
   }
 
   static async copy(rid) {
@@ -138,13 +171,18 @@ export class Model extends MetaModel {
     return this.execute(method, rid)
   }
 
-  static async write(rid, vals) {
+  static async write(rid, vals, kwargs) {
     const method = 'write'
-    return this.execute(method, rid, vals)
+    const args = [rid, vals]
+    return this.execute_kw(method, args, kwargs)
+    // return this.execute(method, rid, vals)
   }
 
-  static async create(vals) {
-    return this.execute('create', vals)
+  static async create(vals, kwargs) {
+    const method = 'create'
+    const args = [vals]
+    return this.execute_kw(method, args, kwargs)
+    // return this.execute('create', vals)
   }
 
   static async unlink(rid) {
@@ -175,11 +213,201 @@ export class Model extends MetaModel {
     return this.execute('name_get', ids)
   }
 
-  static async onchange(ids, values, field_name, field_onchange) {
-    return this.execute('onchange', ids, values, field_name, field_onchange)
+  static async onchange(ids, values, field_name, field_onchange, kwargs = {}) {
+    const args = [ids, values, field_name, field_onchange]
+    const res = await this.execute_kw('onchange', args, kwargs)
+    const { value } = res
+    // console.log(' after onchange ', this._name, value)
+    return { ...res, value: this._format_dict(value) }
+  }
+}
+
+export class Model extends BaseModel {
+  constructor(payload = {}) {
+    super(payload)
   }
 
-  // static async onchange(ids, values, field_name, field_onchange) {
+  static _get_values_for_write(record, values) {
+    const _commit_get_readonly = (meta, state) => {
+      const meta_readonly_get = () => {
+        if (typeof meta.readonly === 'function') {
+          return meta.readonly({
+            record: { ...record, ...values }
+          })
+        } else {
+          return meta.readonly
+        }
+      }
+      if (meta.states === undefined) {
+        return meta_readonly_get()
+      }
+
+      if (state && meta.states && meta.states[state]) {
+        const readonly3 = meta.states[state].reduce((acc, cur) => {
+          acc[cur[0]] = cur[1]
+          return acc
+        }, {})
+
+        if (readonly3.readonly !== undefined) return readonly3.readonly
+      }
+
+      return meta_readonly_get()
+    }
+
+    // console.log('in model', record, values)
+
+    const state = 'state' in values ? values.state : record.state
+
+    const all_keys = Object.keys({ ...values })
+
+    return all_keys.reduce((acc, fld) => {
+      const meta = this._fields[fld] || {}
+      const readonly = _commit_get_readonly(meta, state)
+
+      if (!readonly) {
+        const val = values[fld]
+        const val2 = val && meta.type === 'many2one' ? val[0] : val
+        console.log('_get_values_for_write', fld, val, val2)
+        acc[fld] = val2
+      }
+
+      return acc
+    }, {})
+  }
+
+  static async web_commit(res_id, record, values, kwargs = {}) {
+    if (!values) return res_id
+    if (!Object.keys(values).length) return res_id
+
+    // const values2 = this._get_values_for_write(record, values)
+
+    const values2 = values
+
+    if (res_id) {
+      await this.write(res_id, values2, kwargs)
+      return res_id
+    } else {
+      return this.create(values2, kwargs)
+    }
+  }
+
+  static get_values_for_onchange({ record, values }) {
+    return this._get_values_for_onchange(record, values)
+  }
+
+  // ok
+  static _get_values_for_onchange(record, values) {
+    const all_keys = Object.keys({ ...record, ...values })
+    return all_keys.reduce((acc, fld) => {
+      const meta = this._fields[fld] || {}
+      if (meta.type === 'many2many') {
+        const val =
+          fld in values ? values[fld] : [[6, false, record[fld] || []]]
+        acc[fld] = val
+      } else if (meta.type === 'one2many') {
+        const val =
+          fld in values
+            ? values[fld]
+            : (record[fld] || []).map(item => [4, item, false])
+
+        acc[fld] = val
+      } else {
+        const val = fld in values ? values[fld] : record[fld]
+        const val2 = val && meta.type === 'many2one' ? val[0] : val
+        acc[fld] = val2
+      }
+
+      return acc
+    }, {})
+  }
+
+  static async web_onchange_new({ values = {}, context }) {
+    // console.log('web_onchange_new', this._fields)
+    const o2m_get = (views, pfld) => {
+      const flds = Object.keys(views).reduce((acc, view) => {
+        return { ...acc, ...(views[view].fields || {}) }
+      }, {})
+
+      return Object.keys(flds).reduce((acc, fld) => {
+        return { ...acc, [`${pfld}.${fld}`]: '1' }
+      }, {})
+    }
+    const field_onchange = Object.keys(this._fields).reduce((acc, fld) => {
+      acc[fld] = '1'
+      const meta = this._fields[fld]
+      if (meta.type === 'one2many') {
+        const o2m_fields = o2m_get(meta.views, fld)
+        // console.log('web_onchange_new', fld, meta.type, meta.views, o2m_fields)
+        acc = { ...acc, ...o2m_fields }
+      }
+      return acc
+    }, {})
+
+    const result = await this.onchange([], values, [], field_onchange, {
+      context
+    })
+
+    const { value: value_ret, ...res } = result
+    const values_ret = { ...values, ...value_ret }
+    return { ...res, values: values_ret }
+  }
+
+  static async web_onchange(res_ids = [], kwargs = {}) {
+    const { record, values } = kwargs
+    const { field_name, value, context } = kwargs
+
+    // 页面编辑时 触发的
+    // 参数:
+    // ids: 待编辑的记录 id
+    // record: 编辑前的所有字段的数据
+    // values: 所有编辑过的字段的数据
+    // field_name: 正在编辑的字段
+
+    const field_onchange = Object.keys(this._fields).reduce((acc, fld) => {
+      acc[fld] = '1'
+      return acc
+    }, {})
+
+    // values 中 可能有 id,  需要删除
+    const vals_onchg = this._get_values_for_onchange(record, {
+      ...values,
+      [field_name]: value
+    })
+
+    const result = await this.onchange(
+      res_ids,
+      vals_onchg,
+      field_name,
+      field_onchange,
+      { context }
+    )
+
+    const { value: value_ret, ...res } = result
+    // console.log(record, values, value_ret, fname)
+
+    // after onchange
+    // 1. _onchange_domain
+    // {domain} = res
+    // 2. set_value_by_onchange
+
+    const values_ret = { ...values, [field_name]: value, ...value_ret }
+
+    // console.log('onchange, in model,values', cp(values_ret))
+
+    // 3. _after_onchange_async
+    // m2m 需要 更新数据
+
+    // done:
+    return { record, ...res, values: values_ret }
+  }
+
+  // async call_button_after(action_info) {
+  //   // to overide
+  //   return action_info
+  //   // return this.Model.call_button_after(action_info)
+  // }
+
+  // static async onchange_for_odoo13(ids, values, field_name, field_onchange) {
   //   return this.execute('onchange', ids, values, field_name, field_onchange)
 
   //   // const session_info = this._odoo.session_info

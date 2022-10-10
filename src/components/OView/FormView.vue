@@ -1,92 +1,149 @@
 <template>
   <div>
-    <template v-if="showWizard">
-      <WizardForm
-        :visible.sync="showWizard"
-        :view-info="wizardViewInfo"
-        @on-event="handleOnViewEvent"
-      />
-    </template>
-    <!-- form view
-    {{ record }}
-    {{ node }} -->
-    <OForm
+    <FormNavbar
+      :title="navbar_title"
+      :buttons="buttons"
+      :hasActive="hasActive"
       :editable="editable"
-      :data-info="data"
-      :view-info="{ ...viewInfo2, node }"
-      @on-event="handleOnViewEvent"
+      :record="record"
+      @click-left="onClickLeft"
+      @click-right="onClickRight"
     />
 
-    <template v-if="editable">
-      <!-- {{ field_nodes }} -->
+    <OToolbar
+      :editable="editable"
+      :current-state="current_state"
+      :states="header_statusbar_visible"
+      :buttons="header_buttons"
+      @button-clicked="handleBtnClicked"
+    />
 
-      <!-- {{ values }}
+    <WizardForm
+      :visible.sync="wizardVisible"
+      :action="wizardAction"
+      :actionIds="[res_id]"
+      @done="handleWizardDone"
+    />
 
-     -->
-
-      {{ values_edit }}
-
-      <a-form-model
-        v-show="showForm"
-        ref="refForm"
-        :model="values_edit"
-        :rules="rules_edit"
-      >
-        <template v-for="(fn, fn_index) in field_nodes">
-          <a-form-model-item
-            :label="fn.attrs.name"
-            :prop="fn.attrs.name"
-            :key="fn_index"
-          >
-            <template v-if="Array.isArray(values_edit[fn.attrs.name])">
-              <a-select v-model="values_edit[fn.attrs.name]" mode="multiple">
-                <a-select-option
-                  v-for="m2m_id in values_edit[fn.attrs.name]"
-                  :key="m2m_id"
-                >
-                  {{ m2m_id }}
-                </a-select-option>
-              </a-select>
-            </template>
-            <template v-else>
-              <a-input v-model="values_edit[fn.attrs.name]" />
-            </template>
-          </a-form-model-item>
+    <a-form-model
+      ref="refForm"
+      :label-col="labelCol"
+      :wrapper-col="wrapperCol"
+      :model="formValues"
+      :rules="rules_edit"
+      class="formNewStyle"
+    >
+      <template v-for="meta in fields">
+        <template v-if="invisible_get(meta)">
+          <!-- invisible: {{ meta.name }}: {{ record[meta.name] }} -->
         </template>
-      </a-form-model>
-    </template>
+
+        <template v-else>
+          <FormField
+            :key="meta.name"
+            :field-name="meta.name"
+            ref="refField"
+            width="120px"
+            v-model="formValues"
+            :editable="editable"
+            :fields="fields"
+            :view-info="viewInfo"
+            :data-info="dataInfo"
+            @change="handleChange"
+          />
+
+          <!-- 
+            <a-form-model-item
+            :key="meta.name"
+            :label="meta.string"
+            :prop="meta.name"
+          >
+            <OField
+              ref="refField"
+              width="120px"
+              v-model="formValues[meta.name]"
+              :editable="editable"
+              :field-info="meta"
+              :view-info="viewInfo"
+              :data-info="dataInfo"
+              @change="handleChange"
+            />
+          </a-form-model-item>
+          
+           -->
+        </template>
+      </template>
+    </a-form-model>
   </div>
 </template>
 
 <script>
-import formViewMixin from '@/mixins/formViewMixin'
-
-import OForm from '@/components/ONode/OForm.vue'
+import formMixin from '@/odooui/formMixin'
+import FormNavbar from '@/components/ONavbar/formNavbar.vue'
+import OToolbar from '@/components/OToolbar/index.vue'
 import WizardForm from '@/components/OView/WizardForm.vue'
+
+import FormField from '@/components/OView/FormField.vue'
 
 export default {
   name: 'FormView',
-  components: { OForm, WizardForm },
+  components: { FormNavbar, OToolbar, WizardForm, FormField },
 
-  mixins: [formViewMixin],
+  mixins: [formMixin],
 
   props: {},
 
   data() {
     return {
-      showForm: true
+      labelCol: { span: 4 },
+      wrapperCol: { span: 14 }
     }
   },
   computed: {},
 
   watch: {},
 
-  async created() {},
+  created() {},
 
-  async mounted() {},
+  mounted() {},
 
-  methods: {}
+  methods: {
+    onClickLeft() {
+      if (this.editable) {
+        this.onClickCancel()
+      } else {
+        this.onClickBack()
+      }
+    },
+
+    onClickRight(btn) {
+      const btn_fns = {
+        save: 'onClickSave',
+        edit: 'onClickEdit',
+        new: 'onClickNew',
+        del: 'onClickDel',
+        unlink: 'onClickDel',
+        copy: 'handleOnCopy',
+        archive: 'handleOnArchive',
+        unarchive: 'handleOnUnarchive'
+      }
+
+      this[btn_fns[btn]]()
+    }
+  }
 }
 </script>
 
-<style scoped></style>
+<style scoped type="text/css">
+.formNewStyle {
+  display: flex;
+  background: white;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin-top: 10px;
+}
+/deep/.formNewStyle .ant-form-item {
+  margin-bottom: 5px;
+  width: 400px;
+}
+</style>
