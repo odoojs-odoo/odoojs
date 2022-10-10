@@ -65,7 +65,7 @@ export default {
 
   watch: {
     value_readonly: {
-      handler: function (newVal = [], oldval = []) {
+      handler: function(newVal = [], oldval = []) {
         if (newVal.length && !this.check_array_equ(newVal, oldval)) {
           // console.log('m2m Tags, watch', this.fname, newVal, oldval)
           this.load_m2m_tags_data(newVal)
@@ -76,7 +76,7 @@ export default {
     },
 
     value_edit: {
-      handler: function (newVal = [], oldval = []) {
+      handler: function(newVal = [], oldval = []) {
         // console.log('m2m Tags, watch', this.fname, newVal, oldval)
         const ov = this.tuples2ids(oldval)
         const nv = this.tuples2ids(newVal)
@@ -111,6 +111,7 @@ export default {
         return [item, label ? label[1] : '']
       })
     },
+
     async load_m2m_tags_data(ids) {
       // console.log('m2m Tags, load_m2m_tags_data', this.fname, ids)
       const result = await api.Node.load_m2m_tags_data(this.viewInfo, ids)

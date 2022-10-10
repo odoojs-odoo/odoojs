@@ -1,26 +1,64 @@
 ## odoojs 介绍
 
 1. odoojs 是一个 javascript 类库, 是前端访问 odoo 的接口.
-2. 同时 odoojs 提供基于 antd-vue 的 odooweb 组件.
-3. odoojs 的接口部分 包括 odoorpc / odooapi
-4. odoorpc 是基础的 访问接口.
-5. odoorpc 包括 session/dataset/model
-6. odooapi 依赖 odoorpc.
-7. odooapi 包括 action/view/qweb/
-8. odoojs 的组件部分 odooweb. 包括 forview/listview
-9. odooweb 也包括 kanban/pivot/treeedit 等复杂组件
-
-#### 最新更新 2022-2-13
-
-1. odoorpc 优化
-2. odooapi 优化
-3. 调整 api.my.home 接口. 从 odoorpc 移动到 odooapi
+2. 同时 odoojs 提供基于 antd-vue 的 odoo web 组件.
+3. odoojs 的接口部分 包括 odoorpc / odooui
+4. odoorpc 包括基础的访问接口.包括 session/dataset/model
+5. odoorpc 包括 action/view/view 的逻辑处理
+6. odooui 是 odoojs 前端组件的核心代码.
+7. 基于 antd-vue 的 odoo web 组件. 实现 odoojs 的前端功能
 
 ## 学习交流
 
 1. QQ 群 2684913
+2. 北京斑马线科技有限公司负责维护 odoojs 的所有代码
+3. 欢迎有志于 odoo 前后端分离工作的 个人/团队, 共同维护 odoojs
+
+## 技术路线
+
+1. odoo 官方源码做服务端
+2. odoojs 实现前后端分离
+3. odoojs 前端 暂时选择 vue 架构. 但不限. 可以选择 react
+4. odoojs 前端 暂时选择 UI 库, antd-vue. 但不限. 可选择其他常用的 UI 库
+5. odoojs 完全支持移动端. 只需选择适用的 UI 库即可
+6. odoojs 完全支持小程序等特定的客户端. 只需要使用 小程序专用的组件即可
+
+## 短期规划
+
+1. 定义 odoojs 前端架构, 实现可扩展.
+2. 在 odoojs 前端中, 实现 odoo 官方已有模块的功能
+
+## 中长期规划
+
+1. 建立 基于 odoojs 前后端分离的 中国本地化 ERP 产品
+2. 建立 基于 odoojs 前后端分离的 开发模式. 服务于广大 odoo 实施团队
+3. 建立 基于 odoojs 前后端分离的 服务模式. 为 ERP 使用方提供 自定义 ERP 系统的解决方案
+
+## 分支管理
+
+### master 分支
+
+1. 扬弃 odoo 官方的 menu、action、view,
+2. 在 odoojs 前端全部重新定义 menu、action、view
+3. odoorpc 代码更新, 优化 menu、action、view 的处理
+
+### odoojs-classic 分支
+
+1. 直接读取 odoo 服务端的 menu、action、view, 在 odoojs 前端呈现
+2. 该分支保留了 odoo 官方原汁原味的前端功能
+3. 2022-10-10 创建该分支, 基于原 master 分支创建
+4. 2022-10-10 之后, master 另做他用
 
 ## 更新历史
+
+#### 最新更新 2022-10-10
+
+1. 基于原有 master 分支, 创建 odoojs-classic 分支
+2. odoojs-classic 分支, 直接读取 odoo 服务端的 menu、action、view, 在 odoojs 前端呈现
+3. odoojs-classic 分支,保留了 odoo 官方原汁原味的前端功能
+4. master 分支, 继续维护最新的代码
+5. master 分支, 扬弃 odoo 官方的 menu、action、view, 在 odoojs 前端全部重新定义
+6. master 分支的 odoorpc 代码更新, 优化 menu、action、view 的处理
 
 #### 2022-2-13
 
