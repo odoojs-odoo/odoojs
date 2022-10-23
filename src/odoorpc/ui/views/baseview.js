@@ -2,7 +2,7 @@ import { Action } from '../action'
 
 export class BaseView {
   constructor(action_id, payload = {}) {
-    console.log('action:', action_id, payload)
+    // console.log('action:', action_id, payload)
     const { env, type, fields = {} } = payload
     this._action = new Action(action_id, { env })
     this._type = type

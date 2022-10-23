@@ -1,3 +1,8 @@
+/*
+所有模型的访问入口
+
+*/
+
 import { Model as BaseModel } from './models'
 import controllers from './controllers'
 
@@ -208,40 +213,40 @@ export class Environment {
   //   return Model.with_env(this)
   // }
 
-  get_model_id(model) {
-    return this._model_registry[model]
-  }
+  // get_model_id(model) {
+  //   return this._model_registry[model]
+  // }
 
-  get _registry() {
-    return this.constructor._registry
-  }
-  get _ref_registry() {
-    return this.constructor._ref_registry
-  }
-  get _model_registry() {
-    return this.constructor._model_registry
-  }
+  // get _registry() {
+  //   return this.constructor._registry
+  // }
+  // get _ref_registry() {
+  //   return this.constructor._ref_registry
+  // }
+  // get _model_registry() {
+  //   return this.constructor._model_registry
+  // }
 
-  async _set_model_registry(models2) {
-    const old_models = Object.keys(this._model_registry)
-    const models = models2.filter(item => !old_models.includes(item))
-    if (models.length === 0) return
+  // async _set_model_registry(models2) {
+  //   const old_models = Object.keys(this._model_registry)
+  //   const models = models2.filter(item => !old_models.includes(item))
+  //   if (models.length === 0) return
 
-    const domain = [['model', 'in', models]]
+  //   const domain = [['model', 'in', models]]
 
-    const Model = this.model('ir.model')
-    const model_ids = await Model.search_read({ domain, fields: ['model'] })
-    const all_models = model_ids.reduce((acc, cur) => {
-      acc[cur.model] = cur.id
-      return acc
-    }, {})
+  //   const Model = this.model('ir.model')
+  //   const model_ids = await Model.search_read({ domain, fields: ['model'] })
+  //   const all_models = model_ids.reduce((acc, cur) => {
+  //     acc[cur.model] = cur.id
+  //     return acc
+  //   }, {})
 
-    Object.keys(all_models).forEach(item => {
-      this._model_registry[item] = all_models[item]
-    })
-  }
+  //   Object.keys(all_models).forEach(item => {
+  //     this._model_registry[item] = all_models[item]
+  //   })
+  // }
 }
 
-Environment._ref_registry = {}
-Environment._registry = {}
-Environment._model_registry = {}
+// Environment._ref_registry = {}
+// Environment._registry = {}
+// Environment._model_registry = {}

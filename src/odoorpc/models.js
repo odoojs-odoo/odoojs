@@ -321,8 +321,7 @@ export class Model extends BaseModel {
     }, {})
   }
 
-  static async web_onchange_new({ values = {}, context }) {
-    // console.log('web_onchange_new', this._fields)
+  static _get_field_onchange() {
     const o2m_get = (views, pfld) => {
       const flds = Object.keys(views).reduce((acc, view) => {
         return { ...acc, ...(views[view].fields || {}) }
@@ -332,7 +331,8 @@ export class Model extends BaseModel {
         return { ...acc, [`${pfld}.${fld}`]: '1' }
       }, {})
     }
-    const field_onchange = Object.keys(this._fields).reduce((acc, fld) => {
+
+    return Object.keys(this._fields).reduce((acc, fld) => {
       acc[fld] = '1'
       const meta = this._fields[fld]
       if (meta.type === 'one2many') {
@@ -342,6 +342,12 @@ export class Model extends BaseModel {
       }
       return acc
     }, {})
+  }
+
+  static async web_onchange_new({ values = {}, context }) {
+    // console.log('web_onchange_new', this._fields)
+
+    const field_onchange = this._get_field_onchange()
 
     const result = await this.onchange([], values, [], field_onchange, {
       context
