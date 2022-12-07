@@ -6,6 +6,7 @@ export class TreeBaseView extends BaseView {
     const { type = 'tree', ...payload2 } = payload
     super(action_id, { ...payload2, type })
     this.searchview = new SearchView(action_id, payload2)
+    this.domain_local = []
   }
 
   async load_fields() {
@@ -33,7 +34,9 @@ export class TreeBaseView extends BaseView {
     const fields = this.fields_list
     const domain1 = this.domain_default
     const domain2 = this.searchview.search_domain
-    const domain = this.searchview.merge_domain(domain1, domain2)
+    const domain3 = this.domain_local
+    const domain = this.searchview.merge_domain(domain1, domain2, domain3)
+
     const context = this.context
 
     return Model.search_read({ domain, fields, context })

@@ -12,6 +12,10 @@ export class FormView extends BaseView {
     this._relations = {}
   }
 
+  get relations() {
+    return this._relations
+  }
+
   load_relations_done(relations) {
     this._relations = { ...this._relations, ...relations }
   }
@@ -222,9 +226,9 @@ export class FormView extends BaseView {
     return this.Model.call_button_after(action_info)
   }
 
-  async onchange_new() {
+  async onchange_new(kwargs) {
     this.edit_model = this._edit_model_get()
-    return this.edit_model.onchange_new()
+    return this.edit_model.onchange_new(kwargs)
   }
 
   set_editable(record) {

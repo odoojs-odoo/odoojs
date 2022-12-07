@@ -2,7 +2,7 @@ import { FormView } from './formview'
 
 export class WizardView extends FormView {
   constructor(action_id, payload = {}) {
-    console.log(action_id, payload)
+    // console.log(action_id, payload)
     super(action_id, { ...payload })
 
     const { active_ids, active_id } = payload

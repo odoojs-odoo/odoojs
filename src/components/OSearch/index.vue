@@ -2,12 +2,12 @@
   <div class="flexBox" :style="compute_height">
     <div class="searchBase">
       <!-- // 高级搜索 -->
+      <!-- :ghost="showSearchMore ? true : false" -->
       <a-button
         class="gjBtn"
         v-if="!(Object.keys(searchItems).length === 1 && searchItems.name)"
         @click="dialogGJSearch"
         type="primary"
-        :ghost="showSearchMore ? true : false"
       >
         <span v-if="showSearchMore" class="gjBtnContent">
           <a-icon type="funnel-plot" style="font-size: 15px" />
@@ -19,9 +19,11 @@
         </span>
       </a-button>
 
-      <!-- // 搜索框 -->
+      <!-- // 搜索框 
+              class="searchBox"
+
+      -->
       <SearchChar
-        class="searchBox"
         v-if="searchItems.name && !showSearchMore"
         :placeholder="searchItems.name.string"
         :value="(searchValues.name || {}).values || []"
@@ -44,10 +46,14 @@
       </div>
     </div>
 
-    <div
-      class="gbBox"
+    <!--      v-show="showSearchMore" 
+          class="gbBox"
       :class="{ open: showSearchMore, close: !showSearchMore }"
-    >
+
+ -->
+    <a-modal v-model="showSearchMore">
+      <!-- <div> -->
+      <!--  -->
       <div class="searchMoreBox searchContent">
         <template v-for="item in searchItems">
           <div
@@ -106,7 +112,8 @@
           </div>
         </template>
       </div>
-    </div>
+      <!-- </div> -->
+    </a-modal>
   </div>
 </template>
 

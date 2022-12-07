@@ -142,7 +142,7 @@ export default {
   padding: 10px;
   margin-top: 10px;
 }
-/deep/.formNewStyle .ant-form-item {
+:deep(.formNewStyle .ant-form-item) {
   margin-bottom: 5px;
   width: 400px;
 }

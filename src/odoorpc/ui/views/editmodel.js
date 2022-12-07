@@ -81,7 +81,7 @@ class EditBase {
   }
 
   update(fname, { value }) {
-    console.log('update,', fname, value)
+    // console.log('update,', fname, value)
     this._update_values(fname, { value })
     const values = this.values
     const record = this.record
@@ -192,9 +192,12 @@ export class EditModel extends EditBase {
     return this.viewmodel.context
   }
 
-  async onchange_new() {
-    const context = this.context
-    // console.log('context', context)
+  async onchange_new(kwargs) {
+    const { context: ctx = {} } = kwargs || {}
+
+    const context = { ...this.context, ...ctx }
+
+    // console.log('context', context, kwargs)
     const Model = this.Model
     const result = await Model.web_onchange_new({ context })
 
@@ -377,6 +380,8 @@ export class EditX2m extends EditBase {
     const { relation_field } = field_info
     const values2 = { ...values }
     delete values2[relation_field]
+
+    // bug: todo 应该先 存 后删除  relation_field
     this.values = { ...values2 }
 
     return { ...result, values: this.values }

@@ -105,10 +105,11 @@
                   {{ session_info.uid ? '注销' : '登录' }}
                 </a>
               </a-menu-item>
+              
             </a-menu>
           </a-dropdown>
 
-          <CompanySelect class="companySelect" />
+          <!-- <CompanySelect class="companySelect" /> -->
         </a-layout-header>
 
         <a-layout-content
@@ -130,7 +131,7 @@
             @edit="onEdit"
             @change="onChangeTabs"
             size="small"
-            style="height: 45px"
+            style="height: 38px;;"
           >
             <a-tab-pane
               v-for="pane in panes"
@@ -143,7 +144,7 @@
 
           <!-- <router-view style="margin-left: 5px; margin-right: 5px" /> -->
 
-          <router-view />
+          <router-view @change-menu="handleChangeMenu" />
         </a-layout-content>
         <a-layout-footer id="footer" style="text-align: center">
           {{ app_footer }}
@@ -232,7 +233,7 @@ export default {
       this.clickMenu(name)
     },
 
-    clickMenu(name) {
+    clickMenu(name, activeIds) {
       // if (this.currentMenu === name) {
       //   return
       // }
@@ -242,46 +243,67 @@ export default {
         // } else if (name === 'test') {
         //   this.$router.push({ path: '/test', query: { menu: name } })
       } else {
-        const action_id_get = () => {
-          const menu = this.menus_list[name] || {}
-          return menu.action
-        }
-        const action_id = action_id_get() || name
-
-        const action_get = () => {
-          const action = api.env.action_info_get(action_id)
-          return action
-          // try {
-          //   const action = api.env.action_info_get(action_id)
-          //   //
-          //   return action
-          // } catch {
-          //   console.log('action_id is error: ', name, action_id)
-          //   return undefined
-          // }
+        // console.log(this.menus_list)
+        const menu_get = () => {
+          return this.menus_list[name] || {}
         }
 
-        const action = action_get()
+        const menu = menu_get()
 
-        if (!action) {
-          const path = '/error'
-          const query = { action: action_id, menu: name }
+        const menu_type = menu.type
+
+        if (menu_type === 'no-action') {
+          const action = menu.action
+          const path = ['', ...action.split('.')].join('/')
+          const query = { menu: name }
           this.$router.push({ path, query })
-          return
         } else {
-          const xml_id = action.xml_id
-          const path = ['', 'web', ...xml_id.split('.')].join('/')
+          const action_id_get = () => {
+            return menu.action
+          }
 
-          if (
-            action.type === 'ir.actions.act_window' &&
-            action.target === 'new'
-          ) {
-            // console.log('new')
-            // this.showWizard = true
+          const action_id = action_id_get() || name
+
+          const action_get = () => {
+            const action = api.env.action_info_get(action_id)
+            return action
+            // try {
+            //   const action = api.env.action_info_get(action_id)
+            //   //
+            //   return action
+            // } catch {
+            //   console.log('action_id is error: ', name, action_id)
+            //   return undefined
+            // }
+          }
+
+          const action = action_get()
+
+          if (!action) {
+            const path = '/error'
+            const query = { action: action_id, menu: name }
+            this.$router.push({ path, query })
             return
           } else {
-            const query = { view_type: 'tree', menu: name }
-            this.$router.push({ path, query })
+            const xml_id = action.xml_id
+            const path = ['', 'web', ...xml_id.split('.')].join('/')
+
+            if (
+              action.type === 'ir.actions.act_window' &&
+              action.target === 'new'
+            ) {
+              // console.log('new')
+              // this.showWizard = true
+              return
+            } else {
+              const query = { view_type: 'tree', menu: name }
+
+              if (activeIds) {
+                query.activeIds = activeIds
+              }
+
+              this.$router.push({ path, query })
+            }
           }
         }
       }
@@ -331,6 +353,11 @@ export default {
           }
         }
       }
+    },
+
+    handleChangeMenu(menuName, activeIds) {
+      // console.log(ss)
+      this.clickMenu(menuName, activeIds)
     }
   }
 }
@@ -349,10 +376,16 @@ export default {
   top: -5px;
 }
 .companySelect {
-  float: right;
+  /* float: right;
   margin-right: 10px;
-  margin-top: 20px;
+  margin-top: 20px; */
   /* background-color: white; */
+  border-width: 0px;
+}
+:deep(.companySelect .ant-select-selection){
+  /* color: red;   */
+  border-width: 0px;  
+  border-radius: 0;
 }
 .userInfo {
   float: right;
@@ -369,4 +402,15 @@ export default {
   background-color: #1c86ee;
   color: white;
 }
+    :deep(.ant-tabs-tab){
+        /* background-color: blue !important; */
+        height: 30px !important;
+    }
+    :deep(.ant-tabs-tab div){
+        height: 30px !important;
+        line-height: 30px !important;
+    }
+    :deep(.ant-tabs-nav-container){
+        height: 30px !important;
+    }
 </style>

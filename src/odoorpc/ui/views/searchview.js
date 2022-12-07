@@ -472,7 +472,7 @@ export class SearchView extends SearchView1 {
     const search_values = this.search_values
     const val2 = Object.values(search_values).reduce((acc, cur) => {
       const next = cur.values.reduce((acc2, cur2) => {
-        console.log(cur2)
+        // console.log(cur2)
         if (acc2.length) {
           acc2 = ['|', ...acc2, ...cur2.domain]
         } else {
@@ -494,7 +494,26 @@ export class SearchView extends SearchView1 {
     return val2
   }
 
-  merge_domain(domain1, domain2) {
+  merge_domain(...domains) {
+    if (!domains.length) {
+      return []
+    }
+
+    if (!domains.length === 1) {
+      return domains[0]
+    }
+
+    const [domain1, domain2, ...dms] = domains
+
+    let dm = this._merge_domain(domain1, domain2)
+    dms.forEach(item => {
+      dm = this._merge_domain(dm, item)
+    })
+
+    return dm
+  }
+
+  _merge_domain(domain1, domain2) {
     if (!domain1.length) {
       return domain2
     } else if (!domain2.length) {
@@ -534,7 +553,7 @@ export class SearchView extends SearchView1 {
       return this._search_clear(item)
     }
 
-    console.log('search_change', item, value, this._search_values)
+    // console.log('search_change', item, value, this._search_values)
 
     const values = { ...this._search_values }
 
@@ -556,7 +575,7 @@ export class SearchView extends SearchView1 {
         }
       })
     } else if (item.date) {
-      console.log(item, value)
+      // console.log(item, value)
       values[item.name] = [...value]
     } else {
       //
@@ -566,7 +585,7 @@ export class SearchView extends SearchView1 {
 
     this._search_values_updated = { ...values }
 
-    console.log(this.search_values)
+    // console.log(this.search_values)
     return this.search_values
   }
 }

@@ -36,7 +36,7 @@ export default {
       // return this.fieldInfo.readonly
 
       if (this.relation) {
-        const { record = {}, values = {} } = this.parentData
+        const { record = {}, values = {} } = this.parentData || {}
 
         const readonly = this.relation.readonly_get({
           record: { ...record, ...values }

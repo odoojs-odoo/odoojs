@@ -118,7 +118,6 @@ class BaseModel extends MetaModel {
   }
 
   static _format_dict(one) {
-    // console.log(' _format_dict ', one)
     const fmt = (fld, val) => {
       const meta = this._fields[fld] || {}
       if (meta.type === 'boolean') {
@@ -217,7 +216,6 @@ class BaseModel extends MetaModel {
     const args = [ids, values, field_name, field_onchange]
     const res = await this.execute_kw('onchange', args, kwargs)
     const { value } = res
-    // console.log(' after onchange ', this._name, value)
     return { ...res, value: this._format_dict(value) }
   }
 }
@@ -267,7 +265,6 @@ export class Model extends BaseModel {
       if (!readonly) {
         const val = values[fld]
         const val2 = val && meta.type === 'many2one' ? val[0] : val
-        console.log('_get_values_for_write', fld, val, val2)
         acc[fld] = val2
       }
 
@@ -277,8 +274,11 @@ export class Model extends BaseModel {
 
   static async web_commit(res_id, record, values, kwargs = {}) {
     if (!values) return res_id
-    if (!Object.keys(values).length) return res_id
-
+    if (!Object.keys(values).length) {
+      const { context = {} } = kwargs
+      const { active_ids, active_id } = context
+      if (!(active_ids || active_id)) return res_id
+    }
     // const values2 = this._get_values_for_write(record, values)
 
     const values2 = values
@@ -369,10 +369,12 @@ export class Model extends BaseModel {
     // values: 所有编辑过的字段的数据
     // field_name: 正在编辑的字段
 
-    const field_onchange = Object.keys(this._fields).reduce((acc, fld) => {
-      acc[fld] = '1'
-      return acc
-    }, {})
+    const field_onchange = this._get_field_onchange()
+
+    // const field_onchange = Object.keys(this._fields).reduce((acc, fld) => {
+    //   acc[fld] = '1'
+    //   return acc
+    // }, {})
 
     // values 中 可能有 id,  需要删除
     const vals_onchg = this._get_values_for_onchange(record, {

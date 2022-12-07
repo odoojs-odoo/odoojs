@@ -112,7 +112,7 @@ const tuples_helper = {
     return valuesList.reduce((acc, tup) => {
       const op = tup[0]
       if (op === 6) acc = [tup]
-      else if (op === 5) acc = []
+      else if (op === 5) acc = [tup]
       else if ([4, 3, 2, 1, 0].includes(op)) {
         acc = _do_loop(acc, tup)
       }
@@ -252,7 +252,21 @@ export class X2mTree extends X2mTreeBase {
     super(field_info, { ...payload, type: 'tree' })
   }
 
+  read_for_new_x2m(tuples) {
+    if (this.field_info.type === 'one2many') {
+      const { values } = this.read_for_new_o2m(tuples)
+      return values
+    } else if (this.field_info.type === 'many2many') {
+      return this.read_for_new_m2m(tuples)
+    } else {
+      return []
+    }
+  }
+
   async read_for_new(tuples) {
+    return this.read_for_new_m2m(tuples)
+  }
+  async read_for_new_m2m(tuples) {
     const ids = tuples_to_ids(tuples)
     // console.log('read_for_new', ids)
     return this.read(ids)
@@ -261,7 +275,7 @@ export class X2mTree extends X2mTreeBase {
 
   read_for_new_o2m(tuples) {
     // const ids = tuples_to_ids(tuples)
-    // console.log('read_for_new_o2m', tuples)
+    // console.log('read_for_new_o2m', this.field_info, tuples)
 
     const res = tuples.reduce(
       (acc, tuple) => {
@@ -274,7 +288,7 @@ export class X2mTree extends X2mTreeBase {
 
         // console.log('xxxxx', { values_ret, values_onchange })
         acc.values = values_ret
-        acc.values_write = [...acc.values_write, ...values_write]
+        acc.values_write = [...values_write]
 
         return acc
       },
@@ -295,8 +309,11 @@ export class X2mTree extends X2mTreeBase {
     const fields_form = this.field_info.views.form.fields
     const fields_list = Object.keys({ ...fields_tree, ...fields_form })
 
+    // console.log('X2mTree read: ', ids, fields_list)
+
     // const fields_list = this.fields_list
     const res = await this.Model.read(ids, fields_list)
+    // console.log('X2mTree read: ', ids, res)
     return res
   }
 
@@ -308,7 +325,7 @@ export class X2mTree extends X2mTreeBase {
   }
 
   _x2m_tuples_for_write(records, values3) {
-    console.log('_x2m_tuples_for_write', records, values3)
+    // console.log('_x2m_tuples_for_write', records, values3)
     return values3.map(item => {
       const op = item[0]
       if ([1, 0].includes(op)) {
@@ -324,7 +341,7 @@ export class X2mTree extends X2mTreeBase {
           values_me
         )
 
-        console.log('_x2m_tuples_for_write2', vals_write)
+        // console.log('_x2m_tuples_for_write2', vals_write)
 
         return [op, item[1], vals_write]
       } else {

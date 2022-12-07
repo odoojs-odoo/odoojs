@@ -1,15 +1,12 @@
 <template>
-  <a-dropdown v-model="dropdownVisible" :trigger="['click']">
+  <a-dropdown v-model="dropdownVisible" :trigger="['hover']" class="ant-dropdown-link">
     <a-select
       :value="allowed_company"
-      style="width: 160px"
       label-in-value
       :open="false"
-      class="ant-dropdown-link"
       @click="e => e.preventDefault()"
     >
     </a-select>
-
     <a-menu slot="overlay" @click="handleOnDropdownSelect">
       <!--  -->
       <template v-for="item in allowed_companies">
@@ -102,4 +99,9 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+  .ant-dropdown-link{
+    width: 250px;
+    /* color:red; */
+  }
+</style>

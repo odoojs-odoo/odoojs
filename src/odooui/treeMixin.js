@@ -119,7 +119,7 @@ export default {
 
   methods: {
     async init() {
-      console.log('init')
+      console.log('init', this.$route)
       const actionId = api.tools.path2action_id(this.$route.path)
 
       const treeview = api.env.treeview(actionId)
