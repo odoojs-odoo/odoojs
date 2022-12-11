@@ -54,11 +54,11 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_app: {
           app: { string: '应用', domain: [['application', '=', true]] },
           extra: { string: '额外', domain: [['application', '=', false]] }
         },
-        group2: {
+        group_state: {
           installed: {
             string: '已安装',
             domain: [['state', 'in', ['installed', 'to upgrade', 'to remove']]]

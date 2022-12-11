@@ -64,8 +64,13 @@ export default {
     },
 
     current_state() {
+      const state_field_name = this.view ? this.view.state_field_name : 'state'
+
+
       const values = { ...this.record, ...this.values }
-      return values.state
+
+      // console.log('sss', state_field_name, values)
+      return values[state_field_name]
     },
 
     header_statusbar_visible() {

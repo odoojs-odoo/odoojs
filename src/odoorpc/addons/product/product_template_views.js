@@ -106,7 +106,7 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_type: {
           services: { string: '服务', domain: [['type', '=', 'service']] },
           consumable: {
             string: '易耗品',
@@ -114,7 +114,7 @@ export default {
           }
         },
 
-        group2: {
+        group_sell_purchase: {
           filter_to_sell: {
             string: '可销售',
             domain: [['sale_ok', '=', true]]
@@ -124,10 +124,10 @@ export default {
             domain: [['purchase_ok', '=', true]]
           }
         },
-        group3: {
+        group_favorites: {
           favorites: { string: '收藏', domain: [['priority', '=', '1']] }
         },
-        group4: {
+        group_active: {
           inactive: { string: '已归档', domain: [['active', '=', false]] }
         }
       }

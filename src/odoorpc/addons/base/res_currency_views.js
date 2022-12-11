@@ -69,7 +69,7 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_active: {
           active: { string: '启用', domain: [['active', '=', true]] },
           inactive: { string: '停用', domain: [['active', '=', false]] }
         }

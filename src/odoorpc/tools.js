@@ -1,6 +1,19 @@
 export default {
   path2action_id(path) {
     return path.split('/').slice(2).join('.')
+  },
+
+  date_format(date) {
+    const year = date.getFullYear().toString().padStart(4, '0')
+    const month = (date.getMonth() + 1).toString().padStart(2, '0')
+    const day = date.getDate().toString().padStart(2, '0')
+
+    const hh = date.getHours().toString().padStart(2, '0')
+    const mm = date.getMinutes().toString().padStart(2, '0')
+    const ss = date.getSeconds().toString().padStart(2, '0')
+
+    const today_str = `${year}-${month}-${day} ${hh}:${mm}:${ss}`
+    return today_str
   }
 }
 

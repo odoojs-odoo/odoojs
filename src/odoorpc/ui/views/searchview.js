@@ -519,7 +519,9 @@ export class SearchView extends SearchView1 {
     } else if (!domain2.length) {
       return domain1
     } else {
-      return ['&', ...domain1, ...domain2]
+      const domain11 = domain_tools.patch_and(domain1)
+      const domain22 = domain_tools.patch_and(domain2)
+      return ['&', ...domain11, ...domain22]
     }
   }
 

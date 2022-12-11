@@ -578,7 +578,7 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_me: {
           my_purchases: {
             string: '我的订单',
             domain: ({ env }) => {
@@ -588,13 +588,13 @@ export default {
           },
           starred: { string: '我的收藏', domain: [['priority', '=', '1']] }
         },
-        group2: {
+        group_state_rfq: {
           draft: {
             string: '询价单',
             domain: [['state', 'in', ['draft', 'sent', 'to approve']]]
           }
         },
-        group3: {
+        group_state: {
           approved: {
             string: '采购订单',
             domain: [['state', 'in', ['purchase', 'done']]]
@@ -604,7 +604,7 @@ export default {
             domain: [['state', 'in', ['to approve']]]
           }
         },
-        group4: {
+        group_type: {
           order_date: { string: '订单日期', date: 'date_order' },
           draft_rfqs: {
             string: '草稿询价单',
@@ -660,7 +660,7 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_me: {
           my_purchases: {
             string: '我的订单',
             domain: ({ env }) => {
@@ -670,7 +670,7 @@ export default {
           },
           starred: { string: '我的收藏', domain: [['priority', '=', '1']] }
         },
-        group2: {
+        group_state: {
           unconfirmed: {
             string: '等待应答',
             domain: [
@@ -687,7 +687,7 @@ export default {
             domain: [['invoice_status', '=', 'invoiced']]
           }
         },
-        group3: {
+        group_date: {
           order_date: { string: '订单日期', date: 'date_order' }
         }
       }

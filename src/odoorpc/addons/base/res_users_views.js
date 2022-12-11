@@ -59,10 +59,10 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_share: {
           no_share: { string: '内部用户', domain: [['share', '=', false]] }
         },
-        group2: {
+        group_active: {
           inactive: {
             string: '已归档',
             domain: [['active', '=', false]]

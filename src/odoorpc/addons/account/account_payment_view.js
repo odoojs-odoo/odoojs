@@ -217,7 +217,7 @@ export default {
         // is_internal_transfer: {}
       },
       filters: {
-        group1: {
+        group_type: {
           inbound_filter: {
             string: '客户付款',
             domain: [
@@ -238,12 +238,12 @@ export default {
           }
         },
 
-        group2: {
+        group_state: {
           __title: '状态',
           state_draft: { string: '草稿', domain: [['state', '=', 'draft']] },
           state_posted: { string: '已过账', domain: [['state', '=', 'posted']] }
         },
-        group3: {
+        group_status: {
           state_sent: {
             string: '已发送',
             domain: [['is_move_sent', '=', true]]
@@ -258,7 +258,7 @@ export default {
           }
         },
 
-        group4: {
+        group_date: {
           date: { string: '付款日期', date: 'date' }
         }
       }

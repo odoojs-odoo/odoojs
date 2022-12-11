@@ -10,7 +10,7 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_active: {
           inactive: {
             string: '已归档',
             domain: [['active', '=', false]]
@@ -181,7 +181,7 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_me: {
           my_transfers: {
             string: '我的调拨',
             domain: ({ env }) => {
@@ -193,7 +193,7 @@ export default {
             domain: [['priority', '=', '1']]
           }
         },
-        group2: {
+        group_state: {
           draft: {
             string: '草稿',
             domain: [['state', '=', 'draft']]
@@ -217,7 +217,7 @@ export default {
         }
         // todo
 
-        // group3: {
+        // group_active: {
         //   inactive: {
         //     string: '已归档',
         //     domain: [['active', '=', false]]

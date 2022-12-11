@@ -631,23 +631,23 @@ export default {
         journal_id: {}
       },
       filters: {
-        group1: {
+        group_state: {
           __title: '过账状态',
           unposted: { string: '未过账', domain: [['state', '=', 'draft']] },
           posted: { string: '已过账', domain: [['state', '=', 'posted']] }
         },
-        group2: {
+        group_payment: {
           __title: '支付状态',
           reversed: {
             string: '保留',
             domain: [['payment_state', '=', 'reversed']]
           }
         },
-        group3: {
+        group_to_check: {
           __title: '检查',
           to_check: { string: '检查', domain: [['to_check', '=', true]] }
         },
-        group4: {
+        group_type: {
           __title: '日记账类型',
           sales: {
             string: '销售',
@@ -675,7 +675,7 @@ export default {
             context: { default_journal_type: 'general' }
           }
         },
-        group5: {
+        group_date: {
           date: { string: '日期', date: 'date' }
         }
       }
@@ -709,7 +709,7 @@ export default {
         invoice_user_id: { string: '销售员', domain: [['share', '=', false]] }
       },
       filters: {
-        group1: {
+        group_me: {
           myinvoices: {
             string: '我的发票',
             domain: ({ env }) => {
@@ -719,17 +719,17 @@ export default {
           }
         },
 
-        group2: {
+        group_state: {
           __title: '状态',
           draft: { string: '草稿', domain: [['state', '=', 'draft']] },
           posted: { string: '已过账', domain: [['state', '=', 'posted']] },
           cancel: { string: '已取消', domain: [['state', '=', 'cancel']] }
         },
-        group3: {
+        group_to_check: {
           __title: '检查',
           to_check: { string: '检查', domain: [['to_check', '=', true]] }
         },
-        group4: {
+        group_payment: {
           __title: '支付状态',
           open: {
             string: '待付款',
@@ -756,7 +756,7 @@ export default {
             }
           }
         },
-        group5: {
+        group_date: {
           invoice_date: { string: '发票日期', date: 'invoice_date' },
           date: {
             string: '账期',

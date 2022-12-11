@@ -114,12 +114,22 @@ class BaseModel extends MetaModel {
   }
 
   static async web_search_read(kwargs = {}) {
-    return this.execute_kw('web_search_read', [], kwargs)
+    const res = await this.execute_kw('web_search_read', [], kwargs)
+    const { length, records } = res
+    return { length, records: this._format_result(records) }
   }
 
   static _format_dict(one) {
     const fmt = (fld, val) => {
       const meta = this._fields[fld] || {}
+
+      // m2o, false, [id, 'name']
+      // x2m, [], [ids,1,2,3,4]
+      // selection, false, 'string'
+      // date, false, 'yyyy-mm-dd'
+      // datetime, false, 'yyyymmdd hh:mm:ss.sssssss'
+      //
+
       if (meta.type === 'boolean') {
         return val
       } else if (meta.type === 'integer') {
@@ -130,6 +140,15 @@ class BaseModel extends MetaModel {
         return val || 0.0
       } else if (meta.type === 'integer') {
         return val || 0
+      } else if (meta.type === 'datetime') {
+        // datetime, false, 'yyyymmdd hh:mm:ss.sssssss'
+        if (!val) {
+          return val || null
+        } else {
+          // val = 'yyyymmdd hh:mm:ss.sssssss'  utc
+          const utc_val = new Date(`${val} UTC`)
+          return utc_val
+        }
       } else {
         return val || null
       }

@@ -254,12 +254,17 @@ export class X2mTree extends X2mTreeBase {
 
   read_for_new_x2m(tuples) {
     if (this.field_info.type === 'one2many') {
-      const { values } = this.read_for_new_o2m(tuples)
-      return values
+      const res = this.read_for_new_o2m(tuples)
+      // {        values, values_onchange, values_write      }
+      return res
     } else if (this.field_info.type === 'many2many') {
-      return this.read_for_new_m2m(tuples)
+      return {
+        values_display: this.read_for_new_m2m(tuples)
+      }
     } else {
-      return []
+      return {
+        values_display: []
+      }
     }
   }
 
@@ -282,24 +287,25 @@ export class X2mTree extends X2mTreeBase {
         const { values } = acc
         const {
           values: values_ret,
-          // values_onchange,
+          values_onchange,
           values_write
         } = this.commit([], values, tuple)
 
         // console.log('xxxxx', { values_ret, values_onchange })
         acc.values = values_ret
         acc.values_write = [...values_write]
+        acc.values_onchange = [...values_onchange]
 
         return acc
       },
-      { values: [], values_write: [] }
+      { values: [], values_onchange: [], values_write: [] }
     )
 
     const vals = res.values.map(tuple => {
       return { id: tuple[1], ...tuple[2] }
     })
 
-    return { ...res, values: vals }
+    return { ...res, values_display: vals }
   }
 
   async read(ids) {

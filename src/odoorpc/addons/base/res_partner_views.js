@@ -231,17 +231,17 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_type: {
           type_person: { string: '个人', domain: [['is_company', '=', false]] },
           type_company: { string: '组织', domain: [['is_company', '=', true]] }
         },
 
-        group2: {
+        group_sell_purchase: {
           customer: { string: '客户', domain: [['customer_rank', '>', 0]] },
           supplier: { string: '供应商', domain: [['supplier_rank', '>', 0]] }
         },
 
-        group3: {
+        group_active: {
           inactive: {
             string: '已归档',
             domain: [['active', '=', false]]
@@ -287,7 +287,7 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_active: {
           inactive: {
             string: '已归档',
             domain: [['active', '=', false]]
@@ -341,7 +341,7 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_active: {
           inactive: {
             string: '已归档',
             domain: [['active', '=', false]]

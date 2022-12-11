@@ -10,8 +10,8 @@
           :key="index"
           :type="btn.btn_type"
           @click="handleBtnClicked(btn)"
-           size="small"
-           style=" margin-top: 5px;margin-left: 10px;"
+          size="small"
+          style="margin-top: 5px; margin-left: 10px"
         >
           {{ btn.string }}
         </a-button>

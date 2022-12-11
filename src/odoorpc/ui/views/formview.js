@@ -58,7 +58,6 @@ export class FormView extends BaseView {
 
     const buttons = arch.buttons || []
 
-    // console.log(header, buttons)
     const btns = buttons.filter(btn => {
       if (btn.invisible === undefined) return true
 
@@ -79,10 +78,20 @@ export class FormView extends BaseView {
     return btns2
   }
 
+  get state_field_name() {
+    const header = this.view_header
+    const header_fields = header.fields || {}
+    const state_flds = Object.keys(header_fields)
+
+    return state_flds.length ? state_flds[0] : 'state'
+  }
+
   view_statusbar(record, values) {
     const header = this.view_header
 
-    const fld_state = (header.fields || {}).state || {}
+    const state_field_name = this.state_field_name
+    const fld_state = (header.fields || {})[state_field_name] || {}
+
     if (fld_state.widget !== 'statusbar') {
       return []
     }
@@ -108,7 +117,6 @@ export class FormView extends BaseView {
 
     const buttons = header.buttons || []
 
-    // console.log(header, buttons)
     const btns = buttons.filter(btn => {
       if (btn.invisible === undefined) return true
 
@@ -130,8 +138,11 @@ export class FormView extends BaseView {
   }
 
   header_statusbar_visible(record, values) {
-    const current_state = { ...record, ...values }.state
+    const state_field_name = this.state_field_name
+
+    const current_state = { ...record, ...values }[state_field_name]
     const states = this.view_statusbar(record, values)
+
     if (!states.length) {
       return []
     }
@@ -140,7 +151,7 @@ export class FormView extends BaseView {
       states.push(current_state)
     }
 
-    const meta = this.fields.state || {}
+    const meta = this.fields[state_field_name] || {}
 
     const selections2 = meta.selection || []
     const selections = selections2.reduce((acc, cur) => {
@@ -238,6 +249,63 @@ export class FormView extends BaseView {
 
   async onchange(fname, kwargs_in) {
     return this.edit_model.onchange(fname, kwargs_in)
+  }
+
+  async relation_onchange(fname, kwargs_in) {
+    const { record, values, x2m_tree, x2m_form } = kwargs_in
+
+    const { records: tree_records, values: tree_values } = x2m_tree
+    const { record: form_record, onchange_field, onchange_value } = x2m_form
+
+    const relation = this.relations[fname]
+    const x2mtree = relation.tree
+    const x2mform = relation.form
+
+    // const form_values_display =
+    x2mform.set_editable(form_record, { record, values }) // 单行, 子 form 可编辑,
+    // console.log('form_values_display', form_values_display)
+    // const form_onchange_res =
+    await x2mform.onchange(onchange_field, { value: onchange_value }) // 子 form 编辑后 触发 onchange
+
+    // console.log('form_onchange_res', form_onchange_res)
+    const form_commit_result = await x2mform.commit() // 子 form 提交
+    // console.log('form_commit_result', form_commit_result)
+
+    const tree_commit = x2mtree.commit(
+      tree_records,
+      tree_values,
+      form_commit_result
+    ) //  明细行 更新
+
+    // console.log('tree_commit', tree_commit)
+
+    const { values: tree_values2, values_onchange: tree_values_onchange } =
+      tree_commit
+
+    const onchange_res = await this.onchange(fname, {
+      value: tree_values_onchange
+    }) // 主 form onchange
+
+    // console.log('onchange_res', onchange_res)
+
+    // console.log('return,tree_values2 ', tree_values2)
+
+    const tree_values_display = x2mtree.values_display(
+      tree_records,
+      tree_values2
+    )
+    const tree_return = {
+      values: tree_values2,
+      values_display: tree_values_display,
+      values_onchange: tree_values_onchange
+    }
+
+    return {
+      ...onchange_res,
+      x2m_tree: {
+        ...tree_return
+      }
+    }
   }
 
   async commit(kwargs = {}) {

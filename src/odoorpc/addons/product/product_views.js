@@ -107,7 +107,7 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_active: {
           active: {
             string: '启用',
             domain: () => {

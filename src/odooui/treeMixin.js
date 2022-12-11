@@ -17,7 +17,14 @@ export default {
       activeIds: [],
       expandedRowKeys: [],
 
-      search_values: {}
+      search_values: {},
+      pagination: {
+        // current
+        // position: 'top'
+        // total: 0,
+        // pageSize: PageSize
+        // pageSizeOptions: ['10', '20', '30', '40']
+      }
     }
   },
   computed: {
@@ -127,11 +134,12 @@ export default {
       this.buttons = treeview.buttons
       this.actionBtns = treeview.action_buttons
       this.fields = await treeview.load_fields()
-      this.records = await treeview.search_read()
+      await this.fresh_data()
+    },
 
-      console.log('treeview', this.treeview)
-
-      this.search_values = this.treeview.search_values
+    async handleTableChange(pagination) {
+      this.treeview.pagination = pagination
+      await this.fresh_data()
     },
 
     // 新增按钮触发
@@ -155,6 +163,8 @@ export default {
 
     async fresh_data() {
       this.records = await this.treeview.search_read()
+      this.pagination = { ...this.treeview.pagination }
+      this.search_values = this.treeview.search_values
     },
 
     async unlink() {
@@ -190,8 +200,13 @@ export default {
 
     async handleSearchChange(item, value) {
       const search_values = this.treeview.search_change(item, value)
-      this.records = await this.treeview.search_read()
       this.search_values = search_values
+      this.treeview.pagination = {
+        ...this.treeview.pagination,
+        current: 1,
+        total: 0
+      }
+      await this.fresh_data()
 
       // console.log(search_values)
     }

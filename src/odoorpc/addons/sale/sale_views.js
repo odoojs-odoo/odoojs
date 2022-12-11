@@ -399,7 +399,7 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_me: {
           my_sale_orders_filter: {
             string: '我的订单',
             domain: ({ env }) => {
@@ -444,7 +444,7 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_me: {
           my_quotation: {
             string: '我的报价单',
             domain: ({ env }) => {
@@ -453,7 +453,7 @@ export default {
             }
           }
         },
-        group2: {
+        group_state: {
           draft: {
             string: '报价单',
             domain: [['state', 'in', ['draft', 'sent']]]
@@ -463,7 +463,7 @@ export default {
             domain: [['state', 'in', ['sale', 'done']]]
           }
         },
-        group3: {
+        group_date: {
           filter_create_date: { string: '创建日期', date: 'create_date' }
         }
       }

@@ -72,7 +72,7 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_type: {
           receivableacc: {
             string: '应收科目',
             domain: [['internal_type', '=', 'receivable']]
@@ -106,7 +106,7 @@ export default {
           }
         },
 
-        group2: {
+        group_active: {
           used: {
             string: '有分录的会计科目',
             domain: [['used', '=', true]]

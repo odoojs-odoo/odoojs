@@ -22,11 +22,13 @@
     <a-table
       class="bg"
       :row-selection="rowSelection"
+      :pagination="pagination"
       :columns="columns"
       :data-source="records"
       rowKey="id"
       :customRow="tableCustomRow"
       :scroll="heightS"
+      @change="handleTableChange"
     >
     </a-table>
   </div>

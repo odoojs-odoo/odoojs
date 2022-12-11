@@ -7,6 +7,10 @@ export class TreeBaseView extends BaseView {
     super(action_id, { ...payload2, type })
     this.searchview = new SearchView(action_id, payload2)
     this.domain_local = []
+
+    this._limit_default = undefined
+
+    this._pagination = {}
   }
 
   async load_fields() {
@@ -27,6 +31,65 @@ export class TreeBaseView extends BaseView {
     return this.searchview.search_items
   }
 
+  get limit_default() {
+    if (!this._limit_default) {
+      this._limit_default = this.action.limit || 10
+    }
+
+    return this._limit_default
+  }
+
+  set limit_default(val) {
+    if (val) {
+      this._limit_default = val
+    } else {
+      this._limit_default = this.action.limit || 10
+    }
+  }
+
+  get pagination() {
+    const { current } = this._pagination
+    return {
+      ...this._pagination,
+      current: current || 1,
+      pageSize: this.limit_default
+    }
+  }
+
+  set pagination({ current, total, pageSizeOptions }) {
+    this._pagination = {
+      ...this._pagination,
+      current: current || 1,
+      total: total || 0,
+      pageSizeOptions: pageSizeOptions || ['10', '20', '30', '40'],
+      showSizeChanger: true
+    }
+  }
+
+  // pagination: {
+  //   // current
+  //   // position: 'top'
+  //   // total: 0,
+  //   // pageSize: PageSize
+  //   // pageSizeOptions: ['10', '20', '30', '40']
+  // }
+
+  get saerch_args() {
+    const { current, pageSize } = this.pagination
+    const limit = pageSize || 10
+    const offset_get = () => {
+      if (current <= 1) {
+        return 0
+      } else {
+        return limit * (current - 1)
+      }
+    }
+
+    const offset = offset_get()
+    console.log([current, limit, offset])
+    return { limit, offset }
+  }
+
   async search_read() {
     await this.searchview.load_search()
 
@@ -38,8 +101,16 @@ export class TreeBaseView extends BaseView {
     const domain = this.searchview.merge_domain(domain1, domain2, domain3)
 
     const context = this.context
+    const { limit, offset } = this.saerch_args
 
-    return Model.search_read({ domain, fields, context })
+    const kwargs = { domain, fields, limit, offset, context }
+    const res = await Model.web_search_read(kwargs)
+    const { length, records } = res
+
+    console.log(records)
+    this.pagination = { ...this.pagination, total: length }
+
+    return records
   }
 
   search_change(item, value) {

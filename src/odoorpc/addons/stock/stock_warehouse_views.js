@@ -58,7 +58,7 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_active: {
           inactive: {
             string: '已归档',
             domain: [['active', '=', false]]

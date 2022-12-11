@@ -319,6 +319,11 @@ export class Action {
     return domain1
   }
 
+  get limit() {
+    const limit = this.info.limit
+    return limit
+  }
+
   //
   // static get actions() {
   //   return Addons.data.actions

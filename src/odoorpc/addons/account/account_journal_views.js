@@ -47,7 +47,7 @@ export default {
       },
 
       filters: {
-        group1: {
+        group_type: {
           sales: { string: '销售', domain: [['type', '=', 'sale']] },
           purchases: { string: '采购', domain: [['type', '=', 'purchase']] },
           liquidity: {
@@ -60,7 +60,7 @@ export default {
           }
         },
 
-        group2: {
+        group_active: {
           inactive: { string: '已归档', domain: [['active', '=', false]] }
         }
       }
