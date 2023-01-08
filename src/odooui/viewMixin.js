@@ -34,6 +34,7 @@ export default {
   methods: {
     init() {
       const query = this.$route.query
+      // console.log('--- query ---',query);
       const { view_type: viewType } = query
       // const actionId = api.tools.path2action_id(this.$route.path)
       // const actionInfo = api.env.action_info_get(actionId)

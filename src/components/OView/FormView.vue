@@ -43,7 +43,7 @@
             :key="meta.name"
             :field-name="meta.name"
             ref="refField"
-            width="120px"
+            width="270px"
             v-model="formValues"
             :editable="editable"
             :fields="fields"
@@ -144,6 +144,6 @@ export default {
 }
 :deep(.formNewStyle .ant-form-item) {
   margin-bottom: 5px;
-  width: 400px;
+  width: 360px;
 }
 </style>

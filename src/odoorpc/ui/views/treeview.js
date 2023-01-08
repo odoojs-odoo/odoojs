@@ -48,18 +48,21 @@ export class TreeBaseView extends BaseView {
   }
 
   get pagination() {
-    const { current } = this._pagination
+    const { current, pageSize } = this._pagination
     return {
       ...this._pagination,
       current: current || 1,
-      pageSize: this.limit_default
+      pageSize: pageSize || this.limit_default
     }
   }
 
-  set pagination({ current, total, pageSizeOptions }) {
+  set pagination(payload) {
+    const { current, total, pageSize, pageSizeOptions } = payload
     this._pagination = {
       ...this._pagination,
+      ...payload,
       current: current || 1,
+      pageSize: pageSize,
       total: total || 0,
       pageSizeOptions: pageSizeOptions || ['10', '20', '30', '40'],
       showSizeChanger: true

@@ -24,11 +24,12 @@ import controller from './controllers'
 export class RPC {
   constructor() {}
 
-  static init({ baseURL, timeout, addons_list }) {
+  static init({ baseURL, timeout, addons_list, web_models_list = [] }) {
     JsonRequest.baseURL = baseURL
     JsonRequest.timeout = timeout
 
     this.baseURL = baseURL
+    this.web_models_list = web_models_list
 
     if (addons_list) {
       ui.Addons.addons_list = [...ui.Addons.addons_list, ...addons_list]
@@ -36,7 +37,7 @@ export class RPC {
   }
 
   static get env() {
-    return new Environment()
+    return new Environment({ web_models_list: this.web_models_list })
   }
 
   static get tools() {

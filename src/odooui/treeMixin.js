@@ -72,12 +72,21 @@ export default {
       }
 
       const fields = this.fields
+      // console.log('=======treeMixin fields =====', fields)
       const cols = Object.keys(fields)
         .filter(item => !fields[item].invisible)
         .map(fld => {
           const meta = fields[fld]
-
-          const col = { dataIndex: fld, key: fld, title: meta.string }
+          // console.log('--- fld ---', fld)
+          // console.log('--- meta ---', meta)
+          const col = {
+            dataIndex: fld,
+            key: fld,
+            title: meta.string,
+            ellipsis: true,
+            align: 'center',
+            width: meta.web_col_width
+          }
 
           const render = get_render(fld, meta)
           if (render) {
@@ -87,7 +96,7 @@ export default {
           return col
         })
 
-      // console.log(cols)
+      // console.log('--- cols ---', cols)
 
       return cols
     }
@@ -97,7 +106,7 @@ export default {
     // 菜单切换时, 触发
     '$route.fullPath': {
       handler: function (/*val*/) {
-        console.log('in watch , $route.fullPath', this.$route.fullPath)
+        // console.log('in watch , $route.fullPath', this.$route.fullPath)
         // console.log('watch fullPath')
         // console.log('watch', )
         this.init()
@@ -126,10 +135,11 @@ export default {
 
   methods: {
     async init() {
-      console.log('init', this.$route)
+      // console.log('---init===', this.$route)
       const actionId = api.tools.path2action_id(this.$route.path)
-
+      // console.log('---actionId===', actionId)
       const treeview = api.env.treeview(actionId)
+      // console.log('===treeview===', treeview)
       this.treeview = treeview
       this.buttons = treeview.buttons
       this.actionBtns = treeview.action_buttons
@@ -150,7 +160,7 @@ export default {
       this.$router.push({ path, query })
     },
     onSearch() {
-      console.log('----- 搜索 -----')
+      // console.log('----- 搜索 -----')
     },
 
     handleOnExportAll() {
@@ -169,7 +179,7 @@ export default {
 
     async unlink() {
       const ids = this.activeIds
-      console.log(' handleUnlink ', ids)
+      // console.log(' handleUnlink ', ids)
       await this.treeview.unlink(ids)
       this.activeIds = []
 

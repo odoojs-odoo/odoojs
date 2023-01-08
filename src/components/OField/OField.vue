@@ -255,9 +255,13 @@ export default {
 <style type="text/css">
 .ant-form-item-label {
   width: auto !important;
+  /* background: pink; */
   text-align: left;
 }
 .ant-form-item-control-wrapper {
   width: auto !important;
+  /* width:200px !important; */
+  /* background: yellow; */
 }
+
 </style>

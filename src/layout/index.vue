@@ -10,7 +10,20 @@
         style="background: white; padding: 0"
       >
         <div id="logoPic">
-          <img src="../assets/logo.png" alt="logo" width="70%" height="30px" />
+          <img
+            v-if="!collapsed"
+            src="../assets/logo.png"
+            alt="logo"
+            width="70%"
+            height="30px"
+          />
+          <img
+            v-else
+            src="../assets/miniLogo.png"
+            alt="miniLogo"
+            width="40%"
+            height="30px"
+          />
         </div>
         <div style="height: 92vh; overflow-y: auto">
           <a-menu
@@ -25,9 +38,9 @@
             </a-menu-item>
 
             <!-- <a-menu-item key="test">
-            <a-icon type="video-camera" />
-            <span>Test</span>
-          </a-menu-item> -->
+              <a-icon type="video-camera" />
+              <span>Test</span>
+            </a-menu-item> -->
 
             <template v-for="item in menus_tree">
               <template v-if="is_sub_menu(item)">
@@ -102,14 +115,13 @@
 
               <a-menu-item>
                 <a href="javascript:;" @click="onLogout">
-                  {{ session_info.uid ? '注销' : '登录' }}
+                  {{ session_info.uid ? '退出' : '登录' }}
                 </a>
               </a-menu-item>
-              
             </a-menu>
           </a-dropdown>
 
-          <!-- <CompanySelect class="companySelect" /> -->
+          <CompanySelect class="companySelect" />
         </a-layout-header>
 
         <a-layout-content
@@ -131,7 +143,7 @@
             @edit="onEdit"
             @change="onChangeTabs"
             size="small"
-            style="height: 38px;;"
+            style="height: 38px"
           >
             <a-tab-pane
               v-for="pane in panes"
@@ -198,7 +210,7 @@ export default {
   created() {},
 
   mounted() {
-    console.log('layout mounted', this.$route.fullPath)
+    // console.log('layout mounted', this.$route.fullPath)
 
     const name = this.$route.query.menu
 
@@ -227,7 +239,7 @@ export default {
     },
 
     selectMenu(e) {
-      // console.log('selectMenu.  , ', e, e.key, typeof e.key)
+      // console.log('---- layout selectMenu. ==== ', e, e.key, typeof e.key)
       const name = e.key
 
       this.clickMenu(name)
@@ -243,14 +255,18 @@ export default {
         // } else if (name === 'test') {
         //   this.$router.push({ path: '/test', query: { menu: name } })
       } else {
-        // console.log(this.menus_list)
+        // console.log('----- menus_list ------', this.menus_list)
+        // console.log('----- layout name ------', name)
+
         const menu_get = () => {
           return this.menus_list[name] || {}
         }
 
         const menu = menu_get()
+        // console.log('---- layout menu ---', menu)
 
         const menu_type = menu.type
+        // console.log('---- layout menu_type ---', menu_type)
 
         if (menu_type === 'no-action') {
           const action = menu.action
@@ -263,7 +279,7 @@ export default {
           }
 
           const action_id = action_id_get() || name
-
+          // console.log('----- layout index action_id =====', action_id)
           const action_get = () => {
             const action = api.env.action_info_get(action_id)
             return action
@@ -301,8 +317,26 @@ export default {
               if (activeIds) {
                 query.activeIds = activeIds
               }
+              // console.log('===============path & query=====================')
+              // console.log('this -->', this.$route.query)
+              // console.log(path, '--', query)
+              // console.log('===========', this.$route.name, '===', path)
+              // console.log(
+              //   '===========',
+              //   Object.keys(this.$route.query) === Object.keys(query)
+              // )
 
-              this.$router.push({ path, query })
+              if (
+                this.$route.name === path &&
+                this.$route.query.view_type === query.view_type &&
+                this.$route.query.menu === query.menu &&
+                Object.keys(this.$route.query).sort().toString() ==
+                  Object.keys(query).sort().toString()
+              ) {
+                return
+              } else {
+                this.$router.push({ path, query })
+              }
             }
           }
         }
@@ -382,9 +416,9 @@ export default {
   /* background-color: white; */
   border-width: 0px;
 }
-:deep(.companySelect .ant-select-selection){
+:deep(.companySelect .ant-select-selection) {
   /* color: red;   */
-  border-width: 0px;  
+  border-width: 0px;
   border-radius: 0;
 }
 .userInfo {
@@ -402,15 +436,15 @@ export default {
   background-color: #1c86ee;
   color: white;
 }
-    :deep(.ant-tabs-tab){
-        /* background-color: blue !important; */
-        height: 30px !important;
-    }
-    :deep(.ant-tabs-tab div){
-        height: 30px !important;
-        line-height: 30px !important;
-    }
-    :deep(.ant-tabs-nav-container){
-        height: 30px !important;
-    }
+:deep(.ant-tabs-tab) {
+  /* background-color: blue !important; */
+  height: 30px !important;
+}
+:deep(.ant-tabs-tab div) {
+  height: 30px !important;
+  line-height: 30px !important;
+}
+:deep(.ant-tabs-nav-container) {
+  height: 30px !important;
+}
 </style>

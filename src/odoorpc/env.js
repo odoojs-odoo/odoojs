@@ -27,6 +27,9 @@ const AllModels = { ...AddonsModels }
 export class Environment {
   constructor(payload = {}) {
     const { context } = payload
+    const { web_models_list = [] } = payload
+
+    this.web_models_list = web_models_list
 
     this.web = web
 
@@ -168,11 +171,18 @@ export class Environment {
   }
 
   _create_model_class({ model, fields = {} }) {
-    // const BaseModel2 = AllModels[model] || BaseModel
+    const WebModels = this.web_models_list.reduce((acc, one) => {
+      const AddonsModels2 = one.keys().reduce((models, modulePath) => {
+        const value = one(modulePath)
+        models = { ...models, ...value.default }
+        return models
+      }, {})
 
-    // const WebModels = this.odoo._addons || {}
+      acc = { ...acc, ...AddonsModels2 }
+      return acc
+    }, {})
 
-    const WebModels = {}
+    // const WebModels = {}
     const BaseModel2 = WebModels[model] || AllModels[model] || BaseModel
 
     // const env = this

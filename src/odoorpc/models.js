@@ -170,6 +170,14 @@ class BaseModel extends MetaModel {
     const res = await this.execute_kw('search_read', [], kwargs)
     return this._format_result(res)
   }
+  static async read_one(ids, kwargs = {}) {
+    const recs = await this.read(ids, kwargs)
+    if (recs.length) {
+      return recs[0]
+    } else {
+      return {}
+    }
+  }
 
   static async read(ids, kwargs = {}) {
     const method = 'read'
@@ -200,7 +208,6 @@ class BaseModel extends MetaModel {
     const method = 'create'
     const args = [vals]
     return this.execute_kw(method, args, kwargs)
-    // return this.execute('create', vals)
   }
 
   static async unlink(rid) {
@@ -355,7 +362,7 @@ export class Model extends BaseModel {
       acc[fld] = '1'
       const meta = this._fields[fld]
       if (meta.type === 'one2many') {
-        const o2m_fields = o2m_get(meta.views, fld)
+        const o2m_fields = o2m_get(meta.views || {}, fld)
         // console.log('web_onchange_new', fld, meta.type, meta.views, o2m_fields)
         acc = { ...acc, ...o2m_fields }
       }

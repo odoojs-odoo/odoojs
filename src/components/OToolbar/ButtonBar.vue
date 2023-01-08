@@ -5,17 +5,16 @@
     {{ buttons }} -->
 
     <a-space>
-      <template v-for="(btn, index) in buttons">
-        <a-button
-          :key="index"
-          :type="btn.btn_type"
-          @click="handleBtnClicked(btn)"
-          size="small"
-          style="margin-top: 5px; margin-left: 10px"
-        >
-          {{ btn.string }}
-        </a-button>
-      </template>
+      <a-button
+        v-for="(btn, index) in buttons"
+        :key="index"
+        :type="btn.btn_type"
+        @click="handleBtnClicked(btn)"
+        size="small"
+        style="margin-top: 5px; margin-left: 10px"
+      >
+        {{ btn.string }}
+      </a-button>
     </a-space>
   </div>
 </template>

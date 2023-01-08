@@ -1,5 +1,5 @@
 <template>
-  <div ref="fatherBox">
+  <div class="fatherBox">
     <TreeNavbar
       :title="actionInfo.name"
       :search-values="search_values"
@@ -27,7 +27,7 @@
       :data-source="records"
       rowKey="id"
       :customRow="tableCustomRow"
-      :scroll="heightS"
+      :scroll="widthAndHeight"
       @change="handleTableChange"
     >
     </a-table>
@@ -63,8 +63,22 @@ export default {
 </script>
 
 <style type="text/css">
+.fatherBox {
+  /* background: red; */
+}
 .bg {
-  background: white;
+  /* background: white; */
   /* padding: 5px; */
+  /* background-color: rebeccapurple; */
+}
+
+.ant-table-tbody > tr > td {
+  /* background: palegreen; */
+  padding: 5px;
+}
+
+.ant-table-pagination.ant-pagination {
+  /* background: lightcoral; */
+  margin: 10px 0px;
 }
 </style>

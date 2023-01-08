@@ -123,7 +123,8 @@ export default {
       // for_new=true, only for wizard form
       if (this.$refs.refForm) {
         if (this.$refs.refForm.load_relation_data) {
-          const res = await this.$refs.refForm.load_relation_data(for_new)
+          // const res = 
+          await this.$refs.refForm.load_relation_data(for_new)
           // TODO: values_write
         }
       }

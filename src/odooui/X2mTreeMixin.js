@@ -74,7 +74,12 @@ export default {
       // const { fields = {} } = views.tree || {}
       const cols = Object.keys(fields).map(fld => {
         const meta = fields[fld]
-        const col = { dataIndex: fld, key: fld, title: meta.string }
+        const col = {
+          dataIndex: fld,
+          key: fld,
+          title: meta.string,
+          align: 'center'
+        }
         const render = get_render(fld, meta)
         if (render) {
           col.customRender = render

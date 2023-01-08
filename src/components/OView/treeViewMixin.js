@@ -9,7 +9,6 @@ export default {
     return {
       wizardVisible: false,
       wizardAction: undefined,
-
       h: 0
     }
   },
@@ -22,9 +21,9 @@ export default {
         }
       }
     },
-    heightS() {
+    widthAndHeight() {
       // console.log(this.h);
-      return { x: false, y: this.h }
+      return { x: 1000, y: this.h }
     }
   },
 
@@ -34,7 +33,7 @@ export default {
 
   mounted() {
     if (document.body.scrollHeight > 757 && document.body.scrollHeight < 935) {
-      this.h = document.body.scrollHeight - 410
+      this.h = document.body.scrollHeight - 365
     } else {
       this.h = document.body.scrollHeight - 370
     }

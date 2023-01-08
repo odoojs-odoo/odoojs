@@ -24,11 +24,13 @@
           :style="compute_style"
           @change="handleChange"
         >
-          <template v-for="op in fieldInfo.selection || []">
-            <a-select-option :key="op[0]" :value="op[0]">
-              {{ op[1] }}
-            </a-select-option>
-          </template>
+          <a-select-option
+            v-for="op in fieldInfo.selection || []"
+            :key="op[0]"
+            :value="op[0]"
+          >
+            {{ op[1] }}
+          </a-select-option>
         </a-select>
       </template>
     </template>

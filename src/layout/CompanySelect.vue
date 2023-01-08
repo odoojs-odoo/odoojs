@@ -1,5 +1,9 @@
 <template>
-  <a-dropdown v-model="dropdownVisible" :trigger="['hover']" class="ant-dropdown-link">
+  <a-dropdown
+    v-model="dropdownVisible"
+    :trigger="['hover']"
+    class="ant-dropdown-link"
+  >
     <a-select
       :value="allowed_company"
       label-in-value
@@ -8,16 +12,13 @@
     >
     </a-select>
     <a-menu slot="overlay" @click="handleOnDropdownSelect">
-      <!--  -->
-      <template v-for="item in allowed_companies">
-        <a-menu-item :key="item.id">
-          <a-checkbox
-            :checked="item.checked"
-            @change="e => handleOnCheckChange(e, item.id)"
-          />
-          <span> {{ item.name }} </span>
-        </a-menu-item>
-      </template>
+      <a-menu-item v-for="item in allowed_companies" :key="item.id">
+        <a-checkbox
+          :checked="item.checked"
+          @change="e => handleOnCheckChange(e, item.id)"
+        />
+        <span> {{ item.name }} </span>
+      </a-menu-item>
     </a-menu>
   </a-dropdown>
 </template>
@@ -100,8 +101,8 @@ export default {
 </script>
 
 <style scoped>
-  .ant-dropdown-link{
-    width: 250px;
-    /* color:red; */
-  }
+.ant-dropdown-link {
+  width: 250px;
+  /* color:red; */
+}
 </style>

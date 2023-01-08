@@ -9,6 +9,7 @@
       style="width: 300px;"
       :placeholder="placeholder"
       @change="handleChange"
+      size="small"
     >
     </a-select>
   </span>

@@ -66,7 +66,6 @@ export default {
     current_state() {
       const state_field_name = this.view ? this.view.state_field_name : 'state'
 
-
       const values = { ...this.record, ...this.values }
 
       // console.log('sss', state_field_name, values)
@@ -140,6 +139,8 @@ export default {
         this.record = {}
         this.values = values
         this.editable = true
+        await sleep(10)
+        await this.load_relation_data()
       }
     },
 

@@ -38,9 +38,9 @@
 
             <!-- {{ actionBtns }} -->
 
-            <template v-for="btn in actionBtns">
-              <a-menu-item :key="btn.id"> {{ btn.name }} </a-menu-item>
-            </template>
+            <a-menu-item v-for="btn in actionBtns" :key="btn.id">
+              {{ btn.name }}
+            </a-menu-item>
           </a-menu>
         </a-dropdown>
       </a-space>
@@ -166,6 +166,7 @@ export default {
   display: flex;
   position: relative;
   align-items: center;
+  /* background: blue; */
 }
 
 .addBtn {

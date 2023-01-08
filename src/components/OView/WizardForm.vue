@@ -13,6 +13,7 @@
           :type="btn.btn_type"
           :loading="loading"
           @click="handleBtnClick(btn)"
+          style="background:yellow"
         >
           {{ btn.string }}
         </a-button>
@@ -42,6 +43,7 @@
               :view-info="viewInfo"
               :data-info="dataInfo"
               @change="handleChange"
+              style="background:orange"
             />
           </template>
         </template>

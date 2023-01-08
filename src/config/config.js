@@ -1,4 +1,6 @@
 import { addons_list as addons_list2 } from './menus'
+import { web_models_list as web_models_list2 } from './menus'
+
 import { components_for_router } from './menus'
 import { menus_tree_get as menus_tree_get2 } from './menus'
 import { menus_list_get as menus_list_get2 } from './menus'
@@ -6,6 +8,7 @@ import { menus_list_get as menus_list_get2 } from './menus'
 export const baseURL = process.env.VUE_APP_BASE_API
 export const timeout = 50000
 
+export const web_models_list = web_models_list2
 export const addons_list = addons_list2
 export const components = components_for_router
 

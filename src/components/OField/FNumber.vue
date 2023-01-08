@@ -24,7 +24,18 @@ export default {
   data() {
     return {}
   },
-  computed: {},
+  computed: {
+    value_display() {
+      const value = this.value_edit
+      if (this.fieldInfo.widget === 'monetary') {
+        const value2 = value || 0.0
+        const value3 = value2.toFixed(2)
+        return value3
+      } else {
+        return value
+      }
+    }
+  },
 
   watch: {},
 

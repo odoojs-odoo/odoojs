@@ -32,18 +32,16 @@
     </div>
 
     <!-- // 搜索的过滤条件 -->
-    <div v-show="search_tags.length > 0" class="searchMore">
-      <div class="note">
-        搜索过滤条件:
-        <a-tag
-          v-for="tag in search_tags"
-          :key="tag.name"
-          closable
-          @close="handleClose(tag)"
-        >
-          {{ tag.label }}
-        </a-tag>
-      </div>
+    <div v-show="search_tags.length > 0" class="note">
+      搜索过滤条件:
+      <a-tag
+        v-for="tag in search_tags"
+        :key="tag.name"
+        closable
+        @close="handleClose(tag)"
+      >
+        {{ tag.label }}
+      </a-tag>
     </div>
 
     <!--      v-show="showSearchMore" 
@@ -55,62 +53,58 @@
       <!-- <div> -->
       <!--  -->
       <div class="searchMoreBox searchContent">
-        <template v-for="item in searchItems">
-          <div
-            :key="item.name"
-            class="searchMoreItem"
-            :style="{ width: item.type === 'filter' ? '100%' : 'auto' }"
-          >
-            <template v-if="item.type === 'field'">
-              <template v-if="item.meta.type === 'selection'">
-                {{ item.type }} {{ item.meta.type }}
-              </template>
-              <template v-else-if="item.meta.type === 'many2one'">
-                <SearchMany2one
-                  :title="item.string"
-                  :placeholder="item.string"
-                  :value="(searchValues[item.name] || {}).values || []"
-                  :options="item.selection"
-                  @change="val => handleSearchChange(item, val)"
-                />
-              </template>
-              <template v-else>
-                <SearchChar
-                  :title="item.string"
-                  :placeholder="item.string"
-                  :value="(searchValues[item.name] || {}).values || []"
-                  @change="val => handleSearchChange(item, val)"
-                />
-              </template>
+        <div
+          v-for="item in searchItems"
+          :key="item.name"
+          class="searchMoreItem"
+          :style="{ width: item.type === 'filter' ? '100%' : 'auto' }"
+        >
+          <template v-if="item.type === 'field'">
+            <template v-if="item.meta.type === 'selection'">
+              {{ item.type }} {{ item.meta.type }}
             </template>
-            <template v-else-if="item.type === 'filter'">
-              <SearchSelect
-                v-if="item.selection.length"
+            <template v-else-if="item.meta.type === 'many2one'">
+              <SearchMany2one
                 :title="item.string"
                 :placeholder="item.string"
                 :value="(searchValues[item.name] || {}).values || []"
                 :options="item.selection"
                 @change="val => handleSearchChange(item, val)"
               />
-
-              <template v-for="item2 in item.date_children">
-                <div :key="item2.name">
-                  <SearchDate
-                    :title="item2.string"
-                    :value="
-                      (
-                        ((searchValues[item.name] || {}).date_children || {})[
-                          item2.name
-                        ] || {}
-                      ).value || []
-                    "
-                    @change="val => handleSearchChange(item2, val)"
-                  />
-                </div>
-              </template>
             </template>
-          </div>
-        </template>
+            <template v-else>
+              <SearchChar
+                :title="item.string"
+                :placeholder="item.string"
+                :value="(searchValues[item.name] || {}).values || []"
+                @change="val => handleSearchChange(item, val)"
+              />
+            </template>
+          </template>
+          <template v-else-if="item.type === 'filter'">
+            <SearchSelect
+              v-if="item.selection.length"
+              :title="item.string"
+              :placeholder="item.string"
+              :value="(searchValues[item.name] || {}).values || []"
+              :options="item.selection"
+              @change="val => handleSearchChange(item, val)"
+            />
+            <div v-for="item2 in item.date_children" :key="item2.name">
+              <SearchDate
+                :title="item2.string"
+                :value="
+                  (
+                    ((searchValues[item.name] || {}).date_children || {})[
+                      item2.name
+                    ] || {}
+                  ).value || []
+                "
+                @change="val => handleSearchChange(item2, val)"
+              />
+            </div>
+          </template>
+        </div>
       </div>
       <!-- </div> -->
     </a-modal>
@@ -163,7 +157,7 @@ export default {
             const str2 = tag.values.map(item => item.string).join(', ')
             return {
               ...tag,
-              label: `${str1}${str2}`
+              label: `${str1}: ${str2}`
             }
           } else if (tag.type === 'filter') {
             // console.log(tag.name, tag)
@@ -171,9 +165,8 @@ export default {
               ...tag,
               label: tag.values
                 .map(item => {
-                  // console.log(item)
                   if (item.date) {
-                    return `${item.string} ${item.value.join(',')}`
+                    return `${item.string}: ${item.value.join(',')}`
                   } else {
                     return item.string
                   }
@@ -182,7 +175,6 @@ export default {
             }
           }
         })
-
       return ss
     },
     compute_height() {
@@ -238,9 +230,9 @@ export default {
 .flexBox {
   position: relative;
   /* display: flex; */
-  height: 50px;
+  height: 35px;
   background: white;
-  padding: 10px;
+  padding: 5px;
   /* flex-wrap: wrap; */
 }
 
@@ -259,12 +251,6 @@ export default {
 }
 
 .searchMoreBox {
-  width: 100%;
-}
-
-.searchMore {
-  display: flex;
-  flex-direction: column;
   width: 100%;
 }
 

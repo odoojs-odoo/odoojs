@@ -258,9 +258,13 @@ export class X2mTree extends X2mTreeBase {
       // {        values, values_onchange, values_write      }
       return res
     } else if (this.field_info.type === 'many2many') {
-      return {
-        values_display: this.read_for_new_m2m(tuples)
+      const ret = async () => {
+        return {
+          values_display: await this.read_for_new_m2m(tuples)
+        }
       }
+
+      return ret()
     } else {
       return {
         values_display: []
