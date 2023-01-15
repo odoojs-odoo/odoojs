@@ -1,6 +1,35 @@
 import { Action } from '../action'
 
+const AddonsFieldsFiles = require.context('../../addons_fields', true, /\.js$/)
+
+const load_from_files = files => {
+  return files.keys().reduce((models, modulePath) => {
+    const value = files(modulePath)
+    // console.log('AddonsFields,', modulePath, value)
+
+    models = { ...models, ...value.default }
+    return models
+  }, {})
+}
+
+const AddonsFields = load_from_files(AddonsFieldsFiles)
+
+//  AddonsFieldsFiles.keys().reduce((models, modulePath) => {
+//   const value = AddonsFieldsFiles(modulePath)
+//   // console.log('AddonsFields,', modulePath, value)
+
+//   models = { ...models, ...value.default }
+//   return models
+// }, {})
+
 export class BaseView {
+  static metadata_fields(model) {
+    const web_fields = this.web_fields ? load_from_files(this.web_fields) : {}
+    const addons_fields = { ...AddonsFields, ...web_fields }
+
+    return addons_fields[model] || {}
+  }
+
   constructor(action_id, payload = {}) {
     const { env, type, fields = {} } = payload
     this._action = new Action(action_id, { env })
@@ -84,10 +113,28 @@ export class BaseView {
     const fields_list = Object.keys(fields_raw)
     const info = await Model.fields_get(fields_list)
 
+    const web_fields = this.constructor.web_fields
+      ? load_from_files(this.constructor.web_fields)
+      : {}
+
+    const addons_fields = { ...AddonsFields, ...web_fields }
+
+    //
+
+    const fields_in_model = addons_fields[model] || {}
+    // console.log('xxxx fields_in_model,', model, fields_in_model)
+    // console.log('xxxx fields_raw,', model, fields_raw)
+
     const fields = Object.keys(fields_raw).reduce((acc, cur) => {
-      acc[cur] = { ...(info[cur] || {}), ...(fields_raw[cur] || {}) }
+      acc[cur] = {
+        ...(info[cur] || {}),
+        ...(fields_in_model[cur] || {}),
+        ...(fields_raw[cur] || {})
+      }
       return acc
     }, {})
+
+    // console.log('xxxx fields,', model, fields)
 
     // console.log(fields)
 
@@ -132,3 +179,5 @@ export class BaseView {
     return true
   }
 }
+
+BaseView.web_fields = undefined

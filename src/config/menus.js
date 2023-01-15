@@ -11,8 +11,11 @@ export const menus_tree_get = () => {
 }
 
 const menus_get = mymenus => {
+  // console.log('----menus mymenus ---',mymenus);
   return mymenus.reduce((acc, item) => {
     const item2 = { ...item }
+    // console.log('----menus item2 ---',item2);
+
     delete item2.children
     acc[item.id] = item2
     acc = { ...acc, ...menus_get(item.children || []) }

@@ -17,6 +17,7 @@ const AddonsFiles = require.context('./addons_models', true, /\.js$/)
 // it will auto require all odoo model from addons file
 const AddonsModels = AddonsFiles.keys().reduce((models, modulePath) => {
   const value = AddonsFiles(modulePath)
+  // console.log('AddonsModels ok,', modulePath)
   models = { ...models, ...value.default }
   return models
 }, {})

@@ -58,7 +58,7 @@ const homeRoutes = [
 
       {
         path: '/test',
-        component: () => import('@/views/test/test_rpc'),
+        component: () => import('@/views/test/TestTable/testTable'),
         name: '/test'
       },
 

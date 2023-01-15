@@ -216,11 +216,13 @@ export default {
 
     if (name) {
       const menu = this.menus_list[name]
-      const old = this.panes.find(item => item.key === name)
-      if (!old) {
-        this.panes = [...this.panes, { title: menu.name, key: name }]
+      if (menu) {
+        const old = this.panes.find(item => item.key === name)
+        if (!old) {
+          this.panes = [...this.panes, { title: menu.name, key: name }]
+        }
+        this.activeKey = name
       }
-      this.activeKey = name
     }
   },
 
@@ -252,8 +254,9 @@ export default {
 
       if (name === 'home') {
         this.$router.push({ path: HOME_PATH, query: { menu: name } })
-        // } else if (name === 'test') {
-        //   this.$router.push({ path: '/test', query: { menu: name } })
+      } else if (name === 'test') {
+        this.$router.push({ path: '/test', query: { menu: name } })
+        return
       } else {
         // console.log('----- menus_list ------', this.menus_list)
         // console.log('----- layout name ------', name)

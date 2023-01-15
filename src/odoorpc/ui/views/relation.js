@@ -4,6 +4,8 @@ import { X2mForm } from './x2mform'
 
 import { FormView } from './formview'
 
+import { BaseView } from './baseview'
+
 const _get_readonly = (meta, state) => {
   if (meta.states === undefined) return meta.readonly
 
@@ -138,20 +140,37 @@ export class Relation extends Field {
 
     const fields_raw = { ...raw_tree, ...raw_kanban, ...raw_form }
 
+    const fields_meta = BaseView.metadata_fields(this.field_info.relation)
+
+    // console.log('fields_raw', fields_raw)
+    // console.log('fields_meta', fields_meta)
+
     const fields_info = await this.Model.fields_get(Object.keys(fields_raw))
 
     const fields_tree = Object.keys(raw_tree).reduce((acc, cur) => {
-      acc[cur] = { ...fields_info[cur], ...(raw_tree[cur] || {}) }
+      acc[cur] = {
+        ...fields_info[cur],
+        ...(fields_meta[cur] || {}),
+        ...(raw_tree[cur] || {})
+      }
       return acc
     }, {})
 
     const fields_kanban = Object.keys(raw_kanban).reduce((acc, cur) => {
-      acc[cur] = { ...fields_info[cur], ...(raw_kanban[cur] || {}) }
+      acc[cur] = {
+        ...fields_info[cur],
+        ...(fields_meta[cur] || {}),
+        ...(raw_kanban[cur] || {})
+      }
       return acc
     }, {})
 
     const fields_form = Object.keys(raw_form).reduce((acc, cur) => {
-      acc[cur] = { ...fields_info[cur], ...(raw_form[cur] || {}) }
+      acc[cur] = {
+        ...fields_info[cur],
+        ...(fields_meta[cur] || {}),
+        ...(raw_form[cur] || {})
+      }
       return acc
     }, {})
 

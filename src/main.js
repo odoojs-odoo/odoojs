@@ -10,9 +10,9 @@ import rpc from './odoorpc'
 
 import { baseURL, timeout, addons_list } from './config/config'
 
-import { web_models_list } from './config/config'
+import { web_fields, web_models_list } from './config/config'
 
-rpc.init({ baseURL, timeout, addons_list, web_models_list })
+rpc.init({ baseURL, timeout, addons_list, web_fields, web_models_list })
 
 Vue.use(Antd)
 

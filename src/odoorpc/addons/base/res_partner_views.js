@@ -109,6 +109,11 @@ export default {
         }
       },
       state_id: {
+        domain: ({ record }) => {
+          // domain="[('country_id', '=?', country_id)]"
+          const { country_id } = record
+          return [['country_id', '=?', country_id]]
+        },
         readonly({ record }) {
           const { type, parent_id } = record
           return type === 'contact' && parent_id

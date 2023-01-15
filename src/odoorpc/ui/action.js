@@ -273,6 +273,7 @@ const actions_load = action => {
 
     return acc
   }, {})
+  // console.log('action/load', action, { ...info, views })
   return { ...info, views }
 }
 

@@ -1,5 +1,6 @@
 import { Addons, Menus, Action } from './action'
 
+import { BaseView } from './views/baseview'
 import { TreeView } from './views/treeview'
 import { KanbanView } from './views/kanbanview'
 import { FormView } from './views/formview'
@@ -15,6 +16,7 @@ export default {
   Menus,
   Action,
 
+  BaseView,
   TreeView,
   KanbanView,
   FormView,
