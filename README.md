@@ -39,9 +39,14 @@
 
 ### master 分支
 
-1. 扬弃 odoo 官方的 menu、action、view,
-2. 在 odoojs 前端全部重新定义 menu、action、view
-3. odoorpc 代码更新, 优化 menu、action、view 的处理
+1. 基于 vue3 和 antv 3.2.14
+
+### odoojs-vue2 分支
+
+1. 基于 vue2 和 antv1.7.8
+2. 扬弃 odoo 官方的 menu、action、view,
+3. 在 odoojs 前端全部重新定义 menu、action、view
+4. odoorpc 代码更新, 优化 menu、action、view 的处理
 
 ### odoojs-classic 分支
 
@@ -51,6 +56,13 @@
 4. 2022-10-10 之后, master 另做他用
 
 ## 更新历史
+
+#### 最新更新 2023-3-6
+
+1. 基于原有 master 分支, 创建 odoojs-vue2 分支
+2. odoojs-vue2 分支. 基于 vue2 和 antv1.7.8
+3. odoojs-vue2 分支. 扬弃 odoo 官方的 menu、action、view,
+4. 在 odoojs 前端全部重新定义 menu、action、view
 
 #### 最新更新 2022-10-10
 
