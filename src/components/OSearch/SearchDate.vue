@@ -1,33 +1,112 @@
 <template>
-  <span>
-    <span>
-      {{ title }}
-    </span>
-
+  <div>
+    <span> {{ title }}: </span>
     <a-space>
       <a-button
         v-for="btn in buttons"
         :key="btn.key"
-        @click="handleOnClickBtn(btn)"
+        @click="OnClickBtn(btn)"
+        size="small"
       >
         {{ btn.label }}
       </a-button>
-    </a-space>
 
-    <a-range-picker
-      v-model="value_date"
-      @change="handleChange"
-      class="margin-left6"
-    />
-    <!-- <a-button size="small" @click="handleCommit" class="margin-left6">
-      确定
-    </a-button> -->
-  </span>
+      <a-range-picker
+        v-model:value="state.valueObjPair"
+        @change="onChange"
+        size="small"
+        style="max-width: 230px;"
+      />
+    </a-space>
+  </div>
 </template>
 
-<script>
-import moment from 'moment'
+<script setup>
+import dayjs from 'dayjs'
 
+import { defineProps, defineEmits, computed, reactive, watch } from 'vue'
+const props = defineProps(['modelValue', 'title'])
+const emit = defineEmits(['change'])
+
+const state = reactive({ valueStrPair: [], valueObjPair: [] })
+
+watch(
+  () => props.modelValue,
+  // eslint-disable-next-line no-unused-vars
+  (newVal, oldVal) => {
+    // 默认值。
+    console.log('watch, val,', newVal, oldVal)
+  }
+)
+
+const buttons = computed(() => [
+  {
+    key: 'today',
+    label: '今天',
+    date_get: () => {
+      const today = date_tools.today
+      return [today, today]
+    }
+  },
+  {
+    key: 'last_1_month',
+    label: '近一个月',
+    date_get: () => {
+      const today = date_tools.today
+      const last = date_tools.today_last_month
+      return [last, today]
+    }
+  },
+  {
+    key: 'last_3_months',
+    label: '近三个月',
+    date_get: () => {
+      const today = date_tools.today
+      const last = date_tools.today_for_last_month(3)
+      return [last, today]
+    }
+  },
+  {
+    key: 'last_3_months',
+    label: '近半年',
+    date_get: () => {
+      const today = date_tools.today
+      const last = date_tools.today_for_last_month(6)
+      return [last, today]
+    }
+  }
+])
+
+function onChange(date, dateString) {
+  console.log('======  dateString  ======', date, dateString)
+  state.valueStrPair = date ? [...dateString] : []
+  console.log('======  valueStrPair  ======', state.valueStrPair)
+  handleCommit()
+}
+function handleCommit() {
+  const val = state.valueStrPair.length === 2 ? state.valueStrPair : undefined
+  console.log('======  val  ======', val)
+
+  emit('change', val)
+}
+
+function OnClickBtn(btn) {
+  const dateFormat = 'YYYY-MM-DD'
+  const [last, today] = btn.date_get()
+  console.log('======date1 $$ date2======', last, today)
+
+  state.valueStrPair = [last, today]
+
+  const date1 = dayjs(last, dateFormat)
+  const date2 = dayjs(today, dateFormat)
+  state.valueObjPair = [date1, date2]
+
+  handleCommit()
+}
+
+//
+//
+//
 const date_tools = {
   get one_day() {
     return 1000 * 60 * 60 * 24
@@ -57,113 +136,6 @@ const date_tools = {
     return this.format(last_date)
   }
 }
-
-export default {
-  name: 'SearchDefault',
-
-  components: {},
-
-  mixins: [],
-
-  props: {
-    title: { type: String, default: undefined },
-    value: { type: Array, default: () => [] },
-    placeholder: { type: String, default: undefined }
-  },
-
-  data() {
-    return {
-      value_date: [],
-      value2: []
-    }
-  },
-  computed: {
-    buttons() {
-      return [
-        {
-          key: 'today',
-          label: '今天',
-          date_get: () => {
-            const today = date_tools.today
-            return [today, today]
-          }
-        },
-        {
-          key: 'last_1_month',
-          label: '近一个月',
-          date_get: () => {
-            const today = date_tools.today
-            const last = date_tools.today_last_month
-            return [last, today]
-          }
-        },
-        {
-          key: 'last_3_months',
-          label: '近三个月',
-          date_get: () => {
-            const today = date_tools.today
-            const last = date_tools.today_for_last_month(3)
-            return [last, today]
-          }
-        },
-        {
-          key: 'last_3_months',
-          label: '近半年',
-          date_get: () => {
-            const today = date_tools.today
-            const last = date_tools.today_for_last_month(6)
-            return [last, today]
-          }
-        }
-      ]
-    }
-  },
-  watch: {
-    value: {
-      handler: function (val = []) {
-        this.value2 = [...val]
-        if (val.length === 2) {
-          const [last, today] = val
-          const date1 = moment(last)
-          const date2 = moment(today)
-          this.value_date = [date1, date2]
-        } else {
-          this.value_date = []
-        }
-      },
-      deep: true
-    }
-  },
-
-  async created() {},
-
-  mounted() {},
-
-  methods: {
-    handleOnClickBtn(btn) {
-      const [last, today] = btn.date_get()
-      this.value2 = [last, today]
-      const date1 = moment(last)
-      const date2 = moment(today)
-      this.value_date = [date1, date2]
-      // console.log(today, today_str)
-      this.handleCommit()
-    },
-    handleChange(date, dateString) {
-      this.value2 = [...dateString]
-      this.handleCommit()
-    },
-    handleCommit() {
-      console.log(this.value2)
-      const val = this.value2.length === 2 ? this.value2 : undefined
-      this.$emit('change', val)
-    }
-  }
-}
 </script>
 
-<style type="text/css" scoped>
-.margin-left6 {
-  margin-left: 6px;
-}
-</style>
+<style type="text/css"></style>

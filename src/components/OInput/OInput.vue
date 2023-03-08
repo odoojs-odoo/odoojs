@@ -1,70 +1,56 @@
 <template>
   <a-input
-    v-model="value2"
+    v-model:value="mVal"
     :style="compute_style"
+    :placeholder="placeholder"
     @change="onInputChange"
     @pressEnter="onInputEnter"
     @blur="onInputBlur"
   />
 </template>
 
-<script>
-export default {
-  name: 'OInput',
-  props: {
-    value: { type: String, default: null },
-    width: { type: String, default: undefined }
+<script setup>
+import { defineProps, defineEmits, computed, reactive } from 'vue'
+const props = defineProps(['modelValue', 'width', 'placeholder'])
+const emit = defineEmits(['update:modelValue', 'change'])
+
+const state = reactive({ changed: false, value_changed: undefined })
+
+const compute_style = computed(() =>
+  props.width ? `width: ${props.width}` : undefined
+)
+
+const mVal = computed({
+  get() {
+    return props.modelValue
   },
-
-  data() {
-    return {
-      value_changed: undefined
-    }
-  },
-  computed: {
-    compute_style() {
-      if (this.width) {
-        return `width: ${this.width}`
-      } else {
-        return undefined
-      }
-    },
-    value2: {
-      get() {
-        return this.value
-      },
-
-      set(val) {
-        this.$emit('input', val)
-      }
-    }
-  },
-  methods: {
-    onInputChange(value) {
-      this.value_changed = value
-      this.changed = true
-    },
-
-    onInputEnter(event) {
-      this._onInputEnterAndBlur(event)
-    },
-    onInputBlur(event) {
-      this._onInputEnterAndBlur(event)
-    },
-
-    // eslint-disable-next-line no-unused-vars
-    _onInputEnterAndBlur(event) {
-      if (this.changed) {
-        this.changed = false
-
-        this.handleChange(this.value_changed)
-      }
-    },
-
-    handleChange(e) {
-      this.$emit('change', e.target.value)
-    }
+  set(value) {
+    emit('update:modelValue', value)
   }
+})
+
+function onInputChange(value) {
+  state.value_changed = value
+  state.changed = true
+}
+
+function onInputEnter(event) {
+  _onInputEnterAndBlur(event)
+}
+function onInputBlur(event) {
+  _onInputEnterAndBlur(event)
+}
+
+// eslint-disable-next-line no-unused-vars
+function _onInputEnterAndBlur(event) {
+  if (state.changed) {
+    state.changed = false
+    handleChange(state.value_changed)
+  }
+}
+
+function handleChange(e) {
+  emit('change', e.target.value)
 }
 </script>
 

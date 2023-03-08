@@ -8,7 +8,7 @@ export const odoo_menus_tree_get = () => {
   const menus_tree = [
     {
       id: 'odoo.menu_root',
-      icon: 'appstore',
+      icon: 'shopping',
       theme: 'twoTone',
       name: '官方菜单',
       children: menus
@@ -18,6 +18,6 @@ export const odoo_menus_tree_get = () => {
   return menus_tree
 }
 
-export const odoo_menus_list_get = () => {
+export const odoo_menus_data_get = () => {
   return api.env.menus_list
 }

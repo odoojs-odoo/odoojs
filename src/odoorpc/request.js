@@ -3,9 +3,12 @@ import Qs from 'qs'
 
 class Proxy0 {
   constructor(payload) {
-    const { baseURL, timeout = 500000 } = payload
+    const { baseURL, timeout = 500000, messageError } = payload
+
+    // 检查 baseURL. 不能为空
     this._timeout = timeout
     this._baseURL = baseURL
+    this._messageError = messageError
   }
 }
 
@@ -13,8 +16,8 @@ Proxy0._sid = undefined
 
 class ProxyJSON extends Proxy0 {
   constructor(payload) {
-    const { baseURL, timeout } = payload
-    super({ baseURL, timeout })
+    const { baseURL, timeout, messageError } = payload
+    super({ baseURL, timeout, messageError })
 
     this._service = this._get_service()
   }
@@ -37,6 +40,7 @@ class ProxyJSON extends Proxy0 {
         return config
       },
       error => {
+        console.log('request error', error) // for debug
         return Promise.reject(error)
       }
     )
@@ -61,10 +65,22 @@ class ProxyJSON extends Proxy0 {
         }
 
         const res = response.data
-        // console.log(response)
+        // console.log('resp', response)
+        if (res.error) {
+          if (this._messageError) {
+            console.log(res.error)
+            this._messageError(res.error)
+            throw res.error
+          } else {
+            console.log(res.error)
+            throw res.error
+          }
+        }
+
         return res
       },
       error => {
+        console.log('request error', error) // for debug
         return Promise.reject(error)
       }
     )
@@ -457,6 +473,14 @@ export class JsonRequest {
     this._timeout = val
   }
 
+  static get messageError() {
+    return this._messageError
+  }
+
+  static set messageError(val) {
+    this._messageError = val
+  }
+
   static async csrf_token() {
     const url = '/web2/session/csrf_token'
     return await this.json_call(url, {})
@@ -498,13 +522,16 @@ export class JsonRequest {
   static async json_call(url, payload = {}) {
     const req = new ProxyJSON({
       baseURL: this.baseURL,
-      timeout: this.timeout
+      timeout: this.timeout,
+      messageError: this.messageError
     })
 
     const data = await req.call(url, payload)
     // console.log(data)
-    if (data.error) throw data.error
-    else return data.result
+    if (data.error) {
+      console.log('request error', data.error) // for debug
+      // throw data.error
+    } else return data.result
   }
 
   // async json_get(url, payload = {}) {
@@ -516,6 +543,7 @@ export class JsonRequest {
 
 JsonRequest._baseURL = undefined
 JsonRequest._timeout = undefined
+JsonRequest._messageError = undefined
 
 export class FileRequest extends JsonRequest {
   constructor(payload) {

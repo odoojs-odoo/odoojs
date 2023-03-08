@@ -18,12 +18,28 @@ export default {
     type: 'form',
     buttons: { create: false, edit: true, delete: false },
 
+    arch: {
+      header: {
+        buttons: [],
+        fields: {}
+      }
+      // sheet: {
+      //   _title: {
+      //     display_name: {}
+      //   },
+      //   _group1: {
+      //     name: {},
+      //     phone_code: {}
+      //   }
+      // }
+    },
+
     fields: {
-      display_name: {},
-      image_url: { widget: 'image_url' },
+      display_name: { is_title: 1 },
       name: {},
+      image_url: { widget: 'image_url' },
       code: {},
-      currency_id: {},
+      currency_id: { invisible: 1 },
       phone_code: {},
       vat_label: {},
       zip_required: {},
@@ -33,9 +49,11 @@ export default {
       name_position: {},
 
       state_ids: {
+        noLabel: 1,
+        span: 2,
         widget: 'x2many_tree',
         views: {
-          tree: { fields: { name: {}, code: {} } },
+          tree: { fields: { name: {}, code: {}, display_name: {} } },
           kanban: {
             fields: { name: {}, code: {} },
             templates: {
@@ -79,22 +97,22 @@ export default {
       name: {},
       country_ids: {
         widget: 'many2many_tags'
-      },
-      pricelist_ids: {
-        widget: 'x2many_tree',
-        views: {
-          tree: { fields: { name: {} } },
-          kanban: {
-            fields: { name: {} },
-            templates: {
-              title({ record }) {
-                return record.name
-              }
-            }
-          },
-          form: { fields: { name: {} } }
-        }
       }
+      // pricelist_ids: {
+      //   widget: 'x2many_tree',
+      //   views: {
+      //     tree: { fields: { name: {} } },
+      //     kanban: {
+      //       fields: { name: {} },
+      //       templates: {
+      //         title({ record }) {
+      //           return record.name
+      //         }
+      //       }
+      //     },
+      //     form: { fields: { name: {} } }
+      //   }
+      // }
     }
   },
 

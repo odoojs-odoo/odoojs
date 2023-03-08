@@ -2,6 +2,27 @@ import controllers from './controllers'
 
 const web = controllers.web
 
+function _date_format(date) {
+  const year = date.getFullYear().toString().padStart(4, '0')
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const day = date.getDate().toString().padStart(2, '0')
+
+  const hh = date.getHours().toString().padStart(2, '0')
+  const mm = date.getMinutes().toString().padStart(2, '0')
+  const ss = date.getSeconds().toString().padStart(2, '0')
+
+  const today_str = `${year}-${month}-${day} ${hh}:${mm}:${ss}`
+  return today_str
+}
+
+function date_format(date) {
+  if (date && typeof date === 'object') {
+    return _date_format(date)
+  } else {
+    return date
+  }
+}
+
 class MetaModel {
   constructor() {}
 
@@ -138,15 +159,20 @@ class BaseModel extends MetaModel {
         return val || 0.0
       } else if (meta.type === 'monetary') {
         return val || 0.0
-      } else if (meta.type === 'integer') {
-        return val || 0
       } else if (meta.type === 'datetime') {
         // datetime, false, 'yyyymmdd hh:mm:ss.sssssss'
         if (!val) {
           return val || null
         } else {
           // val = 'yyyymmdd hh:mm:ss.sssssss'  utc
-          const utc_val = new Date(`${val} UTC`)
+          const utc_val = new Date(`${val.split(' ').join('T')}Z`)
+          // new Date('2022-02-01T22:22:33Z')
+          // 兼容不通浏览器
+
+          // // todo 读取信息后. 若这里转换, 涉及到其他地方的处理
+          // 1. 编辑时的 onchange 处理.  2023-2-13 已经处理好 onchange
+          // 2. 还有其他问题么? 2023-2-13
+
           return utc_val
         }
       } else {
@@ -337,6 +363,11 @@ export class Model extends BaseModel {
             : (record[fld] || []).map(item => [4, item, false])
 
         acc[fld] = val
+      } else if (meta.type === 'datetime') {
+        //
+        const val = fld in values ? values[fld] : record[fld]
+        const val2 = val ? date_format(val) : val
+        acc[fld] = val2
       } else {
         const val = fld in values ? values[fld] : record[fld]
         const val2 = val && meta.type === 'many2one' ? val[0] : val

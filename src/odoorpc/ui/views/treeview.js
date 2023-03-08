@@ -89,7 +89,7 @@ export class TreeBaseView extends BaseView {
     }
 
     const offset = offset_get()
-    console.log([current, limit, offset])
+    // console.log([current, limit, offset])
     return { limit, offset }
   }
 
@@ -110,10 +110,39 @@ export class TreeBaseView extends BaseView {
     const res = await Model.web_search_read(kwargs)
     const { length, records } = res
 
-    console.log(records)
+    // console.log(res)
     this.pagination = { ...this.pagination, total: length }
+    // console.log(this.pagination)
 
     return records
+  }
+
+  async relation_read(records) {
+    let records2 = [...records]
+    for (const fld in this.fields) {
+      const meta = this.fields[fld]
+      if (meta.widget === 'many2many_tags') {
+        const ids = records.reduce((acc, cur) => {
+          acc = [...acc, ...(cur[fld] || [])]
+          return acc
+        }, [])
+
+        const ids2 = [...new Set(ids)]
+        const res = await this.env.relation(meta).name_get(ids2)
+        const res2 = res.reduce((acc, cur) => {
+          acc[cur[0]] = cur
+          return acc
+        }, {})
+        records2 = records2.map(item => {
+          return {
+            ...item,
+            [`${fld}___selection`]: item[fld].map(rel => res2[rel])
+          }
+        })
+      }
+    }
+
+    return records2
   }
 
   search_change(item, value) {

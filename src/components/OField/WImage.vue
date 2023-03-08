@@ -12,7 +12,8 @@
 </template>
 
 <script>
-import OFMixin from './OFMixin'
+// todo
+// import OFMixin from './OFMixin'
 
 // import api from '@/odoorpc'
 

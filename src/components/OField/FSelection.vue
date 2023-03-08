@@ -1,28 +1,30 @@
 <template>
   <span>
     <template v-if="fieldInfo.widget === 'radio'">
-      <WRadio
+      todo: {{ [fieldInfo.type, fieldInfo.widget] }}
+      <!-- <WRadio
         v-model="value"
         :editable="editable"
         :field-info="fieldInfo"
         :data-info="dataInfo"
-        @change="(fname, value) => handleChange(value)"
-      />
+        @change="onChange"
+      /> -->
     </template>
     <template v-else-if="fieldInfo.widget">
-      todo: {{ fieldInfo.widget }}
+      todo: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
 
     <template v-else>
-      <template v-if="!editable || readonly">
-        {{ value_display2 }}
+      <template v-if="readonly">
+        {{ dVal }}
       </template>
 
       <template v-else>
+        <!-- edit: {{ [fieldName, mVal, dVal, onChange] }} -->
         <a-select
-          v-model="value2"
+          v-model:value="mVal"
           :style="compute_style"
-          @change="handleChange"
+          @change="onChange"
         >
           <a-select-option
             v-for="op in fieldInfo.selection || []"
@@ -37,42 +39,25 @@
   </span>
 </template>
 
-<script>
-import OFMixin from './OFMixin'
+<script setup>
+import { defineProps, defineEmits, computed } from 'vue'
+import { useFSelection } from './FSelectionApi'
 
-import WRadio from './WRadio.vue'
+const props = defineProps([
+  'modelValue',
+  'width',
+  'fieldName',
+  'fieldInfo',
+  'formInfo'
+])
 
-export default {
-  name: 'FSelection',
-  components: { WRadio },
-  mixins: [OFMixin],
-  props: {},
+const emit = defineEmits(['update:modelValue', 'change'])
 
-  data() {
-    return {}
-  },
-  computed: {
-    value_display2() {
-      const value = this.value_display
-      const selection = this.fieldInfo.selection || []
+const { mVal, dVal, readonly, onChange } = useFSelection(props, { emit })
 
-      const get_label = v => {
-        const elm = selection.find(item => item[0] === v)
-        return elm ? elm[1] : ''
-      }
-
-      return value ? get_label(value) : ''
-    }
-  },
-
-  watch: {},
-
-  created() {},
-
-  mounted() {},
-
-  methods: {}
-}
+const compute_style = computed(() =>
+  props.width ? `width: ${props.width}` : undefined
+)
 </script>
 
 <style type="text/css"></style>

@@ -1,149 +1,119 @@
 <template>
-  <div>
-    <FormNavbar
-      :title="navbar_title"
-      :buttons="buttons"
-      :hasActive="hasActive"
-      :editable="editable"
-      :record="record"
-      @click-left="onClickLeft"
-      @click-right="onClickRight"
-    />
+  <a-space>
+    <template v-if="!formInfo.editable">
+      <a-button size="small" v-if="buttons.edit" @click="onClickCRUD('edit')">
+        编辑
+      </a-button>
+      <a-button
+        v-if="buttons.create"
+        size="small"
+        type="primary"
+        @click="onClickCRUD('new')"
+      >
+        创建
+      </a-button>
 
-    <OToolbar
-      :editable="editable"
-      :current-state="current_state"
-      :states="header_statusbar_visible"
-      :buttons="header_buttons"
-      @button-clicked="handleBtnClicked"
-    />
+      <a-popconfirm
+        v-if="buttons.delete"
+        title="您是要删除这条数据吗?"
+        ok-text="确认"
+        cancel-text="取消"
+        @confirm="onClickDelConfirm"
+      >
+        <!-- @click="onClickDel" -->
+        <a-button size="small" type="danger"> 删除 </a-button>
+      </a-popconfirm>
+      <a-button size="small" type="primary" @click="onClickCRUD('back')">
+        返回
+      </a-button>
+    </template>
+    <template v-if="formInfo.editable">
+      <a-button size="small" @click="onClickCRUD('save')"> 保存 </a-button>
+      <a-button size="small" @click="onClickCRUD('cancel')"> 取消 </a-button>
+    </template>
+  </a-space>
 
-    <WizardForm
-      :visible.sync="wizardVisible"
-      :action="wizardAction"
-      :actionIds="[res_id]"
-      @done="handleWizardDone"
-    />
+  <StatusBar :currentState="currentState" :states="statusbarVisible" />
 
-    <a-form-model
-      ref="refForm"
-      :label-col="labelCol"
-      :wrapper-col="wrapperCol"
-      :model="formValues"
-      :rules="rules_edit"
-      class="formNewStyle"
+  <!-- :label-col="labelCol"
+    :wrapper-col="wrapperCol" -->
+  <a-form
+    ref="editRef"
+    :model="mVal"
+    autocomplete="off"
+    style="background-color: white; margin-top: 5px; padding: 5px"
+  >
+    <a-descriptions
+      :column="2"
+      style="background-color: white; padding: 5px; margin-top: 5px"
+      size="small"
     >
-      <template v-for="meta in fields">
-        <template v-if="invisible_get(meta)">
-          <!-- invisible: {{ meta.name }}: {{ record[meta.name] }} -->
-        </template>
-
-        <template v-else>
-          <FormField
-            :key="meta.name"
-            :field-name="meta.name"
-            ref="refField"
-            width="270px"
-            v-model="formValues"
-            :editable="editable"
-            :fields="fields"
-            :view-info="viewInfo"
-            :data-info="dataInfo"
-            @change="handleChange"
-          />
-
-          <!-- 
-            <a-form-model-item
-            :key="meta.name"
-            :label="meta.string"
-            :prop="meta.name"
-          >
-            <OField
-              ref="refField"
-              width="120px"
-              v-model="formValues[meta.name]"
-              :editable="editable"
-              :field-info="meta"
-              :view-info="viewInfo"
-              :data-info="dataInfo"
-              @change="handleChange"
-            />
-          </a-form-model-item>
-          
-           -->
+      <template #title>
+        <template v-for="meta in sheet.title" :key="meta.name">
+          <div>{{ record[meta.name] }}</div>
         </template>
       </template>
-    </a-form-model>
-  </div>
+      <template v-for="group in sheet.children" :key="group.name">
+        <a-descriptions-item :span="group.span">
+          <a-descriptions :column="1">
+            <template v-for="meta in group.children" :key="meta.name">
+              <a-descriptions-item>
+                <template v-if="meta.type">
+                  <a-form-item
+                    :name="meta.name"
+                    :label="!meta.noLabel ? meta.string : undefined"
+                    :rules="getRules(meta)"
+                    style="margin-bottom: 5px"
+                  >
+                    <OField
+                      v-model="mVal[meta.name]"
+                      width="270px"
+                      :field-name="meta.name"
+                      :field-info="meta"
+                      :form-info="formInfo"
+                      @change="(...args) => onChange(meta.name, ...args)"
+                    />
+                  </a-form-item>
+                </template>
+              </a-descriptions-item>
+            </template>
+          </a-descriptions>
+        </a-descriptions-item>
+      </template>
+    </a-descriptions>
+  </a-form>
 </template>
 
-<script>
-import formMixin from '@/odooui/formMixin'
-import FormNavbar from '@/components/ONavbar/formNavbar.vue'
-import OToolbar from '@/components/OToolbar/index.vue'
-import WizardForm from '@/components/OView/WizardForm.vue'
+<script setup>
+import { defineProps, ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useForm } from './formApi'
 
-import FormField from '@/components/OView/FormField.vue'
+import StatusBar from './StatusBar.vue'
 
-export default {
-  name: 'FormView',
-  components: { FormNavbar, OToolbar, WizardForm, FormField },
+import OField from '@/components/OField/OField.vue'
+const router = useRouter()
+const props = defineProps(['actionId', 'resId'])
+const editRef = ref()
+const {
+  mVal,
+  sheet,
+  formInfo,
+  buttons,
+  currentState,
+  statusbarVisible,
+  getRules,
+  onChange,
+  onClickCRUD
+} = useForm(props, { router, editRef })
 
-  mixins: [formMixin],
-
-  props: {},
-
-  data() {
-    return {
-      labelCol: { span: 4 },
-      wrapperCol: { span: 14 }
-    }
-  },
-  computed: {},
-
-  watch: {},
-
-  created() {},
-
-  mounted() {},
-
-  methods: {
-    onClickLeft() {
-      if (this.editable) {
-        this.onClickCancel()
-      } else {
-        this.onClickBack()
-      }
-    },
-
-    onClickRight(btn) {
-      const btn_fns = {
-        save: 'onClickSave',
-        edit: 'onClickEdit',
-        new: 'onClickNew',
-        del: 'onClickDel',
-        unlink: 'onClickDel',
-        copy: 'handleOnCopy',
-        archive: 'handleOnArchive',
-        unarchive: 'handleOnUnarchive'
-      }
-
-      this[btn_fns[btn]]()
-    }
-  }
+const record = computed(() => formInfo.value.record)
+function onClickDelConfirm() {
+  onClickCRUD('del')
 }
+
+// const labelCol = { span: 8 }
+// const wrapperCol = { span: 14 }
 </script>
 
-<style scoped type="text/css">
-.formNewStyle {
-  display: flex;
-  background: white;
-  flex-wrap: wrap;
-  padding: 10px;
-  margin-top: 10px;
-}
-:deep(.formNewStyle .ant-form-item) {
-  margin-bottom: 5px;
-  width: 360px;
-}
-</style>
+<style type="text/css"></style>

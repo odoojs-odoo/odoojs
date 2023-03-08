@@ -1,6 +1,6 @@
 <template>
   <span>
-    <div>
+    <!-- <div>
       <template v-if="editable && !readonly">
         <a-button size="small" @click="handleCreate"> 添加 </a-button>
       </template>
@@ -31,49 +31,49 @@
       />
     </template>
 
-    <template v-else> </template>
+    <template v-else> </template> -->
   </span>
 </template>
 
 <script>
-import M2mTreeMixin from '@/odooui/M2mTreeMixin'
+// import M2mTreeMixin from '@/odooui/M2mTreeMixin'
 
-import M2mForm from '@/components/OSubView/M2mForm.vue'
-import M2mNew from '@/components/OSubView/M2mNew.vue'
+// import M2mForm from '@/components/OSubView/M2mForm.vue'
+// import M2mNew from '@/components/OSubView/M2mNew.vue'
 
-export default {
-  name: 'M2mTree',
-  components: { M2mForm, M2mNew },
-  mixins: [M2mTreeMixin],
-  props: {},
-  data() {
-    return {}
-  },
-  computed: {},
+// export default {
+//   name: 'M2mTree',
+//   components: { M2mForm, M2mNew },
+//   mixins: [M2mTreeMixin],
+//   props: {},
+//   data() {
+//     return {}
+//   },
+//   computed: {},
 
-  watch: {},
+//   watch: {},
 
-  created() {},
+//   created() {},
 
-  mounted() {},
+//   mounted() {},
 
-  methods: {
-    tableCustomRow(record) {
-      return {
-        // props: {
-        //   xxx... //属性
-        // },
-        on: {
-          // eslint-disable-next-line no-unused-vars
-          click: event => {
-            // console.log(record)
-            this.handleOnRowClick(record)
-          } // 点击行
-        }
-      }
-    }
-  }
-}
+//   methods: {
+//     tableCustomRow(record) {
+//       return {
+//         // props: {
+//         //   xxx... //属性
+//         // },
+//         on: {
+//           // eslint-disable-next-line no-unused-vars
+//           click: event => {
+//             // console.log(record)
+//             this.handleOnRowClick(record)
+//           } // 点击行
+//         }
+//       }
+//     }
+//   }
+// }
 </script>
 
 <style type="text/css"></style>

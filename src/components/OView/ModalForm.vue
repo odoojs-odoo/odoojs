@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-modal :title="title" :visible="visible2">
+    <!-- <a-modal :title="title" :visible="visible2">
       {{ resId }}
       {{ action }}
       <template slot="footer">
@@ -26,7 +26,7 @@
       >
         <template v-for="meta in fields">
           <template v-if="invisible_get(meta)">
-            <!-- invisible: {{ meta.name }}: {{ record[meta.name] }} -->
+            invisible: {{ meta.name }}: {{ record[meta.name] }}
           </template>
 
           <template v-else>
@@ -45,72 +45,72 @@
           </template>
         </template>
       </a-form-model>
-    </a-modal>
+    </a-modal> -->
   </div>
 </template>
 
 <script>
-import formModalMixin from '@/odooui/formModalMixin'
-import FormField from '@/components/OView/FormField.vue'
+// import formModalMixin from '@/odooui/formModalMixin'
+// import FormField from 'src2/FormField.vue'
 
-export default {
-  name: 'ModalFormView',
+// export default {
+//   name: 'ModalFormView',
 
-  components: { FormField },
+//   components: { FormField },
 
-  mixins: [formModalMixin],
+//   mixins: [formModalMixin],
 
-  props: {
-    visible: { type: Boolean, default: false }
-  },
+//   props: {
+//     visible: { type: Boolean, default: false }
+//   },
 
-  data() {
-    return {
-      loading: false,
+//   data() {
+//     return {
+//       loading: false,
 
-      labelCol: { span: 4 },
-      wrapperCol: { span: 14 }
-    }
-  },
+//       labelCol: { span: 4 },
+//       wrapperCol: { span: 14 }
+//     }
+//   },
 
-  computed: {
-    visible2: {
-      get() {
-        return this.visible
-      },
-      set(val) {
-        this.$emit('update:visible', val)
-      }
-    }
-  },
+//   computed: {
+//     visible2: {
+//       get() {
+//         return this.visible
+//       },
+//       set(val) {
+//         this.$emit('update:visible', val)
+//       }
+//     }
+//   },
 
-  watch: {
-    visible(val) {
-      if (val) {
-        this.init()
-      }
-    }
-  },
+//   watch: {
+//     visible(val) {
+//       if (val) {
+//         this.init()
+//       }
+//     }
+//   },
 
-  created() {},
+//   created() {},
 
-  mounted() {},
+//   mounted() {},
 
-  methods: {
-    async handleBtnClick(btn) {
-      console.log(btn)
-      this.loading = true
-      await this.handelCommit()
-      //   this.$emit('done')
-      this.visible2 = false
-      this.loading = false
-    },
-    handleCancel() {
-      console.log('Clicked cancel button')
-      this.visible2 = false
-    }
-  }
-}
+//   methods: {
+//     async handleBtnClick(btn) {
+//       console.log(btn)
+//       this.loading = true
+//       await this.handelCommit()
+//       //   this.$emit('done')
+//       this.visible2 = false
+//       this.loading = false
+//     },
+//     handleCancel() {
+//       console.log('Clicked cancel button')
+//       this.visible2 = false
+//     }
+//   }
+// }
 </script>
 
 <style scoped type="text/css"></style>

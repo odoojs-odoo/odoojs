@@ -1,84 +1,116 @@
+<!--
+ * @Author: Nxf
+ * @Date: 2023-02-06 12:20:30
+ * @LastEditors: Nxf
+ * @LastEditTime: 2023-02-15 20:26:11
+ * @Descripttion: 
+-->
 <template>
-  <div class="fatherBox">
-    <TreeNavbar
-      :title="actionInfo.name"
-      :search-values="search_values"
-      :search-items="search_items"
-      :buttons="buttons"
-      :actionBtns="actionBtns"
-      :hasActive="hasActive"
-      @search-change="handleSearchChange"
-      @click-right="onClickRight"
-      :activeIds="activeIds"
-    />
+  <div>
+    <!-- <div class="actionZone"> -->
 
-    <WizardForm
-      :visible.sync="wizardVisible"
-      :action="wizardAction"
-      :actionIds="activeIds"
-      @done="handleWizardDone"
-    />
+    <!-- {{ columns }} -->
+    <!-- {{ pagination }} -->
 
-    <a-table
-      class="bg"
-      :row-selection="rowSelection"
-      :pagination="pagination"
-      :columns="columns"
-      :data-source="records"
-      rowKey="id"
-      :customRow="tableCustomRow"
-      :scroll="widthAndHeight"
-      @change="handleTableChange"
+    <SearchView
+      :search-items="searchItems"
+      :search-values="searchValues"
+      @change="onSearchChange"
+    />
+    <a-button
+      v-if="buttons.create"
+      size="small"
+      type="primary"
+      @click="onClickNew"
     >
-    </a-table>
+      创建
+    </a-button>
   </div>
+
+  <a-table
+    :dataSource="records"
+    :columns="columns"
+    :pagination="pagination"
+    :customRow="tableCustomRow"
+    @change="onTableChange"
+    style="margin-top: 5px"
+  >
+    <template #bodyCell="{ column, record }">
+      <template v-if="column._format">
+        {{ column._format(record) }}
+      </template>
+
+      <template v-else>{{ record[column.dataIndex] }} </template>
+    </template>
+  </a-table>
 </template>
 
-<script>
-import TreeViewMixin from '@/components/OView/treeViewMixin'
+<script setup>
+import { defineProps, defineEmits } from 'vue'
+import { useRouter } from 'vue-router'
+import { useTreeView } from './treeApi'
 
-import TreeNavbar from '@/components/ONavbar/treeNavbar.vue'
-import WizardForm from '@/components/OView/WizardForm.vue'
+import SearchView from '@/components/OSearch/SearchView.vue'
+const router = useRouter()
+const props = defineProps(['actionId'])
+const emit = defineEmits(['search-change'])
 
-export default {
-  name: 'TreeView',
-  components: { TreeNavbar, WizardForm },
-  mixins: [TreeViewMixin],
-  props: {},
+const {
+  records,
+  columns,
+  buttons,
+  pagination,
+  searchValues,
+  searchItems,
+  onTableChange,
+  onSearchChange
+} = useTreeView(props, { emit })
 
-  data() {
-    return {}
-  },
+function tableCustomRow(record) {
+  const router = useRouter()
+  return {
+    // eslint-disable-next-line no-unused-vars
+    onClick: event => {
+      console.log('click row ', record)
 
-  computed: {},
+      const rounteVal = router.currentRoute.value
+      const { query, path } = rounteVal
+      const { menu } = query
 
-  created() {},
+      const query2 = { menu, view_type: 'form', id: record.id }
+      router.push({ path, query: query2 })
+    }
+  }
+}
 
-  mounted() {
-    // console.log('mounted', this.$route.fullPath)
-  },
-
-  methods: {}
+// 新增按钮触发
+function onClickNew() {
+  const rounteVal = router.currentRoute.value
+  const { query, path } = rounteVal
+  const { menu } = query
+  const query2 = { menu, view_type: 'form' }
+  router.push({ path, query: query2 })
 }
 </script>
 
 <style type="text/css">
-.fatherBox {
-  /* background: red; */
+.ant-table-thead > tr > th {
+  /* background: palegreen; */
+  padding: 8px;
 }
-.bg {
-  /* background: white; */
-  /* padding: 5px; */
-  /* background-color: rebeccapurple; */
-}
-
 .ant-table-tbody > tr > td {
   /* background: palegreen; */
   padding: 5px;
 }
-
-.ant-table-pagination.ant-pagination {
-  /* background: lightcoral; */
-  margin: 10px 0px;
+.actionZone {
+  background: green;
+  margin: 5px 0px;
+  padding: 5px;
+  position: relative;
+}
+.createBtn {
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
 }
 </style>

@@ -1,60 +1,61 @@
-<template functional>
-  <a-sub-menu :key="props.menuData.id">
-    <span slot="title">
-      <a-icon
-        v-if="props.menuData.icon"
-        :type="props.menuData.icon"
-        :theme="props.menuData.theme"
-      />
-      <span> {{ props.menuData.name }}</span>
-    </span>
+<!--
+ * @Author: Nxf
+ * @Date: 2023-02-05 15:40:56
+ * @LastEditors: Nxf
+ * @LastEditTime: 2023-02-06 11:33:52
+ * @Descripttion: 
+-->
+<template>
+  <!-- {{ [  collapsed] }} -->
+  <template v-for="item in menuData">
+    <template v-if="is_sub_menu(item)">
+      <a-sub-menu :key="item.id">
+        <template #icon>
+          <component :is="$antIcons[item.icon]" />
+        </template>
+        <template #title>
+          {{ item.name }}
+        </template>
 
-    <template v-for="submenu in props.menuData.children">
-      <template
-        v-if="
-          (submenu.children &&
-            Array.isArray(submenu.children) &&
-            submenu.children.length) ||
-          !submenu.action
-        "
-      >
-        <sub-menu
-          :key="submenu.id"
-          :menu-data="submenu"
+        <SubMenu
+          :menu-data="item.children"
           :collapsed="collapsed"
+          :key="item.id"
         />
-      </template>
-
-      <template v-else>
-        <a-menu-item :key="submenu.id">
-          <a-icon
-            v-if="submenu.icon"
-            :type="submenu.icon"
-            :theme="submenu.theme"
-          />
-          <span> {{ submenu.name }} </span>
-        </a-menu-item>
-      </template>
+      </a-sub-menu>
     </template>
-  </a-sub-menu>
+
+    <template v-else>
+      <a-menu-item :key="item.id">
+        <component :is="$antIcons[item.icon]" />
+        <span> {{ item.name }}</span>
+      </a-menu-item>
+    </template>
+  </template>
 </template>
 
 <script>
-export default {
-  // name: 'Submenu',
-  props: ['menuData', 'collapsed'],
-  data() {
-    return {}
-  }
-  // computed: {},
+import { defineComponent, onMounted } from 'vue'
 
-  // async created() {},
-  // methods: {
-  //   test(submenu) {
-  //     console.log(submenu)
-  //   }
-  // }
-}
+export default defineComponent({
+  name: 'SubMenu',
+  props: ['menuData', 'collapsed'],
+
+  setup() {
+    function is_sub_menu(menu) {
+      const is_sub_menu =
+        menu.children && Array.isArray(menu.children) && menu.children.length
+      // console.log('------',$icons);
+      return is_sub_menu || !menu.action
+    }
+    onMounted(() => {
+      // console.log('------',);
+    })
+    return {
+      is_sub_menu
+    }
+  }
+})
 </script>
 
 <style scoped></style>

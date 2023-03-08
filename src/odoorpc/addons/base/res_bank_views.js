@@ -5,7 +5,43 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.bank',
     type: 'form',
+    buttons: { create: true, edit: true, delete: true },
+
+    arch: {
+      header: {
+        buttons: [],
+        fields: {}
+      },
+      sheet: {
+        _title: {
+          display_name: {}
+        },
+
+        _group_bank_details: {
+          _span: 2,
+          name: {},
+          bic: {}
+        },
+
+        _group_address_details: {
+          street: { placeholder: 'Street...' },
+          street2: {},
+          city: {},
+          state: {},
+          zip: {},
+          country: {}
+        },
+
+        _group_communication_details: {
+          phone: {},
+          email: {},
+          active: {}
+        }
+      }
+    },
+
     fields: {
+      display_name: {},
       name: {},
       bic: {},
 

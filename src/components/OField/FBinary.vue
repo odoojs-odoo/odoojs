@@ -1,14 +1,14 @@
 <template>
   <span>
     <template v-if="fieldInfo.widget === 'image'">
-      <WImage
+      <!-- <WImage
         v-model="value"
         :editable="editable"
         :field-info="fieldInfo"
         :view-info="viewInfo"
         :data-info="dataInfo"
         @change="(fname, value) => handleChange(value)"
-      />
+      /> -->
     </template>
     <template v-else-if="fieldInfo.widget">
       todo: {{ fieldInfo.widget }}
@@ -26,9 +26,11 @@
 </template>
 
 <script>
-import OFMixin from './OFMixin'
+// todo
+//
+// import OFMixin from './OFMixin'
 
-import WImage from './WImage.vue'
+// import WImage from './WImage.vue'
 
 export default {
   name: 'FBinary',

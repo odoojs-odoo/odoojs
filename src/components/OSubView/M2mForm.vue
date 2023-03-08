@@ -1,10 +1,10 @@
 <template>
   <span>
-    <a-modal v-model="showModal" :title="relationInfo && relationInfo.string">
+    <!-- <a-modal v-model="showModal" :title="relationInfo && relationInfo.string">
       <a-form-model :label-col="labelCol" :wrapper-col="wrapperCol">
         <template v-for="meta in fields">
           <template v-if="invisible_get(meta)">
-            <!-- invisible: {{ meta.name }}: {{ record[meta.name] }} -->
+            invisible: {{ meta.name }}: {{ record[meta.name] }}
           </template>
 
           <template v-else>
@@ -43,36 +43,36 @@
           </a-button>
         </a-space>
       </template>
-    </a-modal>
+    </a-modal> -->
   </span>
 </template>
 
 <script>
-import M2mFormMixin from '@/odooui/M2mFormMixin'
+// import M2mFormMixin from '@/odooui/M2mFormMixin'
 
-export default {
-  name: 'M2mForm',
-  components: {
-    FormField: () => import('@/components/OView/FormField.vue')
-  },
-  mixins: [M2mFormMixin],
-  props: {},
-  data() {
-    return {
-      labelCol: { span: 4 },
-      wrapperCol: { span: 14 }
-    }
-  },
-  computed: {},
+// export default {
+//   name: 'M2mForm',
+//   components: {
+//     FormField: () => import('@/components/OView/FormField.vue')
+//   },
+//   mixins: [M2mFormMixin],
+//   props: {},
+//   data() {
+//     return {
+//       labelCol: { span: 4 },
+//       wrapperCol: { span: 14 }
+//     }
+//   },
+//   computed: {},
 
-  watch: {},
+//   watch: {},
 
-  created() {},
+//   created() {},
 
-  mounted() {},
+//   mounted() {},
 
-  methods: {}
-}
+//   methods: {}
+// }
 </script>
 
 <style type="text/css"></style>

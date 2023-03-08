@@ -117,6 +117,9 @@ class EditBase {
 
       return new Promise(resolve => {
         const done = valid => {
+          if (!valid) {
+            console.log('validate error')
+          }
           resolve(valid)
         }
         // 如果有校验函数, 则回调 校验函数
@@ -173,7 +176,7 @@ class EditBase {
 
     if (valid) {
       // 若校验 返回 true, 则 commit
-      console.log('validate ok', valid)
+      // console.log('validate ok', valid)
       const id_ret = await this._web_commit()
       return id_ret
     } else {
@@ -240,10 +243,10 @@ export class EditModel extends EditBase {
     const res_id = this.record.id
     const context = this.context
 
-    console.log('_web_commit', this.viewmodel, record, values)
+    // console.log('_web_commit', this.viewmodel, record, values)
 
     const values2 = this.viewmodel._get_values_for_write(record, values)
-    console.log('_web_commit', values2)
+    // console.log('_web_commit', values2)
 
     const id2 = await this.Model.web_commit(res_id, record, values2, {
       context

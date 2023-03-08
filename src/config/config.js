@@ -1,29 +1,32 @@
-import { addons_list as addons_list2 } from './menus'
-import { web_models_list as web_models_list2 } from './menus'
-import { web_fields as web_fields2 } from './menus'
-
-import { components_for_router } from './menus'
-import { menus_tree_get as menus_tree_get2 } from './menus'
-import { menus_list_get as menus_list_get2 } from './menus'
+import { message } from 'ant-design-vue'
 
 export const baseURL = process.env.VUE_APP_BASE_API
 export const timeout = 50000
 
-export const web_models_list = web_models_list2
-export const web_fields = web_fields2
-
-export const addons_list = addons_list2
-export const components = components_for_router
-
-export const menus_tree_get = () => {
-  const odoo_menus = menus_tree_get2()
-  return odoo_menus
+export function messageError(error) {
+  message.config({
+    top: document.body.clientHeight / 2 + 'px'
+  })
+  message.error(error.data.message)
 }
 
-export const menus_list_get = () => {
-  const odoo_menus_list = menus_list_get2()
-  return odoo_menus_list
-}
+// 注册 odoo addons, 包括 预定义的 menus, actions, views
+const odooAddons = require.context('@/odoorpc/addons', true, /\.js$/)
 
-export const app_title = '欢迎使用 odoojs'
-export const app_footer = 'odoojs ©2021 北京斑马线科技有限公司'
+// 自定义的 addons, 也在这里注册
+const localAddons = require.context('@/local_addons', true, /\.js$/)
+
+export const addons_list = [odooAddons, localAddons]
+
+const local_fields = require.context('@/local_addons_fields', true, /\.js$/)
+const odoo_fields = require.context('@/odoorpc/addons_fields', true, /\.js$/)
+
+export const web_fields_list = [local_fields, odoo_fields]
+
+const localModels = require.context('@/local_addons_model', true, /\.js$/)
+export const web_models_list = [localModels]
+
+export const OViewComponents = {
+  // 'base.action_res_users.form': ResUsers,
+  // 'fp_setting.action_user.form': ResUsers
+}

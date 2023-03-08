@@ -14,19 +14,17 @@ const load_from_files = files => {
 
 const AddonsFields = load_from_files(AddonsFieldsFiles)
 
-//  AddonsFieldsFiles.keys().reduce((models, modulePath) => {
-//   const value = AddonsFieldsFiles(modulePath)
-//   // console.log('AddonsFields,', modulePath, value)
-
-//   models = { ...models, ...value.default }
-//   return models
-// }, {})
+const load_from_files_list = files_list => {
+  return files_list.reduce((acc, files) => {
+    const acc2 = load_from_files(files)
+    return { ...acc, ...acc2 }
+  }, {})
+}
 
 export class BaseView {
   static metadata_fields(model) {
-    const web_fields = this.web_fields ? load_from_files(this.web_fields) : {}
+    const web_fields = load_from_files_list(this.web_fields_list)
     const addons_fields = { ...AddonsFields, ...web_fields }
-
     return addons_fields[model] || {}
   }
 
@@ -113,17 +111,7 @@ export class BaseView {
     const fields_list = Object.keys(fields_raw)
     const info = await Model.fields_get(fields_list)
 
-    const web_fields = this.constructor.web_fields
-      ? load_from_files(this.constructor.web_fields)
-      : {}
-
-    const addons_fields = { ...AddonsFields, ...web_fields }
-
-    //
-
-    const fields_in_model = addons_fields[model] || {}
-    // console.log('xxxx fields_in_model,', model, fields_in_model)
-    // console.log('xxxx fields_raw,', model, fields_raw)
+    const fields_in_model = this.constructor.metadata_fields(model)
 
     const fields = Object.keys(fields_raw).reduce((acc, cur) => {
       acc[cur] = {
@@ -180,4 +168,4 @@ export class BaseView {
   }
 }
 
-BaseView.web_fields = undefined
+BaseView.web_fields_list = []

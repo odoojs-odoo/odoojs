@@ -1,19 +1,20 @@
 <template>
   <span>
-    <M2mTree
+    <!-- <M2mTree
       :editable="editable"
       :relationInfo="relation && relation.field_info"
       :parentViewInfo="viewInfo"
       :records="subRecords"
       @change="handleChange"
-    />
+    /> -->
   </span>
 </template>
 
 <script>
-import FX2mMixin from './FX2mMixin'
+// todo
+// import FX2mMixin from './FX2mMixin'
 
-import M2mTree from '@/components/OSubView/M2mTree.vue'
+// import M2mTree from '@/components/OSubView/M2mTree.vue'
 
 export default {
   name: 'FOne2many',

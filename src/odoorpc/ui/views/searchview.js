@@ -433,7 +433,7 @@ class SearchView1 extends BaseView {
         .filter(item2 => filters[item][item2].date)
         .map(item2 => {
           const one = filters[item][item2]
-          return { name: item2, ...one }
+          return { type: 'filter.date', name: item2, ...one }
         })
 
       acc[item] = {
@@ -541,6 +541,8 @@ export class SearchView extends SearchView1 {
       value.values.forEach(item => {
         delete values[item.name]
       })
+    } else if (value.type === 'filter.date') {
+      delete values[value.name]
     } else {
       //
     }

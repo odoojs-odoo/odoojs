@@ -1,67 +1,61 @@
+<!--
+ * @Author: Nxf
+ * @Date: 2023-02-06 12:20:30
+ * @LastEditors: Nxf
+ * @LastEditTime: 2023-02-06 20:49:36
+ * @Descripttion: 
+-->
 <template>
-  <span>
-    <div>
-      <template v-if="editable && !readonly">
-        <a-button size="small" @click="handleCreate"> 创建 </a-button>
-      </template>
-    </div>
+  <div>
+    <!-- readonly: {{ readonly }} -->
 
     <a-table
+      :dataSource="records"
       :columns="columns"
-      :data-source="values_display"
-      rowKey="id"
       :customRow="tableCustomRow"
     >
+      <template #bodyCell="{ column, record }">
+        <template v-if="column._format">
+          {{ column._format(record) }}
+        </template>
+
+        <template v-else>{{ record[column.dataIndex] }} </template>
+      </template>
     </a-table>
 
-    <template v-if="fieldInfo.type === 'many2many'"> // </template>
-
-    <template v-else>
-      <O2mForm
-        ref="subForm"
-        :editable="editable"
-        :relationInfo="relationInfo"
-        :parentViewInfo="parentViewInfo"
-        :parentData="parentData"
-        @on-commit="handleOnCommit"
-      />
+    <template v-if="!readonly">
+      <a-button size="small" @click="onCreate"> 新增行 </a-button>
     </template>
-  </span>
+  </div>
 </template>
 
-<script>
-import O2mTreeMixin from '@/odooui/O2mTreeMixin'
-import O2mForm from '@/components/OSubView/O2mForm.vue'
+<script setup>
+import { defineProps, defineEmits } from 'vue'
+import { useO2mTree } from './o2mTreeApi'
 
-export default {
-  name: 'O2mTree',
-  components: { O2mForm },
-  mixins: [O2mTreeMixin],
-  props: {},
-  data() {
-    return {}
-  },
-  computed: {},
+const props = defineProps([
+  'readonly',
+  'records',
+  'relationInfo',
+  'parentViewInfo'
+])
+const emit = defineEmits(['row-click', 'row-new'])
+// eslint-disable-next-line no-unused-vars
 
-  watch: {},
+const { columns } = useO2mTree(props)
 
-  created() {},
-
-  mounted() {},
-
-  methods: {
-    tableCustomRow(record) {
-      return {
-        on: {
-          // eslint-disable-next-line no-unused-vars
-          click: event => {
-            // console.log(record)
-            this.handleOnRowClick(record)
-          } // 点击行
-        }
-      }
+function tableCustomRow(record) {
+  return {
+    // eslint-disable-next-line no-unused-vars
+    onClick: event => {
+      // console.log('click row ', record)
+      emit('row-click', record)
     }
   }
+}
+
+function onCreate() {
+  emit('row-new')
 }
 </script>
 

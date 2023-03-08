@@ -24,10 +24,11 @@ import controller from './controllers'
 export class RPC {
   constructor() {}
 
-  static init({ baseURL, timeout, ...payload }) {
-    const { addons_list, web_fields, web_models_list = [] } = payload
+  static init({ baseURL, timeout, messageError, ...payload }) {
+    const { addons_list, web_fields_list, web_models_list = [] } = payload
     JsonRequest.baseURL = baseURL
     JsonRequest.timeout = timeout
+    JsonRequest.messageError = messageError
 
     this.baseURL = baseURL
     this.web_models_list = web_models_list
@@ -36,8 +37,8 @@ export class RPC {
       ui.Addons.addons_list = [...ui.Addons.addons_list, ...addons_list]
     }
 
-    if (web_fields) {
-      ui.BaseView.web_fields = web_fields
+    if (web_fields_list) {
+      ui.BaseView.web_fields_list = web_fields_list
     }
   }
 

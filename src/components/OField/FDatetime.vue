@@ -1,79 +1,48 @@
 <template>
-  <span v-if="readonly || !editable">
-    <span>
-      {{ value_display }}
-    </span>
-  </span>
-  <div v-else>
-    <ODatePicker
-      v-model="value2"
-      :width="width"
-      :show-time="true"
-      @change="handleChange"
-    />
+  <span>
+    <template v-if="fieldInfo.widget === 'some widget'">
+      todo: {{ [fieldInfo.type, fieldInfo.widget] }}
+    </template>
+    <template v-else-if="fieldInfo.widget">
+      todo: {{ [fieldInfo.type, fieldInfo.widget] }}
+    </template>
 
-    <!-- edit: {{ [fieldInfo.type, fname] }} -->
-  </div>
+    <template v-else>
+      <template v-if="readonly">
+        {{ dVal }}
+      </template>
+
+      <template v-else>
+        <!-- edit: {{ [fieldName, mVal, dVal, onChange] }} -->
+
+        <ODatePicker
+          v-model="mVal"
+          :width="width"
+          :placeholder="fieldInfo.string"
+          :show-time="true"
+          @change="onChange"
+        />
+      </template>
+    </template>
+  </span>
 </template>
 
-<script>
-import OFMixin from './OFMixin'
+<script setup>
+import { defineProps, defineEmits } from 'vue'
+import { useFDatetime } from './FDatetimeApi'
 import ODatePicker from '@/components/OInput/ODatePicker.vue'
 
-const _date_format = date => {
-  const year = date.getFullYear().toString().padStart(4, '0')
-  const month = (date.getMonth() + 1).toString().padStart(2, '0')
-  const day = date.getDate().toString().padStart(2, '0')
+const props = defineProps([
+  'modelValue',
+  'width',
+  'fieldName',
+  'fieldInfo',
+  'formInfo'
+])
 
-  const hh = date.getHours().toString().padStart(2, '0')
-  const mm = date.getMinutes().toString().padStart(2, '0')
-  const ss = date.getSeconds().toString().padStart(2, '0')
+const emit = defineEmits(['update:modelValue', 'change'])
 
-  const today_str = `${year}-${month}-${day} ${hh}:${mm}:${ss}`
-  return today_str
-}
-
-const date_format = date => {
-  if (date && typeof date === 'object') {
-    return _date_format(date)
-  } else {
-    return date
-  }
-}
-
-export default {
-  name: 'FDatetime',
-  components: { ODatePicker },
-  mixins: [OFMixin],
-  props: {
-    value: { type: [String, Date], default: null }
-  },
-  data() {
-    return {}
-  },
-  computed: {
-    value_readonly() {
-      return date_format(this.record[this.fname])
-    },
-
-    value_edit() {
-      // this.editable ?
-      if (this.fname in this.values) {
-        return date_format(this.values[this.fname])
-      } else {
-        return this.value_readonly
-      }
-    }
-  },
-
-  watch: {},
-
-  created() {},
-
-  mounted() {},
-
-  methods: {}
-}
+const { mVal, dVal, readonly, onChange } = useFDatetime(props, { emit })
 </script>
 
 <style type="text/css"></style>

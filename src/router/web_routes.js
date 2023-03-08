@@ -1,5 +1,5 @@
 import { Addons } from '@/odoorpc/ui/action'
-import { addons_list, components } from '@/config/config'
+import { addons_list } from '@/config/config'
 
 const actions = Addons.load(addons_list).actions
 
@@ -9,10 +9,9 @@ const routers = Object.keys(actions).reduce((acc, act) => {
   const one = actions[act]
   const xml_id = one.xml_id
   const path = ['', 'web', ...xml_id.split('.')].join('/')
-
-  const component = components[act] || default_component
-
+  const component = default_component
   acc[act] = { path, component, name: path }
+  // console.log('--act---',act,'--acc---',acc,'--acc[act]----',acc[act] ,'---xml_id----', xml_id);
   return acc
 }, {})
 

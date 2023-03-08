@@ -1,39 +1,43 @@
 <template>
-  <span v-if="readonly || !editable">
-    <a-checkbox :checked="value_display" disabled />
+  <span>
+    <template v-if="fieldInfo.widget === 'some widget'">
+      todo: {{ [fieldInfo.type, fieldInfo.widget] }}
+    </template>
+    <template v-else-if="fieldInfo.widget">
+      todo: {{ [fieldInfo.type, fieldInfo.widget] }}
+    </template>
+
+    <template v-else>
+      <template v-if="readonly">
+        <a-checkbox :checked="dVal" disabled />
+      </template>
+
+      <template v-else>
+        <a-checkbox v-model:checked="mVal" @change="onCheckChange" />
+      </template>
+    </template>
   </span>
-  <div v-else>
-    <a-checkbox v-model="value2" @change="handleChange" />
-  </div>
 </template>
 
-<script>
-import OFMixin from './OFMixin'
+<script setup>
+import { defineProps, defineEmits } from 'vue'
+import { useField } from './FieldApi'
 
-export default {
-  name: 'FBoolean',
-  // components: { OInput },
-  mixins: [OFMixin],
-  props: {
-    value: { type: Boolean, default: false }
-  },
-  data() {
-    return {}
-  },
-  computed: {},
+const props = defineProps([
+  'modelValue',
+  'width',
+  'fieldName',
+  'fieldInfo',
+  'formInfo'
+])
 
-  watch: {},
+const emit = defineEmits(['update:modelValue', 'change'])
 
-  created() {},
+const { mVal, dVal, readonly, onChange } = useField(props, { emit })
 
-  mounted() {},
-
-  methods: {
-    async handleChange(e) {
-      const value = e.target.checked
-      this.$emit('change', this.fieldInfo.name, value)
-    }
-  }
+function onCheckChange(e) {
+  const value = e.target.checked
+  onChange(value)
 }
 </script>
 

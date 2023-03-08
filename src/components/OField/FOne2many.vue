@@ -1,42 +1,55 @@
 <template>
   <span>
-    <!-- :valuesDefault.sync="subValuesList" -->
-
+    <!-- editable: {{ [formInfo.editable, recordsDisplay] }} -->
     <O2mTree
-      :editable="editable"
-      :relationInfo="relation && relation.field_info"
-      :parentViewInfo="viewInfo"
-      :records="subRecords"
-      :parentData="{ record, values }"
-      @change="handleChange"
+      :readonly="readonly"
+      :records="recordsDisplay"
+      :relation-info="relationInfo"
+      :parent-view-info="formInfo.viewInfo"
+      @row-click="onRowClick"
+      @row-new="onRowCreate"
+    />
+
+    <O2mForm
+      v-model:visible="modalVisible"
+      :readonly="readonly"
+      :record="currentRow"
+      :relation-info="relationInfo"
+      :parent-form-info="formInfo"
+      @row-commit="onRowCommit"
     />
   </span>
 </template>
 
-<script>
-import FX2mMixin from './FX2mMixin'
+<script setup>
+import { defineProps, defineEmits } from 'vue'
+import { useFO2m } from './FO2mApi'
 
 import O2mTree from '@/components/OSubView/O2mTree.vue'
+import O2mForm from '@/components/OSubView/O2mForm.vue'
 
-export default {
-  name: 'FOne2many',
-  components: { O2mTree },
-  mixins: [FX2mMixin],
-  props: {},
+const props = defineProps([
+  'modelValue',
+  'width',
+  'fieldName',
+  'fieldInfo',
+  'formInfo'
+])
 
-  data() {
-    return {}
-  },
-  computed: {},
+const emit = defineEmits(['update:modelValue', 'change'])
 
-  watch: {},
+const useData = useFO2m(props, { emit })
 
-  async created() {},
+const {
+  readonly,
+  relationInfo,
+  recordsDisplay,
+  onRowClick,
+  onRowCreate,
+  onRowCommit
+} = useData
 
-  async mounted() {},
-
-  methods: {}
-}
+const { modalVisible, currentRow } = useData
 </script>
 
-<style type="text/css" scoped></style>
+<style type="text/css"></style>

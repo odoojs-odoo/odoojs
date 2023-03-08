@@ -1,92 +1,58 @@
 <template>
   <span>
-    <template v-if="fieldInfo.widget === 'something'">
-      <!-- <Something
-        v-model="value"
-        :editable="editable"
-        :field-info="fieldInfo"
-        :data-info="dataInfo"
-        @change="(fname, value) => handleChange(value)"
-      /> -->
+    <template v-if="fieldInfo.widget === 'some widget'">
+      todo: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
+    <template v-if="fieldInfo.widget === 'many2one_view'">
+      <a-button @click="onClickView"> {{ dVal }}</a-button>
+    </template>
+
     <template v-else-if="fieldInfo.widget">
-      todo: {{ fieldInfo.widget }}
+      todo: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
 
     <template v-else>
-      <template v-if="!editable || readonly">
-        {{ (value_display || [0, null])[1] }}
+      <template v-if="readonly">
+        {{ dVal }}
       </template>
 
       <template v-else>
+        <!-- edit: {{ [fieldName, mVal, dVal, options, onChange] }} -->
+
         <OMany2one
-          v-model="value2"
-          :options="options"
+          v-model="mVal"
           :width="width"
-          @change="handleChange"
+          :placeholder="fieldInfo.string"
+          :options="options"
+          @change="onChange"
         />
       </template>
     </template>
   </span>
 </template>
 
-<script>
-import api from '@/odoorpc'
-
-import OFMixin from './OFMixin'
+<script setup>
+import { defineProps, defineEmits } from 'vue'
+import { useFM2o } from './FM2oApi'
 import OMany2one from '@/components/OInput/OMany2one.vue'
 
-export default {
-  name: 'FMany2one',
-  components: { OMany2one },
-  mixins: [OFMixin],
-  props: {
-    value: { type: Array, default: undefined }
-  },
+const props = defineProps([
+  'modelValue',
+  'width',
+  'fieldName',
+  'fieldInfo',
+  'formInfo'
+])
 
-  data() {
-    return {
-      options: []
-    }
-  },
-  computed: {},
+const emit = defineEmits(['update:modelValue', 'change', 'click-many2one'])
 
-  watch: {
-    editable: {
-      // eslint-disable-next-line no-unused-vars
-      handler: function (newVal, oldval) {
-        if (newVal && !this.readonly) {
-          // console.log('editable, watch', this.fieldInfo, newVal, oldval)
-          this.load_select_options()
-        }
-      },
-      deep: true,
-      immediate: true
-    }
-  },
-
-  created() {},
-
-  mounted() {
-    if (this.editable && !this.readonly) {
-      // console.log('editable, mounted', this.fieldInfo, this.editable)
-      this.load_select_options()
-    }
-  },
-
-  methods: {
-    async load_select_options() {
-      const relation = api.env.relation(this.fieldInfo)
-
-      const values = this.values
-      const record = this.record
-
-      this.options = await relation.load_select_options({
-        record: { ...record, ...values }
-      })
-    }
-  }
+function onClickView() {
+  const val = props.formInfo.record[props.fieldName]
+  console.log('sdfsdf', val, val[0])
+  // emit('click-many2one', props.fieldName, val)
 }
+
+const { mVal, dVal, readonly, options, onChange } = useFM2o(props, { emit })
 </script>
 
 <style type="text/css"></style>

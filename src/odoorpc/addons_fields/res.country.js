@@ -22,8 +22,8 @@ const StateModelFields = {
 
 const GroupModelFields = {
   name: {},
-  country_ids: {},
-  pricelist_ids: {}
+  country_ids: {}
+  // pricelist_ids: {}
 }
 
 const AddonsFields = {

@@ -7,7 +7,7 @@ export default {
     fields: {
       code: {},
       name: {},
-      user_type_id: {},
+
       reconcile: {},
       //   tax_ids: {},
       //   tag_ids: {},
@@ -26,7 +26,7 @@ export default {
       company_id: {},
       code: {},
       name: {},
-      user_type_id: {},
+
       tax_ids: {
         widget: 'many2many_tags',
         domain: record => {
@@ -67,8 +67,7 @@ export default {
           filter_domain: self => {
             return ['|', ['name', 'ilike', self], ['code', '=like', `${self}%`]]
           }
-        },
-        user_type_id: {}
+        }
       },
 
       filters: {

@@ -1,38 +1,33 @@
 <template>
-  <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
-    <router-view class="routeBox" />
-    <!-- <TestRpc /> -->
-  </div>
+  <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
+  <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+  <a-config-provider :locale="locale">
+    <router-view />
+    <!-- <TestAPI /> -->
+  </a-config-provider>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-// import TestRpc from './components/TestRpc.vue'
+// import TestAPI from '@/components/TestAPI.vue'
+
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
+dayjs.locale('zh-cn')
 
 export default {
   name: 'App',
+  data() {
+    return {
+      locale: zhCN
+    }
+  },
   components: {
     // HelloWorld
-    // TestRpc
+    // TestAPI
   }
 }
 </script>
 
-<style>
-/* #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-} */
-#app,
-.routeBox {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-</style>
+<style></style>

@@ -1,54 +1,52 @@
 <template>
   <span>
     <template v-if="fieldInfo.widget === 'image_url'">
+      <!-- todo: {{ [fieldInfo.type, fieldInfo.widget, dVal] }} -->
       <WImageUrl
-        v-model="value"
-        :editable="editable"
+        :width="width"
+        :field-name="fieldName"
         :field-info="fieldInfo"
-        :data-info="dataInfo"
-        @change="(fname, value) => handleChange(value)"
+        :form-info="formInfo"
       />
     </template>
     <template v-else-if="fieldInfo.widget">
-      todo: {{ fieldInfo.widget }}
+      todo: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
 
     <template v-else>
-      <template v-if="!editable || readonly">
-        {{ value_display }}
+      <template v-if="readonly">
+        {{ dVal }}
       </template>
 
       <template v-else>
-        <OInput v-model="value2" :width="width" @change="handleChange" />
+        <OInput
+          v-model="mVal"
+          :width="width"
+          :placeholder="fieldInfo.string"
+          @change="onChange"
+        />
       </template>
     </template>
   </span>
 </template>
 
-<script>
-import OFMixin from './OFMixin'
+<script setup>
+import { defineProps, defineEmits } from 'vue'
+import { useField } from './FieldApi'
 import WImageUrl from './WImageUrl.vue'
-
 import OInput from '@/components/OInput/OInput.vue'
 
-export default {
-  name: 'FString',
-  components: { WImageUrl, OInput },
-  mixins: [OFMixin],
-  props: {},
-  data() {
-    return {}
-  },
-  computed: {},
+const props = defineProps([
+  'modelValue',
+  'width',
+  'fieldName',
+  'fieldInfo',
+  'formInfo'
+])
 
-  watch: {},
+const emit = defineEmits(['update:modelValue', 'change'])
 
-  created() {},
-
-  mounted() {},
-
-  methods: {}
-}
+const { mVal, dVal, readonly, onChange } = useField(props, { emit })
 </script>
 
 <style type="text/css"></style>

@@ -1,45 +1,64 @@
 <template>
-  <div>
-    <div>
-      <template v-if="viewType === 'tree'">
-        <TreeView />
-      </template>
+  <template v-if="viewType === 'tree'">
+    <TreeView :actionId="actionId" />
+    <!-- <component :is="views[viewType]" :actionId="actionId" /> -->
+  </template>
 
-      <template v-else-if="viewType === 'form'">
-        <FormView />
-      </template>
+  <template v-else-if="viewType === 'form'">
+    <!-- <div>{{ [actionId, viewType] }}</div>
+    <div>{{ `${actionId}.form` }}</div>
+    <div>{{ [Object.keys(components)] }}</div> -->
 
-      <template v-else> todo:{{ viewType }}</template>
-    </div>
-  </div>
+    <template v-if="`${actionId}.form` in components">
+      <component
+        :is="components[`${actionId}.form`]"
+        :actionId="actionId"
+        :resId="resId"
+      />
+    </template>
+    <template v-else>
+      <!-- <component :is="views[viewType]" :actionId="actionId" :resId="resId" /> -->
+      <FormView :actionId="actionId" :resId="resId" />
+    </template>
+  </template>
+
+  <template v-else> no viewType:{{ [viewType] }}</template>
 </template>
 
-<script>
-import viewMixin from '@/odooui/viewMixin'
+<script setup>
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 import TreeView from '@/components/OView/TreeView.vue'
 import FormView from '@/components/OView/FormView.vue'
 
-export default {
-  name: 'WebView',
-  components: { TreeView, FormView },
-  mixins: [viewMixin],
+import api from '@/odoorpc'
 
-  data() {
-    return {}
-  },
+// const views = { tree: TreeView, form: FormView }
 
-  computed: {},
+import { OViewComponents as components } from '@/config/config'
 
-  watch: {},
+const { actionId, viewType, resId } = userCurrentRoute()
 
-  async created() {},
+console.log(actionId.value, viewType.value, components)
 
-  mounted() {
-    console.log('mounted', this.$route.fullPath)
-  },
+function userCurrentRoute() {
+  const router = useRouter()
+  const actionId = computed(() => {
+    const rounteVal = router.currentRoute.value
+    return api.tools.path2action_id(rounteVal.path)
+  })
 
-  methods: {}
+  const viewType = computed(() => {
+    const rounteVal = router.currentRoute.value
+    return rounteVal.query.view_type
+  })
+  const resId = computed(() => {
+    const rounteVal = router.currentRoute.value
+    return rounteVal.query.id
+  })
+
+  return { actionId, viewType, resId }
 }
 </script>
 

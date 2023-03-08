@@ -1,0 +1,161 @@
+<template>
+  <!-- form view -->
+
+  <a-space>
+    <template v-if="!formInfo.editable">
+      <a-button size="small" @click="onClickCRUD('edit')"> 编辑 </a-button>
+      <!-- <a-button size="small" type="primary" @click="onClickCRUD('new')">
+        创建1
+      </a-button> -->
+
+      <a-popconfirm
+        title="您是要删除这条数据吗?"
+        ok-text="确认"
+        cancel-text="取消"
+        @confirm="onClickDelConfirm"
+      >
+        <!-- @click="onClickDel" -->
+        <a-button size="small" type="danger"> 删除 </a-button>
+      </a-popconfirm>
+      <a-button size="small" type="primary" @click="onClickCRUD('back')">
+        返回
+      </a-button>
+    </template>
+    <template v-if="formInfo.editable">
+      <a-button size="small" @click="onClickCRUD('save')"> 保存 </a-button>
+      <a-button size="small" @click="onClickCRUD('cancel')"> 取消 </a-button>
+    </template>
+  </a-space>
+
+  <StatusBar :currentState="currentState" :states="statusbarVisible" />
+
+  <a-form
+    v-if="formInfo.editable"
+    ref="editRef"
+    :model="mVal"
+    :label-col="labelCol"
+    :wrapper-col="wrapperCol"
+    autocomplete="off"
+    style="background-color: white;margin-top: 5px;padding: 5px;"
+  >
+    <template v-for="meta in fields">
+      <template v-if="checkInvisible(meta)">
+        <!-- invisible: {{ meta.name }}: {{ record[meta.name] }} -->
+      </template>
+
+      <template v-else>
+        <!-- {{ meta }} -->
+        <a-form-item
+          :key="meta.name"
+          :name="meta.name"
+          :label="meta.string"
+          :rules="getRules(meta)"
+          style="margin-bottom: 5px"
+        >
+          <!-- {{ meta.name }}: {{ record[meta.name] }} -->
+          <OField
+            v-model="mVal[meta.name]"
+            width="270px"
+            :field-name="meta.name"
+            :field-info="meta"
+            :form-info="formInfo"
+            @change="(...args) => onChange(meta.name, ...args)"
+          />
+        </a-form-item>
+      </template>
+    </template>
+  </a-form>
+
+  <div v-else>
+    <a-descriptions :title="`用户名:${record.display_name}`" :column="2" bordered style="background-color: white; padding: 5px; margin-top: 5px;" size="small">
+      <a-descriptions-item label="账号">
+        <OField
+          width="270px"
+          field-name="login"
+          :field-info="fields.login || {}"
+          :form-info="formInfo"
+        />
+      </a-descriptions-item>
+
+      <a-descriptions-item label="用户名">
+        <OField
+          width="270px"
+          field-name="name"
+          :field-info="fields.name || {}"
+          :form-info="formInfo"
+        />
+      </a-descriptions-item>
+
+      <a-descriptions-item label="电话">
+        <OField
+          width="270px"
+          field-name="phone"
+          :field-info="fields.phone || {}"
+          :form-info="formInfo"
+        />
+      </a-descriptions-item>
+
+      <a-descriptions-item label="当前公司">
+        <OField
+          width="270px"
+          field-name="company_id"
+          :field-info="fields.company_id || {}"
+          :form-info="formInfo"
+        />
+      </a-descriptions-item>
+
+      <a-descriptions-item label="公司">
+        <OField
+          width="270px"
+          field-name="company_ids"
+          :field-info="fields.company_ids || {}"
+          :form-info="formInfo"
+        />
+      </a-descriptions-item>
+
+      <a-descriptions-item label="最近登录">
+        <OField
+          width="270px"
+          field-name="login_date"
+          :field-info="fields.login_date || {}"
+          :form-info="formInfo"
+        />
+      </a-descriptions-item>
+    </a-descriptions>
+  </div>
+</template>
+
+<script setup>
+import { defineProps, ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useForm } from '@/components/OView/formApi'
+
+import StatusBar from '@/components/OView/StatusBar.vue'
+
+import OField from '@/components/OField/OField.vue'
+const router = useRouter()
+const props = defineProps(['actionId', 'resId'])
+const editRef = ref()
+const {
+  mVal,
+  fields,
+  formInfo,
+  buttons,
+  currentState,
+  statusbarVisible,
+  checkInvisible,
+  getRules,
+  onChange,
+  onClickCRUD
+} = useForm(props, { router, editRef })
+
+const record = computed(() => formInfo.value.record)
+function onClickDelConfirm() {
+  onClickCRUD('del')
+}
+
+const labelCol = { span: 4 }
+const wrapperCol = { span: 16 }
+</script>
+
+<style type="text/css"></style>

@@ -1,56 +1,52 @@
 <template>
   <a-select
-    v-model="value2"
+    v-model:value="mVal"
     label-in-value
-    @change="handleChange"
+    show-search
+    :filter-option="filterOption"
+    :options="selectOptions"
+    :placeholder="placeholder"
     :style="compute_style"
-  >
-    <a-select-option v-for="op in options" :key="op[0]" :value="op[0]">
-      {{ op[1] }}
-    </a-select-option>
-  </a-select>
+    @change="handleChange"
+  />
 </template>
 
-<script>
-export default {
-  name: 'OInput',
-  props: {
-    value: { type: Array, default: null },
-    options: { type: Array, default: () => [] },
-    width: { type: String, default: undefined }
-  },
+<script setup>
+import { defineProps, defineEmits, computed } from 'vue'
+const props = defineProps(['modelValue', 'options', 'width', 'placeholder'])
+const emit = defineEmits(['update:modelValue', 'change'])
 
-  data() {
-    return {}
-  },
-  computed: {
-    compute_style() {
-      if (this.width) {
-        return `width: ${this.width}`
-      } else {
-        return undefined
-      }
-    },
+const selectOptions = computed(() =>
+  props.options.map(item => {
+    return { value: item[0], label: item[1] }
+  })
+)
 
-    value2: {
-      get() {
-        return this.value ? { key: this.value[0] } : {}
-      },
+function filterOption(input, option) {
+  return option.label.indexOf(input) >= 0
+}
 
-      set(val) {
-        const { key, label } = val
-        const label2 = label.trim()
-        this.$emit('input', [key, label2])
-      }
-    }
+const compute_style = computed(() =>
+  props.width ? `width: ${props.width}` : undefined
+)
+
+const mVal = computed({
+  get() {
+    return props.modelValue
+      ? { value: props.modelValue[0], label: props.modelValue[1] }
+      : { value: 0, label: '' }
   },
-  methods: {
-    handleChange(value) {
-      const { key, label } = value
-      const label2 = label.trim()
-      this.$emit('change', [key, label2])
-    }
+  set(val) {
+    const { value, label } = val
+    const label2 = label.trim()
+    emit('update:modelValue', [value, label2])
   }
+})
+
+function handleChange(value) {
+  const { key, label } = value
+  const label2 = label.trim()
+  emit('change', [key, label2])
 }
 </script>
 

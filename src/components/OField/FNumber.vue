@@ -1,50 +1,38 @@
 <template>
   <span>
-    <template v-if="!editable || readonly">
-      {{ value_display }}
+    <template v-if="readonly">
+      {{ dVal }}
     </template>
 
     <template v-else>
-      <OInputNumber v-model="value2" :width="width" @change="handleChange" />
+      <!-- edit: {{ [fieldName, mVal, dVal, onChange] }} -->
+      <OInputNumber
+        v-model="mVal"
+        :width="width"
+        :placeholder="fieldInfo.string"
+        @change="onChange"
+      />
     </template>
   </span>
 </template>
 
-<script>
-import OFMixin from './OFMixin'
+<script setup>
+import { defineProps, defineEmits } from 'vue'
+import { useFNumber } from './FNumberApi'
+
 import OInputNumber from '@/components/OInput/OInputNumber.vue'
 
-export default {
-  name: 'FNumber',
-  components: { OInputNumber },
-  mixins: [OFMixin],
-  props: {
-    value: { type: Number, default: 0 }
-  },
-  data() {
-    return {}
-  },
-  computed: {
-    value_display() {
-      const value = this.value_edit
-      if (this.fieldInfo.widget === 'monetary') {
-        const value2 = value || 0.0
-        const value3 = value2.toFixed(2)
-        return value3
-      } else {
-        return value
-      }
-    }
-  },
+const props = defineProps([
+  'modelValue',
+  'width',
+  'fieldName',
+  'fieldInfo',
+  'formInfo'
+])
 
-  watch: {},
+const emit = defineEmits(['update:modelValue', 'change'])
 
-  created() {},
-
-  mounted() {},
-
-  methods: {}
-}
+const { mVal, dVal, readonly, onChange } = useFNumber(props, { emit })
 </script>
 
 <style type="text/css"></style>

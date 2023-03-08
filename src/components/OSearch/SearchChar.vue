@@ -1,59 +1,45 @@
+<!--
+ * @Author: Nxf
+ * @Date: 2023-02-11 22:39:08
+ * @LastEditors: Nxf
+ * @LastEditTime: 2023-02-12 11:31:40
+ * @Descripttion: 
+-->
 <template>
   <span>
-    <span>
-      {{ title }}
-    </span>
+    <span> {{ title }}: </span>
+
     <a-select
-      v-model="value2"
+      v-model:value="state.mVal"
       mode="tags"
-      style="width: 300px;"
+      style="width: 200px;padding-right: 8px;"
       :placeholder="placeholder"
-      @change="handleChange"
       size="small"
+      @change="handleChange"
     >
     </a-select>
   </span>
 </template>
 
-<script>
-export default {
-  name: 'SearchChar',
+<script setup>
+import { defineProps, defineEmits, reactive, watch } from 'vue'
+const props = defineProps(['modelValue', 'title', 'placeholder'])
+const emit = defineEmits(['change'])
+const state = reactive({
+  mVal: []
+})
 
-  components: {},
-
-  mixins: [],
-
-  props: {
-    title: { type: String, default: undefined },
-    value: { type: Array, default: () => [] },
-    placeholder: { type: String, default: undefined }
-  },
-
-  data() {
-    return {
-      value2: []
-    }
-  },
-  computed: {},
-  watch: {
-    value: {
-      handler: function (val = []) {
-        this.value2 = val.map(item => item.string)
-      },
-      deep: true
-    }
-  },
-
-  async created() {},
-
-  mounted() {},
-
-  methods: {
-    handleChange(value) {
-      // console.log(value)
-      this.$emit('change', value)
-    }
+watch(
+  () => props.modelValue,
+  // eslint-disable-next-line no-unused-vars
+  (newVal, oldVal) => {
+    state.mVal = newVal
   }
+)
+
+function handleChange(value) {
+  console.log(value)
+  emit('change', value)
 }
 </script>
 

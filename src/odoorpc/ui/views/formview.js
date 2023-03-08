@@ -52,6 +52,147 @@ export class FormView extends BaseView {
     return header
   }
 
+  view_sheet(fields_ready) {
+    const sheet_get = () => {
+      const { view } = this.view_info
+      const { arch = {} } = view
+
+      // if (fields_ready) {
+
+      // }
+
+      if (arch.sheet) {
+        return arch.sheet
+      }
+
+      // if (!fields_ready) {
+      //   return {}
+      // }
+
+      const fields = this.action_info.views[this._type].fields
+
+      const fs = Object.keys(fields)
+        .filter(item => !fields[item].invisible && !fields[item].is_title)
+        .reduce((acc, fld) => {
+          const tname = `_group_${fld}`
+          const meta = {
+            [fld]: fields[fld]
+          }
+          if (fields[fld].span) {
+            meta._span = fields[fld].span
+          }
+
+          acc[tname] = meta
+
+          return acc
+        }, {})
+
+      const title_nodes = Object.keys(fields).filter(
+        item => !fields[item].invisible && fields[item].is_title
+      )
+
+      if (title_nodes.length) {
+        fs._title = {
+          [title_nodes[0]]: fields[title_nodes[0]]
+        }
+      }
+
+      return fs
+    }
+
+    const sheet = sheet_get()
+
+    // console.log(sheet)
+
+    const meta_get = (fld, meta = {}) => {
+      if (fields_ready) {
+        return { ...this.fields[fld], ...meta, name: fld }
+      } else {
+        return { ...meta, name: fld }
+      }
+    }
+
+    const title0 = sheet._title || {}
+    const title = Object.keys(title0).reduce((acc, fld) => {
+      acc[fld] = meta_get(fld)
+      return acc
+    }, {})
+
+    // console.log(title)
+
+    function item_get(node) {
+      return Object.keys(node).reduce((acc, item) => {
+        if (item[0] === '_') {
+          const attr = item.substring(1)
+          acc[attr] = node[item]
+        } else {
+          if (!acc.children) {
+            acc.children = {}
+          }
+          acc.children[item] = meta_get(item, node[item])
+        }
+
+        return acc
+      }, {})
+    }
+
+    const sheet_items = Object.keys(sheet)
+      .filter(item => item !== '_title')
+      .reduce(
+        (acc, item) => {
+          const node = item_get(sheet[item])
+
+          if (node.span) {
+            if (acc.y) {
+              const tname = `group_${acc.x}_1`
+              acc.data[tname] = {
+                name: tname,
+                x: acc.x,
+                y: acc.y,
+                children: {}
+              }
+              acc.y = 0
+              acc.x = acc.x + 1
+            }
+          }
+
+          acc.data[item] = { name: item, x: acc.x, y: acc.y, ...node }
+
+          if (node.span) {
+            acc.y = 1
+          }
+
+          acc.y = 1 - acc.y
+          if (!acc.y) {
+            acc.x = acc.x + 1
+          }
+
+          return acc
+        },
+        { data: {}, x: 0, y: 0 }
+      )
+
+    const total_len = Object.keys(sheet_items.data).length
+
+    if (total_len) {
+      const last_fld = Object.keys(sheet_items.data)[total_len - 1]
+      const last = sheet_items.data[last_fld]
+      if (!last.y && !last.span) {
+        const tname = `group_${last.x}_1`
+        sheet_items.data[tname] = {
+          name: tname,
+          x: last.x,
+          y: 1,
+          children: {}
+        }
+      }
+    }
+
+    // console.log('sheet_items', sheet_items.data)
+
+    return { title, children: sheet_items.data }
+  }
+
   arch_buttons(record_in, values) {
     const { view } = this.view_info
     const { arch = {} } = view
@@ -86,7 +227,7 @@ export class FormView extends BaseView {
     return state_flds.length ? state_flds[0] : 'state'
   }
 
-  view_statusbar(record, values) {
+  view_statusbar() {
     const header = this.view_header
 
     const state_field_name = this.state_field_name
@@ -100,15 +241,7 @@ export class FormView extends BaseView {
       return []
     }
 
-    const statusbar_visible_get = () => {
-      if (typeof fld_state.statusbar_visible === 'function') {
-        return fld_state.statusbar_visible({ record: { ...record, ...values } })
-      } else {
-        return fld_state.statusbar_visible
-      }
-    }
-
-    const statusbar = statusbar_visible_get().split(',')
+    const statusbar = fld_state.statusbar_visible.split(',')
     return statusbar
   }
 
@@ -137,11 +270,10 @@ export class FormView extends BaseView {
     return btns2
   }
 
-  header_statusbar_visible(record, values) {
+  header_statusbar_visible(current_state) {
     const state_field_name = this.state_field_name
 
-    const current_state = { ...record, ...values }[state_field_name]
-    const states = this.view_statusbar(record, values)
+    const states = this.view_statusbar()
 
     if (!states.length) {
       return []

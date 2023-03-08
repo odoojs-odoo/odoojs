@@ -1,44 +1,48 @@
 <template>
-  <span v-if="readonly || !editable">
-    {{ value_display }}
+  <span>
+    <template v-if="fieldInfo.widget === 'some widget'">
+      todo: {{ [fieldInfo.type, fieldInfo.widget] }}
+    </template>
+    <template v-else-if="fieldInfo.widget">
+      todo: {{ [fieldInfo.type, fieldInfo.widget] }}
+    </template>
+
+    <template v-else>
+      <template v-if="readonly">
+        {{ dVal }}
+      </template>
+
+      <template v-else>
+        <!-- edit: {{ [fieldName, mVal, dVal, onChange] }} -->
+
+        <ODatePicker
+          v-model="mVal"
+          :width="width"
+          :placeholder="fieldInfo.string"
+          :show-time="false"
+          @change="onChange"
+        />
+      </template>
+    </template>
   </span>
-  <div v-else>
-    edit: {{ [fieldInfo.type, fname] }}
-    <!-- <ODatePicker
-      :value="value"
-      :fname="fname"
-      :required="required"
-      :placeholder="node.attrs.placeholder"
-      :element-id="node.attrs.id || node.attrs.name"
-      :className="className"
-      @on-change="onchange"
-    /> -->
-  </div>
 </template>
 
-<script>
-import OFMixin from './OFMixin'
+<script setup>
+import { defineProps, defineEmits } from 'vue'
+import { useField } from './FieldApi'
+import ODatePicker from '@/components/OInput/ODatePicker.vue'
 
-// import ODatePicker from './OInput/ODatePicker.vue'
+const props = defineProps([
+  'modelValue',
+  'width',
+  'fieldName',
+  'fieldInfo',
+  'formInfo'
+])
 
-export default {
-  name: 'FDate',
-  // components: { ODatePicker },
-  mixins: [OFMixin],
-  props: {},
-  data() {
-    return {}
-  },
-  computed: {},
+const emit = defineEmits(['update:modelValue', 'change'])
 
-  watch: {},
-
-  created() {},
-
-  mounted() {},
-
-  methods: {}
-}
+const { mVal, dVal, readonly, onChange } = useField(props, { emit })
 </script>
 
 <style type="text/css"></style>
