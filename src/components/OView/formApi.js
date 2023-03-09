@@ -276,9 +276,8 @@ export function useForm(props, ctx) {
 
   return {
     mVal: computed(() => state.mVal),
-
+    fields: computed(() => state.fields), // 自定义页面需要
     sheet: sheet,
-    record: state.record,
     formInfo: computed(() => {
       return {
         viewInfo: state.viewInfo,
@@ -290,7 +289,6 @@ export function useForm(props, ctx) {
     buttons,
     currentState,
     statusbarVisible,
-    // checkInvisible,
     getRules,
     onChange,
     onClickCRUD

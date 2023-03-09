@@ -57,10 +57,6 @@ export class FormView extends BaseView {
       const { view } = this.view_info
       const { arch = {} } = view
 
-      // if (fields_ready) {
-
-      // }
-
       if (arch.sheet) {
         return arch.sheet
       }

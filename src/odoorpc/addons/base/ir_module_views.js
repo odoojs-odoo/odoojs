@@ -4,17 +4,40 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'ir.module.module',
     type: 'form',
-    buttons: { create: false, edit: false },
-    fields: {
-      display_name: {},
-      icon_image: { widget: 'image' },
-      shortdesc: {},
-      author: {},
+    buttons: { create: false, edit: false, delete: false },
+    arch: {
+      header: {
+        buttons: [
+          // button_immediate_install
+        ],
+        fields: {}
+      },
+      sheet: {
+        _title: {
+          display_name: {}
+        },
 
-      name: {},
-      website: {},
-      installed_version: {},
-      state: {}
+        _group_website: {
+          website: { widget: 'url' },
+          author: {},
+          category_id: {},
+          summary: {},
+          shortdesc: {}
+        },
+
+        _group_name: {
+          icon_image: { widget: 'image' },
+          name: {},
+          license: {},
+          installed_version: {}
+        },
+
+        _group_state: {
+          demo: {},
+          application: {},
+          state: {}
+        }
+      }
     }
   },
 
@@ -22,11 +45,12 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'ir.module.module',
     type: 'tree',
-    buttons: { create: false },
+    buttons: { create: false, edit: false, delete: false },
     fields: {
       shortdesc: {},
       name: {},
       author: {},
+      website: {},
       installed_version: {},
       state: {},
       category_id: {}

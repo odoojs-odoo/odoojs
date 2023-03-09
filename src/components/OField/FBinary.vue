@@ -1,6 +1,7 @@
 <template>
   <span>
     <template v-if="fieldInfo.widget === 'image'">
+      todo widget === image
       <!-- <WImage
         v-model="value"
         :editable="editable"
@@ -15,7 +16,7 @@
     </template>
 
     <template v-else>
-      <template v-if="!editable || readonly">
+      <template v-if="readonly">
         // todo
         <!-- <van-field :label="fieldInfo.string" readonly :value="value_display" /> -->
       </template>
@@ -25,38 +26,23 @@
   </span>
 </template>
 
-<script>
-// todo
-//
-// import OFMixin from './OFMixin'
+<script setup>
+import { defineProps, defineEmits } from 'vue'
+import { useField } from './FieldApi'
 
 // import WImage from './WImage.vue'
 
-export default {
-  name: 'FBinary',
-  components: { WImage },
-  mixins: [OFMixin],
-  props: {
-    viewInfo: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
-  },
-  data() {
-    return {}
-  },
-  computed: {},
+const props = defineProps([
+  'modelValue',
+  'width',
+  'fieldName',
+  'fieldInfo',
+  'formInfo'
+])
 
-  watch: {},
+const emit = defineEmits(['update:modelValue', 'change'])
 
-  created() {},
-
-  mounted() {},
-
-  methods: {}
-}
+const { mVal, dVal, readonly, onChange } = useField(props, { emit })
 </script>
 
 <style type="text/css"></style>

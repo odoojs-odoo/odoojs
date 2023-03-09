@@ -38,23 +38,6 @@ export default {
           active: {}
         }
       }
-    },
-
-    fields: {
-      display_name: {},
-      name: {},
-      bic: {},
-
-      street: {},
-      street2: {},
-      city: {},
-      state: {},
-      zip: {},
-      country: {},
-
-      phone: {},
-      email: {},
-      active: {}
     }
   },
   view_res_bank_tree: {

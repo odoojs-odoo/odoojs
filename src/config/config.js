@@ -25,8 +25,3 @@ export const web_fields_list = [local_fields, odoo_fields]
 
 const localModels = require.context('@/local_addons_model', true, /\.js$/)
 export const web_models_list = [localModels]
-
-export const OViewComponents = {
-  // 'base.action_res_users.form': ResUsers,
-  // 'fp_setting.action_user.form': ResUsers
-}

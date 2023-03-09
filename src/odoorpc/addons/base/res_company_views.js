@@ -5,29 +5,49 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.company',
     type: 'form',
+
+    arch: {
+      header: {
+        buttons: [],
+        fields: {}
+      },
+      sheet: {
+        _title: {
+          display_name: {}
+        },
+
+        _group_name: {
+          partner_id: { readonly2: '1' },
+          name: {}
+        },
+
+        _group_logo: {
+          logo: { widget: 'image' }
+        },
+
+        _group_address: {
+          street: {},
+          street2: {},
+          city: {},
+          state_id: {},
+          zip: {},
+          country_id: {},
+          company_registry: {},
+          currency_id: {}
+        },
+
+        _group_phone: {
+          phone: {},
+          mobile: {},
+          email: {},
+          website: {},
+          parent_id: {}
+        }
+      }
+    },
+
     fields: {
-      logo: { widget: 'image' },
-      name: {},
-      partner_id: { readonly2: '1' },
-
-      street: {},
-      street2: {},
-      city: {},
-      state_id: {},
-      zip: {},
-      country_id: {},
-
-      company_registry: {},
-
-      currency_id: {},
-
-      phone: {},
-      mobile: {},
-      email: {},
-      website: {},
-      parent_id: {},
-      sequence: {}
-      // favicon: { widget: 'image' }
+      sequence: { invisible: 1 }
     }
   },
   view_company_tree: {

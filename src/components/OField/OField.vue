@@ -50,6 +50,8 @@ import FBoolean from '@/components/OField/FBoolean.vue'
 import FM2mTags from '@/components/OField/FM2mTags.vue'
 import FOne2many from '@/components/OField/FOne2many.vue'
 
+import FBinary from '@/components/OField/FBinary.vue'
+
 const props = defineProps([
   'modelValue',
   'width',
@@ -70,7 +72,8 @@ const widgetMap = {
   FDatetime,
   FBoolean,
   FM2mTags,
-  FOne2many
+  FOne2many,
+  FBinary
 }
 
 const { widgetName, mVal, onChange } = useField(props, { emit })

@@ -6,7 +6,6 @@ const load_from_files = files => {
   return files.keys().reduce((models, modulePath) => {
     const value = files(modulePath)
     // console.log('AddonsFields,', modulePath, value)
-
     models = { ...models, ...value.default }
     return models
   }, {})
@@ -17,6 +16,7 @@ const AddonsFields = load_from_files(AddonsFieldsFiles)
 const load_from_files_list = files_list => {
   return files_list.reduce((acc, files) => {
     const acc2 = load_from_files(files)
+    // console.log('addons fields 2', acc2)
     return { ...acc, ...acc2 }
   }, {})
 }
@@ -107,7 +107,37 @@ export class BaseView {
     const model = this.res_model
     const Model = this.env.model(model)
     const action = this.action_info
-    const fields_raw = action.views[this._type].fields
+
+    const fields_raw_get_from_sheet = () => {
+      const { view } = this.view_info
+      const { arch = {} } = view
+      const { sheet = {} } = arch
+
+      return Object.keys(sheet).reduce((acc, cur) => {
+        const acc2_res = Object.keys(sheet[cur]).reduce((acc2, cur2) => {
+          if (cur2[0] !== '_') {
+            acc2[cur2] = sheet[cur][cur2]
+          }
+
+          return acc2
+        }, {})
+
+        acc = { ...acc, ...acc2_res }
+
+        return acc
+      }, {})
+    }
+
+    const fields_raw_get = () => {
+      const fs = fields_raw_get_from_sheet()
+      // console.log(fs)
+      const fs2 = action.views[this._type].fields || {}
+
+      return { ...fs2, ...fs }
+    }
+
+    const fields_raw = fields_raw_get()
+
     const fields_list = Object.keys(fields_raw)
     const info = await Model.fields_get(fields_list)
 

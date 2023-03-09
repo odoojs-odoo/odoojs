@@ -36,7 +36,7 @@ import api from '@/odoorpc'
 
 // const views = { tree: TreeView, form: FormView }
 
-import { OViewComponents as components } from '@/config/config'
+import { OViewComponents as components } from '@/config/local_view'
 
 const { actionId, viewType, resId } = userCurrentRoute()
 
