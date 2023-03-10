@@ -29,9 +29,6 @@
 
 <script setup>
 import { defineProps, defineEmits, computed } from 'vue'
-// import { PlusOutlined } from '@ant-design/icons-vue'
-
-// {/* <search-outlined /> */}
 
 function VNodes(_, { attrs }) {
   return attrs.vnodes
@@ -79,7 +76,6 @@ function dropdownVisibleChange(open) {
 }
 
 function handleChange(value) {
-  console.log('onchange m2o,', value)
   const { key, label } = value
   const label2 = label.trim()
   emit('change', [key, label2])
