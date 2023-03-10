@@ -1,25 +1,20 @@
 <template>
   <span>
     <template v-if="fieldInfo.widget === 'image'">
-      todo widget === image
-      <!-- <WImage
-        v-model="value"
-        :editable="editable"
+      <!-- todo widget === image -->
+      <WImage
+        :width="width"
+        :field-name="fieldName"
         :field-info="fieldInfo"
-        :view-info="viewInfo"
-        :data-info="dataInfo"
-        @change="(fname, value) => handleChange(value)"
-      /> -->
+        :form-info="formInfo"
+      />
     </template>
     <template v-else-if="fieldInfo.widget">
       todo: {{ fieldInfo.widget }}
     </template>
 
     <template v-else>
-      <template v-if="readonly">
-        // todo
-        <!-- <van-field :label="fieldInfo.string" readonly :value="value_display" /> -->
-      </template>
+      <template v-if="readonly"> // todo </template>
 
       <template v-else> // todo</template>
     </template>
@@ -30,7 +25,7 @@
 import { defineProps, defineEmits } from 'vue'
 import { useField } from './FieldApi'
 
-// import WImage from './WImage.vue'
+import WImage from './WImage.vue'
 
 const props = defineProps([
   'modelValue',

@@ -55,7 +55,7 @@ export default {
     model: 'res.company',
     type: 'tree',
     fields: {
-      sequence: {},
+      // sequence: {},
       name: {},
       partner_id: {}
     }

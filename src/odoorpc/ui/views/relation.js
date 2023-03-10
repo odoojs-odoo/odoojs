@@ -219,7 +219,7 @@ export class Relation extends Field {
     // console.log(this.field_info)
     // console.log('load_select_options', kwargs_in)
 
-    const { args = [], record = {} } = kwargs_in
+    const { args = [], record = {}, limit = 8, ...kwargs } = kwargs_in
 
     const domain_get = () => {
       const domain = this.field_info.domain || []
@@ -231,13 +231,11 @@ export class Relation extends Field {
     }
 
     const domain = domain_get()
-    const kwargs = { ...kwargs_in }
-    delete kwargs.record
 
     return this.Model.name_search({
-      ...kwargs,
       args: [...args, ...domain],
-      limit: 0
+      limit,
+      ...kwargs
     })
   }
 

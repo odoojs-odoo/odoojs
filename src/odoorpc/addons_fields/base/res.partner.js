@@ -2,7 +2,11 @@ const ModelFields = {
   name: { string: 'Name' },
   display_name: {},
 
-  parent_id: {},
+  parent_id: {
+    domain: () => {
+      return [['is_company', '=', true]]
+    }
+  },
 
   image_1920: {},
   is_company: {},
@@ -16,10 +20,16 @@ const ModelFields = {
     name: '州省',
     domain: ({ record }) => {
       // domain="[('country_id', '=?', country_id)]"
+
       const { country_id } = record
-      return [['country_id', '=?', country_id]]
+
+      const country_id2 = country_id || [false, '']
+      const country_id3 = country_id2[0]
+      return [['country_id', '=?', country_id3]]
     }
-  }
+  },
+
+  user_id: { domain: [['share', '=', false]] }
 }
 
 const TitleFields = {

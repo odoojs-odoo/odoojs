@@ -62,10 +62,6 @@ export default {
       },
 
       parent_id: {
-        domain: () => {
-          return [['is_company', '=', true]]
-        },
-
         invisible: ({ record }) => {
           const { is_company, parent_id, company_name } = record
           return (is_company && !parent_id) || company_name
@@ -109,11 +105,6 @@ export default {
         }
       },
       state_id: {
-        domain: ({ record }) => {
-          // domain="[('country_id', '=?', country_id)]"
-          const { country_id } = record
-          return [['country_id', '=?', country_id]]
-        },
         readonly({ record }) {
           const { type, parent_id } = record
           return type === 'contact' && parent_id
@@ -183,7 +174,7 @@ export default {
         }
       },
 
-      user_id: { domain: [['share', '=', false]] },
+      user_id: {},
       ref: {},
       company_id: {},
       industry_id: {
