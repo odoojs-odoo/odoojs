@@ -93,11 +93,27 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.country.group',
     type: 'form',
-    fields: {
-      name: {},
-      country_ids: {
-        widget: 'many2many_tags'
+    arch: {
+      header: {
+        buttons: [],
+        fields: {}
+      },
+      sheet: {
+        _title: {
+          display_name: {}
+        },
+
+        _group_name: {
+          _span: 2,
+          name: {},
+          country_ids: {
+            widget: 'many2many_tags'
+          }
+        }
       }
+    },
+
+    fields: {
       // pricelist_ids: {
       //   widget: 'x2many_tree',
       //   views: {

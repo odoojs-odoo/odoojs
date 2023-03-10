@@ -85,16 +85,33 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.partner.bank',
     type: 'form',
-    fields: {
-      display_name: {},
-      sequence: {},
-      acc_type: {},
-      acc_number: {},
-      partner_id: {},
-      company_id: {},
-      bank_id: {},
-      acc_holder_name: {},
-      active: {}
+    arch: {
+      header: {
+        buttons: [],
+        fields: {}
+      },
+      sheet: {
+        _title: {
+          display_name: {}
+        },
+
+        _group_name: {
+          // sequence: {},
+          // acc_type: {},
+          acc_number: {},
+          company_id: {},
+          partner_id: {},
+          acc_holder_name: {}
+        },
+
+        _group_bank: {
+          bank_id: {},
+          currency_id: {},
+          allow_out_payment: { widget: 'boolean_toggle' },
+
+          active: {}
+        }
+      }
     }
   },
 
@@ -108,7 +125,7 @@ export default {
       bank_name: {},
       company_id: {},
       partner_id: {},
-      acc_holder_name: {}
+      acc_holder_name: { widget: 'boolean_toggle' }
     }
   },
 

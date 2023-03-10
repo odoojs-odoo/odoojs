@@ -1,17 +1,27 @@
 <template>
   <span>
-    <template v-if="readonly">
-      {{ dVal }}
+    <template v-if="fieldInfo.widget === 'sometiong'">
+      todo: {{ [fieldInfo.type, fieldInfo.widget, dVal] }}
+    </template>
+
+    <template v-else-if="fieldInfo.widget">
+      todo: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
 
     <template v-else>
-      <!-- edit: {{ [fieldName, mVal, dVal, onChange] }} -->
-      <OInputNumber
-        v-model="mVal"
-        :width="width"
-        :placeholder="fieldInfo.string"
-        @change="onChange"
-      />
+      <template v-if="readonly">
+        {{ dVal }}
+      </template>
+
+      <template v-else>
+        <!-- edit: {{ [fieldName, mVal, dVal, onChange] }} -->
+        <OInputNumber
+          v-model="mVal"
+          :width="width"
+          :placeholder="fieldInfo.string"
+          @change="onChange"
+        />
+      </template>
     </template>
   </span>
 </template>
