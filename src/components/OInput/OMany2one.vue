@@ -7,6 +7,7 @@
     :options="selectOptions"
     :placeholder="placeholder"
     :style="compute_style"
+    @dropdownVisibleChange="dropdownVisibleChange"
     @change="handleChange"
   >
     <template #dropdownRender="{ menuNode: menu }">
@@ -37,7 +38,12 @@ function VNodes(_, { attrs }) {
 }
 
 const props = defineProps(['modelValue', 'options', 'width', 'placeholder'])
-const emit = defineEmits(['update:modelValue', 'change', 'search-more'])
+const emit = defineEmits([
+  'update:modelValue',
+  'dropdown-visible-change',
+  'change',
+  'search-more'
+])
 
 const selectOptions = computed(() =>
   props.options.slice(0, 7).map(item => {
@@ -65,6 +71,12 @@ const mVal = computed({
     emit('update:modelValue', [value, label2])
   }
 })
+
+function dropdownVisibleChange(open) {
+  if (open) {
+    emit('dropdown-visible-change', open)
+  }
+}
 
 function handleChange(value) {
   console.log('onchange m2o,', value)

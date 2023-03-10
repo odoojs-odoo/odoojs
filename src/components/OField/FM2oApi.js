@@ -57,6 +57,16 @@ export function useFM2o(props, ctx) {
     // console.log(props.info.fieldInfo.name)
   })
 
+  async function dropdownVisibleChange(open) {
+    if (open) {
+      const domain = props.fieldInfo.domain
+      if (typeof domain === 'function') {
+        const ops = await loadSelectOptions(props.formInfo, props.fieldInfo, 8)
+        optionsRaw.value = ops
+      }
+    }
+  }
+
   const moreRecords = ref([])
   const moreVisible = ref(false)
 
@@ -87,6 +97,7 @@ export function useFM2o(props, ctx) {
   return {
     ...fieldData,
     readonly,
+    dropdownVisibleChange,
     onChange,
     dVal,
     options,

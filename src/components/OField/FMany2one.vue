@@ -27,6 +27,7 @@
           :width="width"
           :placeholder="fieldInfo.string"
           :options="options"
+          @dropdownVisibleChange="dropdownVisibleChange"
           @change="onChange"
           @search-more="searchMore"
         />
@@ -77,6 +78,7 @@ const {
   dVal,
   readonly,
   options,
+  dropdownVisibleChange,
   onChange,
   searchMore,
   moreVisible,
