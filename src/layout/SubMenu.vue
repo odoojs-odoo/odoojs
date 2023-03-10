@@ -14,7 +14,7 @@
           <component :is="$antIcons[item.icon]" />
         </template>
         <template #title>
-          {{ item.name }}
+          {{ _t(item.name) }}
         </template>
 
         <SubMenu
@@ -28,34 +28,45 @@
     <template v-else>
       <a-menu-item :key="item.id">
         <component :is="$antIcons[item.icon]" />
-        <span> {{ item.name }}</span>
+        <span> {{ _t(item.name) }}</span>
       </a-menu-item>
     </template>
   </template>
 </template>
 
-<script>
-import { defineComponent, onMounted } from 'vue'
+<script setup>
+import { defineProps } from 'vue'
+import { useL10n } from '@/components/tools/useL10n'
 
-export default defineComponent({
-  name: 'SubMenu',
-  props: ['menuData', 'collapsed'],
+defineProps(['menuData', 'collapsed'])
 
-  setup() {
-    function is_sub_menu(menu) {
-      const is_sub_menu =
-        menu.children && Array.isArray(menu.children) && menu.children.length
-      // console.log('------',$icons);
-      return is_sub_menu || !menu.action
-    }
-    onMounted(() => {
-      // console.log('------',);
-    })
-    return {
-      is_sub_menu
-    }
-  }
-})
+const { _t } = useL10n()
+
+function is_sub_menu(menu) {
+  const is_sub_menu =
+    menu.children && Array.isArray(menu.children) && menu.children.length
+  // console.log('------',$icons);
+  return is_sub_menu || !menu.action
+}
+
+// import { defineComponent,  } from 'vue'
+
+// export default defineComponent({
+//   props: ['menuData', 'collapsed'],
+
+//   setup() {
+//     function is_sub_menu(menu) {
+//       const is_sub_menu =
+//         menu.children && Array.isArray(menu.children) && menu.children.length
+//       // console.log('------',$icons);
+//       return is_sub_menu || !menu.action
+//     }
+
+//     return {
+//       is_sub_menu
+//     }
+//   }
+// })
 </script>
 
 <style scoped></style>
