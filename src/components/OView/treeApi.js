@@ -2,6 +2,7 @@ import { watch, computed, reactive } from 'vue'
 import api from '@/odoorpc'
 
 import { useTreeColumns } from '@/components/tools/treeColumns'
+
 function sleep(millisecond) {
   return new Promise(resolve => {
     setTimeout(() => {

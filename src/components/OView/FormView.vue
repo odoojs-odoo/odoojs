@@ -61,7 +61,7 @@
                 <template v-if="meta.type">
                   <a-form-item
                     :name="meta.name"
-                    :label="!meta.noLabel ? meta.string : undefined"
+                    :label="_t(meta.string)"
                     :rules="getRules(meta)"
                     style="margin-bottom: 5px"
                   >
@@ -89,12 +89,18 @@ import { defineProps, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useForm } from './formApi'
 
+import { useL10n } from '@/components/tools/useL10n'
+
 import StatusBar from './StatusBar.vue'
 
 import OField from '@/components/OField/OField.vue'
+
 const router = useRouter()
 const props = defineProps(['actionId', 'resId'])
 const editRef = ref()
+
+const { _t } = useL10n()
+
 const {
   mVal,
   sheet,

@@ -60,10 +60,10 @@
             font-weight: bold;
           "
         >
-          {{ app_title }}
+          {{ $t('mainTitle.projectTitle') }}
         </div>
         <!-- 下拉 -->
-
+        <Lang class="langSelect"/>
         <a-dropdown>
           <a class="userInfo" @click.prevent>
             {{ session_info.name }}
@@ -121,14 +121,13 @@
         <router-view />
       </a-layout-content>
       <a-layout-footer id="layoutFooter">
-        {{ app_footer }}
+        {{ $t('mainTitle.projectTitle') }} {{ $t('mainTitle.copyright') }} {{ $t('mainTitle.supplier') }} 
       </a-layout-footer>
     </a-layout>
   </a-layout>
 </template>
 
 <script>
-import { app_title, app_footer } from '@/config/menu'
 import { menus_tree_get, menus_data_get } from '@/config/menu'
 
 import {
@@ -148,7 +147,7 @@ import {
   toRaw
 } from 'vue'
 import { useRouter } from 'vue-router'
-
+import Lang from '@/components/Lang.vue'
 import SubMenu from './SubMenu'
 import api from '@/odoorpc'
 
@@ -159,7 +158,8 @@ export default defineComponent({
     MenuUnfoldOutlined,
     HomeTwoTone,
     DownOutlined,
-    SubMenu
+    SubMenu,
+    Lang
   },
   setup() {
     const router = useRouter()
@@ -378,8 +378,6 @@ export default defineComponent({
       activeKey.value = name
     }
     return {
-      app_title,
-      app_footer,
       state,
       ...toRefs(state),
       panes,

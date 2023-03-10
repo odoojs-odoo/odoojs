@@ -65,7 +65,6 @@ export function useForm(props, ctx) {
 
   const sheet = computed(() => {
     if (state.formviewReady && localState.formview) {
-      // console.log(state.formviewFieldReady)
       const sheet0 = localState.formview.view_sheet(state.formviewFieldReady)
 
       return sheet0

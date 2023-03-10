@@ -1,8 +1,12 @@
 import { toRaw } from 'vue'
 import api from '@/odoorpc'
 
+import { useL10n } from './useL10n'
+
 export function useTreeColumns() {
   function computedColumns(fields) {
+    const l10n = useL10n()
+
     function formatGet(meta) {
       function valueGet(record) {
         return record[meta.name]
@@ -29,14 +33,16 @@ export function useTreeColumns() {
       function valueGetSelection(record) {
         const get_label = value => {
           const elm = meta.selection.find(item => item[0] === value)
-          return elm ? elm[1] : ''
+          return elm ? l10n._t(elm[1]) : ''
         }
         const value = toRaw(record[meta.name])
         return value ? get_label(value) : ''
       }
 
       function valueGetBoolean(record) {
-        return toRaw(record[meta.name]) ? '是' : '否'
+        return toRaw(record[meta.name])
+          ? l10n._t({ en_US: 'Yes', zh_CN: '是' })
+          : l10n._t({ en_US: 'No', zh_CN: '否' })
       }
 
       function valueGetMany2many(record) {
@@ -69,10 +75,11 @@ export function useTreeColumns() {
       .filter(item => !fields[item].invisible)
       .map(fld => {
         const meta = fields[fld] || {}
+
         return {
           dataIndex: fld,
           key: fld,
-          title: meta.string,
+          title: l10n._t(meta.string),
           ellipsis: 'ellipsis' in meta ? meta.ellipsis : true,
           align: 'center',
           width: meta.web_col_width,

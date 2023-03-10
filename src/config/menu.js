@@ -26,6 +26,3 @@ export const menus_tree_get = () => {
   const odoo_menus = odoo_menus_tree_get()
   return [...local_tree, ...odoo_menus]
 }
-
-export const app_title = '欢迎使用 odoojs'
-export const app_footer = 'odoojs ©2021 北京斑马线科技有限公司'
