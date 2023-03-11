@@ -22,7 +22,7 @@ export function useL10n() {
     return langCode
   })
 
-  function _t(str) {
+  function tr(str) {
     if (typeof str === 'string') return str
     else {
       const str2 = str || {}
@@ -49,5 +49,5 @@ export function useL10n() {
     }
   }
 
-  return { lang, _t }
+  return { lang, tr }
 }

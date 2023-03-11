@@ -26,7 +26,6 @@
       <!-- style="width: 256px"
         mode="inline" -->
       <a-menu
-        id="mainMenu"
         v-model:openKeys="openKeys"
         v-model:selectedKeys="selectedKeys"
         @click="onMenuClick"
@@ -167,7 +166,7 @@ export default defineComponent({
   setup() {
     const router = useRouter()
 
-    const { _t } = useL10n()
+    const { tr } = useL10n()
 
     const menus_tree = computed(() => menus_tree_get())
     const menus_data = computed(() => menus_data_get())
@@ -208,7 +207,7 @@ export default defineComponent({
         if (old == undefined) {
           // console.log('-=-==-=-=---- old == undefined');
           // panes.value = [...panes, { title: menu.name, key: name }]
-          const newItem = { title: _t(menu.name), key: name }
+          const newItem = { title: tr(menu.name), key: name }
           panes.value.push(newItem)
           // console.log('------= new panes.value  =------',panes.value);
         }
@@ -376,7 +375,7 @@ export default defineComponent({
       if (old == undefined) {
         // console.log('-=-==-=-=---- old == undefined');
         // panes.value = [...panes, { title: menu.name, key: name }]
-        const newItem = { title: _t(menu.name), key: name }
+        const newItem = { title: tr(menu.name), key: name }
         panes.value.push(newItem)
         // console.log('------= new panes.value  =------', panes.value);
       }

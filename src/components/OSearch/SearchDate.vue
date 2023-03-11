@@ -67,7 +67,7 @@ const buttons = computed(() => [
     }
   },
   {
-    key: 'last_3_months',
+    key: 'last_6_months',
     label: '近半年',
     date_get: () => {
       const today = date_tools.today

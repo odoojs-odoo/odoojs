@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2023-02-05 15:40:56
  * @LastEditors: Nxf
- * @LastEditTime: 2023-02-06 11:33:52
+ * @LastEditTime: 2023-03-11 21:37:53
  * @Descripttion: 
 -->
 <template>
@@ -14,7 +14,7 @@
           <component :is="$antIcons[item.icon]" />
         </template>
         <template #title>
-          {{ _t(item.name) }}
+          <span>{{ tr(item.name) }}</span>
         </template>
 
         <SubMenu
@@ -28,7 +28,7 @@
     <template v-else>
       <a-menu-item :key="item.id">
         <component :is="$antIcons[item.icon]" />
-        <span> {{ _t(item.name) }}</span>
+        <span>{{ tr(item.name) }}</span>
       </a-menu-item>
     </template>
   </template>
@@ -40,7 +40,7 @@ import { useL10n } from '@/components/tools/useL10n'
 
 defineProps(['menuData', 'collapsed'])
 
-const { _t } = useL10n()
+const { tr } = useL10n()
 
 function is_sub_menu(menu) {
   const is_sub_menu =
@@ -48,25 +48,6 @@ function is_sub_menu(menu) {
   // console.log('------',$icons);
   return is_sub_menu || !menu.action
 }
-
-// import { defineComponent,  } from 'vue'
-
-// export default defineComponent({
-//   props: ['menuData', 'collapsed'],
-
-//   setup() {
-//     function is_sub_menu(menu) {
-//       const is_sub_menu =
-//         menu.children && Array.isArray(menu.children) && menu.children.length
-//       // console.log('------',$icons);
-//       return is_sub_menu || !menu.action
-//     }
-
-//     return {
-//       is_sub_menu
-//     }
-//   }
-// })
 </script>
 
 <style scoped></style>

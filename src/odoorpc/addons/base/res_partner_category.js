@@ -27,9 +27,8 @@ export default {
 
         _group_name: {
           _span: 2,
-          // display_name: {},
           name: {},
-          color: { widget: 'color_picker' },
+          // color: { widget: 'color_picker' },
           parent_id: {},
           active: { widget: 'boolean_toggle' }
         }

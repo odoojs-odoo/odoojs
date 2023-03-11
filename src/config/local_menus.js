@@ -1,3 +1,6 @@
+import local_base from './local_base'
+
+import local_base_partner from './local_base_partner'
 export const local_menus_tree = [
   {
     id: 'bmx.root',
@@ -99,32 +102,6 @@ export const local_menus_tree = [
       zh_CN: '重组官方菜单',
       zh_HK: '重组官方菜单'
     },
-    children: [
-      {
-        id: 'odoo.base',
-        icon: 'shopping',
-        theme: 'twoTone',
-        name: { en_US: 'Base', zh_CN: '基础配置', zh_HK: '基础配置' },
-        children: [
-          {
-            action: 'base.action_res_bank_form',
-            id: 'odoo_base.action_res_bank_form',
-            icon: 'shopping',
-            name: { en_US: 'Bank', zh_CN: '银行', zh_HK: '銀行' }
-          },
-
-          {
-            action: 'base.action_res_partner_bank_account_form',
-            id: 'odoo_base.action_res_partner_bank_account_form',
-            icon: 'shopping',
-            name: {
-              en_US: 'Bank Account',
-              zh_CN: '银行账号',
-              zh_HK: '銀行帳號'
-            }
-          }
-        ]
-      }
-    ]
+    children: [local_base, local_base_partner]
   }
 ]

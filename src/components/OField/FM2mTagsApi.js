@@ -57,31 +57,6 @@ export function useFM2mTags(props, ctx) {
 
   const state = reactive({ records: [], options: [] })
 
-  const dVal = computed(() => {
-    // todo. 编辑过的数据
-    return state.records
-  })
-  const options = computed(() => state.options)
-
-  watch(
-    () => readonly.value,
-    async newVal => {
-      console.log(newVal)
-      if (!newVal) {
-        state.options = await loadSelectOptions(props.formInfo, props.fieldInfo)
-      }
-    },
-    { immediate: true }
-  )
-
-  watch(
-    () => props.formInfo.record[props.fieldName],
-    async newVal => {
-      state.records = await loadRelationData(props.fieldInfo, newVal)
-    },
-    { immediate: true }
-  )
-
   const mVal = computed({
     get() {
       function getTuples() {
@@ -97,8 +72,18 @@ export function useFM2mTags(props, ctx) {
       const tuples = getTuples()
       const ids = tuples_to_ids(tuples)
 
+      const records_dict = [state.options, ...state.records].reduce(
+        (acc, item) => {
+          acc[item[0]] = item[1]
+          return acc
+        },
+        {}
+      )
+
+      // console.log(ids, state.records)
+
       return ids.map(item => {
-        return { key: item, value: item }
+        return { value: item, label: records_dict[item] }
       })
     },
     // eslint-disable-next-line no-unused-vars
@@ -109,5 +94,56 @@ export function useFM2mTags(props, ctx) {
     }
   })
 
-  return { mVal, dVal, readonly, options }
+  const dVal = computed(() => {
+    // todo. 编辑过的数据
+    return state.records
+  })
+
+  const options = computed(() => {
+    const vals = state.records.filter(
+      item => !state.options.map(op => op[0]).includes(item[0])
+    )
+
+    return [...vals, ...state.options]
+  })
+
+  watch(
+    () => readonly.value,
+    async newVal => {
+      // console.log(newVal)
+      if (!newVal) {
+        state.options = await loadSelectOptions(props.formInfo, props.fieldInfo)
+      }
+    },
+    { immediate: true }
+  )
+
+  watch(
+    () => props.formInfo.record[props.fieldName],
+    async newVal => {
+      state.records = await loadRelationData(props.fieldInfo, newVal)
+    },
+    { immediate: true }
+  )
+
+  async function onSelectChange(value) {
+    const value2 = value.map(item => item.value)
+    // console.log(value, value2)
+    state.records = value.map(item => [item.value, item.label])
+    ctx.emit('change', [[6, false, value2]])
+  }
+
+  // const moreRecords = ref([])
+  // const moreVisible = ref(false)
+
+  async function searchMore() {
+    // const ops = await loadSelectOptions(props.formInfo, props.fieldInfo, 0)
+    console.log('searchMore')
+    // moreRecords.value = ops.map(item => {
+    //   return { id: item[0], display_name: item[1] }
+    // })
+    // moreVisible.value = true
+  }
+
+  return { mVal, dVal, readonly, options, onSelectChange, searchMore }
 }

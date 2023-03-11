@@ -25,7 +25,7 @@
       type="primary"
       @click="onClickNew"
     >
-      创建
+      {{ $t('act.create') }}
     </a-button>
   </div>
 

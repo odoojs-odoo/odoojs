@@ -61,7 +61,7 @@
                 <template v-if="meta.type">
                   <a-form-item
                     :name="meta.name"
-                    :label="_t(meta.string)"
+                    :label="tr(meta.string)"
                     :rules="getRules(meta)"
                     style="margin-bottom: 5px"
                   >
@@ -99,7 +99,7 @@ const router = useRouter()
 const props = defineProps(['actionId', 'resId'])
 const editRef = ref()
 
-const { _t } = useL10n()
+const { tr } = useL10n()
 
 const {
   mVal,

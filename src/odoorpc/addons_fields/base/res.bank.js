@@ -26,8 +26,10 @@ const PartnerBankFields = {
   sequence: {},
   acc_type: {},
   acc_number: {},
-  partner_id: { en_US: 'Partner', zh_CN: '參與人', zh_HK: '參與人' },
-  company_id: { en_US: 'Company', zh_CN: '公司', zh_HK: '公司' },
+  partner_id: {
+    string: { en_US: 'Partner', zh_CN: '參與人', zh_HK: '參與人' }
+  },
+  company_id: { string: { en_US: 'Company', zh_CN: '公司', zh_HK: '公司' } },
   bank_id: {},
   acc_holder_name: {},
   active: {}

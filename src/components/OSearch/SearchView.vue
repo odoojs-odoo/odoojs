@@ -12,7 +12,7 @@
 
     <SearchChar
       v-if="defaultItemName && !showSearchMore"
-      :placeholder="_t(searchItems[defaultItemName].string)"
+      :placeholder="tr(searchItems[defaultItemName].string)"
       :value="(searchValues[defaultItemName] || {}).values || []"
       @change="val => onSearchChange(searchItems[defaultItemName], val)"
     />
@@ -26,9 +26,9 @@
             <!-- {{ item.type }} {{ item.meta.type }} -->
 
             <SearchMany2one
-              :title="_t(item.string)"
+              :title="tr(item.string)"
               :fieldInfo="item.meta"
-              :placeholder="_t(item.string)"
+              :placeholder="tr(item.string)"
               :value="(searchValues[item.name] || {}).values || []"
               @change="val => onSearchChange(item, val)"
             />
@@ -36,8 +36,8 @@
           </template>
           <template v-else>
             <SearchChar
-              :title="_t(item.string)"
-              :placeholder="_t(item.string)"
+              :title="tr(item.string)"
+              :placeholder="tr(item.string)"
               :value="(searchValues[item.name] || {}).values || []"
               @change="val => onSearchChange(item, val)"
             />
@@ -49,8 +49,8 @@
             <!-- {{ item.type }} {{ item.selection }} -->
 
             <SearchSelect
-              :title="_t(item.string)"
-              :placeholder="_t(item.string)"
+              :title="tr(item.string)"
+              :placeholder="tr(item.string)"
               :value="(searchValues[item.name] || {}).values || []"
               :options="item.selection"
               @change="val => onSearchChange(item, val)"
@@ -60,7 +60,7 @@
           <template v-for="item2 in item.date_children" :key="item2.name">
             <SearchDate
               class="searchDataComp"
-              :title="item2.string"
+              :title="tr(item2.string)"
               :value="
                 (
                   ((searchValues[item.name] || {}).date_children || {})[
@@ -83,10 +83,10 @@ import SearchSelect from './SearchSelect.vue'
 import SearchMany2one from './SearchMany2one.vue'
 import SearchDate from './SearchDate.vue'
 
-import { defineProps, defineEmits, ref } from 'vue'
+import { defineProps, defineEmits, computed, ref } from 'vue'
 import { useL10n } from '@/components/tools/useL10n'
-import { computed } from '@vue/reactivity'
-const { _t } = useL10n()
+
+const { tr } = useL10n()
 
 const props = defineProps(['searchValues', 'searchItems'])
 const emit = defineEmits(['change'])
@@ -115,6 +115,7 @@ async function onClickShowMore() {
   // console.log('onClickShowMore')
   showSearchMore.value = !showSearchMore.value
 }
+
 function onSearchChange(item, value) {
   emit('change', item, value)
 }

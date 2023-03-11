@@ -389,16 +389,18 @@ export class Model extends BaseModel {
       }, {})
     }
 
-    return Object.keys(this._fields).reduce((acc, fld) => {
-      acc[fld] = '1'
-      const meta = this._fields[fld]
-      if (meta.type === 'one2many') {
-        const o2m_fields = o2m_get(meta.views || {}, fld)
-        // console.log('web_onchange_new', fld, meta.type, meta.views, o2m_fields)
-        acc = { ...acc, ...o2m_fields }
-      }
-      return acc
-    }, {})
+    return Object.keys(this._fields)
+      .filter(fld => !this._fields[fld].disable_field_onchange)
+      .reduce((acc, fld) => {
+        acc[fld] = '1'
+        const meta = this._fields[fld]
+        if (meta.type === 'one2many') {
+          const o2m_fields = o2m_get(meta.views || {}, fld)
+          // console.log('web_onchange_new', fld, meta.type, meta.views, o2m_fields)
+          acc = { ...acc, ...o2m_fields }
+        }
+        return acc
+      }, {})
   }
 
   static async web_onchange_new({ values = {}, context }) {

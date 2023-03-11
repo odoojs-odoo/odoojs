@@ -11,11 +11,11 @@ export function useFSelection(props, ctx) {
     const value = valDisp.value
     const selection = props.fieldInfo.selection || []
 
-    const { _t } = useL10n()
+    const { tr } = useL10n()
 
     const get_label = v => {
       const elm = selection.find(item => item[0] === v)
-      return elm ? _t(elm[1]) : ''
+      return elm ? tr(elm[1]) : ''
     }
 
     return value ? get_label(value) : ''

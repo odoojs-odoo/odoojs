@@ -16,6 +16,8 @@
 
     <template v-else>
       <!-- edit: {{ [fieldName, mVal, dVal, options] }} -->
+
+      {{ options.length }}
       <a-select
         mode="multiple"
         v-model:value="mVal"
@@ -24,7 +26,22 @@
         :style="compute_style"
         placeholder="请选择"
         @change="onSelectChange"
-      />
+      >
+        <template #dropdownRender="{ menuNode: menu }">
+          <v-nodes :vnodes="menu" />
+          <template v-if="options.length > 7">
+            <a-divider style="margin: 4px 0" />
+            <div
+              style="padding: 4px 8px; cursor: pointer"
+              @mousedown="e => e.preventDefault()"
+              @click="searchMore"
+            >
+              <search-outlined />
+              搜索更多
+            </div>
+          </template>
+        </template>
+      </a-select>
     </template>
   </span>
 </template>
@@ -32,6 +49,10 @@
 <script setup>
 import { defineProps, defineEmits, computed } from 'vue'
 import { useFM2mTags } from './FM2mTagsApi'
+
+function VNodes(_, { attrs }) {
+  return attrs.vnodes
+}
 
 const props = defineProps([
   'modelValue',
@@ -43,23 +64,18 @@ const props = defineProps([
 
 const emit = defineEmits(['update:modelValue', 'change'])
 
-const { mVal, dVal, readonly, options } = useFM2mTags(props, { emit })
+const { mVal, dVal, readonly, options, onSelectChange, searchMore } =
+  useFM2mTags(props, { emit })
 
 const compute_style = computed(() =>
   props.width ? `width: ${props.width}` : undefined
 )
 
 const selectOptions = computed(() =>
-  options.value.map(item => {
+  options.value.slice(0, 7).map(item => {
     return { value: item[0], label: item[1] }
   })
 )
-
-async function onSelectChange(value) {
-  const value2 = value.map(item => item.value)
-  console.log(value, value2)
-  emit('change', [[6, false, value2]])
-}
 </script>
 
 <style type="text/css"></style>

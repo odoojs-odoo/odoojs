@@ -33,7 +33,7 @@ export function useTreeColumns() {
       function valueGetSelection(record) {
         const get_label = value => {
           const elm = meta.selection.find(item => item[0] === value)
-          return elm ? l10n._t(elm[1]) : ''
+          return elm ? l10n.tr(elm[1]) : ''
         }
         const value = toRaw(record[meta.name])
         return value ? get_label(value) : ''
@@ -41,8 +41,8 @@ export function useTreeColumns() {
 
       function valueGetBoolean(record) {
         return toRaw(record[meta.name])
-          ? l10n._t({ en_US: 'Yes', zh_CN: '是' })
-          : l10n._t({ en_US: 'No', zh_CN: '否' })
+          ? l10n.tr({ en_US: 'Yes', zh_CN: '是' })
+          : l10n.tr({ en_US: 'No', zh_CN: '否' })
       }
 
       function valueGetMany2many(record) {
@@ -79,7 +79,7 @@ export function useTreeColumns() {
         return {
           dataIndex: fld,
           key: fld,
-          title: l10n._t(meta.string),
+          title: l10n.tr(meta.string),
           ellipsis: 'ellipsis' in meta ? meta.ellipsis : true,
           align: 'center',
           width: meta.web_col_width,

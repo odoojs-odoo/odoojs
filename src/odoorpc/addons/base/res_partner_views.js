@@ -16,6 +16,7 @@ export default {
       parent_id: {}
     }
   },
+
   view_partner_form: {
     _odoo_model: 'ir.ui.view',
     model: 'res.partner',
