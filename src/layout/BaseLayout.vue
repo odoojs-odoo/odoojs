@@ -63,7 +63,7 @@
           {{ $t('mainTitle.projectTitle') }}
         </div>
         <!-- 下拉 -->
-        <Lang class="langSelect"/>
+        <Lang class="langSelect" />
         <a-dropdown>
           <a class="userInfo" @click.prevent>
             {{ session_info.name }}
@@ -121,7 +121,8 @@
         <router-view />
       </a-layout-content>
       <a-layout-footer id="layoutFooter">
-        {{ $t('mainTitle.projectTitle') }} {{ $t('mainTitle.copyright') }} {{ $t('mainTitle.supplier') }} 
+        {{ $t('mainTitle.projectTitle') }} {{ $t('mainTitle.copyright') }}
+        {{ $t('mainTitle.supplier') }}
       </a-layout-footer>
     </a-layout>
   </a-layout>
@@ -151,6 +152,8 @@ import Lang from '@/components/Lang.vue'
 import SubMenu from './SubMenu'
 import api from '@/odoorpc'
 
+import { useL10n } from '@/components/tools/useL10n'
+
 export default defineComponent({
   name: 'BaseLayout',
   components: {
@@ -163,6 +166,8 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter()
+
+    const { _t } = useL10n()
 
     const menus_tree = computed(() => menus_tree_get())
     const menus_data = computed(() => menus_data_get())
@@ -203,7 +208,7 @@ export default defineComponent({
         if (old == undefined) {
           // console.log('-=-==-=-=---- old == undefined');
           // panes.value = [...panes, { title: menu.name, key: name }]
-          const newItem = { title: menu.name, key: name }
+          const newItem = { title: _t(menu.name), key: name }
           panes.value.push(newItem)
           // console.log('------= new panes.value  =------',panes.value);
         }
@@ -274,7 +279,7 @@ export default defineComponent({
 
     function handleMenuClick({ state, router }, name) {
       // console.log(menus_tree_get(), menus_data_get())
-      console.log('------ router ----', router)
+      // console.log('------ router ----', router)
 
       const currentRoute = router.currentRoute
 
@@ -294,12 +299,12 @@ export default defineComponent({
       console.log('---- layout menu ---', menu, [menu.id])
       state.selectedKeys = [menu.id]
       sessionStorage.setItem('currentMenuK', state.selectedKeys)
-      console.log(
-        '===== sessionStorage setItem currentMenuK =====',
-        state.selectedKeys,
-        '=-=-=',
-        sessionStorage.getItem('currentMenuK')
-      )
+      // console.log(
+      //   '===== sessionStorage setItem currentMenuK =====',
+      //   state.selectedKeys,
+      //   '=-=-=',
+      //   sessionStorage.getItem('currentMenuK')
+      // )
       //
       const menu_type = menu.type
 
@@ -340,7 +345,7 @@ export default defineComponent({
       const query = { view_type: 'tree', menu: name }
 
       const routeVal = currentRoute.value
-      console.log('----routeVal ------', routeVal)
+      // console.log('----routeVal ------', routeVal)
 
       const is_me =
         routeVal.path === path &&
@@ -356,7 +361,7 @@ export default defineComponent({
 
       // console.log('----goto ------', path, query)
       router.push({ path, query })
-      console.log('=========== path =========', path, '====', query)
+      // console.log('=========== path =========', path, '====', query)
 
       // ====== tabs panes ======
       // const name = router.currentRoute.value.query.menu
@@ -371,7 +376,7 @@ export default defineComponent({
       if (old == undefined) {
         // console.log('-=-==-=-=---- old == undefined');
         // panes.value = [...panes, { title: menu.name, key: name }]
-        const newItem = { title: menu.name, key: name }
+        const newItem = { title: _t(menu.name), key: name }
         panes.value.push(newItem)
         // console.log('------= new panes.value  =------', panes.value);
       }

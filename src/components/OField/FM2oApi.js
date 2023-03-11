@@ -83,8 +83,8 @@ export function useFM2o(props, ctx) {
     {
       dataIndex: 'display_name',
       key: 'display_name',
-      title: '名称',
-      align: 'center'
+      title: '名称'
+      // align: 'center'
     }
   ])
 

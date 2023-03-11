@@ -90,13 +90,10 @@ const {
 const moreActive = ref({})
 
 function tableCustomRow(record) {
-  // const router = useRouter()
   return {
     // eslint-disable-next-line no-unused-vars
     onClick: event => {
-      console.log('click row ', record)
       moreActive.value = record
-      // onMoreClickRow(record)
     }
   }
 }

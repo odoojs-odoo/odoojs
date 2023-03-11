@@ -1,18 +1,11 @@
-<!--
- * @Author: Nxf
- * @Date: 2023-02-11 22:39:08
- * @LastEditors: Nxf
- * @LastEditTime: 2023-02-12 11:31:40
- * @Descripttion: 
--->
 <template>
   <span>
-    <span> {{ title }}: </span>
+    <span v-if="title"> {{ title }}: </span>
 
     <a-select
       v-model:value="state.mVal"
       mode="tags"
-      style="width: 200px;padding-right: 8px;"
+      style="width: 200px; padding-right: 8px"
       :placeholder="placeholder"
       size="small"
       @change="handleChange"
@@ -38,7 +31,7 @@ watch(
 )
 
 function handleChange(value) {
-  console.log(value)
+  // console.log(value)
   emit('change', value)
 }
 </script>

@@ -113,7 +113,7 @@ class SearchView1 extends BaseView {
 
   get _view_info() {
     const action = this.action_info
-    // console.log(action)
+    //
     const view = action.views.search || {}
     return view
   }
@@ -240,7 +240,12 @@ class SearchView1 extends BaseView {
 
   async load_search() {
     await this.load_default_values()
-    await this.load_many2one_seletion()
+    //
+    // 下面函数的作用是 补充 search_view 的  m2o 字段的 name_search 数据
+    // 用于 设置 search_item 中的 selection 的 内容
+    // 若 name_search 数据太多。 该方法有问题
+    //
+    // await this.load_many2one_seletion()
   }
 
   get _search_values() {
@@ -332,7 +337,7 @@ class SearchView1 extends BaseView {
           return (values[item] || []).map(val => {
             const domain_get = () => {
               if (val.res_id) {
-                console.log(meta)
+                // console.log(meta)
                 if (meta.filter_domain) {
                   return domain_tools.patch_and(meta.filter_domain(val.res_id))
                 } else {
@@ -407,7 +412,8 @@ class SearchView1 extends BaseView {
         name: item,
         meta,
         string: fields[item].string || meta.string,
-        selection: selection_get()
+        selection: selection_get(),
+        ...(fields[item]._default ? { _default: 1 } : {})
       }
 
       return acc

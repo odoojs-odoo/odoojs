@@ -7,7 +7,7 @@ export const odoo_menus_tree_get = () => {
 
   const menu_data = api.env.menus
   const menus = [...(menu_data.children || [])]
-  // console.log('menus', menu_data)
+  console.log('menus', menu_data)
 
   const menus_tree = [
     {

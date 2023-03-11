@@ -1,6 +1,6 @@
 const ModelFields = {
-  name: {},
-  bic: {},
+  name: { string: { en_US: 'Name', zh_CN: '名称', zh_HK: '名稱' } },
+  bic: { string: { en_US: 'Code', zh_CN: '编码', zh_HK: '編碼' } },
 
   street: {},
   street2: {},
@@ -26,8 +26,8 @@ const PartnerBankFields = {
   sequence: {},
   acc_type: {},
   acc_number: {},
-  partner_id: {},
-  company_id: {},
+  partner_id: { en_US: 'Partner', zh_CN: '參與人', zh_HK: '參與人' },
+  company_id: { en_US: 'Company', zh_CN: '公司', zh_HK: '公司' },
   bank_id: {},
   acc_holder_name: {},
   active: {}

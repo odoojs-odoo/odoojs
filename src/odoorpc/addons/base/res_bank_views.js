@@ -63,7 +63,7 @@ export default {
       filters: {
         group_active: {
           inactive: {
-            string: '已归档',
+            string: { en_US: 'Archived', zh_CN: '已归档', zh_HK: '已歸檔' },
             domain: [['active', '=', false]]
           }
         }
@@ -136,11 +136,23 @@ export default {
     arch: {
       fields: {
         bank_name: {
-          filter_domain:
-            "['|', ('bank_name','ilike',self), ('acc_number','ilike',self)]"
+          _default: 1,
+          string: { en_US: 'Bank Name', zh_CN: '銀行名稱', zh_HK: '銀行名稱' },
+
+          filter_domain: self => {
+            return [
+              '|',
+              ['bank_name', 'ilike', self],
+              ['acc_number', 'ilike', self]
+            ]
+          }
         },
-        company_id: {},
-        partner_id: {}
+        company_id: {
+          string: { en_US: 'Company', zh_CN: '公司', zh_HK: '公司' }
+        },
+        partner_id: {
+          string: { en_US: 'Partner', zh_CN: '參與人', zh_HK: '參與人' }
+        }
       },
       filters: {
         group_active: {

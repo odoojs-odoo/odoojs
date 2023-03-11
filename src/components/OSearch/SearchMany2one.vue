@@ -1,100 +1,171 @@
 <template>
   <span>
-    <!-- <span>
-      {{ title }}
-    </span>
+    <span v-if="title"> {{ title }}: </span>
 
     <a-select
-      v-model="value2"
+      v-model:value="state.mVal"
       labelInValue
-      :filterOption="filterOption"
       mode="tags"
       style="width: 300px"
       :placeholder="placeholder"
+      show-search
+      :default-active-first-option="false"
+      :show-arrow="false"
+      :filter-option="false"
+      :not-found-content="null"
+      :options="options"
+      @search="handleSearch"
       @change="handleChange"
     >
-      <a-select-option v-for="op in options2" :key="op.key">
-        {{ op.label }}
-      </a-select-option>
-    </a-select> -->
+      <template #dropdownRender="{ menuNode: menu }">
+        <v-nodes :vnodes="menu" />
+        <template v-if="options.length > 0">
+          <a-divider style="margin: 4px 0" />
+
+          <div
+            style="padding: 4px 8px; cursor: pointer"
+            @mousedown="e => e.preventDefault()"
+            @click="searchMore"
+          >
+            <search-outlined />
+            搜索更多
+          </div>
+        </template>
+      </template>
+    </a-select>
+
+    <a-modal
+      v-model:visible="moreVisible"
+      title="搜索"
+      width="600px"
+      @ok="onMoreSubmit"
+    >
+      <div>选择: {{ moreActive.display_name }}</div>
+      <a-table
+        :dataSource="moreRecords"
+        :columns="moreColumns"
+        :customRow="tableCustomRow"
+        style="margin-top: 5px"
+      >
+      </a-table>
+    </a-modal>
   </span>
 </template>
 
-<script>
-// export default {
-//   name: 'SearchM2o',
+<script setup>
+import api from '@/odoorpc'
+import { defineProps, defineEmits, ref, reactive, watch } from 'vue'
+// import { useL10n } from '@/components/tools/useL10n'
+// const { _t } = useL10n()
 
-//   components: {},
+function VNodes(_, { attrs }) {
+  return attrs.vnodes
+}
 
-//   mixins: [],
+const props = defineProps(['value', 'title', 'placeholder', 'fieldInfo'])
+const emit = defineEmits(['change'])
 
-//   props: {
-//     title: { type: String, default: undefined },
-//     value: { type: Array, default: () => [] },
-//     options: { type: Array, default: () => [] },
+const state = reactive({ mVal: [] })
 
-//     placeholder: { type: String, default: undefined }
-//   },
+const options = ref([])
 
-//   data() {
-//     return {
-//       value2: []
-//     }
-//   },
-//   computed: {
-//     options2() {
-//       return this.options.map(item => {
-//         return {
-//           key: `__id:${item[0]}`,
-//           label: item[1],
-//           res_id: item[0]
-//         }
-//       })
-//     }
-//   },
-//   watch: {
-//     value: {
-//       handler: function (val = []) {
-//         // console.log(val)
+watch(
+  () => props.value,
+  // eslint-disable-next-line no-unused-vars
+  (newVal, oldVal) => {
+    // console.log([newVal, oldVal])
+    state.mVal = newVal.map(item => {
+      if (item.res_id) {
+        return { value: `__id:${item.res_id}`, label: item.string }
+      } else {
+        return { value: item.value, label: item.value }
+      }
+    })
+  }
+)
 
-//         this.value2 = val.map(item => {
-//           if (item.res_id) {
-//             return { key: `__id:${item.res_id}`, label: item.string }
-//           } else {
-//             return { key: item.value, label: item.string }
-//           }
-//         })
-//       },
-//       deep: true
-//     }
-//   },
+function loadSelectOptions(kw = {}) {
+  const relation = api.env.relation(props.fieldInfo)
+  return relation.load_select_options({ ...kw, record: {} })
+}
 
-//   async created() {},
+async function handleSearch(val) {
+  // console.log('handleSearch:', val)
+  const ops = await loadSelectOptions({ name: val, limit: 8 })
+  // console.log('handleSearch', ops)
 
-//   mounted() {},
+  options.value = ops.map(item => {
+    return {
+      value: `__id:${item[0]}`,
+      label: item[1],
+      res_id: item[0]
+    }
+  })
+}
 
-//   methods: {
-//     filterOption(inputValue, option) {
-//       const key = option.key
-//       const one = this.options2.find(item => item.key === key)
-//       return one.label.toLowerCase().includes(inputValue.toLowerCase())
-//     },
+function handleChange(value) {
+  // console.log('handleChange', value)
+  const value2 = value.map(item => {
+    if (item.value.slice(0, 5) === '__id:') {
+      return {
+        res_id: Number(item.value.slice(5)),
+        string: item.label.trim()
+      }
+    } else {
+      return { value: item.value, string: item.value }
+    }
+  })
+  // console.log('handleChange', value2)
 
-//     handleChange(value) {
-//       const value2 = value.map(item => {
-//         if (item.key.slice(0, 5) === '__id:') {
-//           return {
-//             res_id: Number(item.key.slice(5)),
-//             string: item.label.trim()
-//           }
-//         } else {
-//           return { value: item.key, string: item.label.trim() }
-//         }
-//       })
-//       this.$emit('change', value2)
-//     }
-//   }
-// }
+  emit('change', value2)
+}
+
+const moreRecords = ref([])
+const moreVisible = ref(false)
+const moreActive = ref({})
+
+const moreColumns = ref([
+  {
+    dataIndex: 'display_name',
+    key: 'display_name',
+    title: '名称'
+    // align: 'center'
+  }
+])
+
+function tableCustomRow(record) {
+  return {
+    // eslint-disable-next-line no-unused-vars
+    onClick: event => {
+      console.log('click row ', record)
+      moreActive.value = record
+    }
+  }
+}
+
+async function searchMore() {
+  // console.log('searchMore')
+  const ops = await loadSelectOptions({ limit: 0 })
+  // console.log('searchMore', ops)
+
+  moreRecords.value = ops.map(item => {
+    return { id: item[0], display_name: item[1] }
+  })
+
+  moreVisible.value = true
+}
+
+const onMoreSubmit = () => {
+  const record = moreActive.value
+  const value = [
+    ...state.mVal,
+    { value: `__id:${record.id}`, label: record.display_name }
+  ]
+
+  handleChange(value)
+  moreActive.value = {}
+  moreVisible.value = false
+}
 </script>
 
 <style type="text/css"></style>

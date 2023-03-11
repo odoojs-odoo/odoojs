@@ -1,66 +1,45 @@
 <template>
   <span>
-    <!-- <span>
-      {{ title }}
-    </span>
+    <span v-if="title"> {{ title }}: </span>
 
     <a-checkbox-group
-      v-model="value2"
+      v-model:value="state.mVal"
       name="checkboxgroup"
       :options="options2"
       @change="handleChange"
-    /> -->
+    />
   </span>
 </template>
 
-<script>
-// export default {
-//   name: 'SearchDefault',
+<script setup>
+import { defineProps, defineEmits, computed, reactive, watch } from 'vue'
+import { useL10n } from '@/components/tools/useL10n'
+const { _t } = useL10n()
 
-//   components: {},
+const props = defineProps(['modelValue', 'title', 'placeholder', 'options'])
+const emit = defineEmits(['change'])
 
-//   mixins: [],
+const state = reactive({ mVal: [] })
 
-//   props: {
-//     title: { type: String, default: undefined },
-//     value: { type: Array, default: () => [] },
-//     options: { type: Array, default: () => [] }
-//     // placeholder: { type: String, default: undefined }
-//   },
+const options2 = computed(() =>
+  props.options.map(item => {
+    return { value: item[0], label: _t(item[1]) }
+  })
+)
 
-//   data() {
-//     return {
-//       value2: []
-//     }
-//   },
-//   computed: {
-//     options2() {
-//       return this.options.map(item => {
-//         return { value: item[0], label: item[1] }
-//       })
-//     }
-//   },
-//   watch: {
-//     value: {
-//       handler: function (val = []) {
-//         // console.log(val)
-//         this.value2 = val.map(item => item.name)
-//       },
-//       deep: true
-//     }
-//   },
+watch(
+  () => props.modelValue,
+  // eslint-disable-next-line no-unused-vars
+  (newVal, oldVal) => {
+    console.log([newVal, oldVal])
+    state.mVal = newVal
+  }
+)
 
-//   async created() {},
-
-//   mounted() {},
-
-//   methods: {
-//     handleChange(value) {
-//       // console.log(value)
-//       this.$emit('change', value)
-//     }
-//   }
-// }
+function handleChange(value) {
+  console.log(value)
+  emit('change', value)
+}
 </script>
 
 <style type="text/css"></style>
