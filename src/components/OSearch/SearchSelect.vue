@@ -31,13 +31,13 @@ watch(
   () => props.modelValue,
   // eslint-disable-next-line no-unused-vars
   (newVal, oldVal) => {
-    console.log([newVal, oldVal])
+    // console.log([newVal, oldVal])
     state.mVal = newVal
   }
 )
 
 function handleChange(value) {
-  console.log(value)
+  // console.log(value)
   emit('change', value)
 }
 </script>

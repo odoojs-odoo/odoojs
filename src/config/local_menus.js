@@ -110,7 +110,7 @@ export const local_menus_tree = [
             action: 'base.action_res_bank_form',
             id: 'odoo_base.action_res_bank_form',
             icon: 'shopping',
-            name: { en_US: 'Bank', zh_CN: '银行', zh_HK: '银行' }
+            name: { en_US: 'Bank', zh_CN: '银行', zh_HK: '銀行' }
           },
 
           {
@@ -119,7 +119,7 @@ export const local_menus_tree = [
             icon: 'shopping',
             name: {
               en_US: 'Bank Account',
-              zh_CN: '銀行帳號',
+              zh_CN: '银行账号',
               zh_HK: '銀行帳號'
             }
           }

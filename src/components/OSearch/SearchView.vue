@@ -92,7 +92,7 @@ const props = defineProps(['searchValues', 'searchItems'])
 const emit = defineEmits(['change'])
 
 const defaultItemName = computed(() => {
-  console.log(props.searchItems)
+  // console.log(props.searchItems)
 
   if (props.searchItems.name) {
     return 'name'
@@ -112,7 +112,7 @@ const defaultItemName = computed(() => {
 const showSearchMore = ref(false)
 
 async function onClickShowMore() {
-  console.log('onClickShowMore')
+  // console.log('onClickShowMore')
   showSearchMore.value = !showSearchMore.value
 }
 function onSearchChange(item, value) {
