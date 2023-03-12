@@ -53,7 +53,6 @@ export function useFM2mTags(props, ctx) {
   const { readonly } = useField(props, ctx)
 
   const records = ref([])
-  // const optionsFirst = ref([])
   const optionsRaw = ref([])
 
   function toDict(fromList) {
@@ -86,8 +85,9 @@ export function useFM2mTags(props, ctx) {
       return res
     },
 
+    // eslint-disable-next-line no-unused-vars
     set(value) {
-      console.log('set, mval, ', value)
+      // console.log('set, mval, ', value)
     }
   })
 
@@ -129,19 +129,13 @@ export function useFM2mTags(props, ctx) {
     { immediate: true }
   )
 
-  // 编辑, loadData, load optionsFirst
+  // 编辑, loadData,
   watch(
     () => readonly.value,
     async newVal => {
       // console.log(newVal)
       if (!newVal) {
         await loadData()
-        // const domain = props.fieldInfo.domain
-        // if (!domain || typeof domain !== 'function') {
-        //   const limit = idsForEdit.value.length + 8
-        //   const ops = await loadSelectOptions({ limit })
-        //   optionsFirst.value = ops
-        // }
       }
     },
     { immediate: true }

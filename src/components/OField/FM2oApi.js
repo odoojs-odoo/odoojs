@@ -97,7 +97,7 @@ export function useMoreSearch(props, ctx) {
   ])
 
   async function loadData() {
-    console.log('searchMore')
+    // console.log('searchMore')
     const ops = await loadSelectOptions({ limit: 0 })
     // // console.log('searchMore', ops)
 

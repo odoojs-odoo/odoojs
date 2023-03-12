@@ -40,13 +40,6 @@
         </template>
       </a-select>
       <div></div>
-      {{ mVal.length }}
-      <div></div>
-      <!-- {{ mVal }}
-      <div></div>
-      {{ mVal2 }}
-      <div></div>
-      {{ options }} -->
     </template>
 
     <a-form-item-rest>
@@ -120,13 +113,13 @@ const { current: moreCurrent } = moreSearch
 const { records: moreRecords, columns: moreColumns } = moreSearch
 
 async function searchMore() {
-  console.log('searchMore')
+  // console.log('searchMore')
   moreSearch.loadData()
   moreVisible.value = true
 }
 
 function onMorePick(one) {
-  console.log('onMorePick', one)
+  // console.log('onMorePick', one)
   if (one) {
     onMoreSelect(one)
   }

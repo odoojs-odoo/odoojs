@@ -1,5 +1,4 @@
 <template>
-  <!-- :not-found-content="null" -->
   <a-select
     v-model:value="mVal"
     allowClear
@@ -55,10 +54,6 @@ const selectOptions = computed(() =>
     return { value: item[0], label: item[1] }
   })
 )
-
-// function filterOption(input, option) {
-//   return option.label.indexOf(input) >= 0
-// }
 
 const compute_style = computed(() =>
   props.width ? `width: ${props.width}` : undefined

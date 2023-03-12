@@ -20,8 +20,6 @@
       <template v-else>
         <!-- edit: {{ [fieldName, mVal, dVal, options, onChange] }} -->
 
-        <!-- todo. 搜索过滤 -->
-
         <OMany2one
           v-model="mVal"
           :width="width"
