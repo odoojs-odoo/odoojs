@@ -2,7 +2,7 @@
   <a-input
     v-model:value="mVal"
     :style="compute_style"
-    :placeholder="placeholder"
+    :placeholder="tr(placeholder)"
     @change="onInputChange"
     @pressEnter="onInputEnter"
     @blur="onInputBlur"
@@ -11,6 +11,9 @@
 
 <script setup>
 import { defineProps, defineEmits, computed, reactive } from 'vue'
+import { useL10n } from '@/components/tools/useL10n'
+const { tr } = useL10n()
+
 const props = defineProps(['modelValue', 'width', 'placeholder'])
 const emit = defineEmits(['update:modelValue', 'change'])
 

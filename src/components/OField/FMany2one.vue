@@ -27,26 +27,29 @@
           :width="width"
           :placeholder="fieldInfo.string"
           :options="options"
+          @search="handleSearch"
           @dropdownVisibleChange="dropdownVisibleChange"
           @change="onChange"
           @search-more="searchMore"
         />
-
-        <a-modal
-          v-model:visible="moreVisible"
-          title="搜索"
-          width="600px"
-          @ok="onMoreSubmit"
-        >
-          <div>选择: {{ moreActive.display_name }}</div>
-          <a-table
-            :dataSource="moreRecords"
-            :columns="moreColumns"
-            :customRow="tableCustomRow"
-            style="margin-top: 5px"
+        <a-form-item-rest>
+          <!--  -->
+          <a-modal
+            v-model:visible="moreVisible"
+            title="搜索"
+            width="600px"
+            @ok="moreSearch.onSubmit"
           >
-          </a-table>
-        </a-modal>
+            <div>选择: {{ moreCurrent.display_name }}</div>
+            <a-table
+              :dataSource="moreRecords"
+              :columns="moreColumns"
+              :customRow="moreSearch.tableCustomRow"
+              style="margin-top: 5px"
+            >
+            </a-table>
+          </a-modal>
+        </a-form-item-rest>
       </template>
     </template>
   </span>
@@ -54,7 +57,7 @@
 
 <script setup>
 import { defineProps, defineEmits, ref } from 'vue'
-import { useFM2o } from './FM2oApi'
+import { useFM2o, useMoreSearch } from './FM2oApi'
 import OMany2one from '@/components/OInput/OMany2one.vue'
 
 const props = defineProps([
@@ -73,37 +76,28 @@ function onClickView() {
   // emit('click-many2one', props.fieldName, val)
 }
 
-const {
-  mVal,
-  dVal,
-  readonly,
-  options,
-  dropdownVisibleChange,
-  onChange,
-  searchMore,
-  moreVisible,
-  moreRecords,
-  moreColumns,
-  onMoreSelect
-} = useFM2o(props, { emit })
+const fm2o = useFM2o(props, { emit })
+const { mVal, dVal, readonly, options } = fm2o
+const { handleSearch, dropdownVisibleChange, onChange } = fm2o
 
-const moreActive = ref({})
+const moreVisible = ref(false)
 
-function tableCustomRow(record) {
-  return {
-    // eslint-disable-next-line no-unused-vars
-    onClick: event => {
-      moreActive.value = record
-    }
-  }
+const moreSearch = useMoreSearch(props, { emit, onMorePick })
+const { current: moreCurrent } = moreSearch
+const { records: moreRecords, columns: moreColumns } = moreSearch
+
+async function searchMore() {
+  // console.log('searchMore')
+  moreSearch.loadData()
+  moreVisible.value = true
 }
 
-const onMoreSubmit = () => {
-  // console.log(e)
-  const record = moreActive.value
+function onMorePick(one) {
+  if (one) {
+    onChange(one)
+  }
 
-  onMoreSelect([record.id, record.display_name])
-  moreActive.value = {}
+  moreVisible.value = false
 }
 </script>
 

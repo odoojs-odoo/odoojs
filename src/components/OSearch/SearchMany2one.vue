@@ -4,16 +4,16 @@
 
     <a-select
       v-model:value="state.mVal"
-      labelInValue
-      mode="tags"
-      style="width: 300px"
-      :placeholder="placeholder"
-      show-search
-      :default-active-first-option="false"
-      :show-arrow="false"
-      :filter-option="false"
+      label-in-value
       :not-found-content="null"
+      :default-active-first-option="false"
+      mode="tags"
+      show-search
+      :filter-option="false"
+      :show-arrow="false"
       :options="options"
+      :placeholder="placeholder"
+      style="width: 300px"
       @search="handleSearch"
       @change="handleChange"
     >
@@ -25,7 +25,7 @@
           <div
             style="padding: 4px 8px; cursor: pointer"
             @mousedown="e => e.preventDefault()"
-            @click="searchMore"
+            @click="onSearchMore"
           >
             <search-outlined />
             搜索更多
@@ -34,21 +34,23 @@
       </template>
     </a-select>
 
-    <a-modal
-      v-model:visible="moreVisible"
-      title="搜索"
-      width="600px"
-      @ok="onMoreSubmit"
-    >
-      <div>选择: {{ moreActive.display_name }}</div>
-      <a-table
-        :dataSource="moreRecords"
-        :columns="moreColumns"
-        :customRow="tableCustomRow"
-        style="margin-top: 5px"
+    <a-form-item-rest>
+      <a-modal
+        v-model:visible="moreVisible"
+        title="搜索"
+        width="600px"
+        @ok="moreSearch.onSubmit"
       >
-      </a-table>
-    </a-modal>
+        <div>选择: {{ moreCurrent.display_name }}</div>
+        <a-table
+          :dataSource="moreRecords"
+          :columns="moreColumns"
+          :customRow="moreSearch.tableCustomRow"
+          style="margin-top: 5px"
+        >
+        </a-table>
+      </a-modal>
+    </a-form-item-rest>
   </span>
 </template>
 
@@ -84,11 +86,6 @@ watch(
   }
 )
 
-function loadSelectOptions(kw = {}) {
-  const relation = api.env.relation(props.fieldInfo)
-  return relation.load_select_options({ ...kw, record: {} })
-}
-
 async function handleSearch(val) {
   // console.log('handleSearch:', val)
   const ops = await loadSelectOptions({ name: val, limit: 8 })
@@ -120,51 +117,73 @@ function handleChange(value) {
   emit('change', value2)
 }
 
-const moreRecords = ref([])
 const moreVisible = ref(false)
-const moreActive = ref({})
+const moreSearch = useMoreSearch()
 
-const moreColumns = ref([
-  {
-    dataIndex: 'display_name',
-    key: 'display_name',
-    title: '名称'
-    // align: 'center'
-  }
-])
+const { current: moreCurrent } = moreSearch
+const { records: moreRecords, columns: moreColumns } = moreSearch
 
-function tableCustomRow(record) {
-  return {
-    // eslint-disable-next-line no-unused-vars
-    onClick: event => {
-      console.log('click row ', record)
-      moreActive.value = record
-    }
-  }
-}
-
-async function searchMore() {
-  // console.log('searchMore')
-  const ops = await loadSelectOptions({ limit: 0 })
-  // console.log('searchMore', ops)
-
-  moreRecords.value = ops.map(item => {
-    return { id: item[0], display_name: item[1] }
-  })
-
+async function onSearchMore() {
+  console.log('searchMore')
+  moreSearch.loadData()
   moreVisible.value = true
 }
 
-const onMoreSubmit = () => {
-  const record = moreActive.value
-  const value = [
-    ...state.mVal,
-    { value: `__id:${record.id}`, label: record.display_name }
-  ]
+function onMorePick(one) {
+  if (one) {
+    // todo 检查 重复选择
+    const value = [...state.mVal, { value: `__id:${one[0]}`, label: one[1] }]
+    handleChange(value)
+  }
 
-  handleChange(value)
-  moreActive.value = {}
   moreVisible.value = false
+}
+
+function useMoreSearch() {
+  const records = ref([])
+  const columns = ref([
+    {
+      dataIndex: 'display_name',
+      key: 'display_name',
+      title: '名称'
+      // align: 'center'
+    }
+  ])
+
+  async function loadData() {
+    console.log('searchMore')
+    const ops = await loadSelectOptions({ limit: 0 })
+    // // console.log('searchMore', ops)
+
+    records.value = ops.map(item => {
+      return { id: item[0], display_name: item[1] }
+    })
+  }
+
+  const current = ref({})
+
+  function tableCustomRow(record) {
+    return {
+      // eslint-disable-next-line no-unused-vars
+      onClick: event => {
+        // console.log('click row ', record)
+        current.value = record
+      }
+    }
+  }
+
+  const onSubmit = () => {
+    const record = current.value
+    onMorePick([record.id, record.display_name])
+    current.value = {}
+  }
+
+  return { records, current, columns, loadData, tableCustomRow, onSubmit }
+}
+
+function loadSelectOptions(kw = {}) {
+  const relation = api.env.relation(props.fieldInfo)
+  return relation.load_select_options({ ...kw, record: {} })
 }
 </script>
 

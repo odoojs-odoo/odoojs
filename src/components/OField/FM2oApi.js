@@ -1,17 +1,8 @@
-import { onMounted, computed, watch, ref } from 'vue'
+import { computed, watch, ref } from 'vue'
 
 import { useField } from './FieldApi'
 import api from '@/odoorpc'
 
-function useFormApi() {
-  function loadSelectOptions(formInfo, fieldInfo, limit) {
-    const recordMerged = { ...formInfo.record, ...formInfo.values }
-
-    const relation = api.env.relation(fieldInfo)
-    return relation.load_select_options({ record: recordMerged, limit })
-  }
-  return { loadSelectOptions }
-}
 export function useFM2o(props, ctx) {
   const {
     dVal: valDisp,
@@ -20,11 +11,16 @@ export function useFM2o(props, ctx) {
     ...fieldData
   } = useField(props, ctx)
 
+  function loadSelectOptions(kw = {}) {
+    const recordMerged = { ...props.formInfo.record, ...props.formInfo.values }
+    const relation = api.env.relation(props.fieldInfo)
+    return relation.load_select_options({ record: recordMerged, ...kw })
+  }
+
   const dVal = computed(() => (valDisp.value || [0, null])[1])
 
+  const optionsFirst = ref([])
   const optionsRaw = ref([])
-
-  const { loadSelectOptions } = useFormApi()
 
   const options = computed(() => {
     const ops = optionsRaw.value
@@ -37,49 +33,61 @@ export function useFM2o(props, ctx) {
     return ops2
   })
 
+  // 编辑, loadSelectOptions
   watch(
     () => readonly.value,
     async newVal => {
       if (!newVal) {
-        // 需要 判断 是否异步加载.
-        // console.log('load options first', props.fieldName, valDisp.value)
-        // const ops = valDisp.value ? [[...valDisp.value]] : []
-        // options.value = ops
-        const ops = await loadSelectOptions(props.formInfo, props.fieldInfo, 8)
-        optionsRaw.value = ops
+        const domain = props.fieldInfo.domain
+        if (!domain || typeof domain !== 'function') {
+          const ops = await loadSelectOptions()
+          optionsFirst.value = ops
+        }
       }
     },
     { immediate: true }
   )
 
-  onMounted(async () => {
-    // console.log(props.info.fieldInfo)
-    // console.log(props.info.fieldInfo.name)
-  })
+  async function handleSearch(val) {
+    // console.log('handleSearch:', val)
+
+    const ops = await loadSelectOptions({ name: val })
+    // console.log('handleSearch', ops)
+    optionsRaw.value = ops
+  }
 
   async function dropdownVisibleChange(open) {
     if (open) {
       const domain = props.fieldInfo.domain
       if (typeof domain === 'function') {
-        const ops = await loadSelectOptions(props.formInfo, props.fieldInfo, 8)
+        const ops = await loadSelectOptions()
         optionsRaw.value = ops
+      } else {
+        optionsRaw.value = optionsFirst.value
       }
     }
   }
 
-  const moreRecords = ref([])
-  const moreVisible = ref(false)
+  return {
+    ...fieldData,
+    readonly,
+    dVal,
+    options,
+    handleSearch,
+    dropdownVisibleChange,
+    onChange
+  }
+}
 
-  async function searchMore() {
-    const ops = await loadSelectOptions(props.formInfo, props.fieldInfo, 0)
-    // console.log('searchMore', ops)
-    moreRecords.value = ops.map(item => {
-      return { id: item[0], display_name: item[1] }
-    })
-    moreVisible.value = true
+export function useMoreSearch(props, ctx) {
+  function loadSelectOptions(kw = {}) {
+    const recordMerged = { ...props.formInfo.record, ...props.formInfo.values }
+    const relation = api.env.relation(props.fieldInfo)
+    return relation.load_select_options({ record: recordMerged, ...kw })
   }
 
-  const moreColumns = ref([
+  const records = ref([])
+  const columns = ref([
     {
       dataIndex: 'display_name',
       key: 'display_name',
@@ -88,23 +96,33 @@ export function useFM2o(props, ctx) {
     }
   ])
 
-  function onMoreSelect(value) {
-    // console.log('onMoreSelect ', value)
-    onChange(value)
-    moreVisible.value = false
+  async function loadData() {
+    console.log('searchMore')
+    const ops = await loadSelectOptions({ limit: 0 })
+    // // console.log('searchMore', ops)
+
+    records.value = ops.map(item => {
+      return { id: item[0], display_name: item[1] }
+    })
   }
 
-  return {
-    ...fieldData,
-    readonly,
-    dropdownVisibleChange,
-    onChange,
-    dVal,
-    options,
-    searchMore,
-    moreVisible,
-    moreRecords,
-    moreColumns,
-    onMoreSelect
+  const current = ref({})
+
+  function tableCustomRow(record) {
+    return {
+      // eslint-disable-next-line no-unused-vars
+      onClick: event => {
+        // console.log('click row ', record)
+        current.value = record
+      }
+    }
   }
+
+  const onSubmit = () => {
+    const record = current.value
+    ctx.onMorePick(record.id ? [record.id, record.display_name] : null)
+    current.value = {}
+  }
+
+  return { records, current, columns, loadData, tableCustomRow, onSubmit }
 }

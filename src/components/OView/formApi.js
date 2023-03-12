@@ -1,6 +1,8 @@
 import { computed, reactive, watch } from 'vue'
 import api from '@/odoorpc'
 
+import { useL10n } from '@/components/tools/useL10n'
+
 // res.users 需要 create, edit.
 // no -- delete
 
@@ -19,6 +21,8 @@ export function useForm(props, ctx) {
   // load data
   //
   //
+
+  const { tr } = useL10n()
 
   const localState = {
     formview: null
@@ -134,7 +138,7 @@ export function useForm(props, ctx) {
         : fieldInfo.required
 
     if (!required) return undefined
-    return [{ required: true, message: `请输入${fieldInfo.string}!` }]
+    return [{ required: true, message: `请输入${tr(fieldInfo.string)}!` }]
   }
 
   async function onChange(fname, value) {

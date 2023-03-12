@@ -1,12 +1,17 @@
 <template>
+  <!-- :not-found-content="null" -->
   <a-select
     v-model:value="mVal"
+    allowClear
     label-in-value
+    :default-active-first-option="false"
     show-search
-    :filter-option="filterOption"
+    :filter-option="false"
+    :show-arrow="false"
     :options="selectOptions"
-    :placeholder="placeholder"
+    :placeholder="tr(placeholder)"
     :style="compute_style"
+    @search="handleSearch"
     @dropdownVisibleChange="dropdownVisibleChange"
     @change="handleChange"
   >
@@ -29,6 +34,8 @@
 
 <script setup>
 import { defineProps, defineEmits, computed } from 'vue'
+import { useL10n } from '@/components/tools/useL10n'
+const { tr } = useL10n()
 
 function VNodes(_, { attrs }) {
   return attrs.vnodes
@@ -38,6 +45,7 @@ const props = defineProps(['modelValue', 'options', 'width', 'placeholder'])
 const emit = defineEmits([
   'update:modelValue',
   'dropdown-visible-change',
+  'search',
   'change',
   'search-more'
 ])
@@ -48,9 +56,9 @@ const selectOptions = computed(() =>
   })
 )
 
-function filterOption(input, option) {
-  return option.label.indexOf(input) >= 0
-}
+// function filterOption(input, option) {
+//   return option.label.indexOf(input) >= 0
+// }
 
 const compute_style = computed(() =>
   props.width ? `width: ${props.width}` : undefined
@@ -63,11 +71,19 @@ const mVal = computed({
       : { value: 0, label: '' }
   },
   set(val) {
-    const { value, label } = val
-    const label2 = label.trim()
-    emit('update:modelValue', [value, label2])
+    if (val) {
+      const { value, label } = val
+      const label2 = label.trim()
+      emit('update:modelValue', [value, label2])
+    } else {
+      emit('update:modelValue', false)
+    }
   }
 })
+
+async function handleSearch(val) {
+  emit('search', val)
+}
 
 function dropdownVisibleChange(open) {
   if (open) {
@@ -76,9 +92,13 @@ function dropdownVisibleChange(open) {
 }
 
 function handleChange(value) {
-  const { key, label } = value
-  const label2 = label.trim()
-  emit('change', [key, label2])
+  if (value) {
+    const { key, label } = value
+    const label2 = label.trim()
+    emit('change', [key, label2])
+  } else {
+    emit('change', false)
+  }
 }
 
 function searchMore() {
