@@ -1,11 +1,21 @@
 import { computed } from 'vue'
 import api from '@/odoorpc'
 
+function get_recordMerged(formInfo) {
+  const formview = api.env.formview(formInfo.viewInfo, {
+    fields: formInfo.fields
+  })
+
+  return formview._get_values_for_modifiers(formInfo.record, formInfo.values)
+}
+
 function useFormApi() {
   // const viewInfo = computed(() => formInfo.viewInfo)
 
   function checkReadonly(formInfo, fieldInfo) {
-    const recordMerged = { ...formInfo.record, ...formInfo.values }
+    // const recordMerged = { ...formInfo.record, ...formInfo.values }
+
+    const recordMerged = get_recordMerged(formInfo)
 
     const readonly = api.env.field(fieldInfo).readonly_get({
       record: recordMerged

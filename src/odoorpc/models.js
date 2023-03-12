@@ -1,4 +1,5 @@
 import controllers from './controllers'
+import { tuples_to_ids } from '@/odoorpc/tools'
 
 const web = controllers.web
 
@@ -277,13 +278,44 @@ export class Model extends BaseModel {
     super(payload)
   }
 
+  static _get_values_for_modifiers(record, values) {
+    // call by require, readonly, domain of feild
+
+    const all_keys = Object.keys({ ...record, ...values })
+
+    return all_keys.reduce((acc, fld) => {
+      const meta = this._fields[fld] || {}
+      if (meta.type === 'many2many') {
+        const val =
+          fld in values ? values[fld] : [[6, false, record[fld] || []]]
+
+        acc[fld] = tuples_to_ids(val)
+      } else if (meta.type === 'one2many') {
+        const val =
+          fld in values
+            ? values[fld]
+            : (record[fld] || []).map(item => [4, item, false])
+
+        acc[fld] = tuples_to_ids(val)
+      } else {
+        const val = fld in values ? values[fld] : record[fld]
+        const val2 = val && meta.type === 'many2one' ? val[0] : val
+        acc[fld] = val2
+      }
+
+      return acc
+    }, {})
+  }
+
   // todo meta.readonly.  merge record
   static _get_values_for_write(record, values) {
+    const recordMerged = this._get_values_for_modifiers(record, values)
+
     const _commit_get_readonly = (meta, state) => {
       const meta_readonly_get = () => {
         if (typeof meta.readonly === 'function') {
           return meta.readonly({
-            record: { ...record, ...values }
+            record: recordMerged
           })
         } else {
           return meta.readonly
