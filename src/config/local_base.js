@@ -37,6 +37,13 @@ export default {
       id: 'odoo_base.res_partner_industry_action',
       icon: 'shopping',
       name: { en_US: 'Industry', zh_CN: '行业', zh_HK: '行业' }
+    },
+
+    {
+      action: 'base.action_currency_form',
+      id: 'odoo_base.action_currency_form',
+      icon: 'shopping',
+      name: { en_US: 'Currency', zh_CN: '货币', zh_HK: '货币' }
     }
   ]
 }

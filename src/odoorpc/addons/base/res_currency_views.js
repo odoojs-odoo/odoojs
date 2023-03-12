@@ -18,45 +18,76 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.currency',
     type: 'form',
-    fields: {
-      name: {},
-      full_name: {},
-      active: {},
-      currency_unit_label: {},
-      currency_subunit_label: {},
-      rounding: {},
-      decimal_places: {},
-      symbol: {},
-      position: {},
-      date: {},
-      rate: {},
 
-      rate_ids: {
-        widget: 'x2many_tree',
-        views: {
-          tree: {
-            fields: {
-              name: {},
-              company_id: {},
-              company_rate: {},
-              inverse_company_rate: {},
-              rate: {},
-              write_date: {}
-            }
-          },
-          form: {
-            fields: {
-              name: {},
-              company_id: {},
-              company_rate: {},
-              inverse_company_rate: {},
-              rate: {},
-              write_date: {}
+    arch: {
+      header: {
+        buttons: [],
+        fields: {}
+      },
+      sheet: {
+        _title: {
+          display_name: {}
+        },
+
+        _group_name: {
+          name: {},
+          full_name: {},
+          active: {}
+        },
+
+        _group_currency_unit: {
+          currency_unit_label: {},
+          currency_subunit_label: {}
+        },
+
+        _group_price_accuracy: {
+          rounding: {},
+          decimal_places: {}
+        },
+
+        _group_display: {
+          symbol: {},
+          position: {}
+        },
+
+        _group_date: {
+          date: {},
+          rate: {}
+        },
+
+        _group_rates: {
+          _span: 2,
+
+          rate_ids: {
+            widget: 'x2many_tree',
+            views: {
+              tree: {
+                fields: {
+                  name: {},
+                  company_id: {},
+                  company_rate: {},
+                  inverse_company_rate: {},
+                  rate: {},
+                  write_date: {}
+                }
+              },
+              form: {
+                fields: {
+                  name: {},
+                  company_id: {},
+                  company_rate: {},
+                  inverse_company_rate: {},
+                  rate: {},
+                  write_date: {}
+                }
+              }
             }
           }
         }
       }
-    }
+    },
+
+    fields: {}
   },
 
   view_currency_search: {

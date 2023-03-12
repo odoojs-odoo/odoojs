@@ -20,6 +20,16 @@ export default {
         zh_CN: '银行账号',
         zh_HK: '銀行帳號'
       }
+    },
+    {
+      action: 'base.action_res_company_form',
+      id: 'odoo_base.action_res_company_form',
+      icon: 'shopping',
+      name: {
+        en_US: 'Company',
+        zh_CN: '公司',
+        zh_HK: '公司'
+      }
     }
   ]
 }
