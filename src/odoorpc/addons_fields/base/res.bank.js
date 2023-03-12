@@ -10,7 +10,8 @@ const ModelFields = {
     // domain="[('country_id', '=?', country_id)]"
     domain: ({ record }) => {
       const { country } = record
-      return [['country_id', '=?', country && country[0]]]
+      // console.log([record, country && country[0]])
+      return [['country_id', '=?', country]]
     }
   },
   zip: {},

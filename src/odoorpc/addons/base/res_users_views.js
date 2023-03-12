@@ -3,23 +3,51 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.users',
     type: 'form',
+    arch: {
+      header: {
+        buttons: [],
+        fields: {}
+      },
+      sheet: {
+        _title: {
+          display_name: {}
+        },
+
+        _group_name: {
+          partner_id: { readonly2: '1' },
+          name: { required: '1' },
+          login: {}
+        },
+
+        _group_logo: {
+          image_1920: { widget: 'image' }
+        },
+
+        _group_access_rights: {
+          company_ids: { widget: 'many2many_tags' },
+          company_id: {}
+        },
+
+        _group_access_rights2: {
+          _span: 2
+          // groups_id: {}
+        },
+
+        _group_preferences: {
+          lang: {},
+          tz: {}
+        },
+        _group_action: {
+          action_id: {}
+        },
+        _group_messaging: {
+          signature: {}
+        }
+      }
+    },
+
     fields: {
       // active_partner: { readonly: 1, invisible: '1' },
-      // display_name: {},
-
-      image_1920: { widget: 'image' },
-      name: { required: '1' },
-      login: {},
-      partner_id: { readonly2: '1' },
-      company_ids: { widget: 'many2many_tags' },
-      company_id: {},
-      groups_id: {},
-
-      lang: {},
-
-      tz: {},
-      action_id: {}
-      // signature: {}
       // login_date: {}
     }
   },

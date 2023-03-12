@@ -55,7 +55,7 @@ export default {
         // string: '',
 
         context: ({ record }) => {
-          console.log(record)
+          console.log('stock move, lines', record)
           const {
             id: res_id,
             picking_id,
@@ -65,12 +65,12 @@ export default {
             company_id
           } = record
           return {
-            default_picking_id: picking_id[0],
+            default_picking_id: picking_id,
             default_move_id: res_id,
-            default_product_id: product_id[0],
-            default_location_id: location_id[0],
-            default_location_dest_id: location_dest_id[0],
-            default_company_id: company_id[0]
+            default_product_id: product_id,
+            default_location_id: location_id,
+            default_location_dest_id: location_dest_id,
+            default_company_id: company_id
           }
         },
 

@@ -277,6 +277,7 @@ export class Model extends BaseModel {
     super(payload)
   }
 
+  // todo meta.readonly.  merge record
   static _get_values_for_write(record, values) {
     const _commit_get_readonly = (meta, state) => {
       const meta_readonly_get = () => {

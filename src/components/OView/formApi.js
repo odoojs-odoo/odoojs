@@ -132,10 +132,30 @@ export function useForm(props, ctx) {
   function getRules(fieldInfo) {
     // console.log([fieldInfo.name, fieldInfo.required], fieldInfo)
     if (!fieldInfo.required) return undefined
-    const required =
-      typeof fieldInfo.required === 'function'
-        ? fieldInfo.required({ record: { ...state.record, ...state.values } })
-        : fieldInfo.required
+
+    // const required =
+    //   typeof fieldInfo.required === 'function'
+    //     ? fieldInfo.required({ record: { ...state.record, ...state.values } })
+    //     : fieldInfo.required
+
+    function required_get() {
+      if (typeof fieldInfo.required !== 'function') {
+        return fieldInfo.required
+      }
+
+      if (state.formviewFieldReady && localState.formview) {
+        const records_merged = localState.formview._get_values_for_modifiers(
+          state.record,
+          state.values
+        )
+
+        return fieldInfo.required({ record: records_merged })
+      }
+
+      return false
+    }
+
+    const required = required_get()
 
     if (!required) return undefined
     return [{ required: true, message: `请输入${tr(fieldInfo.string)}!` }]
@@ -284,6 +304,7 @@ export function useForm(props, ctx) {
     formInfo: computed(() => {
       return {
         viewInfo: state.viewInfo,
+        fields: state.fields,
         record: state.record,
         values: state.values,
         editable: state.editable

@@ -20,12 +20,8 @@ const ModelFields = {
     name: '州省',
     domain: ({ record }) => {
       // domain="[('country_id', '=?', country_id)]"
-
       const { country_id } = record
-
-      const country_id2 = country_id || [false, '']
-      const country_id3 = country_id2[0]
-      return [['country_id', '=?', country_id3]]
+      return [['country_id', '=?', country_id]]
     }
   },
 

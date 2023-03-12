@@ -2,6 +2,8 @@ import { BaseView } from './baseview'
 
 import { EditModel } from './editmodel'
 
+import { tuples_to_ids } from '@/odoorpc/tools'
+
 // eslint-disable-next-line no-unused-vars
 const cp = val => JSON.parse(JSON.stringify(val))
 
@@ -463,6 +465,35 @@ export class FormView extends BaseView {
             : (record[fld] || []).map(item => [4, item, false])
 
         acc[fld] = val
+      } else {
+        const val = fld in values ? values[fld] : record[fld]
+        const val2 = val && meta.type === 'many2one' ? val[0] : val
+        acc[fld] = val2
+      }
+
+      return acc
+    }, {})
+  }
+
+  _get_values_for_modifiers(record, values) {
+    // call by require, readonly, domain of feild
+
+    const all_keys = Object.keys({ ...record, ...values })
+
+    return all_keys.reduce((acc, fld) => {
+      const meta = this.fields[fld] || {}
+      if (meta.type === 'many2many') {
+        const val =
+          fld in values ? values[fld] : [[6, false, record[fld] || []]]
+
+        acc[fld] = tuples_to_ids(val)
+      } else if (meta.type === 'one2many') {
+        const val =
+          fld in values
+            ? values[fld]
+            : (record[fld] || []).map(item => [4, item, false])
+
+        acc[fld] = tuples_to_ids(val)
       } else {
         const val = fld in values ? values[fld] : record[fld]
         const val2 = val && meta.type === 'many2one' ? val[0] : val

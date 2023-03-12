@@ -1,4 +1,4 @@
-import { computed, reactive, watch, ref } from 'vue'
+import { computed, reactive, watch } from 'vue'
 import api from '@/odoorpc'
 
 function sleep(millisecond) {
@@ -112,10 +112,30 @@ export function useO2mForm(props, ctx) {
 
   function getRules(fieldInfo) {
     if (!fieldInfo.required) return undefined
-    const required =
-      typeof fieldInfo.required === 'function'
-        ? fieldInfo.required({ record: { ...props.record, ...state.values } })
-        : fieldInfo.required
+
+    // const required =
+    //   typeof fieldInfo.required === 'function'
+    //     ? fieldInfo.required({ record: { ...props.record, ...state.values } })
+    //     : fieldInfo.required
+
+    function required_get() {
+      if (typeof fieldInfo.required !== 'function') {
+        return fieldInfo.required
+      }
+
+      if (state.formviewReady && localState.formview) {
+        const records_merged = localState.formview._get_values_for_modifiers(
+          state.record,
+          state.values
+        )
+
+        return fieldInfo.required({ record: records_merged })
+      }
+
+      return false
+    }
+
+    const required = required_get()
 
     if (!required) return undefined
     return [{ required: true, message: `请输入${fieldInfo.string}!` }]

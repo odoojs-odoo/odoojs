@@ -25,10 +25,34 @@ export default {
       action: 'base.action_res_company_form',
       id: 'odoo_base.action_res_company_form',
       icon: 'shopping',
+      name: { en_US: 'Company', zh_CN: '公司', zh_HK: '公司' }
+    },
+
+    {
+      action: 'base.action_res_users',
+      id: 'odoo_base.action_res_users',
+      icon: 'shopping',
+      name: { en_US: 'User', zh_CN: '用户', zh_HK: '用户' }
+    },
+
+    {
+      action: 'bmx_base.action_partner_of_contact_organization',
+      id: 'bmx_base.action_partner_of_contact_organization',
+      icon: 'shopping',
       name: {
-        en_US: 'Company',
-        zh_CN: '公司',
-        zh_HK: '公司'
+        en_US: 'Partner Organization',
+        zh_CN: '联系人(组织)',
+        zh_HK: '联系人(组织)'
+      }
+    },
+    {
+      action: 'bmx_base.action_partner_of_contact_person',
+      id: 'bmx_base.action_partner_of_contact_person',
+      icon: 'shopping',
+      name: {
+        en_US: 'Partner Person',
+        zh_CN: '联系人(个人)',
+        zh_HK: '联系人(个人)'
       }
     }
   ]

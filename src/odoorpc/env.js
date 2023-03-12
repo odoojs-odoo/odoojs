@@ -115,8 +115,8 @@ export class Environment {
     return view
   }
 
-  formview(action_id) {
-    const view = new ui.FormView(action_id, { env: this })
+  formview(action_id, kw = {}) {
+    const view = new ui.FormView(action_id, { ...kw, env: this })
     return view
   }
 
