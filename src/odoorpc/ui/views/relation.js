@@ -135,8 +135,37 @@ export class Relation extends Field {
     const raw_tree = treeview.fields || { display_name: {} }
     const kanbanview = views.kanban || {}
     const raw_kanban = kanbanview.fields || { display_name: {} }
+
     const formview = views.form || {}
-    const raw_form = formview.fields || { display_name: {} }
+
+    const raw_form_get_from_sheet = () => {
+      const sheet = (formview.arch || {}).sheet || {}
+      return Object.keys(sheet).reduce((acc, cur) => {
+        const acc2_res = Object.keys(sheet[cur]).reduce((acc2, cur2) => {
+          if (cur2[0] !== '_') {
+            acc2[cur2] = sheet[cur][cur2]
+          }
+
+          return acc2
+        }, {})
+
+        acc = { ...acc, ...acc2_res }
+
+        return acc
+      }, {})
+    }
+
+    const raw_form_get = () => {
+      const fs = raw_form_get_from_sheet()
+
+      const fs2 = formview.fields || {}
+      return { display_name: {}, ...fs2, ...fs }
+    }
+
+    const raw_form = raw_form_get()
+
+    // const formview = views.form || {}
+    // const raw_form = { display_name: {}, ...(formview.fields || {}) }
 
     const fields_raw = { ...raw_tree, ...raw_kanban, ...raw_form }
 

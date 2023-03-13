@@ -36,15 +36,27 @@ export default {
             widget: 'x2many_tree',
             views: {
               tree: { fields: { name: {} } },
-              kanban: {
-                fields: { name: {} },
-                templates: {
-                  title({ record }) {
-                    return record.name
+              // kanban: {
+              //   fields: { name: {} },
+              //   templates: {
+              //     title({ record }) {
+              //       return record.name
+              //     }
+              //   }
+              // },
+              form: {
+                arch: {
+                  sheet: {
+                    _group_name: {
+                      name: {}
+                    },
+
+                    _group_name2: {
+                      name: {}
+                    }
                   }
                 }
-              },
-              form: { fields: { name: {} } }
+              }
             }
           }
         }

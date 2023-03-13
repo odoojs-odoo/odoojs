@@ -1,5 +1,51 @@
 <template>
   <span>
+    <a-modal v-model:visible="visible2" :title="modalTitle" width="600px">
+      <!-- :model="mVal"   readonly, record-->
+      <a-form
+        ref="editRef"
+        autocomplete="off"
+        style="background-color: white; margin-top: 5px; padding: 5px"
+      >
+        <a-descriptions
+          :column="2"
+          style="background-color: white; padding: 5px; margin-top: 5px"
+          size="small"
+        >
+          <template v-for="group in sheet.children" :key="group.name">
+            <a-descriptions-item :span="group.span">
+              <!-- {{ group.children }} -->
+              <a-descriptions :column="1">
+                <template v-for="meta in group.children" :key="meta.name">
+                  <a-descriptions-item>
+                    <template v-if="meta.type">
+                      <a-form-item
+                        :name="meta.name"
+                        :label="tr(meta.string)"
+                        style="margin-bottom: 5px"
+                      >
+                        <!-- formInfo -->
+                        <!-- {{ meta }} -->
+
+                        <!-- @change="(...args) => onChange(meta.name, ...args)" -->
+
+                        <OField
+                          width="270px"
+                          :field-name="meta.name"
+                          :field-info="meta"
+                          :form-info="formInfo"
+                        />
+                      </a-form-item>
+                    </template>
+                  </a-descriptions-item>
+                </template>
+              </a-descriptions>
+            </a-descriptions-item>
+          </template>
+        </a-descriptions>
+      </a-form>
+    </a-modal>
+
     <!-- <a-modal v-model="showModal" :title="relationInfo && relationInfo.string">
       <a-form-model :label-col="labelCol" :wrapper-col="wrapperCol">
         <template v-for="meta in fields">
@@ -47,32 +93,43 @@
   </span>
 </template>
 
-<script>
-// import M2mFormMixin from '@/odooui/M2mFormMixin'
+<script setup>
+import { defineProps, defineEmits, computed, ref } from 'vue'
 
-// export default {
-//   name: 'M2mForm',
+import { useM2mForm } from './m2mFormApi'
+import { useL10n } from '@/components/tools/useL10n'
+const { tr } = useL10n()
+
+import OField from '@/components/OField/OField.vue'
+
+const props = defineProps([
+  'visible',
+  'readonly',
+  'record',
+  'relationInfo',
+  'relationSheet',
+  'parentFormInfo'
+])
+
+const emit = defineEmits(['update:visible', 'row-commit'])
+const modalTitle = computed(() =>
+  props.record.id ? props.record.display_name : '添加'
+)
+
+const editRef = ref()
+
+const useData = useM2mForm(props, { emit, editRef })
+const { visible2, sheet, formInfo } = useData
+
 //   components: {
 //     FormField: () => import('@/components/OView/FormField.vue')
 //   },
-//   mixins: [M2mFormMixin],
-//   props: {},
-//   data() {
+
 //     return {
 //       labelCol: { span: 4 },
 //       wrapperCol: { span: 14 }
 //     }
 //   },
-//   computed: {},
-
-//   watch: {},
-
-//   created() {},
-
-//   mounted() {},
-
-//   methods: {}
-// }
 </script>
 
 <style type="text/css"></style>

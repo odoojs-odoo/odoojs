@@ -31,6 +31,9 @@ export function useFO2m(props, ctx) {
     }
   })
 
+  // 编辑过的数据 也 放在一起
+  const currentRow = computed(() => state.currentRow)
+
   watch(
     readonly,
     // eslint-disable-next-line no-unused-vars
@@ -42,9 +45,6 @@ export function useFO2m(props, ctx) {
     },
     { immediate: true }
   )
-
-  // 编辑过的数据 也 放在一起
-  const currentRow = computed(() => state.currentRow)
 
   watch(
     () => props.fieldInfo.type,

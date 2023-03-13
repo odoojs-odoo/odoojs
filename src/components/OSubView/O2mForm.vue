@@ -76,22 +76,14 @@ const props = defineProps([
 ])
 
 const emit = defineEmits(['update:visible', 'row-commit'])
-const modalTitle = props.record.id ? props.record.displayname : '新增'
+const modalTitle = props.record.id ? props.record.display_name : '新增'
 
 const editRef = ref()
+const useData = useO2mForm(props, { emit, editRef })
+const { visible2, mVal, fields, formInfo } = useData
 
-const {
-  visible2,
-  mVal,
-  fields,
-  formInfo,
-  checkInvisible,
-  getRules,
-  onChange,
-  onRollback,
-  onRemove,
-  onCommit
-} = useO2mForm(props, { emit, editRef })
+const { checkInvisible, getRules, onChange, onRollback, onRemove, onCommit } =
+  useData
 
 const labelCol = { span: 4 }
 const wrapperCol = { span: 18 }

@@ -81,7 +81,7 @@ export function useTreeColumns() {
           key: fld,
           title: l10n.tr(meta.string),
           ellipsis: 'ellipsis' in meta ? meta.ellipsis : true,
-          align: 'center',
+          // align: 'center',
           width: meta.web_col_width,
           _meta: meta,
           _format: formatGet(meta) // record => format(record, meta)

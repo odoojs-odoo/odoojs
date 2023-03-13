@@ -2,12 +2,21 @@ import { computed, toRaw } from 'vue'
 import api from '@/odoorpc'
 
 function get_recordMerged(formInfo) {
-  const actionInfo = toRaw(formInfo.viewInfo.action)
-  const fields = toRaw(formInfo.fields)
+  // console.log(formInfo)
+  if (formInfo.viewInfo) {
+    // console.log('viewInfo', formInfo.viewInfo)
+    const actionInfo = toRaw(formInfo.viewInfo.action)
+    const fields = toRaw(formInfo.fields)
 
-  const formview = api.env.formview(actionInfo, { fields })
+    const formview = api.env.formview(actionInfo, { fields })
 
-  return formview._get_values_for_modifiers(formInfo.record, formInfo.values)
+    return formview._get_values_for_modifiers(formInfo.record, formInfo.values)
+  } else if (formInfo.relationInfo) {
+    const rel = api.env.relation(formInfo.relationInfo)
+    return rel.form._get_values_for_modifiers(formInfo.record, formInfo.values)
+  } else {
+    return {}
+  }
 }
 
 function useFormApi() {
@@ -80,7 +89,7 @@ export function useField(props, ctx) {
     // todo: o2mForm 中 嵌套 m2m 或 o2m 子表. 暂时 考虑不完善
     const name = widgetName2.value
 
-    if (props.formInfo.formType === 'o2mForm') {
+    if ('relationInfo' in props.formInfo) {
       if (['FMany2many', 'FOne2many'].includes(name)) {
         return null
       }

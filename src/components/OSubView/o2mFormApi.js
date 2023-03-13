@@ -1,4 +1,4 @@
-import { computed, reactive, watch } from 'vue'
+import { computed, reactive, watch, toRaw } from 'vue'
 import api from '@/odoorpc'
 
 function sleep(millisecond) {
@@ -31,9 +31,9 @@ export function useO2mForm(props, ctx) {
     return state.formviewReady ? localState.formview.fields : {}
   })
 
-  const viewInfo = computed(() => {
-    return state.formviewReady ? localState.formview.viewInfo : {}
-  })
+  // const viewInfo = computed(() => {
+  //   return state.formviewReady ? localState.formview.viewInfo : {}
+  // })
 
   watch(
     () => props.relationInfo,
@@ -195,8 +195,7 @@ export function useO2mForm(props, ctx) {
     fields: fields,
     formInfo: computed(() => {
       return {
-        formType: 'o2mForm',
-        viewInfo: viewInfo.value,
+        relationInfo: toRaw(props.relationInfo),
         record: props.record,
         values: state.values,
         editable: !props.readonly

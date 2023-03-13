@@ -1,3 +1,0 @@
-// ok
-
-export default {}

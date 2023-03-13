@@ -49,7 +49,7 @@ import FDatetime from '@/components/OField/FDatetime.vue'
 import FBoolean from '@/components/OField/FBoolean.vue'
 import FM2mTags from '@/components/OField/FM2mTags.vue'
 import FOne2many from '@/components/OField/FOne2many.vue'
-
+import FMany2many from '@/components/OField/FMany2many.vue'
 import FBinary from '@/components/OField/FBinary.vue'
 
 const props = defineProps([
@@ -73,6 +73,7 @@ const widgetMap = {
   FBoolean,
   FM2mTags,
   FOne2many,
+  FMany2many,
   FBinary
 }
 

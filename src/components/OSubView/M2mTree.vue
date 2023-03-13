@@ -1,79 +1,55 @@
 <template>
   <span>
-    <!-- <div>
-      <template v-if="editable && !readonly">
-        <a-button size="small" @click="handleCreate"> 添加 </a-button>
-      </template>
-    </div>
+    <!-- readonly: {{ readonly }} -->
 
     <a-table
+      :dataSource="records"
       :columns="columns"
-      :data-source="values_display"
-      rowKey="id"
       :customRow="tableCustomRow"
     >
+      <template #bodyCell="{ column, record }">
+        <template v-if="column._format">
+          {{ column._format(record) }}
+        </template>
+
+        <template v-else>{{ record[column.dataIndex] }} </template>
+      </template>
     </a-table>
 
-    <template v-if="fieldInfo.type === 'many2many'">
-      <M2mForm
-        ref="subForm"
-        :editable="editable"
-        :relationInfo="relationInfo"
-        :parentViewInfo="parentViewInfo"
-        @on-commit="handleOnCommit"
-      />
-
-      <M2mNew
-        ref="subNew"
-        :relationInfo="relationInfo"
-        :parentViewInfo="parentViewInfo"
-        @on-commit="handleOnCommit"
-      />
+    <template v-if="!readonly">
+      <a-button size="small" @click="onCreate"> 添加 </a-button>
     </template>
-
-    <template v-else> </template> -->
   </span>
 </template>
 
-<script>
-// import M2mTreeMixin from '@/odooui/M2mTreeMixin'
+<script setup>
+import { defineProps, defineEmits } from 'vue'
 
-// import M2mForm from '@/components/OSubView/M2mForm.vue'
-// import M2mNew from '@/components/OSubView/M2mNew.vue'
+import { useM2mTree } from './m2mTreeApi'
 
-// export default {
-//   name: 'M2mTree',
-//   components: { M2mForm, M2mNew },
-//   mixins: [M2mTreeMixin],
-//   props: {},
-//   data() {
-//     return {}
-//   },
-//   computed: {},
+const props = defineProps([
+  'readonly',
+  'records',
+  'relationInfo',
+  'parentFormInfo'
+])
 
-//   watch: {},
+const emit = defineEmits(['row-click', 'row-new'])
 
-//   created() {},
+const { columns } = useM2mTree(props)
 
-//   mounted() {},
-
-//   methods: {
-//     tableCustomRow(record) {
-//       return {
-//         // props: {
-//         //   xxx... //属性
-//         // },
-//         on: {
-//           // eslint-disable-next-line no-unused-vars
-//           click: event => {
-//             // console.log(record)
-//             this.handleOnRowClick(record)
-//           } // 点击行
-//         }
-//       }
-//     }
-//   }
-// }
+function tableCustomRow(record) {
+  return {
+    // eslint-disable-next-line no-unused-vars
+    onClick: event => {
+      // console.log('click row ', record)
+      emit('row-click', record)
+    }
+  }
+}
+function onCreate() {
+  emit('row-new')
+}
 </script>
 
 <style type="text/css"></style>

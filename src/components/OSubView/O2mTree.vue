@@ -1,10 +1,3 @@
-<!--
- * @Author: Nxf
- * @Date: 2023-02-06 12:20:30
- * @LastEditors: Nxf
- * @LastEditTime: 2023-02-06 20:49:36
- * @Descripttion: 
--->
 <template>
   <div>
     <!-- readonly: {{ readonly }} -->

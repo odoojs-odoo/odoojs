@@ -282,7 +282,7 @@ export class Model extends BaseModel {
     // call by require, readonly, domain of feild
 
     const all_keys = Object.keys({ ...record, ...values })
-
+    // console.log(' _get_values_for_modifiers', this._fields)
     return all_keys.reduce((acc, fld) => {
       const meta = this._fields[fld] || {}
       if (meta.type === 'many2many') {

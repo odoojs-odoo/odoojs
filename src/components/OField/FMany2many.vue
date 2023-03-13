@@ -1,40 +1,66 @@
 <template>
   <span>
-    <!-- <M2mTree
-      :editable="editable"
-      :relationInfo="relation && relation.field_info"
-      :parentViewInfo="viewInfo"
-      :records="subRecords"
-      @change="handleChange"
-    /> -->
+    <!-- {{ readonly }}  -->
+
+    <M2mTree
+      :readonly="readonly"
+      :records="recordsDisplay"
+      :relation-info="relationInfo"
+      :parent-view-info="formInfo.viewInfo"
+      @row-click="onRowClick"
+      @row-new="onRowCreate"
+    />
+
+    <!-- {{ [modalVisible, currentRow] }} -->
+    <!-- @row-commit="onRowCommit" -->
+    <M2mForm
+      v-model:visible="modalVisible"
+      :readonly="readonly"
+      :record="currentRow"
+      :relation-info="relationInfo"
+      :relation-sheet="relationSheet"
+      :parent-form-info="formInfo"
+    />
+
+    <!-- 
+   
+
+      <M2mNew
+        ref="subNew"
+        :relationInfo="relationInfo"
+        :parentViewInfo="parentViewInfo"
+        @on-commit="handleOnCommit"
+      /> -->
   </span>
 </template>
 
-<script>
-// todo
-// import FX2mMixin from './FX2mMixin'
+<script setup>
+import M2mTree from '@/components/OSubView/M2mTree.vue'
+import M2mForm from '@/components/OSubView/M2mForm.vue'
 
-// import M2mTree from '@/components/OSubView/M2mTree.vue'
+import { defineProps, defineEmits } from 'vue'
 
-export default {
-  name: 'FOne2many',
-  components: { M2mTree },
-  mixins: [FX2mMixin],
-  props: {},
+import { useFM2m } from './FM2mApi'
 
-  data() {
-    return {}
-  },
-  computed: {},
+const props = defineProps([
+  'modelValue',
+  'width',
+  'fieldName',
+  'fieldInfo',
+  'formInfo'
+])
 
-  watch: {},
+const emit = defineEmits(['update:modelValue', 'change'])
 
-  async created() {},
+const useData = useFM2m(props, { emit })
 
-  async mounted() {},
+const { readonly, relationInfo, relationSheet, recordsDisplay } = useData
+const { onRowClick, onRowCreate } = useData
 
-  methods: {}
-}
+const { modalVisible, currentRow } = useData
+
+//
+//
 </script>
 
 <style type="text/css" scoped></style>
