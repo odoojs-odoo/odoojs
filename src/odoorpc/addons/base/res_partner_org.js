@@ -1,5 +1,5 @@
 export default {
-  view_partner_tree: {
+  view_partner_organization_tree: {
     _odoo_model: 'ir.ui.view',
     model: 'res.partner',
     type: 'tree',
@@ -12,7 +12,7 @@ export default {
     }
   },
 
-  view_partner_form: {
+  view_partner_organization_form: {
     _odoo_model: 'ir.ui.view',
     model: 'res.partner',
     type: 'form',
@@ -134,7 +134,7 @@ export default {
     }
   },
 
-  view_res_partner_filter: {
+  view_res_partner_organization_filter: {
     _odoo_model: 'ir.ui.view',
     model: 'res.partner',
     type: 'search',
@@ -200,7 +200,7 @@ export default {
     name: '联系人(组织)',
     type: 'ir.actions.act_window',
     res_model: 'res.partner',
-    search_view_id: 'view_res_partner_filter',
+    search_view_id: 'view_res_partner_organization_filter',
     domain: [
       ['type', '=', 'contact'],
       ['is_company', '=', true]
@@ -208,8 +208,8 @@ export default {
     context: { default_is_company: true },
 
     views: {
-      tree: 'view_partner_tree',
-      form: 'view_partner_form'
+      tree: 'view_partner_organization_tree',
+      form: 'view_partner_organization_form'
     }
   }
 }

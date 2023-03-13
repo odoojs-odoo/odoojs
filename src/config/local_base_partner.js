@@ -36,8 +36,8 @@ export default {
     },
 
     {
-      action: 'bmx_base.action_partner_of_contact_organization',
-      id: 'bmx_base.action_partner_of_contact_organization',
+      action: 'base.action_partner_of_contact_organization',
+      id: 'odoo_base.action_partner_of_contact_organization',
       icon: 'shopping',
       name: {
         en_US: 'Partner Organization',
@@ -46,8 +46,8 @@ export default {
       }
     },
     {
-      action: 'bmx_base.action_partner_of_contact_person',
-      id: 'bmx_base.action_partner_of_contact_person',
+      action: 'base.action_partner_of_contact_person',
+      id: 'odoo_base.action_partner_of_contact_person',
       icon: 'shopping',
       name: {
         en_US: 'Partner Person',
