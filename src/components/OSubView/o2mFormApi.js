@@ -31,10 +31,6 @@ export function useO2mForm(props, ctx) {
     return state.formviewReady ? localState.formview.fields : {}
   })
 
-  // const viewInfo = computed(() => {
-  //   return state.formviewReady ? localState.formview.viewInfo : {}
-  // })
-
   watch(
     () => props.relationInfo,
     // eslint-disable-next-line no-unused-vars

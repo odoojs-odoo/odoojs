@@ -11,14 +11,11 @@
       @row-new="onRowCreate"
     />
 
-    <!-- {{ [modalVisible, currentRow] }} -->
-    <!-- @row-commit="onRowCommit" -->
     <M2mForm
       v-model:visible="modalVisible"
       :readonly="readonly"
       :record="currentRow"
       :relation-info="relationInfo"
-      :relation-sheet="relationSheet"
       :parent-form-info="formInfo"
     />
 
@@ -54,7 +51,7 @@ const emit = defineEmits(['update:modelValue', 'change'])
 
 const useData = useFM2m(props, { emit })
 
-const { readonly, relationInfo, relationSheet, recordsDisplay } = useData
+const { readonly, relationInfo, recordsDisplay } = useData
 const { onRowClick, onRowCreate } = useData
 
 const { modalVisible, currentRow } = useData

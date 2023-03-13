@@ -33,11 +33,6 @@ export function useM2mForm(props, ctx) {
       : { children: {} }
   })
 
-  //   const viewInfo = computed(() => {
-  //     console.log(localState.formview)
-  //     return state.formviewReady ? localState.formview.viewInfo : {}
-  //   })
-
   watch(
     () => props.relationInfo,
     // eslint-disable-next-line no-unused-vars

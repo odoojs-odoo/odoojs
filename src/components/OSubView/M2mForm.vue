@@ -107,7 +107,6 @@ const props = defineProps([
   'readonly',
   'record',
   'relationInfo',
-  'relationSheet',
   'parentFormInfo'
 ])
 
