@@ -2,9 +2,7 @@ import { computed, toRaw } from 'vue'
 import api from '@/odoorpc'
 
 function get_recordMerged(formInfo) {
-  // console.log(formInfo)
   if (formInfo.viewInfo) {
-    // console.log('viewInfo', formInfo.viewInfo)
     const actionInfo = toRaw(formInfo.viewInfo.action)
     const fields = toRaw(formInfo.fields)
 
@@ -21,18 +19,19 @@ function get_recordMerged(formInfo) {
 
 function useFormApi() {
   function checkReadonly(formInfo, fieldInfo) {
+    if (!formInfo.editable) {
+      return true
+    }
+
     const recordMerged = get_recordMerged(formInfo)
 
     const readonly = api.env.field(fieldInfo).readonly_get({
       record: recordMerged
     })
 
-    // console.log([formInfo, formInfo.editable])
-    // return !formInfo.editable    // for debug
-
     // WAttachment 的 编辑 尚未处理 todo
 
-    return !formInfo.editable || readonly
+    return readonly
   }
 
   function getValueDisplay(formInfo, fieldName) {
