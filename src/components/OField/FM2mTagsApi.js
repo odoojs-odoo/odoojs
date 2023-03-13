@@ -1,42 +1,13 @@
-import { computed, watch, ref } from 'vue'
+import { computed, watch, ref, toRaw } from 'vue'
 import api from '@/odoorpc'
 import { tuples_to_ids } from '@/odoorpc/tools'
 
 import { useField } from './FieldApi'
 
-// function tuples_to_ids(tuples) {
-//   // m2m
-//   // [6,],[5,],[4,id],[3,id]
-//   //
-
-//   // console.log('tuples_to_ids 1', tuples)
-
-//   const ids = tuples.reduce((acc, tup) => {
-//     const op = tup[0]
-//     if (op === 6) return [...tup[2]]
-//     if (op === 5) return []
-
-//     if ([4, 1].includes(op)) {
-//       const rid = tup[1]
-//       if (acc.includes(rid)) return [...acc]
-//       else return [...acc, rid]
-//     }
-
-//     if ([3, 2].includes(op)) return acc.filter(item => item !== tup[1])
-
-//     // 不应该走到这里
-//     return acc
-//   }, [])
-
-//   // console.log('tuples_to_ids 2', ids)
-//   return ids
-// }
-
 function get_recordMerged(formInfo) {
-  const formview = api.env.formview(formInfo.viewInfo, {
-    fields: formInfo.fields
-  })
-
+  const actionInfo = toRaw(formInfo.viewInfo.action)
+  const fields = toRaw(formInfo.fields)
+  const formview = api.env.formview(actionInfo, { fields })
   return formview._get_values_for_modifiers(formInfo.record, formInfo.values)
 }
 
@@ -55,7 +26,6 @@ export function useFM2mTags(props, ctx) {
   }
 
   async function loadSelectOptions(kw = {}) {
-    // const recordMerged = { ...props.formInfo.record, ...props.formInfo.values }
     const recordMerged = get_recordMerged(props.formInfo)
     const relation = api.env.relation(props.fieldInfo)
     return relation.load_select_options({ record: recordMerged, ...kw })
@@ -89,7 +59,7 @@ export function useFM2mTags(props, ctx) {
   const mVal = computed({
     get() {
       const ids = idsForEdit.value
-      console.log(idsForEdit)
+      // console.log(idsForEdit)
       const res = ids
         .map(item => toDict(records.value)[item])
         .filter(item => item)
@@ -199,7 +169,6 @@ export function useFM2mTags(props, ctx) {
 
 export function useMoreSearch(props, ctx) {
   function loadSelectOptions(kw = {}) {
-    // const recordMerged = { ...props.formInfo.record, ...props.formInfo.values }
     const recordMerged = get_recordMerged(props.formInfo)
     const relation = api.env.relation(props.fieldInfo)
     return relation.load_select_options({ record: recordMerged, ...kw })

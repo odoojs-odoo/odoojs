@@ -113,11 +113,6 @@ export function useO2mForm(props, ctx) {
   function getRules(fieldInfo) {
     if (!fieldInfo.required) return undefined
 
-    // const required =
-    //   typeof fieldInfo.required === 'function'
-    //     ? fieldInfo.required({ record: { ...props.record, ...state.values } })
-    //     : fieldInfo.required
-
     function required_get() {
       if (typeof fieldInfo.required !== 'function') {
         return fieldInfo.required

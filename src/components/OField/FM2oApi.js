@@ -1,13 +1,12 @@
-import { computed, watch, ref } from 'vue'
+import { computed, watch, ref, toRaw } from 'vue'
 
 import { useField } from './FieldApi'
 import api from '@/odoorpc'
 
 function get_recordMerged(formInfo) {
-  const formview = api.env.formview(formInfo.viewInfo, {
-    fields: formInfo.fields
-  })
-
+  const actionInfo = toRaw(formInfo.viewInfo.action)
+  const fields = toRaw(formInfo.fields)
+  const formview = api.env.formview(actionInfo, { fields })
   return formview._get_values_for_modifiers(formInfo.record, formInfo.values)
 }
 
@@ -20,7 +19,6 @@ export function useFM2o(props, ctx) {
   } = useField(props, ctx)
 
   function loadSelectOptions(kw = {}) {
-    // const recordMerged = { ...props.formInfo.record, ...props.formInfo.values }
     const recordMerged = get_recordMerged(props.formInfo)
 
     const relation = api.env.relation(props.fieldInfo)
@@ -91,8 +89,6 @@ export function useFM2o(props, ctx) {
 
 export function useMoreSearch(props, ctx) {
   function loadSelectOptions(kw = {}) {
-    // const recordMerged = { ...props.formInfo.record, ...props.formInfo.values }
-
     const recordMerged = get_recordMerged(props.formInfo)
 
     const relation = api.env.relation(props.fieldInfo)

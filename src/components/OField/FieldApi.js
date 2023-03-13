@@ -1,20 +1,17 @@
-import { computed } from 'vue'
+import { computed, toRaw } from 'vue'
 import api from '@/odoorpc'
 
 function get_recordMerged(formInfo) {
-  const formview = api.env.formview(formInfo.viewInfo, {
-    fields: formInfo.fields
-  })
+  const actionInfo = toRaw(formInfo.viewInfo.action)
+  const fields = toRaw(formInfo.fields)
+
+  const formview = api.env.formview(actionInfo, { fields })
 
   return formview._get_values_for_modifiers(formInfo.record, formInfo.values)
 }
 
 function useFormApi() {
-  // const viewInfo = computed(() => formInfo.viewInfo)
-
   function checkReadonly(formInfo, fieldInfo) {
-    // const recordMerged = { ...formInfo.record, ...formInfo.values }
-
     const recordMerged = get_recordMerged(formInfo)
 
     const readonly = api.env.field(fieldInfo).readonly_get({
@@ -31,13 +28,7 @@ function useFormApi() {
 
   function getValueDisplay(formInfo, fieldName) {
     const recordMerged = { ...formInfo.record, ...formInfo.values }
-
     return recordMerged[fieldName]
-    // if (fieldName in formInfo.values) {
-    //   return formInfo.values[fieldName]
-    // } else {
-    //   return formInfo.record[fieldName]
-    // }
   }
 
   return { checkReadonly, getValueDisplay }

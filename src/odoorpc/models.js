@@ -281,6 +281,8 @@ export class Model extends BaseModel {
   static _get_values_for_modifiers(record, values) {
     // call by require, readonly, domain of feild
 
+    // console.log('model,', this._fields)
+
     const all_keys = Object.keys({ ...record, ...values })
 
     return all_keys.reduce((acc, fld) => {

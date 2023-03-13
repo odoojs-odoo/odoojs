@@ -133,11 +133,6 @@ export function useForm(props, ctx) {
     // console.log([fieldInfo.name, fieldInfo.required], fieldInfo)
     if (!fieldInfo.required) return undefined
 
-    // const required =
-    //   typeof fieldInfo.required === 'function'
-    //     ? fieldInfo.required({ record: { ...state.record, ...state.values } })
-    //     : fieldInfo.required
-
     function required_get() {
       if (typeof fieldInfo.required !== 'function') {
         return fieldInfo.required
