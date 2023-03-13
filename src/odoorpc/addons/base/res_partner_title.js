@@ -37,6 +37,10 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'res.partner.title',
     domain: [],
-    context: {}
+    context: {},
+    views: {
+      tree: 'view_partner_title_tree',
+      form: 'view_partner_title_form'
+    }
   }
 }

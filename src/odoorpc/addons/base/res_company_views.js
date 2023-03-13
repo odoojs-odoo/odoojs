@@ -67,7 +67,11 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'res.company',
     domain: [],
-    context: {}
+    context: {},
+    views: {
+      tree: 'view_company_tree',
+      form: 'view_company_form'
+    }
   },
 
   menu_action_res_company_form: {

@@ -63,6 +63,10 @@ export default {
     res_model: 'res.partner.industry',
     search_view_id: 'res_partner_industry_view_search',
     domain: [],
-    context: {}
+    context: {},
+    views: {
+      tree: 'res_partner_industry_view_tree',
+      form: 'res_partner_industry_view_form'
+    }
   }
 }

@@ -78,7 +78,11 @@ export default {
     res_model: 'res.bank',
     search_view_id: 'res_bank_view_search',
     domain: [],
-    context: {}
+    context: {},
+    views: {
+      tree: 'view_res_bank_tree',
+      form: 'view_res_bank_form'
+    }
   },
 
   view_partner_bank_form: {
@@ -171,6 +175,10 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'res.partner.bank',
     domain: [],
-    context: {}
+    context: {},
+    views: {
+      tree: 'view_partner_bank_tree',
+      form: 'view_partner_bank_form'
+    }
   }
 }

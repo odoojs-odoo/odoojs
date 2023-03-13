@@ -115,6 +115,10 @@ export default {
     res_model: 'res.currency',
     search_view_id: 'view_currency_search',
     domain: [],
-    context: { active_test: false }
+    context: { active_test: false },
+    views: {
+      tree: 'view_currency_tree',
+      form: 'view_currency_form'
+    }
   }
 }

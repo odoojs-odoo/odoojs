@@ -64,6 +64,10 @@ export default {
     res_model: 'res.partner.category',
     search_view_id: 'res_partner_category_view_search',
     domain: [],
-    context: {}
+    context: {},
+    views: {
+      tree: 'view_partner_category_list',
+      form: 'view_partner_category_form'
+    }
   }
 }

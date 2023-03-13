@@ -78,7 +78,11 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'res.country',
     domain: [],
-    context: {}
+    context: {},
+    views: {
+      tree: 'view_country_tree',
+      form: 'view_country_form'
+    }
   },
 
   view_country_group_tree: {
@@ -139,6 +143,10 @@ export default {
     res_model: 'res.country.group',
 
     domain: [],
-    context: {}
+    context: {},
+    views: {
+      tree: 'view_country_group_tree',
+      form: 'view_country_group_form'
+    }
   }
 }
