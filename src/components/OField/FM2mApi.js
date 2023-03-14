@@ -1,24 +1,9 @@
-import { computed, watch, reactive, ref } from 'vue'
+import { computed, watch, reactive } from 'vue'
 import { useField } from './FieldApi'
 
 import api from '@/odoorpc'
 
-// async function _loadRelationData(ids, { fieldInfo }) {
-//   if (ids && !ids.length) {
-//     return []
-//   }
-
-//   const relation = api.env.relation(fieldInfo)
-//   return relation.name_get(ids)
-// }
-
 export function useFM2m(props, ctx) {
-  //   async function loadRelationData(ids) {
-  //     return _loadRelationData(ids, { fieldInfo: props.fieldInfo })
-  //   }
-
-  //
-
   const { readonly } = useField(props, ctx)
 
   const localState = {
@@ -31,13 +16,11 @@ export function useFM2m(props, ctx) {
     relationInfo: null,
 
     records: [],
-    values: [],
-    modalVisible: false,
-    currentRow: {}
-    // currentRecord: {}
+    values: []
   })
 
   const relationInfo = computed(() => state.relationInfo)
+
   // 编辑过的数据 也 放在一起
   const recordsDisplay = computed(() => {
     if (!state.relationReady) return []
@@ -49,10 +32,7 @@ export function useFM2m(props, ctx) {
     }
   })
 
-  // 编辑过的数据 也 放在一起
-  const currentRow = computed(() => state.currentRow)
-
-  // loadRelation
+  // load Relation info
   watch(
     () => props.fieldInfo.type,
     // eslint-disable-next-line no-unused-vars
@@ -74,23 +54,7 @@ export function useFM2m(props, ctx) {
     { immediate: true }
   )
 
-  //   const sheet = computed(() => {
-  //     if (state.formviewReady) {
-  //       const relationInfo = toRaw(props.relationInfo)
-  //       const parentViewInfo = toRaw(props.parentFormInfo.viewInfo)
-
-  //       const rel = api.env.relation(relationInfo, {
-  //         parent: parentViewInfo
-  //       })
-
-  //       const sheet0 = rel.form.view_sheet()
-  //
-  //       return sheet0
-  //     } else {
-  //       return { children: {} }
-  //     }
-  //   })
-
+  // load Relation data
   watch(
     [() => state.relationInfo, () => props.formInfo.record[props.fieldName]],
     async newVal => {
@@ -110,54 +74,14 @@ export function useFM2m(props, ctx) {
     }
   )
 
-  function setCurrentRow(row) {
-    state.currentRow = { ...row }
+  function removeRow(row) {
+    console.log('removeRow ', row)
   }
 
-  function onRowClick(record) {
-    console.log('click row ', record)
-    setCurrentRow(record)
-    state.modalVisible = true
-  }
-
-  async function onRowCreate() {
-    console.log('onRowCreate ')
-    // if (!state.relationReady) return
-
-    // setCurrentRow({})
-
-    // state.modalVisible = true
-  }
-
-  return {
-    readonly,
-    relationInfo,
-    recordsDisplay,
-    onRowClick,
-    onRowCreate,
-    modalVisible: computed({
-      get() {
-        return state.modalVisible
-      },
-      set(val) {
-        state.modalVisible = val
-      }
-    }),
-    currentRow
-  }
+  return { readonly, relationInfo, recordsDisplay, removeRow }
 }
 
 // M2m tree
-
-// async handleCreate() {
-//   // console.log('createO2m')
-//   this.$refs.subNew.handleCreate(this.values_display)
-// },
-
-// async handleOnRowClick(record) {
-//   // console.log('handleOnRowClick')
-//   this.$refs.subForm.handleShowForm(record, this.values_display)
-// },
 
 // async handleOnCommit(value) {
 //   // console.log('handleOnCommit from subform', value)
@@ -168,15 +92,6 @@ export function useFM2m(props, ctx) {
 // }
 
 // M2mForm
-// async handleShowForm(record, recordsOld) {
-//     const row = { ...record }
-//     if (!row.id) delete row.id
-
-//     this.record = { ...record }
-//     this.recordsOld = recordsOld
-
-//     this.showModal = true
-//   },
 
 //   async handleOnRemove() {
 //     // console.log('handleOnRemove', this.record, this.recordsOld)

@@ -1,24 +1,15 @@
 import { computed, reactive, toRaw, watch } from 'vue'
 import api from '@/odoorpc'
 
-function sleep(millisecond) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve()
-    }, millisecond)
-  })
-}
+// function sleep(millisecond) {
+//   return new Promise(resolve => {
+//     setTimeout(() => {
+//       resolve()
+//     }, millisecond)
+//   })
+// }
 
-export function useM2mForm(props, ctx) {
-  const visible2 = computed({
-    get() {
-      return props.visible
-    },
-    set(val) {
-      ctx.emit('update:visible', val)
-    }
-  })
-
+export function useM2mForm(props) {
   const localState = { formview: null }
 
   const state = reactive({
@@ -73,7 +64,6 @@ export function useM2mForm(props, ctx) {
   )
 
   return {
-    visible2,
     sheet,
     formInfo: computed(() => {
       return {

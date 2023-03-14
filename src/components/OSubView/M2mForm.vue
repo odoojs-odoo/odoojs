@@ -24,11 +24,6 @@
                         :label="tr(meta.string)"
                         style="margin-bottom: 5px"
                       >
-                        <!-- formInfo -->
-                        <!-- {{ meta }} -->
-
-                        <!-- @change="(...args) => onChange(meta.name, ...args)" -->
-
                         <OField
                           width="270px"
                           :field-name="meta.name"
@@ -44,63 +39,61 @@
           </template>
         </a-descriptions>
       </a-form>
-    </a-modal>
 
-    <!-- <a-modal v-model="showModal" :title="relationInfo && relationInfo.string">
-      <a-form-model :label-col="labelCol" :wrapper-col="wrapperCol">
-        <template v-for="meta in fields">
-          <template v-if="invisible_get(meta)">
-            invisible: {{ meta.name }}: {{ record[meta.name] }}
-          </template>
+      <template #footer>
+        <a-space v-if="readonly">
+          <a-button size="small" key="back" @click="() => (visible2 = false)">
+            关闭
+          </a-button>
+        </a-space>
 
-          <template v-else>
-            <FormField
-              :key="meta.name"
-              :field-name="meta.name"
-              width="120px"
-              :editable="false"
-              :fields="fields"
-              :data-info="dataInfo"
-            />
-          </template>
-        </template>
-      </a-form-model>
-
-      <template slot="footer">
-        <a-space v-if="editable">
-          <a-button
-            size="small"
-            key="rollback"
-            @click="() => (showModal = false)"
-          >
+        <a-space v-else>
+          <a-button size="small" key="rollback" @click="visible2 = false">
             取消
           </a-button>
 
+          <a-button size="small" key="remove" @click="onRemove">
+            移出
+          </a-button>
+        </a-space>
+        <!-- <a-button key="back" @click="handleCancel">Return</a-button>
+        <a-button
+          key="submit"
+          type="primary"
+          :loading="loading"
+          @click="handleOk"
+          >Submit</a-button
+        > -->
+      </template>
+    </a-modal>
+
+    <!-- 
+ 
+      <template slot="footer">
+        <a-space v-if="editable">
+        
+
           <template v-if="!(relationInfo && relationInfo.readonly)">
-            <a-button size="small" key="remove" @click="() => handleOnRemove()">
-              移出
-            </a-button>
+         
           </template>
         </a-space>
 
         <a-space v-else>
-          <a-button size="small" key="back" @click="() => (showModal = false)">
-            关闭
-          </a-button>
+  
         </a-space>
       </template>
-    </a-modal> -->
+   -->
   </span>
 </template>
 
 <script setup>
+import OField from '@/components/OField/OField.vue'
+
 import { defineProps, defineEmits, computed, ref } from 'vue'
 
 import { useM2mForm } from './m2mFormApi'
 import { useL10n } from '@/components/tools/useL10n'
 const { tr } = useL10n()
-
-import OField from '@/components/OField/OField.vue'
 
 const props = defineProps([
   'visible',
@@ -110,25 +103,30 @@ const props = defineProps([
   'parentFormInfo'
 ])
 
-const emit = defineEmits(['update:visible', 'row-commit'])
+const emit = defineEmits(['update:visible', 'row-remove', 'row-commit'])
 const modalTitle = computed(() =>
   props.record.id ? props.record.display_name : '添加'
 )
 
+const visible2 = computed({
+  get() {
+    return props.visible
+  },
+  set(val) {
+    emit('update:visible', val)
+  }
+})
+
 const editRef = ref()
 
 const useData = useM2mForm(props, { emit, editRef })
-const { visible2, sheet, formInfo } = useData
+const { sheet, formInfo } = useData
 
-//   components: {
-//     FormField: () => import('@/components/OView/FormField.vue')
-//   },
-
-//     return {
-//       labelCol: { span: 4 },
-//       wrapperCol: { span: 14 }
-//     }
-//   },
+function onRemove() {
+  console.log('onRemove')
+  emit('row-remove')
+  visible2.value = false
+}
 </script>
 
 <style type="text/css"></style>
