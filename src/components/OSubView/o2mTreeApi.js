@@ -7,7 +7,7 @@ export function useO2mTree(props) {
   const treeview = computed(() => {
     if (props.relationInfo) {
       const rel = api.env.relation(props.relationInfo, {
-        parent: props.parentViewInfo
+        parent: props.parentFormInfo.viewInfo
       })
 
       return rel.tree

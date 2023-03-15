@@ -131,6 +131,7 @@ export function useForm(props, ctx) {
 
   function getRules(fieldInfo) {
     // console.log([fieldInfo.name, fieldInfo.required], fieldInfo)
+    if (!state.editable) return undefined
     if (!fieldInfo.required) return undefined
 
     function required_get() {

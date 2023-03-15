@@ -1,11 +1,12 @@
 <template>
   <span>
-    <!-- editable: {{ [formInfo.editable, recordsDisplay] }} -->
+    <!-- {{ [readonly, relationInfo] }} -->
+
     <O2mTree
       :readonly="readonly"
-      :records="recordsDisplay"
+      :records="treeRecords"
       :relation-info="relationInfo"
-      :parent-view-info="formInfo.viewInfo"
+      :parent-form-info="formInfo"
       @row-click="onRowClick"
       @row-new="onRowCreate"
     />
@@ -22,7 +23,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+import { defineProps, defineEmits, ref } from 'vue'
 import { useFO2m } from './FO2mApi'
 
 import O2mTree from '@/components/OSubView/O2mTree.vue'
@@ -40,16 +41,27 @@ const emit = defineEmits(['update:modelValue', 'change'])
 
 const useData = useFO2m(props, { emit })
 
-const {
-  readonly,
-  relationInfo,
-  recordsDisplay,
-  onRowClick,
-  onRowCreate,
-  onRowCommit
-} = useData
+const { readonly, relationInfo, treeRecords, onRowCommit } = useData
 
-const { modalVisible, currentRow } = useData
+// const { modalVisible, currentRow } = useData
+
+const modalVisible = ref(false)
+// const newModalVisible = ref(false)
+const currentRow = ref({})
+
+function onRowClick(record) {
+  // console.log('click row ', record)
+  currentRow.value = { ...record }
+  modalVisible.value = true
+}
+
+async function onRowCreate() {
+  console.log('onRowCreate ')
+
+  // openRowSelect()
+
+  // newModalVisible.value = true
+}
 </script>
 
 <style type="text/css"></style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- readonly: {{ readonly }} -->
+    <!-- readonly: {{ [readonly, records, columns] }} -->
 
     <a-table
       :dataSource="records"
@@ -30,7 +30,7 @@ const props = defineProps([
   'readonly',
   'records',
   'relationInfo',
-  'parentViewInfo'
+  'parentFormInfo'
 ])
 const emit = defineEmits(['row-click', 'row-new'])
 // eslint-disable-next-line no-unused-vars

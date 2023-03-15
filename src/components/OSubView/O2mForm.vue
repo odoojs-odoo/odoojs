@@ -1,61 +1,62 @@
 <template>
   <span>
     <a-modal v-model:visible="visible2" :title="modalTitle" width="600px">
-      <!-- readonly: {{ [readonly, visible] }} -->
+      <!-- readonly: {{ [readonly, visible2, record, sheet] }} -->
+      <!-- 
+         -->
 
       <a-form
         ref="editRef"
         :model="mVal"
-        :label-col="labelCol"
-        :wrapper-col="wrapperCol"
         autocomplete="off"
+        style="background-color: white; margin-top: 5px; padding: 5px"
       >
-        <!-- o2m form -->
-        <div></div>
-
-        <template v-for="meta in fields">
-          <template v-if="checkInvisible(meta)">
-            invisible: {{ meta.name }}: {{ record[meta.name] }}
+        <a-descriptions
+          :column="2"
+          style="background-color: white; padding: 5px; margin-top: 5px"
+          size="small"
+        >
+          <template v-for="group in sheet.children" :key="group.name">
+            <a-descriptions-item :span="group.span">
+              <a-descriptions :column="1">
+                <template v-for="meta in group.children" :key="meta.name">
+                  <a-descriptions-item>
+                    <template v-if="meta.type">
+                      <!--  -->
+                      <a-form-item
+                        :name="meta.name"
+                        :label="tr(meta.string)"
+                        :rules="getRules(meta)"
+                        style="margin-bottom: 5px"
+                      >
+                        <OField
+                          width="270px"
+                          v-model="mVal[meta.name]"
+                          :field-name="meta.name"
+                          :field-info="meta"
+                          :form-info="formInfo"
+                          @change="(...args) => onChange(meta.name, ...args)"
+                        />
+                      </a-form-item>
+                    </template>
+                  </a-descriptions-item>
+                </template>
+              </a-descriptions>
+            </a-descriptions-item>
           </template>
-          <template v-else>
-            <a-form-item
-              :key="meta.name"
-              :name="meta.name"
-              :label="meta.string"
-              :rules="getRules(meta)"
-              style="margin-bottom: 0px"
-            >
-              <div>
-                <!-- In O2mForm: {{ meta.name }}:
-                {{ [record[meta.name], formInfo.values] }} -->
-              </div>
-
-              <OField
-                width="270px"
-                v-model="mVal[meta.name]"
-                :field-name="meta.name"
-                :field-info="meta"
-                :form-info="formInfo"
-                @change="(...args) => onChange(meta.name, ...args)"
-              />
-            </a-form-item>
-          </template>
-        </template>
+        </a-descriptions>
       </a-form>
-
       <template #footer>
-        <a-space v-if="!readonly">
-          <a-button size="small" @click="onCommit"> 保存 </a-button>
-          <a-button size="small" @click="onRollback"> 丢弃 </a-button>
-          <a-button v-if="record.id" size="small" @click="onRemove">
-            移出
-          </a-button>
+        <a-space v-if="readonly">
+          <a-button size="small" @click="visible2 = false"> 关闭 </a-button>
         </a-space>
 
         <a-space v-else>
-          <a-button size="small" @click="() => (visible2 = false)">
-            关闭
-          </a-button>
+          <a-button size="small" @click="onCommit"> 保存 </a-button>
+          <a-button size="small" @click="onRollback"> 丢弃 </a-button>
+          <!-- <a-button v-if="record.id" size="small" @click="onRemove">
+            移出
+          </a-button> -->
         </a-space>
       </template>
     </a-modal>
@@ -63,9 +64,12 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref } from 'vue'
+import { defineProps, defineEmits, computed, ref } from 'vue'
 import { useO2mForm } from './o2mFormApi'
 import OField from '@/components/OField/OField.vue'
+
+import { useL10n } from '@/components/tools/useL10n'
+const { tr } = useL10n()
 
 const props = defineProps([
   'visible',
@@ -76,17 +80,44 @@ const props = defineProps([
 ])
 
 const emit = defineEmits(['update:visible', 'row-commit'])
-const modalTitle = props.record.id ? props.record.display_name : '新增'
+const modalTitle = computed(() =>
+  props.record.id ? props.record.display_name : '新增'
+)
+
+const visible2 = computed({
+  get() {
+    return props.visible
+  },
+  set(val) {
+    emit('update:visible', val)
+  }
+})
 
 const editRef = ref()
 const useData = useO2mForm(props, { emit, editRef })
-const { visible2, mVal, fields, formInfo } = useData
+const { sheet, formInfo, mVal } = useData
 
-const { checkInvisible, getRules, onChange, onRollback, onRemove, onCommit } =
-  useData
+const { getRules, onChange, commit } = useData
 
-const labelCol = { span: 4 }
-const wrapperCol = { span: 18 }
+function onRollback() {
+  visible2.value = false
+}
+
+async function onCommit() {
+  const result = await commit()
+
+  if (result) {
+    console.log('onCommit form ', result)
+    emit('row-commit', result)
+    visible2.value = false
+  }
+}
+
+// const {    onRemove } =
+//   useData
+
+// const labelCol = { span: 4 }
+// const wrapperCol = { span: 18 }
 </script>
 
 <style type="text/css"></style>

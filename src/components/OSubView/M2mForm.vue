@@ -39,7 +39,7 @@
 
       <template #footer>
         <a-space v-if="readonly">
-          <a-button size="small" key="back" @click="() => (visible2 = false)">
+          <a-button size="small" key="back" @click="visible2 = false">
             关闭
           </a-button>
         </a-space>
@@ -59,11 +59,10 @@
 </template>
 
 <script setup>
+import { defineProps, defineEmits, computed } from 'vue'
+import { useM2mForm } from './m2mFormApi'
 import OField from '@/components/OField/OField.vue'
 
-import { defineProps, defineEmits, computed } from 'vue'
-
-import { useM2mForm } from './m2mFormApi'
 import { useL10n } from '@/components/tools/useL10n'
 const { tr } = useL10n()
 

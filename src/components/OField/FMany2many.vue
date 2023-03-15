@@ -4,6 +4,7 @@
       :readonly="readonly"
       :records="treeRecords"
       :relation-info="relationInfo"
+      :parent-form-info="formInfo"
       @row-click="onRowClick"
       @row-new="onRowCreate"
     />

@@ -22,6 +22,7 @@ export function useM2mForm(props) {
       : { children: {} }
   })
 
+  // load relationInfo
   watch(
     () => props.relationInfo,
     // eslint-disable-next-line no-unused-vars
@@ -39,6 +40,7 @@ export function useM2mForm(props) {
     { immediate: true }
   )
 
+  // load visible
   watch(
     () => props.visible,
     // eslint-disable-next-line no-unused-vars
