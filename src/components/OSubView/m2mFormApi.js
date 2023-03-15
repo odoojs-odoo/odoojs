@@ -14,8 +14,6 @@ export function useM2mForm(props) {
 
   const state = reactive({
     formviewReady: false
-    // mVal: {},
-    // values: {}
   })
 
   const sheet = computed(() => {

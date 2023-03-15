@@ -1,9 +1,7 @@
 <template>
   <span>
     <a-modal v-model:visible="visible2" :title="modalTitle" width="600px">
-      <!-- :model="mVal"   readonly, record-->
       <a-form
-        ref="editRef"
         autocomplete="off"
         style="background-color: white; margin-top: 5px; padding: 5px"
       >
@@ -14,7 +12,6 @@
         >
           <template v-for="group in sheet.children" :key="group.name">
             <a-descriptions-item :span="group.span">
-              <!-- {{ group.children }} -->
               <a-descriptions :column="1">
                 <template v-for="meta in group.children" :key="meta.name">
                   <a-descriptions-item>
@@ -56,40 +53,15 @@
             移出
           </a-button>
         </a-space>
-        <!-- <a-button key="back" @click="handleCancel">Return</a-button>
-        <a-button
-          key="submit"
-          type="primary"
-          :loading="loading"
-          @click="handleOk"
-          >Submit</a-button
-        > -->
       </template>
     </a-modal>
-
-    <!-- 
- 
-      <template slot="footer">
-        <a-space v-if="editable">
-        
-
-          <template v-if="!(relationInfo && relationInfo.readonly)">
-         
-          </template>
-        </a-space>
-
-        <a-space v-else>
-  
-        </a-space>
-      </template>
-   -->
   </span>
 </template>
 
 <script setup>
 import OField from '@/components/OField/OField.vue'
 
-import { defineProps, defineEmits, computed, ref } from 'vue'
+import { defineProps, defineEmits, computed } from 'vue'
 
 import { useM2mForm } from './m2mFormApi'
 import { useL10n } from '@/components/tools/useL10n'
@@ -103,7 +75,7 @@ const props = defineProps([
   'parentFormInfo'
 ])
 
-const emit = defineEmits(['update:visible', 'row-remove', 'row-commit'])
+const emit = defineEmits(['update:visible', 'row-remove'])
 const modalTitle = computed(() =>
   props.record.id ? props.record.display_name : '添加'
 )
@@ -117,13 +89,11 @@ const visible2 = computed({
   }
 })
 
-const editRef = ref()
-
-const useData = useM2mForm(props, { emit, editRef })
+const useData = useM2mForm(props, { emit })
 const { sheet, formInfo } = useData
 
 function onRemove() {
-  console.log('onRemove')
+  // console.log('onRemove')
   emit('row-remove')
   visible2.value = false
 }

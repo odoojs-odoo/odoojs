@@ -150,6 +150,7 @@ export class X2mTreeBase extends X2mBase {
     super(field_info, { ...payload, type })
   }
 
+  // todo 这个还是 没有用了 ?
   values_display(records, values) {
     // console.log(this.field_info)
     const { type } = this.field_info
@@ -327,8 +328,7 @@ export class X2mTree extends X2mTreeBase {
     return res
   }
 
-  async search_read_for_m2m_new(recordsOld) {
-    const domain = ['!', ['id', 'in', recordsOld.map(item => item.id)]]
+  async search_read(domain = []) {
     const fields = this.fields_list
     const res = await this.Model.search_read({ domain, fields })
     return res

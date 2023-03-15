@@ -1,10 +1,11 @@
-import { computed, watch, reactive } from 'vue'
+import { computed, watch, reactive, ref } from 'vue'
 import { useField } from './FieldApi'
 
 import api from '@/odoorpc'
+import { tuples_to_ids } from '@/odoorpc/tools'
 
 export function useFM2m(props, ctx) {
-  const { readonly } = useField(props, ctx)
+  const { readonly, onChange } = useField(props, ctx)
 
   const localState = {
     relation: null
@@ -13,117 +14,138 @@ export function useFM2m(props, ctx) {
   const state = reactive({
     relationReady: false,
     relationFieldReady: false,
-    relationInfo: null,
-
-    records: [],
-    values: []
+    dataStore: {},
+    valueStore: [],
+    treeOptionRecords: []
   })
 
-  const relationInfo = computed(() => state.relationInfo)
+  const relationInfo = ref(null)
 
-  // 编辑过的数据 也 放在一起
-  const recordsDisplay = computed(() => {
-    if (!state.relationReady) return []
-    else {
-      return localState.relation.tree.values_display(
-        state.records,
-        readonly ? state.values : []
-      )
+  const valueReadonly = computed(
+    () => props.formInfo.record[props.fieldName] || []
+  )
+
+  const valueEdit = computed(() => state.valueStore)
+
+  const valueDisplay = computed(() => {
+    if (readonly.value) {
+      return valueReadonly.value
+    } else {
+      const tuples = [[6, false, valueReadonly.value], ...valueEdit.value]
+      return tuples_to_ids(tuples)
     }
   })
+
+  const treeRecords = computed(() => {
+    const res = valueDisplay.value
+      .map(item => state.dataStore[item])
+      .filter(item => item)
+    return res
+  })
+
+  const treeOptionRecords = computed(() => {
+    return state.treeOptionRecords
+  })
+
+  async function loadRelationInfo() {
+    const relation = api.env.relation(props.fieldInfo, {
+      parent: props.formInfo.viewInfo
+    })
+    localState.relation = relation
+    state.relationReady = true
+
+    await relation.load_views()
+
+    relationInfo.value = relation.field_info
+    state.relationFieldReady = true
+  }
 
   // load Relation info
   watch(
     () => props.fieldInfo.type,
     // eslint-disable-next-line no-unused-vars
-    async (newVal, oldVal) => {
+    (newVal, oldVal) => {
       if (newVal && newVal === 'many2many') {
         // console.log(newVal, oldVal)
-        const relation = api.env.relation(props.fieldInfo, {
-          parent: props.formInfo.viewInfo
-        })
-        localState.relation = relation
-        state.relationReady = true
-
-        await relation.load_views()
-
-        state.relationInfo = relation.field_info
-        state.relationFieldReady = true
+        loadRelationInfo()
       }
     },
     { immediate: true }
   )
 
-  // load Relation data
+  async function loadRelationData(ids) {
+    const info = relationInfo.value
+    if (!info) {
+      return
+    }
+    const relation = api.env.relation(info, { parent: props.formInfo.viewInfo })
+    const treeview = relation.tree
+    const records = await treeview.read(ids)
+    const res = records.reduce((acc, cur) => {
+      acc[cur.id] = cur
+      return acc
+    }, {})
+    state.dataStore = { ...state.dataStore, ...res }
+  }
+
+  // load Relation Readonly data
   watch(
-    [() => state.relationInfo, () => props.formInfo.record[props.fieldName]],
-    async newVal => {
-      //   console.log(newVal)
-      const [relationInfo, ids] = [...newVal]
-      // console.log(relationInfo, ids)
-
-      if (ids && relationInfo) {
-        const relation = api.env.relation(relationInfo, {
-          parent: props.formInfo.viewInfo
-        })
-
-        const treeview = relation.tree
-        const records = await treeview.read(ids)
-        state.records = records
+    [relationInfo, valueReadonly],
+    // eslint-disable-next-line no-unused-vars
+    (newVal, oldVal) => {
+      // console.log(newVal, oldVal)
+      const [info, ids] = [...newVal]
+      if (ids && info) {
+        loadRelationData(ids)
       }
     }
   )
 
   function removeRow(row) {
-    console.log('removeRow ', row)
+    // console.log('removeRow ', row)
+    const ids = valueDisplay.value.filter(item => item !== row.id)
+    const val = [[6, false, ids]]
+    state.valueStore = val
+    onChange(val)
   }
 
-  return { readonly, relationInfo, recordsDisplay, removeRow }
+  async function openRowSelect() {
+    // console.log('openRowSelect ')
+    const info = relationInfo.value
+    if (!info) {
+      return
+    }
+
+    const domain = ['!', ['id', 'in', valueDisplay.value]]
+
+    const relation = api.env.relation(info, { parent: props.formInfo.viewInfo })
+    const treeview = relation.tree
+    const records = await treeview.search_read(domain)
+    state.treeOptionRecords = records
+  }
+
+  function selectRow(rows) {
+    // console.log('selectRow ', rows)
+    const idsNew = rows.map(item => item.id)
+    const ids = [...valueDisplay.value, ...idsNew]
+    const val = [[6, false, ids]]
+    state.valueStore = val
+    onChange(val)
+
+    const res = rows.reduce((acc, cur) => {
+      acc[cur.id] = cur
+      return acc
+    }, {})
+    state.dataStore = { ...state.dataStore, ...res }
+  }
+
+  return {
+    readonly,
+    relationInfo,
+    treeRecords,
+    treeOptionRecords,
+    removeRow,
+    openRowSelect,
+    selectRow
+  }
 }
-
-// M2m tree
-
-// async handleOnCommit(value) {
-//   // console.log('handleOnCommit from subform', value)
-//   this.values = [value]
-//   const value2 = [...value]
-//   value2[1] = false
-//   this.$emit('change', [value2])
-// }
-
-// M2mForm
-
-//   async handleOnRemove() {
-//     // console.log('handleOnRemove', this.record, this.recordsOld)
-//     const recs = this.recordsOld.filter(item => item.id !== this.record.id)
-//     const ids = recs.map(item => item.id)
-//     const vals = [6, recs, ids]
-//     this.$emit('on-commit', vals)
-//     this.showModal = false
-//   }
-
-// M2mNew
-// handleOnRowSelect(selectedRowKeys, selectedRows) {
-//     // console.log('handleOnRowSelect', selectedRowKeys)
-//     this.selectedRowKeys = selectedRowKeys
-//     this.selectedRows = selectedRows
-//     // this.$emit('on-row-select', selectedRowKeys)
-//   },
-
-//   async handleCreate(recordsOld) {
-//     this.recordsOld = recordsOld
-//     this.showModal = true
-//     const res = await this.relation.tree.search_read_for_m2m_new(recordsOld)
-//     this.records_for_selection = res
-//   },
-
-//   handleOnOk() {
-//     // console.log('handleOnOk m2m new', this.selectedRowKeys)
-//     const recs = [...this.recordsOld, ...this.selectedRows]
-//     const ids = recs.map(item => item.id)
-//     const vals = [6, recs, ids]
-//     this.$emit('on-commit', vals)
-//     this.showModal = false
-//     this.selectedRowKeys = []
-//     this.selectedRows = []
-//   }

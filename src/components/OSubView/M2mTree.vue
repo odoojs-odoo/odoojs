@@ -27,12 +27,7 @@ import { defineProps, defineEmits } from 'vue'
 
 import { useM2mTree } from './m2mTreeApi'
 
-const props = defineProps([
-  'readonly',
-  'records',
-  'relationInfo',
-  'parentFormInfo'
-])
+const props = defineProps(['readonly', 'records', 'relationInfo'])
 
 const emit = defineEmits(['row-click', 'row-new'])
 

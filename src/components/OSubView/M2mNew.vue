@@ -1,59 +1,78 @@
 <template>
   <span>
-    <!-- <a-modal v-model="showModal" :title="relationInfo && relationInfo.string">
+    <a-modal v-model:visible="visible2" :title="modalTitle" width="600px">
       <a-table
+        row-key="id"
+        :data-source="records"
         :columns="columns"
-        :data-source="records_for_selection"
-        rowKey="id"
-        :row-selection="rowSelection"
-        :pagination="pagination"
+        :row-selection="{
+          selectedRowKeys: selectedRowKeys,
+          onChange: onSelectChange
+        }"
       >
       </a-table>
 
-      <template slot="footer">
+      <template #footer>
         <a-space>
-          <a-button size="small" key="commit" @click="handleOnOk"> 选择 </a-button>
+          <a-button size="small" key="commit" @click="onSelect">
+            选择
+          </a-button>
 
-          <a-button size="small" key="back" @click="() => (showModal = false)">
+          <a-button size="small" key="back" @click="visible2 = false">
             取消
           </a-button>
         </a-space>
       </template>
-    </a-modal> -->
+    </a-modal>
   </span>
 </template>
 
-<script>
-// import M2mNewMinxin from '@/odooui/M2mNewMinxin'
+<script setup>
+import { defineProps, defineEmits, computed, ref, toRaw } from 'vue'
+import { useM2mNew } from './m2mNewApi'
 
-// const PageSize = 10
+const props = defineProps([
+  'visible',
+  'readonly',
+  'records',
+  'relationInfo',
+  'parentFormInfo'
+])
 
-// export default {
-//   name: 'M2mNew',
-//   components: {},
-//   mixins: [M2mNewMinxin],
-//   props: {},
-//   data() {
-//     return {
-//       labelCol: { span: 4 },
-//       wrapperCol: { span: 14 },
+const emit = defineEmits(['update:visible', 'row-select'])
+const modalTitle = computed(() => '选择')
 
-//       pagination: {
-//         // position: 'top'
-//         total: 0,
-//         pageSize: PageSize
-//       }
-//     }
-//   },
-//   computed: {},
+const visible2 = computed({
+  get() {
+    return props.visible
+  },
+  set(val) {
+    emit('update:visible', val)
+  }
+})
 
-//   watch: {},
-//   created() {},
+const selectedRowKeys = ref([])
 
-//   async mounted() {},
+const onSelectChange = keys => {
+  // console.log('selectedRowKeys changed: ', keys)
+  selectedRowKeys.value = keys
+}
 
-//   methods: {}
-// }
+const useData = useM2mNew(props, { emit })
+const { columns } = useData
+
+function onSelect() {
+  // console.log('onSelect')
+
+  const ids = selectedRowKeys.value
+
+  const vals = ids.map(item => {
+    return toRaw(props.records.find(one => one.id === item))
+  })
+
+  emit('row-select', vals)
+  visible2.value = false
+}
 </script>
 
 <style type="text/css"></style>
