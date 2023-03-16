@@ -17,7 +17,13 @@ export class FormView extends BaseView {
   }
 
   load_relations_done(relations) {
-    this._relations = { ...this._relations, ...relations }
+    const relations2 = Object.keys(relations).reduce((acc, fld) => {
+      acc[fld] = this.env.relation(relations[fld][0], {
+        parent: relations[fld][1]
+      })
+      return acc
+    }, {})
+    this._relations = { ...this._relations, ...relations2 }
   }
 
   _edit_model_get(record = {}, values = {}) {
@@ -379,6 +385,7 @@ export class FormView extends BaseView {
     return this.edit_model.onchange(fname, kwargs_in)
   }
 
+  // 命令行方式 用到该函数.
   async relation_onchange(fname, kwargs_in) {
     const { record, values, x2m_tree, x2m_form } = kwargs_in
 
@@ -437,6 +444,7 @@ export class FormView extends BaseView {
   }
 
   async commit(kwargs = {}) {
+    // console.log(' commit  ', kwargs)
     return this.edit_model.commit(kwargs)
   }
 
@@ -498,10 +506,12 @@ export class FormView extends BaseView {
     return Object.keys(values2).reduce((acc, fld) => {
       const val = values2[fld]
       const meta = this.fields[fld] || {}
+
       if (meta.type === 'one2many') {
         const relation = this._relations[fld]
         if (relation) {
           const { values_write } = relation.tree.read_for_new_o2m(val)
+
           acc[fld] = values_write
         } else {
           acc[fld] = val

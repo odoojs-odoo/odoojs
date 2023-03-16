@@ -293,6 +293,15 @@ export function useForm(props, ctx) {
     btn_fns[btn]()
   }
 
+  function onLoadReation(fieldName, relation_info) {
+    // console.log('onLoadReation', fieldName, relation_info)
+    if (!localState.formview) return
+
+    localState.formview.load_relations_done({
+      [fieldName]: [relation_info, state.viewInfo]
+    })
+  }
+
   return {
     mVal: computed(() => state.mVal),
     fields: computed(() => state.fields), // 自定义页面需要
@@ -311,7 +320,8 @@ export function useForm(props, ctx) {
     statusbarVisible,
     getRules,
     onChange,
-    onClickCRUD
+    onClickCRUD,
+    onLoadReation
   }
 }
 

@@ -8,7 +8,7 @@
       :relation-info="relationInfo"
       :parent-form-info="formInfo"
       @row-click="onRowClick"
-      @row-new="onRowCreate"
+      @row-new="onOpenRowNew"
     />
 
     <O2mForm
@@ -18,6 +18,7 @@
       :relation-info="relationInfo"
       :parent-form-info="formInfo"
       @row-commit="onRowCommit"
+      @row-remove="onRowRemove"
     />
   </span>
 </template>
@@ -37,30 +38,38 @@ const props = defineProps([
   'formInfo'
 ])
 
-const emit = defineEmits(['update:modelValue', 'change'])
+const emit = defineEmits(['update:modelValue', 'change', 'load-relation'])
 
 const useData = useFO2m(props, { emit })
 
-const { readonly, relationInfo, treeRecords, onRowCommit } = useData
-
-// const { modalVisible, currentRow } = useData
+const { readonly, relationInfo, treeRecords } = useData
+const { rowRemove, rowCommit } = useData
+const { openO2mNew } = useData
 
 const modalVisible = ref(false)
 // const newModalVisible = ref(false)
 const currentRow = ref({})
 
 function onRowClick(record) {
-  // console.log('click row ', record)
+  // console.log('onOpenRowView', record)
   currentRow.value = { ...record }
   modalVisible.value = true
 }
 
-async function onRowCreate() {
-  console.log('onRowCreate ')
+async function onOpenRowNew() {
+  // console.log('onOpenRowNew', record)
+  currentRow.value = await openO2mNew()
+  modalVisible.value = true
+}
 
-  // openRowSelect()
+function onRowRemove(record) {
+  const values_onchange = rowRemove(record)
+  emit('change', values_onchange)
+}
 
-  // newModalVisible.value = true
+function onRowCommit(record, value) {
+  const values_onchange = rowCommit(record, value)
+  emit('change', values_onchange)
 }
 </script>
 

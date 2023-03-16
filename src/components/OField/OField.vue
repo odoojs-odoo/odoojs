@@ -16,6 +16,7 @@
           :form-info="formInfo"
           @click-many2one="onClickMany2one"
           @change="(...args) => onChange(...args, 'OField')"
+          @load-relation="onLoadReation"
         />
       </template>
 
@@ -60,7 +61,7 @@ const props = defineProps([
   'formInfo'
 ])
 
-const emit = defineEmits(['update:modelValue', 'change'])
+const emit = defineEmits(['update:modelValue', 'change', 'load-relation'])
 
 const widgetMap = {
   FString,
@@ -81,6 +82,11 @@ const { widgetName, mVal, onChange } = useField(props, { emit })
 
 function onClickMany2one(...args) {
   console.log('onClickMany2one', args)
+}
+
+function onLoadReation(...args) {
+  // console.log('onLoadReation', args)
+  emit('load-relation', ...args)
 }
 </script>
 

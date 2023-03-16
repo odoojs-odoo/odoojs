@@ -72,6 +72,7 @@
                       :field-info="meta"
                       :form-info="formInfo"
                       @change="(...args) => onChange(meta.name, ...args)"
+                      @load-relation="onLoadReation"
                     />
                   </a-form-item>
                 </template>
@@ -110,7 +111,8 @@ const {
   statusbarVisible,
   getRules,
   onChange,
-  onClickCRUD
+  onClickCRUD,
+  onLoadReation
 } = useForm(props, { router, editRef })
 
 const record = computed(() => formInfo.value.record)

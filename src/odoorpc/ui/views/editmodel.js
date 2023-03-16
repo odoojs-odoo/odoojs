@@ -149,30 +149,54 @@ class EditBase {
     // }
   }
 
+  // todo.  o2m 使用 commit_for_o2m
+  // 待检查. 功能稳定后, 合并进commit函数
+  async commit_for_o2m(kwargs = {}) {
+    const result = this.web_commit_for_o2m(kwargs)
+    return result
+  }
+
   async commit(kwargs = {}) {
     const result = this.web_commit(kwargs)
     return result
+  }
+
+  call_validate(validate) {
+    if (!validate) {
+      return true
+    }
+
+    return new Promise(resolve => {
+      // 如果有校验函数, 则回调 校验函数
+      validate(valid => {
+        resolve(valid)
+      })
+    })
+  }
+
+  // todo.  o2m 使用 web_commit_for_o2m
+  // 待检查. 功能稳定后, 合并进 web_commit 函数
+  async web_commit_for_o2m(kwargs = {}) {
+    await this._wait()
+    const { validate } = kwargs
+    const valid = await this.call_validate(validate)
+
+    if (valid) {
+      // 若校验 返回 true, 则 commit
+      // console.log('validate ok', valid)
+      const id_ret = await this._web_commit({ debug_new_api: 1 })
+      return id_ret
+    } else {
+      console.log('validate err', valid)
+      return
+    }
   }
 
   async web_commit(kwargs = {}) {
     // 等待其他 任务完成
     await this._wait()
     const { validate } = kwargs
-
-    const validate_call = async () => {
-      if (!validate) {
-        return true
-      }
-
-      return new Promise(resolve => {
-        // 如果有校验函数, 则回调 校验函数
-        validate(valid => {
-          resolve(valid)
-        })
-      })
-    }
-
-    const valid = await validate_call()
+    const valid = await this.call_validate(validate)
 
     if (valid) {
       // 若校验 返回 true, 则 commit
@@ -291,8 +315,7 @@ export class EditX2m extends EditBase {
     this.record = {}
     this.values = { ...values_ret }
     // this.values = { ...values_for_write }
-    this.parentData = parentData
-
+    this.parentData = { ...parentData }
     const values2 = { ...values_ret }
     const { relation_field } = this.viewmodel.field_info
     delete values2[relation_field]
@@ -300,6 +323,7 @@ export class EditX2m extends EditBase {
   }
 
   set_editable(record, parentData) {
+    // console.log(record, parentData)
     const values = this._values_with_parent(parentData)
     this.record = { ...record }
     this.values = { ...values }
@@ -377,20 +401,32 @@ export class EditX2m extends EditBase {
     const { values = {} } = result
     //   Todo: 对返回 domain 的处理
 
-    // console.log('handleOnchange, in model', cp(values))
+    this.values = { ...values }
 
     const field_info = this.viewmodel.field_info
     const { relation_field } = field_info
     const values2 = { ...values }
     delete values2[relation_field]
 
-    // bug: todo 应该先 存 后删除  relation_field
-    this.values = { ...values2 }
-
-    return { ...result, values: this.values }
+    return { ...result, values: values2 }
   }
 
-  async _web_commit() {
+  async web_commit_for_o2m() {
+    const values = this.values
+    const field_info = this.viewmodel.field_info
+    const { relation_field } = field_info
+    const values2 = { ...values }
+    delete values2[relation_field]
+    return values2
+  }
+
+  async _web_commit(kw = {}) {
+    const { debug_new_api } = kw
+    if (debug_new_api) {
+      return this.web_commit_for_o2m()
+    }
+
+    // 暂时保留. 待上面功能稳定后, 可删除
     return this._x2m_tuple_get()
   }
 }

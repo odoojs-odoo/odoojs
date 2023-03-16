@@ -107,17 +107,19 @@ export function useO2mForm(props, ctx) {
           state.mVal = { ...values }
         }
       }
-      //  else {
-      //       // console.log('o2m form new ')
-      //       const formview = localState.formview
-      //       const dataInfo = await formview.onchange_new({
-      //         record: props.parentFormInfo.record,
-      //         values: props.parentFormInfo.values
-      //       })
-      //       const { values } = dataInfo
-      //       state.mVal = values
-      //       state.values = values
-      //     }
+
+      // 新增
+      else {
+        // console.log('o2m form new ')
+        const formview = localState.formview
+        const dataInfo = await formview.onchange_new({
+          record: toRaw(props.parentFormInfo.record),
+          values: toRaw(props.parentFormInfo.values)
+        })
+        const { values } = dataInfo
+        state.mVal = values
+        state.values = values
+      }
     },
     { immediate: true }
   )
@@ -142,15 +144,8 @@ export function useO2mForm(props, ctx) {
     state.mVal = { ...state.mVal, ...values2 }
   }
 
-  // async function onRemove() {
-  //   // console.log('onRemove', props.record)
-  //   const value = [2, props.record.id, false]
-  //   ctx.emit('row-commit', value)
-  //   visible2.value = false
-  // }
-
   async function commit() {
-    console.log('commit subform')
+    // console.log('commit subform')
 
     const validate = async done => {
       await sleep(100)
@@ -162,7 +157,22 @@ export function useO2mForm(props, ctx) {
     if (!state.formviewReady) return
     const formview = localState.formview
 
-    const result = await formview.commit({ validate })
+    // o2m form commit:
+    // 1. 排队进队列, 等待其他的 onchange 完成
+    // 2. 返回最新的 value 数据
+    // 3. 判断是 create 还是 write
+    // 4. 现在是 直接 返回tuple: [ 0/1, res_id, values]
+    //
+    // const result2 = await formview.commit({ validate })
+    // console.log('old', result2)
+    // return result
+    // 修改为
+    // 1. 排队进队列, 等待其他的 onchange 完成
+    // 2. 直接返回 value 数据
+    // 3. 页面里 判断 create 还是 write
+    // 4. 最后 emit
+    //
+    const result = await formview.commit_for_o2m({ validate })
 
     return result
   }
@@ -186,11 +196,5 @@ export function useO2mForm(props, ctx) {
     getRules,
     onChange,
     commit
-
-    // fields: fields,
-
-    //
-
-    //
   }
 }

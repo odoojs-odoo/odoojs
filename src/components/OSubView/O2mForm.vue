@@ -2,8 +2,6 @@
   <span>
     <a-modal v-model:visible="visible2" :title="modalTitle" width="600px">
       <!-- readonly: {{ [readonly, visible2, record, sheet] }} -->
-      <!-- 
-         -->
 
       <a-form
         ref="editRef"
@@ -54,9 +52,9 @@
         <a-space v-else>
           <a-button size="small" @click="onCommit"> 保存 </a-button>
           <a-button size="small" @click="onRollback"> 丢弃 </a-button>
-          <!-- <a-button v-if="record.id" size="small" @click="onRemove">
+          <a-button v-if="record.id" size="small" @click="onRemove">
             移出
-          </a-button> -->
+          </a-button>
         </a-space>
       </template>
     </a-modal>
@@ -79,7 +77,7 @@ const props = defineProps([
   'parentFormInfo'
 ])
 
-const emit = defineEmits(['update:visible', 'row-commit'])
+const emit = defineEmits(['update:visible', 'row-commit', 'row-remove'])
 const modalTitle = computed(() =>
   props.record.id ? props.record.display_name : '新增'
 )
@@ -103,21 +101,21 @@ function onRollback() {
   visible2.value = false
 }
 
+async function onRemove() {
+  // console.log('onRemove', props.record)
+  emit('row-remove', props.record)
+  visible2.value = false
+}
+
 async function onCommit() {
   const result = await commit()
 
   if (result) {
-    console.log('onCommit form ', result)
-    emit('row-commit', result)
+    console.log('onCommit form ', props.record, result)
+    emit('row-commit', props.record, result)
     visible2.value = false
   }
 }
-
-// const {    onRemove } =
-//   useData
-
-// const labelCol = { span: 4 }
-// const wrapperCol = { span: 18 }
 </script>
 
 <style type="text/css"></style>

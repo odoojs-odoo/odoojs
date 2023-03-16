@@ -360,6 +360,27 @@ export class X2mTree extends X2mTreeBase {
     })
   }
 
+  commit_by_remove(values, res_id) {
+    const value = [2, res_id, false]
+    return tuples_helper.to_return(values, value)
+  }
+
+  commit_by_upinsert(values, res_id, value) {
+    const value2 = res_id ? [1, res_id, value] : [0, false, value]
+    return tuples_helper.to_return(values, value2)
+  }
+
+  commit_for_onchange(records, values) {
+    // const value = [2, res_id, false]
+    // return tuples_helper.to_return(values, value)
+
+    const old_tuples = records.map(item => [4, item.id, false])
+    const tuples_todo = [...old_tuples, ...values]
+    const tuples_merged = tuples_helper._to_merge(tuples_todo)
+    return tuples_helper.to_onchange(tuples_merged)
+  }
+
+  // todo. 被其他函数代替. 待稳定后, 删除
   commit(records, values, value) {
     // console.log('sub tree, commit', cp(this.field_info))
     // console.log('sub tree, commit', cp([records, values, value]))

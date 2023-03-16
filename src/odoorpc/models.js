@@ -307,7 +307,6 @@ export class Model extends BaseModel {
     }, {})
   }
 
-  // todo meta.readonly.  merge record
   static _get_values_for_write(record, values) {
     const recordMerged = this._get_values_for_modifiers(record, values)
 

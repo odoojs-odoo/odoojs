@@ -2,7 +2,6 @@ import { computed, watch, reactive, ref } from 'vue'
 import { useField } from './FieldApi'
 
 import api from '@/odoorpc'
-import { tuples_to_ids } from '@/odoorpc/tools'
 
 export function useFO2m(props, ctx) {
   const { readonly } = useField(props, ctx)
@@ -14,21 +13,9 @@ export function useFO2m(props, ctx) {
   const state = reactive({
     relationReady: false,
     relationFieldReady: false,
-    dataStore: {},
-    valueStore: []
+    records: [],
+    values: []
   })
-
-  async function onRowCommit(value) {
-    console.log('onRowCommit', value)
-    // console.log('onRowCommit', state.records, state.values, value)
-    // if (!state.relationReady) return
-    // const treeview = localState.relation.tree
-    // const ret_commit = treeview.commit(state.records, state.values, value)
-    // console.log('onRowCommit', value, ret_commit)
-    // const { values, values_onchange } = ret_commit
-    // // state.values = values
-    // ctx.emit('change', values_onchange)
-  }
 
   const relationInfo = ref(null)
 
@@ -36,32 +23,22 @@ export function useFO2m(props, ctx) {
     () => props.formInfo.record[props.fieldName] || []
   )
 
-  const valueEdit = computed(() => state.valueStore)
-
-  const valueDisplay = computed(() => {
-    if (readonly.value) {
-      return valueReadonly.value
-    } else {
-      const tuples = [
-        [5],
-        ...valueReadonly.value.map(item => [4, item]),
-        ...valueEdit.value
-      ]
-      return tuples_to_ids(tuples)
-    }
-  })
-
+  // 编辑过的数据 也 放在一起
   const treeRecords = computed(() => {
-    const res = valueDisplay.value
-      .map(item => state.dataStore[item])
-      .filter(item => item)
-    return res
+    if (!state.relationReady) return []
+    else {
+      return localState.relation.tree.values_display(
+        state.records,
+        readonly ? state.values : []
+      )
+    }
   })
 
   async function loadRelationInfo() {
     const relation = api.env.relation(props.fieldInfo, {
       parent: props.formInfo.viewInfo
     })
+
     localState.relation = relation
     state.relationReady = true
 
@@ -69,6 +46,8 @@ export function useFO2m(props, ctx) {
 
     relationInfo.value = relation.field_info
     state.relationFieldReady = true
+
+    ctx.emit('load-relation', props.fieldName, relation.field_info)
   }
 
   // load Relation info
@@ -92,11 +71,7 @@ export function useFO2m(props, ctx) {
     const relation = api.env.relation(info, { parent: props.formInfo.viewInfo })
     const treeview = relation.tree
     const records = await treeview.read(ids)
-    const res = records.reduce((acc, cur) => {
-      acc[cur.id] = cur
-      return acc
-    }, {})
-    state.dataStore = { ...state.dataStore, ...res }
+    state.records = records
 
     // 主表 新增, 从表 o2m 字段有默认值时, 执行 以下代码. 待处理 todo 2023-2-13
     //   // if (for_new) {
@@ -132,68 +107,68 @@ export function useFO2m(props, ctx) {
     { immediate: true }
   )
 
-  // // 编辑过的数据 也 放在一起
-  // const recordsDisplay = computed(() => {
-  //   if (!state.relationReady) return []
-  //   else {
-  //     return localState.relation.tree.values_display(
-  //       state.records,
-  //       readonly ? state.values : []
-  //     )
-  //   }
-  // })
+  // 退出编辑时, 复位 被编辑的值
+  watch(
+    readonly,
+    // eslint-disable-next-line no-unused-vars
+    (newVal, oldVal) => {
+      // console.log(newVal, oldVal)
+      if (newVal) {
+        state.values = []
+      }
+    },
+    { immediate: true }
+  )
 
-  // // 编辑过的数据 也 放在一起
-  // const currentRow = computed(() => state.currentRow)
+  async function openO2mNew() {
+    // o2mform 新增时, 应该在这里 生成新数据. 现在是在 子组件中产生
+    return {}
+  }
 
-  // watch(
-  //   readonly,
-  //   // eslint-disable-next-line no-unused-vars
-  //   (newVal, oldVal) => {
-  //     // console.log(newVal, oldVal)
-  //     if (newVal) {
-  //       state.values = []
-  //     }
-  //   },
-  //   { immediate: true }
-  // )
+  function rowRemove(record) {
+    // console.log('rowRemove,record', record, record.id)
+    if (!state.relationFieldReady) {
+      // raise error
+      return
+    }
+    const treeview = localState.relation.tree
+    const values = treeview.commit_by_remove(state.values, record.id)
+    state.values = values
 
-  // function setCurrentRow(row) {
-  //   state.currentRow = { ...row }
-  // }
+    const values_onchange = treeview.commit_for_onchange(
+      state.records,
+      state.values
+    )
 
-  // function onRowClick(record) {
-  //   // console.log('click row ', record)
-  //   setCurrentRow(record)
-  //   state.modalVisible = true
-  // }
+    return values_onchange
+  }
 
-  // async function onRowCreate() {
-  //   // console.log('onRowCreate ')
-  //   if (!state.relationReady) return
+  function rowCommit(record, value) {
+    // console.log('onRowCommit', record, value)
+    // console.log('onRowCommit', state.records, state.values, value)
+    if (!state.relationFieldReady) {
+      // raise error
+      return
+    }
 
-  //   setCurrentRow({})
+    const treeview = localState.relation.tree
+    const values = treeview.commit_by_upinsert(state.values, record.id, value)
+    state.values = values
 
-  //   state.modalVisible = true
-  // }
+    const values_onchange = treeview.commit_for_onchange(
+      state.records,
+      state.values
+    )
+
+    return values_onchange
+  }
 
   return {
     readonly,
     relationInfo,
     treeRecords,
-    onRowCommit
-
-    // onRowClick,
-    // onRowCreate,
-
-    // modalVisible: computed({
-    //   get() {
-    //     return state.modalVisible
-    //   },
-    //   set(val) {
-    //     state.modalVisible = val
-    //   }
-    // }),
-    // currentRow
+    openO2mNew,
+    rowCommit,
+    rowRemove
   }
 }

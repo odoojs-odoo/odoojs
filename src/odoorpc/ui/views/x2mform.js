@@ -164,6 +164,12 @@ export class X2mForm extends X2mBase {
     return this.edit_model.onchange(fname, kwargs)
   }
 
+  async commit_for_o2m(kwargs = {}) {
+    return this.edit_model.commit_for_o2m(kwargs)
+  }
+
+  // // todo. del
+  // // 使用 commit_for_o2m
   async commit(kwargs = {}) {
     return this.edit_model.commit(kwargs)
   }
