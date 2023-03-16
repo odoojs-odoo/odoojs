@@ -323,7 +323,6 @@ export class EditX2m extends EditBase {
   }
 
   set_editable(record, parentData) {
-    // console.log(record, parentData)
     const values = this._values_with_parent(parentData)
     this.record = { ...record }
     this.values = { ...values }

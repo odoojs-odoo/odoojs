@@ -7,6 +7,8 @@
         :key="btn.key"
         @click="OnClickBtn(btn)"
         size="small"
+        type="primary"
+        shape="round" 
       >
         {{ btn.label }}
       </a-button>
@@ -22,9 +24,14 @@
 </template>
 
 <script setup>
+
 import dayjs from 'dayjs'
 
 import { defineProps, defineEmits, computed, reactive, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
 const props = defineProps(['modelValue', 'title'])
 const emit = defineEmits(['change'])
 
@@ -42,7 +49,7 @@ watch(
 const buttons = computed(() => [
   {
     key: 'today',
-    label: '今天',
+    label: t('timeSearch.today'),
     date_get: () => {
       const today = date_tools.today
       return [today, today]
@@ -50,7 +57,7 @@ const buttons = computed(() => [
   },
   {
     key: 'last_1_month',
-    label: '近一个月',
+    label: t('timeSearch.oneMonth'),
     date_get: () => {
       const today = date_tools.today
       const last = date_tools.today_last_month
@@ -59,7 +66,7 @@ const buttons = computed(() => [
   },
   {
     key: 'last_3_months',
-    label: '近三个月',
+    label: t('timeSearch.threeMonths'),
     date_get: () => {
       const today = date_tools.today
       const last = date_tools.today_for_last_month(3)
@@ -68,7 +75,7 @@ const buttons = computed(() => [
   },
   {
     key: 'last_6_months',
-    label: '近半年',
+    label: t('timeSearch.sixMonths'),
     date_get: () => {
       const today = date_tools.today
       const last = date_tools.today_for_last_month(6)

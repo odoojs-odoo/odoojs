@@ -2,7 +2,7 @@
   <a-space>
     <template v-if="!formInfo.editable">
       <a-button size="small" v-if="buttons.edit" @click="onClickCRUD('edit')">
-        编辑
+        {{ $t('act.edit') }}
       </a-button>
       <a-button
         v-if="buttons.create"
@@ -10,26 +10,29 @@
         type="primary"
         @click="onClickCRUD('new')"
       >
-        创建
+        
+        {{ $t('act.create') }}
       </a-button>
 
       <a-popconfirm
         v-if="buttons.delete"
-        title="您是要删除这条数据吗?"
-        ok-text="确认"
-        cancel-text="取消"
+        :title="$t('act.deleteTip')"
+        :ok-text="$t('act.confirm')"
+        :cancel-text="$t('act.cancel')"
         @confirm="onClickDelConfirm"
       >
         <!-- @click="onClickDel" -->
-        <a-button size="small" type="danger"> 删除 </a-button>
+        <a-button size="small" type="danger">  
+          {{ $t('act.delete') }}
+        </a-button>
       </a-popconfirm>
       <a-button size="small" type="primary" @click="onClickCRUD('back')">
-        返回
+        {{ $t('act.back') }}
       </a-button>
     </template>
     <template v-if="formInfo.editable">
-      <a-button size="small" @click="onClickCRUD('save')"> 保存 </a-button>
-      <a-button size="small" @click="onClickCRUD('cancel')"> 取消 </a-button>
+      <a-button size="small" @click="onClickCRUD('save')"> {{ $t('act.save') }} </a-button>
+      <a-button size="small" @click="onClickCRUD('cancel')"> {{ $t('act.cancel') }} </a-button>
     </template>
   </a-space>
 

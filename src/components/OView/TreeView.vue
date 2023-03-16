@@ -1,10 +1,3 @@
-<!--
- * @Author: Nxf
- * @Date: 2023-02-06 12:20:30
- * @LastEditors: Nxf
- * @LastEditTime: 2023-02-15 20:26:11
- * @Descripttion: 
--->
 <template>
   <div>
     <!-- <div class="actionZone"> -->
@@ -15,6 +8,7 @@
     <SearchView
       :search-items="searchItems"
       :search-values="searchValues"
+      :actionId="props.actionId"
       @change="onSearchChange"
     />
 

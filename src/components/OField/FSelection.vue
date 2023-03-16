@@ -31,7 +31,7 @@
             :key="op[0]"
             :value="op[0]"
           >
-            {{ op[1] }}
+            {{tr(op[1])}}
           </a-select-option>
         </a-select>
       </template>
@@ -42,7 +42,7 @@
 <script setup>
 import { defineProps, defineEmits, computed } from 'vue'
 import { useFSelection } from './FSelectionApi'
-
+import { useL10n } from '@/components/tools/useL10n';
 const props = defineProps([
   'modelValue',
   'width',
@@ -51,6 +51,7 @@ const props = defineProps([
   'formInfo'
 ])
 
+const {tr} = useL10n()
 const emit = defineEmits(['update:modelValue', 'change'])
 
 const { mVal, dVal, readonly, onChange } = useFSelection(props, { emit })

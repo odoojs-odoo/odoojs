@@ -444,7 +444,6 @@ export class FormView extends BaseView {
   }
 
   async commit(kwargs = {}) {
-    // console.log(' commit  ', kwargs)
     return this.edit_model.commit(kwargs)
   }
 
