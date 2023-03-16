@@ -16,14 +16,20 @@ export default {
     deleteTip: 'Are you sure to delete this data?',
     inputNameTip: 'Please input user name'
   },
-
+  resUser: {
+    account: 'Account',
+    name: 'User Name',
+    phone: 'Phone',
+    currentComp: 'Current Company',
+    companies: 'Companies',
+    latestLogin: 'Latest Login'
+  },
   timeSearch: {
     today: 'today',
     oneMonth: 'one month',
     threeMonths: 'three months',
     sixMonths: 'six months'
   },
-
   showMoreSearch: {
     advancedSearch: 'advanced search',
     close: 'close'

@@ -3,23 +3,31 @@
 
   <a-space>
     <template v-if="!formInfo.editable">
-      <a-button size="small" @click="onClickCRUD('edit')"> 编辑 </a-button>
+      <a-button size="small" @click="onClickCRUD('edit')"> 
+        {{ $t('act.edit') }} 
+      </a-button>
       <a-popconfirm
-        title="您是要删除这条数据吗?"
-        ok-text="确认"
-        cancel-text="取消"
+        :title="$t('act.deleteTip')"
+        :ok-text="$t('act.confirm')"
+        :cancel-text="$t('act.cancel')"
         @confirm="onClickDelConfirm"
       >
         <!-- @click="onClickDel" -->
-        <a-button size="small" type="danger"> 删除 </a-button>
+        <a-button size="small" type="danger"> 
+          {{ $t('act.delete') }} 
+        </a-button>
       </a-popconfirm>
       <a-button size="small" type="primary" @click="onClickCRUD('back')">
-        返回
+        {{ $t('act.back') }} 
       </a-button>
     </template>
     <template v-if="formInfo.editable">
-      <a-button size="small" @click="onClickCRUD('save')"> 保存 </a-button>
-      <a-button size="small" @click="onClickCRUD('cancel')"> 取消 </a-button>
+      <a-button size="small" @click="onClickCRUD('save')"> 
+        {{ $t('act.save') }} 
+      </a-button>
+      <a-button size="small" @click="onClickCRUD('cancel')">
+        {{ $t('act.cancel') }}
+      </a-button>
     </template>
   </a-space>
 
@@ -36,13 +44,13 @@
   >
     <!--      bordered -->
     <a-descriptions
-      :title="`用户名:${record.display_name}`"
+      :title="`${$t('resUser.name')}: ${record.display_name}`"
       :column="2"
       style="background-color: white; padding: 5px; margin-top: 5px"
       size="small"
     >
       <a-descriptions-item>
-        <a-form-item name="login" label="账号" style="margin-bottom: 5px">
+        <a-form-item name="login" :label="$t('resUser.account')" style="margin-bottom: 5px">
           <OField
             v-model="mVal['login']"
             width="270px"
@@ -56,7 +64,7 @@
 
       <a-descriptions-item>
         <!-- :rules="[]" -->
-        <a-form-item name="name" label="用户名" style="margin-bottom: 5px">
+        <a-form-item name="name" :label="$t('resUser.name')" style="margin-bottom: 5px">
           <OField
             v-model="mVal['name']"
             width="270px"
@@ -69,7 +77,7 @@
       </a-descriptions-item>
 
       <a-descriptions-item>
-        <a-form-item name="phone" label="电话" style="margin-bottom: 5px">
+        <a-form-item name="phone" :label="$t('resUser.phone')" style="margin-bottom: 5px">
           <OField
             v-model="mVal['phone']"
             width="270px"
@@ -84,7 +92,7 @@
       <a-descriptions-item>
         <a-form-item
           name="company_id"
-          label="当前公司"
+          :label="$t('resUser.currentComp')"
           style="margin-bottom: 5px"
         >
           <OField
@@ -99,7 +107,7 @@
       </a-descriptions-item>
 
       <a-descriptions-item>
-        <a-form-item name="company_ids" label="公司" style="margin-bottom: 5px">
+        <a-form-item name="company_ids" :label="$t('resUser.companies')" style="margin-bottom: 5px">
           <OField
             v-model="mVal['company_ids']"
             width="270px"
@@ -111,7 +119,7 @@
         </a-form-item>
       </a-descriptions-item>
 
-      <a-descriptions-item label="最近登录">
+      <a-descriptions-item :label="$t('resUser.latestLogin')">
         <OField
           v-model="mVal['login_date']"
           width="270px"

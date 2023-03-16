@@ -16,6 +16,14 @@ export default {
     deleteTip: '您是要删除这条数据吗?',
     inputNameTip: '请输入用户名'
   },
+  resUser: {
+    account: '账号',
+    name: '用户名',
+    phone: '电话',
+    currentComp: '当前公司',
+    companies: '公司',
+    latestLogin: '最近登录'
+  },
   timeSearch: {
     today: '今天',
     oneMonth: '近一个月',
