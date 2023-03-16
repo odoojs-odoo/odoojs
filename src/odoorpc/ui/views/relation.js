@@ -106,7 +106,11 @@ export class Relation extends Field {
   constructor(field_info, payload) {
     super(field_info, payload)
 
-    this._views = {}
+    this._views = {
+      tree: { fields: {} },
+      kanban: { fields: {} },
+      form: { fields: {} }
+    }
   }
 
   get field_info() {
@@ -126,6 +130,7 @@ export class Relation extends Field {
       ['one2many', 'many2many'].includes(meta.type) &&
       meta.widget === 'x2many_tree'
 
+    // console.log('_load_views 2', is_x2many_tree, meta)
     if (!is_x2many_tree) {
       return { tree: {}, kanban: {}, form: {} }
     }
@@ -171,9 +176,6 @@ export class Relation extends Field {
 
     const fields_meta = BaseView.metadata_fields(this.field_info.relation)
 
-    // console.log('fields_raw', fields_raw)
-    // console.log('fields_meta', fields_meta)
-
     const fields_info = await this.Model.fields_get(Object.keys(fields_raw))
 
     const fields_tree = Object.keys(raw_tree).reduce((acc, cur) => {
@@ -215,6 +217,9 @@ export class Relation extends Field {
   async load_views() {
     const views = await this._load_views()
     this._views = views
+
+    // console.log('fields_meta', fields_meta)
+
     return views
   }
 
