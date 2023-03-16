@@ -189,8 +189,7 @@ export class X2mTreeBase extends X2mBase {
 
   values_display_for_o2m(records, values_in) {
     const fields_tree = this.fields
-    const formviewinfo = this.field_info.views.form
-    const fields_form = formviewinfo.fields
+    const fields_form = this.field_info.views.form.fields
     const fields = { ...fields_tree, ...fields_form }
     // console.log(fields)
 

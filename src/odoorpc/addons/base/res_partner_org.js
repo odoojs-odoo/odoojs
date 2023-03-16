@@ -102,6 +102,13 @@ export default {
                 templates: {
                   // title
                 }
+              },
+
+              tree: {
+                fields: { name: {} }
+              },
+              form: {
+                fields: { name: {} }
               }
             }
           }

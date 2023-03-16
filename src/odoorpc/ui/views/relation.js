@@ -115,7 +115,22 @@ export class Relation extends Field {
 
   get field_info() {
     const views = this._field_info.views || {}
-    return { ...this._field_info, views: { ...views, ...this._views } }
+
+    const merge_view = viewtype => {
+      const view1 = views[viewtype] || {}
+      const view2 = this._views[viewtype] || {}
+      return {
+        ...view1,
+        ...view2,
+        fields: { ...(view1.fields || {}), ...(view2.fields || {}) }
+      }
+    }
+
+    const kanbanview = merge_view('kanban')
+    const formview = merge_view('form')
+    const treeview = merge_view('tree')
+    const views2 = { kanban: kanbanview, form: formview, tree: treeview }
+    return { ...this._field_info, views: views2 }
   }
 
   get Model() {
@@ -130,7 +145,6 @@ export class Relation extends Field {
       ['one2many', 'many2many'].includes(meta.type) &&
       meta.widget === 'x2many_tree'
 
-    // console.log('_load_views 2', is_x2many_tree, meta)
     if (!is_x2many_tree) {
       return { tree: {}, kanban: {}, form: {} }
     }
@@ -217,9 +231,6 @@ export class Relation extends Field {
   async load_views() {
     const views = await this._load_views()
     this._views = views
-
-    // console.log('fields_meta', fields_meta)
-
     return views
   }
 
