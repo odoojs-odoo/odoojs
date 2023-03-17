@@ -19,7 +19,7 @@
       />
       <!-- 更多搜索 -->
       <template v-else>
-        <template v-for="item in searchItems" :key="item.name">
+        <div v-for="item in searchItems" :key="item.name">
           <template v-if="item.type === 'field'">
             <template v-if="item.meta.type === 'selection'">
               {{ item.type }} {{ item.meta.type }}
@@ -73,7 +73,7 @@
               />
             </template>
           </template>
-        </template>
+        </div>
       </template>
     </div>
     <div style="width: 150px; text-align: right">

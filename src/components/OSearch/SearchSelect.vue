@@ -2,7 +2,6 @@
   <span>
     <span v-if="title"> {{ title }}: </span>
 
-    <!-- -->
     <a-checkbox-group
       v-model:value="state.mVal"
       name="checkboxgroup"
@@ -39,7 +38,7 @@ watch(
 )
 
 function handleChange(value) {
-  console.log(value)
+  // console.log(value)
   emit('change', value)
 }
 </script>

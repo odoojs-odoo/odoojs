@@ -16,14 +16,14 @@
 
 <script setup>
 import { defineProps, defineEmits, reactive, watch } from 'vue'
-const props = defineProps(['modelValue', 'title', 'placeholder'])
+const props = defineProps(['value', 'title', 'placeholder'])
 const emit = defineEmits(['change'])
 const state = reactive({
   mVal: []
 })
 
 watch(
-  () => props.modelValue,
+  () => props.value,
   // eslint-disable-next-line no-unused-vars
   (newVal, oldVal) => {
     state.mVal = (newVal || []).map(item => item.string)
