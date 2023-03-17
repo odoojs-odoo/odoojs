@@ -27,7 +27,8 @@ export function useFO2m(props, ctx) {
   const treeRecords = computed(() => {
     if (!state.relationReady) return []
     else {
-      return localState.relation.tree.values_display(
+      console.log('o2m treeRecords', treeRecords)
+      return localState.relation.tree.values_display_for_o2m(
         state.records,
         readonly ? state.values : []
       )
@@ -86,7 +87,7 @@ export function useFO2m(props, ctx) {
     //   //     const { values } = res
     //   //     this.subRecords = values
     //   //   } else {
-    //   //     const records = await view.read_for_new(m2m_value)
+    //   //     const records = await view.read_for_new_m2m(m2m_value)
     //   //     // console.log('load_relation_data: ', this.fname, m2m_value, records)
     //   //     this.subRecords = records
     //   //   }

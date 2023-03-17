@@ -145,49 +145,23 @@ const tuples_helper = {
 }
 
 export class X2mTreeBase extends X2mBase {
+  // 是 tree 和  kanban 的 共用 class
   constructor(field_info, payload) {
     const { type = 'tree' } = payload
     super(field_info, { ...payload, type })
   }
 
-  // todo 这个还是 没有用了 ?
-  values_display(records, values) {
-    // console.log(this.field_info)
-    const { type } = this.field_info
-
-    if (type === 'many2many') {
-      return this.values_display_for_m2m(records, values)
-    } else {
-      return this.values_display_for_o2m(records, values)
-    }
-  }
-
-  values_display_for_m2m(records, values_in) {
-    const old = records.length
-      ? [[6, records, records.map(item => item.id)]]
-      : []
-
-    const values = [...old, ...values_in]
-
-    const vals = values.reduce((acc, tup) => {
-      const op = tup[0]
-
-      if (op === 6) {
-        acc = tup[1]
-      } else if (op === 5) {
-        acc = []
-      } else {
-        //
-      }
-
-      return acc
-    }, [])
-    // console.log('values2,', vals)
-
-    return [...vals]
-  }
-
+  // 只有 o2m fields 显示数据用. 处理逻辑 与 tuples_helper 归为一类
   values_display_for_o2m(records, values_in) {
+    console.log('o2m values_display_for_o2m', records, values_in)
+
+    // 1. records 是 只读数据  list
+    // 2. values_in 是编辑有的  tuples
+    // 3. 合并为  tuples = [[4, oldid, {val}], [tuples]]
+    // 4. tuples 转为 数据 list
+    // 6. 如果是 合并 [4, oldid, {vals}], [1, id, {vals}]. 是合并 vals
+    // 7. 合并 vals 需要嵌套处理
+
     const fields_tree = this.fields
     const fields_form = this.field_info.views.form.fields
     const fields = { ...fields_tree, ...fields_form }
@@ -204,6 +178,7 @@ export class X2mTreeBase extends X2mBase {
         if (meta.type === 'many2many') {
           acc[fld] = fld in vals ? tuples_to_ids(vals[fld]) : rec[fld]
         } else if (meta.type === 'one2many') {
+          // 未考虑嵌套
           acc[fld] = []
         } else {
           acc[fld] = fld in vals ? vals[fld] : rec[fld]
@@ -252,36 +227,60 @@ export class X2mTree extends X2mTreeBase {
     super(field_info, { ...payload, type: 'tree' })
   }
 
-  read_for_new_x2m(tuples) {
-    if (this.field_info.type === 'one2many') {
-      const res = this.read_for_new_o2m(tuples)
-      // {        values, values_onchange, values_write      }
-      return res
-    } else if (this.field_info.type === 'many2many') {
-      const ret = async () => {
-        return {
-          values_display: await this.read_for_new_m2m(tuples)
-        }
-      }
+  async read(ids) {
+    // console.log('X2mTree read: ', ids, this.field_info)
 
-      return ret()
-    } else {
-      return {
-        values_display: []
-      }
-    }
+    const fields_tree = this.fields
+    const fields_form = this.field_info.views.form.fields
+    const fields_list = Object.keys({ ...fields_tree, ...fields_form })
+
+    // console.log('X2mTree read: ', ids, fields_list)
+
+    // const fields_list = this.fields_list
+    const res = await this.Model.read(ids, fields_list)
+    // console.log('X2mTree read: ', ids, res)
+    return res
   }
 
-  async read_for_new(tuples) {
-    return this.read_for_new_m2m(tuples)
-  }
-  async read_for_new_m2m(tuples) {
-    const ids = tuples_to_ids(tuples)
-    // console.log('read_for_new', ids)
-    return this.read(ids)
-    // console.log('read_for_new', ids, res)
+  async search_read(domain = []) {
+    const fields = this.fields_list
+    const res = await this.Model.search_read({ domain, fields })
+    return res
   }
 
+  commit_by_remove(values, res_id) {
+    const value = [2, res_id, false]
+    return tuples_helper.to_return(values, value)
+  }
+
+  commit_by_upinsert(values, res_id, value) {
+    const value2 = res_id ? [1, res_id, value] : [0, false, value]
+    return tuples_helper.to_return(values, value2)
+  }
+
+  commit_for_onchange(records, values) {
+    // const value = [2, res_id, false]
+    // return tuples_helper.to_return(values, value)
+
+    const old_tuples = records.map(item => [4, item.id, false])
+    const tuples_todo = [...old_tuples, ...values]
+    const tuples_merged = tuples_helper._to_merge(tuples_todo)
+    return tuples_helper.to_onchange(tuples_merged)
+  }
+
+  // todo
+  //
+  //
+  //
+
+  // 主表 _get_values_for_write.
+  // 嵌套处理o2m 时 使用. 获取 values_write
+  // 应该先解耦.
+  //
+  // 主表新增, o2m 字段有默认值时使用.
+  // 主要是处理  [0, false, {}] 为 [0, vid, {}]
+  //  应该无其他作用.
+  //
   read_for_new_o2m(tuples) {
     // const ids = tuples_to_ids(tuples)
     // console.log('read_for_new_o2m', this.field_info, tuples)
@@ -312,27 +311,12 @@ export class X2mTree extends X2mTreeBase {
     return { ...res, values_display: vals }
   }
 
-  async read(ids) {
-    // console.log('X2mTree read: ', ids, this.field_info)
-
-    const fields_tree = this.fields
-    const fields_form = this.field_info.views.form.fields
-    const fields_list = Object.keys({ ...fields_tree, ...fields_form })
-
-    // console.log('X2mTree read: ', ids, fields_list)
-
-    // const fields_list = this.fields_list
-    const res = await this.Model.read(ids, fields_list)
-    // console.log('X2mTree read: ', ids, res)
-    return res
-  }
-
-  async search_read(domain = []) {
-    const fields = this.fields_list
-    const res = await this.Model.search_read({ domain, fields })
-    return res
-  }
-
+  // 主表 _get_values_for_write()
+  // call read_for_new_o2m()
+  // call commit()
+  // call _x2m_tuples_for_write()
+  //
+  // 该函数 改造为 服务于 主表 _get_values_for_write 的 嵌套 递归函数
   _x2m_tuples_for_write(records, values3) {
     // console.log('_x2m_tuples_for_write', records, values3)
     return values3.map(item => {
@@ -359,27 +343,10 @@ export class X2mTree extends X2mTreeBase {
     })
   }
 
-  commit_by_remove(values, res_id) {
-    const value = [2, res_id, false]
-    return tuples_helper.to_return(values, value)
-  }
-
-  commit_by_upinsert(values, res_id, value) {
-    const value2 = res_id ? [1, res_id, value] : [0, false, value]
-    return tuples_helper.to_return(values, value2)
-  }
-
-  commit_for_onchange(records, values) {
-    // const value = [2, res_id, false]
-    // return tuples_helper.to_return(values, value)
-
-    const old_tuples = records.map(item => [4, item.id, false])
-    const tuples_todo = [...old_tuples, ...values]
-    const tuples_merged = tuples_helper._to_merge(tuples_todo)
-    return tuples_helper.to_onchange(tuples_merged)
-  }
-
-  // todo. 被其他函数代替. 待稳定后, 删除
+  // 主表 _get_values_for_write()
+  // call read_for_new_o2m()
+  // call commit()
+  // 解决了 read_for_new_o2m() 之后. 可删除 commit()
   commit(records, values, value) {
     // console.log('sub tree, commit', cp(this.field_info))
     // console.log('sub tree, commit', cp([records, values, value]))
@@ -406,5 +373,86 @@ export class X2mTree extends X2mTreeBase {
     // console.log('sub tree, values_onchange', cp(values_onchange))
 
     return { values: values_ret, values_onchange, values_write }
+  }
+}
+
+// 待整理的函数
+class X2mTree2 extends X2mTreeBase {
+  constructor(field_info, payload) {
+    super(field_info, { ...payload, type: 'tree' })
+  }
+
+  // hw used. 其他不用
+  read_for_new_x2m(tuples) {
+    if (this.field_info.type === 'one2many') {
+      const res = this.read_for_new_o2m(tuples)
+      // {        values, values_onchange, values_write      }
+      return res
+    } else if (this.field_info.type === 'many2many') {
+      const ret = async () => {
+        return {
+          values_display: await this.read_for_new_m2m(tuples)
+        }
+      }
+
+      return ret()
+    } else {
+      return {
+        values_display: []
+      }
+    }
+  }
+
+  // 无人在用
+  async read_for_new(tuples) {
+    return this.read_for_new_m2m(tuples)
+  }
+
+  // 主表新增. m2m 字段有默认值时, 使用. 功能尚未调试.
+  // 功能实在简单. 调试时, 直接废弃该函数
+  async read_for_new_m2m(tuples) {
+    const ids = tuples_to_ids(tuples)
+    // console.log('read_for_new_m2m1', ids)
+    return this.read(ids)
+    // console.log('read_for_new_m2m1', ids, res)
+  }
+
+  // 只有 formview.relation_onchange 在用
+  values_display(records, values) {
+    // console.log(this.field_info)
+    console.log('o2m values_display', records, values)
+    const { type } = this.field_info
+
+    if (type === 'many2many') {
+      return this.values_display_for_m2m(records, values)
+    } else {
+      return this.values_display_for_o2m(records, values)
+    }
+  }
+
+  // 只有 formview.relation_onchange 在用
+  values_display_for_m2m(records, values_in) {
+    const old = records.length
+      ? [[6, records, records.map(item => item.id)]]
+      : []
+
+    const values = [...old, ...values_in]
+
+    const vals = values.reduce((acc, tup) => {
+      const op = tup[0]
+
+      if (op === 6) {
+        acc = tup[1]
+      } else if (op === 5) {
+        acc = []
+      } else {
+        //
+      }
+
+      return acc
+    }, [])
+    // console.log('values2,', vals)
+
+    return [...vals]
   }
 }

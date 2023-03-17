@@ -132,13 +132,13 @@ const defaultItemName = computed(() => {
 const showSearchMoreBtn = computed(() => {
   const defaultItemName1 = defaultItemName.value
   const searchItems = props.searchItems
-  console.log(
-    '======  searchItems  ======',
-    defaultItemName1,
-    Object.keys(searchItems).filter(item => {
-      return item !== defaultItemName1
-    })
-  )
+  // console.log(
+  //   '======  searchItems  ======',
+  //   defaultItemName1,
+  //   Object.keys(searchItems).filter(item => {
+  //     return item !== defaultItemName1
+  //   })
+  // )
 
   const filterRelt = Object.keys(searchItems).filter(item => {
     return item !== defaultItemName1

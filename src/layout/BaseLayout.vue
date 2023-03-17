@@ -223,7 +223,7 @@ export default defineComponent({
       // const menus = menus_data.value || {}
       // console.log('==== menus =====', menus)
       //
-      console.log('==== openKeys =====', openKeys)
+      // console.log('==== openKeys =====', openKeys)
       // if (openKeys.length !== 0) {
       //   state.openKeys = [openKeys[1]]
       //   // console.log('==== openKeys !=0 =====', toRaw(state.openKeys))
