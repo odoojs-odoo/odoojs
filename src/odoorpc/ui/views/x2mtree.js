@@ -268,9 +268,11 @@ export class X2mTree extends X2mTreeBase {
     return tuples_helper.to_onchange(tuples_merged)
   }
 
+  //
+  //
   // todo
-  //
-  //
+  // todo  1st  处理 values_display_for_o2m
+  // todo  2nd  处理  主表 _get_values_for_write()
   //
 
   // 主表 _get_values_for_write.
@@ -311,6 +313,7 @@ export class X2mTree extends X2mTreeBase {
     return { ...res, values_display: vals }
   }
 
+  // todo  2nd  处理
   // 主表 _get_values_for_write()
   // call read_for_new_o2m()
   // call commit()

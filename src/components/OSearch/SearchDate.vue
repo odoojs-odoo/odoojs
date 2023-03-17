@@ -8,7 +8,7 @@
         @click="OnClickBtn(btn)"
         size="small"
         type="primary"
-        shape="round" 
+        shape="round"
       >
         {{ btn.label }}
       </a-button>
@@ -17,14 +17,13 @@
         v-model:value="state.valueObjPair"
         @change="onChange"
         size="small"
-        style="max-width: 230px;"
+        style="max-width: 230px"
       />
     </a-space>
   </div>
 </template>
 
 <script setup>
-
 import dayjs from 'dayjs'
 
 import { defineProps, defineEmits, computed, reactive, watch } from 'vue'
@@ -41,9 +40,10 @@ watch(
   () => props.modelValue,
   // eslint-disable-next-line no-unused-vars
   (newVal, oldVal) => {
-    // 默认值。
+    // 默认值。 todo
     console.log('watch, val,', newVal, oldVal)
-  }
+  },
+  { immediate: true }
 )
 
 const buttons = computed(() => [

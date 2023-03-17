@@ -1,6 +1,7 @@
-import local_base from './local_base'
-import local_base_partner from './local_base_partner'
-import local_product from './local_product'
+import local_base from './locmenu_base'
+import local_base_partner from './locmenu_base_partner'
+import local_product from './locmenu_product'
+import locmenu_analytic from './locmenu_analytic'
 export const local_menus_tree = [
   {
     id: 'bmx.root',
@@ -102,6 +103,6 @@ export const local_menus_tree = [
       zh_CN: '重组官方菜单',
       zh_HK: '重组官方菜单'
     },
-    children: [local_base, local_base_partner, local_product]
+    children: [local_base, local_base_partner, local_product, locmenu_analytic]
   }
 ]

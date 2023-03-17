@@ -43,7 +43,22 @@ export default {
           _span: 2,
           item_ids: {
             widget: 'x2many_tree',
-            context: { default_base: 'list_price' }
+            context: { default_base: 'list_price' },
+            views: {
+              kanban: {
+                fields: { display_name: {} },
+                templates: {
+                  // title
+                }
+              },
+
+              tree: {
+                fields: { display_name: {} }
+              },
+              form: {
+                fields: { display_name: {} }
+              }
+            }
           }
         }
       }

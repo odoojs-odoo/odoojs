@@ -26,7 +26,6 @@
             </template>
             <template v-if="item.meta.type === 'many2one'">
               <!-- {{ item.type }} {{ item.meta.type }} -->
-
               <SearchMany2one
                 :title="tr(item.string)"
                 :fieldInfo="item.meta"
@@ -152,8 +151,10 @@ const showSearchMore = ref(false)
 watch(
   () => props.actionId,
   newValue => {
-    console.log('--- searchView newValue ---', newValue)
-    showSearchMore.value = false
+    // console.log('--- searchView newValue ---', newValue)
+    if (newValue) {
+      showSearchMore.value = false
+    }
   },
   { immediate: true }
 )

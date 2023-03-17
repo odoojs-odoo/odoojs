@@ -2,6 +2,7 @@
   <span>
     <span v-if="title"> {{ title }}: </span>
 
+    <!-- -->
     <a-checkbox-group
       v-model:value="state.mVal"
       name="checkboxgroup"
@@ -16,7 +17,7 @@ import { defineProps, defineEmits, computed, reactive, watch } from 'vue'
 import { useL10n } from '@/components/tools/useL10n'
 const { tr } = useL10n()
 
-const props = defineProps(['modelValue', 'title', 'placeholder', 'options'])
+const props = defineProps(['value', 'title', 'placeholder', 'options'])
 const emit = defineEmits(['change'])
 
 const state = reactive({ mVal: [] })
@@ -28,16 +29,17 @@ const options2 = computed(() =>
 )
 
 watch(
-  () => props.modelValue,
+  () => props.value,
   // eslint-disable-next-line no-unused-vars
   (newVal, oldVal) => {
     // console.log([newVal, oldVal])
-    state.mVal = newVal
-  }
+    state.mVal = newVal.map(item => item.name)
+  },
+  { immediate: true }
 )
 
 function handleChange(value) {
-  // console.log(value)
+  console.log(value)
   emit('change', value)
 }
 </script>

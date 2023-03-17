@@ -26,8 +26,9 @@ watch(
   () => props.modelValue,
   // eslint-disable-next-line no-unused-vars
   (newVal, oldVal) => {
-    state.mVal = newVal
-  }
+    state.mVal = (newVal || []).map(item => item.string)
+  },
+  { immediate: true }
 )
 
 function handleChange(value) {

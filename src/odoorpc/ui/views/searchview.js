@@ -386,7 +386,6 @@ class SearchView1 extends BaseView {
     const values_in_filters = this.values_in_filters
     const values2 = { ...values_in_fields, ...values_in_filters }
 
-    // console.log('search_values', values2)
     return values2
   }
 

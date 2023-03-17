@@ -3,6 +3,7 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.partner',
     type: 'tree',
+    buttons: { create: false, edit: true, delete: false },
     fields: {
       display_name: {},
       type: {},
@@ -16,6 +17,7 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.partner',
     type: 'form',
+    buttons: { create: false, edit: true, delete: false },
     arch: {
       header: {
         buttons: [],

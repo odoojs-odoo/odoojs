@@ -83,7 +83,8 @@ watch(
         return { value: item.value, label: item.value }
       }
     })
-  }
+  },
+  { immediate: true }
 )
 
 async function handleSearch(val) {

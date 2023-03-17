@@ -75,12 +75,13 @@ export function useTreeView(props) {
       state.treeviewReady = true
       // await sleep(1000)
       state.fields = await treeview.load_fields()
+      await treeview.searchview.load_search()
       state.searchItems = { ...treeview.search_items }
       state.searchValues = { ...treeview.search_values }
       // await sleep(1000)
       await loadData(treeview)
 
-      // console.log(localState.treeview)
+      console.log(state.searchValues)
     },
     { immediate: true }
   )
@@ -103,6 +104,7 @@ export function useTreeView(props) {
   async function onSearchChange(item, value) {
     if (localState.treeview) {
       const searchValues = localState.treeview.search_change(item, value)
+      // console.log(searchValues)
       state.searchValues = searchValues
       state.pagination = {
         ...localState.treeview.pagination,
