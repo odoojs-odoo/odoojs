@@ -135,8 +135,8 @@ export class X2mForm extends X2mBase {
     }
 
     const { record, values } = parentData
-    const recprd_merged = prt.get_values_merged(record, values)
-    const parent_record = prt.to_modifiers(recprd_merged)
+    const recprd_merged = prt.merge_to_one(record, values)
+    const parent_record = prt.format_for_modifiers(recprd_merged)
 
     const env = this.env
     const ctx = context_fn({ env, record: { ...parent_record, context } })
@@ -155,35 +155,36 @@ export class X2mForm extends X2mBase {
   }
 
   async onchange(fname, kwargs) {
-    return this.edit_model.onchange(fname, kwargs)
+    const { value, ...kw } = kwargs
+    return this.edit_model.onchange(fname, value, kw)
   }
 
   async commit_for_o2m(kwargs = {}) {
     return this.edit_model.commit_for_o2m(kwargs)
   }
 
-  // // todo. del
-  // // 使用 commit_for_o2m
-  async commit(kwargs = {}) {
-    return this.edit_model.commit(kwargs)
-  }
-
   //
   // for record and values
   //
 
-  get_values_merged(record, values, parentData) {
+  merge_to_one(record, values, parentData) {
     // call by require, readonly, domain of feild
     const par = this.parent
     const { record: prec, values: pval } = parentData
-    const pdata = par.get_values_merged(prec, pval)
-    const medata = this.Model.get_values_merged(record, values)
+    const pdata = par.merge_to_one(prec, pval)
+    const medata = this.Model.merge_to_one(record, values)
     const medata2 = { ...medata, parent: pdata }
     return medata2
   }
 
-  to_modifiers(record_merged) {
+  format_for_modifiers(record_merged) {
     // call by require, readonly, domain of feild
     return this.Model.get_values_for_modifiers(record_merged)
+  }
+
+  // // todo. del
+  // // 使用 commit_for_o2m
+  async commit(kwargs = {}) {
+    return this.edit_model.commit(kwargs)
   }
 }

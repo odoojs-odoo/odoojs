@@ -207,8 +207,8 @@ export class FormView extends BaseView {
       if (typeof btn.invisible !== 'function') {
         return !btn.invisible
       }
-      const record_merged = this.get_values_merged(record_in, values)
-      const record = this.to_modifiers(record_merged)
+      const record_merged = this.merge_to_one(record_in, values)
+      const record = this.format_for_modifiers(record_merged)
       return !btn.invisible({ record })
     })
 
@@ -259,8 +259,8 @@ export class FormView extends BaseView {
         return !btn.invisible
       }
 
-      const record_merged = this.get_values_merged(record_in, values)
-      const record = this.to_modifiers(record_merged)
+      const record_merged = this.merge_to_one(record_in, values)
+      const record = this.format_for_modifiers(record_merged)
       return !btn.invisible({ record })
     })
 
@@ -383,65 +383,8 @@ export class FormView extends BaseView {
   }
 
   async onchange(fname, kwargs_in) {
-    return this.edit_model.onchange(fname, kwargs_in)
-  }
-
-  // 命令行方式 用到该函数.
-  async relation_onchange(fname, kwargs_in) {
-    const { record, values, x2m_tree, x2m_form } = kwargs_in
-
-    const { records: tree_records, values: tree_values } = x2m_tree
-    const { record: form_record, onchange_field, onchange_value } = x2m_form
-
-    const relation = this.relations[fname]
-    const x2mtree = relation.tree
-    const x2mform = relation.form
-
-    // const form_values_display =
-    x2mform.set_editable(form_record, { record, values }) // 单行, 子 form 可编辑,
-    // console.log('form_values_display', form_values_display)
-    // const form_onchange_res =
-    await x2mform.onchange(onchange_field, { value: onchange_value }) // 子 form 编辑后 触发 onchange
-
-    // console.log('form_onchange_res', form_onchange_res)
-    const form_commit_result = await x2mform.commit() // 子 form 提交
-    // console.log('form_commit_result', form_commit_result)
-
-    const tree_commit = x2mtree.commit(
-      tree_records,
-      tree_values,
-      form_commit_result
-    ) //  明细行 更新
-
-    // console.log('tree_commit', tree_commit)
-
-    const { values: tree_values2, values_onchange: tree_values_onchange } =
-      tree_commit
-
-    const onchange_res = await this.onchange(fname, {
-      value: tree_values_onchange
-    }) // 主 form onchange
-
-    // console.log('onchange_res', onchange_res)
-
-    // console.log('return,tree_values2 ', tree_values2)
-
-    const tree_values_display = x2mtree.values_display(
-      tree_records,
-      tree_values2
-    )
-    const tree_return = {
-      values: tree_values2,
-      values_display: tree_values_display,
-      values_onchange: tree_values_onchange
-    }
-
-    return {
-      ...onchange_res,
-      x2m_tree: {
-        ...tree_return
-      }
-    }
+    const { value, ...kw } = kwargs_in
+    return this.edit_model.onchange(fname, value, kw)
   }
 
   async commit(kwargs = {}) {
@@ -472,17 +415,17 @@ export class FormView extends BaseView {
   // for record and values
   //
 
-  get_values_merged(record, values) {
+  merge_to_one(record, values) {
     // call by require, readonly, domain of feild
-    return this.Model.get_values_merged(record, values)
+    return this.Model.merge_to_one(record, values)
   }
 
-  to_modifiers(record_merged) {
+  format_for_modifiers(record_merged) {
     // call by require, readonly, domain of feild
     return this.Model.get_values_for_modifiers(record_merged)
   }
 
-  _get_values_for_write(record, values) {
+  merge_for_write(record, values) {
     const values2 = this.Model._get_values_for_write(record, values)
 
     return Object.keys(values2).reduce((acc, fld) => {
@@ -505,5 +448,64 @@ export class FormView extends BaseView {
 
       return acc
     }, {})
+  }
+
+  //
+  //
+  // 命令行方式 用到该函数.
+  async relation_onchange(fname, kwargs_in) {
+    const { record, values, x2m_tree, x2m_form } = kwargs_in
+
+    const { records: tree_records, values: tree_values } = x2m_tree
+    const { record: form_record, onchange_field, onchange_value } = x2m_form
+
+    const relation = this.relations[fname]
+    const x2mtree = relation.tree
+    const x2mform = relation.form
+
+    // const form_values_display =
+    x2mform.set_editable(form_record, { record, values }) // 单行, 子 form 可编辑,
+    // console.log('form_values_display', form_values_display)
+    // const form_onchange_res =
+    await x2mform.onchange(onchange_field, onchange_value)
+    // 子 form 编辑后 触发 onchange
+
+    // console.log('form_onchange_res', form_onchange_res)
+    const form_commit_result = await x2mform.commit() // 子 form 提交
+    // console.log('form_commit_result', form_commit_result)
+
+    const tree_commit = x2mtree.commit(
+      tree_records,
+      tree_values,
+      form_commit_result
+    ) //  明细行 更新
+
+    // console.log('tree_commit', tree_commit)
+
+    const { values: tree_values2, values_onchange: tree_values_onchange } =
+      tree_commit
+
+    const onchange_res = await this.onchange(fname, tree_values_onchange) // 主 form onchange
+
+    // console.log('onchange_res', onchange_res)
+
+    // console.log('return,tree_values2 ', tree_values2)
+
+    const tree_values_display = x2mtree.values_display(
+      tree_records,
+      tree_values2
+    )
+    const tree_return = {
+      values: tree_values2,
+      values_display: tree_values_display,
+      values_onchange: tree_values_onchange
+    }
+
+    return {
+      ...onchange_res,
+      x2m_tree: {
+        ...tree_return
+      }
+    }
   }
 }

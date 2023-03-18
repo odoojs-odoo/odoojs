@@ -68,21 +68,23 @@ class EditBase {
     return this.viewmodel.Model
   }
 
+  // todo  check this
+
   _values_display(record = {}, values = {}) {
     // todo: m2m o2m 做处理
     return { ...record, ...values }
   }
 
-  _update_values(fname, { value }) {
+  _update_values(fname, value) {
     const value2 = value
 
     const values = { ...this.values, [fname]: value2 }
     this.values = values
   }
 
-  update(fname, { value }) {
+  update(fname, value) {
     // console.log('update,', fname, value)
-    this._update_values(fname, { value })
+    this._update_values(fname, value)
     const values = this.values
     const record = this.record
     const formValues = this._values_display(record, values)
@@ -94,13 +96,13 @@ class EditBase {
     await this.changeQueue.wait_call()
   }
 
-  async onchange(fname, kwargs_in) {
-    const result = this.web_onchange(fname, kwargs_in)
+  async onchange(fname, value, kwargs_in) {
+    const result = this.web_onchange(fname, value, kwargs_in)
     this.changeQueue.append(result)
     return result
   }
 
-  async web_onchange(fname, kwargs_in) {
+  async web_onchange(fname, value, kwargs_in = {}) {
     //  等待其他 任务完成
     await this._wait()
     // await sleep(3000)
@@ -108,7 +110,7 @@ class EditBase {
     //  更新本地数据
 
     // const update_res =
-    this.update(fname, kwargs)
+    this.update(fname, value)
 
     const validate_call = async update_res2 => {
       if (!validate) {
@@ -127,7 +129,7 @@ class EditBase {
       })
     }
 
-    const res = await this._web_onchange(fname, kwargs)
+    const res = await this._web_onchange(fname, value, kwargs)
     const values = this.values
     const record = this.record
     const formValues = this._values_display(record, values)
@@ -138,15 +140,6 @@ class EditBase {
     await validate_call(update_res2)
 
     return res
-
-    // if (valid) {
-    //   //  若校验 返回 true, 则 onchange
-    //   const res = await this._web_onchange(fname, kwargs)
-
-    //   return res
-    // } else {
-    //   return { values: this.values }
-    // }
   }
 
   // todo.  o2m 使用 commit_for_o2m
@@ -241,7 +234,7 @@ export class EditModel extends EditBase {
     return this._values_display(record)
   }
 
-  async _web_onchange(fname, { value }) {
+  async _web_onchange(fname, value) {
     const res_ids = this.record.id ? [this.record.id] : []
 
     const kwargs2 = {
@@ -269,12 +262,10 @@ export class EditModel extends EditBase {
 
     // console.log('_web_commit', this.viewmodel, record, values)
 
-    const values2 = this.viewmodel._get_values_for_write(record, values)
+    const values2 = this.viewmodel.merge_for_write(record, values)
     // console.log('_web_commit', values2)
 
-    const id2 = await this.Model.web_commit(res_id, record, values2, {
-      context
-    })
+    const id2 = await this.Model.web_commit(res_id, values2, { context })
     return id2
   }
 }
@@ -375,14 +366,14 @@ export class EditX2m extends EditBase {
     // console.log('_update_relation,this.parentData2', cp(this.parentData))
   }
 
-  update(fname, { value }) {
+  update(fname, value) {
     // console.log('update,', fname, value, )
-    const res = super.update(fname, { value })
+    const res = super.update(fname, value)
     this._update_parent() //  同步 更新  parent
     return res
   }
 
-  async _web_onchange(fname, { value }) {
+  async _web_onchange(fname, value) {
     const context = this.context
 
     const res_ids =

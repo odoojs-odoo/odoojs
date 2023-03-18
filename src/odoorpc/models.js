@@ -278,7 +278,7 @@ export class Model extends BaseModel {
     super(payload)
   }
 
-  static get_values_merged(record, values) {
+  static merge_to_one(record, values) {
     const all_keys = Object.keys({ ...record, ...values })
 
     return all_keys.reduce((acc, fld) => {
@@ -308,6 +308,7 @@ export class Model extends BaseModel {
       return acc
     }, {})
   }
+
   static get_values_for_modifiers(record) {
     return Object.keys(record).reduce((acc, fld) => {
       const meta = this._fields[fld] || {}
@@ -325,7 +326,7 @@ export class Model extends BaseModel {
 
   static _get_values_for_write(record_in, values_in) {
     // record 的作用是 获取 只读属性 以及 获取 state 字段的值
-    const record2 = this.get_values_merged(record_in, values_in)
+    const record2 = this.merge_to_one(record_in, values_in)
     const record = this.get_values_for_modifiers(record2)
 
     const _commit_get_readonly = (meta, state) => {
@@ -356,7 +357,7 @@ export class Model extends BaseModel {
 
     const state = record.state
 
-    const values = this.get_values_merged({}, values_in)
+    const values = this.merge_to_one({}, values_in)
 
     const all_keys = Object.keys({ ...values_in }).filter(
       fld => !_commit_get_readonly(this._fields[fld] || {}, state)
@@ -372,32 +373,13 @@ export class Model extends BaseModel {
     }, {})
   }
 
-  static async web_commit(res_id, record, values, kwargs = {}) {
-    if (!values) return res_id
-    if (!Object.keys(values).length) {
-      const { context = {} } = kwargs
-      const { active_ids, active_id } = context
-      if (!(active_ids || active_id)) return res_id
-    }
-    // const values2 = this._get_values_for_write(record, values)
-
-    const values2 = values
-
-    if (res_id) {
-      await this.write(res_id, values2, kwargs)
-      return res_id
-    } else {
-      return this.create(values2, kwargs)
-    }
-  }
-
   static get_values_for_onchange({ record, values }) {
     return this._get_values_for_onchange(record, values)
   }
 
   // ok
   static _get_values_for_onchange(record_in, values) {
-    const record = this.get_values_merged(record_in, values)
+    const record = this.merge_to_one(record_in, values)
 
     return Object.keys(record).reduce((acc, fld) => {
       const meta = this._fields[fld] || {}
@@ -500,6 +482,22 @@ export class Model extends BaseModel {
 
     // done:
     return { record, ...res, values: values_ret }
+  }
+
+  static async web_commit(res_id, values, kwargs = {}) {
+    if (!values) return res_id
+    if (!Object.keys(values).length) {
+      const { context = {} } = kwargs
+      const { active_ids, active_id } = context
+      if (!(active_ids || active_id)) return res_id
+    }
+
+    if (res_id) {
+      await this.write(res_id, values, kwargs)
+      return res_id
+    } else {
+      return this.create(values, kwargs)
+    }
   }
 
   // async call_button_after(action_info) {

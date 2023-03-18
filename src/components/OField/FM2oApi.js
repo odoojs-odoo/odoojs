@@ -8,22 +8,19 @@ function get_record_for_modifiers(formInfo) {
     const actionInfo = toRaw(formInfo.viewInfo.action)
     const fields = toRaw(formInfo.fields)
     const view = api.env.formview(actionInfo, { fields })
-    const record_merged = view.get_values_merged(
-      formInfo.record,
-      formInfo.values
-    )
-    return view.to_modifiers(record_merged)
+    const record_merged = view.merge_to_one(formInfo.record, formInfo.values)
+    return view.format_for_modifiers(record_merged)
   } else if (formInfo.relationInfo) {
     const info = formInfo.relationInfo
     const rel = api.env.relation(info.relation, { parent: info.parent })
     const view = rel.form
 
-    const record_merged = view.get_values_merged(
+    const record_merged = view.merge_to_one(
       formInfo.record,
       formInfo.values,
       formInfo.parentData // x2mform 需要额外的 parentData
     )
-    return view.to_modifiers(record_merged)
+    return view.format_for_modifiers(record_merged)
   } else {
     return {}
   }

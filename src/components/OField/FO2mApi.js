@@ -28,7 +28,7 @@ export function useFO2m(props, ctx) {
     if (!state.relationReady) return []
     else {
       // console.log('o2m treeRecords', treeRecords)
-      return localState.relation.tree.values_display_for_o2m(
+      return localState.relation.tree.merge_for_display(
         toRaw(state.records),
         readonly ? toRaw(state.values) : []
       )

@@ -191,26 +191,10 @@ export class X2mTree extends X2mTreeBase {
   //
   //  merge data: record, values
   //
-
-  // 只有 o2m fields 显示数据用. 处理逻辑 与 tuples_helper 归为一类
-  values_display_for_o2m(records, values_in) {
-    // console.log('o2m values_display_for_o2m', records, values_in)
-
-    // 1. records 是 只读数据  list
-    // 2. values_in 是编辑有的  tuples
-    // 3. 合并为  tuples = [[4, oldid, {val}], [tuples]]
-    // 4. tuples 转为 数据 list
-    // 6. 如果是 合并 [4, oldid, {vals}], [1, id, {vals}]. 是合并 vals
-    // 7. 合并 vals 需要嵌套处理
-
+  _merge_tuples_for_display(records) {
     const fields_tree = this.fields
     const fields_form = this.field_info.views.form.fields
     const fields = { ...fields_tree, ...fields_form }
-    // console.log(fields)
-
-    const values = [...records.map(item => [4, item.id, item]), ...values_in]
-
-    // console.log(records, values)
 
     const merge = (rec, vals) => {
       const all_keys = Object.keys({ ...rec, ...vals })
@@ -228,9 +212,8 @@ export class X2mTree extends X2mTreeBase {
       }, {})
     }
 
-    const vals = values.reduce((acc, tup) => {
+    return records.reduce((acc, tup) => {
       const op = tup[0]
-
       if (op === 6) {
         // m2m table 编辑时 会用到
         // acc = this.m2m_records
@@ -257,9 +240,11 @@ export class X2mTree extends X2mTreeBase {
 
       return acc
     }, [])
-    // console.log('values2,', vals)
+  }
 
-    return [...vals]
+  merge_for_display(records_in, values) {
+    const records = [...records_in.map(item => [4, item.id, item]), ...values]
+    return this._merge_tuples_for_display(records)
   }
 
   merge_for_onchange(records, values) {
@@ -275,7 +260,6 @@ export class X2mTree extends X2mTreeBase {
   //
   //
   // todo
-  // todo  1st  处理 values_display_for_o2m
   // todo  2nd  处理  主表 _get_values_for_write()
   //
 
@@ -289,7 +273,7 @@ export class X2mTree extends X2mTreeBase {
   //
   read_for_new_o2m(tuples) {
     // const ids = tuples_to_ids(tuples)
-    // console.log('read_for_new_o2m', this.field_info, tuples)
+    console.log('read_for_new_o2m', this.field_info, tuples)
 
     const res = tuples.reduce(
       (acc, tuple) => {
@@ -389,78 +373,150 @@ class X2mTree2 extends X2mTreeBase {
     super(field_info, { ...payload, type: 'tree' })
   }
 
-  // hw used. 其他不用
-  read_for_new_x2m(tuples) {
-    if (this.field_info.type === 'one2many') {
-      const res = this.read_for_new_o2m(tuples)
-      // {        values, values_onchange, values_write      }
-      return res
-    } else if (this.field_info.type === 'many2many') {
-      const ret = async () => {
-        return {
-          values_display: await this.read_for_new_m2m(tuples)
-        }
-      }
+  // // 主表新增. m2m 字段有默认值时, 使用. 功能尚未调试.
+  // // 功能实在简单. 调试时, 直接废弃该函数
+  // async read_for_new_m2m(tuples) {
+  //   const ids = tuples_to_ids(tuples)
+  //   // console.log('read_for_new_m2m1', ids)
+  //   return this.read(ids)
+  //   // console.log('read_for_new_m2m1', ids, res)
+  // }
 
-      return ret()
-    } else {
-      return {
-        values_display: []
-      }
-    }
-  }
+  // // 无人在用
+  // async read_for_new(tuples) {
+  //   return this.read_for_new_m2m(tuples)
+  // }
 
-  // 无人在用
-  async read_for_new(tuples) {
-    return this.read_for_new_m2m(tuples)
-  }
+  // // hw used. 其他不用
+  // read_for_new_x2m(tuples) {
+  //   if (this.field_info.type === 'one2many') {
+  //     const res = this.read_for_new_o2m(tuples)
+  //     // {        values, values_onchange, values_write      }
+  //     return res
+  //   } else if (this.field_info.type === 'many2many') {
+  //     const ret = async () => {
+  //       return {
+  //         values_display: await this.read_for_new_m2m(tuples)
+  //       }
+  //     }
 
-  // 主表新增. m2m 字段有默认值时, 使用. 功能尚未调试.
-  // 功能实在简单. 调试时, 直接废弃该函数
-  async read_for_new_m2m(tuples) {
-    const ids = tuples_to_ids(tuples)
-    // console.log('read_for_new_m2m1', ids)
-    return this.read(ids)
-    // console.log('read_for_new_m2m1', ids, res)
-  }
+  //     return ret()
+  //   } else {
+  //     return {
+  //       values_display: []
+  //     }
+  //   }
+  // }
 
-  // 只有 formview.relation_onchange 在用
-  values_display(records, values) {
-    return []
-    // console.log(this.field_info)
-    // console.log('o2m values_display', records, values)
-    // const { type } = this.field_info
+  // // 只有 formview.relation_onchange 在用
+  // values_display(records, values) {
+  //   return []
+  //   // console.log(this.field_info)
+  //   // console.log('o2m values_display', records, values)
+  //   // const { type } = this.field_info
 
-    // if (type === 'many2many') {
-    //   return this.values_display_for_m2m(records, values)
-    // } else {
-    //   return this.values_display_for_o2m(records, values)
-    // }
-  }
+  //   // if (type === 'many2many') {
+  //   //   return this.values_display_for_m2m(records, values)
+  //   // } else {
+  //   //   return this.values_display_for_o2m(records, values)
+  //   // }
+  // }
 
-  // 只有 formview.relation_onchange 在用
-  values_display_for_m2m(records, values_in) {
-    const old = records.length
-      ? [[6, records, records.map(item => item.id)]]
-      : []
+  // // 只有 formview.relation_onchange 在用
+  // values_display_for_m2m(records, values_in) {
+  //   const old = records.length
+  //     ? [[6, records, records.map(item => item.id)]]
+  //     : []
 
-    const values = [...old, ...values_in]
+  //   const values = [...old, ...values_in]
 
-    const vals = values.reduce((acc, tup) => {
-      const op = tup[0]
+  //   const vals = values.reduce((acc, tup) => {
+  //     const op = tup[0]
 
-      if (op === 6) {
-        acc = tup[1]
-      } else if (op === 5) {
-        acc = []
-      } else {
-        //
-      }
+  //     if (op === 6) {
+  //       acc = tup[1]
+  //     } else if (op === 5) {
+  //       acc = []
+  //     } else {
+  //       //
+  //     }
 
-      return acc
-    }, [])
-    // console.log('values2,', vals)
+  //     return acc
+  //   }, [])
+  //   // console.log('values2,', vals)
 
-    return [...vals]
-  }
+  //   return [...vals]
+  // }
+
+  // // 只有 o2m fields 显示数据用. 处理逻辑 与 tuples_helper 归为一类
+  // values_display_for_o2m(records, values_in) {
+  //   // console.log('o2m values_display_for_o2m', records, values_in)
+  //   const res = this.merge_for_display(records, values_in)
+  //   console.log(res)
+  //   return res
+  //   // // 1. records 是 只读数据  list
+  //   // // 2. values_in 是编辑有的  tuples
+  //   // // 3. 合并为  tuples = [[4, oldid, {val}], [tuples]]
+  //   // // 4. tuples 转为 数据 list
+  //   // // 6. 如果是 合并 [4, oldid, {vals}], [1, id, {vals}]. 是合并 vals
+  //   // // 7. 合并 vals 需要嵌套处理
+
+  //   // const fields_tree = this.fields
+  //   // const fields_form = this.field_info.views.form.fields
+  //   // const fields = { ...fields_tree, ...fields_form }
+  //   // // console.log(fields)
+
+  //   // const values = [...records.map(item => [4, item.id, item]), ...values_in]
+
+  //   // // console.log(records, values)
+
+  //   // const merge = (rec, vals) => {
+  //   //   const all_keys = Object.keys({ ...rec, ...vals })
+  //   //   return all_keys.reduce((acc, fld) => {
+  //   //     const meta = fields[fld] || {}
+  //   //     if (meta.type === 'many2many') {
+  //   //       acc[fld] = fld in vals ? tuples_to_ids(vals[fld]) : rec[fld]
+  //   //     } else if (meta.type === 'one2many') {
+  //   //       // 未考虑嵌套
+  //   //       acc[fld] = []
+  //   //     } else {
+  //   //       acc[fld] = fld in vals ? vals[fld] : rec[fld]
+  //   //     }
+  //   //     return acc
+  //   //   }, {})
+  //   // }
+
+  //   // const vals = values.reduce((acc, tup) => {
+  //   //   const op = tup[0]
+
+  //   //   if (op === 6) {
+  //   //     // m2m table 编辑时 会用到
+  //   //     // acc = this.m2m_records
+  //   //     acc = []
+  //   //   } else if (op === 5) {
+  //   //     acc = []
+  //   //   } else if ([3, 2].includes(op)) {
+  //   //     acc = acc.filter(item => item.id !== tup[1])
+  //   //   } else if (op === 4) {
+  //   //     const me = acc.find(item => tup[1] === item.id)
+  //   //     if (!me) acc = [...acc, tup[2]]
+  //   //   } else if (op === 1 || op === 0) {
+  //   //     const rec_index = acc.findIndex(item => item.id === tup[1])
+  //   //     const rec_me = rec_index >= 0 ? acc[rec_index] : {}
+  //   //     const me = merge(rec_me, tup[2])
+
+  //   //     const me2 = op === 0 ? { id: tup[1], ...me } : me
+
+  //   //     if (rec_index >= 0) acc[rec_index] = me2
+  //   //     else acc.push(me2)
+  //   //   } else {
+  //   //     //
+  //   //   }
+
+  //   //   return acc
+  //   // }, [])
+  //   // // console.log('values2,', vals)
+
+  //   // return [...vals]
+  // }
 }

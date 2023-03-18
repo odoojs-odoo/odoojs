@@ -43,12 +43,12 @@ export function useO2mForm(props, ctx) {
 
       if (state.formviewReady && localState.formview) {
         const view = localState.formview
-        const record2 = view.get_values_merged(props.record, state.values, {
+        const record2 = view.merge_to_one(props.record, state.values, {
           record: props.parentFormInfo.record,
           values: props.parentFormInfo.values
         })
 
-        const record = view.to_modifiers(record2)
+        const record = view.format_for_modifiers(record2)
         return fieldInfo.required({ record })
       }
 
