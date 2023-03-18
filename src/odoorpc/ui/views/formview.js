@@ -48,7 +48,7 @@ export class FormView extends BaseView {
   get view_info() {
     const action = this.action_info
     const view = action.views.form
-    return { action, view }
+    return { action, view: { ...view, fields: this.fields } }
   }
 
   get view_header() {
@@ -207,8 +207,8 @@ export class FormView extends BaseView {
       if (typeof btn.invisible !== 'function') {
         return !btn.invisible
       }
-      const record = this._get_values_for_context(record_in, values)
-      // console.log(btn, record)
+      const record_merged = this.get_values_merged(record_in, values)
+      const record = this.to_modifiers(record_merged)
       return !btn.invisible({ record })
     })
 
@@ -258,8 +258,9 @@ export class FormView extends BaseView {
       if (typeof btn.invisible !== 'function') {
         return !btn.invisible
       }
-      const record = this._get_values_for_context(record_in, values)
-      // console.log(btn, record)
+
+      const record_merged = this.get_values_merged(record_in, values)
+      const record = this.to_modifiers(record_merged)
       return !btn.invisible({ record })
     })
 
@@ -453,38 +454,6 @@ export class FormView extends BaseView {
     return Model.unlink(res_id)
   }
 
-  _get_values_for_context(record, values) {
-    // call by x2mform.context_get
-
-    const all_keys = Object.keys({ ...record, ...values })
-    return all_keys.reduce((acc, fld) => {
-      const meta = this.fields[fld] || {}
-      if (meta.type === 'many2many') {
-        const val =
-          fld in values ? values[fld] : [[6, false, record[fld] || []]]
-        acc[fld] = val
-      } else if (meta.type === 'one2many') {
-        const val =
-          fld in values
-            ? values[fld]
-            : (record[fld] || []).map(item => [4, item, false])
-
-        acc[fld] = val
-      } else {
-        const val = fld in values ? values[fld] : record[fld]
-        const val2 = val && meta.type === 'many2one' ? val[0] : val
-        acc[fld] = val2
-      }
-
-      return acc
-    }, {})
-  }
-
-  _get_values_for_modifiers(record, values) {
-    // call by require, readonly, domain of feild
-    return this.Model._get_values_for_modifiers(record, values)
-  }
-
   async copy(ids) {
     return await this.Model.copy(ids)
   }
@@ -499,6 +468,20 @@ export class FormView extends BaseView {
     return await this.Model.action_archive([res_id])
   }
 
+  //
+  // for record and values
+  //
+
+  get_values_merged(record, values) {
+    // call by require, readonly, domain of feild
+    return this.Model.get_values_merged(record, values)
+  }
+
+  to_modifiers(record_merged) {
+    // call by require, readonly, domain of feild
+    return this.Model.get_values_for_modifiers(record_merged)
+  }
+
   _get_values_for_write(record, values) {
     const values2 = this.Model._get_values_for_write(record, values)
 
@@ -510,6 +493,7 @@ export class FormView extends BaseView {
         const relation = this._relations[fld]
         if (relation) {
           const { values_write } = relation.tree.read_for_new_o2m(val)
+          console.log(values_write)
 
           acc[fld] = values_write
         } else {

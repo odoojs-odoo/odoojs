@@ -278,9 +278,7 @@ export class Model extends BaseModel {
     super(payload)
   }
 
-  static _get_values_for_modifiers(record, values) {
-    // call by require, readonly, domain of feild
-
+  static get_values_merged(record, values) {
     const all_keys = Object.keys({ ...record, ...values })
 
     return all_keys.reduce((acc, fld) => {
@@ -288,34 +286,52 @@ export class Model extends BaseModel {
       if (meta.type === 'many2many') {
         const val =
           fld in values ? values[fld] : [[6, false, record[fld] || []]]
-
-        acc[fld] = tuples_to_ids(val)
+        acc[fld] = val
       } else if (meta.type === 'one2many') {
         const val =
           fld in values
             ? values[fld]
             : (record[fld] || []).map(item => [4, item, false])
 
-        acc[fld] = tuples_to_ids(val)
+        acc[fld] = val
       } else {
         const val = fld in values ? values[fld] : record[fld]
-        const val2 = val && meta.type === 'many2one' ? val[0] : val
-        acc[fld] = val2
+        if (meta.type === 'datetime') {
+          const val2 = val ? date_format(val) : val
+          acc[fld] = val2
+          // }else  if (meta.type === 'many2one'){
+        } else {
+          acc[fld] = val
+        }
       }
 
       return acc
     }, {})
   }
+  static get_values_for_modifiers(record) {
+    return Object.keys(record).reduce((acc, fld) => {
+      const meta = this._fields[fld] || {}
+      const val = record[fld]
+      if (meta.type === 'many2many' || meta.type === 'one2many') {
+        acc[fld] = tuples_to_ids(val)
+      } else if (meta.type === 'many2one') {
+        acc[fld] = val ? val[0] : val
+      } else {
+        acc[fld] = val
+      }
+      return acc
+    }, {})
+  }
 
-  static _get_values_for_write(record, values) {
-    const recordMerged = this._get_values_for_modifiers(record, values)
+  static _get_values_for_write(record_in, values_in) {
+    // record 的作用是 获取 只读属性 以及 获取 state 字段的值
+    const record2 = this.get_values_merged(record_in, values_in)
+    const record = this.get_values_for_modifiers(record2)
 
     const _commit_get_readonly = (meta, state) => {
       const meta_readonly_get = () => {
         if (typeof meta.readonly === 'function') {
-          return meta.readonly({
-            record: recordMerged
-          })
+          return meta.readonly({ record })
         } else {
           return meta.readonly
         }
@@ -330,27 +346,27 @@ export class Model extends BaseModel {
           return acc
         }, {})
 
-        if (readonly3.readonly !== undefined) return readonly3.readonly
+        if (readonly3.readonly !== undefined) {
+          return readonly3.readonly
+        }
       }
 
       return meta_readonly_get()
     }
 
-    // console.log('in model', record, values)
+    const state = record.state
 
-    const state = 'state' in values ? values.state : record.state
+    const values = this.get_values_merged({}, values_in)
 
-    const all_keys = Object.keys({ ...values })
+    const all_keys = Object.keys({ ...values_in }).filter(
+      fld => !_commit_get_readonly(this._fields[fld] || {}, state)
+    )
 
     return all_keys.reduce((acc, fld) => {
       const meta = this._fields[fld] || {}
-      const readonly = _commit_get_readonly(meta, state)
-
-      if (!readonly) {
-        const val = values[fld]
-        const val2 = val && meta.type === 'many2one' ? val[0] : val
-        acc[fld] = val2
-      }
+      const val = values[fld]
+      const val2 = val && meta.type === 'many2one' ? val[0] : val
+      acc[fld] = val2
 
       return acc
     }, {})
@@ -380,30 +396,16 @@ export class Model extends BaseModel {
   }
 
   // ok
-  static _get_values_for_onchange(record, values) {
-    const all_keys = Object.keys({ ...record, ...values })
-    return all_keys.reduce((acc, fld) => {
-      const meta = this._fields[fld] || {}
-      if (meta.type === 'many2many') {
-        const val =
-          fld in values ? values[fld] : [[6, false, record[fld] || []]]
-        acc[fld] = val
-      } else if (meta.type === 'one2many') {
-        const val =
-          fld in values
-            ? values[fld]
-            : (record[fld] || []).map(item => [4, item, false])
+  static _get_values_for_onchange(record_in, values) {
+    const record = this.get_values_merged(record_in, values)
 
-        acc[fld] = val
-      } else if (meta.type === 'datetime') {
-        //
-        const val = fld in values ? values[fld] : record[fld]
-        const val2 = val ? date_format(val) : val
-        acc[fld] = val2
+    return Object.keys(record).reduce((acc, fld) => {
+      const meta = this._fields[fld] || {}
+      const val = record[fld]
+      if (meta.type === 'many2one') {
+        acc[fld] = val ? val[0] : val
       } else {
-        const val = fld in values ? values[fld] : record[fld]
-        const val2 = val && meta.type === 'many2one' ? val[0] : val
-        acc[fld] = val2
+        acc[fld] = val
       }
 
       return acc

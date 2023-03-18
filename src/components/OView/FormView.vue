@@ -10,7 +10,6 @@
         type="primary"
         @click="onClickCRUD('new')"
       >
-        
         {{ $t('act.create') }}
       </a-button>
 
@@ -22,7 +21,7 @@
         @confirm="onClickDelConfirm"
       >
         <!-- @click="onClickDel" -->
-        <a-button size="small" type="danger">  
+        <a-button size="small" type="danger">
           {{ $t('act.delete') }}
         </a-button>
       </a-popconfirm>
@@ -31,8 +30,12 @@
       </a-button>
     </template>
     <template v-if="formInfo.editable">
-      <a-button size="small" @click="onClickCRUD('save')"> {{ $t('act.save') }} </a-button>
-      <a-button size="small" @click="onClickCRUD('cancel')"> {{ $t('act.cancel') }} </a-button>
+      <a-button size="small" @click="onClickCRUD('save')">
+        {{ $t('act.save') }}
+      </a-button>
+      <a-button size="small" @click="onClickCRUD('cancel')">
+        {{ $t('act.cancel') }}
+      </a-button>
     </template>
   </a-space>
 
@@ -56,15 +59,19 @@
           <div>{{ record[meta.name] }}</div>
         </template>
       </template>
+      <!-- 
+      <a-descriptions-item :span="2">
+      </a-descriptions-item>
+      -->
       <template v-for="group in sheet.children" :key="group.name">
         <a-descriptions-item :span="group.span">
           <a-descriptions :column="1">
             <template v-for="meta in group.children" :key="meta.name">
               <a-descriptions-item>
-                <template v-if="meta.type">
+                <template v-if="meta.type && !getInvisible(meta)">
                   <a-form-item
                     :name="meta.name"
-                    :label="tr(meta.string)"
+                    :label="tr(getLabel(meta))"
                     :rules="getRules(meta)"
                     style="margin-bottom: 5px"
                   >
@@ -113,6 +120,8 @@ const {
   currentState,
   statusbarVisible,
   getRules,
+  getLabel,
+  getInvisible,
   onChange,
   onClickCRUD,
   onLoadReation

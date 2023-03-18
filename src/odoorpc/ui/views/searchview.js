@@ -218,6 +218,7 @@ class SearchView1 extends BaseView {
     this._default_search_values = { ...search_defaults }
   }
 
+  // 不再使用了. 2023-3-18.
   async load_many2one_seletion() {
     const fields = this.view_arch.fields
 

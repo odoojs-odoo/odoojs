@@ -135,19 +135,13 @@ export class X2mForm extends X2mBase {
     }
 
     const { record, values } = parentData
+    const recprd_merged = prt.get_values_merged(record, values)
+    const parent_record = prt.to_modifiers(recprd_merged)
 
-    const parent_record = prt._get_values_for_context(record, values)
     const env = this.env
-    // console.log('change new', parent_record, context, env, typeof context_fn)
     const ctx = context_fn({ env, record: { ...parent_record, context } })
-    // console.log('change new ok', ctx, context)
 
     return { ...context, ...ctx }
-  }
-
-  _get_values_for_modifiers(record, values) {
-    // call by require, readonly, domain of feild
-    return this.Model._get_values_for_modifiers(record, values)
   }
 
   async onchange_new(parentData) {
@@ -172,5 +166,24 @@ export class X2mForm extends X2mBase {
   // // 使用 commit_for_o2m
   async commit(kwargs = {}) {
     return this.edit_model.commit(kwargs)
+  }
+
+  //
+  // for record and values
+  //
+
+  get_values_merged(record, values, parentData) {
+    // call by require, readonly, domain of feild
+    const par = this.parent
+    const { record: prec, values: pval } = parentData
+    const pdata = par.get_values_merged(prec, pval)
+    const medata = this.Model.get_values_merged(record, values)
+    const medata2 = { ...medata, parent: pdata }
+    return medata2
+  }
+
+  to_modifiers(record_merged) {
+    // call by require, readonly, domain of feild
+    return this.Model.get_values_for_modifiers(record_merged)
   }
 }

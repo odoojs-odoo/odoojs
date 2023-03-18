@@ -1,5 +1,3 @@
-import { FormView } from './formview'
-
 export class X2mBase {
   constructor(field_info, payload) {
     const { env, type, parent } = payload
@@ -15,10 +13,20 @@ export class X2mBase {
 
   get parent() {
     const info = this.parent_info
-    const { action, view } = info
-    const { fields } = view
-    const env = this.env
-    return new FormView(action, { env, fields })
+
+    if (info.action) {
+      const { action, view } = info
+      const { fields } = view
+      return this.env.formview(action, { fields })
+      // const env = this.env
+      // return new FormView(action, { env, fields })
+    } else if (info.relation) {
+      console.log('todo, check is o2mfromview', info)
+      const rel = this.env.relation(info.relation, { parent: info.parent })
+      return rel.form
+    } else {
+      return undefined
+    }
   }
 
   get relation() {

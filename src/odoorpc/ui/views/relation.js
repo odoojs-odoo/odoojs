@@ -2,8 +2,6 @@ import { X2mTree } from './x2mtree'
 import { X2mKanban } from './x2mkanban'
 import { X2mForm } from './x2mform'
 
-import { FormView } from './formview'
-
 import { BaseView } from './baseview'
 
 const _get_readonly = (meta, state) => {
@@ -53,6 +51,15 @@ export class Field {
     return this._env
   }
 
+  check_readonly(parentInfo) {
+    const { record, values, parentData } = parentInfo
+    const par = this.parent
+    const record2 = par.get_values_merged(record, values, parentData)
+    const record3 = par.to_modifiers(record2)
+    return this.readonly_get({ record: record3 })
+  }
+
+  // 逐步淘汰中
   readonly_get({ record }) {
     const meta = this._field_info
 
@@ -77,10 +84,26 @@ export class Field {
 
   get parent() {
     const info = this.parent_info
-    const { action, view } = info
-    const { fields } = view
-    const env = this.env
-    return new FormView(action, { env, fields })
+    // relation
+
+    if (info.action) {
+      const { action, view } = info
+      const { fields } = view
+
+      return this.env.formview(action, { fields })
+      // const env = this.env
+      // return new FormView(action, { env, fields })
+    } else if (info.relation) {
+      //
+      // console.log('todo, check fromview or o2mformview', info)
+      const rel = this.env.relation(info.relation, { parent: info.parent })
+      return rel.form
+      // throw 'error'
+    } else {
+      console.log('todo, check fromview or o2mformview', info)
+      // throw 'error'
+      return undefined
+    }
   }
 
   image_url_get(res_id) {

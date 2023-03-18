@@ -7,13 +7,16 @@ export default {
     fields: {
       code: {},
       name: {},
-
-      reconcile: {},
-      //   tax_ids: {},
-      //   tag_ids: {},
-      //   currency_id: {},
+      account_type: {},
+      group_id: {},
+      internal_group: {},
+      // reconcile: {},
+      // non_trade: {},
+      // tax_ids: {},
+      // tag_ids: {},
+      allowed_journal_ids: {},
+      currency_id: {},
       company_id: {}
-      //   action_read_account: {}
     }
   },
 
@@ -22,38 +25,45 @@ export default {
     model: 'account.account',
     type: 'form',
     buttons: { create: false, edit: false, delete: false },
+    arch: {
+      header: {
+        buttons: [],
+        fields: {}
+      },
+      sheet: {
+        _title: {
+          display_name: {}
+        },
+
+        _group_name: {
+          code: {},
+          name: {},
+          related_taxes_amount: {},
+          current_balance: {}
+        },
+
+        _group_type: {
+          account_type: {},
+          tax_ids: { widget: 'many2many_tags' },
+          tag_ids: { widget: 'many2many_tags' },
+          allowed_journal_ids: { widget: 'many2many_tags' }
+        },
+        _group_type2: {
+          internal_group: {},
+          currency_id: {},
+          deprecated: {},
+          group_id: {},
+          reconcile: {},
+          non_trade: {},
+          company_id: {}
+        }
+      }
+    },
+
     fields: {
-      company_id: {},
-      code: {},
-      name: {},
-
-      tax_ids: {
-        widget: 'many2many_tags',
-        domain: record => {
-          const { company_id } = record
-          return [['company_id', '=', company_id]]
-        }
-      },
-      tag_ids: {
-        widget: 'many2many_tags',
-        domain: () => {
-          return [['applicability', '=', 'accounts']]
-        }
-      },
-
-      allowed_journal_ids: {
-        widget: 'many2many_tags',
-        domain: record => {
-          const { company_id } = record
-          return [['company_id', '=', company_id]]
-        }
-      },
-
       reconcile: {},
 
-      currency_id: {},
-      deprecated: {},
-      group_id: {}
+      currency_id: {}
     }
   },
 
@@ -65,6 +75,7 @@ export default {
       fields: {
         name: {
           filter_domain: self => {
+            // ['|', ('name','ilike',self), ('code','ilike',self)]
             return ['|', ['name', 'ilike', self], ['code', '=like', `${self}%`]]
           }
         }
@@ -74,34 +85,34 @@ export default {
         group_type: {
           receivableacc: {
             string: '应收科目',
-            domain: [['internal_type', '=', 'receivable']]
+            domain: [['account_type', '=', 'asset_receivable']]
           },
 
           payableacc: {
             string: '应付科目',
-            domain: [['internal_type', '=', 'payable']]
+            domain: [['account_type', '=', 'liability_payable']]
           },
 
           equityacc: {
             string: '权益',
-            domain: [['internal_type', '=', 'equity']]
+            domain: [['internal_group', '=', 'equity']]
           },
 
           assetsacc: {
             string: '资产',
-            domain: [['internal_type', '=', 'asset']]
+            domain: [['internal_group', '=', 'asset']]
           },
           liabilityacc: {
             string: '负债',
-            domain: [['internal_type', '=', 'liability']]
+            domain: [['internal_group', '=', 'liability']]
           },
           incomeacc: {
             string: '收入',
-            domain: [['internal_type', '=', 'income']]
+            domain: [['internal_group', '=', 'income']]
           },
           expensesacc: {
             string: '费用',
-            domain: [['internal_type', '=', 'expense']]
+            domain: [['internal_group', '=', 'expense']]
           }
         },
 
@@ -121,11 +132,15 @@ export default {
 
   action_account_form: {
     _odoo_model: 'ir.actions',
-    name: '会计科目',
+    name: 'Chart of Accounts',
     type: 'ir.actions.act_window',
     res_model: 'account.account',
     search_view_id: 'view_account_search',
     domain: [],
-    context: { search_default_activeacc: true }
+    context: { search_default_activeacc: true },
+    views: {
+      tree: 'view_account_list',
+      form: 'view_account_form'
+    }
   }
 }

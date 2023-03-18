@@ -1,4 +1,4 @@
-import { computed, watch, reactive, ref } from 'vue'
+import { computed, watch, reactive, ref, toRaw } from 'vue'
 import { useField } from './FieldApi'
 
 import api from '@/odoorpc'
@@ -27,10 +27,10 @@ export function useFO2m(props, ctx) {
   const treeRecords = computed(() => {
     if (!state.relationReady) return []
     else {
-      console.log('o2m treeRecords', treeRecords)
+      // console.log('o2m treeRecords', treeRecords)
       return localState.relation.tree.values_display_for_o2m(
-        state.records,
-        readonly ? state.values : []
+        toRaw(state.records),
+        readonly ? toRaw(state.values) : []
       )
     }
   })
@@ -70,6 +70,7 @@ export function useFO2m(props, ctx) {
       return
     }
     const relation = api.env.relation(info, { parent: props.formInfo.viewInfo })
+    // console.log(props.formInfo)
     const treeview = relation.tree
     const records = await treeview.read(ids)
     state.records = records
@@ -135,13 +136,7 @@ export function useFO2m(props, ctx) {
     const treeview = localState.relation.tree
     const values = treeview.commit_by_remove(state.values, record.id)
     state.values = values
-
-    const values_onchange = treeview.commit_for_onchange(
-      state.records,
-      state.values
-    )
-
-    return values_onchange
+    return treeview.merge_for_onchange(state.records, state.values)
   }
 
   function rowCommit(record, value) {
@@ -155,13 +150,7 @@ export function useFO2m(props, ctx) {
     const treeview = localState.relation.tree
     const values = treeview.commit_by_upinsert(state.values, record.id, value)
     state.values = values
-
-    const values_onchange = treeview.commit_for_onchange(
-      state.records,
-      state.values
-    )
-
-    return values_onchange
+    return treeview.merge_for_onchange(state.records, state.values)
   }
 
   return {

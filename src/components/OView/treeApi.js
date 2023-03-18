@@ -3,13 +3,13 @@ import api from '@/odoorpc'
 
 import { useTreeColumns } from '@/components/tools/treeColumns'
 
-function sleep(millisecond) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve()
-    }, millisecond)
-  })
-}
+// function sleep(millisecond) {
+//   return new Promise(resolve => {
+//     setTimeout(() => {
+//       resolve()
+//     }, millisecond)
+//   })
+// }
 
 // treeview.export_xlsx_all
 
@@ -90,8 +90,8 @@ export function useTreeView(props) {
     const records = await treeview.search_read()
     state.pagination = { ...treeview.pagination }
     state.records = records
-    const relationData = await treeview.relation_read(records)
-    state.records = relationData
+    const withRelationData = await treeview.relation_read(records)
+    state.records = withRelationData
   }
 
   async function onTableChange(pagination) {

@@ -117,6 +117,7 @@ export class TreeBaseView extends BaseView {
     return records
   }
 
+  // tree. 显示 m2m 数据时. 需要刷新下.
   async relation_read(records) {
     let records2 = [...records]
     for (const fld in this.fields) {

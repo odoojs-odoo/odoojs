@@ -33,17 +33,23 @@ export function useO2mForm(props, ctx) {
     if (!fieldInfo.required) return undefined
 
     function required_get() {
+      if (state.formviewReady && localState.formview) {
+        // console.log(record2)
+      }
+
       if (typeof fieldInfo.required !== 'function') {
         return fieldInfo.required
       }
 
       if (state.formviewReady && localState.formview) {
-        const records_merged = localState.formview._get_values_for_modifiers(
-          state.record,
-          state.values
-        )
+        const view = localState.formview
+        const record2 = view.get_values_merged(props.record, state.values, {
+          record: props.parentFormInfo.record,
+          values: props.parentFormInfo.values
+        })
 
-        return fieldInfo.required({ record: records_merged })
+        const record = view.to_modifiers(record2)
+        return fieldInfo.required({ record })
       }
 
       return false
@@ -184,10 +190,19 @@ export function useO2mForm(props, ctx) {
   return {
     sheet,
     formInfo: computed(() => {
+      // console.log('o2m, props:', toRaw(props), toRaw(localState.formview))
+      const parentFormInfo = toRaw(props.parentFormInfo)
       return {
-        relationInfo: toRaw(props.relationInfo),
+        parentData: {
+          record: parentFormInfo.record,
+          values: parentFormInfo.values
+        },
+        relationInfo: {
+          relation: toRaw(props.relationInfo),
+          parent: parentFormInfo.viewInfo
+        },
         record: toRaw(props.record),
-        values: state.values,
+        values: toRaw(state.values),
         editable: !props.readonly
       }
     }),

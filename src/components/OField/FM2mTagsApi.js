@@ -4,11 +4,29 @@ import { tuples_to_ids } from '@/odoorpc/tools'
 
 import { useField } from './FieldApi'
 
-function get_recordMerged(formInfo) {
-  const actionInfo = toRaw(formInfo.viewInfo.action)
-  const fields = toRaw(formInfo.fields)
-  const formview = api.env.formview(actionInfo, { fields })
-  return formview._get_values_for_modifiers(formInfo.record, formInfo.values)
+function get_record_for_modifiers(formInfo) {
+  if (formInfo.viewInfo) {
+    const actionInfo = toRaw(formInfo.viewInfo.action)
+    const fields = toRaw(formInfo.fields)
+    const view = api.env.formview(actionInfo, { fields })
+    const record_merged = view.get_values_merged(
+      formInfo.record,
+      formInfo.values
+    )
+    return view.to_modifiers(record_merged)
+  } else if (formInfo.relationInfo) {
+    const info = formInfo.relationInfo
+    const rel = api.env.relation(info.relation, { parent: info.parent })
+    const view = rel.form
+    const record_merged = view.get_values_merged(
+      formInfo.record,
+      formInfo.values,
+      formInfo.parentData // x2mform 需要额外的 parentData
+    )
+    return view.to_modifiers(record_merged)
+  } else {
+    return {}
+  }
 }
 
 async function _loadRelationData(ids, { fieldInfo }) {
@@ -26,9 +44,9 @@ export function useFM2mTags(props, ctx) {
   }
 
   async function loadSelectOptions(kw = {}) {
-    const recordMerged = get_recordMerged(props.formInfo)
+    const record = get_record_for_modifiers(props.formInfo)
     const relation = api.env.relation(props.fieldInfo)
-    return relation.load_select_options({ record: recordMerged, ...kw })
+    return relation.load_select_options({ record, ...kw })
   }
 
   const { readonly } = useField(props, ctx)
@@ -169,9 +187,9 @@ export function useFM2mTags(props, ctx) {
 
 export function useMoreSearch(props, ctx) {
   function loadSelectOptions(kw = {}) {
-    const recordMerged = get_recordMerged(props.formInfo)
+    const record = get_record_for_modifiers(props.formInfo)
     const relation = api.env.relation(props.fieldInfo)
-    return relation.load_select_options({ record: recordMerged, ...kw })
+    return relation.load_select_options({ record, ...kw })
   }
 
   const records = ref([])

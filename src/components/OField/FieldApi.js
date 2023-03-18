@@ -1,56 +1,29 @@
 import { computed, toRaw } from 'vue'
 import api from '@/odoorpc'
 
-function get_recordMerged(formInfo) {
-  if (formInfo.viewInfo) {
-    const actionInfo = toRaw(formInfo.viewInfo.action)
-    const fields = toRaw(formInfo.fields)
+export function useField(props, ctx) {
+  // WAttachment 的 编辑 尚未处理 todo
 
-    const formview = api.env.formview(actionInfo, { fields })
-
-    return formview._get_values_for_modifiers(formInfo.record, formInfo.values)
-  } else if (formInfo.relationInfo) {
-    const rel = api.env.relation(formInfo.relationInfo)
-    return rel.form._get_values_for_modifiers(formInfo.record, formInfo.values)
-  } else {
-    return {}
-  }
-}
-
-function useFormApi() {
-  function checkReadonly(formInfo, fieldInfo) {
-    if (!formInfo.editable) {
+  const readonly = computed(() => {
+    if (!props.formInfo.editable) {
       return true
     }
 
-    const recordMerged = get_recordMerged(formInfo)
+    const parentInfo =
+      toRaw(props.formInfo.viewInfo) ||
+      toRaw(props.formInfo.relationInfo) ||
+      undefined
 
-    const readonly = api.env.field(fieldInfo).readonly_get({
-      record: recordMerged
-    })
+    const fapi = api.env.field(toRaw(props.fieldInfo), { parent: parentInfo })
+    return fapi.check_readonly({ ...props.formInfo })
+  })
 
-    // WAttachment 的 编辑 尚未处理 todo
-
-    return readonly
-  }
-
-  function getValueDisplay(formInfo, fieldName) {
-    const recordMerged = { ...formInfo.record, ...formInfo.values }
-    return recordMerged[fieldName]
-  }
-
-  return { checkReadonly, getValueDisplay }
-}
-
-export function useField(props, ctx) {
-  const formApi = useFormApi()
-  const readonly = computed(() =>
-    formApi.checkReadonly(props.formInfo, props.fieldInfo)
-  )
-
-  const dVal = computed(() =>
-    formApi.getValueDisplay(props.formInfo, props.fieldName)
-  )
+  const dVal = computed(() => {
+    // 后续 o2m, m2m 字段 都会特殊处理
+    // 因此 这里 只需要简单 merge 即可
+    const recordMerged = { ...props.formInfo.record, ...props.formInfo.values }
+    return recordMerged[props.fieldName]
+  })
 
   const widgetName2 = computed(() => {
     const fieldTypeMap = {

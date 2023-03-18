@@ -14,10 +14,22 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.incoterms',
     type: 'form',
-    fields: {
-      code: {},
-      name: {},
-      active: {}
+    arch: {
+      header: {
+        buttons: [],
+        fields: {}
+      },
+      sheet: {
+        _title: {
+          display_name: {}
+        },
+
+        _group_name: {
+          code: {},
+          name: {},
+          active: {}
+        }
+      }
     }
   },
 
@@ -40,10 +52,15 @@ export default {
 
   action_incoterms_tree: {
     _odoo_model: 'ir.actions',
-    name: '国际贸易术语',
+    name: 'Incoterms',
     type: 'ir.actions.act_window',
     res_model: 'account.incoterms',
+    search_view_id: 'account_incoterms_view_search',
     domain: [],
-    context: {}
+    context: {},
+    views: {
+      tree: 'view_incoterms_tree',
+      form: 'account_incoterms_form'
+    }
   }
 }

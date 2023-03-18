@@ -1,4 +1,4 @@
-import { computed, reactive, watch } from 'vue'
+import { computed, reactive, toRaw, watch } from 'vue'
 import api from '@/odoorpc'
 
 import { useL10n } from '@/components/tools/useL10n'
@@ -77,6 +77,7 @@ export function useForm(props, ctx) {
     }
   })
 
+  // watch actionId, and get formview, load field
   watch(
     () => props.actionId,
     // eslint-disable-next-line no-unused-vars
@@ -96,6 +97,7 @@ export function useForm(props, ctx) {
     { immediate: true }
   )
 
+  // watch formview and resId, load data
   watch(
     [() => state.formviewFieldReady, () => props.resId],
     // eslint-disable-next-line no-unused-vars
@@ -123,11 +125,38 @@ export function useForm(props, ctx) {
     { immediate: true }
   )
 
-  // function checkInvisible(fieldInfo) {
-  //   return typeof fieldInfo.invisible === 'function'
-  //     ? fieldInfo.invisible({ record: { ...state.record, ...state.values } })
-  //     : fieldInfo.invisible
-  // }
+  function getLabel(fieldInfo) {
+    if (!fieldInfo.string) return undefined
+
+    if (typeof fieldInfo.string !== 'function') {
+      return fieldInfo.string
+    }
+
+    if (state.formviewFieldReady && localState.formview) {
+      const view = localState.formview
+      const record2 = view.get_values_merged(state.record, state.values)
+      const record = view.to_modifiers(record2)
+      return fieldInfo.string({ record })
+    }
+
+    return
+  }
+
+  function getInvisible(fieldInfo) {
+    if (!fieldInfo.invisible) return undefined
+    if (typeof fieldInfo.invisible !== 'function') {
+      return fieldInfo.invisible
+    }
+
+    if (state.formviewFieldReady && localState.formview) {
+      const view = localState.formview
+      const record2 = view.get_values_merged(state.record, state.values)
+      const record = view.to_modifiers(record2)
+      return fieldInfo.invisible({ record })
+    }
+
+    return
+  }
 
   function getRules(fieldInfo) {
     // console.log([fieldInfo.name, fieldInfo.required], fieldInfo)
@@ -140,12 +169,10 @@ export function useForm(props, ctx) {
       }
 
       if (state.formviewFieldReady && localState.formview) {
-        const records_merged = localState.formview._get_values_for_modifiers(
-          state.record,
-          state.values
-        )
-
-        return fieldInfo.required({ record: records_merged })
+        const view = localState.formview
+        const record2 = view.get_values_merged(state.record, state.values)
+        const record = view.to_modifiers(record2)
+        return fieldInfo.required({ record })
       }
 
       return false
@@ -308,10 +335,10 @@ export function useForm(props, ctx) {
     sheet: sheet,
     formInfo: computed(() => {
       return {
-        viewInfo: state.viewInfo,
-        fields: state.fields,
-        record: state.record,
-        values: state.values,
+        viewInfo: toRaw(state.viewInfo),
+        fields: toRaw(state.fields),
+        record: toRaw(state.record),
+        values: toRaw(state.values),
         editable: state.editable
       }
     }),
@@ -319,6 +346,8 @@ export function useForm(props, ctx) {
     currentState,
     statusbarVisible,
     getRules,
+    getLabel,
+    getInvisible,
     onChange,
     onClickCRUD,
     onLoadReation

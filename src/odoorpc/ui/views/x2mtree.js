@@ -150,10 +150,51 @@ export class X2mTreeBase extends X2mBase {
     const { type = 'tree' } = payload
     super(field_info, { ...payload, type })
   }
+}
+
+export class X2mTree extends X2mTreeBase {
+  constructor(field_info, payload) {
+    super(field_info, { ...payload, type: 'tree' })
+  }
+
+  async read(ids) {
+    // console.log('X2mTree read: ', ids, this.field_info)
+
+    const fields_tree = this.fields
+    const fields_form = this.field_info.views.form.fields
+    const fields_list = Object.keys({ ...fields_tree, ...fields_form })
+
+    // console.log('X2mTree read: ', ids, fields_list)
+
+    // const fields_list = this.fields_list
+    const res = await this.Model.read(ids, fields_list)
+    // console.log('X2mTree read: ', ids, res)
+    return res
+  }
+
+  async search_read(domain = []) {
+    const fields = this.fields_list
+    const res = await this.Model.search_read({ domain, fields })
+    return res
+  }
+
+  commit_by_remove(values, res_id) {
+    const value = [2, res_id, false]
+    return tuples_helper.to_return(values, value)
+  }
+
+  commit_by_upinsert(values, res_id, value) {
+    const value2 = res_id ? [1, res_id, value] : [0, false, value]
+    return tuples_helper.to_return(values, value2)
+  }
+
+  //
+  //  merge data: record, values
+  //
 
   // 只有 o2m fields 显示数据用. 处理逻辑 与 tuples_helper 归为一类
   values_display_for_o2m(records, values_in) {
-    console.log('o2m values_display_for_o2m', records, values_in)
+    // console.log('o2m values_display_for_o2m', records, values_in)
 
     // 1. records 是 只读数据  list
     // 2. values_in 是编辑有的  tuples
@@ -220,45 +261,8 @@ export class X2mTreeBase extends X2mBase {
 
     return [...vals]
   }
-}
 
-export class X2mTree extends X2mTreeBase {
-  constructor(field_info, payload) {
-    super(field_info, { ...payload, type: 'tree' })
-  }
-
-  async read(ids) {
-    // console.log('X2mTree read: ', ids, this.field_info)
-
-    const fields_tree = this.fields
-    const fields_form = this.field_info.views.form.fields
-    const fields_list = Object.keys({ ...fields_tree, ...fields_form })
-
-    // console.log('X2mTree read: ', ids, fields_list)
-
-    // const fields_list = this.fields_list
-    const res = await this.Model.read(ids, fields_list)
-    // console.log('X2mTree read: ', ids, res)
-    return res
-  }
-
-  async search_read(domain = []) {
-    const fields = this.fields_list
-    const res = await this.Model.search_read({ domain, fields })
-    return res
-  }
-
-  commit_by_remove(values, res_id) {
-    const value = [2, res_id, false]
-    return tuples_helper.to_return(values, value)
-  }
-
-  commit_by_upinsert(values, res_id, value) {
-    const value2 = res_id ? [1, res_id, value] : [0, false, value]
-    return tuples_helper.to_return(values, value2)
-  }
-
-  commit_for_onchange(records, values) {
+  merge_for_onchange(records, values) {
     // const value = [2, res_id, false]
     // return tuples_helper.to_return(values, value)
 
@@ -422,15 +426,16 @@ class X2mTree2 extends X2mTreeBase {
 
   // 只有 formview.relation_onchange 在用
   values_display(records, values) {
+    return []
     // console.log(this.field_info)
-    console.log('o2m values_display', records, values)
-    const { type } = this.field_info
+    // console.log('o2m values_display', records, values)
+    // const { type } = this.field_info
 
-    if (type === 'many2many') {
-      return this.values_display_for_m2m(records, values)
-    } else {
-      return this.values_display_for_o2m(records, values)
-    }
+    // if (type === 'many2many') {
+    //   return this.values_display_for_m2m(records, values)
+    // } else {
+    //   return this.values_display_for_o2m(records, values)
+    // }
   }
 
   // 只有 formview.relation_onchange 在用
