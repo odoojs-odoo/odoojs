@@ -436,13 +436,14 @@ export class Model extends BaseModel {
     const field_onchange = this._get_field_onchange()
     const args2 = [res_ids, values, field_name, field_onchange, kwargs]
     const result = await this.onchange(...args2)
-    const { value: value_ret, ...res } = result
-    const values_ret = { ...values, ...value_ret }
+    return result
+    // const { value: value_ret, ...res } = result
+    // const values_ret = { ...values, ...value_ret }
 
-    // 3. _after_onchange_async
-    // m2m 需要 更新数据
+    // // 3. _after_onchange_async
+    // // m2m 需要 更新数据
 
-    return { ...res, values: values_ret }
+    // return { ...res, values: values_ret }
   }
 
   static async web_commit(res_id, values, kwargs = {}) {

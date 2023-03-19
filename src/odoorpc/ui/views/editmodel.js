@@ -162,6 +162,9 @@ export class EditModel extends EditBase {
   }
 
   async _web_onchange(fname, value) {
+    //
+    //
+    //
     // 本地更新
     this.values = { ...this.values, [fname]: value }
 
@@ -176,11 +179,16 @@ export class EditModel extends EditBase {
       context: this.context
     })
 
-    const { values = {} } = result
+    const { value: value_ret } = result
+    //   Todo: 对返回 domain 的处理
+
+    this.values = { ...this.values, ...value_ret }
+
+    // const { values = {} } = result
     // Todo: 对返回 domain 的处理
     // console.log('handleOnchange, in model', cp(values))
 
-    this.values = { ...values }
+    // this.values = { ...values }
     return { ...result, values: this.values }
   }
 
@@ -314,10 +322,11 @@ export class EditX2m extends EditBase {
       context: this.context
     })
 
-    const { values = {} } = result
+    const { value: value_ret } = result
     //   Todo: 对返回 domain 的处理
 
-    this.values = { ...values }
+    const values = { ...this.values, ...value_ret }
+    this.values = values
 
     const field_info = this.viewmodel.field_info
     const { relation_field } = field_info

@@ -184,6 +184,10 @@ export class X2mTree extends X2mTreeBase {
   }
 
   commit_by_upinsert(values, res_id, value) {
+    // 这里的  value 是  o2m for write. 缺少 o2m 的 record
+    // 这里应该把 record 传进来, 并保存在 [0, false, value] 中
+    // 后续 form view onchange 时, 进行 record 和 value 的 merge
+
     const value2 = res_id ? [1, res_id, value] : [0, false, value]
     return tuples_helper.to_return(values, value2)
   }
@@ -248,6 +252,12 @@ export class X2mTree extends X2mTreeBase {
   }
 
   merge_for_onchange(records, values) {
+    // o2m tree 的数据 向 formview 提交时 :
+    // 1. call formview.onchange. 以更新 formview的其他字段
+    // 2. 本身需要存储 到 formview 中
+
+    console.log('o2mtree, merge_for_onchange', records, values)
+
     // const value = [2, res_id, false]
     // return tuples_helper.to_return(values, value)
 

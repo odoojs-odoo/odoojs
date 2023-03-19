@@ -150,6 +150,9 @@ export function useFO2m(props, ctx) {
     const treeview = localState.relation.tree
     const values = treeview.commit_by_upinsert(state.values, record.id, value)
     state.values = values
+
+    console.log('rowCommit', record, value, values)
+
     return treeview.merge_for_onchange(state.records, state.values)
   }
 
