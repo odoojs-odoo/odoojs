@@ -309,7 +309,7 @@ export class Model extends BaseModel {
     }, {})
   }
 
-  static get_values_for_modifiers(record) {
+  static format_for_modifiers(record) {
     return Object.keys(record).reduce((acc, fld) => {
       const meta = this._fields[fld] || {}
       const val = record[fld]
@@ -327,7 +327,7 @@ export class Model extends BaseModel {
   static _get_values_for_write(record_in, values_in) {
     // record 的作用是 获取 只读属性 以及 获取 state 字段的值
     const record2 = this.merge_to_one(record_in, values_in)
-    const record = this.get_values_for_modifiers(record2)
+    const record = this.format_for_modifiers(record2)
 
     const _commit_get_readonly = (meta, state) => {
       const meta_readonly_get = () => {
@@ -373,14 +373,7 @@ export class Model extends BaseModel {
     }, {})
   }
 
-  static get_values_for_onchange({ record, values }) {
-    return this._get_values_for_onchange(record, values)
-  }
-
-  // ok
-  static _get_values_for_onchange(record_in, values) {
-    const record = this.merge_to_one(record_in, values)
-
+  static format_for_onchange(record) {
     return Object.keys(record).reduce((acc, fld) => {
       const meta = this._fields[fld] || {}
       const val = record[fld]
@@ -432,51 +425,18 @@ export class Model extends BaseModel {
     const values_ret = { ...values, ...value_ret }
     return { ...res, values: values_ret }
   }
-
-  static async web_onchange(res_ids = [], kwargs = {}) {
-    const { record, values } = kwargs
-    const { field_name, value, context } = kwargs
-
-    // 页面编辑时 触发的
-    // 参数:
-    // ids: 待编辑的记录 id
-    // record: 编辑前的所有字段的数据
-    // values: 所有编辑过的字段的数据
-    // field_name: 正在编辑的字段
-
+  static async web_onchange(...args) {
+    const [res_ids = [], values = {}, field_name, kwargs = {}] = args
     const field_onchange = this._get_field_onchange()
-
-    // values 中 可能有 id,  需要删除
-    const vals_onchg = this._get_values_for_onchange(record, {
-      ...values,
-      [field_name]: value
-    })
-
-    const result = await this.onchange(
-      res_ids,
-      vals_onchg,
-      field_name,
-      field_onchange,
-      { context }
-    )
-
+    const args2 = [res_ids, values, field_name, field_onchange, kwargs]
+    const result = await this.onchange(...args2)
     const { value: value_ret, ...res } = result
-    // console.log(record, values, value_ret, fname)
-
-    // after onchange
-    // 1. _onchange_domain
-    // {domain} = res
-    // 2. set_value_by_onchange
-
-    const values_ret = { ...values, [field_name]: value, ...value_ret }
-
-    // console.log('onchange, in model,values', cp(values_ret))
+    const values_ret = { ...values, ...value_ret }
 
     // 3. _after_onchange_async
     // m2m 需要 更新数据
 
-    // done:
-    return { record, ...res, values: values_ret }
+    return { ...res, values: values_ret }
   }
 
   static async web_commit(res_id, values, kwargs = {}) {
@@ -494,12 +454,6 @@ export class Model extends BaseModel {
       return this.create(values, kwargs)
     }
   }
-
-  // async call_button_after(action_info) {
-  //   // to overide
-  //   return action_info
-  //   // return this.Model.call_button_after(action_info)
-  // }
 
   // static async onchange_for_odoo13(ids, values, field_name, field_onchange) {
   //   return this.execute('onchange', ids, values, field_name, field_onchange)

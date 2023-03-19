@@ -167,18 +167,17 @@ export class EditModel extends EditBase {
 
     const res_ids = this.record.id ? [this.record.id] : []
 
-    const kwargs2 = {
-      record: this.record,
-      values: this.values,
-      field_name: fname,
-      value,
-      context: this.context
-    }
+    // values 中 可能有 id,  需要删除
+    const record = this.Model.merge_to_one(this.record, this.values)
+    const vals_onchg = this.Model.format_for_onchange(record)
 
     // 服务端更新
-    const result = await this.Model.web_onchange(res_ids, kwargs2)
+    const result = await this.Model.web_onchange(res_ids, vals_onchg, fname, {
+      context: this.context
+    })
+
     const { values = {} } = result
-    //   Todo: 对返回 domain 的处理
+    // Todo: 对返回 domain 的处理
     // console.log('handleOnchange, in model', cp(values))
 
     this.values = { ...values }
@@ -216,10 +215,15 @@ export class EditX2m extends EditBase {
   _values_with_parent(parentData) {
     const parent = this.viewmodel.parent
     const { relation_field } = this.viewmodel.field_info
-    const parent_values = parent.Model.get_values_for_onchange(parentData)
-    const values = { [relation_field]: parent_values }
 
-    return values
+    const { record, values } = parentData
+
+    const record2 = parent.Model.merge_to_one(record, values)
+    const parent_values = parent.Model.format_for_onchange(record2)
+
+    const values2 = { [relation_field]: parent_values }
+
+    return values2
   }
 
   async onchange_new(parentData) {
@@ -298,21 +302,18 @@ export class EditX2m extends EditBase {
     this.values = { ...this.values, [fname]: value }
     this._update_parent() //  同步 更新  parent
 
-    const context = this.context
-
     const res_ids =
       this.record.id && !is_virtual_id(this.record.id) ? [this.record.id] : []
 
-    const kwargs2 = {
-      record: this.record,
-      values: this.values,
-      field_name: fname,
-      value,
-      context
-    }
+    // values 中 可能有 id,  需要删除
+    const record = this.Model.merge_to_one(this.record, this.values)
+    const vals_onchg = this.Model.format_for_onchange(record)
 
     // 服务端更新
-    const result = await this.Model.web_onchange(res_ids, kwargs2)
+    const result = await this.Model.web_onchange(res_ids, vals_onchg, fname, {
+      context: this.context
+    })
+
     const { values = {} } = result
     //   Todo: 对返回 domain 的处理
 

@@ -422,7 +422,7 @@ export class FormView extends BaseView {
 
   format_for_modifiers(record_merged) {
     // call by require, readonly, domain of feild
-    return this.Model.get_values_for_modifiers(record_merged)
+    return this.Model.format_for_modifiers(record_merged)
   }
 
   merge_for_write(record, values) {

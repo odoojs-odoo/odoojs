@@ -182,6 +182,6 @@ export class X2mForm extends X2mBase {
 
   format_for_modifiers(record_merged) {
     // call by require, readonly, domain of feild
-    return this.Model.get_values_for_modifiers(record_merged)
+    return this.Model.format_for_modifiers(record_merged)
   }
 }

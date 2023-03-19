@@ -56,7 +56,7 @@
     >
       <template #title>
         <template v-for="meta in sheet.title" :key="meta.name">
-          <div>{{ record[meta.name] }}</div>
+          <div>{{ { ...record, ...formInfo.values }[meta.name] }}</div>
         </template>
       </template>
       <!-- 
