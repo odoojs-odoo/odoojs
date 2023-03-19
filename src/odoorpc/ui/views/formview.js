@@ -425,7 +425,22 @@ export class FormView extends BaseView {
     return this.Model.format_for_modifiers(record_merged)
   }
 
+  // call by editmodel for commit
+  // todo
+  // 其中的 函数 需要处理: relation.tree.read_for_new_o2m
   merge_for_write(record, values) {
+    // o2m 字段的 中的值 都是  在 onchange 之后 存的.
+    // 不符合 write 的要求
+    // 因此这里 获取的 o2m值 不能直接做 write 用
+    // formview 需要 分别存储 values 和 values_write
+    // values 用于 onchange
+    // values_write 用于 write
+    //
+
+    // const record2 = this.Model.merge_to_one(record, values)
+    // const record3 = this.Model.format_for_modifiers(record2)
+    // const values2 = this.Model.format_for_write(values, record3)
+
     const values2 = this.Model._get_values_for_write(record, values)
 
     return Object.keys(values2).reduce((acc, fld) => {
@@ -433,6 +448,7 @@ export class FormView extends BaseView {
       const meta = this.fields[fld] || {}
 
       if (meta.type === 'one2many') {
+        console.log('merge_for_write, o2m,', fld, val)
         const relation = this._relations[fld]
         if (relation) {
           const { values_write } = relation.tree.read_for_new_o2m(val)

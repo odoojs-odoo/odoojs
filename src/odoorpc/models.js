@@ -324,11 +324,16 @@ export class Model extends BaseModel {
     }, {})
   }
 
-  static _get_values_for_write(record_in, values_in) {
-    // record 的作用是 获取 只读属性 以及 获取 state 字段的值
-    const record2 = this.merge_to_one(record_in, values_in)
+  // todo
+  static _get_values_for_write(record_in, values) {
+    const record2 = this.merge_to_one(record_in, values)
     const record = this.format_for_modifiers(record2)
+    // record 的作用是 获取 只读属性 以及 获取 state 字段的值
+    return this.format_for_write(values, record)
+  }
 
+  static format_for_write(values_in, record) {
+    // record 的作用是 获取 只读属性 以及 获取 state 字段的值
     const _commit_get_readonly = (meta, state) => {
       const meta_readonly_get = () => {
         if (typeof meta.readonly === 'function') {
@@ -357,6 +362,7 @@ export class Model extends BaseModel {
 
     const state = record.state
 
+    // 仅仅是转换了  date 字段?
     const values = this.merge_to_one({}, values_in)
 
     const all_keys = Object.keys({ ...values_in }).filter(
