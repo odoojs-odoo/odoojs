@@ -154,9 +154,8 @@ export class X2mForm extends X2mBase {
     return this.edit_model.set_editable(record, parentData)
   }
 
-  async onchange(fname, kwargs) {
-    const { value, ...kw } = kwargs
-    return this.edit_model.onchange(fname, value, kw)
+  async onchange(fname, value, kwargs) {
+    return this.edit_model.onchange(fname, value, kwargs)
   }
 
   async commit_for_o2m(kwargs = {}) {

@@ -382,9 +382,8 @@ export class FormView extends BaseView {
     return this.edit_model.set_editable(record)
   }
 
-  async onchange(fname, kwargs_in) {
-    const { value, ...kw } = kwargs_in
-    return this.edit_model.onchange(fname, value, kw)
+  async onchange(fname, value, kwargs) {
+    return this.edit_model.onchange(fname, value, kwargs)
   }
 
   async commit(kwargs = {}) {

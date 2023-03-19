@@ -143,7 +143,7 @@ export function useO2mForm(props, ctx) {
       )
     }
     const formview = localState.formview
-    const result = await formview.onchange(fname, { value, validate })
+    const result = await formview.onchange(fname, value, { validate })
     // console.log('o2m handleChange ok', fname, value, result)
     const { values: values2 = {} } = result
     state.values = values2

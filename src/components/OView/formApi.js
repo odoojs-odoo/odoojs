@@ -200,7 +200,7 @@ export function useForm(props, ctx) {
 
     const formview = localState.formview
 
-    const result = await formview.onchange(fname, { value, validate })
+    const result = await formview.onchange(fname, value, { validate })
     const { values: values2 = {} } = result
     state.values = { ...values2 }
     state.mVal = { ...state.mVal, ...values2 }
