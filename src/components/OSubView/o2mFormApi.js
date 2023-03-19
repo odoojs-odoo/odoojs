@@ -133,52 +133,36 @@ export function useO2mForm(props, ctx) {
   async function onChange(fname, value) {
     // console.log('onChange in o2m', fname, value)
     if (!state.formviewReady) return
-    const validate = async (done, { formValues, values }) => {
-      state.mVal = { ...state.mVal, ...formValues }
-      state.values = { ...state.values, ...values }
-      await sleep(100)
-      ctx.editRef.value.validate().then(
-        () => done(true),
-        () => done(false)
-      )
-    }
+
     const formview = localState.formview
-    const result = await formview.onchange(fname, value, { validate })
+    const result = await formview.onchange(fname, value)
     // console.log('o2m handleChange ok', fname, value, result)
     const { values: values2 = {} } = result
     state.values = values2
     state.mVal = { ...state.mVal, ...values2 }
+    // onchange 使用 form 自身的校验, 仅仅校验刚刚编辑的字段
+    // 无需全部校验
+    // 在提交时, 应做一次校验
+    // ctx.editRef.value.validate()
   }
 
   async function commit() {
     // console.log('commit subform')
 
-    const validate = async done => {
+    if (!state.formviewReady) return
+    const formview = localState.formview
+
+    const result = await formview.commit(async done => {
       await sleep(100)
+      // 在提交函数中执行 校验.
+      // 提交函数 会进行排队. 等待 以前的 onchange 全部完成.
+      // 以确保 当前页面中的 数据是 onchange 后的最新数据
+      // 这里再等待100ms 是为了确保 前端页面完全刷新
       ctx.editRef.value.validate().then(
         () => done(true),
         () => done(false)
       )
-    }
-    if (!state.formviewReady) return
-    const formview = localState.formview
-
-    // o2m form commit:
-    // 1. 排队进队列, 等待其他的 onchange 完成
-    // 2. 返回最新的 value 数据
-    // 3. 判断是 create 还是 write
-    // 4. 现在是 直接 返回tuple: [ 0/1, res_id, values]
-    //
-    // const result2 = await formview.commit({ validate })
-    // console.log('old', result2)
-    // return result
-    // 修改为
-    // 1. 排队进队列, 等待其他的 onchange 完成
-    // 2. 直接返回 value 数据
-    // 3. 页面里 判断 create 还是 write
-    // 4. 最后 emit
-    //
-    const result = await formview.commit_for_o2m({ validate })
+    })
 
     return result
   }

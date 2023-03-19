@@ -412,14 +412,14 @@ export class Model extends BaseModel {
         const meta = this._fields[fld]
         if (meta.type === 'one2many') {
           const o2m_fields = o2m_get(meta.views || {}, fld)
-          // console.log('web_onchange_new', fld, meta.type, meta.views, o2m_fields)
+          // console.log('_get_field_onchange', fld, meta.type, meta.views, o2m_fields)
           acc = { ...acc, ...o2m_fields }
         }
         return acc
       }, {})
   }
 
-  static async web_onchange_new({ values = {}, context }) {
+  static async web_onchange_new(values = {}, { context }) {
     // console.log('web_onchange_new', this._fields)
 
     const field_onchange = this._get_field_onchange()
@@ -445,11 +445,6 @@ export class Model extends BaseModel {
     // field_name: 正在编辑的字段
 
     const field_onchange = this._get_field_onchange()
-
-    // const field_onchange = Object.keys(this._fields).reduce((acc, fld) => {
-    //   acc[fld] = '1'
-    //   return acc
-    // }, {})
 
     // values 中 可能有 id,  需要删除
     const vals_onchg = this._get_values_for_onchange(record, {

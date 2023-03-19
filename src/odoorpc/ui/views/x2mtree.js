@@ -338,6 +338,11 @@ export class X2mTree extends X2mTreeBase {
   // call read_for_new_o2m()
   // call commit()
   // 解决了 read_for_new_o2m() 之后. 可删除 commit()
+  //
+  // btw:
+  // editmodel._update_parent()
+  // call tree.commit
+  // 解决了 editmodel._update_parent() 之后. 可删除 commit()
   commit(records, values, value) {
     // console.log('sub tree, commit', cp(this.field_info))
     // console.log('sub tree, commit', cp([records, values, value]))

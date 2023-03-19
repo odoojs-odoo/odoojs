@@ -188,22 +188,17 @@ export function useForm(props, ctx) {
     // console.log('onChange in formview', fname, value)
     if (!localState.formview) return
 
-    const validate = async (done, { formValues, values }) => {
-      state.mVal = { ...state.mVal, ...formValues }
-      state.values = { ...state.values, ...values }
-      await sleep(100)
-      ctx.editRef.value.validate().then(
-        () => done(true),
-        () => done(false)
-      )
-    }
-
     const formview = localState.formview
 
-    const result = await formview.onchange(fname, value, { validate })
+    const result = await formview.onchange(fname, value)
     const { values: values2 = {} } = result
     state.values = { ...values2 }
     state.mVal = { ...state.mVal, ...values2 }
+
+    // onchange 使用 form 自身的校验, 仅仅校验刚刚编辑的字段
+    // 无需全部校验
+    // 在提交时, 应做一次校验
+    // ctx.editRef.value.validate()
   }
 
   async function handelCommit() {
@@ -212,15 +207,17 @@ export function useForm(props, ctx) {
       return
     }
 
-    const validate = async done => {
+    const id_ret = await localState.formview.commit(async done => {
       await sleep(100)
+      // 在提交函数中执行 校验.
+      // 提交函数 会进行排队. 等待 以前的 onchange 全部完成.
+      // 以确保 当前页面中的 数据是 onchange 后的最新数据
+      // 这里再等待100ms 是为了确保 前端页面完全刷新
       ctx.editRef.value.validate().then(
         () => done(true),
         () => done(false)
       )
-    }
-
-    const id_ret = await localState.formview.commit({ validate })
+    })
 
     if (id_ret) {
       if (props.resId) {

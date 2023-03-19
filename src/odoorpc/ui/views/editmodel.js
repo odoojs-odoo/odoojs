@@ -75,129 +75,56 @@ class EditBase {
     return { ...record, ...values }
   }
 
-  _update_values(fname, value) {
-    const value2 = value
-
-    const values = { ...this.values, [fname]: value2 }
-    this.values = values
+  // formview and  o2mform 使用同一个 onchange 函数
+  async onchange(fname, value, kwargs_in) {
+    const result = this.web_onchange(fname, value, kwargs_in)
+    this.changeQueue.append(result)
+    return result
   }
-
-  update(fname, value) {
-    // console.log('update,', fname, value)
-    this._update_values(fname, value)
-    const values = this.values
-    const record = this.record
-    const formValues = this._values_display(record, values)
-
-    return { formValues, values }
+  // formview and  o2mform 使用同一个 commit 函数
+  async commit(validate) {
+    const result = this.web_commit(validate)
+    return result
   }
 
   async _wait() {
     await this.changeQueue.wait_call()
   }
 
-  async onchange(fname, value, kwargs_in) {
-    const result = this.web_onchange(fname, value, kwargs_in)
-    this.changeQueue.append(result)
-    return result
-  }
-
-  async web_onchange(fname, value, kwargs_in = {}) {
+  async web_onchange(fname, value) {
     //  等待其他 任务完成
     await this._wait()
     // await sleep(3000)
-    const { validate, ...kwargs } = kwargs_in
-    //  更新本地数据
+    const res = await this._web_onchange(fname, value)
+    return res
+  }
 
-    // const update_res =
-    this.update(fname, value)
+  async web_commit(validate) {
+    // 等待其他 任务完成
+    await this._wait()
 
-    const validate_call = async update_res2 => {
-      if (!validate) {
+    const call_validate = validate2 => {
+      if (!validate2) {
         return true
       }
 
       return new Promise(resolve => {
-        const done = valid => {
-          if (!valid) {
-            console.log('validate error')
-          }
-          resolve(valid)
-        }
         // 如果有校验函数, 则回调 校验函数
-        validate(done, update_res2)
+        validate2(validate_result => {
+          resolve(validate_result)
+        })
       })
     }
 
-    const res = await this._web_onchange(fname, value, kwargs)
-    const values = this.values
-    const record = this.record
-    const formValues = this._values_display(record, values)
+    const validate_result = await call_validate(validate)
 
-    const update_res2 = { formValues, values }
-
-    // const valid =
-    await validate_call(update_res2)
-
-    return res
-  }
-
-  // todo.  o2m 使用 commit_for_o2m
-  // 待检查. 功能稳定后, 合并进commit函数
-  async commit_for_o2m(kwargs = {}) {
-    const result = this.web_commit_for_o2m(kwargs)
-    return result
-  }
-
-  async commit(kwargs = {}) {
-    const result = this.web_commit(kwargs)
-    return result
-  }
-
-  call_validate(validate) {
-    if (!validate) {
-      return true
-    }
-
-    return new Promise(resolve => {
-      // 如果有校验函数, 则回调 校验函数
-      validate(valid => {
-        resolve(valid)
-      })
-    })
-  }
-
-  // todo.  o2m 使用 web_commit_for_o2m
-  // 待检查. 功能稳定后, 合并进 web_commit 函数
-  async web_commit_for_o2m(kwargs = {}) {
-    await this._wait()
-    const { validate } = kwargs
-    const valid = await this.call_validate(validate)
-
-    if (valid) {
+    if (validate_result) {
       // 若校验 返回 true, 则 commit
-      // console.log('validate ok', valid)
-      const id_ret = await this._web_commit({ debug_new_api: 1 })
-      return id_ret
-    } else {
-      console.log('validate err', valid)
-      return
-    }
-  }
-
-  async web_commit(kwargs = {}) {
-    // 等待其他 任务完成
-    await this._wait()
-    const { validate } = kwargs
-    const valid = await this.call_validate(validate)
-
-    if (valid) {
-      // 若校验 返回 true, 则 commit
-      // console.log('validate ok', valid)
+      // console.log('validate ok', validate_result)
       const id_ret = await this._web_commit()
       return id_ret
     } else {
-      console.log('validate err', valid)
+      console.log('validate err', validate_result)
       return
     }
   }
@@ -219,7 +146,7 @@ export class EditModel extends EditBase {
 
     // console.log('context', context, kwargs)
     const Model = this.Model
-    const result = await Model.web_onchange_new({ context })
+    const result = await Model.web_onchange_new({}, { context })
 
     const { values } = result
     this.record = {}
@@ -235,6 +162,9 @@ export class EditModel extends EditBase {
   }
 
   async _web_onchange(fname, value) {
+    // 本地更新
+    this.values = { ...this.values, [fname]: value }
+
     const res_ids = this.record.id ? [this.record.id] : []
 
     const kwargs2 = {
@@ -245,6 +175,7 @@ export class EditModel extends EditBase {
       context: this.context
     }
 
+    // 服务端更新
     const result = await this.Model.web_onchange(res_ids, kwargs2)
     const { values = {} } = result
     //   Todo: 对返回 domain 的处理
@@ -260,10 +191,7 @@ export class EditModel extends EditBase {
     const res_id = this.record.id
     const context = this.context
 
-    // console.log('_web_commit', this.viewmodel, record, values)
-
     const values2 = this.viewmodel.merge_for_write(record, values)
-    // console.log('_web_commit', values2)
 
     const id2 = await this.Model.web_commit(res_id, values2, { context })
     return id2
@@ -299,7 +227,7 @@ export class EditX2m extends EditBase {
     const values = this._values_with_parent(parentData)
 
     const Model = this.Model
-    const result = await Model.web_onchange_new({ values, context })
+    const result = await Model.web_onchange_new(values, { context })
 
     const { values: values_ret } = result
     // const { values_for_write } = result
@@ -342,6 +270,9 @@ export class EditX2m extends EditBase {
     return vals
   }
 
+  //
+  // todo . 用到了 commit
+  // o2m 数据提交后, 将数据更新到 父亲模型
   _update_parent() {
     const { record, values } = this.parentData
     const field_info = this.viewmodel.field_info
@@ -356,24 +287,17 @@ export class EditX2m extends EditBase {
     const tree = this.viewmodel.relation.tree
     const { values_write } = tree.commit(records_tree, values_tree, value)
 
-    // console.log('_update_relation,values_write', values_write)
-    // console.log('_update_relation,this.parentData', cp(this.parentData))
     this.parentData = {
       ...this.parentData,
       values: { ...values, [fname]: values_write }
     }
-
-    // console.log('_update_relation,this.parentData2', cp(this.parentData))
-  }
-
-  update(fname, value) {
-    // console.log('update,', fname, value, )
-    const res = super.update(fname, value)
-    this._update_parent() //  同步 更新  parent
-    return res
   }
 
   async _web_onchange(fname, value) {
+    // 本地更新
+    this.values = { ...this.values, [fname]: value }
+    this._update_parent() //  同步 更新  parent
+
     const context = this.context
 
     const res_ids =
@@ -387,6 +311,7 @@ export class EditX2m extends EditBase {
       context
     }
 
+    // 服务端更新
     const result = await this.Model.web_onchange(res_ids, kwargs2)
     const { values = {} } = result
     //   Todo: 对返回 domain 的处理
@@ -401,22 +326,12 @@ export class EditX2m extends EditBase {
     return { ...result, values: values2 }
   }
 
-  async web_commit_for_o2m() {
+  async _web_commit() {
     const values = this.values
     const field_info = this.viewmodel.field_info
     const { relation_field } = field_info
     const values2 = { ...values }
     delete values2[relation_field]
     return values2
-  }
-
-  async _web_commit(kw = {}) {
-    const { debug_new_api } = kw
-    if (debug_new_api) {
-      return this.web_commit_for_o2m()
-    }
-
-    // 暂时保留. 待上面功能稳定后, 可删除
-    return this._x2m_tuple_get()
   }
 }

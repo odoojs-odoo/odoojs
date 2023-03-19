@@ -8,7 +8,6 @@ const cp = val => JSON.parse(JSON.stringify(val))
 export class X2mForm extends X2mBase {
   constructor(field_info, payload) {
     super(field_info, { ...payload, type: 'form' })
-    this.parentData = { record: {}, values: {} }
     this.edit_model = undefined
   }
 
@@ -124,6 +123,11 @@ export class X2mForm extends X2mBase {
     return { children: sheet_items.data }
   }
 
+  // editmodel 取 context时, 需要 parentdata
+  // 而 parentdata 只能存在在 editmodel 中.
+  // 设置 parentdata 的时机, 在设置 editmodel 的 record values 时:
+  // set edit, onchange_new 时 初始化 record values parentdata
+  // onchange 时, editmodel 自行更新 values parentdata
   context_get(parentData) {
     const context_fn = this.field_info.context
 
@@ -158,8 +162,8 @@ export class X2mForm extends X2mBase {
     return this.edit_model.onchange(fname, value, kwargs)
   }
 
-  async commit_for_o2m(kwargs = {}) {
-    return this.edit_model.commit_for_o2m(kwargs)
+  async commit(kwargs = {}) {
+    return this.edit_model.commit(kwargs)
   }
 
   //
@@ -179,11 +183,5 @@ export class X2mForm extends X2mBase {
   format_for_modifiers(record_merged) {
     // call by require, readonly, domain of feild
     return this.Model.get_values_for_modifiers(record_merged)
-  }
-
-  // // todo. del
-  // // 使用 commit_for_o2m
-  async commit(kwargs = {}) {
-    return this.edit_model.commit(kwargs)
   }
 }
