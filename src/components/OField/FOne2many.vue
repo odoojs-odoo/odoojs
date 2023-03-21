@@ -1,6 +1,6 @@
 <template>
   <span>
-    <!-- {{ [readonly, relationInfo] }} -->
+    <!-- {{ [readonly, treeRecords] }} -->
 
     <O2mTree
       :readonly="readonly"
@@ -10,6 +10,9 @@
       @row-click="onRowClick"
       @row-new="onOpenRowNew"
     />
+
+    <!-- {{ modalVisible }}
+    {{ currentRow }} -->
 
     <O2mForm
       v-model:visible="modalVisible"
@@ -43,33 +46,35 @@ const emit = defineEmits(['update:modelValue', 'change', 'load-relation'])
 const useData = useFO2m(props, { emit })
 
 const { readonly, relationInfo, treeRecords } = useData
-const { rowRemove, rowCommit } = useData
-const { openO2mNew } = useData
+const { rowPick, rowRemove, rowCommit } = useData
 
 const modalVisible = ref(false)
-// const newModalVisible = ref(false)
 const currentRow = ref({})
 
 function onRowClick(record) {
   // console.log('onOpenRowView', record)
-  currentRow.value = { ...record }
+  // { ...record }
+  currentRow.value = rowPick(record)
+
   modalVisible.value = true
 }
 
 async function onOpenRowNew() {
   // console.log('onOpenRowNew', record)
-  currentRow.value = await openO2mNew()
+  currentRow.value = {}
   modalVisible.value = true
 }
 
 function onRowRemove(record) {
-  const values_onchange = rowRemove(record)
-  emit('change', values_onchange)
+  const tree_value = rowRemove(record)
+  console.log('rowRemove', tree_value)
+  emit('change', tree_value)
 }
 
 function onRowCommit(record, value) {
-  const values_onchange = rowCommit(record, value)
-  emit('change', values_onchange)
+  const tree_value = rowCommit(record, value)
+  console.log('onRowCommit', tree_value)
+  emit('change', tree_value)
 }
 </script>
 

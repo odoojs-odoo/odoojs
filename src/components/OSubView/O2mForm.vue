@@ -1,7 +1,7 @@
 <template>
   <span>
     <a-modal v-model:visible="visible2" :title="modalTitle" width="600px">
-      <!-- readonly: {{ [readonly, visible2, record, sheet] }} -->
+      <!-- readonly: {{ [readonly, visible2, relationData] }} -->
 
       <a-form
         ref="editRef"
@@ -20,7 +20,6 @@
                 <template v-for="meta in group.children" :key="meta.name">
                   <a-descriptions-item>
                     <template v-if="meta.type">
-                      <!--  -->
                       <a-form-item
                         :name="meta.name"
                         :label="tr(meta.string)"
@@ -78,8 +77,9 @@ const props = defineProps([
 ])
 
 const emit = defineEmits(['update:visible', 'row-commit', 'row-remove'])
-const modalTitle = computed(() =>
-  props.record.id ? props.record.display_name : '新增'
+const modalTitle = computed(
+  () => 'title'
+  // props.record.id ? props.record.display_name : '新增'
 )
 
 const visible2 = computed({

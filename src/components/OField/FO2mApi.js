@@ -28,10 +28,7 @@ export function useFO2m(props, ctx) {
     if (!state.relationReady) return []
     else {
       // console.log('o2m treeRecords', treeRecords)
-      return localState.relation.tree.merge_for_display(
-        toRaw(state.records),
-        readonly ? toRaw(state.values) : []
-      )
+      return localState.relation.tree.format_to_display(toRaw(state.records))
     }
   })
 
@@ -73,7 +70,7 @@ export function useFO2m(props, ctx) {
     // console.log(props.formInfo)
     const treeview = relation.tree
     const records = await treeview.read(ids)
-    state.records = records
+    state.records = treeview.format_to_tuples(records)
 
     // 主表 新增, 从表 o2m 字段有默认值时, 执行 以下代码. 待处理 todo 2023-2-13
     //   // if (for_new) {
@@ -116,51 +113,64 @@ export function useFO2m(props, ctx) {
     (newVal, oldVal) => {
       // console.log(newVal, oldVal)
       if (newVal) {
-        state.values = []
+        treeCancle()
       }
     },
     { immediate: true }
   )
 
-  async function openO2mNew() {
-    // o2mform 新增时, 应该在这里 生成新数据. 现在是在 子组件中产生
-    return {}
-  }
-
-  function rowRemove(record) {
-    // console.log('rowRemove,record', record, record.id)
+  function treeCancle() {
     if (!state.relationFieldReady) {
       // raise error
       return
     }
     const treeview = localState.relation.tree
-    const values = treeview.commit_by_remove(state.values, record.id)
-    state.values = values
-    return treeview.merge_for_onchange(state.records, state.values)
+    const records = treeview.tree_cancle(toRaw(state.records))
+    state.records = records
   }
 
-  function rowCommit(record, value) {
+  function rowPick(row) {
+    if (!state.relationFieldReady) {
+      // raise error
+      return
+    }
+    const treeview = localState.relation.tree
+    const one = treeview.pick_one(toRaw(state.records), row.id)
+    return one
+  }
+
+  function rowRemove(row) {
+    // console.log('rowRemove,record', row, row.id)
+    if (!state.relationFieldReady) {
+      // raise error
+      return
+    }
+    const treeview = localState.relation.tree
+
+    const records = treeview.remove_one(toRaw(state.records), row.id)
+
+    state.records = records
+    return records
+  }
+
+  function rowCommit(row, value) {
     // console.log('onRowCommit', record, value)
-    // console.log('onRowCommit', state.records, state.values, value)
     if (!state.relationFieldReady) {
       // raise error
       return
     }
 
     const treeview = localState.relation.tree
-    const values = treeview.commit_by_upinsert(state.values, record.id, value)
-    state.values = values
-
-    console.log('rowCommit', record, value, values)
-
-    return treeview.merge_for_onchange(state.records, state.values)
+    const records = treeview.upinsert_one(toRaw(state.records), row.id, value)
+    state.records = records
+    return records
   }
 
   return {
     readonly,
     relationInfo,
     treeRecords,
-    openO2mNew,
+    rowPick,
     rowCommit,
     rowRemove
   }

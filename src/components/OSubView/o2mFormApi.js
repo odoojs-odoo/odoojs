@@ -43,12 +43,10 @@ export function useO2mForm(props, ctx) {
 
       if (state.formviewReady && localState.formview) {
         const view = localState.formview
-        const record2 = view.merge_to_one(props.record, state.values, {
+        const record = view.merge_to_modifiers(props.record, state.values, {
           record: props.parentFormInfo.record,
           values: props.parentFormInfo.values
         })
-
-        const record = view.format_for_modifiers(record2)
         return fieldInfo.required({ record })
       }
 
@@ -85,13 +83,22 @@ export function useO2mForm(props, ctx) {
     // eslint-disable-next-line no-unused-vars
     async (newVal, oldVal) => {
       // console.log(newVal, oldVal)
+
+      // o2mform 关闭. 复原数据. 下次打开时, 确保是显示新的数据
       if (oldVal && !newVal) {
         // console.log('clear')
         state.formviewReady = false
-        //       state.mVal = {}
-        //       state.values = {}
+        state.mVal = {}
+        state.values = {}
         return
       }
+
+      // o2mform 关闭.
+      if (!newVal) {
+        return
+      }
+
+      // o2mform 打开 , 检查 formview
       if (!state.formviewReady) {
         if (!props.relationInfo) return
         const rel = api.env.relation(props.relationInfo, {
@@ -100,29 +107,37 @@ export function useO2mForm(props, ctx) {
         localState.formview = rel.form
         state.formviewReady = true
       }
-      if (props.record.id) {
-        if (!props.readonly) {
-          // edit
-          const formview = localState.formview
-          const values = formview.set_editable(props.record, {
-            record: props.parentFormInfo.record,
-            values: props.parentFormInfo.values
-          })
-          // console.log('values', values)
-          state.values = {}
-          state.mVal = { ...values }
-        }
+
+      // o2mform 打开 , 只读
+      if (props.readonly) {
+        return
       }
 
-      // 新增
+      // o2mform 打开 , 编辑
+      if (props.record.id) {
+        // edit
+        const formview = localState.formview
+        const values = formview.set_editable(props.record, {
+          record: props.parentFormInfo.record,
+          values: props.parentFormInfo.values
+        })
+        // console.log('values', values)
+        state.values = {}
+        state.mVal = { ...values }
+      }
+
+      // o2mform 打开 , 新增
       else {
-        // console.log('o2m form new ')
+        console.log('o2m form new ')
         const formview = localState.formview
         const dataInfo = await formview.onchange_new({
           record: toRaw(props.parentFormInfo.record),
           values: toRaw(props.parentFormInfo.values)
         })
         const { values } = dataInfo
+
+        console.log('o2m form new, ok ', values)
+
         state.mVal = values
         state.values = values
       }

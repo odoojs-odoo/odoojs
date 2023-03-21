@@ -54,8 +54,7 @@ export class Field {
   check_readonly(parentInfo) {
     const { record, values, parentData } = parentInfo
     const par = this.parent
-    const record2 = par.merge_to_one(record, values, parentData)
-    const record3 = par.format_for_modifiers(record2)
+    const record3 = par.merge_to_modifiers(record, values, parentData)
     return this.readonly_get({ record: record3 })
   }
 

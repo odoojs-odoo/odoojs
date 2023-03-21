@@ -134,8 +134,7 @@ export function useForm(props, ctx) {
 
     if (state.formviewFieldReady && localState.formview) {
       const view = localState.formview
-      const record2 = view.merge_to_one(state.record, state.values)
-      const record = view.format_for_modifiers(record2)
+      const record = view.merge_to_modifiers(state.record, state.values)
       return fieldInfo.string({ record })
     }
 
@@ -150,8 +149,7 @@ export function useForm(props, ctx) {
 
     if (state.formviewFieldReady && localState.formview) {
       const view = localState.formview
-      const record2 = view.merge_to_one(state.record, state.values)
-      const record = view.format_for_modifiers(record2)
+      const record = view.merge_to_modifiers(state.record, state.values)
       return fieldInfo.invisible({ record })
     }
 
@@ -170,8 +168,7 @@ export function useForm(props, ctx) {
 
       if (state.formviewFieldReady && localState.formview) {
         const view = localState.formview
-        const record2 = view.merge_to_one(state.record, state.values)
-        const record = view.format_for_modifiers(record2)
+        const record = view.merge_to_modifiers(state.record, state.values)
         return fieldInfo.required({ record })
       }
 

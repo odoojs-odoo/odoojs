@@ -278,121 +278,6 @@ export class Model extends BaseModel {
     super(payload)
   }
 
-  static merge_to_one(record, values) {
-    const all_keys = Object.keys({ ...record, ...values })
-
-    return all_keys.reduce((acc, fld) => {
-      const meta = this._fields[fld] || {}
-      if (meta.type === 'many2many') {
-        const val =
-          fld in values ? values[fld] : [[6, false, record[fld] || []]]
-        acc[fld] = val
-      } else if (meta.type === 'one2many') {
-        const val =
-          fld in values
-            ? values[fld]
-            : (record[fld] || []).map(item => [4, item, false])
-
-        acc[fld] = val
-      } else {
-        const val = fld in values ? values[fld] : record[fld]
-        if (meta.type === 'datetime') {
-          const val2 = val ? date_format(val) : val
-          acc[fld] = val2
-          // }else  if (meta.type === 'many2one'){
-        } else {
-          acc[fld] = val
-        }
-      }
-
-      return acc
-    }, {})
-  }
-
-  static format_for_modifiers(record) {
-    return Object.keys(record).reduce((acc, fld) => {
-      const meta = this._fields[fld] || {}
-      const val = record[fld]
-      if (meta.type === 'many2many' || meta.type === 'one2many') {
-        acc[fld] = tuples_to_ids(val)
-      } else if (meta.type === 'many2one') {
-        acc[fld] = val ? val[0] : val
-      } else {
-        acc[fld] = val
-      }
-      return acc
-    }, {})
-  }
-
-  // todo
-  static _get_values_for_write(record_in, values) {
-    const record2 = this.merge_to_one(record_in, values)
-    const record = this.format_for_modifiers(record2)
-    // record 的作用是 获取 只读属性 以及 获取 state 字段的值
-    return this.format_for_write(values, record)
-  }
-
-  static format_for_write(values_in, record) {
-    // record 的作用是 获取 只读属性 以及 获取 state 字段的值
-    const _commit_get_readonly = (meta, state) => {
-      const meta_readonly_get = () => {
-        if (typeof meta.readonly === 'function') {
-          return meta.readonly({ record })
-        } else {
-          return meta.readonly
-        }
-      }
-      if (meta.states === undefined) {
-        return meta_readonly_get()
-      }
-
-      if (state && meta.states && meta.states[state]) {
-        const readonly3 = meta.states[state].reduce((acc, cur) => {
-          acc[cur[0]] = cur[1]
-          return acc
-        }, {})
-
-        if (readonly3.readonly !== undefined) {
-          return readonly3.readonly
-        }
-      }
-
-      return meta_readonly_get()
-    }
-
-    const state = record.state
-
-    // 仅仅是转换了  date 字段?
-    const values = this.merge_to_one({}, values_in)
-
-    const all_keys = Object.keys({ ...values_in }).filter(
-      fld => !_commit_get_readonly(this._fields[fld] || {}, state)
-    )
-
-    return all_keys.reduce((acc, fld) => {
-      const meta = this._fields[fld] || {}
-      const val = values[fld]
-      const val2 = val && meta.type === 'many2one' ? val[0] : val
-      acc[fld] = val2
-
-      return acc
-    }, {})
-  }
-
-  static format_for_onchange(record) {
-    return Object.keys(record).reduce((acc, fld) => {
-      const meta = this._fields[fld] || {}
-      const val = record[fld]
-      if (meta.type === 'many2one') {
-        acc[fld] = val ? val[0] : val
-      } else {
-        acc[fld] = val
-      }
-
-      return acc
-    }, {})
-  }
-
   static _get_field_onchange() {
     const o2m_get = (views, pfld) => {
       const flds = Object.keys(views).reduce((acc, view) => {
@@ -419,8 +304,6 @@ export class Model extends BaseModel {
   }
 
   static async web_onchange_new(values = {}, { context }) {
-    // console.log('web_onchange_new', this._fields)
-
     const field_onchange = this._get_field_onchange()
 
     const result = await this.onchange([], values, [], field_onchange, {
@@ -431,19 +314,13 @@ export class Model extends BaseModel {
     const values_ret = { ...values, ...value_ret }
     return { ...res, values: values_ret }
   }
+
   static async web_onchange(...args) {
     const [res_ids = [], values = {}, field_name, kwargs = {}] = args
     const field_onchange = this._get_field_onchange()
     const args2 = [res_ids, values, field_name, field_onchange, kwargs]
     const result = await this.onchange(...args2)
     return result
-    // const { value: value_ret, ...res } = result
-    // const values_ret = { ...values, ...value_ret }
-
-    // // 3. _after_onchange_async
-    // // m2m 需要 更新数据
-
-    // return { ...res, values: values_ret }
   }
 
   static async web_commit(res_id, values, kwargs = {}) {
@@ -461,6 +338,8 @@ export class Model extends BaseModel {
       return this.create(values, kwargs)
     }
   }
+
+  //  bakup.  odoo13
 
   // static async onchange_for_odoo13(ids, values, field_name, field_onchange) {
   //   return this.execute('onchange', ids, values, field_name, field_onchange)

@@ -6,16 +6,6 @@
 //   })
 // }
 
-// const print_date = () => {
-//   const date = new Date()
-//   console.log(
-//     date.getHours(),
-//     date.getMinutes(),
-//     date.getSeconds(),
-//     date.getMilliseconds()
-//   )
-// }
-
 export class ChangeQueue {
   constructor() {
     this.queue = []
@@ -68,16 +58,9 @@ class EditBase {
     return this.viewmodel.Model
   }
 
-  // todo  check this
-
-  _values_display(record = {}, values = {}) {
-    // todo: m2m o2m 做处理
-    return { ...record, ...values }
-  }
-
   // formview and  o2mform 使用同一个 onchange 函数
-  async onchange(fname, value, kwargs_in) {
-    const result = this.web_onchange(fname, value, kwargs_in)
+  async onchange(fname, value) {
+    const result = this.web_onchange(fname, value)
     this.changeQueue.append(result)
     return result
   }
@@ -147,6 +130,8 @@ export class EditModel extends EditBase {
     // console.log('context', context, kwargs)
     const Model = this.Model
     const result = await Model.web_onchange_new({}, { context })
+    //
+    //  m2m 字段有默认值时, 需要刷新数据
 
     const { values } = result
     this.record = {}
@@ -158,21 +143,19 @@ export class EditModel extends EditBase {
   set_editable(record) {
     this.record = { ...record }
     this.values = {}
-    return this._values_display(record)
+    return this.viewmodel.merge_data(this.record, this.values)
   }
 
   async _web_onchange(fname, value) {
-    //
-    //
-    //
     // 本地更新
     this.values = { ...this.values, [fname]: value }
-
     const res_ids = this.record.id ? [this.record.id] : []
 
     // values 中 可能有 id,  需要删除
-    const record = this.Model.merge_to_one(this.record, this.values)
-    const vals_onchg = this.Model.format_for_onchange(record)
+    const vals_onchg = this.viewmodel.merge_to_onchange(
+      this.record,
+      this.values
+    )
 
     // 服务端更新
     const result = await this.Model.web_onchange(res_ids, vals_onchg, fname, {
@@ -180,15 +163,13 @@ export class EditModel extends EditBase {
     })
 
     const { value: value_ret } = result
-    //   Todo: 对返回 domain 的处理
+    //  Todo:
+    // 1. 对返回 domain 的处理 {domain}=result
+    // 2. value_ret 中的 o2m. 需要更新数据及格式
+    // 3. value_ret 中的 m2m 需要 更新数据
 
     this.values = { ...this.values, ...value_ret }
 
-    // const { values = {} } = result
-    // Todo: 对返回 domain 的处理
-    // console.log('handleOnchange, in model', cp(values))
-
-    // this.values = { ...values }
     return { ...result, values: this.values }
   }
 
@@ -198,7 +179,7 @@ export class EditModel extends EditBase {
     const res_id = this.record.id
     const context = this.context
 
-    const values2 = this.viewmodel.merge_for_write(record, values)
+    const values2 = this.viewmodel.merge_to_write(record, values)
 
     const id2 = await this.Model.web_commit(res_id, values2, { context })
     return id2
@@ -226,8 +207,7 @@ export class EditX2m extends EditBase {
 
     const { record, values } = parentData
 
-    const record2 = parent.Model.merge_to_one(record, values)
-    const parent_values = parent.Model.format_for_onchange(record2)
+    const parent_values = parent.merge_to_onchange(record, values)
 
     const values2 = { [relation_field]: parent_values }
 
@@ -258,7 +238,7 @@ export class EditX2m extends EditBase {
     this.record = { ...record }
     this.values = { ...values }
     this.parentData = { ...parentData }
-    return this._values_display(record)
+    return this.viewmodel.merge_data(this.record, this.values)
   }
 
   _x2m_tuple_get() {
@@ -286,26 +266,34 @@ export class EditX2m extends EditBase {
   // todo . 用到了 commit
   // o2m 数据提交后, 将数据更新到 父亲模型
   _update_parent() {
+    console.log('todo _update_parent')
+
     const { record, values } = this.parentData
     const field_info = this.viewmodel.field_info
     //
     const { name: fname } = field_info
     const records_tree = (record[fname] || []).map(item => {
-      return { id: item }
+      return [4, item, { id: item }]
     })
     const values_tree = values[fname] || []
-    const value = this._x2m_tuple_get()
 
-    const tree = this.viewmodel.relation.tree
-    const { values_write } = tree.commit(records_tree, values_tree, value)
+    const value = this._x2m_tuple_get()
+    const values_write = [
+      ...(values_tree.length ? values_tree : records_tree),
+      value
+    ]
+    console.log('todo _update_parent', values_write)
 
     this.parentData = {
       ...this.parentData,
       values: { ...values, [fname]: values_write }
     }
+
+    console.log('todo _update_parent  2', this.parentData)
   }
 
   async _web_onchange(fname, value) {
+    // o2m onchange. 携带参数 parentData
     // 本地更新
     this.values = { ...this.values, [fname]: value }
     this._update_parent() //  同步 更新  parent
@@ -314,8 +302,10 @@ export class EditX2m extends EditBase {
       this.record.id && !is_virtual_id(this.record.id) ? [this.record.id] : []
 
     // values 中 可能有 id,  需要删除
-    const record = this.Model.merge_to_one(this.record, this.values)
-    const vals_onchg = this.Model.format_for_onchange(record)
+    const vals_onchg = this.viewmodel.merge_to_onchange(
+      this.record,
+      this.values
+    )
 
     // 服务端更新
     const result = await this.Model.web_onchange(res_ids, vals_onchg, fname, {
@@ -342,6 +332,7 @@ export class EditX2m extends EditBase {
     const { relation_field } = field_info
     const values2 = { ...values }
     delete values2[relation_field]
+
     return values2
   }
 }
