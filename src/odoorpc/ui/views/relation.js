@@ -90,8 +90,6 @@ export class Field {
       const { fields } = view
 
       return this.env.formview(action, { fields })
-      // const env = this.env
-      // return new FormView(action, { env, fields })
     } else if (info.relation) {
       //
       // console.log('todo, check fromview or o2mformview', info)

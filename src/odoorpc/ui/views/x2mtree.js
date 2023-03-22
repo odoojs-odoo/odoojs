@@ -144,7 +144,6 @@ export class X2mTree extends X2mTreeBase {
     }, {})
 
     const tuples_all = this.merge_tuples(records, true)
-    // console.log('o2mtree, format_to_write 0', dict_read, tuples_all, parentData)
 
     const records3 = tuples_all.map(item => {
       if ([6, 5].includes(item[0])) return item
@@ -176,7 +175,6 @@ export class X2mTree extends X2mTreeBase {
   }
 
   format_to_onchange(records) {
-    // console.log('o2mtree, format_to_onchange', records)
     const records2 = this.merge_tuples(records)
     const records3 = records2.map(item => {
       if ([6, 5].includes(item[0])) return item
@@ -194,7 +192,6 @@ export class X2mTree extends X2mTreeBase {
       }
     })
 
-    // console.log('o2mtree, format_to_onchange ok', records3)
     return records3
   }
 

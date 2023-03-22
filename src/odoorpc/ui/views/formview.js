@@ -31,21 +31,10 @@ export class FormView extends BaseView {
   constructor(action_id, payload = {}) {
     super(action_id, { ...payload, type: 'form' })
     this.edit_model = undefined
-    this._relations = {}
-  }
-
-  get relations() {
-    return this._relations
   }
 
   load_relations_done(relations) {
-    const relations2 = Object.keys(relations).reduce((acc, fld) => {
-      acc[fld] = this.env.relation(relations[fld][0], {
-        parent: relations[fld][1]
-      })
-      return acc
-    }, {})
-    this._relations = { ...this._relations, ...relations2 }
+    this._fields_info = { ...this._fields_info, ...relations }
   }
 
   _edit_model_get(record = {}, values = {}) {
@@ -452,6 +441,7 @@ export class FormView extends BaseView {
   }
 
   format_to_onchange(record) {
+    // console.log('format_to_onchange,', this.fields)
     return Object.keys(record).reduce((acc, fld) => {
       const meta = this.fields[fld] || {}
       const val = record[fld]
@@ -460,7 +450,7 @@ export class FormView extends BaseView {
         if (!val.length) {
           acc[fld] = val
         } else {
-          const rel = this.relations[fld]
+          const rel = this.env.relation(meta, { parent: this.view_info })
           if (rel) {
             // console.log('format_to_onchange', fld, val, rel)
             const val2 = rel.tree.format_to_onchange(val)
@@ -529,7 +519,8 @@ export class FormView extends BaseView {
         if (!val.length) {
           acc[fld] = val
         } else {
-          const rel = this.relations[fld]
+          const rel = this.env.relation(meta, { parent: this.view_info })
+
           if (rel) {
             // console.log('format_to_write in o2m', fld, val)
             const val2 = rel.tree.format_to_write(val, { record, values })
@@ -600,11 +591,7 @@ export class FormView extends BaseView {
   merge_to_write(record, values) {
     const record2 = this.merge_data(record, values)
     const record3 = this.format_to_modifiers(record2)
-    // console.log('merge_to_write', record3)
-
     const values2 = this.format_to_write(values, record3)
-    console.log('merge_to_write ok new ', values2)
-
     return values2
   }
 

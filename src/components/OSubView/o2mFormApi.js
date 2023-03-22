@@ -128,7 +128,7 @@ export function useO2mForm(props, ctx) {
 
       // o2mform 打开 , 新增
       else {
-        console.log('o2m form new ')
+        // console.log('o2m form new ')
         const formview = localState.formview
         const dataInfo = await formview.onchange_new({
           record: toRaw(props.parentFormInfo.record),
@@ -136,7 +136,7 @@ export function useO2mForm(props, ctx) {
         })
         const { values } = dataInfo
 
-        console.log('o2m form new, ok ', values)
+        // console.log('o2m form new, ok ', values)
 
         state.mVal = values
         state.values = values
@@ -145,11 +145,24 @@ export function useO2mForm(props, ctx) {
     { immediate: true }
   )
 
-  async function onChange(fname, value) {
-    // console.log('onChange in o2m', fname, value)
+  function formview_get() {
+    // 页面  relation load 之后, 更新 主表的 formview
+    // 主表 formview info 重新加载, 并通过参数 更新到 o2mform
+    // 此函数, 更新 x2mform 的信息
     if (!state.formviewReady) return
-
     const formview = localState.formview
+
+    formview.update_info(toRaw(props.relationInfo), {
+      parent: toRaw(props.parentFormInfo.viewInfo)
+    })
+
+    return formview
+  }
+
+  async function onChange(fname, value) {
+    const formview = formview_get()
+    if (!formview) return
+
     const result = await formview.onchange(fname, value)
     // console.log('o2m handleChange ok', fname, value, result)
     const { values: values2 = {} } = result
@@ -163,9 +176,8 @@ export function useO2mForm(props, ctx) {
 
   async function commit() {
     // console.log('commit subform')
-
-    if (!state.formviewReady) return
-    const formview = localState.formview
+    const formview = formview_get()
+    if (!formview) return
 
     const result = await formview.commit(async done => {
       await sleep(100)

@@ -189,6 +189,7 @@ export class EditModel extends EditBase {
 export class EditX2m extends EditBase {
   constructor(payload = {}) {
     super(payload)
+    // todo,  parentData
     const { parentData } = payload
     this.parentData = parentData
   }
@@ -203,6 +204,7 @@ export class EditX2m extends EditBase {
 
   _values_with_parent(parentData) {
     const parent = this.viewmodel.parent
+
     const { relation_field } = this.viewmodel.field_info
 
     const { record, values } = parentData
@@ -234,11 +236,21 @@ export class EditX2m extends EditBase {
   }
 
   set_editable(record, parentData) {
+    //
     const values = this._values_with_parent(parentData)
+
     this.record = { ...record }
     this.values = { ...values }
     this.parentData = { ...parentData }
     return this.viewmodel.merge_data(this.record, this.values)
+  }
+
+  update_info() {
+    const parentData = this.parentData
+
+    const values = this._values_with_parent(parentData)
+
+    this.values = { ...this.values, ...values }
   }
 
   _x2m_tuple_get() {
@@ -282,18 +294,16 @@ export class EditX2m extends EditBase {
       ...(values_tree.length ? values_tree : records_tree),
       value
     ]
-    console.log('todo _update_parent', values_write)
 
     this.parentData = {
       ...this.parentData,
       values: { ...values, [fname]: values_write }
     }
-
-    console.log('todo _update_parent  2', this.parentData)
   }
 
   async _web_onchange(fname, value) {
-    // o2m onchange. 携带参数 parentData
+    // todo. o2m onchange. 携带参数 parentData
+
     // 本地更新
     this.values = { ...this.values, [fname]: value }
     this._update_parent() //  同步 更新  parent

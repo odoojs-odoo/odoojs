@@ -35,6 +35,7 @@ export class X2mForm extends X2mBase {
   }
 
   _edit_model_get(record = {}, values = {}, parentData = {}) {
+    // todo,  parentData
     return new EditX2m({ viewmodel: this, record, values, parentData })
   }
 
@@ -176,8 +177,17 @@ export class X2mForm extends X2mBase {
   }
 
   set_editable(record, parentData) {
+    // todo,  parentData
     this.edit_model = this._edit_model_get()
     return this.edit_model.set_editable(record, parentData)
+  }
+
+  update_info(field_info, { parent }) {
+    this._field_info = field_info
+    this._parent_info = parent
+    if (this.edit_model) {
+      this.edit_model.update_info()
+    }
   }
 
   async onchange(fname, value, kwargs) {

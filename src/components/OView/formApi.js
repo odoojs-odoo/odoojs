@@ -77,6 +77,18 @@ export function useForm(props, ctx) {
     }
   })
 
+  async function onLoadReation(fieldName, relation_info) {
+    // console.log('onLoadReation', fieldName, relation_info)
+    if (!localState.formview) return
+
+    localState.formview.load_relations_done({ [fieldName]: relation_info })
+
+    await sleep(100)
+    state.fields = localState.formview.fields
+    state.viewInfo = localState.formview.view_info
+    await sleep(100)
+  }
+
   // watch actionId, and get formview, load field
   watch(
     () => props.actionId,
@@ -312,15 +324,6 @@ export function useForm(props, ctx) {
     }
 
     btn_fns[btn]()
-  }
-
-  function onLoadReation(fieldName, relation_info) {
-    // console.log('onLoadReation', fieldName, relation_info)
-    if (!localState.formview) return
-
-    localState.formview.load_relations_done({
-      [fieldName]: [relation_info, state.viewInfo]
-    })
   }
 
   return {
