@@ -5,11 +5,12 @@ export default {
     type: 'tree',
     buttons: { create: false, edit: false, delete: false },
     fields: {
+      // company_id: { invisible: 1 },
       code: {},
       name: {},
       account_type: {},
       group_id: {},
-      internal_group: {},
+      internal_group: { invisible: 1 },
       // reconcile: {},
       // non_trade: {},
       // tax_ids: {},
@@ -35,35 +36,31 @@ export default {
           display_name: {}
         },
 
-        _group_name: {
-          code: {},
-          name: {},
+        _group_button_box: {
           related_taxes_amount: {},
           current_balance: {}
         },
 
+        _group_name: {
+          code: {},
+          name: {}
+        },
+
         _group_type: {
-          account_type: {},
+          account_type: { widget: 'account_type_selection' },
+          company_id: { invisible: 1 },
           tax_ids: { widget: 'many2many_tags' },
           tag_ids: { widget: 'many2many_tags' },
           allowed_journal_ids: { widget: 'many2many_tags' }
         },
         _group_type2: {
-          internal_group: {},
+          internal_group: { invisible: 1 },
           currency_id: {},
           deprecated: {},
           group_id: {},
-          reconcile: {},
-          non_trade: {},
           company_id: {}
         }
       }
-    },
-
-    fields: {
-      reconcile: {},
-
-      currency_id: {}
     }
   },
 

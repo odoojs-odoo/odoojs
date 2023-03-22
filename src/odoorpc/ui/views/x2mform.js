@@ -201,8 +201,9 @@ export class X2mForm extends X2mBase {
   //
   // for record and values
   //
-
-  merge_data(record, values, parentData) {
+  //
+  //
+  merge_data(record, values) {
     const all_keys = Object.keys({ ...record, ...values })
 
     const medata = all_keys.reduce((acc, fld) => {
@@ -231,20 +232,18 @@ export class X2mForm extends X2mBase {
       return acc
     }, {})
 
-    if (!parentData) {
-      return medata
-    }
-    const par = this.parent
-    const { record: prec, values: pval } = parentData
-    const pdata = par.merge_data(prec, pval)
-
-    const medata2 = { ...medata, parent: pdata }
-    return medata2
+    return medata
   }
 
   merge_to_modifiers(record, values, parentData) {
-    const record2 = this.merge_data(record, values, parentData)
-    return this.format_to_modifiers(record2)
+    const record2 = this.merge_data(record, values)
+    const record3 = this.format_to_modifiers(record2)
+
+    const par = this.parent
+    const { record: prec, values: pval } = parentData
+    const pdata = par.merge_to_modifiers(prec, pval)
+    const record4 = { ...record3, parent: pdata }
+    return record4
   }
 
   merge_to_onchange(record, values) {
@@ -253,8 +252,7 @@ export class X2mForm extends X2mBase {
   }
 
   merge_to_write(record, values, parentData) {
-    const record2 = this.merge_data(record, values, parentData)
-    const record3 = this.format_to_modifiers(record2)
+    const record3 = this.merge_to_modifiers(record, values, parentData)
     return this.format_to_write(values, record3)
   }
 
@@ -373,6 +371,7 @@ export class X2mForm extends X2mBase {
   format_to_modifiers(record) {
     return Object.keys(record).reduce((acc, fld) => {
       const meta = this.fields[fld] || {}
+
       const val = record[fld]
       if (meta.type === 'many2many' || meta.type === 'one2many') {
         acc[fld] = tuples_to_ids(val)

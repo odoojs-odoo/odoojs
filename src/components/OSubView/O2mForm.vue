@@ -18,7 +18,7 @@
             <a-descriptions-item :span="group.span">
               <a-descriptions :column="1">
                 <template v-for="meta in group.children" :key="meta.name">
-                  <a-descriptions-item>
+                  <a-descriptions-item v-if="!getInvisible(meta)">
                     <template v-if="meta.type">
                       <a-form-item
                         :name="meta.name"
@@ -77,9 +77,8 @@ const props = defineProps([
 ])
 
 const emit = defineEmits(['update:visible', 'row-commit', 'row-remove'])
-const modalTitle = computed(
-  () => 'title'
-  // props.record.id ? props.record.display_name : '新增'
+const modalTitle = computed(() =>
+  props.record.id ? props.record.display_name : '新增'
 )
 
 const visible2 = computed({
@@ -93,7 +92,7 @@ const visible2 = computed({
 
 const editRef = ref()
 const useData = useO2mForm(props, { emit, editRef })
-const { sheet, formInfo, mVal } = useData
+const { sheet, formInfo, mVal, getInvisible } = useData
 
 const { getRules, onChange, commit } = useData
 

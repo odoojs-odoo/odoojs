@@ -4,6 +4,7 @@ const ModelFields = {
 
   parent_id: {
     domain: () => {
+      // [('is_company', '=', True)]
       return [['is_company', '=', true]]
     }
   },

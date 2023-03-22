@@ -6,7 +6,7 @@ export default {
     fields: {
       code: {},
       name: {},
-      active: {}
+      active: { invisible: '1' }
     }
   },
 
@@ -27,7 +27,7 @@ export default {
         _group_name: {
           code: {},
           name: {},
-          active: {}
+          active: { invisible: '1', widget: 'web_ribbon' }
         }
       }
     }

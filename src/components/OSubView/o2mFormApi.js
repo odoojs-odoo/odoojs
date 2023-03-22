@@ -33,10 +33,6 @@ export function useO2mForm(props, ctx) {
     if (!fieldInfo.required) return undefined
 
     function required_get() {
-      if (state.formviewReady && localState.formview) {
-        // console.log(record2)
-      }
-
       if (typeof fieldInfo.required !== 'function') {
         return fieldInfo.required
       }
@@ -57,6 +53,25 @@ export function useO2mForm(props, ctx) {
 
     if (!required) return undefined
     return [{ required: true, message: `请输入${tr(fieldInfo.string)}!` }]
+  }
+
+  function getInvisible(fieldInfo) {
+    if (!fieldInfo.invisible) return undefined
+    if (typeof fieldInfo.invisible !== 'function') {
+      return fieldInfo.invisible
+    }
+
+    if (state.formviewReady && localState.formview) {
+      const view = localState.formview
+      const record = view.merge_to_modifiers(props.record, state.values, {
+        record: props.parentFormInfo.record,
+        values: props.parentFormInfo.values
+      })
+
+      return fieldInfo.invisible({ record })
+    }
+
+    return
   }
 
   // load relationInfo
@@ -220,6 +235,7 @@ export function useO2mForm(props, ctx) {
 
     mVal: computed(() => state.mVal),
     getRules,
+    getInvisible,
     onChange,
     commit
   }

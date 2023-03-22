@@ -22,7 +22,7 @@ export default {
       },
       sheet: {
         _title: {
-          display_name: {}
+          display_name: { disable_field_onchange: 1 }
         },
 
         _group_name: {

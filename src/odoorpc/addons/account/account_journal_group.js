@@ -18,13 +18,11 @@ export default {
     arch: {
       sheet: {
         _title: {
-          display_name: {}
+          display_name: { disable_field_onchange: 1 }
         },
         _group_name: {
           name: {},
-          excluded_journal_ids: {
-            widget: 'many2many_tags'
-          },
+          excluded_journal_ids: { widget: 'many2many_tags' },
           sequence: {},
           company_id: {}
         }

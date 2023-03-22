@@ -15,11 +15,7 @@ export default {
       action: 'base.action_res_partner_bank_account_form',
       id: 'odoo_base.action_res_partner_bank_account_form',
       icon: 'shopping',
-      name: {
-        en_US: 'Bank Account',
-        zh_CN: '银行账号',
-        zh_HK: '銀行帳號'
-      }
+      name: { en_US: 'Bank Account', zh_CN: '银行账号', zh_HK: '銀行帳號' }
     },
     {
       action: 'base.action_res_company_form',
@@ -36,24 +32,10 @@ export default {
     },
 
     {
-      action: 'base.action_partner_of_contact_organization',
-      id: 'odoo_base.action_partner_of_contact_organization',
+      action: 'contacts.action_contacts',
+      id: 'odoo_contacts.action_contacts',
       icon: 'shopping',
-      name: {
-        en_US: 'Partner Organization',
-        zh_CN: '联系人(组织)',
-        zh_HK: '联系人(组织)'
-      }
-    },
-    {
-      action: 'base.action_partner_of_contact_person',
-      id: 'odoo_base.action_partner_of_contact_person',
-      icon: 'shopping',
-      name: {
-        en_US: 'Partner Person',
-        zh_CN: '联系人(个人)',
-        zh_HK: '联系人(个人)'
-      }
+      name: { en_US: 'Partner', zh_CN: '联系人', zh_HK: '联系人' }
     }
   ]
 }

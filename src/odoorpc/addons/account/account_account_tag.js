@@ -1,5 +1,3 @@
-// ok
-
 export default {
   account_tag_view_form: {
     _odoo_model: 'ir.ui.view',
@@ -17,13 +15,27 @@ export default {
         },
 
         _group_name: {
-          name: {}
+          name: {},
+          active: { invisible: '1', widget: 'web_ribbon' }
         },
 
         _group_logo: {
           applicability: {},
-          tax_negate: { readonly: '1' },
-          country_id: {}
+          tax_negate: {
+            readonly: '1',
+            invisible({ record }) {
+              // 'invisible': [('applicability', '!=', 'taxes')]
+              const { applicability } = record
+              return applicability !== 'taxes'
+            }
+          },
+          country_id: {
+            invisible({ record }) {
+              // 'invisible': [('applicability', '!=', 'taxes')]
+              const { applicability } = record
+              return applicability !== 'taxes'
+            }
+          }
         }
       }
     }

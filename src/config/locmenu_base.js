@@ -44,6 +44,13 @@ export default {
       id: 'odoo_base.action_currency_form',
       icon: 'shopping',
       name: { en_US: 'Currency', zh_CN: '货币', zh_HK: '货币' }
+    },
+
+    {
+      action: 'base.res_lang_act_window',
+      id: 'odoo_base.res_lang_act_window',
+      icon: 'shopping',
+      name: { en_US: 'Languages', zh_CN: '语言', zh_HK: '语言' }
     }
   ]
 }

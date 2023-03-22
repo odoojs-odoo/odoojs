@@ -2,7 +2,7 @@ export default {
   id: 'odoo.account',
   icon: 'shopping',
   theme: 'twoTone',
-  name: { en_US: 'Account', zh_CN: '财务', zh_HK: '财务' },
+  name: { en_US: 'Account Config', zh_CN: '财务配置', zh_HK: '财务配置' },
   children: [
     {
       action: 'account.action_incoterms_tree',

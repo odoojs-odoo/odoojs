@@ -259,7 +259,7 @@ class SearchView1 extends BaseView {
   get values_in_filters() {
     const values = this._search_values
 
-    const filters = this.view_arch.filters
+    const filters = this.view_arch.filters || {}
 
     // console.log(filters)
     const res1 = Object.keys(filters).reduce((acc, item) => {
@@ -423,7 +423,7 @@ class SearchView1 extends BaseView {
   }
 
   get items_in_filters() {
-    const filters = this.view_arch.filters
+    const filters = this.view_arch.filters || {}
 
     const res = Object.keys(filters).reduce((acc, item) => {
       const selection_me = Object.keys(filters[item])

@@ -35,7 +35,6 @@ export function useFM2o(props, ctx) {
 
   function loadSelectOptions(kw = {}) {
     const record = get_record_for_modifiers(props.formInfo)
-
     const relation = api.env.relation(props.fieldInfo)
     return relation.load_select_options({ record, ...kw })
   }

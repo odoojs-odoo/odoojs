@@ -56,7 +56,9 @@
     >
       <template #title>
         <template v-for="meta in sheet.title" :key="meta.name">
-          <div>{{ { ...record, ...formInfo.values }[meta.name] }}</div>
+          <div v-if="!getInvisible(meta)">
+            {{ { ...record, ...formInfo.values }[meta.name] }}
+          </div>
         </template>
       </template>
       <!-- 
@@ -67,8 +69,8 @@
         <a-descriptions-item :span="group.span">
           <a-descriptions :column="1">
             <template v-for="meta in group.children" :key="meta.name">
-              <a-descriptions-item>
-                <template v-if="meta.type && !getInvisible(meta)">
+              <a-descriptions-item v-if="!getInvisible(meta)">
+                <template v-if="meta.type">
                   <a-form-item
                     :name="meta.name"
                     :label="tr(getLabel(meta))"

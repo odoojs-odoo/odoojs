@@ -12,7 +12,7 @@
   >
     <template v-for="btn in states" :key="btn[0]">
       <a-radio-button style="pointer-events: none" :value="btn[0]">
-        {{ btn[1] }}
+        {{ tr(btn[1]) }}
       </a-radio-button>
     </template>
   </a-radio-group>
@@ -20,6 +20,10 @@
 
 <script setup>
 import { defineProps } from 'vue'
+
+import { useL10n } from '@/components/tools/useL10n'
+const { tr } = useL10n()
+
 defineProps(['states', 'currentState'])
 </script>
 

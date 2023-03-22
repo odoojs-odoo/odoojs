@@ -282,7 +282,6 @@ export class Relation extends Field {
 
   async load_select_options(kwargs_in = {}) {
     // console.log(this.field_info)
-    // console.log('load_select_options', kwargs_in)
 
     const { args = [], record = {}, limit = 8, ...kwargs } = kwargs_in
 

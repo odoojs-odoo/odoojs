@@ -3,13 +3,15 @@ import locmenu_base_partner from './locmenu_base_partner'
 import locmenu_product from './locmenu_product'
 import locmenu_analytic from './locmenu_analytic'
 import locmenu_account from './locmenu_account'
+import locmenu_account_move from './locmenu_account_move'
 
 export const local_menus_tree = [
   locmenu_base,
   locmenu_base_partner,
   locmenu_product,
   locmenu_analytic,
-  locmenu_account
+  locmenu_account,
+  locmenu_account_move
 
   // {
   //   id: 'bmx.root',

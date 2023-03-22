@@ -19,13 +19,13 @@ export default {
     },
 
     {
-      action: 'product.action_partner_of_contact_organization',
-      id: 'odoo_product.action_partner_of_contact_organization',
+      action: 'product.action_contacts',
+      id: 'odoo_product.action_contacts',
       icon: 'shopping',
       name: {
-        en_US: 'Partner Organization',
-        zh_CN: '联系人(组织)',
-        zh_HK: '联系人(组织)'
+        en_US: 'Partner',
+        zh_CN: '联系人',
+        zh_HK: '联系人'
       }
     },
 
@@ -59,24 +59,38 @@ export default {
     },
 
     {
-      action: 'product.product_product_action_sellable',
-      id: 'odoo_product.product_product_action_sellable',
+      action: 'product.product_template_action_all',
+      id: 'odoo_product.product_template_action_all',
       icon: 'shopping',
-      name: {
-        en_US: 'Products(Sellable)',
-        zh_CN: '产品(可销售)',
-        zh_HK: '产品(可销售)'
-      }
+      name: { en_US: 'Products', zh_CN: '产品', zh_HK: '产品' }
     },
+
     {
-      action: 'product.product_product_action_purchasable',
-      id: 'odoo_product.product_product_action_purchasable',
+      action: 'product.attribute_action',
+      id: 'odoo_product.attribute_action',
       icon: 'shopping',
-      name: {
-        en_US: 'Products(Purchasable)',
-        zh_CN: '产品(可采购)',
-        zh_HK: '产品(可采购)'
-      }
+      name: { en_US: 'Products', zh_CN: '产品属性', zh_HK: '产品属性' }
     }
+
+    // {
+    //   action: 'product.product_product_action_sellable',
+    //   id: 'odoo_product.product_product_action_sellable',
+    //   icon: 'shopping',
+    //   name: {
+    //     en_US: 'Products(Sellable)',
+    //     zh_CN: '产品(可销售)',
+    //     zh_HK: '产品(可销售)'
+    //   }
+    // },
+    // {
+    //   action: 'product.product_product_action_purchasable',
+    //   id: 'odoo_product.product_product_action_purchasable',
+    //   icon: 'shopping',
+    //   name: {
+    //     en_US: 'Products(Purchasable)',
+    //     zh_CN: '产品(可采购)',
+    //     zh_HK: '产品(可采购)'
+    //   }
+    // }
   ]
 }
