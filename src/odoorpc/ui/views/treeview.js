@@ -161,7 +161,7 @@ export class TreeView extends TreeBaseView {
     super(action_id, { ...payload, type: 'tree' })
   }
 
-  async export_xlsx_all() {
+  async export_xlsx_all(tr) {
     const fields = Object.keys(this.fields)
       .filter(item => {
         const meta = this.fields[item]
@@ -170,7 +170,8 @@ export class TreeView extends TreeBaseView {
       .map(item => {
         const meta = this.fields[item]
         const { name, string: label, store, type } = meta
-        return { name, label, store, type }
+        console.log(name, label)
+        return { name, label: tr ? tr(label) : label, store, type }
       })
 
     console.log(fields)

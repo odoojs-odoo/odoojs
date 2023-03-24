@@ -3,6 +3,8 @@ import api from '@/odoorpc'
 
 import { useTreeColumns } from '@/components/tools/treeColumns'
 
+import { useL10n } from '@/components/tools/useL10n'
+
 // function sleep(millisecond) {
 //   return new Promise(resolve => {
 //     setTimeout(() => {
@@ -25,6 +27,8 @@ export function useTreeView(props) {
   // 5. async load data
   // 6. get records from data
   // 7. columns and records for tree view
+
+  const { tr } = useL10n()
 
   const localState = {
     treeview: null
@@ -117,7 +121,7 @@ export function useTreeView(props) {
 
   function onExportAll() {
     if (localState.treeview) {
-      localState.treeview.export_xlsx_all()
+      localState.treeview.export_xlsx_all(tr)
     }
   }
 
