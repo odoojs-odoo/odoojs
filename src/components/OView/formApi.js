@@ -3,15 +3,25 @@ import api from '@/odoorpc'
 
 import { useL10n } from '@/components/tools/useL10n'
 
-// res.users 需要 create, edit.
-// no -- delete
-
 function sleep(millisecond) {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve()
     }, millisecond)
   })
+}
+
+let global_debug = 0
+global_debug = 1
+
+export const try_call = async fn => {
+  // console.log('try_call')
+  if (global_debug) return { result: await fn() }
+  try {
+    return { result: await fn() }
+  } catch (error) {
+    return { error }
+  }
 }
 
 export function useForm(props, ctx) {
@@ -47,10 +57,18 @@ export function useForm(props, ctx) {
     }
   })
 
-  // const header_buttons = computed(() => {
-  //   return state.formviewReady && localState.formview
-  //     ? localState.formview.header_buttons(state.record, state.values)
-  //     : []
+  const headerButtons = computed(() => {
+    return state.formviewReady && localState.formview
+      ? localState.formview.header_buttons(state.record, state.values)
+      : []
+  })
+
+  // const archButtons = computed(() => {
+  //   if (!(state.formviewReady && localState.formview)) {
+  //     return []
+  //   } else {
+  //     return localState.formview.arch_buttons(state.record, state.values)
+  //   }
   // })
 
   const currentState = computed(() => {
@@ -65,6 +83,12 @@ export function useForm(props, ctx) {
     return state.formviewReady && localState.formview
       ? localState.formview.header_statusbar_visible(currentState.value)
       : []
+  })
+
+  const hasActive = computed(() => {
+    // 判断 存档和取消存档 菜单是否显示
+    const active = state.fields.active
+    return active ? true : false
   })
 
   const sheet = computed(() => {
@@ -87,6 +111,11 @@ export function useForm(props, ctx) {
     state.fields = localState.formview.fields
     state.viewInfo = localState.formview.view_info
     await sleep(100)
+  }
+
+  async function loadData(res_id) {
+    const record = await localState.formview.read(res_id)
+    state.record = record
   }
 
   // watch actionId, and get formview, load field
@@ -119,9 +148,7 @@ export function useForm(props, ctx) {
       if (!formviewFieldReady) return
       if (resId) {
         // await sleep(1000)
-        const record = await localState.formview.read(Number(resId))
-
-        state.record = record
+        await loadData(Number(resId))
         state.mVal = {}
         state.values = {}
         state.editable = false
@@ -308,6 +335,37 @@ export function useForm(props, ctx) {
     }
   }
 
+  async function onUnarchive() {
+    if (state.editable) {
+      return
+    }
+    if (!localState.formview) return
+
+    const res_id = state.record.id
+    await localState.formview.unarchive(res_id)
+    await loadData(res_id)
+  }
+
+  async function onArchive() {
+    if (state.editable) {
+      return
+    }
+    if (!localState.formview) return
+
+    const res_id = state.record.id
+    await localState.formview.archive(res_id)
+    await loadData(res_id)
+  }
+
+  // async handleOnCopy() {
+  //   const res_id = await this.view.copy(this.res_id)
+  //   const menu = this.$route.query.menu
+  //   const query = { menu, view_type: 'form', id: res_id }
+  //   const path = this.$route.path
+  //   this.$route.meta.editable = true
+  //   this.$router.push({ path, query })
+  // }
+
   function onClickCRUD(btn) {
     const btn_fns = {
       back: onClickBack,
@@ -317,13 +375,51 @@ export function useForm(props, ctx) {
       cancel: onClickCancel,
       del: onClickDel,
       //
-      unlink: 'onClickDel',
+      archive: onArchive,
+      unarchive: onUnarchive,
       copy: 'handleOnCopy',
-      archive: 'handleOnArchive',
-      unarchive: 'handleOnUnarchive'
+      unlink: 'onClickDel',
+      unlink_multi: '',
+      export: 'handleOnExport'
     }
 
     btn_fns[btn]()
+  }
+
+  async function onBtnClick(btn) {
+    // console.log(btn)
+    if (state.editable) {
+      return
+    }
+    if (!localState.formview) return
+
+    const { error, result } = await try_call(async () => {
+      return await localState.formview.button_clicked({
+        ...btn,
+        record: state.record
+      })
+    })
+
+    if (error) {
+      console.log('btn click2 error', [error, result])
+      throw error
+      // this.$error({ title: '用户错误', content: error.data.message })
+    } else {
+      if (!result) {
+        const res_id = state.record.id
+        await loadData(res_id)
+      } else {
+        // action name, string
+        console.log('todo ret action', result)
+        throw 'todo ret action'
+        //       const actionId = result
+        //       this.wizardAction = actionId
+        //       this.wizardVisible = true
+        //       //
+        //       // this._action_return(result)
+      }
+    }
+    // },
   }
 
   return {
@@ -340,6 +436,8 @@ export function useForm(props, ctx) {
       }
     }),
     buttons,
+    headerButtons,
+    hasActive,
     currentState,
     statusbarVisible,
     getRules,
@@ -347,76 +445,17 @@ export function useForm(props, ctx) {
     getInvisible,
     onChange,
     onClickCRUD,
-    onLoadReation
+    onLoadReation,
+    onBtnClick
   }
 }
 
-// old 代码
+// old 代码 for wizardview
 //
-
-// hasActive() {
-//   // 判断 存档和取消存档 菜单是否显示
-//   const active = this.fields.active
-//   return active ? true : false
-// }
-
-// async handleBtnClicked(btn) {
-//   if (this.editable) {
-//     return
-//   }
-
-//   const { error, result } = await try_call(async () => {
-//     return await this.view.button_clicked({
-//       ...btn,
-//       record: this.record
-//     })
-//   })
-
-//   if (error) {
-//     console.log('btn click2 error', [error, result])
-//     this.$error({ title: '用户错误', content: error.data.message })
-//   } else {
-//     if (!result) {
-//       const res_id = this.record.id
-//       this.load_data(res_id)
-//     } else {
-//       // action name, string
-//       console.log('todo ret action', result)
-//       const actionId = result
-
-//       this.wizardAction = actionId
-//       this.wizardVisible = true
-
-//       //
-//       // this._action_return(result)
-//     }
-//   }
-// },
 
 // handleWizardDone() {
 //   console.log('handleWizardDone')
 // },
-
-// async handleOnUnarchive() {
-//   const res_id = this.res_id
-//   await this.view.unarchive(res_id)
-//   await this.load_data(res_id)
-// },
-
-// async handleOnArchive() {
-//   const res_id = this.res_id
-//   await this.view.archive(res_id)
-//   await this.load_data(res_id)
-// },
-
-// async handleOnCopy() {
-//   const res_id = await this.view.copy(this.res_id)
-//   const menu = this.$route.query.menu
-//   const query = { menu, view_type: 'form', id: res_id }
-//   const path = this.$route.path
-//   this.$route.meta.editable = true
-//   this.$router.push({ path, query })
-// }
 
 // // form wizard
 // import { try_call } from '@/odoorpc/tools'
@@ -429,15 +468,7 @@ export function useForm(props, ctx) {
 //   }
 // },
 
-// arch_buttons() {
-//   if (!this.view) {
-//     return []
-//   }
-
-//   return this.view.arch_buttons(this.record, this.values)
-// }
-
-// async init() {
+// async wizardview_init() {
 //   // api
 //   console.log('init', this.action, this.actionIds)
 
@@ -469,7 +500,7 @@ export function useForm(props, ctx) {
 //   this.editable = true
 // },
 
-// async button_click(btn) {
+// async wizardview_button_click(btn) {
 //   console.log(btn)
 
 //   // await sleep(1000)

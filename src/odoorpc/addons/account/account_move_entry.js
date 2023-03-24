@@ -43,29 +43,43 @@ export default {
           // Post
           {
             name: 'action_post',
-            string: '过账',
+            string: 'Post',
             type: 'object',
             btn_type: 'primary',
+            // context="{'validate_analytic': True}"
+            context: { validate_analytic: true },
             invisible: ({ record }) => {
-              const { state, auto_post, move_type } = record
-              return state !== 'draft' || auto_post || move_type !== 'entry'
+              // attrs="{'invisible':
+              // ['|', ('hide_post_button', '=', True),
+              // ('move_type', '!=', 'entry')]}"/>
+
+              const { hide_post_button, move_type } = record
+
+              return hide_post_button || move_type !== 'entry'
             }
           },
           {
             name: 'action_post',
-            string: '确认',
+            string: 'Confirm',
             type: 'object',
             btn_type: 'primary',
+            // context="{'validate_analytic': True}"
+            context: { validate_analytic: true },
             invisible: ({ record }) => {
+              // 'invisible':
+              // ['|', '|',
+              // ('hide_post_button', '=', True),
+              // ('move_type', '=', 'entry'),
+              // ('display_inactive_currency_warning','=',True)]
+
               const {
-                state,
-                auto_post,
+                hide_post_button,
                 move_type,
                 display_inactive_currency_warning
               } = record
+
               return (
-                state !== 'draft' ||
-                auto_post ||
+                hide_post_button ||
                 move_type === 'entry' ||
                 display_inactive_currency_warning
               )
@@ -73,48 +87,56 @@ export default {
           },
 
           // Send (only invoices)
-          {
-            name: 'action_invoice_sent',
-            string: '发送和打印',
-            type: 'object',
-            btn_type: 'primary',
-            invisible: ({ record }) => {
-              const { state, is_move_sent, move_type } = record
-              return (
-                state !== 'posted' ||
-                is_move_sent ||
-                !['out_invoice', 'out_refund'].includes(move_type)
-              )
-            }
-          },
+          // {
+          //   name: 'action_invoice_sent',
+          //   string: '发送和打印',
+          //   type: 'object',
+          //   btn_type: 'primary',
+          //   invisible: ({ record }) => {
+          //     const { state, is_move_sent, move_type } = record
+          //     return (
+          //       state !== 'posted' ||
+          //       is_move_sent ||
+          //       !['out_invoice', 'out_refund'].includes(move_type)
+          //     )
+          //   }
+          // },
 
-          {
-            name: 'action_invoice_sent',
-            string: '发送和打印',
-            type: 'object',
-            invisible: ({ record }) => {
-              const { state, is_move_sent, move_type } = record
-              return (
-                state !== 'posted' ||
-                !is_move_sent ||
-                ![
-                  'out_invoice',
-                  'out_refund',
-                  'in_invoice',
-                  'in_refund'
-                ].includes(move_type)
-              )
-            }
-          },
+          // {
+          //   name: 'action_invoice_sent',
+          //   string: '发送和打印',
+          //   type: 'object',
+          //   invisible: ({ record }) => {
+          //     const { state, is_move_sent, move_type } = record
+          //     return (
+          //       state !== 'posted' ||
+          //       !is_move_sent ||
+          //       ![
+          //         'out_invoice',
+          //         'out_refund',
+          //         'in_invoice',
+          //         'in_refund'
+          //       ].includes(move_type)
+          //     )
+          //   }
+          // },
 
           // Register Payment (only invoices / receipts)
           {
             name: 'action_register_payment',
-            string: '登记付款',
+            string: 'Register Payment',
             type: 'object',
             btn_type: 'primary',
+            // context="{'dont_redirect_to_payments': True}"
             context: { dont_redirect_to_payments: true },
             invisible: ({ record }) => {
+              // attrs="{'invisible':
+              // ['|', '|', ('state', '!=', 'posted'),
+              // ('payment_state', 'not in', ('not_paid', 'partial')),
+              // ('move_type', 'not in', (
+              // 'out_invoice', 'out_refund', 'in_invoice', 'in_refund',
+              // 'out_receipt', 'in_receipt'))]}"
+
               const { state, payment_state, move_type } = record
               return (
                 state !== 'posted' ||
@@ -131,70 +153,82 @@ export default {
             }
           },
           // Preview (only customer invoices)
-          {
-            name: 'preview_invoice',
-            string: '预览',
-            type: 'object',
-            btn_type: 'primary',
-            invisible: ({ record }) => {
-              const { move_type } = record
-              return !['out_invoice', 'out_refund'].includes(move_type)
-            }
-          },
+          // {
+          //   name: 'preview_invoice',
+          //   string: '预览',
+          //   type: 'object',
+          //   btn_type: 'primary',
+          //   invisible: ({ record }) => {
+          //     const { move_type } = record
+          //     return !['out_invoice', 'out_refund'].includes(move_type)
+          //   }
+          // },
 
           // Reverse
 
-          {
-            name: 'action_view_account_move_reversal',
-            string: '冲红',
-            type: 'action',
-            invisible: ({ record }) => {
-              const { move_type, state, payment_state } = record
-              return (
-                move_type !== 'entry' ||
-                state !== 'posted' ||
-                payment_state === 'reversed'
-              )
-            }
-          },
+          // {
+          //   name: 'action_view_account_move_reversal',
+          //   string: '冲红',
+          //   type: 'action',
+          //   invisible: ({ record }) => {
+          //     const { move_type, state, payment_state } = record
+          //     return (
+          //       move_type !== 'entry' ||
+          //       state !== 'posted' ||
+          //       payment_state === 'reversed'
+          //     )
+          //   }
+          // },
 
-          {
-            name: 'action_reverse',
-            string: '反转',
-            type: 'object',
-            invisible: ({ record }) => {
-              const { move_type, state } = record
-              return (
-                !['out_invoice', 'in_invoice'].includes(move_type) ||
-                state !== 'posted'
-              )
-            }
-          },
+          // {
+          //   name: 'action_reverse',
+          //   string: '反转',
+          //   type: 'object',
+          //   invisible: ({ record }) => {
+          //     const { move_type, state } = record
+          //     return (
+          //       !['out_invoice', 'in_invoice'].includes(move_type) ||
+          //       state !== 'posted'
+          //     )
+          //   }
+          // },
 
           // Cancel
           {
             name: 'button_cancel',
-            string: '取消分录',
+            string: 'Cancel Entry',
             type: 'object',
             invisible: ({ record }) => {
+              // attrs="{'invisible' :
+              // ['|', '|', ('id', '=', False),
+              // ('state', '!=', 'draft'),('move_type', '!=', 'entry')]}"/>
+
               const { id: res_id, state, move_type } = record
               return !res_id || state !== 'draft' || move_type !== 'entry'
             }
           },
           {
             name: 'button_cancel',
-            string: '取消',
+
+            string: 'Cancel',
             type: 'object',
             invisible: ({ record }) => {
+              // attrs="{'invisible' :
+              // ['|', '|', ('id', '=', False),
+              //  ('state', '!=', 'draft'),
+              // ('move_type', '==', 'entry')]}"/>
               const { id: res_id, state, move_type } = record
               return !res_id || state !== 'draft' || move_type === 'entry'
             }
           },
           {
             name: 'button_draft',
-            string: '重置为草稿',
+            string: 'Reset to Draft',
             type: 'object',
             invisible: ({ record }) => {
+              // attrs="{'invisible' :
+              // [('show_reset_to_draft_button', '=', False)]}" data-hotkey="q" />
+
               const { show_reset_to_draft_button } = record
               return !show_reset_to_draft_button
             }
@@ -206,6 +240,8 @@ export default {
             string: '置为已检查',
             type: 'object',
             invisible: ({ record }) => {
+              // attrs="{'invisible' : [('to_check', '=', False)]}" data-hotkey="k" />
+
               const { to_check } = record
               return !to_check
             }

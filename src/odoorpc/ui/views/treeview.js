@@ -93,6 +93,15 @@ export class TreeBaseView extends BaseView {
     return { limit, offset }
   }
 
+  async read(ids) {
+    if (ids.length) {
+      const fields = this.fields_list
+      return this.Model.read(ids, { fields })
+    } else {
+      return []
+    }
+  }
+
   async search_read() {
     await this.searchview.load_search()
 
@@ -170,7 +179,6 @@ export class TreeView extends TreeBaseView {
       .map(item => {
         const meta = this.fields[item]
         const { name, string: label, store, type } = meta
-        console.log(name, label)
         return { name, label: tr ? tr(label) : label, store, type }
       })
 

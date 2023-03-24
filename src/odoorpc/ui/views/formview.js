@@ -267,6 +267,7 @@ export class FormView extends BaseView {
       }
 
       const record = this.merge_to_modifiers(record_in, values)
+
       return !btn.invisible({ record })
     })
 
@@ -334,22 +335,25 @@ export class FormView extends BaseView {
     // console.log(' clicked, object:', name, res)
     if (!res) return res
     else {
-      // console.log('button_clicked, return action ', name, record, res, context)
-      const action_info = await this.Model.call_button_after({
-        name,
-        record,
-        action: res
-      })
+      console.log('button_clicked, return action ', name, record, res, context)
+      throw 'todo ret action'
+      // const action_info = await this.Model.call_button_after({
+      //   name,
+      //   record,
+      //   action: res
+      // })
 
-      const { name: action_id, context: context_action } = action_info
+      // const { name: action_id, context: context_action } = action_info
 
-      const action = this.new_action(action_id, {
-        env: this.env,
-        context: context_action
-      })
-      // console.log('button_clicked, return action2 ', action.info)
+      // const action = this.new_action(action_id, {
+      //   env: this.env,
+      //   context: context_action
+      // })
+      // // console.log('button_clicked, return action2 ', action.info)
 
-      return action.info
+      // return action.info
+
+      //
       // return res
       // const ctx_active = this._active_context(info, { record })
       // const context2 = { ...ctx_action, ...ctx_node, ...ctx_active }

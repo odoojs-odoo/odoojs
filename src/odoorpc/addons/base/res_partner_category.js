@@ -7,7 +7,8 @@ export default {
     fields: {
       display_name: {},
       name: {},
-      parent_id: {}
+      parent_id: {},
+      active: { widget: 'boolean_toggle' }
       // color: {}
     }
   },

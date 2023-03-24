@@ -336,6 +336,12 @@ export class Model extends BaseModel {
     }
   }
 
+  // async call_button_after(action_info) {
+  //   // to overide
+  //   return action_info
+  //   // return this.Model.call_button_after(action_info)
+  // }
+
   //  bakup.  odoo13
 
   // static async onchange_for_odoo13(ids, values, field_name, field_onchange) {

@@ -39,8 +39,34 @@
     </template>
   </a-space>
 
+  <ActionButton
+    :has-delete="buttons.delete"
+    :has-active="hasActive"
+    @button-click="onClickCRUD(name)"
+  />
+
+  <div></div>
+
   <StatusBar :currentState="currentState" :states="statusbarVisible" />
 
+  <template v-if="!formInfo.editable">
+    <a-space
+      style="
+        float: right;
+        margin-right: 10px;
+        margin-top: 5px;
+        margin-bottom: 20px;
+      "
+    >
+      <template v-for="btn in headerButtons" :key="btn.name">
+        <a-button size="small" :type="btn.btn_type" @click="onBtnClick(btn)">
+          {{ btn.string }}
+        </a-button>
+      </template>
+    </a-space>
+  </template>
+
+  <div></div>
   <!-- :label-col="labelCol"
     :wrapper-col="wrapperCol" -->
   <a-form
@@ -106,7 +132,7 @@ import { useForm } from './formApi'
 import { useL10n } from '@/components/tools/useL10n'
 
 import StatusBar from './StatusBar.vue'
-
+import ActionButton from './ActionButton.vue'
 import OField from '@/components/OField/OField.vue'
 
 const router = useRouter()
@@ -114,21 +140,14 @@ const props = defineProps(['actionId', 'resId'])
 const editRef = ref()
 
 const { tr } = useL10n()
+const useData = useForm(props, { router, editRef })
+const { mVal, sheet, formInfo } = useData
+const { buttons, hasActive } = useData
 
-const {
-  mVal,
-  sheet,
-  formInfo,
-  buttons,
-  currentState,
-  statusbarVisible,
-  getRules,
-  getLabel,
-  getInvisible,
-  onChange,
-  onClickCRUD,
-  onLoadReation
-} = useForm(props, { router, editRef })
+const { headerButtons, currentState, statusbarVisible } = useData
+const { getRules, getLabel, getInvisible } = useData
+const { onChange, onClickCRUD, onLoadReation } = useData
+const { onBtnClick } = useData
 
 const record = computed(() => formInfo.value.record)
 function onClickDelConfirm() {

@@ -30,12 +30,24 @@
         </template>
       </a-button>
     </a-tooltip>
+
+    <ActionButton
+      v-if="activeIds.length"
+      :has-delete="buttons.delete"
+      :has-active="hasActive"
+      @button-click="onClickCRUD"
+    />
   </div>
 
   <a-table
+    row-key="id"
     :dataSource="records"
     :columns="columns"
     :pagination="pagination"
+    :row-selection="{
+      selectedRowKeys: activeIds,
+      onChange: onSelectChange
+    }"
     :customRow="tableCustomRow"
     @change="onTableChange"
     style="margin-top: 5px"
@@ -51,26 +63,20 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+import { defineProps, defineEmits, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTreeView } from './treeApi'
 
+import ActionButton from './ActionButton.vue'
 import SearchView from '@/components/OSearch/SearchView.vue'
 const router = useRouter()
 const props = defineProps(['actionId'])
 const emit = defineEmits(['search-change'])
-
-const {
-  records,
-  columns,
-  buttons,
-  pagination,
-  searchValues,
-  searchItems,
-  onTableChange,
-  onSearchChange,
-  onExportAll
-} = useTreeView(props, { emit })
+const useData = useTreeView(props, { emit })
+const { records, columns, pagination, buttons, hasActive } = useData
+const { searchValues, searchItems, onSearchChange } = useData
+const { onTableChange, activeIds, onSelectChange } = useData
+const { onClickCRUD, onExportAll } = useData
 
 function tableCustomRow(record) {
   const router = useRouter()

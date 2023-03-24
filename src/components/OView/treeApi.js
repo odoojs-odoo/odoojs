@@ -1,4 +1,4 @@
-import { watch, computed, reactive } from 'vue'
+import { watch, computed, reactive, ref } from 'vue'
 import api from '@/odoorpc'
 
 import { useTreeColumns } from '@/components/tools/treeColumns'
@@ -50,6 +50,8 @@ export function useTreeView(props) {
     records: []
   })
 
+  const activeIds = ref([])
+
   const buttons = computed(() => {
     // console.log(state.treeviewReady)
     //
@@ -60,6 +62,12 @@ export function useTreeView(props) {
     }
   })
 
+  const hasActive = computed(() => {
+    // 判断 存档和取消存档 菜单是否显示
+    const active = state.fields.active
+    return active ? true : false
+  })
+
   const { computedColumns } = useTreeColumns()
   const columns = computed(() => computedColumns(state.fields))
   const records = computed(() => state.records)
@@ -67,11 +75,29 @@ export function useTreeView(props) {
   const searchValues = computed(() => state.searchValues)
   const searchItems = computed(() => state.searchItems)
 
+  async function loadDataByIds() {
+    const treeview = localState.treeview
+    const ids = state.records.map(item => item.id)
+    const records = await treeview.read(ids)
+    state.records = records
+    const withRelationData = await treeview.relation_read(records)
+    state.records = withRelationData
+  }
+  async function loadData(treeview) {
+    const records = await treeview.search_read()
+    state.pagination = { ...treeview.pagination }
+    state.records = records
+    const withRelationData = await treeview.relation_read(records)
+    state.records = withRelationData
+  }
+
+  // watch actionId
   watch(
     () => props.actionId,
     async newVal => {
       state.treeviewReady = false
       localState.treeview = null
+      activeIds.value = []
 
       const treeview = api.env.treeview(newVal)
       // await sleep(1000)
@@ -89,14 +115,6 @@ export function useTreeView(props) {
     },
     { immediate: true }
   )
-
-  async function loadData(treeview) {
-    const records = await treeview.search_read()
-    state.pagination = { ...treeview.pagination }
-    state.records = records
-    const withRelationData = await treeview.relation_read(records)
-    state.records = withRelationData
-  }
 
   async function onTableChange(pagination) {
     if (localState.treeview) {
@@ -125,48 +143,61 @@ export function useTreeView(props) {
     }
   }
 
+  async function onUnarchive() {
+    if (!localState.treeview) return
+    const ids = activeIds.value
+    console.log(ids, ids.length)
+    await localState.treeview.unarchive(ids)
+    activeIds.value = []
+    loadDataByIds()
+  }
+
+  async function onArchive() {
+    if (!localState.treeview) return
+    const ids = activeIds.value
+
+    await localState.treeview.archive(ids)
+    activeIds.value = []
+    loadDataByIds()
+  }
+
+  async function onClickDel() {
+    if (!localState.treeview) return
+    const ids = activeIds.value
+    //   // console.log(' handleUnlink ', ids)
+    await localState.treeview.unlink(ids)
+    activeIds.value = []
+    loadData(localState.treeview)
+  }
+
+  const onSelectChange = keys => {
+    console.log('selectedRowKeys changed: ', keys)
+    activeIds.value = keys
+  }
+
+  function onClickCRUD(btn) {
+    const btn_fns = {
+      unlink: onClickDel,
+      archive: onArchive,
+      unarchive: onUnarchive
+    }
+    console.log([btn, btn_fns[btn]])
+    btn_fns[btn]()
+  }
+
   return {
     records,
     columns,
     buttons,
+    hasActive,
     pagination,
     searchValues,
     searchItems,
     onTableChange,
+    activeIds,
     onSearchChange,
-    onExportAll
+    onExportAll,
+    onSelectChange,
+    onClickCRUD
   }
 }
-
-// hasActive() {
-//   // 判断 存档和取消存档 菜单是否显示
-//   const active = this.fields.active
-//   return active ? true : false
-// }
-
-// handleOnRowSelect(activeIds) {
-//   this.activeIds = activeIds
-// },
-
-// async unlink() {
-//   const ids = this.activeIds
-//   // console.log(' handleUnlink ', ids)
-//   await this.treeview.unlink(ids)
-//   this.activeIds = []
-
-//   return true
-// },
-
-// async handleOnUnarchive() {
-//   const ids = this.activeIds
-//   await this.treeview.unarchive(ids)
-//   this.activeIds = []
-//   this.fresh_data()
-// },
-
-// async handleOnArchive() {
-//   const ids = this.activeIds
-//   await this.treeview.archive(ids)
-//   this.activeIds = []
-//   this.fresh_data()
-// }
