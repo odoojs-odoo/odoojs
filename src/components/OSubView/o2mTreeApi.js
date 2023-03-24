@@ -6,9 +6,7 @@ import { useTreeColumns } from '@/components/tools/treeColumns'
 export function useO2mTree(props) {
   const treeview = computed(() => {
     if (props.relationInfo) {
-      const rel = api.env.relation(props.relationInfo, {
-        parent: props.parentFormInfo.viewInfo
-      })
+      const rel = api.env.relation(props.relationInfo)
 
       return rel.tree
     }

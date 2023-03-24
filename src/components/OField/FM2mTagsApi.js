@@ -12,14 +12,13 @@ function get_record_for_modifiers(formInfo) {
     return view.merge_to_modifiers(formInfo.record, formInfo.values)
   } else if (formInfo.relationInfo) {
     const info = formInfo.relationInfo
-    const rel = api.env.relation(info.relation, { parent: info.parent })
+    const rel = api.env.relation(info.relation)
     const view = rel.form
 
-    // x2mform 需要额外的 parentData
     return view.merge_to_modifiers(
       formInfo.record,
       formInfo.values,
-      formInfo.parentData
+      formInfo.parentFormInfo
     )
   } else {
     return {}

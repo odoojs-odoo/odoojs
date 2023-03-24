@@ -1,28 +1,28 @@
 import controllers from './controllers'
-import { tuples_to_ids } from '@/odoorpc/tools'
+// import { tuples_to_ids } from '@/odoorpc/tools'
 
 const web = controllers.web
 
-function _date_format(date) {
-  const year = date.getFullYear().toString().padStart(4, '0')
-  const month = (date.getMonth() + 1).toString().padStart(2, '0')
-  const day = date.getDate().toString().padStart(2, '0')
+// function _date_format(date) {
+//   const year = date.getFullYear().toString().padStart(4, '0')
+//   const month = (date.getMonth() + 1).toString().padStart(2, '0')
+//   const day = date.getDate().toString().padStart(2, '0')
 
-  const hh = date.getHours().toString().padStart(2, '0')
-  const mm = date.getMinutes().toString().padStart(2, '0')
-  const ss = date.getSeconds().toString().padStart(2, '0')
+//   const hh = date.getHours().toString().padStart(2, '0')
+//   const mm = date.getMinutes().toString().padStart(2, '0')
+//   const ss = date.getSeconds().toString().padStart(2, '0')
 
-  const today_str = `${year}-${month}-${day} ${hh}:${mm}:${ss}`
-  return today_str
-}
+//   const today_str = `${year}-${month}-${day} ${hh}:${mm}:${ss}`
+//   return today_str
+// }
 
-function date_format(date) {
-  if (date && typeof date === 'object') {
-    return _date_format(date)
-  } else {
-    return date
-  }
-}
+// function date_format(date) {
+//   if (date && typeof date === 'object') {
+//     return _date_format(date)
+//   } else {
+//     return date
+//   }
+// }
 
 class MetaModel {
   constructor() {}
@@ -309,10 +309,7 @@ export class Model extends BaseModel {
     const result = await this.onchange([], values, [], field_onchange, {
       context
     })
-
-    const { value: value_ret, ...res } = result
-    const values_ret = { ...values, ...value_ret }
-    return { ...res, values: values_ret }
+    return result
   }
 
   static async web_onchange(...args) {

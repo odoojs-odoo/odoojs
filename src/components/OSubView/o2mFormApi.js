@@ -14,172 +14,134 @@ function sleep(millisecond) {
 export function useO2mForm(props, ctx) {
   const { tr } = useL10n()
 
-  const localState = { formview: null }
-
   const state = reactive({
-    formviewReady: false,
-    mVal: {},
-    values: {}
+    formview: undefined,
+    values: {},
+    mVal: {}
   })
+
+  function formview_edit_get() {
+    if (state.formview) {
+      return state.formview
+    }
+    const info = toRaw(props.relationInfo)
+    const rel = api.env.relation(info)
+    const formview = rel.form
+    state.formview = formview
+    return formview
+  }
+
+  function formview_get() {
+    const info = toRaw(props.relationInfo)
+    if (info) {
+      const rel = api.env.relation(info)
+      return rel.form
+    } else {
+      return
+    }
+  }
 
   const sheet = computed(() => {
-    return state.formviewReady
-      ? localState.formview.view_sheet()
-      : { children: {} }
+    const formview = formview_get()
+    return formview ? formview.view_sheet() : { children: {} }
   })
+
+  function getInvisible(fieldInfo) {
+    if (!fieldInfo.invisible) return undefined
+
+    if (typeof fieldInfo.invisible !== 'function') return fieldInfo.invisible
+
+    const formview = formview_get()
+    if (!formview) return undefined
+
+    const parentFormInfo = toRaw(props.parentFormInfo)
+
+    const record = formview.merge_to_modifiers(
+      props.record,
+      state.values,
+      parentFormInfo
+    )
+
+    return fieldInfo.invisible({ record })
+  }
 
   function getRules(fieldInfo) {
     if (props.readonly) return undefined
     if (!fieldInfo.required) return undefined
 
     function required_get() {
-      if (typeof fieldInfo.required !== 'function') {
-        return fieldInfo.required
-      }
+      const formview = formview_get()
+      if (!formview) return false
+      const parentFormInfo = toRaw(props.parentFormInfo)
+      const record = formview.merge_to_modifiers(
+        props.record,
+        state.values,
+        parentFormInfo
+      )
 
-      if (state.formviewReady && localState.formview) {
-        const view = localState.formview
-        const record = view.merge_to_modifiers(props.record, state.values, {
-          record: props.parentFormInfo.record,
-          values: props.parentFormInfo.values
-        })
-        return fieldInfo.required({ record })
-      }
+      if (typeof fieldInfo.required !== 'function') return fieldInfo.required
 
-      return false
+      return fieldInfo.required({ record })
     }
-
     const required = required_get()
 
     if (!required) return undefined
     return [{ required: true, message: `请输入${tr(fieldInfo.string)}!` }]
   }
 
-  function getInvisible(fieldInfo) {
-    if (!fieldInfo.invisible) return undefined
-    if (typeof fieldInfo.invisible !== 'function') {
-      return fieldInfo.invisible
-    }
-
-    if (state.formviewReady && localState.formview) {
-      const view = localState.formview
-      const record = view.merge_to_modifiers(props.record, state.values, {
-        record: props.parentFormInfo.record,
-        values: props.parentFormInfo.values
-      })
-
-      return fieldInfo.invisible({ record })
-    }
-
-    return
-  }
-
-  // load relationInfo
-  watch(
-    () => props.relationInfo,
-    // eslint-disable-next-line no-unused-vars
-    (newVal, oldVal) => {
-      // console.log(newVal, oldVal)
-
-      if (newVal) {
-        const rel = api.env.relation(newVal, {
-          parent: props.parentFormInfo.viewInfo
-        })
-        localState.formview = rel.form
-        state.formviewReady = true
-      }
-    },
-    { immediate: true }
-  )
-
-  // load visible
+  // load visible, values
   watch(
     () => props.visible,
     // eslint-disable-next-line no-unused-vars
     async (newVal, oldVal) => {
       // console.log(newVal, oldVal)
 
-      // o2mform 关闭. 复原数据. 下次打开时, 确保是显示新的数据
-      if (oldVal && !newVal) {
-        // console.log('clear')
-        state.formviewReady = false
-        state.mVal = {}
-        state.values = {}
-        return
-      }
-
-      // o2mform 关闭.
       if (!newVal) {
-        return
-      }
-
-      // o2mform 打开 , 检查 formview
-      if (!state.formviewReady) {
-        if (!props.relationInfo) return
-        const rel = api.env.relation(props.relationInfo, {
-          parent: props.parentFormInfo.viewInfo
-        })
-        localState.formview = rel.form
-        state.formviewReady = true
-      }
-
-      // o2mform 打开 , 只读
-      if (props.readonly) {
-        return
-      }
-
-      // o2mform 打开 , 编辑
-      if (props.record.id) {
-        // edit
-        const formview = localState.formview
-        const values = formview.set_editable(props.record, {
-          record: props.parentFormInfo.record,
-          values: props.parentFormInfo.values
-        })
-        // console.log('values', values)
+        // o2mform 关闭.
         state.values = {}
-        state.mVal = { ...values }
-      }
+      } else {
+        await sleep(100)
+        state.values = { ...props.values }
+        await sleep(100)
 
-      // o2mform 打开 , 新增
-      else {
-        // console.log('o2m form new ')
-        const formview = localState.formview
-        const dataInfo = await formview.onchange_new({
-          record: toRaw(props.parentFormInfo.record),
-          values: toRaw(props.parentFormInfo.values)
-        })
-        const { values } = dataInfo
-
-        // console.log('o2m form new, ok ', values)
-
-        state.mVal = values
-        state.values = values
+        if (props.record.id) {
+          // 编辑
+          set_editable()
+        } else {
+          // 新增
+          onchange_new()
+        }
       }
     },
     { immediate: true }
   )
 
-  function formview_get() {
-    // 页面  relation load 之后, 更新 主表的 formview
-    // 主表 formview info 重新加载, 并通过参数 更新到 o2mform
-    // 此函数, 更新 x2mform 的信息
-    if (!state.formviewReady) return
-    const formview = localState.formview
+  function set_editable() {
+    const formview = formview_edit_get()
+    const vals = formview.set_editable(toRaw(props.record), toRaw(state.values))
 
-    formview.update_info(toRaw(props.relationInfo), {
-      parent: toRaw(props.parentFormInfo.viewInfo)
-    })
-
-    return formview
+    state.mVal = { ...vals }
   }
 
+  async function onchange_new() {
+    const formview = formview_edit_get()
+    const vals = formview.set_editable({}, {})
+
+    state.mVal = { ...vals }
+    const parentFormInfo = toRaw(props.parentFormInfo)
+    const result = await formview.onchange_new(parentFormInfo)
+
+    const { values: values2 = {} } = result
+    state.values = values2
+    state.mVal = { ...state.mVal, ...values2 }
+  }
   async function onChange(fname, value) {
-    const formview = formview_get()
+    const formview = formview_edit_get()
     if (!formview) return
 
-    const result = await formview.onchange(fname, value)
-    // console.log('o2m handleChange ok', fname, value, result)
+    const parentFormInfo = toRaw(props.parentFormInfo)
+    const result = await formview.onchange(fname, value, parentFormInfo)
+
     const { values: values2 = {} } = result
     state.values = values2
     state.mVal = { ...state.mVal, ...values2 }
@@ -191,7 +153,7 @@ export function useO2mForm(props, ctx) {
 
   async function commit() {
     // console.log('commit subform')
-    const formview = formview_get()
+    const formview = formview_edit_get()
     if (!formview) return
 
     const result = await formview.commit(async done => {
@@ -209,33 +171,22 @@ export function useO2mForm(props, ctx) {
     return result
   }
 
-  // const fields = computed(() => {
-  //   return state.formviewReady ? localState.formview.fields : {}
-  // })
-
   return {
+    mVal: computed(() => state.mVal),
     sheet,
     formInfo: computed(() => {
-      // console.log('o2m, props:', toRaw(props), toRaw(localState.formview))
       const parentFormInfo = toRaw(props.parentFormInfo)
       return {
-        parentData: {
-          record: parentFormInfo.record,
-          values: parentFormInfo.values
-        },
-        relationInfo: {
-          relation: toRaw(props.relationInfo),
-          parent: parentFormInfo.viewInfo
-        },
+        parentFormInfo: toRaw(parentFormInfo),
+        relationInfo: toRaw(props.relationInfo),
         record: toRaw(props.record),
         values: toRaw(state.values),
         editable: !props.readonly
       }
     }),
 
-    mVal: computed(() => state.mVal),
-    getRules,
     getInvisible,
+    getRules,
     onChange,
     commit
   }

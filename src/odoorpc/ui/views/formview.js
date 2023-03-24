@@ -37,10 +37,6 @@ export class FormView extends BaseView {
     this._fields_info = { ...this._fields_info, ...relations }
   }
 
-  _edit_model_get(record = {}, values = {}) {
-    return new EditModel({ viewmodel: this, record, values })
-  }
-
   async _read_one(res_id) {
     const Model = this.Model
     const fields1 = this.fields_list
@@ -384,12 +380,12 @@ export class FormView extends BaseView {
 
   async onchange_new(kwargs) {
     // kwargs 中 可能包含 context
-    this.edit_model = this._edit_model_get()
+    this.edit_model = new EditModel(this)
     return this.edit_model.onchange_new(kwargs)
   }
 
   set_editable(record) {
-    this.edit_model = this._edit_model_get()
+    this.edit_model = new EditModel(this)
     return this.edit_model.set_editable(record)
   }
 
@@ -429,8 +425,13 @@ export class FormView extends BaseView {
     return Object.keys(record).reduce((acc, fld) => {
       const meta = this.fields[fld] || {}
       const val = record[fld]
-      if (meta.type === 'many2many' || meta.type === 'one2many') {
+      if (meta.type === 'many2many') {
         acc[fld] = tuples_to_ids(val)
+      } else if (meta.type === 'one2many') {
+        const rel = this.env.relation(meta)
+        // console.log(fld, meta)
+        const val2 = rel.tree.format_to_onchange(val)
+        acc[fld] = val2
       } else if (meta.type === 'many2one') {
         acc[fld] = val ? val[0] : val
       } else {
@@ -450,7 +451,7 @@ export class FormView extends BaseView {
         if (!val.length) {
           acc[fld] = val
         } else {
-          const rel = this.env.relation(meta, { parent: this.view_info })
+          const rel = this.env.relation(meta)
           if (rel) {
             // console.log('format_to_onchange', fld, val, rel)
             const val2 = rel.tree.format_to_onchange(val)
@@ -519,11 +520,16 @@ export class FormView extends BaseView {
         if (!val.length) {
           acc[fld] = val
         } else {
-          const rel = this.env.relation(meta, { parent: this.view_info })
+          const rel = this.env.relation(meta)
 
           if (rel) {
             // console.log('format_to_write in o2m', fld, val)
-            const val2 = rel.tree.format_to_write(val, { record, values })
+            const val2 = rel.tree.format_to_write(val, {
+              record,
+              values,
+              viewInfo: this.view_info,
+              fields: this.fields
+            })
             // console.log('format_to_write in o2m ok ', fld, val2)
             // 1. merge, 2 转 格式
             // [4,id,{}]  =>  [4,id]

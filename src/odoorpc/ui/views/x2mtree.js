@@ -54,20 +54,20 @@ export class X2mTree extends X2mTreeBase {
     super(field_info, { ...payload, type: 'tree' })
   }
 
-  async read(ids) {
+  async read(ids, kw = {}) {
     // console.log('X2mTree read: ', ids, this.field_info)
+    const { parentInfo } = kw
+    const context = this.context_get(parentInfo)
 
     const fields_tree = this.fields
     const fields_form = this.field_info.views.form.fields
     const fields_list = Object.keys({ ...fields_tree, ...fields_form })
 
-    // console.log('X2mTree read: ', ids, fields_list)
-
-    // const fields_list = this.fields_list
-    const res = await this.Model.read(ids, fields_list)
+    const res = await this.Model.read(ids, { fields: fields_list, context })
     // console.log('X2mTree read: ', ids, res)
     return res
   }
+
   async search_read(domain = []) {
     const fields = this.fields_list
     const res = await this.Model.search_read({ domain, fields })
@@ -134,7 +134,7 @@ export class X2mTree extends X2mTreeBase {
     }, [])
   }
 
-  format_to_write(records, parentData) {
+  format_to_write(records, parentFormInfo) {
     // const tuples_all = this.merge_tuples(records)
     const dict_read = records.reduce((acc, item) => {
       if (item[0] === 4) {
@@ -158,8 +158,8 @@ export class X2mTree extends X2mTreeBase {
           // console.log('o2mtree, format_to_write 1', this.relation.form)
           // console.log('o2mtree, format_to_write 2', rid, rec, vals)
 
-          const x2mrom = this.relation.form
-          const vals2 = x2mrom.merge_to_write(rec, vals, parentData)
+          const x2mfrom = this.relation.form
+          const vals2 = x2mfrom.merge_to_write(rec, vals, parentFormInfo)
           // console.log('o2mtree, format_to_write 2', vals2)
 
           return [op, rid, vals2]
@@ -282,9 +282,14 @@ export class X2mTree extends X2mTreeBase {
 
   pick_one(records, res_id) {
     const data = records.filter(item => item[1] === res_id)
-    const record_list = this.format_to_display(data)
+    const list_read = data.filter(item => item[0] === 4)
+    const list_edit = data.filter(item => item[0] !== 4)
+    const record_list = this.format_to_display(list_read)
     const record = record_list.length ? record_list[0] : {}
-    return record
+    const values_list = this.format_to_display(list_edit)
+    const values = values_list.length ? values_list[0] : {}
+
+    return { record, values }
   }
 
   remove_one(records, res_id) {
@@ -300,7 +305,7 @@ export class X2mTree extends X2mTreeBase {
       if (!res_id) {
         return [0, virtualHelper.virtual_id(), value]
       } else {
-        if (virtualHelper.is_virtual()) {
+        if (virtualHelper.is_virtual(res_id)) {
           return [0, res_id, value]
         } else {
           return [1, res_id, value]

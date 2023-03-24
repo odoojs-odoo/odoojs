@@ -37,10 +37,9 @@ const date_tools = {
 
 export class Field {
   constructor(field_info, payload) {
-    const { env, parent } = payload
+    const { env } = payload
     this._field_info = field_info
     this._env = env
-    this._parent_info = parent
   }
 
   get field_info() {
@@ -51,74 +50,69 @@ export class Field {
     return this._env
   }
 
-  check_readonly(parentInfo) {
-    const { record, values, parentData } = parentInfo
-    const par = this.parent
-    const record3 = par.merge_to_modifiers(record, values, parentData)
-    return this.readonly_get({ record: record3 })
+  formview_get(formInfo) {
+    // todo 检查是 form 还是 o2mform
+    if (formInfo.viewInfo) {
+      const { fields, viewInfo } = formInfo
+      const { action } = viewInfo
+      return this.env.formview(action, { fields })
+    } else if (formInfo.relationInfo) {
+      const info = formInfo.relationInfo
+      const rel = this.env.relation(info.relation)
+      return rel.form
+    } else {
+      return undefined
+    }
   }
 
-  // 逐步淘汰中
-  readonly_get({ record }) {
+  //
+  check_readonly(formInfo) {
     const meta = this._field_info
+    // console.log(meta, formInfo)
 
+    const formview_record_get = () => {
+      const formview = this.formview_get(formInfo)
+      if (!formview) {
+        return {}
+      }
+      const { record, values, parentFormInfo } = formInfo
+      const record3 = formview.merge_to_modifiers(
+        record,
+        values,
+        parentFormInfo
+      )
+      return record3
+    }
     if ('readonly2' in meta) {
       if (typeof meta.readonly2 === 'function') {
+        const record = formview_record_get()
         return meta.readonly2({ record })
       } else {
         return meta.readonly2
       }
     }
 
+    const record = formview_record_get()
+
     if (typeof meta.readonly === 'function') {
       return meta.readonly({ record })
-    }
-
-    return _get_readonly(this._field_info, record.state)
-  }
-
-  get parent_info() {
-    return this._parent_info
-  }
-
-  get parent() {
-    const info = this.parent_info
-    // relation
-
-    if (info.action) {
-      const { action, view } = info
-      const { fields } = view
-
-      return this.env.formview(action, { fields })
-    } else if (info.relation) {
-      //
-      // console.log('todo, check fromview or o2mformview', info)
-      const rel = this.env.relation(info.relation, { parent: info.parent })
-      return rel.form
-      // throw 'error'
     } else {
-      console.log('todo, check fromview or o2mformview', info)
-      // throw 'error'
-      return undefined
+      return _get_readonly(this._field_info, record.state)
     }
   }
 
+  // todo check
   image_url_get(res_id) {
     // /web/image?model=res.partner&id=1&field=avatar_128&unique=20220618071125
-
-    const baseURL = this.env.baseURL
-    const odooImageURL = '/web/image'
-
-    const pview = this.parent
-    const model = pview.res_model
-    const fname = this.field_info.name
-
-    const unique = date_tools.now_unique()
-    const url = `${baseURL}${odooImageURL}?model=${model}&id=${res_id}&field=${fname}&unique=${unique}`
-
-    console.log(odooImageURL, model, fname, unique, url)
-
-    return url
+    // const baseURL = this.env.baseURL
+    // const odooImageURL = '/web/image'
+    // const pview = this.parent
+    // const model = pview.res_model
+    // const fname = this.field_info.name
+    // const unique = date_tools.now_unique()
+    // const url = `${baseURL}${odooImageURL}?model=${model}&id=${res_id}&field=${fname}&unique=${unique}`
+    // console.log(odooImageURL, model, fname, unique, url)
+    // return url
   }
 }
 
@@ -255,24 +249,15 @@ export class Relation extends Field {
   }
 
   get kanban() {
-    return new X2mKanban(this.field_info, {
-      env: this.env,
-      parent: this._parent_info
-    })
+    return new X2mKanban(this.field_info, { env: this.env })
   }
 
   get tree() {
-    return new X2mTree(this.field_info, {
-      env: this.env,
-      parent: this._parent_info
-    })
+    return new X2mTree(this.field_info, { env: this.env })
   }
 
   get form() {
-    return new X2mForm(this.field_info, {
-      env: this.env,
-      parent: this._parent_info
-    })
+    return new X2mForm(this.field_info, { env: this.env })
   }
 
   async name_get(ids) {

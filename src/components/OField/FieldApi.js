@@ -9,13 +9,10 @@ export function useField(props, ctx) {
       return true
     }
 
-    const parentInfo =
-      toRaw(props.formInfo.viewInfo) ||
-      toRaw(props.formInfo.relationInfo) ||
-      undefined
-
-    const fapi = api.env.field(toRaw(props.fieldInfo), { parent: parentInfo })
-    return fapi.check_readonly({ ...props.formInfo })
+    const fapi = api.env.field(toRaw(props.fieldInfo))
+    const formInfo = toRaw(props.formInfo)
+    // console.log(props.fieldName, formInfo)
+    return fapi.check_readonly({ ...formInfo })
   })
 
   const dVal = computed(() => {

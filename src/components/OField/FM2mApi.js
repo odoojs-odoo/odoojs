@@ -1,4 +1,4 @@
-import { computed, watch, reactive, ref } from 'vue'
+import { computed, watch, reactive, ref, toRaw } from 'vue'
 import { useField } from './FieldApi'
 
 import api from '@/odoorpc'
@@ -48,9 +48,7 @@ export function useFM2m(props, ctx) {
   })
 
   async function loadRelationInfo() {
-    const relation = api.env.relation(props.fieldInfo, {
-      parent: props.formInfo.viewInfo
-    })
+    const relation = api.env.relation(props.fieldInfo)
     localState.relation = relation
     state.relationReady = true
 
@@ -78,9 +76,10 @@ export function useFM2m(props, ctx) {
     if (!info) {
       return
     }
-    const relation = api.env.relation(info, { parent: props.formInfo.viewInfo })
+    const parentInfo = toRaw(props.formInfo)
+    const relation = api.env.relation(info)
     const treeview = relation.tree
-    const records = await treeview.read(ids)
+    const records = await treeview.read(ids, { parentInfo })
     const res = records.reduce((acc, cur) => {
       acc[cur.id] = cur
       return acc
@@ -118,7 +117,7 @@ export function useFM2m(props, ctx) {
 
     const domain = ['!', ['id', 'in', valueDisplay.value]]
 
-    const relation = api.env.relation(info, { parent: props.formInfo.viewInfo })
+    const relation = api.env.relation(info)
     const treeview = relation.tree
     const records = await treeview.search_read(domain)
     state.treeOptionRecords = records

@@ -619,90 +619,97 @@ export default {
           // }
         },
 
-        // _group_invoice_tab: {
-        //   _span: 2,
-        //   invoice_line_ids: {
-        //     widget: 'x2many_tree',
-        //     invisible: ({ record }) => {
-        //       const { move_type } = record
-        //       return move_type === 'entry'
-        //     },
+        _group_invoice_tab: {
+          _span: 2,
+          invoice_line_ids: {
+            widget: 'x2many_tree',
+            invisible: ({ record }) => {
+              // 'invisible': [('move_type', '=', 'entry')]
+              const { move_type } = record
+              return move_type === 'entry'
+            },
 
-        //     context: ({ record }) => {
-        //       const {
-        //         context,
-        //         journal_id,
-        //         commercial_partner_id,
-        //         currency_id,
-        //         company_currency_id
-        //       } = record
+            context: ({ record }) => {
+              //   context="{
+              //     'default_move_type': context.get('default_move_type'),
+              //     'journal_id': journal_id,
+              //     'default_partner_id': commercial_partner_id,
+              //     'default_currency_id': currency_id or company_currency_id,
+              //     'default_display_type': 'product',
+              //     'quick_encoding_vals': quick_encoding_vals,
+              // }"
 
-        //       return {
-        //         default_move_type: context.default_move_type,
-        //         journal_id,
-        //         default_partner_id: commercial_partner_id,
-        //         default_currency_id: currency_id || company_currency_id
-        //       }
-        //     },
+              const {
+                context,
+                journal_id,
+                commercial_partner_id,
+                currency_id,
+                company_currency_id,
+                quick_encoding_vals
+              } = record
 
-        //     views: {
-        //       tree: {
-        //         fields: {
-        //           sequence: {},
-        //           product_id: {},
-        //           name: {},
-        //           account_id: {},
-        //           analytic_account_id: {},
-        //           analytic_tag_ids: {},
-        //           quantity: {},
-        //           product_uom_id: {},
-        //           price_unit: {},
-        //           discount: {},
-        //           tax_ids: { widget: 'many2many_tags' },
-        //           price_subtotal: {},
-        //           price_total: {}
-        //         }
-        //       },
-        //       form: {
-        //         fields: {
-        //           product_uom_category_id: { invisible: 1 },
-        //           display_type: { invisible: 1 },
-        //           parent_state: { invisible: 1 },
+              return {
+                default_move_type: context.default_move_type,
+                journal_id,
+                default_partner_id: commercial_partner_id,
+                default_currency_id: currency_id || company_currency_id,
+                default_display_type: 'product',
+                quick_encoding_vals: quick_encoding_vals
+              }
+            },
 
-        //           partner_id: { invisible: 1 },
-        //           company_id: { invisible: 1 },
-        //           debit: { invisible: 1 },
-        //           credit: { invisible: 1 },
-
-        //           product_id: {},
-        //           quantity: {},
-
-        //           product_uom_id: {},
-        //           price_unit: {},
-        //           discount: {},
-        //           currency_id: { invisible: 1 },
-        //           analytic_tag_ids: { widget: 'many2many_tags' },
-        //           account_id: {
-        //             readonly2: '1',
-        //             domain: ({ record }) => {
-        //               const { company_id } = record
-        //               return [['company_id', '=', company_id]]
-        //             }
-        //           },
-
-        //           tax_ids: { widget: 'many2many_tags' },
-        //           analytic_account_id: {},
-        //           name: {},
-
-        //           price_subtotal: {},
-        //           price_total: {},
-
-        //           sequence: {}
-        //         }
-        //       }
-        //     }
-        //   }
-        // },
+            views: {
+              tree: {
+                fields: {
+                  // sequence: {},
+                  // product_id: {},
+                  name: {}
+                  // account_id: {},
+                  // analytic_account_id: {},
+                  // analytic_tag_ids: {},
+                  // quantity: {},
+                  // product_uom_id: {},
+                  // price_unit: {},
+                  // discount: {},
+                  // tax_ids: { widget: 'many2many_tags' },
+                  // price_subtotal: {},
+                  // price_total: {}
+                }
+              },
+              form: {
+                fields: {
+                  // product_uom_category_id: { invisible: 1 },
+                  // display_type: { invisible: 1 },
+                  // parent_state: { invisible: 1 },
+                  // partner_id: { invisible: 1 },
+                  // company_id: { invisible: 1 },
+                  // debit: { invisible: 1 },
+                  // credit: { invisible: 1 },
+                  // product_id: {},
+                  // quantity: {},
+                  // product_uom_id: {},
+                  // price_unit: {},
+                  // discount: {},
+                  // currency_id: { invisible: 1 },
+                  // analytic_tag_ids: { widget: 'many2many_tags' },
+                  // account_id: {
+                  //   readonly2: '1',
+                  //   domain: ({ record }) => {
+                  //     const { company_id } = record
+                  //     return [['company_id', '=', company_id]]
+                  //   }
+                  // },
+                  // tax_ids: { widget: 'many2many_tags' },
+                  // analytic_account_id: {},
+                  name: {}
+                  // price_subtotal: {},
+                  // price_total: {},
+                  // sequence: {}
+                }
+              }
+            }
+          }
+        },
 
         // _group_invoice_lines_tab_note: {
         //   narration: {}
@@ -734,8 +741,8 @@ export default {
             context: ({ record }) => {
               const {
                 context,
-                // line_ids,
-                // journal_id,
+                line_ids,
+                journal_id,
                 commercial_partner_id,
                 currency_id,
                 company_currency_id
@@ -752,8 +759,8 @@ export default {
 
               return {
                 default_move_type: context.default_move_type,
-                // line_ids,
-                // journal_id,
+                line_ids,
+                journal_id,
                 default_partner_id: commercial_partner_id,
                 default_currency_id: currency_id || company_currency_id
               }

@@ -33,7 +33,6 @@ const props = defineProps([
   'parentFormInfo'
 ])
 const emit = defineEmits(['row-click', 'row-new'])
-// eslint-disable-next-line no-unused-vars
 
 const { columns } = useO2mTree(props)
 

@@ -33,9 +33,7 @@ export function useFO2m(props, ctx) {
   })
 
   async function loadRelationInfo() {
-    const relation = api.env.relation(props.fieldInfo, {
-      parent: props.formInfo.viewInfo
-    })
+    const relation = api.env.relation(props.fieldInfo)
 
     localState.relation = relation
     state.relationReady = true
@@ -66,11 +64,15 @@ export function useFO2m(props, ctx) {
     if (!info) {
       return
     }
-    const relation = api.env.relation(info, { parent: props.formInfo.viewInfo })
-    // console.log(props.formInfo)
-    const treeview = relation.tree
-    const records = await treeview.read(ids)
-    state.records = treeview.format_to_tuples(records)
+    if (!ids.length) {
+      return
+    } else {
+      const relation = api.env.relation(info)
+      const parentInfo = toRaw(props.formInfo)
+      const treeview = relation.tree
+      const records = await treeview.read(ids, { parentInfo })
+      state.records = treeview.format_to_tuples(records)
+    }
 
     // 主表 新增, 从表 o2m 字段有默认值时, 执行 以下代码. 待处理 todo 2023-2-13
     //   // if (for_new) {
@@ -129,14 +131,23 @@ export function useFO2m(props, ctx) {
     state.records = records
   }
 
-  function rowPick(row) {
+  function rowPick(row = {}) {
     if (!state.relationFieldReady) {
       // raise error
-      return
+      return { record: {}, values: {} }
     }
     const treeview = localState.relation.tree
     const one = treeview.pick_one(toRaw(state.records), row.id)
     return one
+  }
+
+  async function rowNew() {
+    if (!state.relationFieldReady) {
+      // raise error
+      return { record: {}, values: {} }
+    }
+    // 在 o2mForm 中 触发 onchange new
+    return { record: {}, values: {} }
   }
 
   function rowRemove(row) {
@@ -171,6 +182,7 @@ export function useFO2m(props, ctx) {
     relationInfo,
     treeRecords,
     rowPick,
+    rowNew,
     rowCommit,
     rowRemove
   }

@@ -1,38 +1,37 @@
 export class X2mBase {
   constructor(field_info, payload) {
-    const { env, type, parent } = payload
+    const { env, type } = payload
     this._type = type
     this._env = env
     this._field_info = field_info
-    this._parent_info = parent
   }
 
-  get parent_info() {
-    return this._parent_info
+  parent_get(parentInfo) {
+    const { fields, viewInfo } = parentInfo
+    const { action } = viewInfo
+    return this.env.formview(action, { fields })
   }
 
-  get parent() {
-    const info = this.parent_info
-
-    if (info.action) {
-      const { action, view } = info
-      const { fields } = view
-      return this.env.formview(action, { fields })
-      // const env = this.env
-      // return new FormView(action, { env, fields })
-    } else if (info.relation) {
-      console.log('todo, check is o2mfromview', info)
-      const rel = this.env.relation(info.relation, { parent: info.parent })
-      return rel.form
-    } else {
-      return undefined
+  // todo 嵌套 o2m
+  // o2xtree,  读数据, 需要 context
+  // o2xform oncgange 需要 context
+  context_get(parentInfo) {
+    // console.log('X2mTree context_get: ', parentInfo)
+    const context_fn = this.field_info.context
+    const prt = this.parent_get(parentInfo)
+    const context = prt.context
+    if (typeof context_fn !== 'function') {
+      return { ...context, ...(context_fn || {}) }
     }
+    const { record, values } = parentInfo
+    const parent_record = prt.merge_to_modifiers(record, values)
+    const env = this.env
+    const ctx = context_fn({ env, record: { ...parent_record, context } })
+    return { ...context, ...ctx }
   }
 
   get relation() {
-    return this.env.relation(this.field_info, {
-      parent: this.parent_info
-    })
+    return this.env.relation(this.field_info)
   }
 
   get field_info() {

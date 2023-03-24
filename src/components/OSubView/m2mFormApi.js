@@ -30,9 +30,7 @@ export function useM2mForm(props) {
       // console.log(newVal, oldVal)
 
       if (newVal) {
-        const rel = api.env.relation(newVal, {
-          parent: props.parentFormInfo.viewInfo
-        })
+        const rel = api.env.relation(newVal)
         localState.formview = rel.form
         state.formviewReady = true
       }
@@ -54,9 +52,7 @@ export function useM2mForm(props) {
       }
       if (!state.formviewReady) {
         if (!props.relationInfo) return
-        const rel = api.env.relation(props.relationInfo, {
-          parent: props.parentFormInfo.viewInfo
-        })
+        const rel = api.env.relation(props.relationInfo)
         localState.formview = rel.form
         state.formviewReady = true
       }

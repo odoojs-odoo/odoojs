@@ -44,12 +44,10 @@ const is_virtual_id = id_ =>
 const cp = val => JSON.parse(JSON.stringify(val))
 
 class EditBase {
-  constructor(payload = {}) {
-    const { viewmodel, record = {}, values = {} } = payload
-
+  constructor(viewmodel) {
     this.viewmodel = viewmodel
-    this.record = { ...record }
-    this.values = { ...values }
+    this.record = {}
+    this.values = {}
 
     this.changeQueue = new ChangeQueue()
   }
@@ -59,8 +57,8 @@ class EditBase {
   }
 
   // formview and  o2mform 使用同一个 onchange 函数
-  async onchange(fname, value) {
-    const result = this.web_onchange(fname, value)
+  async onchange(fname, value, kwargs) {
+    const result = this.web_onchange(fname, value, kwargs)
     this.changeQueue.append(result)
     return result
   }
@@ -74,11 +72,11 @@ class EditBase {
     await this.changeQueue.wait_call()
   }
 
-  async web_onchange(fname, value) {
+  async web_onchange(fname, value, kwargs) {
     //  等待其他 任务完成
     await this._wait()
     // await sleep(3000)
-    const res = await this._web_onchange(fname, value)
+    const res = await this._web_onchange(fname, value, kwargs)
     return res
   }
 
@@ -189,70 +187,15 @@ export class EditModel extends EditBase {
 export class EditX2m extends EditBase {
   constructor(payload = {}) {
     super(payload)
-    // todo,  parentData
-    const { parentData } = payload
-    this.parentData = parentData
   }
 
-  get context() {
-    return this.viewmodel.context_get(this.parentData)
-  }
-
-  context_get(parentData) {
-    return this.viewmodel.context_get(parentData)
-  }
-
-  _values_with_parent(parentData) {
-    const parent = this.viewmodel.parent
-
-    const { relation_field } = this.viewmodel.field_info
-
-    const { record, values } = parentData
-
-    const parent_values = parent.merge_to_onchange(record, values)
-
-    const values2 = { [relation_field]: parent_values }
-
-    return values2
-  }
-
-  async onchange_new(parentData) {
-    const context = this.context_get(parentData)
-    const values = this._values_with_parent(parentData)
-
-    const Model = this.Model
-    const result = await Model.web_onchange_new(values, { context })
-
-    const { values: values_ret } = result
-    // const { values_for_write } = result
-    this.record = {}
-    this.values = { ...values_ret }
-    // this.values = { ...values_for_write }
-    this.parentData = { ...parentData }
-    const values2 = { ...values_ret }
-    const { relation_field } = this.viewmodel.field_info
-    delete values2[relation_field]
-    return { record: {}, ...result, values: { ...values2 } }
-  }
-
-  set_editable(record, parentData) {
-    //
-    const values = this._values_with_parent(parentData)
-
+  set_editable(record, values) {
     this.record = { ...record }
     this.values = { ...values }
-    this.parentData = { ...parentData }
     return this.viewmodel.merge_data(this.record, this.values)
   }
 
-  update_info() {
-    const parentData = this.parentData
-
-    const values = this._values_with_parent(parentData)
-
-    this.values = { ...this.values, ...values }
-  }
-
+  // used by _values_with_parent
   _x2m_tuple_get() {
     const res_id = this.record.id
     const values = this.values
@@ -274,13 +217,13 @@ export class EditX2m extends EditBase {
     return vals
   }
 
-  //
+  // used by _values_with_parent
   // todo . 用到了 commit
   // o2m 数据提交后, 将数据更新到 父亲模型
   _update_parent() {
     console.log('todo _update_parent')
 
-    const { record, values } = this.parentData
+    const { record, values } = this.parentData2
     const field_info = this.viewmodel.field_info
     //
     const { name: fname } = field_info
@@ -295,54 +238,69 @@ export class EditX2m extends EditBase {
       value
     ]
 
-    this.parentData = {
-      ...this.parentData,
+    this.parentData2 = {
+      ...this.parentData2,
       values: { ...values, [fname]: values_write }
     }
   }
 
-  async _web_onchange(fname, value) {
-    // todo. o2m onchange. 携带参数 parentData
+  _values_with_parent(parentFormInfo) {
+    const parentForm = this.viewmodel.parent_get(parentFormInfo)
+    const { relation_field } = this.viewmodel.field_info
+    const { record, values } = parentFormInfo
+
+    // console.log(parentFormInfo, parentForm)
+    const parent_values = parentForm.merge_to_onchange(record, values)
+    const values2 = { [relation_field]: parent_values }
+    // values 补上 子表的数据
+    // this._update_parent()
+    return values2
+  }
+
+  async onchange_new(parentFormInfo) {
+    const context = this.viewmodel.context_get(parentFormInfo)
+    const values = this._values_with_parent(parentFormInfo)
+
+    const Model = this.Model
+    const result = await Model.web_onchange_new(values, { context })
+
+    const { value: value_ret, ...result2 } = result
+    this.record = {}
+    this.values = { ...value_ret }
+    return { ...result2, values: { ...value_ret } }
+  }
+
+  async _web_onchange(fname, value, parentFormInfo) {
+    // console.log(fname, value, parentFormInfo)
 
     // 本地更新
     this.values = { ...this.values, [fname]: value }
-    this._update_parent() //  同步 更新  parent
+
+    const with_parent = this._values_with_parent(parentFormInfo)
 
     const res_ids =
       this.record.id && !is_virtual_id(this.record.id) ? [this.record.id] : []
-
-    // values 中 可能有 id,  需要删除
-    const vals_onchg = this.viewmodel.merge_to_onchange(
-      this.record,
-      this.values
-    )
-
-    // 服务端更新
-    const result = await this.Model.web_onchange(res_ids, vals_onchg, fname, {
-      context: this.context
+    // // values 中 可能有 id,  需要删除
+    const vals_onchg = this.viewmodel.merge_to_onchange(this.record, {
+      ...this.values,
+      ...with_parent
     })
 
-    const { value: value_ret } = result
-    //   Todo: 对返回 domain 的处理
+    const context = this.viewmodel.context_get(parentFormInfo)
 
+    // 服务端更新
+    const args = [res_ids, vals_onchg, fname, { context }]
+    const result = await this.Model.web_onchange(...args)
+
+    const { value: value_ret, ...result2 } = result
+    //   Todo: 对返回 domain 的处理
     const values = { ...this.values, ...value_ret }
     this.values = values
-
-    const field_info = this.viewmodel.field_info
-    const { relation_field } = field_info
-    const values2 = { ...values }
-    delete values2[relation_field]
-
-    return { ...result, values: values2 }
+    return { ...result2, values: values }
   }
 
   async _web_commit() {
     const values = this.values
-    const field_info = this.viewmodel.field_info
-    const { relation_field } = field_info
-    const values2 = { ...values }
-    delete values2[relation_field]
-
-    return values2
+    return { ...values }
   }
 }

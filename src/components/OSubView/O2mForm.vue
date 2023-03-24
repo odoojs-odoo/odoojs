@@ -1,8 +1,6 @@
 <template>
   <span>
     <a-modal v-model:visible="visible2" :title="modalTitle" width="600px">
-      <!-- readonly: {{ [readonly, visible2, relationData] }} -->
-
       <a-form
         ref="editRef"
         :model="mVal"
@@ -72,13 +70,14 @@ const props = defineProps([
   'visible',
   'readonly',
   'record',
+  'values',
   'relationInfo',
   'parentFormInfo'
 ])
 
 const emit = defineEmits(['update:visible', 'row-commit', 'row-remove'])
-const modalTitle = computed(() =>
-  props.record.id ? props.record.display_name : '新增'
+const modalTitle = computed(
+  () => ({ ...props.record, ...props.values }.display_name || '新增')
 )
 
 const visible2 = computed({
@@ -92,9 +91,9 @@ const visible2 = computed({
 
 const editRef = ref()
 const useData = useO2mForm(props, { emit, editRef })
-const { sheet, formInfo, mVal, getInvisible } = useData
+const { sheet, mVal, formInfo } = useData
 
-const { getRules, onChange, commit } = useData
+const { getInvisible, getRules, onChange, commit } = useData
 
 function onRollback() {
   visible2.value = false
@@ -108,9 +107,8 @@ async function onRemove() {
 
 async function onCommit() {
   const result = await commit()
-
   if (result) {
-    console.log('onCommit form ', props.record, result)
+    // console.log('onCommit form ', props.record, result)
     emit('row-commit', props.record, result)
     visible2.value = false
   }

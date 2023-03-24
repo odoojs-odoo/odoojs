@@ -34,11 +34,6 @@ export class X2mForm extends X2mBase {
     this.edit_model = undefined
   }
 
-  _edit_model_get(record = {}, values = {}, parentData = {}) {
-    // todo,  parentData
-    return new EditX2m({ viewmodel: this, record, values, parentData })
-  }
-
   view_sheet() {
     const sheet_get = () => {
       const view = this.field_info.views.form
@@ -147,51 +142,18 @@ export class X2mForm extends X2mBase {
     return { children: sheet_items.data }
   }
 
-  // editmodel 取 context时, 需要 parentdata
-  // 而 parentdata 只能存在在 editmodel 中.
-  // 设置 parentdata 的时机, 在设置 editmodel 的 record values 时:
-  // set edit, onchange_new 时 初始化 record values parentdata
-  // onchange 时, editmodel 自行更新 values parentdata
-  context_get(parentData) {
-    const context_fn = this.field_info.context
-
-    const prt = this.parent
-    const context = prt.context
-
-    if (typeof context_fn !== 'function') {
-      return { ...context, ...(context_fn || {}) }
-    }
-
-    const { record, values } = parentData
-    const parent_record = prt.merge_to_modifiers(record, values)
-
-    const env = this.env
-    const ctx = context_fn({ env, record: { ...parent_record, context } })
-
-    return { ...context, ...ctx }
+  async onchange_new(parentFormInfo) {
+    // console.log('onchange_new', parentFormInfo)
+    return this.edit_model.onchange_new(parentFormInfo)
   }
 
-  async onchange_new(parentData) {
-    this.edit_model = this._edit_model_get()
-    return this.edit_model.onchange_new(parentData)
+  set_editable(record, values) {
+    this.edit_model = new EditX2m(this)
+    return this.edit_model.set_editable(record, values)
   }
 
-  set_editable(record, parentData) {
-    // todo,  parentData
-    this.edit_model = this._edit_model_get()
-    return this.edit_model.set_editable(record, parentData)
-  }
-
-  update_info(field_info, { parent }) {
-    this._field_info = field_info
-    this._parent_info = parent
-    if (this.edit_model) {
-      this.edit_model.update_info()
-    }
-  }
-
-  async onchange(fname, value, kwargs) {
-    return this.edit_model.onchange(fname, value, kwargs)
+  async onchange(fname, value, parentFormInfo) {
+    return this.edit_model.onchange(fname, value, parentFormInfo)
   }
 
   async commit(kwargs = {}) {
@@ -235,24 +197,31 @@ export class X2mForm extends X2mBase {
     return medata
   }
 
-  merge_to_modifiers(record, values, parentData) {
+  merge_to_modifiers(record, values, parentInfo) {
     const record2 = this.merge_data(record, values)
     const record3 = this.format_to_modifiers(record2)
 
-    const par = this.parent
-    const { record: prec, values: pval } = parentData
-    const pdata = par.merge_to_modifiers(prec, pval)
+    if (!parentInfo.viewInfo) {
+      return record3
+    }
+
+    const prt = this.parent_get(parentInfo)
+    const { record: prec, values: pval } = parentInfo
+    const pdata = prt.merge_to_modifiers(prec, pval)
+
     const record4 = { ...record3, parent: pdata }
     return record4
   }
 
   merge_to_onchange(record, values) {
     const record2 = this.merge_data(record, values)
-    return this.format_to_onchange(record2)
+    const record3 = this.format_to_onchange(record2)
+    return record3
   }
 
-  merge_to_write(record, values, parentData) {
-    const record3 = this.merge_to_modifiers(record, values, parentData)
+  // 被主表调用时的 参数格式?
+  merge_to_write(record, values, parentInfo) {
+    const record3 = this.merge_to_modifiers(record, values, parentInfo)
     return this.format_to_write(values, record3)
   }
 
