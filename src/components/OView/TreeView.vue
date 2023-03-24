@@ -21,6 +21,15 @@
     >
       {{ $t('act.create') }}
     </a-button>
+
+    <a-tooltip class="expBtn">
+      <template #title>导出全部</template>
+      <a-button size="small" @click="onExportAll">
+        <template #icon>
+          <download-outlined />
+        </template>
+      </a-button>
+    </a-tooltip>
   </div>
 
   <a-table
@@ -59,7 +68,8 @@ const {
   searchValues,
   searchItems,
   onTableChange,
-  onSearchChange
+  onSearchChange,
+  onExportAll
 } = useTreeView(props, { emit })
 
 function tableCustomRow(record) {
@@ -108,5 +118,10 @@ function onClickNew() {
   position: absolute;
   right: 10px;
   bottom: 5px;
+}
+
+.expBtn {
+  position: absolute;
+  right: 5px;
 }
 </style>

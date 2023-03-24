@@ -115,6 +115,12 @@ export function useTreeView(props) {
     }
   }
 
+  function onExportAll() {
+    if (localState.treeview) {
+      localState.treeview.export_xlsx_all()
+    }
+  }
+
   return {
     records,
     columns,
@@ -123,7 +129,8 @@ export function useTreeView(props) {
     searchValues,
     searchItems,
     onTableChange,
-    onSearchChange
+    onSearchChange,
+    onExportAll
   }
 }
 
@@ -132,10 +139,6 @@ export function useTreeView(props) {
 //   const active = this.fields.active
 //   return active ? true : false
 // }
-
-// handleOnExportAll() {
-//   this.treeview.export_xlsx_all()
-// },
 
 // handleOnRowSelect(activeIds) {
 //   this.activeIds = activeIds
