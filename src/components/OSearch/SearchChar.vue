@@ -1,6 +1,10 @@
 <template>
   <span>
-    <span v-if="title"> {{ title }}: </span>
+    <span v-if="title"> 
+      <b>
+        {{ title }}:
+      </b>
+    </span>
 
     <a-select
       v-model:value="state.mVal"

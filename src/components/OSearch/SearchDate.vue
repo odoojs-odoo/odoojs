@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span> {{ title }}: </span>
+    <b> {{ title }}: </b>
     <a-space>
       <a-button
         v-for="btn in buttons"

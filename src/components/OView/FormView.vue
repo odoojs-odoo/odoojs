@@ -74,6 +74,7 @@
                   <a-form-item
                     :name="meta.name"
                     :label="tr(getLabel(meta))"
+                    :labelCol="{ style: 'fontWeight:bold' }"
                     :rules="getRules(meta)"
                     style="margin-bottom: 5px"
                   >

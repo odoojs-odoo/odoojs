@@ -135,6 +135,7 @@ export function useO2mForm(props, ctx) {
     state.values = values2
     state.mVal = { ...state.mVal, ...values2 }
   }
+
   async function onChange(fname, value) {
     const formview = formview_edit_get()
     if (!formview) return
