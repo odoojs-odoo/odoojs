@@ -122,6 +122,6 @@ function onClickNew() {
 
 .expBtn {
   position: absolute;
-  right: 5px;
+  right: 10px;
 }
 </style>
