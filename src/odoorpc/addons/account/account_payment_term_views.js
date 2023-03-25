@@ -57,7 +57,8 @@ export default {
     type: 'search',
     arch: {
       fields: {
-        name: {}
+        name: {},
+        active: {}
       },
 
       filters: {
@@ -70,11 +71,15 @@ export default {
 
   action_payment_term_form: {
     _odoo_model: 'ir.actions',
-    name: '付款条件',
+    name: 'Payment Terms',
     type: 'ir.actions.act_window',
     res_model: 'account.payment.term',
+    search_view_id: 'view_payment_term_search',
     domain: [],
     context: {},
-    search_view_id: 'view_payment_term_search'
+    views: {
+      tree: 'view_move_tree',
+      form: 'view_move_form'
+    }
   }
 }

@@ -72,10 +72,15 @@ import SearchView from '@/components/OSearch/SearchView.vue'
 const router = useRouter()
 const props = defineProps(['actionId'])
 const emit = defineEmits(['search-change'])
+
 const useData = useTreeView(props, { emit })
+
 const { records, columns, pagination, buttons, hasActive } = useData
+
 const { searchValues, searchItems, onSearchChange } = useData
+
 const { onTableChange, activeIds, onSelectChange } = useData
+
 const { onClickCRUD, onExportAll } = useData
 
 function tableCustomRow(record) {

@@ -147,13 +147,18 @@ const props = defineProps(['actionId', 'resId'])
 const editRef = ref()
 
 const { tr } = useL10n()
+
 const useData = useForm(props, { router, editRef })
+
 const { mVal, sheet, formInfo } = useData
 const { buttons, hasActive } = useData
 
 const { headerButtons, currentState, statusbarVisible } = useData
+
 const { getRules, getLabel, getInvisible } = useData
+
 const { onChange, onClickCRUD, onLoadReation } = useData
+
 const { onBtnClick } = useData
 
 const record = computed(() => formInfo.value.record)

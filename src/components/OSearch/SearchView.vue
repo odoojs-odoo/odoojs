@@ -19,7 +19,11 @@
       />
       <!-- 更多搜索 -->
       <template v-else>
-        <div v-for="item in searchItems" :key="item.name">
+        <div
+          v-for="item in searchItems"
+          :key="item.name"
+          style="display: inline-block"
+        >
           <template v-if="item.type === 'field'">
             <template v-if="item.meta.type === 'selection'">
               {{ item.type }} {{ item.meta.type }}

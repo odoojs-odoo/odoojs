@@ -46,20 +46,6 @@ export function useO2mForm(props, ctx) {
     return formview ? formview.view_sheet() : { children: {} }
   })
 
-  // function getInvisible(fieldInfo) {
-  //   if (!fieldInfo.invisible) return undefined
-  //   if (typeof fieldInfo.invisible !== 'function') {
-  //     return fieldInfo.invisible
-  //   }
-
-  //   if (state.formviewFieldReady && localState.formview) {
-  //     const view = localState.formview
-  //     return view.check_invisible(fieldInfo, state.record, state.values)
-  //   }
-
-  //   return
-  // }
-
   function getInvisible(fieldInfo) {
     if (!fieldInfo.invisible) return undefined
     if (typeof fieldInfo.invisible !== 'function') return fieldInfo.invisible
