@@ -93,31 +93,33 @@
       -->
       <template v-for="group in sheet.children" :key="group.name">
         <a-descriptions-item :span="group.span">
-          <a-descriptions :column="1">
-            <template v-for="meta in group.children" :key="meta.name">
-              <a-descriptions-item v-if="!getInvisible(meta)">
-                <template v-if="meta.type">
-                  <a-form-item
-                    :name="meta.name"
-                    :label="tr(getLabel(meta))"
-                    :labelCol="{ style: 'fontWeight:bold' }"
-                    :rules="getRules(meta)"
-                    style="margin-bottom: 5px"
-                  >
-                    <OField
-                      v-model="mVal[meta.name]"
-                      width="270px"
-                      :field-name="meta.name"
-                      :field-info="meta"
-                      :form-info="formInfo"
-                      @change="(...args) => onChange(meta.name, ...args)"
-                      @load-relation="onLoadReation"
-                    />
-                  </a-form-item>
-                </template>
-              </a-descriptions-item>
-            </template>
-          </a-descriptions>
+          <template v-if="!getInvisible(group)">
+            <a-descriptions :column="1">
+              <template v-for="meta in group.children" :key="meta.name">
+                <a-descriptions-item v-if="!getInvisible(meta)">
+                  <template v-if="meta.type">
+                    <a-form-item
+                      :name="meta.name"
+                      :label="tr(getLabel(meta))"
+                      :labelCol="{ style: 'fontWeight:bold' }"
+                      :rules="getRules(meta)"
+                      style="margin-bottom: 5px"
+                    >
+                      <OField
+                        v-model="mVal[meta.name]"
+                        width="270px"
+                        :field-name="meta.name"
+                        :field-info="meta"
+                        :form-info="formInfo"
+                        @change="(...args) => onChange(meta.name, ...args)"
+                        @load-relation="onLoadReation"
+                      />
+                    </a-form-item>
+                  </template>
+                </a-descriptions-item>
+              </template>
+            </a-descriptions>
+          </template>
         </a-descriptions-item>
       </template>
     </a-descriptions>

@@ -24,6 +24,13 @@ const ModelFields = {
       const { company_id } = record
       return ['|', ['company_id', '=', false], ['company_id', '=', company_id]]
     }
+  },
+  fiscal_position_id: {
+    domain({ record }) {
+      // [('company_id', '=', company_id)]
+      const { company_id } = record
+      return [['company_id', '=', company_id]]
+    }
   }
 }
 

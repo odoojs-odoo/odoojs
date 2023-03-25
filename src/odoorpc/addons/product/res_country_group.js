@@ -22,9 +22,15 @@ export default {
         _title: {
           display_name: {}
         },
-
         _group_name: {
           _span: 2,
+          name: {},
+          country_ids: {
+            widget: 'many2many_tags'
+          }
+        },
+        _group_name2: {
+          // _span: 2,
           name: {},
           country_ids: {
             widget: 'many2many_tags'
@@ -61,9 +67,7 @@ export default {
           }
         }
       }
-    },
-
-    fields: {}
+    }
   },
 
   action_country_group: {

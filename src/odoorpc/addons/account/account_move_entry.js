@@ -632,38 +632,86 @@ export default {
               const { move_type } = record
               return !in_moves.includes(move_type)
             }
+          },
+
+          invoice_date_due: {
+            invisible({ record }) {
+              // 'invisible': [('move_type', 'not in',
+              // ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]
+              // attrs="{'invisible': [('invoice_payment_term_id', '!=', False)]
+              const move_types = [
+                'out_invoice',
+                'out_refund',
+                'in_invoice',
+                'in_refund',
+                'out_receipt',
+                'in_receipt'
+              ]
+              const { move_type, invoice_payment_term_id } = record
+              return !move_types.includes(move_type) || invoice_payment_term_id
+            }
+          },
+          invoice_payment_term_id: {
+            invisible({ record }) {
+              // 'invisible': [('move_type', 'not in',
+              // ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]
+              // 'invisible': [('invoice_payment_term_id', '=', False)]
+              const move_types = [
+                'out_invoice',
+                'out_refund',
+                'in_invoice',
+                'in_refund',
+                'out_receipt',
+                'in_receipt'
+              ]
+              const { move_type, invoice_payment_term_id } = record
+              return !move_types.includes(move_type) || !invoice_payment_term_id
+            }
+          },
+
+          journal_id: {
+            readonly: ({ record }) => {
+              //  attrs="{'readonly': [('posted_before', '=', True)]}"
+              const { posted_before } = record
+              return posted_before
+            },
+
+            invisible({ record }) {
+              // invisible="
+              // context.get('default_journal_id') and
+              // context.get('move_type', 'entry') != 'entry'"
+              const { context } = record
+              return (
+                context.default_journal_id &&
+                (context.move_type || 'entry') !== 'entry'
+              )
+            }
+          },
+          currency_id: {
+            readonly: ({ record }) => {
+              // 'readonly': [('state', '!=', 'draft')]
+              const { state } = record
+              return state !== 'draft'
+            },
+
+            invisible({ record }) {
+              // 'invisible': [('move_type', '=', 'entry')]
+              const { move_type } = record
+              return move_type === 'entry'
+            }
           }
-
-          // invoice_date_due: {},
-          // invoice_payment_term_id: {},
-
-          // journal_id: {
-          //   readonly: ({ record }) => {
-          //     const { posted_before } = record
-          //     return posted_before
-          //   }
-          //   // domain: ({ record }) => {
-          //   //   const { suitable_journal_ids } = record
-          //   //   return [['id', 'in', suitable_journal_ids]]
-          //   // }
-          // },
-          // currency_id: {
-          //   readonly: ({ record }) => {
-          //     const { state } = record
-          //     return state !== 'draft'
-          //   }
-          // }
         },
 
         _group_invoice_tab: {
           _span: 2,
+          _invisible: ({ record }) => {
+            // 'invisible': [('move_type', '=', 'entry')]
+            const { move_type } = record
+            return move_type === 'entry'
+          },
+
           invoice_line_ids: {
             widget: 'x2many_tree',
-            invisible: ({ record }) => {
-              // 'invisible': [('move_type', '=', 'entry')]
-              const { move_type } = record
-              return move_type === 'entry'
-            },
 
             context: ({ record }) => {
               //   context="{
@@ -698,45 +746,173 @@ export default {
               tree: {
                 fields: {
                   // sequence: {},
-                  // product_id: {},
-                  name: {}
-                  // account_id: {},
-                  // analytic_account_id: {},
-                  // analytic_tag_ids: {},
-                  // quantity: {},
-                  // product_uom_id: {},
-                  // price_unit: {},
-                  // discount: {},
-                  // tax_ids: { widget: 'many2many_tags' },
-                  // price_subtotal: {},
-                  // price_total: {}
+                  product_id: {
+                    domain: ({ record }) => {
+                      // domain="
+                      // context.get('default_move_type') in ('out_invoice', 'out_refund', 'out_receipt')
+                      // and [('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]
+                      // or [('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]
+                      // "
+                      const { context, parent } = record
+                      return [
+                        'out_invoice',
+                        'out_refund',
+                        'out_receipt'
+                      ].includes(context.default_move_type)
+                        ? [
+                            ['sale_ok', '=', true],
+                            '|',
+                            ['company_id', '=', false],
+                            ['company_id', '=', parent.company_id]
+                          ]
+                        : [
+                            ['purchase_ok', '=', true],
+                            '|',
+                            ['company_id', '=', false],
+                            ['company_id', '=', parent.company_id]
+                          ]
+                    }
+                  },
+                  name: { widget: 'section_and_note_text' },
+                  account_id: {
+                    context({ record }) {
+                      // context="{'partner_id': partner_id, 'move_type': parent.move_type}"
+                      const { partner_id, parent } = record
+                      return {
+                        partner_id: partner_id,
+                        move_type: parent.move_type
+                      }
+                    },
+                    domain({ record }) {
+                      // domain="[('deprecated', '=', False),
+                      // ('account_type', 'not in', ('asset_receivable', 'liability_payable')),
+                      // ('company_id', '=', parent.company_id), ('is_off_balance', '=', False)]"
+                      const { parent } = record
+                      return [
+                        ['deprecated', '=', false],
+                        [
+                          'account_type',
+                          'not in',
+                          ['asset_receivable', 'liability_payable']
+                        ],
+                        ['company_id', '=', parent.company_id],
+                        ['is_off_balance', '=', false]
+                      ]
+                    },
+                    required({ record }) {
+                      // [('display_type', 'not in', ('line_note', 'line_section'))]
+                      const { display_type } = record
+                      return !['line_note', 'line_section'].includes(
+                        display_type
+                      )
+                    }
+                  },
+                  analytic_account_id: { widget: 'analytic_distribution' },
+                  quantity: {},
+                  product_uom_category_id: { invisible: '1' },
+                  product_uom_id: {},
+                  price_unit: {},
+                  discount: {},
+                  tax_ids: {
+                    widget: 'many2many_tags',
+                    domain: ({ record }) => {
+                      // domain="[('type_tax_use', '=?', parent.invoice_filter_type_domain),
+                      // ('company_id', '=', parent.company_id),
+                      // ('country_id', '=', parent.tax_country_id)]"
+                      const { parent } = record
+                      return [
+                        [
+                          'type_tax_use',
+                          '=?',
+                          parent.invoice_filter_type_domain
+                        ],
+                        ['company_id', '=', parent.company_id],
+                        ['country_id', '=', parent.tax_country_id]
+                      ]
+                    },
+
+                    context: ({ record }) => {
+                      // context="{'append_type_to_tax_name':
+                      // not parent.invoice_filter_type_domain}"
+                      const { parent } = record
+                      return {
+                        append_type_to_tax_name:
+                          !parent.invoice_filter_type_domain
+                      }
+                    }
+                  },
+                  price_subtotal: {},
+                  price_total: {},
+
+                  partner_id: { invisible: '1' },
+                  currency_id: { invisible: '1' },
+                  company_id: { invisible: '1' },
+                  company_currency_id: { invisible: '1' },
+                  display_type: { invisible: '1' }
+                  // product_uom_id: { invisible: '1' }
                 }
               },
               form: {
+                arch: {
+                  sheet: {
+                    _group_invisible: {
+                      _span: 2,
+                      display_type: { invisible: '1' },
+                      company_id: { invisible: '1' },
+                      partner_id: { invisible: '1' }
+                    },
+
+                    _group_product: {
+                      name: {},
+                      product_id: { widget: 'many2one_barcode' },
+                      quantity: {},
+                      product_uom_category_id: { invisible: '1' },
+                      product_uom_id: {},
+                      price_unit: {},
+                      discount: {}
+                    },
+
+                    _group_account: {
+                      account_id: {
+                        readonly2: '1',
+                        domain: ({ record }) => {
+                          // domain="[('company_id', '=', company_id)]"
+                          const { company_id } = record
+                          return [['company_id', '=', company_id]]
+                        },
+                        context: ({ record }) => {
+                          // context="{'partner_id': partner_id, 'move_type': parent.move_type}
+                          const { partner_id, parent } = record
+                          return {
+                            partner_id: partner_id,
+                            move_type: parent.move_type
+                          }
+                        }
+                      },
+                      tax_ids: { widget: 'many2many_tags' },
+                      analytic_distribution: { widget: 'analytic_distribution' }
+                    },
+
+                    _group_name: {
+                      name: { widget: 'text' }
+                    },
+                    _group_amount: {
+                      price_subtotal: {},
+                      price_total: {}
+                    }
+                  }
+                },
                 fields: {
                   // product_uom_category_id: { invisible: 1 },
-                  // display_type: { invisible: 1 },
+                  //
                   // parent_state: { invisible: 1 },
-                  // partner_id: { invisible: 1 },
-                  // company_id: { invisible: 1 },
+                  //
+                  //
                   // debit: { invisible: 1 },
                   // credit: { invisible: 1 },
-                  // product_id: {},
-                  // quantity: {},
-                  // product_uom_id: {},
-                  // price_unit: {},
-                  // discount: {},
+
                   // currency_id: { invisible: 1 },
-                  // analytic_tag_ids: { widget: 'many2many_tags' },
-                  // account_id: {
-                  //   readonly2: '1',
-                  //   domain: ({ record }) => {
-                  //     const { company_id } = record
-                  //     return [['company_id', '=', company_id]]
-                  //   }
-                  // },
-                  // tax_ids: { widget: 'many2many_tags' },
-                  // analytic_account_id: {},
+
                   name: {}
                   // price_subtotal: {},
                   // price_total: {},
@@ -747,16 +923,83 @@ export default {
           }
         },
 
-        // _group_invoice_lines_tab_note: {
-        //   narration: {}
-        // },
+        _group_invoice_tab_narration: {
+          _invisible: ({ record }) => {
+            // 'invisible': [('move_type', '=', 'entry')]
+            const { move_type } = record
+            return move_type === 'entry'
+          },
+          narration: {}
+        },
 
-        // _group_subtotal_footer: {
-        //   tax_totals: {},
-        //   invoice_payments_widget: {},
-        //   amount_residual: {},
-        //   invoice_outstanding_credits_debits_widget: {}
-        // },
+        _group_invoice_tab_subtotal_footer: {
+          _invisible: ({ record }) => {
+            // 'invisible': [('move_type', '=', 'entry')]
+            const { move_type } = record
+            return move_type === 'entry'
+          },
+          tax_totals: {
+            widget: 'account-tax-totals-field',
+            invisible({ record }) {
+              // 'invisible': [
+              // '|', ('move_type', 'not in', ('out_invoice', 'out_refund',
+              //        'in_invoice', 'in_refund',
+              //         'out_receipt', 'in_receipt')),
+              // ('payment_state' ,'=', 'invoicing_legacy')]
+              const types_out = ['out_invoice', 'out_refund', 'out_receipt']
+              const types_in = ['in_invoice', 'in_refund', 'in_receipt']
+              const types = [...types_out, ...types_in]
+              const { move_type, payment_state } = record
+              return (
+                !types.includes(move_type) ||
+                payment_state === 'invoicing_legacy'
+              )
+            }
+          },
+          invoice_payments_widget: {
+            widget: 'payment',
+            invisible({ record }) {
+              const types_out = ['out_invoice', 'out_refund', 'out_receipt']
+              const types_in = ['in_invoice', 'in_refund', 'in_receipt']
+              const types = [...types_out, ...types_in]
+              const { move_type, payment_state } = record
+              return (
+                !types.includes(move_type) ||
+                payment_state === 'invoicing_legacy'
+              )
+            }
+          },
+          amount_residual: {
+            invisible({ record }) {
+              // attrs="{'invisible':  [('state', '=', 'draft')]}"
+
+              const types_out = ['out_invoice', 'out_refund', 'out_receipt']
+              const types_in = ['in_invoice', 'in_refund', 'in_receipt']
+              const types = [...types_out, ...types_in]
+
+              const { move_type, payment_state, state } = record
+              return (
+                !types.includes(move_type) ||
+                payment_state === 'invoicing_legacy' ||
+                state === 'draft'
+              )
+            }
+          },
+
+          invoice_outstanding_credits_debits_widget: {
+            widget: 'payment',
+            invisible({ record }) {
+              // 'invisible': ['|',
+              // ('state', '!=', 'posted'),
+              // ('move_type', 'in', ('out_receipt', 'in_receipt'))]
+              const { state, move_type } = record
+              return (
+                state !== 'posted' ||
+                ['out_receipt', 'in_receipt'].includes(move_type)
+              )
+            }
+          }
+        },
 
         _group_aml_tab: {
           _span: 2,
@@ -870,10 +1113,11 @@ export default {
                       balance: { invisible: 1 },
                       tax_ids: { widget: 'autosave_many2many_tags' },
                       date_maturity: {
-                        // invisible({ context }) {
-                        //   // context.get('view_no_maturity', False)
-                        //   return context.view_no_maturity
-                        // }
+                        invisible({ record }) {
+                          // context.get('view_no_maturity', False)
+                          const { context } = record
+                          return context.view_no_maturity
+                        }
                       }
                     }
                   }
@@ -881,52 +1125,157 @@ export default {
               }
             }
           }
+        },
+
+        _group_other_tab_invoice: {
+          _invisible({ record }) {
+            // attrs="{'invisible':
+            // [('move_type', 'not in',
+            // ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]
+
+            const { move_type } = record
+            return ![
+              'out_invoice',
+              'out_refund',
+              'in_invoice',
+              'in_refund'
+            ].includes(move_type)
+          },
+
+          ref: { string: 'Customer Reference' },
+          user_id: { invisible: '1' },
+          invoice_user_id: {
+            widget: 'many2one_avatar_user',
+            domain: [['share', '=', false]]
+          },
+          invoice_origin: { invisible: '1' },
+          partner_bank_id: {
+            context({ record }) {
+              // context="{'default_partner_id': bank_partner_id}"
+              const { bank_partner_id } = record
+              return { default_partner_id: bank_partner_id }
+            },
+            domain({ record }) {
+              // domain="[('partner_id', '=', bank_partner_id)]"
+              const { bank_partner_id } = record
+              return ['partner_id', '=', bank_partner_id]
+            },
+            readonly({ record }) {
+              // attrs="{'readonly': [('state', '!=', 'draft')]}
+              const { state } = record
+              return state !== 'draft'
+            }
+          },
+          qr_code_method: {
+            invisible({ record }) {
+              // 'invisible': [('display_qr_code', '=', False)]
+              const { display_qr_code } = record
+              return !display_qr_code
+            }
+          }
+        },
+
+        _group_other_tab_accounting: {
+          _invisible({ record }) {
+            // attrs="{'invisible':
+            // [('move_type', 'not in',
+            // ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]
+
+            const { move_type } = record
+            return ![
+              'out_invoice',
+              'out_refund',
+              'in_invoice',
+              'in_refund'
+            ].includes(move_type)
+          },
+          company_id: {},
+          invoice_incoterm_id: {},
+          fiscal_position_id: {},
+          invoice_cash_rounding_id: {},
+          invoice_source_email: {
+            widget: 'email',
+            invisible({ record }) {
+              // attrs="{'invisible': ['|',
+              // ('move_type', 'not in', ('in_invoice', 'in_refund')),
+              // ('invoice_source_email', '=', False)]}"/>
+
+              const { move_type, invoice_source_email } = record
+              return (
+                !['in_invoice', 'in_refund'].includes(move_type) ||
+                !invoice_source_email
+              )
+            }
+          },
+          auto_post: {
+            readonly({ record }) {
+              // 'readonly': [('state','!=','draft')]
+              const { state } = record
+              return state !== 'draft'
+            }
+          },
+          auto_post_until: {
+            readonly({ record }) {
+              // 'readonly': [('state', '!=', 'draft')]
+              const { state } = record
+              return state !== 'draft'
+            },
+            invisible({ record }) {
+              // attrs="{'invisible': [('auto_post', 'in', ('no', 'at_date'))],
+              const { auto_post } = record
+              return ['no', 'at_date'].includes(auto_post)
+            }
+          },
+          to_check: {}
+        },
+
+        _group_other_tab_entry_misc_group: {
+          _invisible: ({ record }) => {
+            // attrs="{'invisible': [('move_type', '!=', 'entry')]}">
+            const { move_type } = record
+            return move_type !== 'entry'
+          },
+          auto_post: {
+            readonly: ({ record }) => {
+              // 'readonly': [('state','!=','draft')]
+              const { state } = record
+              return state !== 'draft'
+            }
+          },
+          reversed_entry_id: {},
+          auto_post_until: {
+            readonly({ record }) {
+              // 'readonly': [('state', '!=', 'draft')]
+              const { state } = record
+              return state !== 'draft'
+            },
+            invisible({ record }) {
+              // 'invisible': [('auto_post', 'in', ('no', 'at_date'))],
+              const { auto_post } = record
+              return ['no', 'at_date'].includes(auto_post)
+            }
+          },
+          to_check: {}
+        },
+
+        _group_other_tab_entry_2: {
+          _invisible: ({ record }) => {
+            // attrs="{'invisible': [('move_type', '!=', 'entry')]}">
+            const { move_type } = record
+            return move_type !== 'entry'
+          },
+
+          fiscal_position_id: {},
+          company_id: { required: '1' }
+        },
+        _group_other_tab_entry_narration: {
+          _invisible: ({ record }) => {
+            // attrs="{'invisible': [('move_type', '!=', 'entry')]}">
+            const { move_type } = record
+            return move_type !== 'entry'
+          },
+          narration: { placeholder: 'Add an internal note...' }
         }
-
-        // _group_other_tab: {
-        //   // attrs="{'invisible':
-        //   // [('move_type', 'not in',
-        //   // ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]}">
-
-        //   // attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}">
-        //   // attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]}">
-
-        //   user_id: {},
-        //   invoice_user_id: {
-        //     domain: [['share', '=', false]]
-        //   },
-        //   invoice_origin: {},
-        //   qr_code_method: {},
-
-        //   invoice_incoterm_id: {},
-
-        //   invoice_cash_rounding_id: {},
-        //   invoice_source_email: {},
-        //   auto_post: { invisible: 1 }
-        // },
-
-        // _group_other_tab_2: {
-        //   //
-        // },
-
-        // _group_other_tab_entry_misc_group: {
-        //   // attrs="{'invisible': [('move_type', '!=', 'entry')]}">
-        //   auto_post: {
-        //     readonly: ({ record }) => {
-        //       const { state } = record
-        //       return state !== 'draft'
-        //     }
-        //   },
-        //   reversed_entry_id: {},
-
-        //   to_check: {}
-        // },
-
-        // _group_other_tab_entry_: {
-        //   // attrs="{'invisible': [('move_type', '!=', 'entry')]}">
-        //   fiscal_position_id: {},
-        //   company_id: {}
-        // }
       }
     }
   },

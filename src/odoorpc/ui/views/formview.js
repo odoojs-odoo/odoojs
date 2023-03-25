@@ -74,9 +74,9 @@ export class FormView extends BaseView {
         return arch.sheet
       }
 
-      // if (!fields_ready) {
-      //   return {}
-      // }
+      if (!fields_ready) {
+        return {}
+      }
 
       const fields = this.action_info.views[this._type].fields
 
@@ -121,14 +121,6 @@ export class FormView extends BaseView {
       }
     }
 
-    const title0 = sheet._title || {}
-    const title = Object.keys(title0).reduce((acc, fld) => {
-      acc[fld] = meta_get(fld)
-      return acc
-    }, {})
-
-    // console.log(title)
-
     function item_get(node) {
       return Object.keys(node).reduce((acc, item) => {
         if (item[0] === '_') {
@@ -145,11 +137,10 @@ export class FormView extends BaseView {
       }, {})
     }
 
-    const sheet_items = Object.keys(sheet)
-      .filter(item => item !== '_title')
-      .reduce(
+    const group_get = group => {
+      const group_items = Object.keys(group).reduce(
         (acc, item) => {
-          const node = item_get(sheet[item])
+          const node = item_get(group[item])
 
           if (node.span) {
             if (acc.y) {
@@ -181,25 +172,43 @@ export class FormView extends BaseView {
         { data: {}, x: 0, y: 0 }
       )
 
-    const total_len = Object.keys(sheet_items.data).length
+      const total_len = Object.keys(group_items.data).length
 
-    if (total_len) {
-      const last_fld = Object.keys(sheet_items.data)[total_len - 1]
-      const last = sheet_items.data[last_fld]
-      if (!last.y && !last.span) {
-        const tname = `group_${last.x}_1`
-        sheet_items.data[tname] = {
-          name: tname,
-          x: last.x,
-          y: 1,
-          children: {}
+      if (total_len) {
+        const last_fld = Object.keys(group_items.data)[total_len - 1]
+        const last = group_items.data[last_fld]
+        if (!last.y && !last.span) {
+          const tname = `group_${last.x}_1`
+          group_items.data[tname] = {
+            name: tname,
+            x: last.x,
+            y: 1,
+            children: {}
+          }
         }
       }
+
+      // console.log('group_items', group_items.data)
+
+      return group_items.data
     }
 
-    // console.log('sheet_items', sheet_items.data)
+    const children0 = Object.keys(sheet)
+      .filter(item => item !== '_title')
+      .reduce((acc, item) => {
+        acc[item] = sheet[item]
+        return acc
+      }, {})
 
-    return { title, children: sheet_items.data }
+    const children = group_get(children0)
+
+    const title0 = sheet._title || {}
+    const title = Object.keys(title0).reduce((acc, fld) => {
+      acc[fld] = meta_get(fld)
+      return acc
+    }, {})
+
+    return { title, children }
   }
 
   arch_buttons(record_in, values) {
@@ -419,6 +428,17 @@ export class FormView extends BaseView {
   async archive(res_id) {
     if (!res_id) return true
     return await this.Model.action_archive([res_id])
+  }
+
+  check_invisible(fieldInfo, record, values) {
+    if (!fieldInfo.invisible) return undefined
+    if (typeof fieldInfo.invisible !== 'function') {
+      return fieldInfo.invisible
+    }
+
+    const record2 = this.merge_to_modifiers(record, values)
+    const record3 = { ...record2, context: this.context }
+    return fieldInfo.invisible({ record: record3 })
   }
 
   //

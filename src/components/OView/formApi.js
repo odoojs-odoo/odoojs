@@ -95,6 +95,8 @@ export function useForm(props, ctx) {
     if (state.formviewReady && localState.formview) {
       const sheet0 = localState.formview.view_sheet(state.formviewFieldReady)
 
+      console.log(sheet0)
+
       return sheet0
     } else {
       return { children: {} }
@@ -188,8 +190,7 @@ export function useForm(props, ctx) {
 
     if (state.formviewFieldReady && localState.formview) {
       const view = localState.formview
-      const record = view.merge_to_modifiers(state.record, state.values)
-      return fieldInfo.invisible({ record })
+      return view.check_invisible(fieldInfo, state.record, state.values)
     }
 
     return
