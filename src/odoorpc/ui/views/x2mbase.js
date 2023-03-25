@@ -26,7 +26,7 @@ export class X2mBase {
     const { record, values } = parentInfo
     const parent_record = prt.merge_to_modifiers(record, values)
     const env = this.env
-    const ctx = context_fn({ env, record: { ...parent_record, context } })
+    const ctx = context_fn({ env, context, record: { ...parent_record } })
     return { ...context, ...ctx }
   }
 
@@ -55,7 +55,12 @@ export class X2mBase {
   }
 
   get fields() {
-    const view = this.field_info.views[this._type]
-    return view.fields
+    const views = this.field_info.views
+    const fields = Object.keys(views).reduce((acc, viewname) => {
+      acc = { ...acc, ...views[viewname].fields }
+      return acc
+    }, {})
+    const view = views[this._type]
+    return { ...fields, ...view.fields }
   }
 }

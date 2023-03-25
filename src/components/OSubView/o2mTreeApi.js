@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRaw } from 'vue'
 import api from '@/odoorpc'
 
 import { useTreeColumns } from '@/components/tools/treeColumns'
@@ -21,7 +21,14 @@ export function useO2mTree(props) {
   })
 
   const { computedColumns } = useTreeColumns()
-  const columns = computed(() => computedColumns(fields.value))
+  const columns = computed(() => {
+    if (treeview.value) {
+      const context = treeview.value.context_get(props.parentFormInfo)
+      return computedColumns(fields.value, context)
+    } else {
+      return []
+    }
+  })
 
   return { columns }
 }

@@ -70,6 +70,10 @@ export class BaseView {
     return { ...this.action.context }
   }
 
+  context_get() {
+    return { ...this.action.context }
+  }
+
   get buttons() {
     const action = this.action_info
     const view = action.views[this._type]

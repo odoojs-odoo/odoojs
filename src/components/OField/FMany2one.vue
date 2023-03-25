@@ -3,12 +3,28 @@
     <template v-if="fieldInfo.widget === 'some widget'">
       todo: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
+
+    <template v-else-if="fieldInfo.widget === 'many2one_button'">
+      <!-- 自定义 功能 对应的数据 -->
+      <a-button @click="onClickBtn">
+        {{ dVal || (fieldInfo._action || {}).string || 'todo' }}</a-button
+      >
+    </template>
+
     <template v-else-if="fieldInfo.widget === 'many2one_view'">
       <!-- 链接到 对应的数据 -->
       <a-button @click="onClickView"> {{ dVal }}</a-button>
     </template>
 
-    <template v-else-if="fieldInfo.widget">
+    <!-- <template v-else-if="fieldInfo.widget === 'many2one_avatar_user'">
+      {{ dVal }}
+    </template> -->
+
+    <template
+      v-else-if="
+        fieldInfo.widget && !['many2one_avatar_user'].includes(fieldInfo.widget)
+      "
+    >
       todo widget: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
 
@@ -54,7 +70,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref } from 'vue'
+import { defineProps, defineEmits, ref, toRaw } from 'vue'
 import { useFM2o, useMoreSearch } from './FM2oApi'
 import OMany2one from '@/components/OInput/OMany2one.vue'
 
@@ -67,6 +83,12 @@ const props = defineProps([
 ])
 
 const emit = defineEmits(['update:modelValue', 'change', 'click-many2one'])
+
+function onClickBtn() {
+  // const val = props.formInfo.record[props.fieldName]
+  console.log('onClickBtn', toRaw(props))
+  // emit('click-many2one', props.fieldName, val)
+}
 
 function onClickView() {
   const val = props.formInfo.record[props.fieldName]

@@ -46,44 +46,49 @@ export function useO2mForm(props, ctx) {
     return formview ? formview.view_sheet() : { children: {} }
   })
 
+  // function getInvisible(fieldInfo) {
+  //   if (!fieldInfo.invisible) return undefined
+  //   if (typeof fieldInfo.invisible !== 'function') {
+  //     return fieldInfo.invisible
+  //   }
+
+  //   if (state.formviewFieldReady && localState.formview) {
+  //     const view = localState.formview
+  //     return view.check_invisible(fieldInfo, state.record, state.values)
+  //   }
+
+  //   return
+  // }
+
   function getInvisible(fieldInfo) {
     if (!fieldInfo.invisible) return undefined
-
     if (typeof fieldInfo.invisible !== 'function') return fieldInfo.invisible
 
     const formview = formview_get()
     if (!formview) return undefined
 
     const parentFormInfo = toRaw(props.parentFormInfo)
-
-    const record = formview.merge_to_modifiers(
-      props.record,
+    return formview.check_invisible(
+      fieldInfo,
+      state.record,
       state.values,
       parentFormInfo
     )
-
-    return fieldInfo.invisible({ record })
   }
 
   function getRules(fieldInfo) {
     if (props.readonly) return undefined
     if (!fieldInfo.required) return undefined
+    const formview = formview_get()
+    if (!formview) return false
 
-    function required_get() {
-      const formview = formview_get()
-      if (!formview) return false
-      const parentFormInfo = toRaw(props.parentFormInfo)
-      const record = formview.merge_to_modifiers(
-        props.record,
-        state.values,
-        parentFormInfo
-      )
-
-      if (typeof fieldInfo.required !== 'function') return fieldInfo.required
-
-      return fieldInfo.required({ record })
-    }
-    const required = required_get()
+    const parentFormInfo = toRaw(props.parentFormInfo)
+    const required = formview.check_required(
+      fieldInfo,
+      state.record,
+      state.values,
+      parentFormInfo
+    )
 
     if (!required) return undefined
     return [{ required: true, message: `请输入${tr(fieldInfo.string)}!` }]

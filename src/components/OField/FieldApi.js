@@ -27,6 +27,7 @@ export function useField(props, ctx) {
       selection: 'FSelection',
       char: 'FString',
       text: 'FString',
+      json: 'FJson',
       html: 'FString',
       float: 'FNumber',
       integer: 'FNumber',

@@ -4,27 +4,6 @@ import { tuples_to_ids } from '@/odoorpc/tools'
 
 import { useField } from './FieldApi'
 
-function get_record_for_modifiers(formInfo) {
-  if (formInfo.viewInfo) {
-    const actionInfo = toRaw(formInfo.viewInfo.action)
-    const fields = toRaw(formInfo.fields)
-    const view = api.env.formview(actionInfo, { fields })
-    return view.merge_to_modifiers(formInfo.record, formInfo.values)
-  } else if (formInfo.relationInfo) {
-    const info = formInfo.relationInfo
-    const rel = api.env.relation(info.relation)
-    const view = rel.form
-
-    return view.merge_to_modifiers(
-      formInfo.record,
-      formInfo.values,
-      formInfo.parentFormInfo
-    )
-  } else {
-    return {}
-  }
-}
-
 async function _loadRelationData(ids, { fieldInfo }) {
   if (ids && !ids.length) {
     return []
@@ -34,15 +13,15 @@ async function _loadRelationData(ids, { fieldInfo }) {
   return relation.name_get(ids)
 }
 
+async function call_loadSelectOptions(props, kw = {}) {
+  const relation = api.env.relation(props.fieldInfo)
+  const formInfo = toRaw(props.formInfo)
+  return relation.load_select_options2(formInfo, kw)
+}
+
 export function useFM2mTags(props, ctx) {
   async function loadRelationData(ids) {
     return _loadRelationData(ids, { fieldInfo: props.fieldInfo })
-  }
-
-  async function loadSelectOptions(kw = {}) {
-    const record = get_record_for_modifiers(props.formInfo)
-    const relation = api.env.relation(props.fieldInfo)
-    return relation.load_select_options({ record, ...kw })
   }
 
   const { readonly } = useField(props, ctx)
@@ -141,7 +120,7 @@ export function useFM2mTags(props, ctx) {
     // console.log('handleSearch:', val)
 
     const limit = idsForEdit.value.length + 8
-    const ops = await loadSelectOptions({ name: val, limit })
+    const ops = await call_loadSelectOptions(props, { name: val, limit })
     // console.log('handleSearch', ops)
     optionsRaw.value = ops
   }
@@ -150,7 +129,7 @@ export function useFM2mTags(props, ctx) {
     if (open) {
       // console.log('dropdownVisibleChange:')
       const limit = idsForEdit.value.length + 8
-      const ops = await loadSelectOptions({ limit })
+      const ops = await call_loadSelectOptions(props, { limit })
       optionsRaw.value = ops
     }
   }
@@ -182,12 +161,6 @@ export function useFM2mTags(props, ctx) {
 }
 
 export function useMoreSearch(props, ctx) {
-  function loadSelectOptions(kw = {}) {
-    const record = get_record_for_modifiers(props.formInfo)
-    const relation = api.env.relation(props.fieldInfo)
-    return relation.load_select_options({ record, ...kw })
-  }
-
   const records = ref([])
   const columns = ref([
     {
@@ -200,7 +173,9 @@ export function useMoreSearch(props, ctx) {
 
   async function loadData() {
     // console.log('searchMore')
-    const ops = await loadSelectOptions({ limit: 0 })
+
+    const ops = await call_loadSelectOptions(props, { limit: 0 })
+
     // // console.log('searchMore', ops)
 
     records.value = ops.map(item => {

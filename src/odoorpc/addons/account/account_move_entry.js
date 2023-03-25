@@ -18,6 +18,7 @@ export default {
     }
   },
 
+  // 561 行
   view_move_form: {
     _odoo_model: 'ir.ui.view',
     model: 'account.move',
@@ -518,8 +519,10 @@ export default {
               ]
             },
             invisible({ record }) {
+              // class="oe_edit_only"
               // 'invisible':
               // ['|', ('state', '!=', 'draft'), ('move_type', '!=', 'in_invoice')]
+
               const { state, move_type } = record
               return state !== 'draft' || move_type !== 'in_invoice'
             }
@@ -528,6 +531,7 @@ export default {
 
         _group_header_right_group: {
           invoice_date: {
+            // string: { en_US: 'Date', zh_CN: '账单日期', zh_HK: '账单日期' },
             string({ record }) {
               const out_moves = ['out_invoice', 'out_refund', 'out_receipt']
               const in_moves = ['in_invoice', 'in_refund', 'in_receipt']
@@ -676,11 +680,10 @@ export default {
               return posted_before
             },
 
-            invisible({ record }) {
+            invisible({ context }) {
               // invisible="
               // context.get('default_journal_id') and
               // context.get('move_type', 'entry') != 'entry'"
-              const { context } = record
               return (
                 context.default_journal_id &&
                 (context.move_type || 'entry') !== 'entry'
@@ -711,9 +714,11 @@ export default {
           },
 
           invoice_line_ids: {
+            string: '',
+            label: '明细行',
             widget: 'x2many_tree',
 
-            context: ({ record }) => {
+            context: ({ record, context }) => {
               //   context="{
               //     'default_move_type': context.get('default_move_type'),
               //     'journal_id': journal_id,
@@ -724,7 +729,6 @@ export default {
               // }"
 
               const {
-                context,
                 journal_id,
                 commercial_partner_id,
                 currency_id,
@@ -747,13 +751,13 @@ export default {
                 fields: {
                   // sequence: {},
                   product_id: {
-                    domain: ({ record }) => {
+                    domain: ({ record, context }) => {
                       // domain="
                       // context.get('default_move_type') in ('out_invoice', 'out_refund', 'out_receipt')
                       // and [('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]
                       // or [('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]
                       // "
-                      const { context, parent } = record
+                      const { parent } = record
                       return [
                         'out_invoice',
                         'out_refund',
@@ -807,7 +811,7 @@ export default {
                       )
                     }
                   },
-                  analytic_account_id: { widget: 'analytic_distribution' },
+                  analytic_distribution: { widget: 'analytic_distribution' },
                   quantity: {},
                   product_uom_category_id: { invisible: '1' },
                   product_uom_id: {},
@@ -864,10 +868,16 @@ export default {
 
                     _group_product: {
                       name: {},
-                      product_id: { widget: 'many2one_barcode' },
+                      product_id: { widget2: 'many2one_barcode' },
                       quantity: {},
                       product_uom_category_id: { invisible: '1' },
-                      product_uom_id: {},
+                      product_uom_id: {
+                        // [('category_id', '=', product_uom_category_id)]
+                        domain({ record }) {
+                          const { product_uom_category_id } = record
+                          return [['category_id', '=', product_uom_category_id]]
+                        }
+                      },
                       price_unit: {},
                       discount: {}
                     },
@@ -889,7 +899,14 @@ export default {
                           }
                         }
                       },
-                      tax_ids: { widget: 'many2many_tags' },
+                      tax_ids: {
+                        widget: 'many2many_tags',
+                        // [('company_id', 'in', [company_id, False])]
+                        domain({ record }) {
+                          const { company_id } = record
+                          return [['company_id', 'in', [company_id, false]]]
+                        }
+                      },
                       analytic_distribution: { widget: 'analytic_distribution' }
                     },
 
@@ -939,6 +956,7 @@ export default {
             return move_type === 'entry'
           },
           tax_totals: {
+            string: '',
             widget: 'account-tax-totals-field',
             invisible({ record }) {
               // 'invisible': [
@@ -957,6 +975,7 @@ export default {
             }
           },
           invoice_payments_widget: {
+            string: '',
             widget: 'payment',
             invisible({ record }) {
               const types_out = ['out_invoice', 'out_refund', 'out_receipt']
@@ -1006,7 +1025,8 @@ export default {
 
           line_ids: {
             widget: 'x2many_tree',
-
+            string: '',
+            label: '会计分录',
             invisible: ({ record }) => {
               // attrs="{'invisible':
               // [('payment_state', '=', 'invoicing_legacy'),
@@ -1017,9 +1037,8 @@ export default {
               )
             },
 
-            context: ({ record }) => {
+            context: ({ record, context }) => {
               const {
-                context,
                 line_ids,
                 journal_id,
                 commercial_partner_id,
@@ -1056,7 +1075,7 @@ export default {
                   // date_maturity: {},
                   // amount_currency: {},
                   // currency_id: {},
-                  tax_ids: { widget: 'autosave_many2many_tags' },
+                  tax_ids: { widget: 'many2many_tags' },
                   debit: {},
                   credit: {},
                   // balance: {},
@@ -1111,11 +1130,10 @@ export default {
                       debit: {},
                       credit: {},
                       balance: { invisible: 1 },
-                      tax_ids: { widget: 'autosave_many2many_tags' },
+                      tax_ids: { widget: 'many2many_tags' },
                       date_maturity: {
-                        invisible({ record }) {
+                        invisible({ context }) {
                           // context.get('view_no_maturity', False)
-                          const { context } = record
                           return context.view_no_maturity
                         }
                       }
@@ -1123,54 +1141,6 @@ export default {
                   }
                 }
               }
-            }
-          }
-        },
-
-        _group_other_tab_invoice: {
-          _invisible({ record }) {
-            // attrs="{'invisible':
-            // [('move_type', 'not in',
-            // ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]
-
-            const { move_type } = record
-            return ![
-              'out_invoice',
-              'out_refund',
-              'in_invoice',
-              'in_refund'
-            ].includes(move_type)
-          },
-
-          ref: { string: 'Customer Reference' },
-          user_id: { invisible: '1' },
-          invoice_user_id: {
-            widget: 'many2one_avatar_user',
-            domain: [['share', '=', false]]
-          },
-          invoice_origin: { invisible: '1' },
-          partner_bank_id: {
-            context({ record }) {
-              // context="{'default_partner_id': bank_partner_id}"
-              const { bank_partner_id } = record
-              return { default_partner_id: bank_partner_id }
-            },
-            domain({ record }) {
-              // domain="[('partner_id', '=', bank_partner_id)]"
-              const { bank_partner_id } = record
-              return ['partner_id', '=', bank_partner_id]
-            },
-            readonly({ record }) {
-              // attrs="{'readonly': [('state', '!=', 'draft')]}
-              const { state } = record
-              return state !== 'draft'
-            }
-          },
-          qr_code_method: {
-            invisible({ record }) {
-              // 'invisible': [('display_qr_code', '=', False)]
-              const { display_qr_code } = record
-              return !display_qr_code
             }
           }
         },
@@ -1227,6 +1197,51 @@ export default {
             }
           },
           to_check: {}
+        },
+
+        _group_other_tab_invoice: {
+          _invisible({ record }) {
+            // attrs="{'invisible':
+            // [('move_type', 'not in',
+            // ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]
+
+            // 'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]
+
+            const { move_type } = record
+            return !['out_invoice', 'out_refund'].includes(move_type)
+          },
+
+          ref: { string: 'Customer Reference' },
+          user_id: { invisible: '1' },
+          invoice_user_id: {
+            widget: 'many2one_avatar_user',
+            domain: [['share', '=', false]]
+          },
+          invoice_origin: { invisible: '1' },
+          partner_bank_id: {
+            context({ record }) {
+              // context="{'default_partner_id': bank_partner_id}"
+              const { bank_partner_id } = record
+              return { default_partner_id: bank_partner_id }
+            },
+            domain({ record }) {
+              // domain="[('partner_id', '=', bank_partner_id)]"
+              const { bank_partner_id } = record
+              return ['partner_id', '=', bank_partner_id]
+            },
+            readonly({ record }) {
+              // attrs="{'readonly': [('state', '!=', 'draft')]}
+              const { state } = record
+              return state !== 'draft'
+            }
+          },
+          qr_code_method: {
+            invisible({ record }) {
+              // 'invisible': [('display_qr_code', '=', False)]
+              const { display_qr_code } = record
+              return !display_qr_code
+            }
+          }
         },
 
         _group_other_tab_entry_misc_group: {

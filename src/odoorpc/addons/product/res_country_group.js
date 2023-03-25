@@ -29,13 +29,6 @@ export default {
             widget: 'many2many_tags'
           }
         },
-        _group_name2: {
-          // _span: 2,
-          name: {},
-          country_ids: {
-            widget: 'many2many_tags'
-          }
-        },
         _group_pricelist_ids: {
           _span: 2,
           pricelist_ids: {

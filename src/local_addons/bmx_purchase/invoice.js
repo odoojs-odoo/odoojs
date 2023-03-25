@@ -230,9 +230,8 @@ export default {
           return move_type === 'entry'
         },
 
-        context: ({ record }) => {
+        context: ({ record, context }) => {
           const {
-            context,
             journal_id,
             commercial_partner_id,
             currency_id,

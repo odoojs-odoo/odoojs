@@ -96,8 +96,13 @@
           <template v-if="!getInvisible(group)">
             <a-descriptions :column="1">
               <template v-for="meta in group.children" :key="meta.name">
-                <a-descriptions-item v-if="!getInvisible(meta)">
-                  <template v-if="meta.type">
+                <template v-if="getInvisible(meta) || !meta.type"> </template>
+                <template v-else>
+                  <a-descriptions-item v-if="meta.label">
+                    <b> {{ meta.label }}</b>
+                  </a-descriptions-item>
+
+                  <a-descriptions-item>
                     <a-form-item
                       :name="meta.name"
                       :label="tr(getLabel(meta))"
@@ -115,8 +120,8 @@
                         @load-relation="onLoadReation"
                       />
                     </a-form-item>
-                  </template>
-                </a-descriptions-item>
+                  </a-descriptions-item>
+                </template>
               </template>
             </a-descriptions>
           </template>

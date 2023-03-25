@@ -58,7 +58,7 @@ export class Field {
       return this.env.formview(action, { fields })
     } else if (formInfo.relationInfo) {
       const info = formInfo.relationInfo
-      const rel = this.env.relation(info.relation)
+      const rel = this.env.relation(info)
       return rel.form
     } else {
       return undefined
@@ -83,6 +83,10 @@ export class Field {
       )
       return record3
     }
+
+    // todo
+    // const context = this.context
+
     if ('readonly2' in meta) {
       if (typeof meta.readonly2 === 'function') {
         const record = formview_record_get()
@@ -264,15 +268,54 @@ export class Relation extends Field {
     const res = await this.Model.name_get(ids)
     return res
   }
+  async load_select_options2(formInfo, kwargs_in = {}) {
+    const domain_get = () => {
+      const domain = this.field_info.domain || []
+      if (typeof domain === 'function') {
+        if (formInfo) {
+          const { record, values, parentFormInfo } = formInfo
+          const formview = this.formview_get(formInfo)
+          const record2 = formview.merge_to_modifiers(
+            record,
+            values,
+            parentFormInfo
+          )
 
+          const context = formview.context_get(parentFormInfo)
+          return domain({ record: record2, context })
+        } else {
+          // todo search view  m2o?  domain
+          return domain()
+        }
+      } else {
+        return domain
+      }
+    }
+
+    const domain = domain_get()
+
+    const { args = [], limit = 8, ...kwargs } = kwargs_in
+    return this.Model.name_search({
+      args: [...args, ...domain],
+      limit,
+      ...kwargs
+    })
+  }
+
+  // to del
   async load_select_options(kwargs_in = {}) {
     // console.log(this.field_info)
+
+    // todo
+    // const { formInfo } = kwargs_in
+    // get record, context
 
     const { args = [], record = {}, limit = 8, ...kwargs } = kwargs_in
 
     const domain_get = () => {
       const domain = this.field_info.domain || []
       if (typeof domain === 'function') {
+        // todo , context
         return domain({ record })
       } else {
         return domain

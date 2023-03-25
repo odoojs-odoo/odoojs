@@ -52,6 +52,7 @@ import FM2mTags from '@/components/OField/FM2mTags.vue'
 import FOne2many from '@/components/OField/FOne2many.vue'
 import FMany2many from '@/components/OField/FMany2many.vue'
 import FBinary from '@/components/OField/FBinary.vue'
+import FJson from '@/components/OField/FJson.vue'
 
 const props = defineProps([
   'modelValue',
@@ -75,7 +76,8 @@ const widgetMap = {
   FM2mTags,
   FOne2many,
   FMany2many,
-  FBinary
+  FBinary,
+  FJson
 }
 
 const { widgetName, mVal, onChange } = useField(props, { emit })

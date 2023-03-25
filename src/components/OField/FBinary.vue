@@ -9,8 +9,29 @@
         :form-info="formInfo"
       />
     </template>
+
+    <template v-else-if="fieldInfo.widget === 'account-tax-totals-field'">
+      <!-- todo2s: {{ [fieldInfo.type, fieldInfo.widget] }} -->
+      <WAccountTaxTotalsField
+        :width="width"
+        :field-name="fieldName"
+        :field-info="fieldInfo"
+        :form-info="formInfo"
+      />
+    </template>
+
+    <template v-else-if="fieldInfo.widget === 'payment'">
+      <!-- todo2qs: {{ [fieldInfo.type, fieldInfo.widget] }} -->
+      <WPayment
+        :width="width"
+        :field-name="fieldName"
+        :field-info="fieldInfo"
+        :form-info="formInfo"
+      />
+    </template>
+
     <template v-else-if="fieldInfo.widget">
-      todo: {{ fieldInfo.widget }}
+      todo: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
 
     <template v-else>
@@ -26,6 +47,8 @@ import { defineProps, defineEmits } from 'vue'
 import { useField } from './FieldApi'
 
 import WImage from './WImage.vue'
+import WAccountTaxTotalsField from './WAccountTaxTotalsField.vue'
+import WPayment from './WPayment.vue'
 
 const props = defineProps([
   'modelValue',

@@ -20,7 +20,15 @@ export function useM2mNew(props) {
   })
 
   const { computedColumns } = useTreeColumns()
-  const columns = computed(() => computedColumns(fields.value))
+
+  const columns = computed(() => {
+    if (treeview.value) {
+      const context = treeview.value.context_get(props.parentFormInfo)
+      return computedColumns(fields.value, context)
+    } else {
+      return []
+    }
+  })
 
   return { columns }
 }

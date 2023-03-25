@@ -160,6 +160,31 @@ export class X2mForm extends X2mBase {
     return this.edit_model.commit(kwargs)
   }
 
+  _check_modifiers(modifiers_type, fieldInfo, record, values, parentFormInfo) {
+    if (!fieldInfo[modifiers_type]) return undefined
+    if (typeof fieldInfo[modifiers_type] !== 'function') {
+      return fieldInfo[modifiers_type]
+    }
+    const context = this.context_get(parentFormInfo)
+    const record2 = this.merge_to_modifiers(record, values, parentFormInfo)
+    return fieldInfo[modifiers_type]({ record: record2, context })
+  }
+
+  check_invisible(fieldInfo, record, values, parentFormInfo) {
+    const args = ['invisible', fieldInfo, record, values, parentFormInfo]
+    return this._check_modifiers(...args)
+  }
+
+  check_required(fieldInfo, record, values, parentFormInfo) {
+    const args = ['required', fieldInfo, record, values, parentFormInfo]
+    return this._check_modifiers(...args)
+  }
+
+  get_string(fieldInfo, record, values, parentFormInfo) {
+    const args = ['string', fieldInfo, record, values, parentFormInfo]
+    return this._check_modifiers(...args)
+  }
+
   //
   // for record and values
   //

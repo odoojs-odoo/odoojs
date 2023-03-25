@@ -1,4 +1,4 @@
-import { watch, computed, reactive, ref } from 'vue'
+import { watch, computed, reactive, ref, toRaw } from 'vue'
 import api from '@/odoorpc'
 
 import { useTreeColumns } from '@/components/tools/treeColumns'
@@ -69,7 +69,13 @@ export function useTreeView(props) {
   })
 
   const { computedColumns } = useTreeColumns()
-  const columns = computed(() => computedColumns(state.fields))
+  const columns = computed(() => {
+    if (state.treeviewReady && localState.treeview) {
+      return computedColumns(state.fields, localState.treeview.context)
+    } else {
+      return []
+    }
+  })
   const records = computed(() => state.records)
   const pagination = computed(() => state.pagination)
   const searchValues = computed(() => state.searchValues)

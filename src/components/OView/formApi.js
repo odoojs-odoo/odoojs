@@ -95,7 +95,7 @@ export function useForm(props, ctx) {
     if (state.formviewReady && localState.formview) {
       const sheet0 = localState.formview.view_sheet(state.formviewFieldReady)
 
-      console.log(sheet0)
+      // console.log(sheet0)
 
       return sheet0
     } else {
@@ -168,55 +168,46 @@ export function useForm(props, ctx) {
 
   function getLabel(fieldInfo) {
     if (!fieldInfo.string) return undefined
+    if (typeof fieldInfo.string !== 'function') return fieldInfo.string
+    if (!(state.formviewFieldReady && localState.formview)) return
 
-    if (typeof fieldInfo.string !== 'function') {
-      return fieldInfo.string
-    }
-
-    if (state.formviewFieldReady && localState.formview) {
-      const view = localState.formview
-      const record = view.merge_to_modifiers(state.record, state.values)
-      return fieldInfo.string({ record })
-    }
-
-    return
+    const view = localState.formview
+    return view.get_string(fieldInfo, state.record, state.values)
   }
 
   function getInvisible(fieldInfo) {
     if (!fieldInfo.invisible) return undefined
-    if (typeof fieldInfo.invisible !== 'function') {
-      return fieldInfo.invisible
-    }
+    if (typeof fieldInfo.invisible !== 'function') return fieldInfo.invisible
+    if (!(state.formviewFieldReady && localState.formview)) return
 
-    if (state.formviewFieldReady && localState.formview) {
-      const view = localState.formview
-      return view.check_invisible(fieldInfo, state.record, state.values)
-    }
+    const view = localState.formview
+    // todo. 检查 editable . oe_edit_only
 
-    return
+    return view.check_invisible(fieldInfo, state.record, state.values)
   }
 
   function getRules(fieldInfo) {
     // console.log([fieldInfo.name, fieldInfo.required], fieldInfo)
-    if (!state.editable) return undefined
-    if (!fieldInfo.required) return undefined
-
     function required_get() {
+      if (!state.editable) return undefined
+      if (!fieldInfo.required) return undefined
+
       if (typeof fieldInfo.required !== 'function') {
         return fieldInfo.required
       }
 
-      if (state.formviewFieldReady && localState.formview) {
-        const view = localState.formview
-        const record = view.merge_to_modifiers(state.record, state.values)
-        return fieldInfo.required({ record })
-      }
+      if (!(state.formviewFieldReady && localState.formview)) return
 
-      return false
+      const view = localState.formview
+      const required = view.check_required(
+        fieldInfo,
+        state.record,
+        state.values
+      )
+      return required
     }
 
     const required = required_get()
-
     if (!required) return undefined
     return [{ required: true, message: `请输入${tr(fieldInfo.string)}!` }]
   }

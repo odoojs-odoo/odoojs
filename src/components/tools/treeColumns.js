@@ -4,7 +4,7 @@ import api from '@/odoorpc'
 import { useL10n } from './useL10n'
 
 export function useTreeColumns() {
-  function computedColumns(fields) {
+  function computedColumns(fields, context) {
     const l10n = useL10n()
 
     function formatGet(meta) {
@@ -76,10 +76,18 @@ export function useTreeColumns() {
       .map(fld => {
         const meta = fields[fld] || {}
 
+        function str_get(meta) {
+          if (typeof meta.string !== 'function') {
+            return meta.string
+          } else {
+            return meta.string({ context })
+          }
+        }
+
         return {
           dataIndex: fld,
           key: fld,
-          title: l10n.tr(meta.string),
+          title: l10n.tr(str_get(meta)),
           ellipsis: 'ellipsis' in meta ? meta.ellipsis : true,
           // align: 'center',
           width: meta.web_col_width,

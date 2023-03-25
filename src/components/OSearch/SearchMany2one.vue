@@ -89,7 +89,7 @@ watch(
 
 async function handleSearch(val) {
   // console.log('handleSearch:', val)
-  const ops = await loadSelectOptions({ name: val, limit: 8 })
+  const ops = await call_loadSelectOptions({ name: val, limit: 8 })
   // console.log('handleSearch', ops)
 
   options.value = ops.map(item => {
@@ -153,7 +153,7 @@ function useMoreSearch() {
 
   async function loadData() {
     console.log('searchMore')
-    const ops = await loadSelectOptions({ limit: 0 })
+    const ops = await call_loadSelectOptions({ limit: 0 })
     // // console.log('searchMore', ops)
 
     records.value = ops.map(item => {
@@ -182,9 +182,10 @@ function useMoreSearch() {
   return { records, current, columns, loadData, tableCustomRow, onSubmit }
 }
 
-function loadSelectOptions(kw = {}) {
+function call_loadSelectOptions(kw = {}) {
   const relation = api.env.relation(props.fieldInfo)
-  return relation.load_select_options({ ...kw, record: {} })
+  // todo 模拟 做一个 formInfo. 获取 record, context
+  return relation.load_select_options2(null, { ...kw })
 }
 </script>
 

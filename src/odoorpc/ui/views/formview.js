@@ -430,15 +430,29 @@ export class FormView extends BaseView {
     return await this.Model.action_archive([res_id])
   }
 
-  check_invisible(fieldInfo, record, values) {
-    if (!fieldInfo.invisible) return undefined
-    if (typeof fieldInfo.invisible !== 'function') {
-      return fieldInfo.invisible
+  _check_modifiers(modifiers_type, fieldInfo, record, values) {
+    if (!fieldInfo[modifiers_type]) return undefined
+    if (typeof fieldInfo[modifiers_type] !== 'function') {
+      return fieldInfo[modifiers_type]
     }
-
+    const context = this.context
     const record2 = this.merge_to_modifiers(record, values)
-    const record3 = { ...record2, context: this.context }
-    return fieldInfo.invisible({ record: record3 })
+    return fieldInfo[modifiers_type]({ record: record2, context })
+  }
+
+  check_invisible(fieldInfo, record, values) {
+    const args = ['invisible', fieldInfo, record, values]
+    return this._check_modifiers(...args)
+  }
+
+  check_required(fieldInfo, record, values) {
+    const args = ['required', fieldInfo, record, values]
+    return this._check_modifiers(...args)
+  }
+
+  get_string(fieldInfo, record, values) {
+    const args = ['string', fieldInfo, record, values]
+    return this._check_modifiers(...args)
   }
 
   //
@@ -610,7 +624,25 @@ export class FormView extends BaseView {
 
   merge_to_modifiers(record, values) {
     const record2 = this.merge_data(record, values)
-    return this.format_to_modifiers(record2)
+    const record3 = this.format_to_modifiers(record2)
+
+    const val_get = meta => {
+      if (meta.type === 'many2many') {
+        return []
+      } else if (meta.type === 'one2many') {
+        return []
+      } else {
+        return null
+      }
+    }
+
+    const records_default = Object.keys(this.fields).reduce((acc, fld) => {
+      acc[fld] = val_get(this.fields[fld])
+      return acc
+    }, {})
+
+    const record4 = { ...records_default, ...record3 }
+    return record4
   }
 
   merge_to_onchange(record, values) {

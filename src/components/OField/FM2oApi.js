@@ -3,25 +3,10 @@ import { computed, watch, ref, toRaw } from 'vue'
 import { useField } from './FieldApi'
 import api from '@/odoorpc'
 
-function get_record_for_modifiers(formInfo) {
-  if (formInfo.viewInfo) {
-    const actionInfo = toRaw(formInfo.viewInfo.action)
-    const fields = toRaw(formInfo.fields)
-    const view = api.env.formview(actionInfo, { fields })
-    return view.merge_to_modifiers(formInfo.record, formInfo.values)
-  } else if (formInfo.relationInfo) {
-    const info = formInfo.relationInfo
-    const rel = api.env.relation(info.relation)
-    const view = rel.form
-
-    return view.merge_to_modifiers(
-      formInfo.record,
-      formInfo.values,
-      formInfo.parentFormInfo
-    )
-  } else {
-    return {}
-  }
+async function call_loadSelectOptions(props, kw = {}) {
+  const relation = api.env.relation(props.fieldInfo)
+  const formInfo = toRaw(props.formInfo)
+  return relation.load_select_options2(formInfo, kw)
 }
 
 export function useFM2o(props, ctx) {
@@ -31,12 +16,6 @@ export function useFM2o(props, ctx) {
     onChange,
     ...fieldData
   } = useField(props, ctx)
-
-  function loadSelectOptions(kw = {}) {
-    const record = get_record_for_modifiers(props.formInfo)
-    const relation = api.env.relation(props.fieldInfo)
-    return relation.load_select_options({ record, ...kw })
-  }
 
   const dVal = computed(() => (valDisp.value || [0, null])[1])
 
@@ -54,14 +33,14 @@ export function useFM2o(props, ctx) {
     return ops2
   })
 
-  // 编辑, loadSelectOptions
+  // 编辑, call_loadSelectOptions
   watch(
     () => readonly.value,
     async newVal => {
       if (!newVal) {
         const domain = props.fieldInfo.domain
         if (!domain || typeof domain !== 'function') {
-          const ops = await loadSelectOptions()
+          const ops = await call_loadSelectOptions(props)
           optionsFirst.value = ops
         }
       }
@@ -71,9 +50,7 @@ export function useFM2o(props, ctx) {
 
   async function handleSearch(val) {
     // console.log('handleSearch:', val)
-
-    const ops = await loadSelectOptions({ name: val })
-    // console.log('handleSearch', ops)
+    const ops = await call_loadSelectOptions(props, { name: val })
     optionsRaw.value = ops
   }
 
@@ -81,7 +58,7 @@ export function useFM2o(props, ctx) {
     if (open) {
       const domain = props.fieldInfo.domain
       if (typeof domain === 'function') {
-        const ops = await loadSelectOptions()
+        const ops = await call_loadSelectOptions(props)
         optionsRaw.value = ops
       } else {
         optionsRaw.value = optionsFirst.value
@@ -101,13 +78,6 @@ export function useFM2o(props, ctx) {
 }
 
 export function useMoreSearch(props, ctx) {
-  function loadSelectOptions(kw = {}) {
-    const record = get_record_for_modifiers(props.formInfo)
-
-    const relation = api.env.relation(props.fieldInfo)
-    return relation.load_select_options({ record, ...kw })
-  }
-
   const records = ref([])
   const columns = ref([
     {
@@ -120,8 +90,8 @@ export function useMoreSearch(props, ctx) {
 
   async function loadData() {
     // console.log('searchMore')
-    const ops = await loadSelectOptions({ limit: 0 })
-    // // console.log('searchMore', ops)
+
+    const ops = await call_loadSelectOptions(props, { limit: 0 })
 
     records.value = ops.map(item => {
       return { id: item[0], display_name: item[1] }
