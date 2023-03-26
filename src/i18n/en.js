@@ -14,7 +14,8 @@ export default {
     back: 'back',
     create: 'create',
     deleteTip: 'Are you sure to delete this data?',
-    inputNameTip: 'Please input user name'
+    inputNameTip: 'Please input user name.',
+    exportAll: 'Export All'
   },
   resUser: {
     account: 'Account',

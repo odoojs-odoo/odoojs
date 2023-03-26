@@ -8,6 +8,14 @@ const ModelFields = {
     ]
   },
 
+  journal_id: {
+    domain({ record }) {
+      //  domain="[('id', 'in', suitable_journal_ids)]",
+      const { suitable_journal_ids } = record
+      return [['id', 'in', suitable_journal_ids]]
+    }
+  },
+
   partner_id: {
     domain({ record }) {
       // [('company_id', 'in', [company_id, False])]

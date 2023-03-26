@@ -13,30 +13,53 @@
           size="small"
         >
           <template v-for="group in sheet.children" :key="group.name">
-            <a-descriptions-item :span="group.span">
+            <a-descriptions-item v-if="group.html" :span="group.span">
               <a-descriptions :column="1">
-                <template v-for="meta in group.children" :key="meta.name">
-                  <a-descriptions-item v-if="!getInvisible(meta)">
-                    <template v-if="meta.type">
-                      <a-form-item
-                        :name="meta.name"
-                        :label="tr(meta.string)"
-                        :rules="getRules(meta)"
-                        style="margin-bottom: 5px"
-                      >
-                        <OField
-                          width="270px"
-                          v-model="mVal[meta.name]"
-                          :field-name="meta.name"
-                          :field-info="meta"
-                          :form-info="formInfo"
-                          @change="(...args) => onChange(meta.name, ...args)"
-                        />
-                      </a-form-item>
-                    </template>
-                  </a-descriptions-item>
-                </template>
+                <a-descriptions-item
+                  v-for="(item, index) in group.children"
+                  :key="index"
+                >
+                  {{ html_get(item) }}
+                </a-descriptions-item>
               </a-descriptions>
+            </a-descriptions-item>
+
+            <a-descriptions-item v-else :span="group.span">
+              <template v-if="!getInvisible(group)">
+                <a-descriptions :column="1">
+                  <template v-for="meta in group.children" :key="meta.name">
+                    <template v-if="getInvisible(meta) || !meta.type">
+                    </template>
+                    <template v-else>
+                      <a-descriptions-item>
+                        <template v-if="meta.label">
+                          <b> {{ meta.label }}</b>
+                        </template>
+                        <template v-else>
+                          <a-form-item
+                            :name="meta.name"
+                            :label="tr(getLabel(meta))"
+                            :labelCol="{ style: 'fontWeight:bold' }"
+                            :rules="getRules(meta)"
+                            style="margin-bottom: 5px"
+                          >
+                            <OField
+                              width="270px"
+                              v-model="mVal[meta.name]"
+                              :field-name="meta.name"
+                              :field-info="meta"
+                              :form-info="formInfo"
+                              @change="
+                                (...args) => onChange(meta.name, ...args)
+                              "
+                            />
+                          </a-form-item>
+                        </template>
+                      </a-descriptions-item>
+                    </template>
+                  </template>
+                </a-descriptions>
+              </template>
             </a-descriptions-item>
           </template>
         </a-descriptions>
@@ -93,7 +116,7 @@ const editRef = ref()
 const useData = useO2mForm(props, { emit, editRef })
 const { sheet, mVal, formInfo } = useData
 
-const { getInvisible, getRules, onChange, commit } = useData
+const { getInvisible, getLabel, getRules, onChange, commit } = useData
 
 function onRollback() {
   visible2.value = false

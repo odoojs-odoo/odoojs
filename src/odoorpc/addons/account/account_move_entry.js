@@ -518,13 +518,15 @@ export default {
                 ['move_type', '=', 'in_invoice']
               ]
             },
-            invisible({ record }) {
+            invisible({ record, editable }) {
               // class="oe_edit_only"
               // 'invisible':
               // ['|', ('state', '!=', 'draft'), ('move_type', '!=', 'in_invoice')]
 
               const { state, move_type } = record
-              return state !== 'draft' || move_type !== 'in_invoice'
+              return (
+                !editable || state !== 'draft' || move_type !== 'in_invoice'
+              )
             }
           }
         },

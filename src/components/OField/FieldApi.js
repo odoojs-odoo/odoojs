@@ -11,7 +11,6 @@ export function useField(props, ctx) {
 
     const fapi = api.env.field(toRaw(props.fieldInfo))
     const formInfo = toRaw(props.formInfo)
-    // console.log(props.fieldName, formInfo)
     return fapi.check_readonly({ ...formInfo })
   })
 

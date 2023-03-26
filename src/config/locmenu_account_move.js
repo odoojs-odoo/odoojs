@@ -29,6 +29,29 @@ export default {
       id: 'odoo_account.action_move_in_invoice_type',
       icon: 'shopping',
       name: { en_US: 'Bills', zh_CN: '采购账单', zh_HK: '采购账单' }
+    },
+
+    {
+      action: 'account.action_account_payments',
+      id: 'odoo_account.action_account_payments',
+      icon: 'shopping',
+      name: { en_US: 'Payments In', zh_CN: '收款/退款', zh_HK: '收款/退款' }
+    },
+    {
+      action: 'account.action_account_payments_payable',
+      id: 'odoo_account.action_account_payments_payable',
+      icon: 'shopping',
+      name: { en_US: 'Payments Out', zh_CN: '支付/退款', zh_HK: '支付/退款' }
+    },
+    {
+      action: 'account.action_account_payments_transfer',
+      id: 'odoo_account.action_account_payments_transfer',
+      icon: 'shopping',
+      name: {
+        en_US: 'Internal Transfers',
+        zh_CN: '内部转账',
+        zh_HK: '内部转账'
+      }
     }
   ]
 }

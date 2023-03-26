@@ -131,11 +131,18 @@ export class EditModel extends EditBase {
     //
     //  m2m 字段有默认值时, 需要刷新数据
 
-    const { values } = result
+    const { value: value_ret, ...result2 } = result
     this.record = {}
-    this.values = { ...values }
+    this.values = { ...value_ret }
+    return { record: {}, ...result2, values: { ...value_ret } }
 
-    return { record: {}, ...result }
+    // const { value: value_ret } = result
+
+    // // const { values } = result
+    // this.record = {}
+    // this.values = { ...value_ret }
+
+    // return { record: {}, ...result }
   }
 
   set_editable(record) {

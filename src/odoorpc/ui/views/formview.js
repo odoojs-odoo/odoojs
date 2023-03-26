@@ -430,29 +430,28 @@ export class FormView extends BaseView {
     return await this.Model.action_archive([res_id])
   }
 
-  _check_modifiers(modifiers_type, fieldInfo, record, values) {
+  _check_modifiers(modifiers_type, fieldInfo, kw) {
+    const { record, values, editable } = kw
+
     if (!fieldInfo[modifiers_type]) return undefined
     if (typeof fieldInfo[modifiers_type] !== 'function') {
       return fieldInfo[modifiers_type]
     }
     const context = this.context
     const record2 = this.merge_to_modifiers(record, values)
-    return fieldInfo[modifiers_type]({ record: record2, context })
+    return fieldInfo[modifiers_type]({ record: record2, context, editable })
   }
 
-  check_invisible(fieldInfo, record, values) {
-    const args = ['invisible', fieldInfo, record, values]
-    return this._check_modifiers(...args)
+  check_invisible(fieldInfo, kw) {
+    return this._check_modifiers('invisible', fieldInfo, kw)
   }
 
-  check_required(fieldInfo, record, values) {
-    const args = ['required', fieldInfo, record, values]
-    return this._check_modifiers(...args)
+  check_required(fieldInfo, kw) {
+    return this._check_modifiers('required', fieldInfo, kw)
   }
 
-  get_string(fieldInfo, record, values) {
-    const args = ['string', fieldInfo, record, values]
-    return this._check_modifiers(...args)
+  get_string(fieldInfo, kw) {
+    return this._check_modifiers('string', fieldInfo, kw)
   }
 
   //
@@ -519,7 +518,7 @@ export class FormView extends BaseView {
   _format_to_write_get_readonly(meta, record) {
     const meta_readonly_get = record2 => {
       if (typeof meta.readonly === 'function') {
-        return meta.readonly({ record2 })
+        return meta.readonly({ record: record2 })
       } else {
         return meta.readonly
       }
@@ -542,7 +541,7 @@ export class FormView extends BaseView {
       }
     }
 
-    return meta_readonly_get()
+    return meta_readonly_get(record)
   }
 
   format_to_write(values, record) {
