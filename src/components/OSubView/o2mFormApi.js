@@ -53,13 +53,31 @@ export function useO2mForm(props, ctx) {
     const formview = formview_get()
     if (!formview) return undefined
 
-    const parentFormInfo = toRaw(props.parentFormInfo)
-    return formview.check_invisible(
-      fieldInfo,
-      state.record,
-      state.values,
-      parentFormInfo
-    )
+    const kw = {
+      record: toRaw(props.record),
+      values: toRaw(state.values),
+      editable: !props.readonly,
+      parentFormInfo: toRaw(props.parentFormInfo)
+    }
+
+    return formview.check_invisible(fieldInfo, kw)
+  }
+
+  function getLabel(fieldInfo) {
+    if (!fieldInfo.string) return undefined
+    if (typeof fieldInfo.string !== 'function') return fieldInfo.string
+
+    const formview = formview_get()
+    if (!formview) return undefined
+
+    const kw = {
+      record: toRaw(props.record),
+      values: toRaw(state.values),
+      editable: !props.readonly,
+      parentFormInfo: toRaw(props.parentFormInfo)
+    }
+
+    return formview.get_string(fieldInfo, kw)
   }
 
   function getRules(fieldInfo) {
@@ -68,13 +86,13 @@ export function useO2mForm(props, ctx) {
     const formview = formview_get()
     if (!formview) return false
 
-    const parentFormInfo = toRaw(props.parentFormInfo)
-    const required = formview.check_required(
-      fieldInfo,
-      state.record,
-      state.values,
-      parentFormInfo
-    )
+    const kw = {
+      record: toRaw(props.record),
+      values: toRaw(state.values),
+      editable: !props.readonly,
+      parentFormInfo: toRaw(props.parentFormInfo)
+    }
+    const required = formview.check_required(fieldInfo, kw)
 
     if (!required) return undefined
     return [{ required: true, message: `请输入${tr(fieldInfo.string)}!` }]
@@ -178,6 +196,7 @@ export function useO2mForm(props, ctx) {
     }),
 
     getInvisible,
+    getLabel,
     getRules,
     onChange,
     commit

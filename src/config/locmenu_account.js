@@ -44,6 +44,13 @@ export default {
       id: 'odoo_account.action_account_form',
       icon: 'shopping',
       name: { en_US: 'Chart of Accounts', zh_CN: '科目表', zh_HK: '科目表' }
+    },
+
+    {
+      action: 'account.action_payment_term_form',
+      id: 'odoo_account.action_payment_term_form',
+      icon: 'shopping',
+      name: { en_US: 'Payment Terms', zh_CN: '支付条款', zh_HK: '支付条款' }
     }
   ]
 }

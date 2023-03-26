@@ -92,34 +92,46 @@
       </a-descriptions-item>
       -->
       <template v-for="group in sheet.children" :key="group.name">
-        <a-descriptions-item :span="group.span">
+        <a-descriptions-item v-if="group.html" :span="group.span">
+          <a-descriptions :column="1">
+            <a-descriptions-item
+              v-for="(item, index) in group.children"
+              :key="index"
+            >
+              {{ html_get(item) }}
+            </a-descriptions-item>
+          </a-descriptions>
+        </a-descriptions-item>
+
+        <a-descriptions-item v-else :span="group.span">
           <template v-if="!getInvisible(group)">
             <a-descriptions :column="1">
               <template v-for="meta in group.children" :key="meta.name">
                 <template v-if="getInvisible(meta) || !meta.type"> </template>
                 <template v-else>
-                  <a-descriptions-item v-if="meta.label">
-                    <b> {{ meta.label }}</b>
-                  </a-descriptions-item>
-
                   <a-descriptions-item>
-                    <a-form-item
-                      :name="meta.name"
-                      :label="tr(getLabel(meta))"
-                      :labelCol="{ style: 'fontWeight:bold' }"
-                      :rules="getRules(meta)"
-                      style="margin-bottom: 5px"
-                    >
-                      <OField
-                        v-model="mVal[meta.name]"
-                        width="270px"
-                        :field-name="meta.name"
-                        :field-info="meta"
-                        :form-info="formInfo"
-                        @change="(...args) => onChange(meta.name, ...args)"
-                        @load-relation="onLoadReation"
-                      />
-                    </a-form-item>
+                    <template v-if="meta.label">
+                      <b> {{ meta.label }}</b>
+                    </template>
+                    <template v-else>
+                      <a-form-item
+                        :name="meta.name"
+                        :label="tr(getLabel(meta))"
+                        :labelCol="{ style: 'fontWeight:bold' }"
+                        :rules="getRules(meta)"
+                        style="margin-bottom: 5px"
+                      >
+                        <OField
+                          v-model="mVal[meta.name]"
+                          width="270px"
+                          :field-name="meta.name"
+                          :field-info="meta"
+                          :form-info="formInfo"
+                          @change="(...args) => onChange(meta.name, ...args)"
+                          @load-relation="onLoadReation"
+                        />
+                      </a-form-item>
+                    </template>
                   </a-descriptions-item>
                 </template>
               </template>
@@ -164,6 +176,16 @@ const { onBtnClick } = useData
 const record = computed(() => formInfo.value.record)
 function onClickDelConfirm() {
   onClickCRUD('del')
+}
+
+function html_get(item) {
+  if (typeof item !== 'function') {
+    return item
+  } else {
+    return item({
+      record: { ...formInfo.value.record, ...formInfo.value.values }
+    })
+  }
 }
 
 // const labelCol = { span: 8 }

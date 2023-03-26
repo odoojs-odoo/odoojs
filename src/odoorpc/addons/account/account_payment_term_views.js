@@ -4,7 +4,7 @@ export default {
     model: 'account.payment.term',
     type: 'tree',
     fields: {
-      sequence: {},
+      // sequence: {},
       name: {},
       company_id: {}
     }
@@ -14,41 +14,116 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.payment.term',
     type: 'form',
-    fields: {
-      // sequence: {},
-      // active: {},
-      //
+    arch: {
+      header: {
+        buttons: [],
+        fields: {}
+      },
+      sheet: {
+        _title: {
+          display_name: {}
+        },
 
-      name: {},
-      company_id: {},
-      note: {},
+        _group_name: {
+          // sequence: {},
+          name: {},
+          active: { widget: 'web_ribbon' }
+        },
 
-      line_ids: {
-        widget: 'x2many_tree',
-        views: {
-          tree: {
-            fields: {
-              sequence: {},
-              value: {},
-              value_amount: {},
-              days: {},
-              option: {},
-              day_of_the_month: {}
+        _group_company_id: {
+          company_id: {}
+        },
+
+        _group_note: {
+          _span: 2,
+          note: {}
+        },
+
+        _group_display_on_invoice: {
+          display_on_invoice: {}
+        },
+
+        _group_line_ids: {
+          _span: 2,
+          line_ids: {
+            widget: 'x2many_tree',
+            views: {
+              tree: {
+                fields: {
+                  value: {},
+                  value_amount: {
+                    invisible: ({ record }) => {
+                      //  'invisible': [('value', '=', 'balance')]}" digits="[2, 2]"/>
+                      const { value } = record
+                      return value === 'balance'
+                    }
+                  },
+                  months: {},
+                  days: {},
+                  end_month: { widget: 'boolean_toggle' },
+                  days_after: {
+                    invisible: ({ record }) => {
+                      // 'invisible': [('end_month','=', False)]}"/>
+                      const { end_month } = record
+                      return !end_month
+                    }
+                  },
+                  discount_percentage: {},
+                  discount_days: {}
+                }
+              },
+              form: {
+                arch: {
+                  sheet: {
+                    _group_name: {
+                      value: {},
+                      value_amount: {
+                        invisible: ({ record }) => {
+                          //  'invisible': [('value', '=', 'balance')]}" digits="[2, 2]"/>
+                          const { value } = record
+                          return value === 'balance'
+                        }
+                      },
+                      months: {},
+                      days: {},
+                      end_month: { widget: 'boolean_toggle' },
+                      days_after: {
+                        invisible: ({ record }) => {
+                          // 'invisible': [('end_month','=', False)]}"/>
+                          const { end_month } = record
+                          return !end_month
+                        }
+                      },
+                      discount_percentage: {},
+                      discount_days: {}
+                    }
+                  }
+                }
+              }
             }
-          },
-          form: {
-            fields: {
-              // sequence: {},
-              value: {},
-              value_amount: {},
-              days: {},
-              option: {},
-              day_of_the_month: {}
+          }
+        },
+        _group_help: {
+          example_amount: { invisible: 1 },
+          example_date: { invisible: 1 },
+          example_preview: { invisible: 1 },
+          _span: 2,
+          _html: 1,
+          _children: {
+            a: 'The Payment Term must have one Balance line.',
+            b({ record }) {
+              const { example_amount, example_date } = record
+              return `For any invoice of ${example_amount} dated ${example_date}`
+            },
+            c({ record }) {
+              const { example_preview } = record
+              return `the due date(s) and amount(s) will be: ${example_preview}`
             }
           }
         }
       }
-    }
+    },
+    fields: {}
   },
 
   view_payment_term_search: {
@@ -57,8 +132,7 @@ export default {
     type: 'search',
     arch: {
       fields: {
-        name: {},
-        active: {}
+        name: {}
       },
 
       filters: {
@@ -78,8 +152,8 @@ export default {
     domain: [],
     context: {},
     views: {
-      tree: 'view_move_tree',
-      form: 'view_move_form'
+      tree: 'view_payment_term_tree',
+      form: 'view_payment_term_form'
     }
   }
 }

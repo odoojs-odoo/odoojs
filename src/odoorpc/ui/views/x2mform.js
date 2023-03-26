@@ -139,6 +139,7 @@ export class X2mForm extends X2mBase {
       }
     }
 
+    console.log(sheet_items.data)
     return { children: sheet_items.data }
   }
 
@@ -160,29 +161,28 @@ export class X2mForm extends X2mBase {
     return this.edit_model.commit(kwargs)
   }
 
-  _check_modifiers(modifiers_type, fieldInfo, record, values, parentFormInfo) {
+  _check_modifiers(modifiers_type, fieldInfo, kw) {
+    const { record, values, parentFormInfo, editable } = kw
+
     if (!fieldInfo[modifiers_type]) return undefined
     if (typeof fieldInfo[modifiers_type] !== 'function') {
       return fieldInfo[modifiers_type]
     }
     const context = this.context_get(parentFormInfo)
     const record2 = this.merge_to_modifiers(record, values, parentFormInfo)
-    return fieldInfo[modifiers_type]({ record: record2, context })
+    return fieldInfo[modifiers_type]({ record: record2, context, editable })
   }
 
-  check_invisible(fieldInfo, record, values, parentFormInfo) {
-    const args = ['invisible', fieldInfo, record, values, parentFormInfo]
-    return this._check_modifiers(...args)
+  check_invisible(fieldInfo, kw) {
+    return this._check_modifiers('invisible', fieldInfo, kw)
   }
 
-  check_required(fieldInfo, record, values, parentFormInfo) {
-    const args = ['required', fieldInfo, record, values, parentFormInfo]
-    return this._check_modifiers(...args)
+  check_required(fieldInfo, kw) {
+    return this._check_modifiers('required', fieldInfo, kw)
   }
 
-  get_string(fieldInfo, record, values, parentFormInfo) {
-    const args = ['string', fieldInfo, record, values, parentFormInfo]
-    return this._check_modifiers(...args)
+  get_string(fieldInfo, kw) {
+    return this._check_modifiers('string', fieldInfo, kw)
   }
 
   //
@@ -253,7 +253,7 @@ export class X2mForm extends X2mBase {
   _format_to_write_get_readonly(meta, record) {
     const meta_readonly_get = record2 => {
       if (typeof meta.readonly === 'function') {
-        return meta.readonly({ record2 })
+        return meta.readonly({ record: record2 })
       } else {
         return meta.readonly
       }
@@ -276,7 +276,7 @@ export class X2mForm extends X2mBase {
       }
     }
 
-    return meta_readonly_get()
+    return meta_readonly_get(record)
   }
 
   format_to_write(values, record) {

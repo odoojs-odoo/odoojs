@@ -5,7 +5,16 @@
     </template>
 
     <template v-else-if="fieldInfo.widget === 'boolean_toggle'">
-      <!-- todo: {{ [fieldInfo.type, fieldInfo.widget] }} -->
+      <template v-if="readonly">
+        <a-checkbox :checked="dVal" disabled />
+      </template>
+
+      <template v-else>
+        <a-checkbox v-model:checked="mVal" @change="onCheckChange" />
+      </template>
+    </template>
+
+    <template v-else-if="fieldInfo.widget === 'web_ribbon'">
       <template v-if="readonly">
         <a-checkbox :checked="dVal" disabled />
       </template>

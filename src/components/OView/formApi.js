@@ -95,7 +95,7 @@ export function useForm(props, ctx) {
     if (state.formviewReady && localState.formview) {
       const sheet0 = localState.formview.view_sheet(state.formviewFieldReady)
 
-      // console.log(sheet0)
+      console.log(sheet0)
 
       return sheet0
     } else {
@@ -156,10 +156,11 @@ export function useForm(props, ctx) {
         state.editable = false
       } else {
         const dataInfo = await localState.formview.onchange_new()
+        console.log(dataInfo)
         const { values } = dataInfo
-        state.mVal = values
+        state.mVal = { ...values }
         state.record = {}
-        state.values = values
+        state.values = { ...values }
         state.editable = true
       }
     },
@@ -172,7 +173,12 @@ export function useForm(props, ctx) {
     if (!(state.formviewFieldReady && localState.formview)) return
 
     const view = localState.formview
-    return view.get_string(fieldInfo, state.record, state.values)
+    const kw = {
+      record: state.record,
+      values: state.values,
+      editable: state.editable
+    }
+    return view.get_string(fieldInfo, kw)
   }
 
   function getInvisible(fieldInfo) {
@@ -181,9 +187,14 @@ export function useForm(props, ctx) {
     if (!(state.formviewFieldReady && localState.formview)) return
 
     const view = localState.formview
-    // todo. 检查 editable . oe_edit_only
 
-    return view.check_invisible(fieldInfo, state.record, state.values)
+    const kw = {
+      record: state.record,
+      values: state.values,
+      editable: state.editable
+    }
+
+    return view.check_invisible(fieldInfo, kw)
   }
 
   function getRules(fieldInfo) {
@@ -199,11 +210,14 @@ export function useForm(props, ctx) {
       if (!(state.formviewFieldReady && localState.formview)) return
 
       const view = localState.formview
-      const required = view.check_required(
-        fieldInfo,
-        state.record,
-        state.values
-      )
+
+      const kw = {
+        record: state.record,
+        values: state.values,
+        editable: state.editable
+      }
+
+      const required = view.check_required(fieldInfo, kw)
       return required
     }
 
@@ -268,6 +282,7 @@ export function useForm(props, ctx) {
   // 编辑按钮触发
   function onClickEdit() {
     if (!localState.formview) return
+
     state.mVal = localState.formview.set_editable(state.record)
     state.values = {}
     state.editable = true
@@ -415,7 +430,16 @@ export function useForm(props, ctx) {
   }
 
   return {
-    mVal: computed(() => state.mVal),
+    mVal: computed({
+      get() {
+        return state.mVal
+      },
+
+      // eslint-disable-next-line no-unused-vars
+      set(val) {
+        // state.mVal = {...}
+      }
+    }),
     fields: computed(() => state.fields), // 自定义页面需要
     sheet: sheet,
     formInfo: computed(() => {
