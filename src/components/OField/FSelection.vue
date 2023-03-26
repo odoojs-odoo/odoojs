@@ -1,6 +1,6 @@
 <template>
   <span>
-    <template v-if="fieldInfo.widget === 'radio2'">
+    <template v-if="fieldInfo.widget === 'radio'">
       <!-- todo: {{ [fieldInfo.type, fieldInfo.widget] }} -->
 
       <template v-if="readonly">
@@ -8,17 +8,17 @@
       </template>
 
       <template v-else>
-        {{ mVal }}
+        <!-- {{ mVal }} -->
         <a-radio-group
           v-model:value="mVal"
           :options="options"
-          @change="onChange"
+          @change="onChangeRadio"
         />
       </template>
     </template>
-    <!-- <template v-else-if="fieldInfo.widget">
+    <template v-else-if="fieldInfo.widget">
       todo: {{ [fieldInfo.type, fieldInfo.widget] }}
-    </template> -->
+    </template>
 
     <template v-else>
       <template v-if="readonly">
@@ -27,6 +27,7 @@
 
       <template v-else>
         <!-- edit: {{ [fieldName, mVal, dVal, onChange] }} -->
+
         <a-select
           v-model:value="mVal"
           :style="compute_style"
@@ -40,9 +41,9 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed, toRaw } from 'vue'
+import { defineProps, defineEmits, computed } from 'vue'
 import { useFSelection } from './FSelectionApi'
-import { useL10n } from '@/components/tools/useL10n'
+
 const props = defineProps([
   'modelValue',
   'width',
@@ -51,22 +52,15 @@ const props = defineProps([
   'formInfo'
 ])
 
-const { tr } = useL10n()
 const emit = defineEmits(['update:modelValue', 'change'])
 
-const { mVal, dVal, readonly, onChange } = useFSelection(props, { emit })
-
-const options = computed(() => {
-  const info = toRaw(props.fieldInfo)
-  const ops = info.selection || []
-
-  return ops.map(item => {
-    return {
-      label: tr(item[1]),
-      value: item[0]
-    }
-  })
+const { mVal, dVal, readonly, options, onChange } = useFSelection(props, {
+  emit
 })
+
+function onChangeRadio(e) {
+  onChange(e.target.value)
+}
 
 const compute_style = computed(() =>
   props.width ? `width: ${props.width}` : undefined

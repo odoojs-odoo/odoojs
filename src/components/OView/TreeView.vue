@@ -23,7 +23,7 @@
     </a-button>
 
     <a-tooltip class="expBtn">
-      <template #title>导出全部</template>
+      <template #title>{{ $t('act.exportAll') }}</template>
       <a-button size="small" @click="onExportAll">
         <template #icon>
           <download-outlined />

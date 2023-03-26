@@ -95,7 +95,7 @@ export function useForm(props, ctx) {
     if (state.formviewReady && localState.formview) {
       const sheet0 = localState.formview.view_sheet(state.formviewFieldReady)
 
-      console.log(sheet0)
+      // console.log(sheet0)
 
       return sheet0
     } else {
@@ -156,7 +156,6 @@ export function useForm(props, ctx) {
         state.editable = false
       } else {
         const dataInfo = await localState.formview.onchange_new()
-        console.log(dataInfo)
         const { values } = dataInfo
         state.mVal = { ...values }
         state.record = {}

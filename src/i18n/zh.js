@@ -14,7 +14,8 @@ export default {
     back: '返回',
     create: '创建',
     deleteTip: '您是要删除这条数据吗?',
-    inputNameTip: '请输入用户名'
+    inputNameTip: '请输入用户名',
+    exportAll: '导出全部'
   },
   resUser: {
     account: '账号',

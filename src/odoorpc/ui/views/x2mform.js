@@ -139,7 +139,6 @@ export class X2mForm extends X2mBase {
       }
     }
 
-    console.log(sheet_items.data)
     return { children: sheet_items.data }
   }
 
