@@ -1034,6 +1034,7 @@ export default {
               // [('payment_state', '=', 'invoicing_legacy'),
               // ('move_type', '!=', 'entry')]}">
               const { payment_state, move_type } = record
+
               return (
                 payment_state === 'invoicing_legacy' && move_type !== 'entry'
               )

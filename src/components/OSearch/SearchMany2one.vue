@@ -1,9 +1,7 @@
 <template>
   <span>
-    <span v-if="title"> 
-      <b>
-        {{ title }}:
-      </b>
+    <span v-if="title">
+      <b>{{ title }}:</b>
     </span>
 
     <a-select

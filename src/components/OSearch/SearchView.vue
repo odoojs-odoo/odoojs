@@ -7,7 +7,6 @@
       padding-left: 5px;
       margin-bottom: 10px;
       border-radius: 5px;
-      background-color: white;
     "
   >
     <div style="flex: 1; line-height: 32px">
@@ -60,7 +59,7 @@
                 :value="(searchValues[item.name] || {}).values || []"
                 :options="item.selection"
                 @change="val => onSearchChange(item, val)"
-                style="margin-left: 8px;"
+                style="margin-left: 8px"
               />
             </template>
 

@@ -109,29 +109,27 @@
               <template v-for="meta in group.children" :key="meta.name">
                 <template v-if="getInvisible(meta) || !meta.type"> </template>
                 <template v-else>
+                  <a-descriptions-item v-if="meta.label">
+                    <b> {{ meta.label }}</b>
+                  </a-descriptions-item>
                   <a-descriptions-item>
-                    <template v-if="meta.label">
-                      <b> {{ meta.label }}</b>
-                    </template>
-                    <template v-else>
-                      <a-form-item
-                        :name="meta.name"
-                        :label="tr(getLabel(meta))"
-                        :labelCol="{ style: 'fontWeight:bold' }"
-                        :rules="getRules(meta)"
-                        style="margin-bottom: 5px"
-                      >
-                        <OField
-                          v-model="mVal[meta.name]"
-                          width="270px"
-                          :field-name="meta.name"
-                          :field-info="meta"
-                          :form-info="formInfo"
-                          @change="(...args) => onChange(meta.name, ...args)"
-                          @load-relation="onLoadReation"
-                        />
-                      </a-form-item>
-                    </template>
+                    <a-form-item
+                      :name="meta.name"
+                      :label="tr(getLabel(meta))"
+                      :labelCol="{ style: 'fontWeight:bold' }"
+                      :rules="getRules(meta)"
+                      style="margin-bottom: 5px"
+                    >
+                      <OField
+                        v-model="mVal[meta.name]"
+                        width="270px"
+                        :field-name="meta.name"
+                        :field-info="meta"
+                        :form-info="formInfo"
+                        @change="(...args) => onChange(meta.name, ...args)"
+                        @load-relation="onLoadReation"
+                      />
+                    </a-form-item>
                   </a-descriptions-item>
                 </template>
               </template>

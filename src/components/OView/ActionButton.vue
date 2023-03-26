@@ -1,14 +1,13 @@
-<!--
- * @Author: Nxf
- * @Date: 2023-03-25 10:46:18
- * @LastEditors: Nxf
- * @LastEditTime: 2023-03-26 16:27:51
- * @Descripttion: 
--->
 <template>
   <a-dropdown>
     <a-button
       size="small"
+      style="
+        float: right;
+        margin-right: 10px;
+        margin-top: 5px;
+        margin-bottom: 20px;
+      "
     >
       <setting-outlined />
       操作

@@ -1,27 +1,17 @@
-<!--
- * @Author: Nxf
- * @Date: 2023-03-18 08:53:52
- * @LastEditors: Nxf
- * @LastEditTime: 2023-03-26 17:11:28
- * @Descripttion: 
--->
 <template>
   <span>
-    <span v-if="title"> 
-      <b>
-        {{ title }}: 
-      </b>
+    <span v-if="title">
+      <b>{{ title }}:</b>
     </span>
 
     <b>
       <a-checkbox-group
-      v-model:value="state.mVal"
-      name="checkboxgroup"
-      :options="options2"
-      @change="handleChange"
-    />
+        v-model:value="state.mVal"
+        name="checkboxgroup"
+        :options="options2"
+        @change="handleChange"
+      />
     </b>
-   
   </span>
 </template>
 

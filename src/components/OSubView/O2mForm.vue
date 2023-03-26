@@ -31,30 +31,26 @@
                     <template v-if="getInvisible(meta) || !meta.type">
                     </template>
                     <template v-else>
+                      <a-descriptions-item v-if="meta.label">
+                        <b> {{ meta.label }}</b>
+                      </a-descriptions-item>
                       <a-descriptions-item>
-                        <template v-if="meta.label">
-                          <b> {{ meta.label }}</b>
-                        </template>
-                        <template v-else>
-                          <a-form-item
-                            :name="meta.name"
-                            :label="tr(getLabel(meta))"
-                            :labelCol="{ style: 'fontWeight:bold' }"
-                            :rules="getRules(meta)"
-                            style="margin-bottom: 5px"
-                          >
-                            <OField
-                              width="270px"
-                              v-model="mVal[meta.name]"
-                              :field-name="meta.name"
-                              :field-info="meta"
-                              :form-info="formInfo"
-                              @change="
-                                (...args) => onChange(meta.name, ...args)
-                              "
-                            />
-                          </a-form-item>
-                        </template>
+                        <a-form-item
+                          :name="meta.name"
+                          :label="tr(getLabel(meta))"
+                          :labelCol="{ style: 'fontWeight:bold' }"
+                          :rules="getRules(meta)"
+                          style="margin-bottom: 5px"
+                        >
+                          <OField
+                            width="270px"
+                            v-model="mVal[meta.name]"
+                            :field-name="meta.name"
+                            :field-info="meta"
+                            :form-info="formInfo"
+                            @change="(...args) => onChange(meta.name, ...args)"
+                          />
+                        </a-form-item>
                       </a-descriptions-item>
                     </template>
                   </template>

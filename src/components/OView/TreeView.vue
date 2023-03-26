@@ -1,6 +1,5 @@
 <template>
   <div class="actionZone">
-
     <!-- {{ columns }} -->
     <!-- {{ pagination }} -->
 
@@ -13,11 +12,11 @@
 
     <div></div>
     <a-button
-      class="createBtn"
       v-if="buttons.create"
       size="small"
       type="primary"
       @click="onClickNew"
+      class="createBtn"
     >
       {{ $t('act.create') }}
     </a-button>
@@ -65,7 +64,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref, onMounted, computed } from 'vue'
+import { defineProps, defineEmits, computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTreeView } from './treeApi'
 
@@ -92,6 +91,7 @@ onMounted(() => {
     tableHeight.value = document.body.scrollHeight - 345
   }
 })
+
 function tableCustomRow(record) {
   const router = useRouter()
   return {
@@ -141,11 +141,10 @@ const widthAndHeight = computed(() => {
 .createBtn {
   margin-left: 5px;
 }
-
 .expBtn {
   margin-left: 5px;
 }
-.actBtn{
+.actBtn {
   position: absolute;
   right: 5px;
 }
