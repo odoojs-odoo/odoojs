@@ -12,20 +12,18 @@
           src="../assets/logo.png"
           alt="logo"
           width="70"
-          height="30"
+          height="70"
         />
         <img
           v-else
           src="../assets/logo.png"
           alt="miniLogo"
           width="40"
-          height="30"
+          height="70"
         />
       </div>
-
-      <!-- style="width: 256px"
-        mode="inline" -->
       <a-menu
+        id="menuCompnt"
         v-model:openKeys="openKeys"
         v-model:selectedKeys="selectedKeys"
         @click="onMenuClick"
@@ -402,24 +400,34 @@ export default defineComponent({
 <style scoped>
 #logoPic {
   width: 100%;
-  height: 8vh;
-  text-align: center;
-  padding-top: 20px;
+  height: 70px;
+  display: flex;
+  /* Chrome、Safari */
+  display: -webkit-flex;
+  /* IE */
+  display: -ms-flex; 
+  /* fireFox */
+  display: -moz-flex; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
+#menuCompnt {
+  /* flex: 1; */
+  height: 90vh;
+  overflow-y: auto;
+}
 .triggerIcon {
   width: 40px;
-  position: relative;
-  top: -5px;
+}
+:deep(.langSelect) {
+  margin-left: auto;
+  margin-right: 10px;
 }
 .userInfo {
   float: right;
   margin-right: 10px;
   color: white;
-}
-#menuCompnt {
-  height: 92vh;
-  overflow-y: auto;
 }
 #layoutMain {
   height: 100vh;
@@ -430,6 +438,14 @@ export default defineComponent({
 #layoutSider {
   background: white;
   padding: 0;
+  display: flex;
+  /* Chrome、Safari */
+  display: -webkit-flex;
+  /* IE */
+  display: -ms-flex; 
+  /* fireFox */
+  display: -moz-flex; 
+  flex-direction: column;
 }
 #layoutSiderRight {
   display: flex;
@@ -442,7 +458,14 @@ export default defineComponent({
   flex-direction: column;
 }
 #layoutHeader {
-  position: relative;
+  display: flex;
+  /* Chrome、Safari */
+  display: -webkit-flex;
+  /* IE */
+  display: -ms-flex; 
+  /* fireFox */
+  display: -moz-flex; 
+  align-items: center;
   padding: 0;
   background-color: #1c86ee;
   height: 70px;
@@ -450,7 +473,6 @@ export default defineComponent({
 }
 #layoutContent {
   padding: 10px 10px;
-  height: 87vh;
   flex: 1;
   overflow: auto;
 }

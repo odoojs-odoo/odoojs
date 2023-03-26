@@ -1,6 +1,10 @@
 <template>
   <span>
-    <span v-if="title"> {{ title }}: </span>
+    <span v-if="title"> 
+      <b>
+        {{ title }}:
+      </b>
+    </span>
 
     <a-select
       v-model:value="state.mVal"
@@ -16,6 +20,7 @@
       style="width: 300px"
       @search="handleSearch"
       @change="handleChange"
+      size="small"
     >
       <template #dropdownRender="{ menuNode: menu }">
         <v-nodes :vnodes="menu" />

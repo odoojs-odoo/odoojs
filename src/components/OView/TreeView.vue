@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <!-- <div class="actionZone"> -->
+  <div class="actionZone">
 
     <!-- {{ columns }} -->
     <!-- {{ pagination }} -->
@@ -14,6 +13,7 @@
 
     <div></div>
     <a-button
+      class="createBtn"
       v-if="buttons.create"
       size="small"
       type="primary"
@@ -32,6 +32,7 @@
     </a-tooltip>
 
     <ActionButton
+      class="actBtn"
       v-if="activeIds.length"
       :has-delete="buttons.delete"
       :has-active="hasActive"
@@ -51,6 +52,7 @@
     :customRow="tableCustomRow"
     @change="onTableChange"
     style="margin-top: 5px"
+    :scroll="widthAndHeight"
   >
     <template #bodyCell="{ column, record }">
       <template v-if="column._format">
@@ -63,7 +65,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref } from 'vue'
+import { defineProps, defineEmits, ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTreeView } from './treeApi'
 
@@ -83,6 +85,13 @@ const { onTableChange, activeIds, onSelectChange } = useData
 
 const { onClickCRUD, onExportAll } = useData
 
+const tableHeight = ref(0)
+onMounted(() => {
+  tableHeight.value = document.body.scrollHeight - 345
+  window.onresize = () => {
+    tableHeight.value = document.body.scrollHeight - 345
+  }
+})
 function tableCustomRow(record) {
   const router = useRouter()
   return {
@@ -108,6 +117,10 @@ function onClickNew() {
   const query2 = { menu, view_type: 'form' }
   router.push({ path, query: query2 })
 }
+//
+const widthAndHeight = computed(() => {
+  return { x: 1000, y: tableHeight.value }
+})
 </script>
 
 <style type="text/css">
@@ -120,19 +133,20 @@ function onClickNew() {
   padding: 5px;
 }
 .actionZone {
-  background: green;
-  margin: 5px 0px;
-  padding: 5px;
+  /* background: green; */
+  margin: 0px 0px 0px 0px;
+  padding: 0px 5px 0px 5px;
   position: relative;
 }
 .createBtn {
-  position: absolute;
-  right: 10px;
-  bottom: 5px;
+  margin-left: 5px;
 }
 
 .expBtn {
+  margin-left: 5px;
+}
+.actBtn{
   position: absolute;
-  right: 10px;
+  right: 5px;
 }
 </style>
