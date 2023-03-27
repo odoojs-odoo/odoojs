@@ -84,7 +84,7 @@ export default {
             readonly({ record }) {
               // 'readonly': [('parent_id','!=',False)]
               const { parent_id } = record
-              return !parent_id
+              return parent_id
             }
           }
         },

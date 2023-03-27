@@ -12,6 +12,7 @@ export default {
       name: {},
       code: {},
       spec: {},
+      uom: {},
       tax_id: {},
       active: {}
     }
@@ -48,6 +49,7 @@ export default {
           vat_product_code: {},
           vat_product_name: {},
           spec: {},
+          uom: {},
           tax_id: {},
           active: {}
         }

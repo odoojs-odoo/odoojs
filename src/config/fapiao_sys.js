@@ -32,6 +32,13 @@ export default {
       id: 'fapiao_bill.action_bill_check',
       icon: 'shopping',
       name: { en_US: 'Check', zh_CN: '查验', zh_HK: '查验' }
+    },
+
+    {
+      action: 'fapiao_invoice.action_invoice_draw',
+      id: 'fapiao_invoice.action_invoice_draw',
+      icon: 'shopping',
+      name: { en_US: 'Draw', zh_CN: '开票', zh_HK: '开票' }
     }
   ]
 }

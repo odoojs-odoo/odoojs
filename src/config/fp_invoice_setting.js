@@ -24,6 +24,13 @@ export default {
         zh_CN: '开票用户设置',
         zh_HK: '开票用户设置'
       }
+    },
+
+    {
+      action: 'fapiao_invoice.action_api_draw_company',
+      id: 'fapiao_invoice.action_api_draw_company',
+      icon: 'shopping',
+      name: { en_US: 'Draw Setting', zh_CN: '开票设置', zh_HK: '开票设置' }
     }
   ]
 }

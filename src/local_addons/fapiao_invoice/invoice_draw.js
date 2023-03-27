@@ -1,7 +1,7 @@
 export default {
-  view_bill_check_tree: {
+  view_invoice_draw_tree: {
     _odoo_model: 'ir.ui.view',
-    model: 'fp.bill.check',
+    model: 'fp.invoice.draw',
     type: 'tree',
 
     fields: {
@@ -9,12 +9,14 @@ export default {
       name: {},
       state: {},
       fapiao_status: {},
-      check_time: {},
+
       //   company_id: {},
       //   user_id: {},
-      //   api_check_id: {},
+      //   api_draw_id: {},
       invoice_type: {},
+      time_fapiao: {},
       date_fapiao: {},
+
       invoice_code: {},
       invoice_number: {},
       check_code: {},
@@ -22,14 +24,13 @@ export default {
       //   amount_untaxed: {},
       //   amount_tax: {},
       //   company_partner_id: {},
-      buyer_id: {},
       partner_id: {}
     }
   },
 
-  view_bill_check_form: {
+  view_invoice_draw_form: {
     _odoo_model: 'ir.ui.view',
-    model: 'fp.bill.check',
+    model: 'fp.invoice.draw',
     type: 'form',
 
     toolbar: {
@@ -70,6 +71,11 @@ export default {
               return state !== 'cancel'
             }
           },
+          // {
+          //   name: 'action_reread',
+          //   string: 'Re Read',
+          //   type: 'object'
+          // },
           {
             name: 'action_reset',
             string: 'Reset',
@@ -77,7 +83,7 @@ export default {
           },
           {
             name: 'action_request',
-            string: 'Check',
+            string: 'Draw',
             type: 'object',
             // btn_type: 'primary',
             invisible: ({ record }) => {
@@ -85,6 +91,39 @@ export default {
               return state !== 'confirmed'
             }
           },
+          {
+            name: 'action_query',
+            string: 'Read',
+            type: 'object',
+            invisible: ({ record }) => {
+              const { state, fapiao_status } = record
+              return (
+                state !== 'doing' ||
+                !['doing', 'signing', 'being_invalid'].includes(fapiao_status)
+              )
+            }
+          },
+
+          {
+            name: 'action_invalid',
+            string: 'Invalid',
+            type: 'object',
+            invisible: ({ record }) => {
+              const { state, fapiao_status } = record
+              return state !== 'done' || !['done'].includes(fapiao_status)
+            }
+          },
+
+          {
+            name: 'action_print',
+            string: 'Print',
+            type: 'object',
+            invisible: ({ record }) => {
+              const { state, fapiao_status } = record
+              return state !== 'done' || !['done'].includes(fapiao_status)
+            }
+          },
+
           {
             name: 'action_to_paper',
             string: 'Topaper',
@@ -114,15 +153,16 @@ export default {
           company_id: {},
           //   tin: {}
           user_id: {},
-          check_time: {}
+          time_fapiao: {},
+          fapiao_status: {},
+          draw_serial_num: {}
         },
 
         _group_check: {
-          zncspt_api_check_result_info: {},
-          zncspt_api_check_result: {},
-          zncspt_api_check_count: {},
-          zncspt_api_check_date: {},
-          zncspt_api_list_flag: {}
+          nuonuo_serial_num: {},
+          nuonuo_api_status: {},
+          nuonuo_api_status_msg: {},
+          nuonuo_api_fail_cause: {}
         },
 
         _group_type: {
@@ -139,22 +179,17 @@ export default {
         },
 
         _group_buyer: {
-          buyer_name: { label: '购买方', string: '', readonly: 1 },
-          buyer_tin: { string: '', readonly: 1 },
-          buyer_address_phone: { string: '', readonly: 1 },
-          buyer_bank_account: { string: '', readonly: 1 }
+          partner_id: { label: '购买方', string: '' },
+          partner_tin: { string: '', readonly: 1 },
+          partner_address_phone: { string: '', readonly: 1 },
+          partner_bank_account: { string: '', readonly: 1 }
         },
 
-        _group_comp: {
-          company_name: { label: '报销单位', string: '', readonly: 1 },
-          company_tin: { string: '', readonly: 1 },
-          company_address_phone: { string: '', readonly: 1 },
-          company_bank_account: { string: '', readonly: 1 }
-        },
+        _group_comp: {},
 
         _group_lines: {
           _span: 2,
-          line_ids: {
+          input_line_ids: {
             string: '',
             widget: 'x2many_tree',
             views: {
@@ -164,45 +199,49 @@ export default {
                   row_number: { string: 'No' },
                   //   ref_row_number: {},
                   //   name: {},
-                  vat_product_name: {},
-                  product_name: {},
+                  vat_product_id: {},
+                  product_id: {},
                   product_spec: {},
                   product_uom: {},
+                  // tax_id: {},
                   quantity: {},
+                  // price_unit: {},
                   price_untax: {},
-                  //   price_unit: {},
+                  // amount_total: {},
                   amount_untaxed: {},
                   tax_ratio: {},
-                  amount_tax: {}
-                  //   amount_total: {},
+                  amount_tax: {},
+                  // amount_discount: {},
+                  amount_untaxed_discount: {},
+                  amount_tax_discount: {}
                 }
               },
               form: {
                 arch: {
                   sheet: {
                     _group_number: {
-                      line_type: {},
-                      row_number: {},
-                      ref_row_number: {},
                       sequence: {},
-                      row_number_check: {}
+                      row_number: {},
+                      row_number_discount: {}
                     },
                     _group_product: {
                       //   name: {},
-                      //   vat_product_id: {},
+                      vat_product_id: {},
                       vat_product_code: {},
-                      vat_product_name: {},
-                      //   product_id: {},
-                      product_name: {},
+                      product_id: {},
                       product_spec: {},
                       product_uom: {},
+                      tax_id: {},
                       quantity: {},
+                      price_unit: {},
                       price_untax: {},
-                      //   price_unit: {},
+                      amount_total: {},
                       amount_untaxed: {},
                       tax_ratio: {},
-                      amount_tax: {}
-                      //   amount_total: {},
+                      amount_tax: {},
+                      amount_discount: {},
+                      amount_untaxed_discount: {},
+                      amount_tax_discount: {}
                     }
                   }
                 }
@@ -222,10 +261,10 @@ export default {
         },
 
         _group_saler: {
-          partner_name: { label: '销售方', string: '', readonly: 1 },
-          partner_tin: { string: '', readonly: 1 },
-          partner_address_phone: { string: '', readonly: 1 },
-          partner_bank_account: { string: '', readonly: 1 }
+          company_name: { label: '销售方', string: '', readonly: 1 },
+          company_tin: { string: '', readonly: 1 },
+          company_address_phone: { string: '', readonly: 1 },
+          company_bank_account: { string: '', readonly: 1 }
         },
 
         _group_note: {
@@ -238,16 +277,16 @@ export default {
     }
   },
 
-  action_bill_check: {
+  action_invoice_draw: {
     _odoo_model: 'ir.actions',
-    name: 'Bill Check ',
+    name: 'Invoice Draw ',
     type: 'ir.actions.act_window',
-    res_model: 'fp.bill.check',
+    res_model: 'fp.invoice.draw',
     domain: [],
     context: {},
     views: {
-      tree: 'view_bill_check_tree',
-      form: 'view_bill_check_form'
+      tree: 'view_invoice_draw_tree',
+      form: 'view_invoice_draw_form'
     }
   }
 }
