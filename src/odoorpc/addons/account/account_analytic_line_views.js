@@ -1,5 +1,5 @@
 export default {
-  view_account_analytic_line_tree: {
+  view_account_analytic_line_tree_inherit_account: {
     _odoo_model: 'ir.ui.view',
     model: 'account.analytic.line',
     type: 'tree',
@@ -9,6 +9,11 @@ export default {
       date: {},
       name: {},
       account_id: {},
+      //   ref: {},
+      //   general_account_id: {},
+      //   move_line_id: {},
+      //   product_id: {},
+
       plan_id: {},
       currency_id: { invisible: '1' },
       unit_amount: {},
@@ -19,7 +24,7 @@ export default {
     }
   },
 
-  view_account_analytic_line_form: {
+  view_account_analytic_line_form_inherit_account: {
     _odoo_model: 'ir.ui.view',
     model: 'account.analytic.line',
     type: 'form',
@@ -44,15 +49,30 @@ export default {
         _group_amount: {
           _span: 2,
           amount: {},
+          ref: {},
+          partner_id: {},
           product_uom_category_id: { invisible: '1' },
+          product_id: {},
           product_uom_id: {},
           currency_id: { invisible: '1' }
+        },
+        _group_accounting: {
+          move_line_id: {
+            // widget:"line_open_move_widget"
+          },
+          general_account_id: {
+            readonly({ record }) {
+              // 'readonly': [('move_line_id', '!=', False)]
+              const { move_line_id } = record
+              return !move_line_id
+            }
+          }
         }
       }
     }
   },
 
-  view_account_analytic_line_filter: {
+  view_account_analytic_line_filter_inherit_account: {
     _odoo_model: 'ir.ui.view',
     model: 'account.analytic.line',
     type: 'search',
@@ -60,7 +80,13 @@ export default {
       fields: {
         name: {},
         account_id: {},
-        plan_id: {}
+        plan_id: {},
+        product_id: {},
+        partner_id: {
+          filter_domain(self) {
+            return [['partner_id', 'child_of', self]]
+          }
+        }
       },
 
       filters: {
@@ -76,12 +102,12 @@ export default {
     name: 'Analytic Items',
     type: 'ir.actions.act_window',
     res_model: 'account.analytic.line',
-    search_view_id: 'analytic.view_account_analytic_line_filter',
+    search_view_id: 'view_account_analytic_line_filter_inherit_account',
     domain: [],
     context: {},
     views: {
-      tree: 'view_account_analytic_line_tree',
-      form: 'view_account_analytic_line_form'
+      tree: 'view_account_analytic_line_tree_inherit_account',
+      form: 'view_account_analytic_line_form_inherit_account'
     }
   }
 }

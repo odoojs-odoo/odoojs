@@ -1,18 +1,46 @@
 import locmenu_base from './locmenu_base'
 import locmenu_base_partner from './locmenu_base_partner'
 import locmenu_product from './locmenu_product'
+import locmenu_product_setting from './locmenu_product_setting'
 import locmenu_analytic from './locmenu_analytic'
 import locmenu_account from './locmenu_account'
 import locmenu_account_move from './locmenu_account_move'
 
-export const local_menus_tree = [
-  locmenu_base,
-  locmenu_base_partner,
-  locmenu_product,
-  locmenu_analytic,
-  locmenu_account,
-  locmenu_account_move
+import fp_base_setting from './fp_base_setting'
+import fp_invoice_setting from './fp_invoice_setting'
+import fp_bill_setting from './fp_bill_setting'
+import fapiao_sys from './fapiao_sys'
 
+export const local_menus_tree = [
+  {
+    id: 'odoo.setting',
+    icon: 'shopping',
+    theme: 'twoTone',
+    name: { en_US: 'Setting', zh_CN: '配置', zh_HK: '配置' },
+    children: [
+      locmenu_base,
+      locmenu_product_setting,
+      locmenu_analytic,
+      locmenu_account
+    ]
+  },
+  {
+    id: 'odoo.erp',
+    icon: 'shopping',
+    theme: 'twoTone',
+    name: { en_US: 'ERP', zh_CN: '业务管理', zh_HK: '业务管理' },
+    children: [locmenu_base_partner, locmenu_product]
+  },
+
+  locmenu_account_move,
+
+  {
+    id: 'fapiao',
+    icon: 'shopping',
+    theme: 'twoTone',
+    name: { en_US: 'Fapiao', zh_CN: '发票', zh_HK: '发票' },
+    children: [fp_base_setting, fp_bill_setting, fp_invoice_setting, fapiao_sys]
+  }
   // {
   //   id: 'bmx.root',
   //   icon: 'shopping',
@@ -103,16 +131,4 @@ export const local_menus_tree = [
   //     // }
   //   ]
   // },
-
-  // {
-  //   id: 'odoo.root',
-  //   icon: 'shopping',
-  //   theme: 'twoTone',
-  //   name: {
-  //     en_US: 'Redo Odoo Menus',
-  //     zh_CN: '重组官方菜单',
-  //     zh_HK: '重组官方菜单'
-  //   },
-  //   children: []
-  // }
 ]

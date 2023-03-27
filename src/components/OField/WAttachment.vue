@@ -9,14 +9,14 @@
     </template>
 
     <template v-else>
-      edit: {{ [fieldName, mVal, dVal] }}
-      <!-- <template v-if="!value_display">
+      <!-- edit: {{ [fieldName, mVal, dVal] }} -->
+      <template v-if="!dVal">
         <a-button type="primary" @click="onUpload"> 上传你的文件 </a-button>
       </template>
       <template v-else>
-        {{ value_display && value_display[1] }}
+        {{ dVal }}
         <a-button type="primary" @click="onUpload"> 重新上传你的文件 </a-button>
-      </template> -->
+      </template>
     </template>
   </span>
 </template>
@@ -37,7 +37,9 @@ const props = defineProps([
 
 const emit = defineEmits(['update:modelValue', 'change'])
 
-const { mVal, dVal, readonly, onDownload } = useWAttachment(props, { emit })
+const { mVal, dVal, readonly, onUpload, onDownload } = useWAttachment(props, {
+  emit
+})
 </script>
 
 <style type="text/css"></style>

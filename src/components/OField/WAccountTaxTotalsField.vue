@@ -1,6 +1,6 @@
 <template>
   <span>
-    <template v-if="readonly">
+    <template v-if="readonly || readonly">
       <!-- {{ dVal }} -->
       <div>------------------</div>
       <!-- <div>不含税金额: {{ dVal.formatted_amount_untaxed }}</div> -->
@@ -17,7 +17,7 @@
       <div>含税合计: {{ dVal.formatted_amount_total }}</div>
     </template>
 
-    <template v-else> edit: {{ [fieldName, mVal, dVal] }} </template>
+    <!-- <template v-else> edit: {{ [fieldName, mVal, dVal] }} </template> -->
   </span>
 </template>
 

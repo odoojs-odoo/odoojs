@@ -1,5 +1,3 @@
-// ok
-
 export default {
   view_country_tree: {
     _odoo_model: 'ir.ui.view',

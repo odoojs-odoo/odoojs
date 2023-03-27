@@ -288,7 +288,6 @@ export class Action {
     } else {
       this._raw_info = info
     }
-
     this._env = env
   }
 

@@ -282,7 +282,7 @@ export class Relation extends Field {
           )
 
           const context = formview.context_get(parentFormInfo)
-          return domain({ record: record2, context })
+          return domain({ record: record2, context, env: this.env })
         } else {
           // todo search view  m2o?  domain
           return domain()

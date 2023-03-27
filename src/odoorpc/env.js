@@ -64,7 +64,7 @@ export class Environment {
   }
 
   get uid() {
-    return this.session.uid
+    return this.session_info.uid
   }
 
   get context() {

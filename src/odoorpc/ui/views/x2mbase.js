@@ -56,11 +56,13 @@ export class X2mBase {
 
   get fields() {
     const views = this.field_info.views
-    const fields = Object.keys(views).reduce((acc, viewname) => {
-      acc = { ...acc, ...views[viewname].fields }
-      return acc
-    }, {})
+    // const fields = Object.keys(views).reduce((acc, viewname) => {
+    //   acc = { ...acc, ...views[viewname].fields }
+    //   return acc
+    // }, {})
+    // const view = views[this._type]
+    // return { ...fields, ...view.fields }
     const view = views[this._type]
-    return { ...fields, ...view.fields }
+    return { ...view.fields }
   }
 }

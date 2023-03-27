@@ -1318,7 +1318,7 @@ export default {
         },
         partner_id: {},
         ref: {},
-        date: {},
+        // date: {},
         journal_id: {}
       },
       filters: {
@@ -1378,7 +1378,6 @@ export default {
     name: 'Journal Entries',
     type: 'ir.actions.act_window',
     res_model: 'account.move',
-
     search_view_id: 'view_account_move_filter',
     domain: [],
     context: {

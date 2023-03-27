@@ -651,8 +651,10 @@ export class FormView extends BaseView {
 
   merge_to_write(record, values) {
     const record2 = this.merge_data(record, values)
+
     const record3 = this.format_to_modifiers(record2)
-    const values2 = this.format_to_write(values, record3)
+    const values1 = this.merge_data({}, values)
+    const values2 = this.format_to_write(values1, record3)
     return values2
   }
 

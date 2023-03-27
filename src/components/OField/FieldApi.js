@@ -2,8 +2,6 @@ import { computed, toRaw } from 'vue'
 import api from '@/odoorpc'
 
 export function useField(props, ctx) {
-  // WAttachment 的 编辑 尚未处理 todo
-
   const readonly = computed(() => {
     if (!props.formInfo.editable) {
       return true
@@ -31,6 +29,8 @@ export function useField(props, ctx) {
       float: 'FNumber',
       integer: 'FNumber',
       monetary: 'FNumber',
+
+      // WAttachment 组件. 要求服务端 重写 create 和 write 函数, 以 适应 特殊的 m2o 字段数据写入
       many2one: { attachment: 'WAttachment', default: 'FMany2one' },
       date: 'FDate',
       datetime: 'FDatetime',
