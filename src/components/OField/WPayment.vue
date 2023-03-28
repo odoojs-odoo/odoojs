@@ -3,7 +3,7 @@
     <template v-if="readonly || !readonly">
       <!-- {{ dVal }} -->
 
-      <div v-for="(item, index) in dVal.content" :key="index">
+      <div v-for="(item, index) in (dVal || {}).content || []" :key="index">
         <!-- {{ item }} -->
 
         <a-tooltip color="#2db7f5" placement="left">

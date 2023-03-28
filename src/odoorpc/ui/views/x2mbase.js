@@ -49,20 +49,4 @@ export class X2mBase {
 
     return this.env.model(model, { fields: { ...fields_form, ...fields_tree } })
   }
-
-  get fields_list() {
-    return Object.keys(this.fields)
-  }
-
-  get fields() {
-    const views = this.field_info.views
-    // const fields = Object.keys(views).reduce((acc, viewname) => {
-    //   acc = { ...acc, ...views[viewname].fields }
-    //   return acc
-    // }, {})
-    // const view = views[this._type]
-    // return { ...fields, ...view.fields }
-    const view = views[this._type]
-    return { ...view.fields }
-  }
 }

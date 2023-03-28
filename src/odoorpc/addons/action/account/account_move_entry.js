@@ -549,7 +549,13 @@ export default {
 
         _group_header_right_group: {
           invoice_date: {
-            // string: { en_US: 'Date', zh_CN: '账单日期', zh_HK: '账单日期' },
+            required({ record }) {
+              // 在 执行 action_post 时, odoo 服务端检查 该字段是否有值, 且直接报错
+              const in_moves = ['in_invoice', 'in_refund', 'in_receipt']
+              const { move_type } = record
+              return in_moves.includes(move_type)
+            },
+
             string({ record }) {
               const out_moves = ['out_invoice', 'out_refund', 'out_receipt']
               const in_moves = ['in_invoice', 'in_refund', 'in_receipt']

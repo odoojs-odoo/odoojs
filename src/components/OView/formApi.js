@@ -81,7 +81,6 @@ export function useForm(props, ctx) {
   })
 
   async function onLoadReation(fieldName, relation_info) {
-    // console.log('onLoadReation', fieldName, relation_info)
     if (!localState.formview) return
 
     localState.formview.load_relations_done({ [fieldName]: relation_info })

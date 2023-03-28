@@ -34,6 +34,22 @@ export class X2mForm extends X2mBase {
     this.edit_model = undefined
   }
 
+  get fields_list() {
+    return Object.keys(this.fields)
+  }
+
+  get fields() {
+    const views = this.field_info.views
+    const fields = Object.keys(views).reduce((acc, viewname) => {
+      acc = { ...acc, ...views[viewname].fields }
+      return acc
+    }, {})
+    const view = views[this._type]
+    return { ...fields, ...view.fields }
+    // const view = views[this._type]
+    // return { ...view.fields }
+  }
+
   view_sheet() {
     const sheet_get = () => {
       const view = this.field_info.views.form

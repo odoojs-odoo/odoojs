@@ -110,6 +110,7 @@ export function useO2mForm(props, ctx) {
 
     return result
   }
+
   const formInfo = computed(() => {
     const parentFormInfo = toRaw(props.parentFormInfo)
     return {
@@ -120,5 +121,6 @@ export function useO2mForm(props, ctx) {
       editable: !props.readonly
     }
   })
+
   return { mVal: computed(() => state.mVal), formInfo, onChange, commit }
 }
