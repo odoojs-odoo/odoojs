@@ -1,7 +1,6 @@
 import { computed, reactive, watch, toRaw } from 'vue'
 
 import api from '@/odoorpc'
-import { useL10n } from '@/components/tools/useL10n'
 
 function sleep(millisecond) {
   return new Promise(resolve => {
@@ -12,8 +11,6 @@ function sleep(millisecond) {
 }
 
 export function useO2mForm(props, ctx) {
-  const { tr } = useL10n()
-
   const state = reactive({
     formview: undefined,
     values: {},
@@ -29,73 +26,6 @@ export function useO2mForm(props, ctx) {
     const formview = rel.form
     state.formview = formview
     return formview
-  }
-
-  function formview_get() {
-    const info = toRaw(props.relationInfo)
-    if (info) {
-      const rel = api.env.relation(info)
-      return rel.form
-    } else {
-      return
-    }
-  }
-
-  const sheet = computed(() => {
-    const formview = formview_get()
-    return formview ? formview.view_sheet() : { children: {} }
-  })
-
-  function getInvisible(fieldInfo) {
-    if (!fieldInfo.invisible) return undefined
-    if (typeof fieldInfo.invisible !== 'function') return fieldInfo.invisible
-
-    const formview = formview_get()
-    if (!formview) return undefined
-
-    const kw = {
-      record: toRaw(props.record),
-      values: toRaw(state.values),
-      editable: !props.readonly,
-      parentFormInfo: toRaw(props.parentFormInfo)
-    }
-
-    return formview.check_invisible(fieldInfo, kw)
-  }
-
-  function getLabel(fieldInfo) {
-    if (!fieldInfo.string) return undefined
-    if (typeof fieldInfo.string !== 'function') return fieldInfo.string
-
-    const formview = formview_get()
-    if (!formview) return undefined
-
-    const kw = {
-      record: toRaw(props.record),
-      values: toRaw(state.values),
-      editable: !props.readonly,
-      parentFormInfo: toRaw(props.parentFormInfo)
-    }
-
-    return formview.get_string(fieldInfo, kw)
-  }
-
-  function getRules(fieldInfo) {
-    if (props.readonly) return undefined
-    if (!fieldInfo.required) return undefined
-    const formview = formview_get()
-    if (!formview) return false
-
-    const kw = {
-      record: toRaw(props.record),
-      values: toRaw(state.values),
-      editable: !props.readonly,
-      parentFormInfo: toRaw(props.parentFormInfo)
-    }
-    const required = formview.check_required(fieldInfo, kw)
-
-    if (!required) return undefined
-    return [{ required: true, message: `请输入${tr(fieldInfo.string)}!` }]
   }
 
   // load visible, values
@@ -180,25 +110,15 @@ export function useO2mForm(props, ctx) {
 
     return result
   }
-
-  return {
-    mVal: computed(() => state.mVal),
-    sheet,
-    formInfo: computed(() => {
-      const parentFormInfo = toRaw(props.parentFormInfo)
-      return {
-        parentFormInfo: toRaw(parentFormInfo),
-        relationInfo: toRaw(props.relationInfo),
-        record: toRaw(props.record),
-        values: toRaw(state.values),
-        editable: !props.readonly
-      }
-    }),
-
-    getInvisible,
-    getLabel,
-    getRules,
-    onChange,
-    commit
-  }
+  const formInfo = computed(() => {
+    const parentFormInfo = toRaw(props.parentFormInfo)
+    return {
+      parentFormInfo: toRaw(parentFormInfo),
+      relationInfo: toRaw(props.relationInfo),
+      record: toRaw(props.record),
+      values: toRaw(state.values),
+      editable: !props.readonly
+    }
+  })
+  return { mVal: computed(() => state.mVal), formInfo, onChange, commit }
 }

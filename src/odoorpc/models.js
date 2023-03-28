@@ -336,11 +336,11 @@ export class Model extends BaseModel {
     }
   }
 
-  // async call_button_after(action_info) {
-  //   // to overide
-  //   return action_info
-  //   // return this.Model.call_button_after(action_info)
-  // }
+  // eslint-disable-next-line no-unused-vars
+  async call_button_after(name, action, kwargs) {
+    // to overide
+    return action
+  }
 
   //  bakup.  odoo13
 

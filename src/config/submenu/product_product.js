@@ -8,7 +8,11 @@ export default {
       action: 'product.action_contacts',
       id: 'odoo_product.action_contacts',
       icon: 'shopping',
-      name: { en_US: 'Partner', zh_CN: '联系人', zh_HK: '联系人' }
+      name: {
+        en_US: 'Partner Price List',
+        zh_CN: '客户价格表设置',
+        zh_HK: '客户价格表设置'
+      }
     },
     {
       action: 'product.product_supplierinfo_type_action',

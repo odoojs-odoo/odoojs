@@ -5,6 +5,19 @@ export default {
   name: { en_US: 'Base', zh_CN: '基础配置', zh_HK: '基础配置' },
   children: [
     {
+      action: 'base.action_currency_form',
+      id: 'odoo_base.action_currency_form',
+      icon: 'shopping',
+      name: { en_US: 'Currency', zh_CN: '货币', zh_HK: '货币' }
+    },
+
+    {
+      action: 'base.res_lang_act_window',
+      id: 'odoo_base.res_lang_act_window',
+      icon: 'shopping',
+      name: { en_US: 'Languages', zh_CN: '语言', zh_HK: '语言' }
+    },
+    {
       action: 'base.action_country',
       id: 'odoo_base.action_country',
       icon: 'shopping',
@@ -40,17 +53,10 @@ export default {
     },
 
     {
-      action: 'base.action_currency_form',
-      id: 'odoo_base.action_currency_form',
+      action: 'base.action_res_company_form',
+      id: 'odoo_base.action_res_company_form',
       icon: 'shopping',
-      name: { en_US: 'Currency', zh_CN: '货币', zh_HK: '货币' }
-    },
-
-    {
-      action: 'base.res_lang_act_window',
-      id: 'odoo_base.res_lang_act_window',
-      icon: 'shopping',
-      name: { en_US: 'Languages', zh_CN: '语言', zh_HK: '语言' }
+      name: { en_US: 'Company', zh_CN: '公司', zh_HK: '公司' }
     }
   ]
 }

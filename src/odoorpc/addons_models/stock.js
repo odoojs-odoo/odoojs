@@ -5,13 +5,13 @@ export class Picking extends Model {
     super(...args)
   }
 
-  static call_button_after({ name, action: action_info }) {
+  static call_button_after(name, action_info) {
     // console.log('call_button_after', name, action_info)
 
     if (name === 'button_validate') {
-      const { res_model, context } = action_info
+      const { res_model } = action_info
       if (res_model === 'stock.backorder.confirmation') {
-        return { name: 'stock2.action_backorder_wizard', context }
+        return { ...action_info, xml_id: 'stock2.action_backorder_wizard' }
       } else if (res_model === 'stock.immediate.transfer') {
         throw 'todo'
       } else {
@@ -20,22 +20,6 @@ export class Picking extends Model {
     } else {
       return action_info
     }
-  }
-
-  static async button_immediate_install(module_name) {
-    const xml_ref = `base.module_${module_name}`
-    const module = await this.env.ref(xml_ref)
-    const module_id = module.id
-    // if already installed, return no error
-    return await this.execute('button_immediate_install', module_id)
-  }
-
-  static async button_immediate_uninstall(module_name) {
-    const xml_ref = `base.module_${module_name}`
-    const module = await this.env.ref(xml_ref)
-    const module_id = module.id
-    // if already uninstalled, return an error
-    return await this.execute('button_immediate_uninstall', module_id)
   }
 }
 

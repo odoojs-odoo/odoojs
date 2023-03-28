@@ -36,7 +36,7 @@ export default {
           is_company: { invisible: 1 },
           commercial_partner_id: { invisible: 1 },
           active: { invisible: 1 },
-          company_id: { invisible: 1 },
+          // company_id: { invisible: 1 },
           country_code: { invisible: 1 },
 
           display_name: {}

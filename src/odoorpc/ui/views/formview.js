@@ -65,7 +65,7 @@ export class FormView extends BaseView {
     return header
   }
 
-  view_sheet(fields_ready) {
+  view_sheet() {
     const sheet_get = () => {
       const { view } = this.view_info
       const { arch = {} } = view
@@ -74,12 +74,7 @@ export class FormView extends BaseView {
         return arch.sheet
       }
 
-      if (!fields_ready) {
-        return {}
-      }
-
       const fields = this.action_info.views[this._type].fields
-
       const fs = Object.keys(fields)
         .filter(item => !fields[item].invisible && !fields[item].is_title)
         .reduce((acc, fld) => {
@@ -111,14 +106,8 @@ export class FormView extends BaseView {
 
     const sheet = sheet_get()
 
-    // console.log(sheet)
-
     const meta_get = (fld, meta = {}) => {
-      if (fields_ready) {
-        return { ...this.fields[fld], ...meta, name: fld }
-      } else {
-        return { ...meta, name: fld }
-      }
+      return { ...this.fields[fld], ...meta, name: fld }
     }
 
     function item_get(node) {
@@ -211,21 +200,14 @@ export class FormView extends BaseView {
     return { title, children }
   }
 
-  arch_buttons(record_in, values) {
+  arch_buttons(record, values) {
     const { view } = this.view_info
     const { arch = {} } = view
 
     const buttons = arch.buttons || []
 
     const btns = buttons.filter(btn => {
-      if (btn.invisible === undefined) return true
-
-      if (typeof btn.invisible !== 'function') {
-        return !btn.invisible
-      }
-
-      const record = this.merge_to_modifiers(record_in, values)
-      return !btn.invisible({ record })
+      return !this.check_invisible(btn, { record, values })
     })
 
     const btns2 = btns.map(item => {
@@ -341,36 +323,18 @@ export class FormView extends BaseView {
 
     const res = await this.Model.call_button(name, [record.id], { context })
 
-    // console.log(' clicked, object:', name, res)
     if (!res) return res
     else {
-      console.log('button_clicked, return action ', name, record, res, context)
-      throw 'todo ret action'
-      // const action_info = await this.Model.call_button_after({
-      //   name,
-      //   record,
-      //   action: res
-      // })
+      // console.log('button_clicked, return action ', name, record, res, context)
+      // throw 'todo ret action'
+      const action_info = await this.Model.call_button_after(name, res, {
+        record
+      })
 
-      // const { name: action_id, context: context_action } = action_info
+      const { xml_id } = action_info
+      const action = this.new_action(xml_id, { ...action_info })
 
-      // const action = this.new_action(action_id, {
-      //   env: this.env,
-      //   context: context_action
-      // })
-      // // console.log('button_clicked, return action2 ', action.info)
-
-      // return action.info
-
-      //
-      // return res
-      // const ctx_active = this._active_context(info, { record })
-      // const context2 = { ...ctx_action, ...ctx_node, ...ctx_active }
-
-      // return await this.button_clicked_after({
-      //   context: context2,
-      //   action: res
-      // })
+      return action.info
     }
   }
 
@@ -385,10 +349,6 @@ export class FormView extends BaseView {
       // console.log('btn clicked', type, name)
       throw 'button_clicked, not type'
     }
-  }
-
-  async call_button_after(action_info) {
-    return this.Model.call_button_after(action_info)
   }
 
   async onchange_new(kwargs) {
@@ -406,8 +366,8 @@ export class FormView extends BaseView {
     return this.edit_model.onchange(fname, value)
   }
 
-  async commit(kwargs = {}) {
-    return this.edit_model.commit(kwargs)
+  async commit(...args) {
+    return this.edit_model.commit(...args)
   }
 
   unlink(res_id) {

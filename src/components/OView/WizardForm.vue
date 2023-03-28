@@ -1,117 +1,78 @@
 <template>
   <div>
-    <!--     
-      :confirm-loading="confirmLoading"
-       @ok="handleOk" @cancel="handleCancel"
-    <a-modal :title="title" :visible="visible2">
-      <template slot="footer">
-        <a-button key="back" @click="handleCancel"> Return </a-button>
+    <a-modal
+      v-model:visible="visible2"
+      :title="(actionId || {}).name"
+      width="600px"
+    >
+      <FormSheet
+        ref="editRef"
+        :model="mVal"
+        :formInfo="formInfo"
+        style="background-color: white; margin-top: 5px; padding: 5px"
+        @change="onChange"
+        @load-relation="onLoadReation"
+      />
 
-        <a-button
-          v-for="btn in arch_buttons"
-          :key="btn.name"
-          :type="btn.btn_type"
-          :loading="loading"
-          @click="handleBtnClick(btn)"
-          style="background: yellow"
-        >
-          {{ btn.string }}
-        </a-button>
+      <template #footer>
+        <a-space>
+          <a-button
+            v-for="btn in archButtons"
+            size="small"
+            :key="btn.name"
+            :loading="loading"
+            :type="btn.btn_type"
+            @click="onBtnClick(btn)"
+          >
+            {{ btn.string }}
+          </a-button>
+
+          <a-button size="small" key="back" @click="visible2 = false">
+            Return
+          </a-button>
+        </a-space>
       </template>
-
-      <a-form-model
-        ref="refForm"
-        :label-col="labelCol"
-        :wrapper-col="wrapperCol"
-        :model="formValues"
-        :rules="rules_edit"
-      >
-        <template v-for="meta in fields">
-          <template v-if="invisible_get(meta)">
-            invisible: {{ meta.name }}: {{ record[meta.name] }}
-          </template>
-
-          <template v-else>
-            <FormField
-              :key="meta.name"
-              :field-name="meta.name"
-              ref="refField"
-              width="120px"
-              v-model="formValues"
-              :editable="editable"
-              :fields="fields"
-              :view-info="viewInfo"
-              :data-info="dataInfo"
-              @change="handleChange"
-              style="background: orange"
-            />
-          </template>
-        </template>
-      </a-form-model>
-    </a-modal> -->
+    </a-modal>
   </div>
 </template>
 
-<script>
-// import formWizardMixin from '@/odooui/formWizardMixin'
-// import FormField from 'src2/FormField.vue'
+<script setup>
+import { defineProps, defineEmits, computed, ref } from 'vue'
+import { useWizardForm } from './wizardApi'
+import FormSheet from './FormSheet.vue'
 
-// export default {
-//   name: 'WizardFormView',
-//   components: { FormField },
+const emit = defineEmits(['update:visible', 'done'])
 
-//   mixins: [formWizardMixin],
+const props = defineProps(['visible', 'actionId'])
 
-//   props: {
-//     visible: { type: Boolean, default: false }
-//   },
+const visible2 = computed({
+  get() {
+    return props.visible
+  },
+  set(val) {
+    emit('update:visible', val)
+  }
+})
 
-//   data() {
-//     return {
-//       loading: false,
+const editRef = ref()
+const useData = useWizardForm(props, { emit, editRef })
+const { mVal, formInfo, onChange, onLoadReation } = useData
+const { archButtons, button_click } = useData
 
-//       labelCol: { span: 4 },
-//       wrapperCol: { span: 14 }
-//     }
-//   },
-//   computed: {
-//     visible2: {
-//       get() {
-//         return this.visible
-//       },
-//       set(val) {
-//         this.$emit('update:visible', val)
-//       }
-//     }
-//   },
+const loading = ref(false)
 
-//   watch: {
-//     visible(val) {
-//       if (val) {
-//         this.init()
-//       }
-//     }
-//   },
-
-//   created() {},
-
-//   mounted() {},
-
-//   methods: {
-//     async handleBtnClick(btn) {
-//       // this.ModalText = 'The modal will be closed after two seconds'
-//       this.loading = true
-//       await this.button_click(btn)
-//       this.$emit('done')
-//       this.visible2 = false
-//       this.loading = false
-//     },
-//     handleCancel() {
-//       console.log('Clicked cancel button')
-//       this.visible2 = false
-//     }
-//   }
-// }
+async function onBtnClick(btn) {
+  //  ModalText = 'The modal will be closed after two seconds'
+  loading.value = true
+  const error = await button_click(btn)
+  if (error) {
+    loading.value = false
+  } else {
+    emit('done')
+    loading.value = false
+    visible2.value = false
+  }
+}
 </script>
 
 <style scoped type="text/css"></style>

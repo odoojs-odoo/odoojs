@@ -46,8 +46,10 @@ export class BaseView {
   }
 
   new_action(action_id, payload) {
-    const { env, context } = payload
-    return new Action(action_id, { env, context })
+    // button click return action.
+    //
+    const { context } = payload
+    return new Action(action_id, { env: this.env, context })
   }
 
   get env() {

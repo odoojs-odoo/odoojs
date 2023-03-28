@@ -279,6 +279,7 @@ const actions_load = action => {
 
 export class Action {
   constructor(action_id, payload = {}) {
+    // console.log(action_id)
     const { env, context } = payload
     const info =
       typeof action_id === 'string' ? actions_load(action_id) : action_id

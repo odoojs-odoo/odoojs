@@ -1,0 +1,24 @@
+import { Model } from '../models'
+
+export class ExtendModel extends Model {
+  constructor(...args) {
+    super(...args)
+  }
+
+  static call_button_after(name, action_info) {
+    if (name === 'action_register_payment') {
+      return {
+        ...action_info,
+        xml_id: 'account2.action_payment_register_wizard'
+      }
+    } else {
+      throw 'error'
+    }
+  }
+}
+
+const AddonsModels = {
+  'account.move': ExtendModel
+}
+
+export default AddonsModels

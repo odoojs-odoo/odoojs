@@ -1,7 +1,5 @@
-import { computed, reactive, toRaw, watch } from 'vue'
+import { computed, reactive, toRaw, watch, ref } from 'vue'
 import api from '@/odoorpc'
-
-import { useL10n } from '@/components/tools/useL10n'
 
 function sleep(millisecond) {
   return new Promise(resolve => {
@@ -25,15 +23,6 @@ export const try_call = async fn => {
 }
 
 export function useForm(props, ctx) {
-  // watch actionId
-  // load formview
-  // get fields
-  // load data
-  //
-  //
-
-  const { tr } = useL10n()
-
   const localState = {
     formview: null
   }
@@ -89,18 +78,6 @@ export function useForm(props, ctx) {
     // 判断 存档和取消存档 菜单是否显示
     const active = state.fields.active
     return active ? true : false
-  })
-
-  const sheet = computed(() => {
-    if (state.formviewReady && localState.formview) {
-      const sheet0 = localState.formview.view_sheet(state.formviewFieldReady)
-
-      // console.log(sheet0)
-
-      return sheet0
-    } else {
-      return { children: {} }
-    }
   })
 
   async function onLoadReation(fieldName, relation_info) {
@@ -165,65 +142,6 @@ export function useForm(props, ctx) {
     },
     { immediate: true }
   )
-
-  function getLabel(fieldInfo) {
-    if (!fieldInfo.string) return undefined
-    if (typeof fieldInfo.string !== 'function') return fieldInfo.string
-    if (!(state.formviewFieldReady && localState.formview)) return
-
-    const view = localState.formview
-    const kw = {
-      record: state.record,
-      values: state.values,
-      editable: state.editable
-    }
-    return view.get_string(fieldInfo, kw)
-  }
-
-  function getInvisible(fieldInfo) {
-    if (!fieldInfo.invisible) return undefined
-    if (typeof fieldInfo.invisible !== 'function') return fieldInfo.invisible
-    if (!(state.formviewFieldReady && localState.formview)) return
-
-    const view = localState.formview
-
-    const kw = {
-      record: state.record,
-      values: state.values,
-      editable: state.editable
-    }
-
-    return view.check_invisible(fieldInfo, kw)
-  }
-
-  function getRules(fieldInfo) {
-    // console.log([fieldInfo.name, fieldInfo.required], fieldInfo)
-    function required_get() {
-      if (!state.editable) return undefined
-      if (!fieldInfo.required) return undefined
-
-      if (typeof fieldInfo.required !== 'function') {
-        return fieldInfo.required
-      }
-
-      if (!(state.formviewFieldReady && localState.formview)) return
-
-      const view = localState.formview
-
-      const kw = {
-        record: state.record,
-        values: state.values,
-        editable: state.editable
-      }
-
-      const required = view.check_required(fieldInfo, kw)
-      return required
-    }
-
-    const required = required_get()
-    if (!required) return undefined
-    return [{ required: true, message: `请输入${tr(fieldInfo.string)}!` }]
-  }
 
   async function onChange(fname, value) {
     // console.log('onChange in formview', fname, value)
@@ -392,8 +310,10 @@ export function useForm(props, ctx) {
     btn_fns[btn]()
   }
 
+  const wizardVisible = ref(false)
+  const wizardAction = ref(null)
+
   async function onBtnClick(btn) {
-    // console.log(btn)
     if (state.editable) {
       return
     }
@@ -417,18 +337,30 @@ export function useForm(props, ctx) {
       } else {
         // action name, string
         console.log('todo ret action', result)
-        throw 'todo ret action'
-        //       const actionId = result
-        //       this.wizardAction = actionId
-        //       this.wizardVisible = true
-        //       //
-        //       // this._action_return(result)
+        wizardAction.value = result
+        wizardVisible.value = true
       }
     }
-    // },
   }
 
+  async function onWizardDone() {
+    console.log('onWizardDone')
+    const res_id = state.record.id
+    await loadData(res_id)
+  }
+
+  const formInfo = computed(() => {
+    return {
+      viewInfo: toRaw(state.viewInfo),
+      fields: toRaw(state.fields),
+      record: toRaw(state.record),
+      values: toRaw(state.values),
+      editable: state.editable
+    }
+  })
+
   return {
+    fields: computed(() => state.fields), // 自定义页面需要
     mVal: computed({
       get() {
         return state.mVal
@@ -439,103 +371,20 @@ export function useForm(props, ctx) {
         // state.mVal = {...}
       }
     }),
-    fields: computed(() => state.fields), // 自定义页面需要
-    sheet: sheet,
-    formInfo: computed(() => {
-      return {
-        viewInfo: toRaw(state.viewInfo),
-        fields: toRaw(state.fields),
-        record: toRaw(state.record),
-        values: toRaw(state.values),
-        editable: state.editable
-      }
-    }),
+
+    formInfo,
     buttons,
     headerButtons,
     hasActive,
     currentState,
     statusbarVisible,
-    getRules,
-    getLabel,
-    getInvisible,
+
     onChange,
     onClickCRUD,
     onLoadReation,
-    onBtnClick
+    onBtnClick,
+    wizardVisible,
+    wizardAction,
+    onWizardDone
   }
 }
-
-// old 代码 for wizardview
-//
-
-// handleWizardDone() {
-//   console.log('handleWizardDone')
-// },
-
-// // form wizard
-// import { try_call } from '@/odoorpc/tools'
-// title() {
-//   if (this.view) {
-//     const action_info = this.view.action_info
-//     return action_info.name
-//   } else {
-//     return ''
-//   }
-// },
-
-// async wizardview_init() {
-//   // api
-//   console.log('init', this.action, this.actionIds)
-
-//   const view = api.env.wizardview(this.action, {
-//     active_ids: this.actionIds
-//   })
-//   this.view = view
-//   console.log('init', view)
-
-//   this.fields = await view.load_fields()
-//   console.log('init', this.fields, view)
-//   this.viewInfo = view.view_info
-
-//   await sleep(10)
-
-//   await this.load_relation()
-
-//   const dataInfo = await view.onchange_new()
-//   const { values } = dataInfo
-
-//   this.formValues = values
-//   this.record = {}
-//   this.values = values
-
-//   await sleep(10)
-
-//   const res = await this.load_relation_data(true)
-//   console.log('wizard, init, load rel data:', res, view)
-//   this.editable = true
-// },
-
-// async wizardview_button_click(btn) {
-//   console.log(btn)
-
-//   // await sleep(1000)
-
-//   const { error, result } = await try_call(async () => {
-//     return await this.view.wizard_button_clicked({
-//       ...btn
-//     })
-//   })
-
-//   if (error) {
-//     console.log('btn click2 error', [error, result])
-//     this.$error({ title: '用户错误', content: error.data.message })
-//   } else {
-//     // if (!result) {
-//     //   const res_id = this.record.id
-//     //   this.load_data(res_id)
-//     // } else {
-//     //   console.log('todo ret action')
-//     //   // this._action_return(result)
-//     // }
-//   }
-// },

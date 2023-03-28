@@ -319,7 +319,7 @@ export default {
           show_name_warning: { invisible: 1 },
           posted_before: { invisible: 1 },
           // move_type: { invisible: 1 },
-          payment_state: { invisible: 1 },
+          // payment_state: { invisible: 1 },
           invoice_filter_type_domain: { invisible: 1 },
           suitable_journal_ids: { invisible: 1 },
           currency_id: { invisible: 1 },
@@ -367,6 +367,22 @@ export default {
               const { name, posted_before, quick_edit_mode } = record
               return name === '/' && !posted_before && !quick_edit_mode
             }
+          },
+
+          payment_state: {
+            // <widget name="web_ribbon" title="Paid"
+            //         attrs="{'invisible': ['|', ('payment_state', '!=', 'paid'), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}"/>
+            // <widget name="web_ribbon" title="In Payment"
+            //         attrs="{'invisible': ['|', ('payment_state', '!=', 'in_payment'), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}"/>
+            // <widget name="web_ribbon" title="Partial"
+            //         attrs="{'invisible': ['|', ('payment_state', '!=', 'partial'), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}"/>
+            // <widget name="web_ribbon" title="Reversed"
+            //         bg_color="bg-danger"
+            //         attrs="{'invisible': [('payment_state', '!=', 'reversed')]}"/>
+            //  <widget name="web_ribbon" text="Invoicing App Legacy"
+            //         bg_color="bg-info"
+            //         attrs="{'invisible': [('payment_state', '!=', 'invoicing_legacy')]}"
+            //         tooltip="This entry has been generated through the Invoicing app, before installing Accounting. It has been disabled by the 'Invoicing Switch Threshold Date' setting so that it does not impact your accounting."/>
           }
         },
 

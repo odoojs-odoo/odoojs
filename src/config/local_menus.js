@@ -1,46 +1,32 @@
-import locmenu_base from './locmenu_base'
-import locmenu_base_partner from './locmenu_base_partner'
-import locmenu_product from './locmenu_product'
-import locmenu_product_setting from './locmenu_product_setting'
-import locmenu_analytic from './locmenu_analytic'
-import locmenu_account from './locmenu_account'
-import locmenu_account_move from './locmenu_account_move'
+import base_setting from './submenu/base_setting'
+import base_partner from './submenu/base_partner'
+import product_setting from './submenu/product_setting'
+import product_product from './submenu/product_product'
 
-import fp_base_setting from './fp_base_setting'
-import fp_invoice_setting from './fp_invoice_setting'
-import fp_bill_setting from './fp_bill_setting'
-import fapiao_sys from './fapiao_sys'
+import analytic_setting from './submenu/analytic_setting'
+import account_setting from './submenu/account_setting'
+import account_move from './submenu/account_move'
+
+import fapiao from './submenu/fapiao'
 
 export const local_menus_tree = [
   {
     id: 'odoo.setting',
     icon: 'shopping',
     theme: 'twoTone',
-    name: { en_US: 'Setting', zh_CN: '配置', zh_HK: '配置' },
-    children: [
-      locmenu_base,
-      locmenu_product_setting,
-      locmenu_analytic,
-      locmenu_account
-    ]
+    name: { en_US: 'Setting', zh_CN: '系统配置', zh_HK: '系统配置' },
+    children: [base_setting, product_setting, analytic_setting, account_setting]
   },
   {
-    id: 'odoo.erp',
+    id: 'odoo.master',
     icon: 'shopping',
     theme: 'twoTone',
-    name: { en_US: 'ERP', zh_CN: '业务管理', zh_HK: '业务管理' },
-    children: [locmenu_base_partner, locmenu_product]
+    name: { en_US: 'Master Data', zh_CN: '主数据', zh_HK: '主数据' },
+    children: [base_partner, product_product]
   },
 
-  locmenu_account_move,
-
-  {
-    id: 'fapiao',
-    icon: 'shopping',
-    theme: 'twoTone',
-    name: { en_US: 'Fapiao', zh_CN: '发票', zh_HK: '发票' },
-    children: [fp_base_setting, fp_bill_setting, fp_invoice_setting, fapiao_sys]
-  }
+  account_move,
+  fapiao
   // {
   //   id: 'bmx.root',
   //   icon: 'shopping',
