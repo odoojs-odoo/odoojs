@@ -10,18 +10,17 @@ export function messageError(error) {
   message.error(error.data.message)
 }
 
-// 注册 odoo addons, 包括 预定义的 menus, actions, views
-const odooAddons = require.context('@/odoorpc/addons', true, /\.js$/)
+const odoo_action = require.context('@/odoorpc/addons/action', true, /\.js$/)
+const odoo_fields = require.context('@/odoorpc/addons/fields', true, /\.js$/)
 
-// 自定义的 addons, 也在这里注册
-const localAddons = require.context('@/local_addons', true, /\.js$/)
+const fapiao_action = require.context('@/addons_fapiao/action', true, /\.js$/)
+const fapiao_fields = require.context('@/addons_fapiao/fields', true, /\.js$/)
+const fapiao_models = require.context('@/addons_fapiao/model', true, /\.js$/)
 
-export const addons_list = [odooAddons, localAddons]
+export const addons_list = [odoo_action, fapiao_action]
+export const web_fields_list = [fapiao_fields, odoo_fields]
 
-const local_fields = require.context('@/local_addons_fields', true, /\.js$/)
-const odoo_fields = require.context('@/odoorpc/addons_fields', true, /\.js$/)
-
-export const web_fields_list = [local_fields, odoo_fields]
-
-const localModels = require.context('@/local_addons_model', true, /\.js$/)
-export const web_models_list = [localModels]
+// model 的合并 有先后顺序.
+// 这里如果 有重名的  model 构成继承关系, 则必须 按照顺序. 后者覆盖前者
+// todo. 考虑 用其他方法, 搞定继承关系. 从而这里不要求顺序
+export const web_models_list = [fapiao_models]

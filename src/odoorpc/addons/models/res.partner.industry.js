@@ -1,4 +1,4 @@
-import { Model } from '../models'
+import { Model } from '../../models'
 
 export class PartnerIndustry extends Model {
   constructor(...args) {

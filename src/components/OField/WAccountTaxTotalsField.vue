@@ -1,6 +1,6 @@
 <template>
   <span>
-    <template v-if="readonly || readonly">
+    <template v-if="readonly || !readonly">
       <!-- {{ dVal }} -->
       <div>------------------</div>
       <!-- <div>不含税金额: {{ dVal.formatted_amount_untaxed }}</div> -->

@@ -116,10 +116,6 @@ const addons_load = AddonsFiles => {
   return addonsAll
 }
 
-// const addonsFiles = require.context('@/odoorpc/addons', true, /\.js$/)
-// const test_res = addons_load(addonsFiles)
-// console.log('asdasd,', test_res)
-
 export class Addons {
   constructor() {}
   static get data() {

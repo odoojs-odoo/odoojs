@@ -1,12 +1,10 @@
 import { Action } from '../action'
 
-const AddonsFieldsFiles = require.context('../../addons_fields', true, /\.js$/)
-
 const load_from_files = files => {
   // 不同模块中, 同一个模型. 可以merge. 没有继承关系, 纯merge
   return files.keys().reduce((models, modulePath) => {
     const value = files(modulePath)
-    // console.log('AddonsFields,', modulePath, value.default)
+    // console.log('AddonsFields2,', modulePath, value.default)
     const models_from = value.default
     Object.keys(models_from).forEach(model_name => {
       const dest = models[model_name] || {}
@@ -16,8 +14,6 @@ const load_from_files = files => {
     return models
   }, {})
 }
-
-const AddonsFields = load_from_files(AddonsFieldsFiles)
 
 const load_from_files_list = files_list => {
   return files_list.reduce((acc, files) => {
@@ -33,8 +29,7 @@ const load_from_files_list = files_list => {
 export class BaseView {
   static metadata_fields(model) {
     const web_fields = load_from_files_list(this.web_fields_list)
-    const addons_fields = { ...AddonsFields, ...web_fields }
-    return addons_fields[model] || {}
+    return web_fields[model] || {}
   }
 
   constructor(action_id, payload = {}) {

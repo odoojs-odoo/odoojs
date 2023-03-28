@@ -1,8 +1,3 @@
-/*
-所有模型的访问入口
-
-*/
-
 import { Model as BaseModel } from './models'
 import controllers from './controllers'
 
@@ -11,19 +6,15 @@ import ui from './ui'
 const web = controllers.web
 
 // ok
-const AddonsFiles = require.context('./addons_models', true, /\.js$/)
+const AddonsFiles = require.context('./addons/models', true, /\.js$/)
 
-// you do not need `import sale from './addons/sale'`
-// it will auto require all odoo model from addons file
 const AddonsModels = AddonsFiles.keys().reduce((models, modulePath) => {
   const value = AddonsFiles(modulePath)
-  // console.log('AddonsModels ok,', modulePath)
   models = { ...models, ...value.default }
   return models
 }, {})
 
 const AllModels = { ...AddonsModels }
-// console.log('xxxx AllModels,', AddonsModels)
 
 export class Environment {
   constructor(payload = {}) {

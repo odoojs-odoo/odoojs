@@ -293,7 +293,7 @@ export default defineComponent({
 
       // console.log('----- click web ------', name, state.menus_data)
       const menu = menus_data.value[name] || {}
-      console.log('---- layout menu ---', menu, [menu.id])
+      // console.log('---- layout menu ---', menu, [menu.id])
       state.selectedKeys = [menu.id]
       sessionStorage.setItem('currentMenuK', state.selectedKeys)
       // console.log(
@@ -405,9 +405,9 @@ export default defineComponent({
   /* Chrome、Safari */
   display: -webkit-flex;
   /* IE */
-  display: -ms-flex; 
+  display: -ms-flex;
   /* fireFox */
-  display: -moz-flex; 
+  display: -moz-flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -442,9 +442,9 @@ export default defineComponent({
   /* Chrome、Safari */
   display: -webkit-flex;
   /* IE */
-  display: -ms-flex; 
+  display: -ms-flex;
   /* fireFox */
-  display: -moz-flex; 
+  display: -moz-flex;
   flex-direction: column;
 }
 #layoutSiderRight {
@@ -462,9 +462,9 @@ export default defineComponent({
   /* Chrome、Safari */
   display: -webkit-flex;
   /* IE */
-  display: -ms-flex; 
+  display: -ms-flex;
   /* fireFox */
-  display: -moz-flex; 
+  display: -moz-flex;
   align-items: center;
   padding: 0;
   background-color: #1c86ee;
