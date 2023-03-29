@@ -256,6 +256,9 @@ const actions_load = action => {
   const addons_data = Addons.data
   const actions = addons_data.actions
   const info = actions[action]
+  if (!info) {
+    throw `${action} error`
+  }
 
   const views_all = addons_data.views
   const views = Object.keys(info.views).reduce((acc, cur) => {
@@ -269,7 +272,6 @@ const actions_load = action => {
 
     return acc
   }, {})
-  // console.log('action/load', action, { ...info, views })
   return { ...info, views }
 }
 

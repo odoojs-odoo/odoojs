@@ -8,6 +8,7 @@ import account_setting from './submenu/account_setting'
 import account_move from './submenu/account_move'
 
 import fapiao from './submenu/fapiao'
+import sale from './submenu/sale'
 
 export const local_menus_tree = [
   {
@@ -26,7 +27,8 @@ export const local_menus_tree = [
   },
 
   account_move,
-  fapiao
+  fapiao,
+  sale
   // {
   //   id: 'bmx.root',
   //   icon: 'shopping',

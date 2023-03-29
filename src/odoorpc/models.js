@@ -337,7 +337,8 @@ export class Model extends BaseModel {
   }
 
   // eslint-disable-next-line no-unused-vars
-  async call_button_after(name, action, kwargs) {
+  static async call_button_after(name, action, kwargs) {
+    console.log('call_button_after', name, action, kwargs)
     // to overide
     return action
   }

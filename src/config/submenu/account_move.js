@@ -126,6 +126,28 @@ export default {
             zh_CN: '内部转账',
             zh_HK: '内部转账'
           }
+        },
+
+        {
+          action: 'account.action_bank_statement_tree',
+          id: 'odoo_account.action_bank_statement_tree',
+          icon: 'shopping',
+          name: {
+            en_US: 'Bank Statements',
+            zh_CN: '银行对账',
+            zh_HK: '银行对账'
+          }
+        },
+
+        {
+          action: 'account.action_view_bank_statement_tree',
+          id: 'odoo_account.action_view_bank_statement_tree',
+          icon: 'shopping',
+          name: {
+            en_US: 'Cash Registers',
+            zh_CN: '现金对账',
+            zh_HK: '现金对账'
+          }
         }
       ]
     }

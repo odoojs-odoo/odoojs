@@ -12,6 +12,13 @@ export default {
     },
 
     {
+      action: 'account.action_account_tax_template_form',
+      id: 'odoo_account.action_account_tax_template_form',
+      icon: 'shopping',
+      name: { en_US: 'Tax Templates', zh_CN: '税模版', zh_HK: '税模版' }
+    },
+
+    {
       action: 'account.action_account_journal_group_list',
       id: 'odoo_account.action_account_journal_group_list',
       icon: 'shopping',
@@ -46,6 +53,16 @@ export default {
       name: { en_US: 'Chart of Accounts', zh_CN: '科目表', zh_HK: '科目表' }
     },
 
+    {
+      action: 'account.action_account_fiscal_position_template',
+      id: 'odoo_account.action_account_fiscal_position_template',
+      icon: 'shopping',
+      name: {
+        en_US: 'Fiscal Position Templates',
+        zh_CN: '财务状况模版',
+        zh_HK: '财务状况模版'
+      }
+    },
     {
       action: 'account.action_account_fiscal_position_form',
       id: 'odoo_account.action_account_fiscal_position_form',

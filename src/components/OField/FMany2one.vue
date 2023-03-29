@@ -87,6 +87,7 @@ const emit = defineEmits(['update:modelValue', 'change', 'click-many2one'])
 function onClickBtn() {
   // const val = props.formInfo.record[props.fieldName]
   console.log('onClickBtn', toRaw(props))
+  alert('todo button clicked')
   // emit('click-many2one', props.fieldName, val)
 }
 

@@ -309,9 +309,7 @@ export class FormView extends BaseView {
 
     console.log(name, ctx_action, ctx_me, ctx_active)
 
-    alert('todo')
-
-    // const context = { ...ctx_action, ...ctx_me }
+    alert(`action(${name}) by button clicked is not defined.`)
   }
 
   async _button_clicked_object({ name, record }) {
@@ -332,9 +330,12 @@ export class FormView extends BaseView {
       })
 
       const { xml_id } = action_info
-      const action = this.new_action(xml_id, { ...action_info })
-
-      return action.info
+      if (xml_id) {
+        const action = this.new_action(xml_id, { ...action_info })
+        return action.info
+      } else {
+        alert(`action return by button(${name}) clicked is not defined.`)
+      }
     }
   }
 

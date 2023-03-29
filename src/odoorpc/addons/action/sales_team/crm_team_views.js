@@ -5,9 +5,9 @@ export default {
     model: 'crm.team',
     type: 'tree',
     fields: {
-      sequence: {},
+      // sequence: {},
       name: {},
-      active: {},
+      active: { invisible: '1' },
       user_id: {},
       company_id: {}
     }
@@ -17,29 +17,49 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'crm.team',
     type: 'form',
-    fields: {
-      name: {},
-      user_id: {
-        domain: [['share', '=', false]]
+    arch: {
+      header: {
+        buttons: [],
+        fields: {}
       },
-      company_id: {},
+      sheet: {
+        _title: {
+          display_name: {}
+        },
 
-      // display_name: {},
-      // sequence: {},
-      // active: {},
+        _group_name: {
+          _span: 2,
+          name: {}
+        },
+        _group_name2: {
+          active: { invisible: '1' },
+          sequence: { invisible: '1' },
 
-      member_ids: {
-        widget: 'x2many_tree',
-
-        views: {
-          tree: {
-            fields: {
-              name: {}
-            }
+          is_membership_multi: { invisible: '1' },
+          user_id: {
+            widget: 'many2one_avatar_user',
+            domain: [['share', '=', false]]
           },
-          form: {
-            fields: {
-              display_name: {}
+          company_id: {},
+          currency_id: { invisible: '1' },
+          member_company_ids: { invisible: '1' }
+        },
+        _group_member_ids: {
+          _span: 2,
+          member_ids: {
+            widget: 'x2many_tree',
+
+            views: {
+              tree: {
+                fields: {
+                  name: {}
+                }
+              },
+              form: {
+                fields: {
+                  display_name: {}
+                }
+              }
             }
           }
         }
@@ -60,10 +80,7 @@ export default {
 
       filters: {
         group_active: {
-          inactive: {
-            string: '已归档',
-            domain: [['active', '=', false]]
-          }
+          inactive: { string: '已归档', domain: [['active', '=', false]] }
         }
       }
     }
@@ -71,10 +88,15 @@ export default {
 
   crm_team_action_config: {
     _odoo_model: 'ir.actions',
-    name: '销售团队',
+    name: 'Sales Teams',
     type: 'ir.actions.act_window',
     res_model: 'crm.team',
+    search_view_id: 'crm_team_view_search',
     domain: [],
-    context: {}
+    context: {},
+    views: {
+      tree: 'crm_team_view_tree',
+      form: 'crm_team_view_form'
+    }
   }
 }

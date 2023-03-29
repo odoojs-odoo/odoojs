@@ -268,6 +268,7 @@ export class Relation extends Field {
     const res = await this.Model.name_get(ids)
     return res
   }
+
   async load_select_options2(formInfo, kwargs_in = {}) {
     const domain_get = () => {
       const domain = this.field_info.domain || []
@@ -303,7 +304,7 @@ export class Relation extends Field {
   }
 
   // to del
-  async load_select_options(kwargs_in = {}) {
+  async load_select_options_______noused(kwargs_in = {}) {
     // console.log(this.field_info)
 
     // todo
