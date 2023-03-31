@@ -54,7 +54,16 @@
     :scroll="widthAndHeight"
   >
     <template #bodyCell="{ column, record }">
-      <template v-if="column._format">
+      <template v-if="column._widget">
+        <template
+          v-if="['boolean_toggle', 'many2many_tags'].includes(column._widget)"
+        >
+          {{ column._format(record) }}
+        </template>
+        <template v-else> todo:{{ column._widget }} </template>
+      </template>
+
+      <template v-else-if="column._format">
         {{ column._format(record) }}
       </template>
 
@@ -119,7 +128,7 @@ function onClickNew() {
 }
 //
 const widthAndHeight = computed(() => {
-  return { x: 1000, y: tableHeight.value }
+  return { x: 600, y: tableHeight.value }
 })
 </script>
 

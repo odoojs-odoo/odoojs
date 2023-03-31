@@ -514,6 +514,8 @@ export default {
                         // 'company_id': parent.company_id}"
                       },
                       product_uom: {
+                        groups: 'uom.group_uom',
+
                         readonly: ({ record }) => {
                           // 'readonly': [('product_uom_readonly', '=', True)],
                           const { product_uom_readonly } = record

@@ -183,8 +183,9 @@ export class EditModel extends EditBase {
     const values = this.values
     const res_id = this.record.id
     const context = this.context
-
+    // console.log('commit, 1,', record, values)
     const values2 = this.viewmodel.merge_to_write(record, values)
+    // console.log('commit, 2,', values2)
 
     const id2 = await this.Model.web_commit(res_id, values2, { context })
     return id2

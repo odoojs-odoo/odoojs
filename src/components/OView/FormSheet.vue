@@ -23,13 +23,15 @@
       -->
       <template v-for="group in sheet.children" :key="group.name">
         <a-descriptions-item v-if="group.html" :span="group.span">
-          <a-descriptions :column="1">
-            <a-descriptions-item
-              v-for="(item, index) in group.children"
-              :key="index"
-            >
-              {{ html_get(item) }}
-            </a-descriptions-item>
+          <template v-if="getInvisible(group)"></template>
+          <a-descriptions v-else :column="1">
+            <template v-for="(item, index) in group.children" :key="index">
+              <template v-if="getInvisible(item)"></template>
+
+              <a-descriptions-item v-else>
+                {{ html_get(item) }}
+              </a-descriptions-item>
+            </template>
           </a-descriptions>
         </a-descriptions-item>
 

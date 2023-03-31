@@ -71,30 +71,29 @@ export function useTreeColumns() {
 
     // }
 
-    const cols = Object.keys(fields)
-      .filter(item => !fields[item].invisible)
-      .map(fld => {
-        const meta = fields[fld] || {}
+    const cols = Object.keys(fields).map(fld => {
+      const meta = fields[fld] || {}
 
-        function str_get(meta) {
-          if (typeof meta.string !== 'function') {
-            return meta.string
-          } else {
-            return meta.string({ context })
-          }
+      function str_get(meta) {
+        if (typeof meta.string !== 'function') {
+          return meta.string
+        } else {
+          return meta.string({ context })
         }
+      }
 
-        return {
-          dataIndex: fld,
-          key: fld,
-          title: l10n.tr(str_get(meta)),
-          ellipsis: 'ellipsis' in meta ? meta.ellipsis : true,
-          // align: 'center',
-          width: meta.web_col_width,
-          _meta: meta,
-          _format: formatGet(meta) // record => format(record, meta)
-        }
-      })
+      return {
+        dataIndex: fld,
+        key: fld,
+        title: l10n.tr(str_get(meta)),
+        ellipsis: 'ellipsis' in meta ? meta.ellipsis : true,
+        // align: 'center',
+        width: meta.web_col_width,
+        _widget: meta.widget,
+        _meta: meta,
+        _format: formatGet(meta) // record => format(record, meta)
+      }
+    })
 
     // console.log('--- cols ---', cols)
 

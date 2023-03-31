@@ -40,6 +40,29 @@ export class BaseView {
     this._fields_info = fields
   }
 
+  async metadata_fields_get() {
+    //
+    // 预定义的 domain 需要 异步调用的.
+    // 通过 domain_creater 异步创建 同步函数 domain
+    // 在 load views 时 一期处理
+    // 例子 sale.order.user_id
+    const model = this.res_model
+    const fields = this.constructor.metadata_fields(model)
+
+    const fields2 = {}
+    for (const fld of Object.keys(fields)) {
+      const meta = fields[fld]
+      if (meta.domain_creater) {
+        const domain = await meta.domain_creater({ env: this.env })
+        fields2[fld] = { ...meta, domain }
+      } else {
+        fields2[fld] = meta
+      }
+    }
+
+    return fields2
+  }
+
   new_action(action_id, payload) {
     // button click return action.
     //
@@ -151,7 +174,7 @@ export class BaseView {
     const fields_list = Object.keys(fields_raw)
     const info = await Model.fields_get(fields_list)
 
-    const fields_in_model = this.constructor.metadata_fields(model)
+    const fields_in_model = await this.metadata_fields_get()
 
     const fields = Object.keys(fields_raw).reduce((acc, cur) => {
       acc[cur] = {

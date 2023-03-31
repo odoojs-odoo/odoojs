@@ -69,9 +69,28 @@ export function useTreeView(props) {
   })
 
   const { computedColumns } = useTreeColumns()
+
   const columns = computed(() => {
+    function fields_filter(treeview, fields) {
+      return Object.keys(fields).reduce((acc, fld) => {
+        const meta = fields[fld]
+        const inv = treeview.check_invisible(meta)
+
+        if (!inv) {
+          acc[fld] = meta
+        }
+        return acc
+      }, {})
+    }
+
     if (state.treeviewReady && localState.treeview) {
-      return computedColumns(state.fields, localState.treeview.context)
+      const fields = toRaw(state.fields)
+      const fields2 = fields_filter(localState.treeview, fields)
+
+      const cols = computedColumns(fields2, localState.treeview.context)
+      const cols2 = cols.filter(item => item._widget !== 'handle')
+      // console.log(cols)
+      return cols2
     } else {
       return []
     }

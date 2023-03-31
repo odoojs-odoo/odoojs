@@ -1,33 +1,13 @@
 import { BaseView } from './baseview'
 
 import { EditModel } from './editmodel'
-import { tuples_to_ids } from '@/odoorpc/tools'
+
+import { ViewHelp } from './viewhelp'
 
 // eslint-disable-next-line no-unused-vars
 const cp = val => JSON.parse(JSON.stringify(val))
 
-function _date_format(date) {
-  const year = date.getFullYear().toString().padStart(4, '0')
-  const month = (date.getMonth() + 1).toString().padStart(2, '0')
-  const day = date.getDate().toString().padStart(2, '0')
-
-  const hh = date.getHours().toString().padStart(2, '0')
-  const mm = date.getMinutes().toString().padStart(2, '0')
-  const ss = date.getSeconds().toString().padStart(2, '0')
-
-  const today_str = `${year}-${month}-${day} ${hh}:${mm}:${ss}`
-  return today_str
-}
-
-function date_format(date) {
-  if (date && typeof date === 'object') {
-    return _date_format(date)
-  } else {
-    return date
-  }
-}
-
-export class FormView extends BaseView {
+class FormModel extends BaseView {
   constructor(action_id, payload = {}) {
     super(action_id, { ...payload, type: 'form' })
     this.edit_model = undefined
@@ -50,6 +30,108 @@ export class FormView extends BaseView {
 
   async read(res_id) {
     return this._read_one(res_id)
+  }
+
+  async onchange_new(kwargs) {
+    // kwargs 中 可能包含 context
+    this.edit_model = new EditModel(this)
+    return this.edit_model.onchange_new(kwargs)
+  }
+
+  set_editable(record) {
+    this.edit_model = new EditModel(this)
+    return this.edit_model.set_editable(record)
+  }
+
+  async onchange(fname, value) {
+    return this.edit_model.onchange(fname, value)
+  }
+
+  async commit(...args) {
+    return this.edit_model.commit(...args)
+  }
+
+  unlink(res_id) {
+    const Model = this.Model
+    return Model.unlink(res_id)
+  }
+
+  async copy(ids) {
+    return await this.Model.copy(ids)
+  }
+
+  async unarchive(res_id) {
+    if (!res_id) return true
+    return await this.Model.action_unarchive([res_id])
+  }
+
+  async archive(res_id) {
+    if (!res_id) return true
+    return await this.Model.action_archive([res_id])
+  }
+
+  async _button_clicked_action({ name, record }) {
+    const ctx_action = this.context
+    const ctx_me = {} // todo
+    const ctx_active = {
+      active_id: record.id,
+      active_ids: [record.id],
+      active_model: this.res_model
+    }
+
+    // ctx_active
+    // 读取 action by name, with ctx_active
+    //  action   name,  缺少 module name . 需要补充上
+
+    console.log(name, ctx_action, ctx_me, ctx_active)
+
+    alert(`action(${name}) by button clicked is not defined.`)
+  }
+
+  async _button_clicked_object({ name, record }) {
+    // console.log('button_clicked call object', name)
+
+    const ctx_action = this.context
+    const ctx_me = {} // todo
+    const context = { ...ctx_action, ...ctx_me }
+
+    const res = await this.Model.call_button(name, [record.id], { context })
+
+    if (!res) return res
+    else {
+      // console.log('button_clicked, return action ', name, record, res, context)
+      // throw 'todo ret action'
+      const action_info = await this.Model.call_button_after(name, res, {
+        record
+      })
+
+      const { xml_id } = action_info
+      if (xml_id) {
+        const action = this.new_action(xml_id, { ...action_info })
+        return action.info
+      } else {
+        alert(`action return by button(${name}) clicked is not defined.`)
+      }
+    }
+  }
+
+  async button_clicked({ type, name, record }) {
+    // console.log(btn, record)
+    if (type === 'action') {
+      // console.log('button_clicked call action', type, name)
+      return this._button_clicked_action({ name, record })
+    } else if (type === 'object') {
+      return this._button_clicked_object({ name, record })
+    } else {
+      // console.log('btn clicked', type, name)
+      throw 'button_clicked, not type'
+    }
+  }
+}
+
+export class FormView extends FormModel {
+  constructor(action_id, payload = {}) {
+    super(action_id, { ...payload })
   }
 
   get view_info() {
@@ -294,331 +376,83 @@ export class FormView extends BaseView {
     return states.map(item => [item, selections[item]])
   }
 
-  async _button_clicked_action({ name, record }) {
-    const ctx_action = this.context
-    const ctx_me = {} // todo
-    const ctx_active = {
-      active_id: record.id,
-      active_ids: [record.id],
-      active_model: this.res_model
-    }
+  //
+  // check modifiers
+  //
 
-    // ctx_active
-    // 读取 action by name, with ctx_active
-    //  action   name,  缺少 module name . 需要补充上
-
-    console.log(name, ctx_action, ctx_me, ctx_active)
-
-    alert(`action(${name}) by button clicked is not defined.`)
-  }
-
-  async _button_clicked_object({ name, record }) {
-    // console.log('button_clicked call object', name)
-
-    const ctx_action = this.context
-    const ctx_me = {} // todo
-    const context = { ...ctx_action, ...ctx_me }
-
-    const res = await this.Model.call_button(name, [record.id], { context })
-
-    if (!res) return res
-    else {
-      // console.log('button_clicked, return action ', name, record, res, context)
-      // throw 'todo ret action'
-      const action_info = await this.Model.call_button_after(name, res, {
-        record
-      })
-
-      const { xml_id } = action_info
-      if (xml_id) {
-        const action = this.new_action(xml_id, { ...action_info })
-        return action.info
-      } else {
-        alert(`action return by button(${name}) clicked is not defined.`)
-      }
-    }
-  }
-
-  async button_clicked({ type, name, record }) {
-    // console.log(btn, record)
-    if (type === 'action') {
-      // console.log('button_clicked call action', type, name)
-      return this._button_clicked_action({ name, record })
-    } else if (type === 'object') {
-      return this._button_clicked_object({ name, record })
-    } else {
-      // console.log('btn clicked', type, name)
-      throw 'button_clicked, not type'
-    }
-  }
-
-  async onchange_new(kwargs) {
-    // kwargs 中 可能包含 context
-    this.edit_model = new EditModel(this)
-    return this.edit_model.onchange_new(kwargs)
-  }
-
-  set_editable(record) {
-    this.edit_model = new EditModel(this)
-    return this.edit_model.set_editable(record)
-  }
-
-  async onchange(fname, value) {
-    return this.edit_model.onchange(fname, value)
-  }
-
-  async commit(...args) {
-    return this.edit_model.commit(...args)
-  }
-
-  unlink(res_id) {
-    // 页面删除按钮调用
-    const Model = this.Model
-    return Model.unlink(res_id)
-  }
-
-  async copy(ids) {
-    return await this.Model.copy(ids)
-  }
-
-  async unarchive(res_id) {
-    if (!res_id) return true
-    return await this.Model.action_unarchive([res_id])
-  }
-
-  async archive(res_id) {
-    if (!res_id) return true
-    return await this.Model.action_archive([res_id])
-  }
-
-  _check_modifiers(modifiers_type, fieldInfo, kw) {
-    const { record, values, editable } = kw
-
-    if (!fieldInfo[modifiers_type]) return undefined
-    if (typeof fieldInfo[modifiers_type] !== 'function') {
-      return fieldInfo[modifiers_type]
-    }
-    const context = this.context
-    const record2 = this.merge_to_modifiers(record, values)
-    return fieldInfo[modifiers_type]({ record: record2, context, editable })
+  viewhelp_get() {
+    return new ViewHelp(this)
   }
 
   check_invisible(fieldInfo, kw) {
-    return this._check_modifiers('invisible', fieldInfo, kw)
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.check_invisible(fieldInfo, kw)
   }
 
   check_required(fieldInfo, kw) {
-    return this._check_modifiers('required', fieldInfo, kw)
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.check_required(fieldInfo, kw)
   }
 
   get_string(fieldInfo, kw) {
-    return this._check_modifiers('string', fieldInfo, kw)
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.get_string(fieldInfo, kw)
   }
 
   //
   // for record and values
   //
 
-  format_to_modifiers(record) {
-    return Object.keys(record).reduce((acc, fld) => {
-      const meta = this.fields[fld] || {}
-      const val = record[fld]
-      if (meta.type === 'many2many') {
-        acc[fld] = tuples_to_ids(val)
-      } else if (meta.type === 'one2many') {
-        const rel = this.env.relation(meta)
-        // console.log(fld, meta)
-        const val2 = rel.tree.format_to_onchange(val)
-        acc[fld] = val2
-      } else if (meta.type === 'many2one') {
-        acc[fld] = val ? val[0] : val
-      } else {
-        acc[fld] = val
-      }
-      return acc
-    }, {})
-  }
-
-  format_to_onchange(record) {
-    // console.log('format_to_onchange,', this.fields)
-    return Object.keys(record).reduce((acc, fld) => {
-      const meta = this.fields[fld] || {}
-      const val = record[fld]
-
-      if (meta.type === 'one2many') {
-        if (!val.length) {
-          acc[fld] = val
-        } else {
-          const rel = this.env.relation(meta)
-          if (rel) {
-            // console.log('format_to_onchange', fld, val, rel)
-            const val2 = rel.tree.format_to_onchange(val)
-            // console.log('format_to_onchange', fld, val2)
-            // todo.
-            // 1. merge, 2 转 格式
-            // [4,id,{}]  =>  [4,id]
-            // [1,id,{}]  =>  [1,id,{}] 递归处理
-            // [0,id,{}]  =>  [0,id,{}] 递归处理
-            //
-
-            acc[fld] = val2
-          } else {
-            acc[fld] = val
-          }
-        }
-      } else if (meta.type === 'many2one') {
-        acc[fld] = val ? val[0] : val
-      } else {
-        acc[fld] = val
-      }
-
-      return acc
-    }, {})
-  }
-
-  _format_to_write_get_readonly(meta, record) {
-    const meta_readonly_get = record2 => {
-      if (typeof meta.readonly === 'function') {
-        return meta.readonly({ record: record2 })
-      } else {
-        return meta.readonly
-      }
-    }
-
-    const state = record.state
-
-    if (meta.states === undefined) {
-      return meta_readonly_get(record)
-    }
-
-    if (state && meta.states && meta.states[state]) {
-      const readonly3 = meta.states[state].reduce((acc, cur) => {
-        acc[cur[0]] = cur[1]
-        return acc
-      }, {})
-
-      if (readonly3.readonly !== undefined) {
-        return readonly3.readonly
-      }
-    }
-
-    return meta_readonly_get(record)
-  }
-
-  format_to_write(values, record) {
-    // console.log('format_to_write', values)
-    const values2 = Object.keys({ ...values }).reduce((acc, fld) => {
-      const meta = this.fields[fld] || {}
-      if (this._format_to_write_get_readonly(meta, record)) {
-        return acc
-      }
-
-      const val = values[fld]
-      if (meta.type === 'one2many') {
-        if (!val.length) {
-          acc[fld] = val
-        } else {
-          const rel = this.env.relation(meta)
-
-          if (rel) {
-            // console.log('format_to_write in o2m', fld, val)
-            const val2 = rel.tree.format_to_write(val, {
-              record,
-              values,
-              viewInfo: this.view_info,
-              fields: this.fields
-            })
-            // console.log('format_to_write in o2m ok ', fld, val2)
-            // 1. merge, 2 转 格式
-            // [4,id,{}]  =>  [4,id]
-            // [1,id,{}]  =>  [1,id,{}] 递归处理
-            // [0,id,{}]  =>  [0,id,{}] 递归处理
-            //
-
-            acc[fld] = val2
-          } else {
-            acc[fld] = val
-          }
-        }
-      } else if (meta.type === 'many2one') {
-        acc[fld] = val ? val[0] : val
-      } else {
-        acc[fld] = val
-      }
-
-      return acc
-    }, {})
-    // console.log('format_to_write ok', values2)
-    return values2
-  }
-
   merge_data(record, values) {
-    const all_keys = Object.keys({ ...record, ...values })
-
-    return all_keys.reduce((acc, fld) => {
-      const meta = this.fields[fld] || {}
-      if (meta.type === 'many2many') {
-        const val =
-          fld in values ? values[fld] : [[6, false, record[fld] || []]]
-        acc[fld] = val
-      } else if (meta.type === 'one2many') {
-        const val =
-          fld in values
-            ? values[fld]
-            : (record[fld] || []).map(item => [4, item, { id: item }])
-
-        acc[fld] = val
-      } else {
-        const val = fld in values ? values[fld] : record[fld]
-        if (meta.type === 'datetime') {
-          const val2 = val ? date_format(val) : val
-          acc[fld] = val2
-        } else {
-          acc[fld] = val
-        }
-      }
-
-      return acc
-    }, {})
+    // call by editmodel.set_editable
+    const viewhelp = this.viewhelp_get()
+    return viewhelp._merge_data(record, values)
   }
 
   merge_to_modifiers(record, values) {
-    const record2 = this.merge_data(record, values)
-    const record3 = this.format_to_modifiers(record2)
-
-    const val_get = meta => {
-      if (meta.type === 'many2many') {
-        return []
-      } else if (meta.type === 'one2many') {
-        return []
-      } else {
-        return null
-      }
-    }
-
-    const records_default = Object.keys(this.fields).reduce((acc, fld) => {
-      acc[fld] = val_get(this.fields[fld])
-      return acc
-    }, {})
-
-    const record4 = { ...records_default, ...record3 }
-    return record4
+    // call by header_buttons
+    // call by check_modifers
+    // call by o2m.merge_to_modifiers
+    // call by o2m.context_get
+    // call by relation.load_select_options
+    // call by field.check_readonly
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.merge_to_modifiers(record, values)
   }
 
   merge_to_onchange(record, values) {
-    const record2 = this.merge_data(record, values)
-    return this.format_to_onchange(record2)
+    // call by editmodel.onchange
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.merge_to_onchange(record, values)
   }
 
   merge_to_write(record, values) {
-    const record2 = this.merge_data(record, values)
-
-    const record3 = this.format_to_modifiers(record2)
-    const values1 = this.merge_data({}, values)
-    const values2 = this.format_to_write(values1, record3)
-    return values2
+    // call by editmodel.commit
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.merge_to_write(record, values)
   }
 
+  //
+  // todel
+  //
+
+  // // never call
+  // format_to_modifiers(record) {
+  //   const viewhelp = this.viewhelp_get()
+  //   return viewhelp._format_to_modifiers(record)
+  // }
+
+  // // never call
+  // format_to_onchange(record) {
+  //   const viewhelp = this.viewhelp_get()
+  //   return viewhelp._format_to_onchange(record)
+  // }
+
+  // // never call
+  // format_to_write(values, record) {
+  //   const viewhelp = this.viewhelp_get()
+  //   return viewhelp._format_to_write(values, record)
+  // }
   //
   //
   // 命令行方式 用到该函数.

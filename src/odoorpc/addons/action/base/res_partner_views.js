@@ -6,18 +6,19 @@ export default {
     fields: {
       display_name: {},
       type: {},
-      phone: {},
-      email: {},
-      user_id: {},
-      city: {},
-      // state_id:{},
-      country_id: {},
-      // vat:{},
-      // category_id:{},
-      company_id: {}
-      // is_company: {},
-      // parent_id: {},
-      // active: {}
+      function: { invisible: '1' },
+      phone: { optional: 'show' },
+      email: { optional: 'show' },
+      user_id: { optional: 'show' },
+      city: { optional: 'show' },
+      state_id: { optional: 'hide', readonly: '1' },
+      country_id: { optional: 'show', readonly: '1' },
+      vat: { optional: 'hide', readonly: '1' },
+      category_id: { optional: 'show', widget: 'many2many_tags' },
+      company_id: { groups: 'base.group_multi_company', readonly: '1' },
+      is_company: { invisible: '1' },
+      parent_id: { invisible: '1', readonly: '1' },
+      active: { invisible: '1' }
     }
   },
 
@@ -33,18 +34,16 @@ export default {
       },
       sheet: {
         _title: {
-          is_company: { invisible: 1 },
-          commercial_partner_id: { invisible: 1 },
-          active: { invisible: 1 },
-          // company_id: { invisible: 1 },
-          country_code: { invisible: 1 },
-
           display_name: {}
         },
 
         _group_name: {
+          is_company: { invisible: 1 },
+          commercial_partner_id: { invisible: 1 },
+          active: { invisible: 1 },
+          company_id: { invisible: 1 },
+          country_code: { invisible: 1 },
           company_type: { widget: 'radio' },
-
           name: {
             required: ({ record }) => {
               // [('type', '=', 'contact')]
@@ -53,6 +52,7 @@ export default {
           },
 
           parent_id: {
+            widget: 'res_partner_many2one',
             invisible: ({ record }) => {
               // ['|',
               // '&amp;',
@@ -68,7 +68,14 @@ export default {
 
           company_name: {
             widget: 'button',
-            method: 'create_company',
+            button_click: {
+              name: 'create_company',
+              string: 'Create company',
+              type: 'object'
+              // 'invisible': ['|', '|', ('is_company','=', True),
+              // ('company_name', '=', ''), ('company_name', '=', False)]
+            },
+
             invisible: ({ record }) => {
               // ['|',
               // '|',
@@ -90,6 +97,15 @@ export default {
         },
 
         _group_logo: {
+          active: {
+            widget: 'web_ribbon',
+            invisible: ({ record }) => {
+              // 'invisible': [('active', '=', True)]
+              const { active } = record
+              return active
+            }
+          },
+          avatar_128: { invisible: 1 },
           image_1920: { widget: 'image' }
         },
 
@@ -113,6 +129,9 @@ export default {
           },
 
           street: {
+            label: '地址',
+            string: '',
+            placeholder: 'Street...',
             readonly({ record }) {
               // 'readonly':
               // [('type', '=', 'contact'),
@@ -122,6 +141,8 @@ export default {
             }
           },
           street2: {
+            string: '',
+            placeholder: 'Street 2...',
             readonly({ record }) {
               const { type, parent_id } = record
               return type === 'contact' && parent_id
@@ -129,12 +150,16 @@ export default {
           },
 
           city: {
+            string: '',
+            placeholder: 'City',
             readonly({ record }) {
               const { type, parent_id } = record
               return type === 'contact' && parent_id
             }
           },
           state_id: {
+            string: '',
+            placeholder: 'State',
             readonly({ record }) {
               const { type, parent_id } = record
               return type === 'contact' && parent_id
@@ -142,12 +167,16 @@ export default {
           },
 
           zip: {
+            string: '',
+            placeholder: 'ZIP',
             readonly({ record }) {
               const { type, parent_id } = record
               return type === 'contact' && parent_id
             }
           },
           country_id: {
+            string: '',
+            placeholder: 'Country',
             readonly({ record }) {
               const { type, parent_id } = record
               return type === 'contact' && parent_id
@@ -169,7 +198,6 @@ export default {
 
           email: {
             required({ record }) {
-              console.log(record)
               return (record.user_ids || []).length > 0
             }
           },
@@ -197,16 +225,16 @@ export default {
         _group_childs: {
           _span: 2,
           child_ids: {
+            label: '联系人/地址',
+            string: '',
             widget: 'x2many_tree',
             views: {
-              // kanban: {
-              //   fields: {
-              //     name: {}
-              //   },
-              //   templates: {
-              //     // title
-              //   }
-              // },
+              kanban: {
+                fields: { name: {} },
+                templates: {
+                  /* title */
+                }
+              },
 
               tree: {
                 fields: {
@@ -214,12 +242,12 @@ export default {
                   type: {},
                   function: {},
                   email: {},
-                  // zip: {},
-                  city: {}
-                  // state_id: {},
-                  // country_id: {},
-                  // phone: {},
-                  // mobile: {}
+                  zip: { invisible: 1 },
+                  city: {},
+                  state_id: { invisible: 1 },
+                  country_id: { invisible: 1 },
+                  phone: { invisible: 1 },
+                  mobile: { invisible: 1 }
                 }
               },
               form: {
@@ -227,9 +255,67 @@ export default {
                   sheet: {
                     _group_type: {
                       _span: 2,
-                      type: {},
+                      type: { required: '1', widget: 'radio' },
                       parent_id: { invisible: 1 }
                     },
+
+                    _group_type_hit: {
+                      _invisible({ editable }) {
+                        return !editable
+                      },
+                      _span: 2,
+                      _html: 1,
+                      _children: {
+                        a: {
+                          invisible({ record }) {
+                            // 'invisible': [('type', '!=', 'contact')]
+                            const { type } = record
+                            return type !== 'contact'
+                          },
+                          string:
+                            'Use this to organize the contact details of employees of a given company (e.g. CEO, CFO, ...).'
+                        },
+                        b: {
+                          invisible({ record }) {
+                            // 'invisible': [('type', '!=', 'invoice')]
+                            const { type } = record
+                            return type !== 'invoice'
+                          },
+                          string:
+                            'Preferred address for all invoices. Selected by default when you invoice an order that belongs to this company.'
+                        },
+
+                        c: {
+                          invisible({ record }) {
+                            // 'invisible': [('type', '!=', 'delivery')]
+                            const { type } = record
+                            return type !== 'delivery'
+                          },
+                          string:
+                            'Preferred address for all deliveries. Selected by default when you deliver an order that belongs to this company.'
+                        },
+
+                        d: {
+                          invisible({ record }) {
+                            // 'invisible': [('type', '!=', 'private')]
+                            const { type } = record
+                            return type !== 'private'
+                          },
+                          string:
+                            'Private addresses are only visible by authorized users and contain sensitive data (employee home addresses, ...).'
+                        },
+                        e: {
+                          invisible({ record }) {
+                            // 'invisible': [('type', '!=', 'other')]
+                            const { type } = record
+                            return type !== 'other'
+                          },
+                          string:
+                            'Other address for the company (e.g. subsidiary, ...)'
+                        }
+                      }
+                    },
+
                     _group_name: {
                       name: {
                         string: 'Contact Name',
@@ -238,7 +324,6 @@ export default {
                           return record.type === 'contact'
                         }
                       },
-
                       title: {
                         invisible({ record }) {
                           // 'invisible': [('type','!=', 'contact')]
@@ -253,6 +338,9 @@ export default {
                       },
 
                       street: {
+                        label: 'Address',
+                        string: '',
+                        placeholder: 'Street...',
                         invisible({ record }) {
                           // 'invisible': [('type','=', 'contact'
                           const { type } = record
@@ -260,33 +348,48 @@ export default {
                         }
                       },
                       street2: {
+                        string: '',
+                        placeholder: 'Street 2...',
                         invisible({ record }) {
+                          // 'invisible': [('type','=', 'contact'
                           const { type } = record
                           return type === 'contact'
                         }
                       },
 
                       city: {
+                        string: '',
+                        placeholder: 'City',
                         invisible({ record }) {
+                          // 'invisible': [('type','=', 'contact'
                           const { type } = record
                           return type === 'contact'
                         }
                       },
                       state_id: {
+                        string: '',
+                        placeholder: 'State',
                         invisible({ record }) {
+                          // 'invisible': [('type','=', 'contact'
                           const { type } = record
                           return type === 'contact'
                         }
                       },
 
                       zip: {
+                        string: '',
+                        placeholder: 'ZIP',
                         invisible({ record }) {
+                          // 'invisible': [('type','=', 'contact'
                           const { type } = record
                           return type === 'contact'
                         }
                       },
                       country_id: {
+                        string: '',
+                        placeholder: 'Country',
                         invisible({ record }) {
+                          // 'invisible': [('type','=', 'contact'
                           const { type } = record
                           return type === 'contact'
                         }
@@ -298,18 +401,26 @@ export default {
                       phone: { widget: 'phone' },
                       mobile: { widget: 'phone' },
                       company_id: { invisible: 1 }
+                    },
+
+                    _group_comment: { comment: {} },
+
+                    _group_lang: {
+                      lang: { invisible: 1 },
+                      user_id: { invisible: 1 }
                     }
                   }
-                },
-
-                fields: { name: {} }
+                }
               }
             }
           }
         },
 
         _group_sale: {
-          user_id: {},
+          user_id: { widget: 'many2one_avatar_user' }
+        },
+
+        _group_misc: {
           company_registry: {
             invisible: ({ record }) => {
               // 'invisible': [('parent_id','!=',False)]
@@ -319,6 +430,7 @@ export default {
           },
           ref: {},
           company_id: {
+            groups: 'base.group_multi_company',
             readonly({ record }) {
               // 'readonly': [('parent_id', '!=', False)]
               const { parent_id } = record
@@ -336,7 +448,11 @@ export default {
 
         _group_comment: {
           _span: 2,
-          comment: { string: 'Internal Notes' }
+          comment: {
+            label: 'Internal Notes',
+            string: '',
+            placeholder: 'Internal notes...'
+          }
         }
       }
     }

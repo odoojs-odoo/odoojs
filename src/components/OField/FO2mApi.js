@@ -59,12 +59,15 @@ export function useFO2m(props, ctx) {
     { immediate: true }
   )
 
+  // todo. 在form 页面 点新增时 时. state.records 有缓存
   async function loadRelationData(ids) {
     const info = relationInfo.value
     if (!info) {
+      // state.records = []
       return
     }
     if (!ids.length) {
+      // state.records = []
       return
     } else {
       const relation = api.env.relation(info)
@@ -138,6 +141,7 @@ export function useFO2m(props, ctx) {
     }
     const treeview = localState.relation.tree
     const one = treeview.pick_one(toRaw(state.records), row.id)
+    // console.log(row, row.id, one, state.records)
     return one
   }
 
@@ -165,7 +169,7 @@ export function useFO2m(props, ctx) {
   }
 
   function rowCommit(row, value) {
-    // console.log('onRowCommit', record, value)
+    // console.log('onRowCommit', row, value)
     if (!state.relationFieldReady) {
       // raise error
       return
@@ -173,6 +177,7 @@ export function useFO2m(props, ctx) {
 
     const treeview = localState.relation.tree
     const records = treeview.upinsert_one(toRaw(state.records), row.id, value)
+
     state.records = records
     return records
   }

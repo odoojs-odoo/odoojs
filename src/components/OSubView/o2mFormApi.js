@@ -33,7 +33,7 @@ export function useO2mForm(props, ctx) {
     () => props.visible,
     // eslint-disable-next-line no-unused-vars
     async (newVal, oldVal) => {
-      // console.log(newVal, oldVal)
+      // console.log(newVal, oldVal, props)
 
       if (!newVal) {
         // o2mform 关闭.
@@ -42,23 +42,33 @@ export function useO2mForm(props, ctx) {
         await sleep(100)
         state.values = { ...props.values }
         await sleep(100)
-
-        if (props.record.id) {
-          // 编辑
-          set_editable()
-        } else {
-          // 新增
-          onchange_new()
-        }
+        open_modal()
       }
     },
     { immediate: true }
   )
 
+  function open_modal() {
+    const res_id = computed(() => {
+      if (props.values.id) {
+        return props.values.id
+      } else {
+        return props.record.id
+      }
+    })
+    if (res_id.value) {
+      // 编辑
+      set_editable()
+    } else {
+      // 新增
+      onchange_new()
+    }
+  }
+
   function set_editable() {
     const formview = formview_edit_get()
     const vals = formview.set_editable(toRaw(props.record), toRaw(state.values))
-
+    // console.log(props.record, state.values, vals)
     state.mVal = { ...vals }
   }
 
@@ -69,7 +79,7 @@ export function useO2mForm(props, ctx) {
     state.mVal = { ...vals }
     const parentFormInfo = toRaw(props.parentFormInfo)
     const result = await formview.onchange_new(parentFormInfo)
-
+    // console.log('oncgange new ', result)
     const { values: values2 = {} } = result
     state.values = values2
     state.mVal = { ...state.mVal, ...values2 }
@@ -92,7 +102,6 @@ export function useO2mForm(props, ctx) {
   }
 
   async function commit() {
-    // console.log('commit subform')
     const formview = formview_edit_get()
     if (!formview) return
 
@@ -107,7 +116,6 @@ export function useO2mForm(props, ctx) {
         () => done(false)
       )
     })
-
     return result
   }
 

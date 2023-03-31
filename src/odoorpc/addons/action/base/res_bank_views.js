@@ -24,18 +24,18 @@ export default {
         },
 
         _group_address_details: {
-          street: { placeholder: 'Street...' },
-          street2: {},
-          city: {},
-          state: {},
-          zip: {},
-          country: {}
+          street: { label: '地址', string: '', placeholder: 'Street...' },
+          street2: { string: '', placeholder: 'Street 2...' },
+          city: { string: '', placeholder: 'City' },
+          state: { string: '', placeholder: 'State' },
+          zip: { string: '', placeholder: 'ZIP' },
+          country: { string: '', placeholder: 'Country' }
         },
 
         _group_communication_details: {
           phone: {},
-          email: {},
-          active: {}
+          email: { widget: 'email' },
+          active: { invisible: '1' }
         }
       }
     }
@@ -100,20 +100,19 @@ export default {
         },
 
         _group_name: {
-          // sequence: {},
-          // acc_type: {},
+          sequence: { invisible: '1' },
+          acc_type: { invisible: '1' },
           acc_number: {},
-          company_id: {},
+          company_id: { groups: 'base.group_multi_company' },
           partner_id: {},
           acc_holder_name: {}
         },
 
         _group_bank: {
           bank_id: {},
-          currency_id: {},
+          currency_id: { groups: 'base.group_multi_currency' },
           allow_out_payment: { widget: 'boolean_toggle' },
-
-          active: {}
+          active: { invisible: '1' }
         }
       }
     }
@@ -124,12 +123,13 @@ export default {
     model: 'res.partner.bank',
     type: 'tree',
     fields: {
-      sequence: {},
+      sequence: { widget: 'handle' },
       acc_number: {},
       bank_name: {},
-      company_id: {},
+      company_id: { groups: 'base.group_multi_company' },
       partner_id: {},
-      acc_holder_name: { widget: 'boolean_toggle' }
+      acc_holder_name: { invisible: '1' },
+      allow_out_payment: { widget: 'boolean_toggle' }
     }
   },
 

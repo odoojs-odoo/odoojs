@@ -20,53 +20,86 @@ export default {
       header: {
         buttons: [],
         fields: {}
+      },
+      sheet: {
+        _title: {
+          display_name: {}
+        },
+
+        _group_image: {
+          _span: 2,
+          image_url: { widget: 'image_url' }
+        },
+
+        _group_country_details: {
+          name: {},
+          currency_id: {},
+          code: {}
+        },
+        _group_phone_vat_settings: {
+          phone_code: {},
+          vat_label: {},
+          zip_required: {},
+          state_required: {}
+        },
+        _group_address_view_id: {
+          _span: 2,
+          address_view_id: {}
+        },
+
+        _group_address_view_id2: {
+          _span: 2,
+          _html: 1,
+          _children: {
+            a: 'Choose a subview of partners that includes only address fields, to change the way users can input addresses.'
+          }
+        },
+
+        _group_address_format: {
+          _span: 2,
+          address_format: {}
+        },
+        _group_address_format2: {
+          _span: 2,
+          _html: 1,
+          _children: {
+            a: 'Change the way addresses are displayed in reports'
+          }
+        },
+
+        _group_name_position: {
+          name_position: {}
+        },
+
+        _group_state_ids: {
+          _span: 2,
+          state_ids: {
+            span: 2,
+            label: '省/州',
+            string: '',
+            widget: 'x2many_tree',
+            views: {
+              tree: { fields: { name: {}, code: {}, display_name: {} } },
+              kanban: {
+                fields: { name: {}, code: {} },
+                templates: {
+                  title({ record }) {
+                    return record.name
+                  },
+                  default({ record }) {
+                    return record.code
+                  }
+                }
+              },
+              form: { fields: { display_name: {}, name: {}, code: {} } }
+            }
+          }
+        }
       }
-      // sheet: {
-      //   _title: {
-      //     display_name: {}
-      //   },
-      //   _group1: {
-      //     name: {},
-      //     phone_code: {}
-      //   }
-      // }
     },
 
     fields: {
-      display_name: { is_title: 1 },
-      name: {},
-      image_url: { widget: 'image_url' },
-      code: {},
-      currency_id: { invisible: 1 },
-      phone_code: {},
-      vat_label: {},
-      zip_required: {},
-      state_required: {},
-      address_view_id: {},
-      address_format: {},
-      name_position: {},
-
-      state_ids: {
-        noLabel: 1,
-        span: 2,
-        widget: 'x2many_tree',
-        views: {
-          tree: { fields: { name: {}, code: {}, display_name: {} } },
-          kanban: {
-            fields: { name: {}, code: {} },
-            templates: {
-              title({ record }) {
-                return record.name
-              },
-
-              default({ record }) {
-                return record.code
-              }
-            }
-          },
-          form: { fields: { display_name: {}, name: {}, code: {} } }
-        }
-      }
+      // display_name: { is_title: 1 },
     }
   },
 

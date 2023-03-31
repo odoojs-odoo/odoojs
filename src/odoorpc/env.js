@@ -54,6 +54,15 @@ export class Environment {
     return web.baseURL
   }
 
+  has_group(ref_name) {
+    // todo 考虑 ! 取反
+    if (!ref_name) return true
+    const refs = ref_name.split(',')
+    const groups = web.groups
+    const grp = groups.filter(item => refs.includes(item.name))
+    return grp.length ? true : false
+  }
+
   get uid() {
     return this.session.uid
   }
@@ -75,14 +84,17 @@ export class Environment {
   }
 
   async ref(xml_id) {
-    // const res = this._ref_registry[xml_id]
-    // if (res) return res
-
     const Model = this.model('ir.model.data')
-    const args = ['xmlid_to_res_model_res_id', xml_id, true]
+
+    // for  version < 15:
+    // const args = ['xmlid_to_res_model_res_id', xml_id, true]
+    // next for odoo version >=15
+
+    const [module, ref_name] = xml_id.split('.')
+    const args = ['check_object_reference', module, ref_name, true]
+
     const [model, res_id] = await Model.execute(...args)
     const res2 = { model, id: res_id }
-    // this._ref_registry[xml_id] = res2
     return res2
   }
 

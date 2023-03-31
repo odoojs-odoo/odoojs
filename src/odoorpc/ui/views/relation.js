@@ -156,6 +156,23 @@ export class Relation extends Field {
     return this.env.model(model)
   }
 
+  async metadata_fields_get() {
+    const model = this.field_info.relation
+    const fields = BaseView.metadata_fields(model)
+
+    const fields2 = {}
+    for (const fld of Object.keys(fields)) {
+      const meta = fields[fld]
+      if (meta.domain_creater) {
+        const domain = await meta.domain_creater({ env: this.env })
+        fields2[fld] = { ...meta, domain }
+      } else {
+        fields2[fld] = meta
+      }
+    }
+    return fields2
+  }
+
   async _load_views() {
     const meta = this.field_info
 
@@ -206,7 +223,7 @@ export class Relation extends Field {
 
     const fields_raw = { ...raw_tree, ...raw_kanban, ...raw_form }
 
-    const fields_meta = BaseView.metadata_fields(this.field_info.relation)
+    const fields_meta = await this.metadata_fields_get()
 
     const fields_info = await this.Model.fields_get(Object.keys(fields_raw))
 
@@ -269,7 +286,7 @@ export class Relation extends Field {
     return res
   }
 
-  async load_select_options2(formInfo, kwargs_in = {}) {
+  async load_select_options(formInfo, kwargs_in = {}) {
     const domain_get = () => {
       const domain = this.field_info.domain || []
       if (typeof domain === 'function') {
@@ -295,36 +312,11 @@ export class Relation extends Field {
 
     const domain = domain_get()
 
-    const { args = [], limit = 8, ...kwargs } = kwargs_in
-    return this.Model.name_search({
-      args: [...args, ...domain],
-      limit,
-      ...kwargs
-    })
-  }
-
-  // to del
-  async load_select_options_______noused(kwargs_in = {}) {
-    // console.log(this.field_info)
-
-    // todo
-    // const { formInfo } = kwargs_in
-    // get record, context
-
-    const { args = [], record = {}, limit = 8, ...kwargs } = kwargs_in
-
-    const domain_get = () => {
-      const domain = this.field_info.domain || []
-      if (typeof domain === 'function') {
-        // todo , context
-        return domain({ record })
-      } else {
-        return domain
-      }
+    if (this.field_info.name === 'product_uom') {
+      console.log(domain)
     }
 
-    const domain = domain_get()
-
+    const { args = [], limit = 8, ...kwargs } = kwargs_in
     return this.Model.name_search({
       args: [...args, ...domain],
       limit,

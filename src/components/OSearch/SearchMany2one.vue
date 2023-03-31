@@ -188,7 +188,7 @@ function useMoreSearch() {
 function call_loadSelectOptions(kw = {}) {
   const relation = api.env.relation(props.fieldInfo)
   // todo 模拟 做一个 formInfo. 获取 record, context
-  return relation.load_select_options2(null, { ...kw })
+  return relation.load_select_options(null, { ...kw })
 }
 </script>
 

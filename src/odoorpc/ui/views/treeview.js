@@ -1,6 +1,8 @@
 import { BaseView } from './baseview'
 import { SearchView } from './searchview'
 
+import { ViewHelp } from './viewhelp'
+
 export class TreeBaseView extends BaseView {
   constructor(action_id, payload = {}) {
     const { type = 'tree', ...payload2 } = payload
@@ -162,6 +164,15 @@ export class TreeBaseView extends BaseView {
   async unlink(ids) {
     if (!ids || (Array.isArray(ids) && !ids.length)) return true
     return await this.Model.unlink(ids)
+  }
+
+  viewhelp_get() {
+    return new ViewHelp(this)
+  }
+
+  check_invisible(fieldInfo) {
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.check_invisible_for_tree(fieldInfo)
   }
 }
 

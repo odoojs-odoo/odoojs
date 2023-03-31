@@ -4,7 +4,7 @@
       todo: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
 
-    <template v-else-if="fieldInfo.widget === 'many2one_button'">
+    <template v-else-if="fieldInfo.widget === 'many2one_button' && readonly">
       <!-- 自定义 功能 对应的数据 -->
       <a-button @click="onClickBtn">
         {{ dVal || (fieldInfo._action || {}).string || 'todo' }}</a-button
@@ -22,7 +22,13 @@
 
     <template
       v-else-if="
-        fieldInfo.widget && !['many2one_avatar_user'].includes(fieldInfo.widget)
+        fieldInfo.widget &&
+        ![
+          'many2one_avatar_user',
+          'res_partner_many2one',
+          'many2one_button',
+          'many2one_barcode'
+        ].includes(fieldInfo.widget)
       "
     >
       todo widget: {{ [fieldInfo.type, fieldInfo.widget] }}
@@ -39,7 +45,7 @@
         <OMany2one
           v-model="mVal"
           :width="width"
-          :placeholder="fieldInfo.string"
+          :placeholder="fieldInfo.placeholder || fieldInfo.string"
           :options="options"
           @search="handleSearch"
           @dropdownVisibleChange="dropdownVisibleChange"

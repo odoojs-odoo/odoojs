@@ -179,10 +179,10 @@ export function useForm(props, ctx) {
 
     if (id_ret) {
       if (props.resId) {
+        state.editable = false
         const record = await localState.formview.read(id_ret)
         state.record = record
         state.values = {}
-        state.editable = false
       } else {
         const rounteVal = ctx.router.currentRoute.value
         const { query, path } = rounteVal

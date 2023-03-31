@@ -1,4 +1,5 @@
 import { X2mBase } from './x2mbase'
+import { ViewHelp } from './viewhelp'
 
 const tuples_to_ids = tuples => {
   // m2m
@@ -45,7 +46,7 @@ const virtualHelper = {
   },
 
   is_virtual(rid) {
-    return rid === 'string'
+    return typeof rid === 'string'
   }
 }
 
@@ -54,20 +55,14 @@ export class X2mTree extends X2mTreeBase {
     super(field_info, { ...payload, type: 'tree' })
   }
 
-  get fields_list() {
-    return Object.keys(this.fields)
-  }
-
   get fields() {
     const views = this.field_info.views
-    // const fields = Object.keys(views).reduce((acc, viewname) => {
-    //   acc = { ...acc, ...views[viewname].fields }
-    //   return acc
-    // }, {})
-    // const view = views[this._type]
-    // return { ...fields, ...view.fields }
     const view = views[this._type]
     return { ...view.fields }
+  }
+
+  get fields_list() {
+    return Object.keys(this.fields)
   }
 
   async read(ids, kw = {}) {
@@ -88,6 +83,15 @@ export class X2mTree extends X2mTreeBase {
     const fields = this.fields_list
     const res = await this.Model.search_read({ domain, fields })
     return res
+  }
+
+  viewhelp_get() {
+    return new ViewHelp(this)
+  }
+
+  check_invisible(fieldInfo) {
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.check_invisible_for_tree(fieldInfo)
   }
 
   //
@@ -150,6 +154,7 @@ export class X2mTree extends X2mTreeBase {
     }, [])
   }
 
+  // call by formview.merge_to_write
   format_to_write(records, parentFormInfo) {
     // const tuples_all = this.merge_tuples(records)
     const dict_read = records.reduce((acc, item) => {
@@ -190,6 +195,8 @@ export class X2mTree extends X2mTreeBase {
     return records3
   }
 
+  // call by formview.merge_to_change.
+  // call by formview.merge_to_modifiers
   format_to_onchange(records) {
     const records2 = this.merge_tuples(records)
     const records3 = records2.map(item => {
@@ -199,8 +206,9 @@ export class X2mTree extends X2mTreeBase {
         if ([2, 3, 4].includes(op)) {
           return [op, rid, false]
         } else if ([1, 0].includes(op)) {
-          // todo 递归处理
-          return [op, rid, vals]
+          const x2mform = this.relation.form
+          const vals2 = x2mform.format_to_onchange(vals)
+          return [op, rid, vals2]
         } else {
           // never here
           return item
@@ -332,6 +340,7 @@ export class X2mTree extends X2mTreeBase {
     // const value2 = res_id ? [1, res_id, value] : [0, false, value]
 
     const value2 = tuple_get()
+
     const records2 = [...records, value2]
     const records3 = this._merge_tuples_of_edit(records2)
     return records3

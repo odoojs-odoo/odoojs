@@ -490,6 +490,10 @@ class Home extends FileRequest {
     return Session.session_info
   }
 
+  static get groups() {
+    return (this._login_info || {}).groups
+  }
+
   static get is_user() {
     return (this._login_info || {}).is_user
   }
@@ -500,7 +504,7 @@ class Home extends FileRequest {
     // return (this._login_info || {}).menus
   }
 
-  async signup(payload = {}) {
+  static async signup(payload = {}) {
     const url = '/web2/signup'
     return await this.json_call(url, payload)
   }
@@ -632,11 +636,47 @@ class Home extends FileRequest {
     return for_odoo_15(menus)
   }
 
+  static async _check_groups() {
+    const context = Session.user_context
+    const uid = this.session_info.uid
+    const users = await Dataset.call_kw({
+      model: 'res.users',
+      method: 'read',
+      args: [uid, ['groups_id']],
+      kwargs: { context }
+    })
+
+    const user = users[0]
+    const domain = [
+      ['res_id', 'in', user.groups_id],
+      ['model', '=', 'res.groups']
+    ]
+    // const fields = ['res_id', 'complete_name', 'reference', 'display_name']
+    const fields = ['res_id', 'complete_name']
+
+    const groups2 = await Dataset.call_kw({
+      model: 'ir.model.data',
+      method: 'search_read',
+      args: [],
+      kwargs: { domain, fields, context }
+    })
+
+    const groups3 = groups2.map(item => {
+      return { id: item.res_id, name: item.complete_name }
+    })
+
+    return groups3
+  }
   static async _get_user_info() {
     // website/controllers/main.py/Website._login_redirect
-    const is_user = await this._check_is_group_user()
-    this._login_info = { is_user }
-    return { is_user }
+    // const is_user = await this._check_is_group_user()
+    const groups = await this._check_groups()
+    const grp = groups.filter(item => item.name === 'base.group_user')
+    const is_user = grp.length ? true : false
+    // console.log(grp, is_user2, is_user)
+
+    this._login_info = { is_user, groups }
+    return { is_user, groups }
 
     // if (is_user) {
     //   const menus = await this._menus_get()

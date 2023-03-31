@@ -18,7 +18,7 @@
         <a-space v-else>
           <a-button size="small" @click="onCommit"> 保存 </a-button>
           <a-button size="small" @click="onRollback"> 丢弃 </a-button>
-          <a-button v-if="record.id" size="small" @click="onRemove">
+          <a-button v-if="full_values.id" size="small" @click="onRemove">
             移出
           </a-button>
         </a-space>
@@ -42,9 +42,10 @@ const props = defineProps([
 ])
 
 const emit = defineEmits(['update:visible', 'row-commit', 'row-remove'])
-const modalTitle = computed(
-  () => ({ ...props.record, ...props.values }.display_name || '新增')
-)
+const full_values = computed(() => {
+  return { ...props.record, ...props.values }
+})
+const modalTitle = computed(() => full_values.value.display_name || '新增')
 
 const visible2 = computed({
   get() {
@@ -66,16 +67,16 @@ function onRollback() {
 }
 
 async function onRemove() {
-  // console.log('onRemove', props.record)
-  emit('row-remove', props.record)
+  // console.log('onRemove', full_values)
+  emit('row-remove', full_values.value)
   visible2.value = false
 }
 
 async function onCommit() {
   const result = await commit()
   if (result) {
-    // console.log('onCommit form ', props.record, result)
-    emit('row-commit', props.record, result)
+    // console.log('onCommit form ', full_values, result)
+    emit('row-commit', full_values.value, result)
     visible2.value = false
   }
 }

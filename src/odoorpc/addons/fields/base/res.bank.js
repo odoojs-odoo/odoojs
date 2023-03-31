@@ -1,4 +1,8 @@
 const ModelFields = {
+  display_name: {
+    disable_field_onchange: 1
+    // string: { en_US: 'Name', zh_CN: '名称', zh_HK: '名称' }
+  },
   name: { string: { en_US: 'Name', zh_CN: '名称', zh_HK: '名稱' } },
   bic: { string: { en_US: 'Code', zh_CN: '编码', zh_HK: '編碼' } },
 

@@ -63,7 +63,8 @@ const mVal = computed({
   get() {
     return props.modelValue
       ? { value: props.modelValue[0], label: props.modelValue[1] }
-      : { value: 0, label: '' }
+      : undefined
+    // { value: undefined, label: undefined }
   },
   set(val) {
     if (val) {

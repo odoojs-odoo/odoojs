@@ -8,7 +8,11 @@ export function useFormSheet(props) {
 
   function html_get(item) {
     if (typeof item !== 'function') {
-      return item
+      if (typeof item === 'object') {
+        return item.string
+      } else {
+        return item
+      }
     } else {
       return item({
         record: { ...props.formInfo.record, ...props.formInfo.values }
@@ -39,8 +43,8 @@ export function useFormSheet(props) {
   })
 
   function getInvisible(fieldInfo) {
-    if (!fieldInfo.invisible) return undefined
-    if (typeof fieldInfo.invisible !== 'function') return fieldInfo.invisible
+    // if (!fieldInfo.invisible) return undefined
+    // if (typeof fieldInfo.invisible !== 'function') return fieldInfo.invisible
 
     const formview = formview_get()
     if (!formview) return undefined

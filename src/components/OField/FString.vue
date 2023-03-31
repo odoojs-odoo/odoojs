@@ -9,7 +9,12 @@
         :form-info="formInfo"
       />
     </template>
-    <template v-else-if="fieldInfo.widget">
+    <template
+      v-else-if="
+        fieldInfo.widget &&
+        !['email', 'phone', 'url'].includes(fieldInfo.widget)
+      "
+    >
       todo: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
 
@@ -22,7 +27,7 @@
         <OInput
           v-model="mVal"
           :width="width"
-          :placeholder="fieldInfo.string"
+          :placeholder="fieldInfo.placeholder || fieldInfo.string"
           @change="onChange"
         />
       </template>

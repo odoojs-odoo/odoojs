@@ -6,7 +6,7 @@ import api from '@/odoorpc'
 async function call_loadSelectOptions(props, kw = {}) {
   const relation = api.env.relation(props.fieldInfo)
   const formInfo = toRaw(props.formInfo)
-  return relation.load_select_options2(formInfo, kw)
+  return relation.load_select_options(formInfo, kw)
 }
 
 export function useFM2o(props, ctx) {

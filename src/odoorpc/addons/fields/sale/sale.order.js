@@ -35,7 +35,69 @@ const ModelFields = {
     domain({ record }) {
       // domain="['|', ('company_id', '=', False),
       //   ('company_id', '=', company_id)]",)
+      const { company_id } = record
+      return ['|', ['company_id', '=', false], ['company_id', '=', company_id]]
+    }
+  },
 
+  fiscal_position_id: {
+    domain({ record }) {
+      // domain="[('company_id', '=', company_id)]")
+      const { company_id } = record
+      return [['company_id', '=', company_id]]
+    }
+  },
+
+  payment_term_id: {
+    domain({ record }) {
+      //  domain="['|', ('company_id', '=', False),
+      // ('company_id', '=', company_id)]")
+      const { company_id } = record
+      return ['|', ['company_id', '=', false], ['company_id', '=', company_id]]
+    }
+  },
+
+  pricelist_id: {
+    domain({ record }) {
+      // domain="['|', ('company_id', '=', False),
+      // ('company_id', '=', company_id)]",
+      const { company_id } = record
+      return ['|', ['company_id', '=', false], ['company_id', '=', company_id]]
+    }
+  },
+
+  user_id: {
+    domain_creater2: 2,
+    async domain_creater({ env }) {
+      const refid = await env.ref('sales_team.group_sale_salesman').id
+      return ({ record }) => {
+        // domain=lambda self: "
+        // [('groups_id', '=', {}), ('share', '=', False),
+        // ('company_ids', '=', company_id)]".format(
+        //  self.env.ref("sales_team.group_sale_salesman").id
+        const { company_id } = record
+        return [
+          ['groups_id', '=', refid],
+          ['share', '=', false],
+          ['company_ids', '=', company_id]
+        ]
+      }
+    }
+  },
+
+  team_id: {
+    domain({ record }) {
+      // domain="['|', ('company_id', '=', False),
+      // ('company_id', '=', company_id)]")
+      const { company_id } = record
+      return ['|', ['company_id', '=', false], ['company_id', '=', company_id]]
+    }
+  },
+
+  analytic_account_id: {
+    domain({ record }) {
+      // domain="['|', ('company_id', '=', False),
+      // ('company_id', '=', company_id)]")
       const { company_id } = record
       return ['|', ['company_id', '=', false], ['company_id', '=', company_id]]
     }
