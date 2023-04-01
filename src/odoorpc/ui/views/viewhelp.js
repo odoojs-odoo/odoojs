@@ -106,6 +106,9 @@ export class ViewHelp {
   // }
 
   _check_groups(fieldInfo) {
+    // sale.order.order_date 的 groups 依赖于 state
+    // 因此, 在 sale.order.order_date 中 使用 invisible 实现
+    // 以确保 groups 仅仅是 字符串
     if (!fieldInfo.groups) return true
     return this.env.has_group(fieldInfo.groups)
   }

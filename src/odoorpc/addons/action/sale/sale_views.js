@@ -267,7 +267,20 @@ export default {
           },
 
           date_order: {
-            groups: 'base.group_no_one',
+            invisible({ record, env }) {
+              // 'Quotation Date' 'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]
+              // Order Date 'invisible': [('state', 'in', ['draft', 'sent'])]
+              const { state } = record
+
+              if (['sale', 'done', 'cancel'].includes(state)) {
+                return false
+              } else if (['draft', 'sent'].includes(state)) {
+                return !env.has_group('base.group_no_one')
+              } else {
+                return true
+              }
+            },
+
             string({ record }) {
               // 'Quotation Date' 'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]
               // Order Date 'invisible': [('state', 'in', ['draft', 'sent'])]
@@ -786,6 +799,7 @@ export default {
         },
 
         _group_customer_signature: {
+          _groups: 'base.group_no_one',
           _invisible: ({ record }) => {
             // 'invisible': [('require_signature', '=', False),
             // ('signed_by', '=', False), ('signature', '=', False),

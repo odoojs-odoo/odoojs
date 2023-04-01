@@ -36,6 +36,12 @@
         </a-descriptions-item>
 
         <a-descriptions-item v-else :span="group.span">
+          <!-- <a-descriptions :column="1">
+            <a-descriptions-item>
+              {{ group.name }}
+            </a-descriptions-item>
+          </a-descriptions> -->
+
           <template v-if="!getInvisible(group)">
             <a-descriptions :column="1">
               <template v-for="meta in group.children" :key="meta.name">

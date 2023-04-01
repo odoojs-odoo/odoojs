@@ -43,9 +43,6 @@ export function useFormSheet(props) {
   })
 
   function getInvisible(fieldInfo) {
-    // if (!fieldInfo.invisible) return undefined
-    // if (typeof fieldInfo.invisible !== 'function') return fieldInfo.invisible
-
     const formview = formview_get()
     if (!formview) return undefined
     return formview.check_invisible(fieldInfo, props.formInfo)

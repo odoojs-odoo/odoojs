@@ -57,9 +57,17 @@ export class Environment {
   has_group(ref_name) {
     // todo 考虑 ! 取反
     if (!ref_name) return true
+
+    // 开启 debug模式 需要在用户中设置
+    // todo. 暂时 约定 无 debug 模式
+    const debug = 0
+
+    const no_one = 'base.group_no_one'
     const refs = ref_name.split(',')
     const groups = web.groups
-    const grp = groups.filter(item => refs.includes(item.name))
+    const grp = groups.filter(
+      item => refs.includes(item.name) && (debug || item.name !== no_one)
+    )
     return grp.length ? true : false
   }
 
