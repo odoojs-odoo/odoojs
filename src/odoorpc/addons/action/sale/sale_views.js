@@ -706,10 +706,26 @@ export default {
           }
         },
 
+        _group_note_group: {
+          note: {
+            label: 'Terms and conditions',
+            string: '',
+            placeholder: 'Terms and conditions...'
+          }
+        },
+
+        _group_sale_total: {
+          tax_totals: {
+            readonly: '1',
+            string: '',
+            widget: 'account-tax-totals-field'
+          }
+        },
+
         _group_sales_person: {
           user_id: { widget: 'many2one_avatar_user' },
           team_id: {},
-          company_id: {},
+          company_id: { groups: 'base.group_multi_company' },
           require_signature: {},
           require_payment: {},
           reference: {
@@ -737,6 +753,7 @@ export default {
           },
           partner_invoice_id: { invisible: '1' },
           analytic_account_id: {
+            groups: 'analytic.group_analytic_accounting',
             readonly: ({ record }) => {
               // 'readonly': [('invoice_count','!=',0),('state','=','sale')]
               const { invoice_count, state } = record
@@ -744,6 +761,7 @@ export default {
             }
           },
           invoice_status: {
+            groups: 'base.group_no_one',
             invisible: ({ record }) => {
               // states="sale,done"
               const { state } = record
@@ -753,7 +771,7 @@ export default {
         },
 
         _group_sale_shipping: {
-          commitment_date: {},
+          commitment_date: { string: 'Delivery Date' },
           expected_date: { widget: 'date' }
         },
 
