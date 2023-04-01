@@ -42,7 +42,7 @@ const props = defineProps([
 ])
 
 const emit = defineEmits(['update:modelValue', 'change'])
-const widget_nodo = []
+const widget_nodo = ['remaining_days']
 const { mVal, dVal, readonly, onChange } = useField(props, { emit })
 </script>
 

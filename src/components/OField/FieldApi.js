@@ -36,6 +36,7 @@ export function useField(props, ctx) {
       datetime: 'FDatetime',
       boolean: 'FBoolean',
       many2many: {
+        autosave_many2many_tags: 'FM2mTags',
         many2many_tags: 'FM2mTags',
         x2many_tree: 'FMany2many',
         default: 'FMany2many'
