@@ -4,21 +4,7 @@ import { X2mForm } from './x2mform'
 
 import { BaseView } from './baseview'
 
-const _get_readonly = (meta, state) => {
-  if (meta.states === undefined) return meta.readonly
-
-  if (state && meta.states && meta.states[state]) {
-    const readonly3 = meta.states[state].reduce((acc, cur) => {
-      acc[cur[0]] = cur[1]
-      return acc
-    }, {})
-
-    if (readonly3.readonly !== undefined) return readonly3.readonly
-  }
-
-  return meta.readonly
-}
-
+// call by image_url_get
 const date_tools = {
   now_unique() {
     const date = new Date()
@@ -67,8 +53,14 @@ export class Field {
   check_readonly(formInfo) {
     const meta = this._field_info
     const formview = this.formview_get(formInfo)
+    if (meta.name === 'input_line_ids') {
+      console.log(meta.name, '1')
+    }
     if (!formview) {
       return true
+    }
+    if (meta.name === 'input_line_ids') {
+      console.log(meta.name, '2')
     }
 
     return formview.check_readonly(meta, formInfo)

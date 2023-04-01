@@ -1,8 +1,7 @@
 <template>
   <span>
-    <template v-if="readonly">
+    <template v-if="readonly || !readonly">
       {{ dVal }}
-      <div>----</div>
     </template>
 
     <template v-else> edit: {{ [fieldName, mVal, dVal] }} </template>

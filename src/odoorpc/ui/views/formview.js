@@ -375,6 +375,9 @@ export class FormView extends FormModel {
   }
 
   check_readonly(fieldInfo, kw) {
+    if (fieldInfo.name === 'input_line_ids') {
+      console.log(fieldInfo.name, '100')
+    }
     const viewhelp = this.viewhelp_get()
     return viewhelp.check_readonly(fieldInfo, kw)
   }

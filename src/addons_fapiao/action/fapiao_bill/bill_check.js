@@ -10,18 +10,18 @@ export default {
       state: {},
       fapiao_status: {},
       check_time: {},
-      //   company_id: {},
-      //   user_id: {},
-      //   api_check_id: {},
+      company_id: { invisible: 1 },
+      user_id: { invisible: 1 },
+      api_check_id: { invisible: 1 },
       invoice_type: {},
       date_fapiao: {},
       invoice_code: {},
       invoice_number: {},
       check_code: {},
       amount_total: {},
-      //   amount_untaxed: {},
-      //   amount_tax: {},
-      //   company_partner_id: {},
+      amount_untaxed: { invisible: 1 },
+      amount_tax: { invisible: 1 },
+      company_partner_id: { invisible: 1 },
       buyer_id: {},
       partner_id: {}
     }
@@ -160,21 +160,21 @@ export default {
             views: {
               tree: {
                 fields: {
-                  //   line_type: {},
+                  line_type: { invisible: 1 },
                   row_number: { string: 'No' },
-                  //   ref_row_number: {},
-                  //   name: {},
+                  ref_row_number: { invisible: 1 },
+                  name: { invisible: 1 },
                   vat_product_name: {},
                   product_name: {},
                   product_spec: {},
                   product_uom: {},
                   quantity: {},
                   price_untax: {},
-                  //   price_unit: {},
+                  price_unit: { invisible: 1 },
                   amount_untaxed: {},
                   tax_ratio: {},
-                  amount_tax: {}
-                  //   amount_total: {},
+                  amount_tax: {},
+                  amount_total: { invisible: 1 }
                 }
               },
               form: {
@@ -188,21 +188,21 @@ export default {
                       row_number_check: {}
                     },
                     _group_product: {
-                      //   name: {},
-                      //   vat_product_id: {},
+                      name: { invisible: 1 },
+                      vat_product_id: { invisible: 1 },
                       vat_product_code: {},
                       vat_product_name: {},
-                      //   product_id: {},
+                      product_id: { invisible: 1 },
                       product_name: {},
                       product_spec: {},
                       product_uom: {},
                       quantity: {},
                       price_untax: {},
-                      //   price_unit: {},
+                      price_unit: { invisible: 1 },
                       amount_untaxed: {},
                       tax_ratio: {},
-                      amount_tax: {}
-                      //   amount_total: {},
+                      amount_tax: {},
+                      amount_total: { invisible: 1 }
                     }
                   }
                 }

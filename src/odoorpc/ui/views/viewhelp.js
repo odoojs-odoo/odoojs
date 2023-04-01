@@ -79,9 +79,41 @@ export class ViewHelp {
   }
 
   check_readonly(fieldInfo, kw) {
-    const res2 = this._check_modifiers('readonly2', fieldInfo, kw)
-    if (res2) return res2
-    return this._check_modifiers('readonly', fieldInfo, kw)
+    if ('readonly2' in fieldInfo) {
+      return this._check_modifiers('readonly2', fieldInfo, kw)
+    }
+
+    if (!('states' in fieldInfo)) {
+      return this._check_modifiers('readonly', fieldInfo, kw)
+    }
+
+    if (fieldInfo.readonly === 'function ') {
+      return this._check_modifiers('readonly', fieldInfo, kw)
+    }
+
+    const state_get = () => {
+      const { record = {}, values = {} } = kw || {}
+      const record2 = { ...record, ...values }
+      return record2.state
+    }
+
+    const state = state_get()
+    const state_in_meta = fieldInfo.states[state]
+
+    if (state && state_in_meta) {
+      const states_dict = state_in_meta.reduce((acc, cur) => {
+        acc[cur[0]] = cur[1]
+        return acc
+      }, {})
+
+      if ('readonly' in states_dict) {
+        return states_dict.readonly
+      } else {
+        return fieldInfo.readonly
+      }
+    } else {
+      return fieldInfo.readonly
+    }
   }
 
   get_string(fieldInfo, kw) {
@@ -100,7 +132,6 @@ export class ViewHelp {
   // _check_states(fieldInfo) {
   //   if (!fieldInfo.states) return true
   //   // return this.env.has_group(fieldInfo.groups)
-  //   console.log(fieldInfo.name, fieldInfo.states, fieldInfo)
 
   //   return true
   // }

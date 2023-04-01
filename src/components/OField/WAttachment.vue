@@ -3,7 +3,6 @@
     <template v-if="readonly">
       <a-button v-if="dVal" @click="onDownload">
         <template #icon><download-outlined /></template>
-
         {{ dVal }}
       </a-button>
     </template>

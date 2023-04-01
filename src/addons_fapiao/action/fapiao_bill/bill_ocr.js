@@ -75,7 +75,7 @@ export default {
           },
           {
             name: 'action_request',
-            string: 'Check',
+            string: 'OCR',
             type: 'object',
             // btn_type: 'primary',
             invisible: ({ record }) => {
