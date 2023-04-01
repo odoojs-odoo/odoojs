@@ -42,16 +42,37 @@ export class ViewHelp {
     return this._formview.view_info
   }
 
-  check_invisible_for_tree(fieldInfo) {
+  check_invisible_for_tree(fieldInfo, kw = {}) {
+    if (typeof fieldInfo === 'string') return false
     if (!this._check_groups(fieldInfo)) return true
-    // tree 页面 没有函数? todo
-    if (fieldInfo.invisible) {
-      return true
-    } else if (fieldInfo.optional === 'hide') {
-      return true
-    } else {
-      return false
+    if (fieldInfo.optional === 'hide') return true
+    const { records = [], ...kw2 } = kw
+    if (!records.length) {
+      return this._check_modifiers('invisible', fieldInfo, {
+        ...kw2,
+        record: {},
+        values: {}
+      })
     }
+
+    return records.reduce((acc, record) => {
+      const one = this._check_modifiers('invisible', fieldInfo, {
+        ...kw2,
+        record,
+        values: {}
+      })
+      acc = acc && one
+      return acc
+    }, true)
+
+    // // tree 页面 没有函数? todo
+    // if (fieldInfo.invisible) {
+    //   return true
+    // } else if (fieldInfo.optional === 'hide') {
+    //   return true
+    // } else {
+    //   return false
+    // }
   }
 
   check_invisible(fieldInfo, kw) {
@@ -66,8 +87,23 @@ export class ViewHelp {
     return this._check_modifiers('required', fieldInfo, kw)
   }
 
+  check_readonly(fieldInfo, kw) {
+    const res2 = this._check_modifiers('readonly2', fieldInfo, kw)
+    if (res2) return res2
+    return this._check_modifiers('readonly', fieldInfo, kw)
+  }
+
   get_string(fieldInfo, kw) {
     return this._check_modifiers('string', fieldInfo, kw)
+  }
+
+  get_domain(fieldInfo, kw) {
+    // const viewhelp = this.viewhelp_get()
+    // return viewhelp.get_domain(fieldInfo, kw)
+
+    const domain = this._check_modifiers('domain', fieldInfo, kw)
+
+    return domain || []
   }
 
   // _check_states(fieldInfo) {
@@ -92,6 +128,7 @@ export class ViewHelp {
       return fieldInfo[modifiers_type]
     }
 
+    // todo. context 放在参数中 或者 自行解决?
     const context = this.formview.context_get(parentFormInfo)
     const record2 = this.merge_to_modifiers(record, values, kw2)
     const kwargs = { record: record2, context, editable, env: this.env }
@@ -160,8 +197,14 @@ export class ViewHelp {
       return record3
     }
 
+    // o2mform 调用. 需要拼接 父 formview 的情况
     const prt = this.formview.parent_get(parentFormInfo)
     const { record: prec, values: pval } = parentFormInfo
+    // 这里 可以调用 自己的函数
+    // help = new ViewHelp(prt)
+    // const pdata2 = help._merge_to_modifiers(prec, pval)
+    // const pdata = help._format_to_modifiers(pdata2)
+
     const pdata = prt.merge_to_modifiers(prec, pval)
 
     const record4 = { ...record3, parent: pdata }

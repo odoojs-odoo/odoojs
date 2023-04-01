@@ -1,7 +1,6 @@
 <template>
   <span>
     <template v-if="fieldInfo.widget === 'image_url'">
-      <!-- todo: {{ [fieldInfo.type, fieldInfo.widget, dVal] }} -->
       <WImageUrl
         :width="width"
         :field-name="fieldName"
@@ -10,18 +9,13 @@
       />
     </template>
     <template
-      v-else-if="
-        fieldInfo.widget &&
-        !['email', 'phone', 'url'].includes(fieldInfo.widget)
-      "
+      v-else-if="fieldInfo.widget && !widget_nodo.includes(fieldInfo.widget)"
     >
       todo: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
 
     <template v-else>
-      <template v-if="readonly">
-        {{ dVal }}
-      </template>
+      <template v-if="readonly"> {{ dVal }} </template>
 
       <template v-else>
         <OInput
@@ -50,7 +44,7 @@ const props = defineProps([
 ])
 
 const emit = defineEmits(['update:modelValue', 'change'])
-
+const widget_nodo = ['email', 'phone', 'url', 'section_and_note_text']
 const { mVal, dVal, readonly, onChange } = useField(props, { emit })
 </script>
 

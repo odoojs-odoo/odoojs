@@ -3,14 +3,15 @@
     <template v-if="fieldInfo.widget === 'some widget'">
       todo: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
-    <template v-else-if="fieldInfo.widget">
+
+    <template
+      v-else-if="fieldInfo.widget && !widget_nodo.includes(fieldInfo.widget)"
+    >
       todo: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
 
     <template v-else>
-      <template v-if="readonly">
-        {{ dVal }}
-      </template>
+      <template v-if="readonly"> {{ dVal }} </template>
 
       <template v-else>
         <!-- edit: {{ [fieldName, mVal, dVal, onChange] }} -->
@@ -19,7 +20,7 @@
           v-model="mVal"
           :width="width"
           :placeholder="fieldInfo.string"
-          :show-time="true"
+          :show-time="fieldInfo.widget === 'date' ? true : false"
           @change="onChange"
         />
       </template>
@@ -41,7 +42,7 @@ const props = defineProps([
 ])
 
 const emit = defineEmits(['update:modelValue', 'change'])
-
+const widget_nodo = ['date']
 const { mVal, dVal, readonly, onChange } = useFDatetime(props, { emit })
 </script>
 

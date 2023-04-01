@@ -89,9 +89,12 @@ export class X2mTree extends X2mTreeBase {
     return new ViewHelp(this)
   }
 
-  check_invisible(fieldInfo) {
+  check_invisible(fieldInfo, kw) {
     const viewhelp = this.viewhelp_get()
-    return viewhelp.check_invisible_for_tree(fieldInfo)
+    return viewhelp.check_invisible_for_tree(fieldInfo, {
+      ...kw,
+      for_o2m: true
+    })
   }
 
   //

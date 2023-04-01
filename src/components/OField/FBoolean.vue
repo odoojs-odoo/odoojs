@@ -24,7 +24,9 @@
       </template>
     </template>
 
-    <template v-else-if="fieldInfo.widget">
+    <template
+      v-else-if="fieldInfo.widget && !widget_nodo.includes(fieldInfo.widget)"
+    >
       todo: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
 
@@ -55,6 +57,7 @@ const props = defineProps([
 const emit = defineEmits(['update:modelValue', 'change'])
 
 const { mVal, dVal, readonly, onChange } = useField(props, { emit })
+const widget_nodo = []
 
 function onCheckChange(e) {
   const value = e.target.checked

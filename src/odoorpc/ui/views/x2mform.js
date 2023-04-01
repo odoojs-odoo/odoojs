@@ -176,9 +176,19 @@ export class X2mForm extends X2mFormModel {
     return viewhelp.check_required(fieldInfo, { ...kw, for_o2m: true })
   }
 
+  check_readonly(fieldInfo, kw) {
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.check_readonly(fieldInfo, { ...kw, for_o2m: true })
+  }
+
   get_string(fieldInfo, kw) {
     const viewhelp = this.viewhelp_get()
     return viewhelp.get_string(fieldInfo, { ...kw, for_o2m: true })
+  }
+
+  get_domain(fieldInfo, kw) {
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.get_domain(fieldInfo, { ...kw, for_o2m: true })
   }
 
   //

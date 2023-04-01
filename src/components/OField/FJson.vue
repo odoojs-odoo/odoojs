@@ -13,18 +13,16 @@
       />
     </template>
 
-    <template v-else-if="fieldInfo.widget">
+    <template
+      v-else-if="fieldInfo.widget && !widget_nodo.includes(fieldInfo.widget)"
+    >
       todo: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
 
     <template v-else>
-      <template v-if="readonly">
-        {{ dVal }}
-      </template>
+      <template v-if="readonly"> {{ dVal }} </template>
 
-      <template v-else>
-        {{ dVal }}
-      </template>
+      <template v-else> {{ dVal }} </template>
     </template>
   </span>
 </template>
@@ -44,7 +42,7 @@ const props = defineProps([
 ])
 
 const emit = defineEmits(['update:modelValue', 'change'])
-
+const widget_nodo = []
 const { mVal, dVal, readonly, onChange } = useField(props, { emit })
 </script>
 

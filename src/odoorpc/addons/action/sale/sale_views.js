@@ -8,16 +8,16 @@ export default {
       message_needaction: { invisible: '1' },
       name: {},
       create_date: { widget: 'date' },
-      date_order: {},
-      // commitment_date: {},
-      // expected_date: {},
+      date_order: { widget: 'date' },
+      commitment_date: { optional: 'hide' },
+      expected_date: { optional: 'hide' },
       partner_id: {},
-      user_id: { widget: 'many2one_avatar_user' },
-      // team_id: {},
-      company_id: {},
-      // amount_untaxed: { widget: 'monetary' },
-      // amount_tax: { widget: 'monetary' },
-      amount_total: { widget: 'monetary' },
+      user_id: { optional: 'show', widget: 'many2one_avatar_user' },
+      team_id: { optional: 'hide' },
+      company_id: { groups: 'base.group_multi_company', optional: 'show' },
+      amount_untaxed: { widget: 'monetary', optional: 'hide' },
+      amount_tax: { widget: 'monetary', optional: 'hide' },
+      amount_total: { widget: 'monetary', optional: 'show' },
       currency_id: { invisible: '1' },
       invoice_status: {
         widget: 'badge'
@@ -25,7 +25,7 @@ export default {
         // decoration-info="invoice_status == 'to invoice'"
         // decoration-warning="invoice_status == 'upselling'"
       },
-      // tag_ids: { widget: 'many2many_tags' },
+      tag_ids: { widget: 'many2many_tags', optional: 'hide' },
       state: { invisible: '1' }
     }
   },
@@ -92,6 +92,7 @@ export default {
             name: 'action_quotation_send',
             string: 'Send PRO-FORMA Invoice',
             type: 'object',
+            groups: 'sale.group_proforma_sales',
             btn_type: 'primary',
             invisible: ({ record }) => {
               // 'invisible': ['|', ('state', '!=', 'draft'),
@@ -132,6 +133,7 @@ export default {
             name: 'action_quotation_send',
             string: 'Send PRO-FORMA Invoice',
             type: 'object',
+            groups: 'sale.group_proforma_sales',
             invisible: ({ record }) => {
               // 'invisible': ['|', ('state', '=', 'draft'),
               // ('invoice_count','&gt;=',1)]}"
@@ -192,6 +194,8 @@ export default {
         },
         _group_warning: {
           _span: 2,
+          _groups:
+            'account.group_account_invoice,account.group_account_readonly',
           _invisible: ({ record }) => {
             // 'invisible': [('partner_credit_warning', '=', '')]
             const { partner_credit_warning } = record
@@ -201,16 +205,28 @@ export default {
         },
 
         _group_button_box: {
+          // button_box 需要 定义 button, 而非 field
+          // 因此 form 需要支持:
+          // _group  这种格式的是 tag
+          // _group 的 下一级:
+          //   field 是 字段
+          //   _span 是属性   // 需要区分 属性和还是 子节点
+          //   _button 是字段
+          //   _html 是纯文本
+          // field 的下一级:
+          //   常规 field 的定义
           _span: 2,
           invoice_count: {
             widget: 'statinfo',
             string: 'Invoices',
+            button_click: { name: 'action_view_invoice', type: 'object' },
             invisible: ({ record }) => {
               // 'invisible': [('invoice_count', '=', 0)]
               const { invoice_count } = record
               return !invoice_count
             }
           }
+          // action_preview_sale_order 预览
         },
 
         _group_name: { _span: 2, name: {} },
@@ -228,11 +244,13 @@ export default {
             }
           },
           partner_invoice_id: {
+            groups: 'account.group_delivery_invoice_address',
             // context="{'default_type':'invoice'}"
             context: { default_type: 'invoice' },
             domain: []
           },
           partner_shipping_id: {
+            groups: 'account.group_delivery_invoice_address',
             // context="{'default_type':'delivery'}"
             context: { default_type: 'delivery' },
             domain: []
@@ -249,6 +267,7 @@ export default {
           },
 
           date_order: {
+            groups: 'base.group_no_one',
             string({ record }) {
               // 'Quotation Date' 'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]
               // Order Date 'invisible': [('state', 'in', ['draft', 'sent'])]
@@ -302,7 +321,7 @@ export default {
             views: {
               tree: {
                 fields: {
-                  // sequence: { widget: 'handle' },
+                  sequence: { widget: 'handle' },
                   display_type: { invisible: 1 },
                   product_uom_category_id: { invisible: 1 },
                   product_type: { invisible: 1 },
@@ -363,33 +382,71 @@ export default {
                     }
                   },
                   product_template_id: { invisible: '1' },
-                  name: { widget: 'section_and_note_text' },
-                  analytic_distribution: { widget: 'analytic_distribution' },
-                  product_uom_qty: {},
+                  name: { widget: 'section_and_note_text', optional: 'show' },
+                  analytic_distribution: {
+                    widget: 'analytic_distribution',
+                    groups: 'analytic.group_analytic_accounting',
+                    optional: 'hide'
+                  },
+                  product_uom_qty: {
+                    // widget: ''
+                    // 查看库存?
+                  },
                   qty_delivered: {
-                    // 'column_invisible': [('parent.state', 'not in', ['sale', 'done'])],
-                    // 'readonly': [('qty_delivered_method', '!=', 'manual')]
+                    optional: 'show',
+
+                    invisible: ({ record }) => {
+                      // 'column_invisible': [('parent.state', 'not in', ['sale', 'done'])],
+                      const { parent: prt } = record
+                      return !['sale', 'done'].includes(prt.state)
+                    },
+
+                    readonly: ({ record }) => {
+                      // 'readonly': [('qty_delivered_method', '!=', 'manual')]
+                      const { qty_delivered_method } = record
+                      return qty_delivered_method !== 'manual'
+                    }
                   },
                   qty_delivered_method: { invisible: 1 },
                   qty_invoiced: {
-                    // 'column_invisible': [('parent.state', 'not in', ['sale', 'done'])]
+                    optional: 'show',
+                    invisible: ({ record }) => {
+                      // 'column_invisible': [('parent.state', 'not in', ['sale', 'done'])],
+                      const { parent: prt } = record
+                      return !['sale', 'done'].includes(prt.state)
+                    }
                   },
                   qty_to_invoice: { invisible: '1' },
                   product_uom_readonly: { invisible: '1' },
                   // product_uom: { invisible: '1' },
                   product_uom: {
+                    optional: 'show',
+                    groups: 'uom.group_uom'
                     // 'readonly': [('product_uom_readonly', '=', True)],
                     // 'required': [('display_type', '=', False)],
                     // context="{'company_id': parent.company_id}"
                   },
-                  // customer_lead: {},
-                  // product_packaging_qty: {
-                  //   // 'invisible': ['|', ('product_id', '=', False), ('product_packaging_id', '=', False)]
-                  // },
-                  // product_packaging_id: {
-                  //   // 'invisible': [('product_id', '=', False)]}"
-                  //   // context="{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}
-                  // },
+                  customer_lead: { optional: 'hide' },
+                  product_packaging_qty: {
+                    groups: 'product.group_stock_packaging',
+                    optional: 'show',
+                    invisible: ({ record }) => {
+                      // 'invisible': ['|', ('product_id', '=', False),
+                      // ('product_packaging_id', '=', False)]
+                      const { product_id, product_packaging_id } = record
+                      return !product_id || !product_packaging_id
+                    }
+                  },
+                  product_packaging_id: {
+                    groups: 'product.group_stock_packaging',
+                    optional: 'show',
+                    // context="{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}
+                    invisible: ({ record }) => {
+                      // 'invisible': [('product_id', '=', False)]}"
+                      const { product_id } = record
+                      return !product_id
+                    }
+                  },
                   price_unit: {
                     // 'readonly': [('qty_invoiced', '&gt;', 0)]
                   },
@@ -401,10 +458,15 @@ export default {
                     //  context="{'active_test': True}"
                     // 'readonly': [('qty_invoiced', '&gt;', 0)]
                   },
-                  discount: { widget: 'sol_discount' },
+                  discount: {
+                    widget: 'sol_discount',
+                    groups: 'product.group_discount_per_so_line',
+                    optional: 'show'
+                  },
                   is_downpayment: { invisible: '1' },
                   price_subtotal: {
                     widget: 'monetary',
+                    groups: 'account.group_show_line_subtotals_tax_excluded',
                     invisible: ({ record }) => {
                       // 'invisible': [('is_downpayment', '=', True)]
                       const { is_downpayment } = record
@@ -413,6 +475,7 @@ export default {
                   },
                   price_total: {
                     widget: 'monetary',
+                    groups: 'account.group_show_line_subtotals_tax_included',
                     invisible: ({ record }) => {
                       // 'invisible': [('is_downpayment', '=', True)]
                       const { is_downpayment } = record
@@ -434,9 +497,7 @@ export default {
                       _span: 2,
                       display_type: { invisible: '1' },
                       sequence: { invisible: '1' },
-                      product_uom_category_id: { invisible: '1' },
-                      state: { invisible: '1' },
-                      company_id: { invisible: '1' }
+                      product_uom_category_id: { invisible: '1' }
                     },
                     _group_product: {
                       _invisible({ record }) {
@@ -449,7 +510,6 @@ export default {
                       product_id: {
                         widget: 'many2one_barcode',
                         // domain="[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
-                        // context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
 
                         readonly: ({ record }) => {
                           // 'readonly': [('product_updatable', '=', False)],
@@ -529,6 +589,7 @@ export default {
                       },
 
                       qty_delivered: {
+                        string: 'Delivered',
                         readonly({ record }) {
                           // 'readonly': [('qty_delivered_method', '!=', 'manual')]
                           const { qty_delivered_method } = record
@@ -542,13 +603,16 @@ export default {
                       },
 
                       qty_invoiced: {
+                        string: 'Invoiced',
                         invisible({ record }) {
                           // 'invisible': [('parent.state', 'not in', ['sale', 'done'])]
                           const { parent: prt } = record
                           return !['sale', 'done'].includes(prt.state)
                         }
                       },
-                      product_packaging_id: {},
+                      product_packaging_id: {
+                        groups: 'product.group_stock_packaging'
+                      },
                       price_unit: {},
                       tax_id: {
                         widget: 'many2many_tags',
@@ -570,7 +634,10 @@ export default {
                         }
                         //  context="{'search_view_ref': 'account.account_tax_view_search'}"
                       },
-                      discount: {}
+                      discount: {
+                        groups: 'product.group_discount_per_so_line'
+                      },
+                      sequence: { invisible: '1' }
                     },
 
                     _group_lead: {
@@ -579,9 +646,12 @@ export default {
                         const { display_type } = record
                         return display_type
                       },
-                      customer_lead: {},
+                      customer_lead: {
+                        // widget  天
+                      },
                       analytic_distribution: {
-                        widget: 'analytic_distribution'
+                        widget: 'analytic_distribution',
+                        groups: 'analytic.group_analytic_accounting'
                       }
                     },
 
@@ -610,18 +680,24 @@ export default {
                           const { display_type } = record
                           return display_type !== 'line_note'
                         }
-                      }
+                      },
+                      state: { invisible: '1' },
+                      company_id: { invisible: '1' }
                     },
 
                     _group_invoice_lines: {
                       _span: 2,
+                      _groups: 'base.group_no_one',
                       _invisible: ({ record }) => {
                         // 'invisible': [('display_type', '!=', False)]
                         const { display_type } = record
                         return display_type
                       },
 
-                      invoice_lines: {}
+                      invoice_lines: {
+                        label: '结算单明细',
+                        string: ''
+                      }
                     }
                   }
                 }

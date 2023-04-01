@@ -64,45 +64,14 @@ export class Field {
       return undefined
     }
   }
-
-  //
   check_readonly(formInfo) {
     const meta = this._field_info
-    // console.log(meta, formInfo)
-
-    const formview_record_get = () => {
-      const formview = this.formview_get(formInfo)
-      if (!formview) {
-        return {}
-      }
-      const { record, values, parentFormInfo } = formInfo
-      const record3 = formview.merge_to_modifiers(
-        record,
-        values,
-        parentFormInfo
-      )
-      return record3
+    const formview = this.formview_get(formInfo)
+    if (!formview) {
+      return true
     }
 
-    // todo
-    // const context = this.context
-
-    if ('readonly2' in meta) {
-      if (typeof meta.readonly2 === 'function') {
-        const record = formview_record_get()
-        return meta.readonly2({ record })
-      } else {
-        return meta.readonly2
-      }
-    }
-
-    const record = formview_record_get()
-
-    if (typeof meta.readonly === 'function') {
-      return meta.readonly({ record })
-    } else {
-      return _get_readonly(this._field_info, record.state)
-    }
+    return formview.check_readonly(meta, formInfo)
   }
 
   // todo check
@@ -286,35 +255,18 @@ export class Relation extends Field {
     return res
   }
 
+  get_domain(formInfo) {
+    const meta = this._field_info
+    const formview = this.formview_get(formInfo)
+    if (!formview) {
+      return []
+    }
+
+    return formview.get_domain(meta, formInfo)
+  }
+
   async load_select_options(formInfo, kwargs_in = {}) {
-    const domain_get = () => {
-      const domain = this.field_info.domain || []
-      if (typeof domain === 'function') {
-        if (formInfo) {
-          const { record, values, parentFormInfo } = formInfo
-          const formview = this.formview_get(formInfo)
-          const record2 = formview.merge_to_modifiers(
-            record,
-            values,
-            parentFormInfo
-          )
-
-          const context = formview.context_get(parentFormInfo)
-          return domain({ record: record2, context, env: this.env })
-        } else {
-          // todo search view  m2o?  domain
-          return domain()
-        }
-      } else {
-        return domain
-      }
-    }
-
-    const domain = domain_get()
-
-    if (this.field_info.name === 'product_uom') {
-      console.log(domain)
-    }
+    const domain = this.get_domain(formInfo)
 
     const { args = [], limit = 8, ...kwargs } = kwargs_in
     return this.Model.name_search({

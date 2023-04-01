@@ -327,30 +327,10 @@ export class FormView extends FormModel {
     return statusbar
   }
 
-  header_buttons(record_in, values) {
+  header_buttons(formInfo) {
     const header = this.view_header
-
     const buttons = header.buttons || []
-
-    const btns = buttons.filter(btn => {
-      if (btn.invisible === undefined) return true
-
-      if (typeof btn.invisible !== 'function') {
-        return !btn.invisible
-      }
-
-      const record = this.merge_to_modifiers(record_in, values)
-
-      return !btn.invisible({ record })
-    })
-
-    const btns2 = btns.map(item => {
-      const item2 = { ...item }
-      delete item2.invisible
-      return item2
-    })
-
-    return btns2
+    return buttons.filter(btn => !this.check_invisible(btn, formInfo))
   }
 
   header_statusbar_visible(current_state) {
@@ -394,9 +374,19 @@ export class FormView extends FormModel {
     return viewhelp.check_required(fieldInfo, kw)
   }
 
+  check_readonly(fieldInfo, kw) {
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.check_readonly(fieldInfo, kw)
+  }
+
   get_string(fieldInfo, kw) {
     const viewhelp = this.viewhelp_get()
     return viewhelp.get_string(fieldInfo, kw)
+  }
+
+  get_domain(fieldInfo, kw) {
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.get_domain(fieldInfo, kw)
   }
 
   //
@@ -410,12 +400,9 @@ export class FormView extends FormModel {
   }
 
   merge_to_modifiers(record, values) {
-    // call by header_buttons
     // call by check_modifers
     // call by o2m.merge_to_modifiers
     // call by o2m.context_get
-    // call by relation.load_select_options
-    // call by field.check_readonly
     const viewhelp = this.viewhelp_get()
     return viewhelp.merge_to_modifiers(record, values)
   }

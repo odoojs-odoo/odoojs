@@ -19,13 +19,22 @@ export function useO2mTree(props) {
   //   }
   //   return {}
   // })
-
+  const treeInfo = computed(() => {
+    return {
+      parentFormInfo: toRaw(props.parentFormInfo),
+      relationInfo: toRaw(props.relationInfo),
+      records: toRaw(props.records),
+      // record: toRaw(props.record),
+      // values: toRaw(state.values),
+      editable: !props.readonly
+    }
+  })
   const { computedColumns } = useTreeColumns()
   const columns = computed(() => {
     function fields_filter(treeview, fields) {
       return Object.keys(fields).reduce((acc, fld) => {
-        const meta = fields[fld]
-        const inv = treeview.check_invisible(meta)
+        const meta = toRaw(fields[fld])
+        const inv = treeview.check_invisible(meta, treeInfo.value)
 
         if (!inv) {
           acc[fld] = meta
@@ -35,12 +44,12 @@ export function useO2mTree(props) {
     }
 
     if (treeview.value) {
-      const fields = treeview.value.fields || {}
+      const fields = toRaw(treeview.value.fields) || {}
       const fields2 = fields_filter(treeview.value, fields)
-      // console.log(fields2)
-
       const context = treeview.value.context_get(props.parentFormInfo)
-      return computedColumns(fields2, context)
+      const cols = computedColumns(fields2, context)
+      const cols2 = cols.filter(item => item._widget !== 'handle')
+      return cols2
     } else {
       return []
     }

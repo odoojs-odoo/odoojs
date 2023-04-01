@@ -86,15 +86,15 @@ export function useTreeView(props) {
     if (state.treeviewReady && localState.treeview) {
       const fields = toRaw(state.fields)
       const fields2 = fields_filter(localState.treeview, fields)
-
-      const cols = computedColumns(fields2, localState.treeview.context)
+      const context = localState.treeview.context
+      const cols = computedColumns(fields2, context)
       const cols2 = cols.filter(item => item._widget !== 'handle')
-      // console.log(cols)
       return cols2
     } else {
       return []
     }
   })
+
   const records = computed(() => state.records)
   const pagination = computed(() => state.pagination)
   const searchValues = computed(() => state.searchValues)

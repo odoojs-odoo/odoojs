@@ -1,14 +1,9 @@
 <template>
   <span>
     <template v-if="fieldInfo.widget === 'radio'">
-      <!-- todo: {{ [fieldInfo.type, fieldInfo.widget] }} -->
-
-      <template v-if="readonly">
-        {{ dVal }}
-      </template>
+      <template v-if="readonly"> {{ dVal }} </template>
 
       <template v-else>
-        <!-- {{ mVal }} -->
         <a-radio-group
           v-model:value="mVal"
           :options="options"
@@ -16,14 +11,15 @@
         />
       </template>
     </template>
-    <template v-else-if="fieldInfo.widget">
+
+    <template
+      v-else-if="fieldInfo.widget && !widget_nodo.includes(fieldInfo.widget)"
+    >
       todo: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
 
     <template v-else>
-      <template v-if="readonly">
-        {{ dVal }}
-      </template>
+      <template v-if="readonly"> {{ dVal }} </template>
 
       <template v-else>
         <!-- edit: {{ [fieldName, mVal, dVal, onChange] }} -->
@@ -57,6 +53,8 @@ const emit = defineEmits(['update:modelValue', 'change'])
 const { mVal, dVal, readonly, options, onChange } = useFSelection(props, {
   emit
 })
+
+const widget_nodo = ['badge']
 
 function onChangeRadio(e) {
   onChange(e.target.value)

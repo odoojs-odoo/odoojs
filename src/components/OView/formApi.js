@@ -48,7 +48,8 @@ export function useForm(props, ctx) {
 
   const headerButtons = computed(() => {
     return state.formviewReady && localState.formview
-      ? localState.formview.header_buttons(state.record, state.values)
+      ? // ? localState.formview.header_buttons(state.record, state.values)
+        localState.formview.header_buttons(formInfo.value)
       : []
   })
 

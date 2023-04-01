@@ -54,20 +54,11 @@
     :scroll="widthAndHeight"
   >
     <template #bodyCell="{ column, record }">
-      <template v-if="column._widget">
-        <template
-          v-if="['boolean_toggle', 'many2many_tags'].includes(column._widget)"
-        >
-          {{ column._format(record) }}
-        </template>
-        <template v-else> todo:{{ column._widget }} </template>
-      </template>
-
-      <template v-else-if="column._format">
-        {{ column._format(record) }}
-      </template>
-
-      <template v-else>{{ record[column.dataIndex] }} </template>
+      <OField
+        :field-name="column.dataIndex"
+        :field-info="column._meta"
+        :form-info="{ record }"
+      />
     </template>
   </a-table>
 </template>
@@ -76,6 +67,7 @@
 import { defineProps, defineEmits, computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTreeView } from './treeApi'
+import OField from '@/components/OField/OField.vue'
 
 import ActionButton from './ActionButton.vue'
 import SearchView from '@/components/OSearch/SearchView.vue'

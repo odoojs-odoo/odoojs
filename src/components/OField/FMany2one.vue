@@ -16,28 +16,14 @@
       <a-button @click="onClickView"> {{ dVal }}</a-button>
     </template>
 
-    <!-- <template v-else-if="fieldInfo.widget === 'many2one_avatar_user'">
-      {{ dVal }}
-    </template> -->
-
     <template
-      v-else-if="
-        fieldInfo.widget &&
-        ![
-          'many2one_avatar_user',
-          'res_partner_many2one',
-          'many2one_button',
-          'many2one_barcode'
-        ].includes(fieldInfo.widget)
-      "
+      v-else-if="fieldInfo.widget && !widget_nodo.includes(fieldInfo.widget)"
     >
-      todo widget: {{ [fieldInfo.type, fieldInfo.widget] }}
+      todo: {{ [fieldInfo.type, fieldInfo.widget] }}
     </template>
 
     <template v-else>
-      <template v-if="readonly">
-        {{ dVal }}
-      </template>
+      <template v-if="readonly"> {{ dVal }} </template>
 
       <template v-else>
         <!-- edit: {{ [fieldName, mVal, dVal, options, onChange] }} -->
@@ -89,7 +75,13 @@ const props = defineProps([
 ])
 
 const emit = defineEmits(['update:modelValue', 'change', 'click-many2one'])
-
+const widget_nodo = [
+  'many2one_avatar_user',
+  'res_partner_many2one',
+  'many2one_button',
+  'many2one_barcode',
+  'sol_product_many2one'
+]
 function onClickBtn() {
   // const val = props.formInfo.record[props.fieldName]
   console.log('onClickBtn', toRaw(props))

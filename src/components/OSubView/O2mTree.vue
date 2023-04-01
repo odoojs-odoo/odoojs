@@ -8,11 +8,11 @@
       :customRow="tableCustomRow"
     >
       <template #bodyCell="{ column, record }">
-        <template v-if="column._format">
-          {{ column._format(record) }}
-        </template>
-
-        <template v-else>{{ record[column.dataIndex] }} </template>
+        <OField
+          :field-name="column.dataIndex"
+          :field-info="column._meta"
+          :form-info="{ record }"
+        />
       </template>
     </a-table>
 
@@ -25,6 +25,7 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue'
 import { useO2mTree } from './o2mTreeApi'
+import OField from '@/components/OField/OField.vue'
 
 const props = defineProps([
   'readonly',
