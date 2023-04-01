@@ -1,13 +1,13 @@
 import { computed, toRaw } from 'vue'
 import api from '@/odoorpc'
-
-import { useTreeColumns } from '@/components/tools/treeColumns'
+import { useL10n } from '@/components/tools/useL10n'
 
 export function useO2mTree(props) {
+  const { tr } = useL10n()
+
   const treeview = computed(() => {
     if (props.relationInfo) {
-      const rel = api.env.relation(props.relationInfo)
-
+      const rel = api.env.relation(toRaw(props.relationInfo))
       return rel.tree
     }
     return null
@@ -29,25 +29,29 @@ export function useO2mTree(props) {
       editable: !props.readonly
     }
   })
-  const { computedColumns } = useTreeColumns()
+
+  function fields2cols(fields) {
+    const cols = Object.keys(fields).map(fld => {
+      const meta = fields[fld] || {}
+      return {
+        dataIndex: fld,
+        key: fld,
+        title: tr(meta.string),
+        // ellipsis: 'ellipsis' in meta ? meta.ellipsis : true,
+        // align: 'center',
+        width: meta.web_col_width,
+        _widget: meta.widget,
+        _meta: meta
+      }
+    })
+
+    return cols
+  }
+
   const columns = computed(() => {
-    function fields_filter(treeview, fields) {
-      return Object.keys(fields).reduce((acc, fld) => {
-        const meta = toRaw(fields[fld])
-        const inv = treeview.check_invisible(meta, treeInfo.value)
-
-        if (!inv) {
-          acc[fld] = meta
-        }
-        return acc
-      }, {})
-    }
-
     if (treeview.value) {
-      const fields = toRaw(treeview.value.fields) || {}
-      const fields2 = fields_filter(treeview.value, fields)
-      const context = treeview.value.context_get(props.parentFormInfo)
-      const cols = computedColumns(fields2, context)
+      const flds = treeview.value.get_columns(toRaw(treeInfo.value))
+      const cols = fields2cols(flds)
       const cols2 = cols.filter(item => item._widget !== 'handle')
       return cols2
     } else {

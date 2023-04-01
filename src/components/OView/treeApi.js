@@ -1,33 +1,9 @@
 import { watch, computed, reactive, ref, toRaw } from 'vue'
 import api from '@/odoorpc'
 
-import { useTreeColumns } from '@/components/tools/treeColumns'
-
 import { useL10n } from '@/components/tools/useL10n'
 
-// function sleep(millisecond) {
-//   return new Promise(resolve => {
-//     setTimeout(() => {
-//       resolve()
-//     }, millisecond)
-//   })
-// }
-
-// treeview.export_xlsx_all
-
 export function useTreeView(props) {
-  // props 里的东西不能随便 解构
-  // 需定义 计算变量 获取到 props 中的值
-  // 然后再使用
-  //
-  // 1. watch props.actionId be set
-  // 2. async load treeview by actionId
-  // 3. get fields from treeview
-  // 4. compute columns from fields
-  // 5. async load data
-  // 6. get records from data
-  // 7. columns and records for tree view
-
   const { tr } = useL10n()
 
   const localState = {
@@ -36,6 +12,7 @@ export function useTreeView(props) {
 
   const state = reactive({
     treeviewReady: false,
+    treeviewFieldsReady: false,
     fields: {},
 
     pagination: {
@@ -68,28 +45,30 @@ export function useTreeView(props) {
     return active ? true : false
   })
 
-  const { computedColumns } = useTreeColumns()
+  function fields2cols(fields) {
+    const cols = Object.keys(fields).map(fld => {
+      const meta = fields[fld] || {}
+      return {
+        dataIndex: fld,
+        key: fld,
+        title: tr(meta.string),
+        // ellipsis: 'ellipsis' in meta ? meta.ellipsis : true,
+        // align: 'center',
+        width: meta.web_col_width,
+        _widget: meta.widget,
+        _meta: meta
+      }
+    })
+
+    return cols
+  }
 
   const columns = computed(() => {
-    function fields_filter(treeview, fields) {
-      return Object.keys(fields).reduce((acc, fld) => {
-        const meta = fields[fld]
-        const inv = treeview.check_invisible(meta)
-
-        if (!inv) {
-          acc[fld] = meta
-        }
-        return acc
-      }, {})
-    }
-
-    if (state.treeviewReady && localState.treeview) {
-      const fields = toRaw(state.fields)
-      const fields2 = fields_filter(localState.treeview, fields)
-      const context = localState.treeview.context
-      const cols = computedColumns(fields2, context)
-      const cols2 = cols.filter(item => item._widget !== 'handle')
-      return cols2
+    if (state.treeviewFieldsReady && localState.treeview) {
+      const flds = localState.treeview.get_columns()
+      const cols91 = fields2cols(flds)
+      const cols92 = cols91.filter(item => item._widget !== 'handle')
+      return cols92
     } else {
       return []
     }
@@ -105,21 +84,18 @@ export function useTreeView(props) {
     const ids = state.records.map(item => item.id)
     const records = await treeview.read(ids)
     state.records = records
-    const withRelationData = await treeview.relation_read(records)
-    state.records = withRelationData
   }
   async function loadData(treeview) {
     const records = await treeview.search_read()
     state.pagination = { ...treeview.pagination }
     state.records = records
-    const withRelationData = await treeview.relation_read(records)
-    state.records = withRelationData
   }
 
   // watch actionId
   watch(
     () => props.actionId,
     async newVal => {
+      state.treeviewFieldsReady = false
       state.treeviewReady = false
       localState.treeview = null
       activeIds.value = []
@@ -130,6 +106,8 @@ export function useTreeView(props) {
       state.treeviewReady = true
       // await sleep(1000)
       state.fields = await treeview.load_fields()
+
+      state.treeviewFieldsReady = true
       await treeview.searchview.load_search()
       state.searchItems = { ...treeview.search_items }
       state.searchValues = { ...treeview.search_values }

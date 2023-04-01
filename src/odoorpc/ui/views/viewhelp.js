@@ -64,15 +64,6 @@ export class ViewHelp {
       acc = acc && one
       return acc
     }, true)
-
-    // // tree 页面 没有函数? todo
-    // if (fieldInfo.invisible) {
-    //   return true
-    // } else if (fieldInfo.optional === 'hide') {
-    //   return true
-    // } else {
-    //   return false
-    // }
   }
 
   check_invisible(fieldInfo, kw) {
@@ -119,7 +110,7 @@ export class ViewHelp {
     return this.env.has_group(fieldInfo.groups)
   }
 
-  _check_modifiers(modifiers_type, fieldInfo, kw) {
+  _check_modifiers(modifiers_type, fieldInfo, kw = {}) {
     const { record, values, editable, ...kw2 } = kw
     const { parentFormInfo } = kw
 
@@ -138,7 +129,7 @@ export class ViewHelp {
   //
   // merge
   //
-  _merge_data(record, values) {
+  _merge_data(record = {}, values = {}) {
     const all_keys = Object.keys({ ...record, ...values })
 
     return all_keys.reduce((acc, fld) => {

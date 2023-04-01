@@ -97,6 +97,25 @@ export class X2mTree extends X2mTreeBase {
     })
   }
 
+  get_string(fieldInfo, kw) {
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.get_string(fieldInfo, { ...kw, for_o2m: true })
+  }
+
+  get_columns(kw) {
+    const fields = this.fields
+    const cols = Object.keys(fields).reduce((acc, fld) => {
+      const meta = fields[fld]
+      const invs = this.check_invisible(meta, kw)
+      if (!invs) {
+        acc[fld] = { ...meta, string: this.get_string(meta, kw) }
+      }
+      return acc
+    }, {})
+
+    return cols
+  }
+
   //
   // merge data: record, values
   //

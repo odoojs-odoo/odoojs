@@ -3,16 +3,11 @@ import { SearchView } from './searchview'
 
 import { ViewHelp } from './viewhelp'
 
-export class TreeBaseView extends BaseView {
+class TreeModel extends BaseView {
   constructor(action_id, payload = {}) {
     const { type = 'tree', ...payload2 } = payload
     super(action_id, { ...payload2, type })
-    this.searchview = new SearchView(action_id, payload2)
-    this.domain_local = []
-
-    this._limit_default = undefined
-
-    this._pagination = {}
+    this.searchview = new SearchView(action_id, payload)
   }
 
   async load_fields() {
@@ -21,8 +16,8 @@ export class TreeBaseView extends BaseView {
     return res
   }
 
-  get domain_default() {
-    return this.action.domain
+  search_change(item, value) {
+    return this.searchview.search_change(item, value)
   }
 
   get search_values() {
@@ -31,6 +26,71 @@ export class TreeBaseView extends BaseView {
 
   get search_items() {
     return this.searchview.search_items
+  }
+
+  async read(ids) {
+    if (ids.length) {
+      const fields = this.fields_list
+      return this.Model.read(ids, { fields })
+    } else {
+      return []
+    }
+  }
+
+  async unlink(ids) {
+    if (!ids || (Array.isArray(ids) && !ids.length)) return true
+    return await this.Model.unlink(ids)
+  }
+
+  async export_xlsx_all(tr) {
+    const fields = Object.keys(this.fields)
+      .filter(item => {
+        const meta = this.fields[item]
+        return !meta.invisible
+      })
+      .map(item => {
+        const meta = this.fields[item]
+        const { name, string: label, store, type } = meta
+        return { name, label: tr ? tr(label) : label, store, type }
+      })
+
+    console.log(fields)
+
+    const ids = false
+    const domain = this.domain_default
+    const groupby = []
+    const import_compat = false
+    // const context = this._context({ context, action })
+
+    const model = this.res_model
+
+    const data = {
+      model,
+      fields,
+      ids,
+      domain,
+      groupby,
+      // context: ctx,
+      import_compat
+    }
+
+    const res = await this.env.web.export.xlsx(data)
+    // console.log(res)
+
+    return this.download(res)
+  }
+}
+
+export class TreeBaseView extends TreeModel {
+  constructor(action_id, payload = {}) {
+    super(action_id, { ...payload })
+    this.domain_local = []
+    this._limit_default = undefined
+    this._pagination = {}
+  }
+
+  get domain_default() {
+    return this.action.domain
   }
 
   get limit_default() {
@@ -95,15 +155,6 @@ export class TreeBaseView extends BaseView {
     return { limit, offset }
   }
 
-  async read(ids) {
-    if (ids.length) {
-      const fields = this.fields_list
-      return this.Model.read(ids, { fields })
-    } else {
-      return []
-    }
-  }
-
   async search_read() {
     await this.searchview.load_search()
 
@@ -127,43 +178,11 @@ export class TreeBaseView extends BaseView {
 
     return records
   }
+}
 
-  // tree. 显示 m2m 数据时. 需要刷新下.
-  async relation_read(records) {
-    let records2 = [...records]
-    for (const fld in this.fields) {
-      const meta = this.fields[fld]
-      if (meta.widget === 'many2many_tags') {
-        const ids = records.reduce((acc, cur) => {
-          acc = [...acc, ...(cur[fld] || [])]
-          return acc
-        }, [])
-
-        const ids2 = [...new Set(ids)]
-        const res = await this.env.relation(meta).name_get(ids2)
-        const res2 = res.reduce((acc, cur) => {
-          acc[cur[0]] = cur
-          return acc
-        }, {})
-        records2 = records2.map(item => {
-          return {
-            ...item,
-            [`${fld}___selection`]: item[fld].map(rel => res2[rel])
-          }
-        })
-      }
-    }
-
-    return records2
-  }
-
-  search_change(item, value) {
-    return this.searchview.search_change(item, value)
-  }
-
-  async unlink(ids) {
-    if (!ids || (Array.isArray(ids) && !ids.length)) return true
-    return await this.Model.unlink(ids)
+export class TreeView extends TreeBaseView {
+  constructor(action_id, payload = {}) {
+    super(action_id, { ...payload, type: 'tree' })
   }
 
   viewhelp_get() {
@@ -174,48 +193,23 @@ export class TreeBaseView extends BaseView {
     const viewhelp = this.viewhelp_get()
     return viewhelp.check_invisible_for_tree(fieldInfo)
   }
-}
 
-export class TreeView extends TreeBaseView {
-  constructor(action_id, payload = {}) {
-    super(action_id, { ...payload, type: 'tree' })
+  get_string(fieldInfo) {
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.get_string(fieldInfo)
   }
 
-  async export_xlsx_all(tr) {
-    const fields = Object.keys(this.fields)
-      .filter(item => {
-        const meta = this.fields[item]
-        return !meta.invisible
-      })
-      .map(item => {
-        const meta = this.fields[item]
-        const { name, string: label, store, type } = meta
-        return { name, label: tr ? tr(label) : label, store, type }
-      })
+  get_columns() {
+    const fields = this.fields
+    const cols = Object.keys(fields).reduce((acc, fld) => {
+      const meta = fields[fld]
+      const invs = this.check_invisible(meta)
+      if (!invs) {
+        acc[fld] = { ...meta, string: this.get_string(meta) }
+      }
+      return acc
+    }, {})
 
-    console.log(fields)
-
-    const ids = false
-    const domain = this.domain_default
-    const groupby = []
-    const import_compat = false
-    // const context = this._context({ context, action })
-
-    const model = this.res_model
-
-    const data = {
-      model,
-      fields,
-      ids,
-      domain,
-      groupby,
-      // context: ctx,
-      import_compat
-    }
-
-    const res = await this.env.web.export.xlsx(data)
-    // console.log(res)
-
-    return this.download(res)
+    return cols
   }
 }

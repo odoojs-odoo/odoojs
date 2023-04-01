@@ -1,9 +1,10 @@
-import { computed } from 'vue'
+import { computed, toRaw } from 'vue'
 import api from '@/odoorpc'
-
-import { useTreeColumns } from '@/components/tools/treeColumns'
+import { useL10n } from '@/components/tools/useL10n'
 
 export function useM2mNew(props) {
+  const { tr } = useL10n()
+
   const treeview = computed(() => {
     if (props.relationInfo) {
       const rel = api.env.relation(props.relationInfo)
@@ -12,19 +13,41 @@ export function useM2mNew(props) {
     return null
   })
 
-  const fields = computed(() => {
-    if (treeview.value) {
-      return treeview.value.fields
+  const treeInfo = computed(() => {
+    return {
+      parentFormInfo: toRaw(props.parentFormInfo),
+      relationInfo: toRaw(props.relationInfo),
+      records: toRaw(props.records),
+      // record: toRaw(props.record),
+      // values: toRaw(state.values),
+      editable: !props.readonly
     }
-    return {}
   })
 
-  const { computedColumns } = useTreeColumns()
+  function fields2cols(fields) {
+    const cols = Object.keys(fields).map(fld => {
+      const meta = fields[fld] || {}
+      return {
+        dataIndex: fld,
+        key: fld,
+        title: tr(meta.string),
+        // ellipsis: 'ellipsis' in meta ? meta.ellipsis : true,
+        // align: 'center',
+        width: meta.web_col_width,
+        _widget: meta.widget,
+        _meta: meta
+      }
+    })
+
+    return cols
+  }
 
   const columns = computed(() => {
     if (treeview.value) {
-      const context = treeview.value.context_get(props.parentFormInfo)
-      return computedColumns(fields.value, context)
+      const flds = treeview.value.get_columns(toRaw(treeInfo.value))
+      const cols = fields2cols(flds)
+      const cols2 = cols.filter(item => item._widget !== 'handle')
+      return cols2
     } else {
       return []
     }
