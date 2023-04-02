@@ -6,7 +6,9 @@
 
     <template v-else-if="fieldInfo.widget === 'boolean_toggle'">
       <template v-if="readonly">
-        <a-checkbox :checked="dVal" disabled />
+        <a-form-item-rest>
+          <a-checkbox :checked="dVal" disabled
+        /></a-form-item-rest>
       </template>
 
       <template v-else>
@@ -16,7 +18,9 @@
 
     <template v-else-if="fieldInfo.widget === 'web_ribbon'">
       <template v-if="readonly">
-        <a-checkbox :checked="dVal" disabled />
+        <a-form-item-rest>
+          <a-checkbox :checked="dVal" disabled
+        /></a-form-item-rest>
       </template>
 
       <template v-else>
@@ -32,7 +36,9 @@
 
     <template v-else>
       <template v-if="readonly">
-        <a-checkbox :checked="dVal" disabled />
+        <a-form-item-rest>
+          <a-checkbox :checked="dVal" disabled
+        /></a-form-item-rest>
       </template>
 
       <template v-else>

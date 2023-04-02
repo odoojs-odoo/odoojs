@@ -112,9 +112,161 @@ const addons_load = AddonsFiles => {
     acc = { ...acc, ...one_addons }
     return acc
   }, {})
-
   return addonsAll
 }
+
+function make_tree(views) {
+  function find_children(all, node) {
+    const filter_fn = !node
+      ? key => !all[key].inherit_id
+      : key => all[key].inherit_id === node
+    return Object.keys(all)
+      .filter(filter_fn)
+      .reduce((acc, key) => {
+        acc[key] = find_children(all, key)
+        return acc
+      }, {})
+  }
+
+  const tree = find_children(views, null)
+
+  return tree
+}
+
+function merge_dict(dst, src) {
+  function getkeys() {
+    const dstkeys = Object.keys(dst).reduce((acc, cur, index) => {
+      acc[cur] = index + 1
+      return acc
+    }, {})
+    const srckeys = Object.keys(src).reduce((acc, cur, index) => {
+      acc[cur] = index + 1
+      return acc
+    }, {})
+
+    const keys = Object.keys({ ...dstkeys, ...srckeys }).reduce((acc, cur) => {
+      const get_last = () => {
+        const lt = Object.keys(acc)
+          .filter(item => acc[item][1] && acc[item][1] < srckeys[cur])
+          .map(item => acc[item][0])
+        return !lt.length ? 0 : Math.max(...lt)
+      }
+
+      const left = dstkeys[cur] || get_last()
+      const right = srckeys[cur] || 0
+      acc[cur] = [left, right]
+      return acc
+    }, {})
+
+    const keys2 = Object.keys(keys).map(key => [key, ...keys[key]])
+    keys2.sort((a, b) => a[1] - b[1])
+    const keys3 = keys2.map(item => item[0])
+    return keys3
+  }
+
+  const keys = getkeys()
+
+  const res = keys.reduce((acc, key) => {
+    const left = dst[key]
+    const right = src[key]
+
+    if (!left) {
+      if (right) {
+        acc[key] = right
+      }
+    } else {
+      if (!right) {
+        acc[key] = left
+      } else {
+        if (typeof right !== 'object') {
+          acc[key] = right
+        } else if (Array.isArray(right)) {
+          acc[key] = right
+        } else if (typeof left !== 'object') {
+          acc[key] = right
+        } else if (Array.isArray(left)) {
+          acc[key] = right
+        } else {
+          acc[key] = merge_dict({ ...left }, { ...right })
+        }
+      }
+    }
+
+    // if (!left) {
+    //   acc[key] = right
+    // } else if (!right) {
+    //   acc[key] = right
+    // } else if (typeof right !== 'object') {
+    //   acc[key] = right
+    // } else if (Array.isArray(right)) {
+    //   acc[key] = right
+    // } else if (typeof left !== 'object') {
+    //   acc[key] = right
+    // } else if (Array.isArray(left)) {
+    //   acc[key] = right
+    // } else {
+    //   acc[key] = 'call merge_dict' // merge_dict({ ...left }, { ...right })
+    // }
+    return acc
+  }, {})
+  return res
+}
+
+function merge_odoo_view(dst, src) {
+  const dst2 = { ...src, ...dst }
+  delete dst2.inherit_id
+  // eslint-disable-next-line no-unused-vars
+  const { inherit_id, priority, xml_id, id, ...src2 } = src
+
+  return merge_dict(dst2, { ...src2 })
+}
+
+function merge_tree(views, tree) {
+  function tree2list(tree) {
+    function fn(tree) {
+      return Object.keys(tree).reduce((acc, key) => {
+        return { ...acc, [key]: 1, ...fn(tree[key]) }
+      }, {})
+    }
+
+    return Object.keys(fn(tree))
+  }
+
+  const list = tree2list(tree)
+  // console.log('list,', list)
+  const res = list.reduce((acc, key) => {
+    acc = merge_odoo_view(acc, views[key])
+    return acc
+  }, {})
+
+  return list.reduce((acc, key) => {
+    acc[key] = res
+    return acc
+  }, {})
+}
+
+function merge_views(views) {
+  const tree = make_tree(views)
+
+  return Object.keys(tree).reduce((acc, key) => {
+    const acc2 = merge_tree(views, { [key]: tree[key] })
+    acc = { ...acc, ...acc2 }
+    return acc
+  }, {})
+}
+
+//
+
+// function test(views) {
+//   const list = ['base.view_partner_form', 'product.view_partner_form']
+
+//   const views2 = list.reduce((acc, key) => {
+//     acc[key] = views[key]
+//     return acc
+//   }, {})
+
+//   console.log(views2)
+// }
 
 export class Addons {
   constructor() {}
@@ -138,8 +290,10 @@ export class Addons {
 
     const menus = filter_fn(res, 'ir.ui.menu')
     const actions = filter_fn(res, 'ir.actions')
-    const views = filter_fn(res, 'ir.ui.view')
-
+    const views_to_merge = filter_fn(res, 'ir.ui.view')
+    const views = merge_views(views_to_merge)
+    // console.log(views)
+    // test(views_to_merge)
     const view_get_first = (res_model, mode) => {
       const res = Object.values(views)
         .filter(item => item.model === res_model && item.type === mode)

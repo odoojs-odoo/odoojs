@@ -5,13 +5,6 @@ export default {
   name: { en_US: 'Product Setting', zh_CN: '产品配置', zh_HK: '产品配置' },
   children: [
     {
-      action: 'product.action_country_group',
-      id: 'odoo_product.action_country_group',
-      icon: 'shopping',
-      name: { en_US: 'Country Group', zh_CN: '国家组', zh_HK: '国家组' }
-    },
-
-    {
       action: 'product.product_pricelist_action2',
       id: 'odoo_product.product_pricelist_action2',
       icon: 'shopping',
@@ -34,6 +27,28 @@ export default {
       id: 'odoo_product.product_tag_action',
       icon: 'shopping',
       name: { en_US: 'Product Tags', zh_CN: '产品标签', zh_HK: '产品标签' }
+    },
+
+    {
+      action: 'uom.product_uom_categ_form_action',
+      id: 'uom.product_uom_categ_form_action',
+      icon: 'shopping',
+      name: {
+        en_US: 'Units of Measure Categories',
+        zh_CN: '度量单位类别',
+        zh_HK: '度量单位类别'
+      }
+    },
+
+    {
+      action: 'uom.product_uom_form_action',
+      id: 'uom.product_uom_form_action',
+      icon: 'shopping',
+      name: {
+        en_US: 'Units of Measure',
+        zh_CN: '度量单位',
+        zh_HK: '度量单位'
+      }
     }
   ]
 }

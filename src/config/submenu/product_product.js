@@ -5,16 +5,6 @@ export default {
   name: { en_US: 'Product', zh_CN: '产品', zh_HK: '产品' },
   children: [
     {
-      action: 'product.action_contacts',
-      id: 'odoo_product.action_contacts',
-      icon: 'shopping',
-      name: {
-        en_US: 'Partner Price List',
-        zh_CN: '客户价格表设置',
-        zh_HK: '客户价格表设置'
-      }
-    },
-    {
       action: 'product.product_supplierinfo_type_action',
       id: 'odoo_product.product_supplierinfo_type_action',
       icon: 'shopping',

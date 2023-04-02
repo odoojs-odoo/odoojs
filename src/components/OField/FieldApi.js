@@ -41,7 +41,11 @@ export function useField(props, ctx) {
         x2many_tree: 'FMany2many',
         default: 'FMany2many'
       },
-      one2many: { x2many_tree: 'FOne2many', default: 'FOne2many' },
+      one2many: {
+        x2many_tree: 'FOne2many',
+        many2many_tags: 'FM2mTags',
+        default: 'FOne2many'
+      },
       binary: 'FBinary'
     }
 

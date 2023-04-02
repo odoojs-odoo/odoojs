@@ -8,11 +8,7 @@ export default {
       id: 'odoo.account_move_master',
       icon: 'shopping',
       theme: 'twoTone',
-      name: {
-        en_US: 'Master Data',
-        zh_CN: '主数据财务配置',
-        zh_HK: '主数据财务配置'
-      },
+      name: { en_US: 'Master Data', zh_CN: '主数据', zh_HK: '主数据' },
       children: [
         {
           action: 'account.res_partner_action_customer',

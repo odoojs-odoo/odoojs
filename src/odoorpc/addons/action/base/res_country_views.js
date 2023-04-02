@@ -96,10 +96,6 @@ export default {
           }
         }
       }
-    },
-
-    fields: {
-      // display_name: { is_title: 1 },
     }
   },
 

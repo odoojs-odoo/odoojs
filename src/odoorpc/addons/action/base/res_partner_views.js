@@ -37,6 +37,10 @@ export default {
           display_name: {}
         },
 
+        _group_button_box: {
+          _span: 2
+        },
+
         _group_name: {
           is_company: { invisible: 1 },
           commercial_partner_id: { invisible: 1 },
@@ -416,11 +420,13 @@ export default {
           }
         },
 
-        _group_sale: {
+        _group_sales_purchases__sale: {
           user_id: { widget: 'many2one_avatar_user' }
         },
 
-        _group_misc: {
+        _group_sales_purchases__purchase: {},
+
+        _group_sales_purchases__misc: {
           company_registry: {
             invisible: ({ record }) => {
               // 'invisible': [('parent_id','!=',False)]
@@ -446,7 +452,7 @@ export default {
           }
         },
 
-        _group_comment: {
+        _group_internal_notes: {
           _span: 2,
           comment: {
             label: 'Internal Notes',
