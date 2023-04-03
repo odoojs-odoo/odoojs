@@ -7,15 +7,13 @@ export default {
     buttons: { create: false, edit: false, delete: false },
     arch: {
       header: {
-        buttons: [
+        buttons: {
           // button_immediate_install
-        ],
+        },
         fields: {}
       },
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
 
         _group_website: {
           website: { widget: 'url' },

@@ -4,14 +4,8 @@ export default {
     model: 'res.users',
     type: 'form',
     arch: {
-      header: {
-        buttons: [],
-        fields: {}
-      },
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
 
         _group_name: {
           partner_id: { readonly2: '1' },

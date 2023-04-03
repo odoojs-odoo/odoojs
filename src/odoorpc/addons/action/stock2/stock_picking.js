@@ -5,22 +5,21 @@ export default {
     type: 'form',
 
     arch: {
-      buttons: [
-        {
+      buttons: {
+        process: {
           name: 'process',
           string: '创建欠单',
           type: 'object',
           btn_type: 'primary'
         },
-
-        {
+        process_cancel_backorder: {
           name: 'process_cancel_backorder',
           string: '没有欠单',
           type: 'object',
           btn_type: 'primary'
           // 'invisible': [('show_transfers', '=', True)]
         }
-      ]
+      }
     },
 
     fields: {

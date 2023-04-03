@@ -6,10 +6,6 @@ export default {
     type: 'form',
     buttons: { create: false, edit: true, delete: false },
     arch: {
-      header: {
-        buttons: [],
-        fields: {}
-      },
       sheet: {
         _group_sales_purchases__sale: {
           user_id: {},

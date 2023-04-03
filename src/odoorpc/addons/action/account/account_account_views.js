@@ -27,14 +27,8 @@ export default {
     type: 'form',
     buttons: { create: false, edit: false, delete: false },
     arch: {
-      header: {
-        buttons: [],
-        fields: {}
-      },
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
 
         _group_button_box: {
           related_taxes_amount: {},

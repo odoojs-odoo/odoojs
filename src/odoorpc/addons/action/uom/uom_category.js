@@ -4,14 +4,8 @@ export default {
     model: 'uom.category',
     type: 'form',
     arch: {
-      header: {
-        buttons: [],
-        fields: {}
-      },
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
 
         _group_name: {
           name: {},
@@ -49,10 +43,6 @@ export default {
 
               form: {
                 arch: {
-                  header: {
-                    buttons: [],
-                    fields: {}
-                  },
                   sheet: {
                     _group_name: {
                       name: {},

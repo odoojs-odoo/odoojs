@@ -40,8 +40,8 @@ export default {
 
     arch: {
       header: {
-        buttons: [
-          {
+        buttons: {
+          action_confirm: {
             name: 'action_confirm',
             string: 'Confirm',
             type: 'object',
@@ -51,7 +51,7 @@ export default {
               return state !== 'draft'
             }
           },
-          {
+          action_cancel: {
             name: 'action_cancel',
             string: 'Cancel',
             type: 'object',
@@ -61,7 +61,7 @@ export default {
               return state !== 'draft' || state !== 'confirmed'
             }
           },
-          {
+          action_draft: {
             name: 'action_draft',
             string: 'Set Draft',
             type: 'object',
@@ -71,17 +71,13 @@ export default {
               return state !== 'cancel'
             }
           },
-          // {
-          //   name: 'action_reread',
-          //   string: 'Re Read',
-          //   type: 'object'
-          // },
-          {
+
+          action_reset: {
             name: 'action_reset',
             string: 'Reset',
             type: 'object'
           },
-          {
+          action_request: {
             name: 'action_request',
             string: 'Draw',
             type: 'object',
@@ -91,7 +87,7 @@ export default {
               return state !== 'confirmed'
             }
           },
-          {
+          action_query: {
             name: 'action_query',
             string: 'Read',
             type: 'object',
@@ -103,8 +99,7 @@ export default {
               )
             }
           },
-
-          {
+          action_invalid: {
             name: 'action_invalid',
             string: 'Invalid',
             type: 'object',
@@ -113,8 +108,7 @@ export default {
               return state !== 'done' || !['done'].includes(fapiao_status)
             }
           },
-
-          {
+          action_print: {
             name: 'action_print',
             string: 'Print',
             type: 'object',
@@ -123,8 +117,7 @@ export default {
               return state !== 'done' || !['done'].includes(fapiao_status)
             }
           },
-
-          {
+          action_to_paper: {
             name: 'action_to_paper',
             string: 'Topaper',
             type: 'object',
@@ -134,7 +127,8 @@ export default {
               return state !== 'done'
             }
           }
-        ],
+        },
+
         fields: {
           state: {
             widget: 'statusbar',

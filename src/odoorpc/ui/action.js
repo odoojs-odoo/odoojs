@@ -216,7 +216,7 @@ function merge_odoo_view(dst, src) {
   const dst2 = { ...src, ...dst }
   delete dst2.inherit_id
   // eslint-disable-next-line no-unused-vars
-  const { inherit_id, priority, xml_id, id, ...src2 } = src
+  const { buttons, inherit_id, priority, xml_id, id, ...src2 } = src
 
   return merge_dict(dst2, { ...src2 })
 }
@@ -258,7 +258,12 @@ function merge_views(views) {
 //
 
 // function test(views) {
-//   const list = ['base.view_partner_form', 'product.view_partner_form']
+//   const list = [
+//     // 'base.view_partner_form',
+//     // 'product.view_partner_form',
+//     'base.view_country_group_form',
+//     'product.inherits_website_sale_country_group_form'
+//   ]
 
 //   const views2 = list.reduce((acc, key) => {
 //     acc[key] = views[key]
@@ -266,6 +271,9 @@ function merge_views(views) {
 //   }, {})
 
 //   console.log(views2)
+//   const views3 = merge_views(views2)
+
+//   console.log('ok', views3)
 // }
 
 export class Addons {
@@ -291,9 +299,9 @@ export class Addons {
     const menus = filter_fn(res, 'ir.ui.menu')
     const actions = filter_fn(res, 'ir.actions')
     const views_to_merge = filter_fn(res, 'ir.ui.view')
-    const views = merge_views(views_to_merge)
-    // console.log(views)
     // test(views_to_merge)
+    const views = merge_views(views_to_merge)
+    // console.log(views_to_merge)
     const view_get_first = (res_model, mode) => {
       const res = Object.values(views)
         .filter(item => item.model === res_model && item.type === mode)

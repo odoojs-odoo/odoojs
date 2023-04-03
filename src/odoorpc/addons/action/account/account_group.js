@@ -16,10 +16,6 @@ export default {
     model: 'account.group',
     type: 'form',
     arch: {
-      header: {
-        buttons: [],
-        fields: {}
-      },
       sheet: {
         _title: {
           display_name: { disable_field_onchange: 1 }

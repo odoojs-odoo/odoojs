@@ -21,14 +21,8 @@ export default {
     model: 'account.analytic.account',
     type: 'form',
     arch: {
-      header: {
-        buttons: [],
-        fields: {}
-      },
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
 
         _group_name: {
           name: {},

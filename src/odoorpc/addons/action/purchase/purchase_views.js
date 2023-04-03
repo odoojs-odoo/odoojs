@@ -154,8 +154,8 @@ export default {
 
     arch: {
       header: {
-        buttons: [
-          {
+        buttons: {
+          action_rfq_send: {
             name: 'action_rfq_send',
             string: '发送到邮箱',
             type: 'object',
@@ -167,8 +167,7 @@ export default {
               return state !== 'draft'
             }
           },
-
-          {
+          print_quotation: {
             name: 'print_quotation',
             string: '打印报价单',
             type: 'object',
@@ -180,8 +179,7 @@ export default {
               return state !== 'draft'
             }
           },
-
-          {
+          button_confirm: {
             name: 'button_confirm',
             string: '确认',
             type: 'object',
@@ -192,8 +190,7 @@ export default {
               return state !== 'sent'
             }
           },
-
-          {
+          button_approve: {
             name: 'button_approve',
             string: '批准',
             type: 'object',
@@ -204,8 +201,7 @@ export default {
               return state !== 'to approve'
             }
           },
-
-          {
+          action_create_invoice: {
             name: 'action_create_invoice',
             string: '生成账单',
             type: 'object',
@@ -219,8 +215,7 @@ export default {
               )
             }
           },
-
-          {
+          action_rfq_send2: {
             name: 'action_rfq_send',
             string: '再次发送到邮箱',
             type: 'object',
@@ -231,8 +226,7 @@ export default {
               return state !== 'sent'
             }
           },
-
-          {
+          print_quotation2: {
             name: 'print_quotation',
             string: '打印报价单2',
             type: 'object',
@@ -243,8 +237,7 @@ export default {
               return state !== 'sent'
             }
           },
-
-          {
+          button_confirm2: {
             name: 'button_confirm',
             string: '确认2',
             type: 'object',
@@ -254,8 +247,7 @@ export default {
               return state !== 'draft'
             }
           },
-
-          {
+          action_rfq_send22: {
             name: 'action_rfq_send',
             string: '发送订单到邮箱',
             type: 'object',
@@ -266,8 +258,7 @@ export default {
               return state !== 'purchase'
             }
           },
-
-          {
+          confirm_reminder_mail: {
             name: 'confirm_reminder_mail',
             string: '确认接受日期',
             type: 'object',
@@ -280,8 +271,7 @@ export default {
               )
             }
           },
-
-          {
+          action_create_invoice2: {
             name: 'action_create_invoice',
             string: '生成账单2',
             type: 'object',
@@ -295,8 +285,7 @@ export default {
               )
             }
           },
-
-          {
+          button_draft: {
             name: 'button_draft',
             string: '重置为草稿',
             type: 'object',
@@ -306,8 +295,7 @@ export default {
               return state !== 'cancel'
             }
           },
-
-          {
+          button_cancel: {
             name: 'button_cancel',
             string: '取消',
             type: 'object',
@@ -319,8 +307,7 @@ export default {
               )
             }
           },
-
-          {
+          button_done: {
             name: 'button_done',
             string: '锁定',
             type: 'object',
@@ -330,8 +317,7 @@ export default {
               return !['purchase'].includes(state)
             }
           },
-
-          {
+          button_unlock: {
             name: 'button_unlock',
             string: '解锁',
             type: 'object',
@@ -341,7 +327,7 @@ export default {
               return !['done'].includes(state)
             }
           }
-        ],
+        },
 
         fields: {
           state: {

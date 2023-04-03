@@ -28,14 +28,8 @@ export default {
     model: 'product.supplierinfo',
     type: 'form',
     arch: {
-      header: {
-        buttons: [],
-        fields: {}
-      },
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
 
         _group_vendor: {
           // _span: 2,

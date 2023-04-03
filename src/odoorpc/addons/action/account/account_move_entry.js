@@ -43,9 +43,8 @@ export default {
 
     arch: {
       header: {
-        buttons: [
-          // Post
-          {
+        buttons: {
+          action_post: {
             name: 'action_post',
             string: 'Post',
             type: 'object',
@@ -63,7 +62,7 @@ export default {
               return hide_post_button || move_type !== 'entry'
             }
           },
-          {
+          action_post2: {
             name: 'action_post',
             string: 'Confirm',
             type: 'object',
@@ -91,9 +90,7 @@ export default {
               )
             }
           },
-
-          // Send (only invoices)
-          {
+          action_invoice_sent: {
             name: 'action_invoice_sent',
             string: '发送和打印',
             type: 'object',
@@ -107,8 +104,7 @@ export default {
               )
             }
           },
-
-          {
+          action_invoice_sent2: {
             name: 'action_invoice_sent',
             string: '发送和打印',
             type: 'object',
@@ -126,9 +122,7 @@ export default {
               )
             }
           },
-
-          // Register Payment (only invoices / receipts)
-          {
+          action_register_payment: {
             name: 'action_register_payment',
             string: 'Register Payment',
             type: 'object',
@@ -159,8 +153,7 @@ export default {
               )
             }
           },
-          // Preview (only customer invoices)
-          {
+          preview_invoice: {
             name: 'preview_invoice',
             string: 'Preview',
             type: 'object',
@@ -170,10 +163,7 @@ export default {
               return !['out_invoice', 'out_refund'].includes(move_type)
             }
           },
-
-          // Reverse
-
-          {
+          action_view_account_move_reversal: {
             name: 'action_view_account_move_reversal',
             string: 'Reverse Entry',
             type: 'action',
@@ -187,8 +177,7 @@ export default {
               )
             }
           },
-
-          {
+          action_reverse: {
             name: 'action_reverse',
             string: 'Add Credit Note',
             type: 'object',
@@ -201,9 +190,7 @@ export default {
               )
             }
           },
-
-          // Cancel
-          {
+          button_cancel: {
             name: 'button_cancel',
             string: 'Cancel Entry',
             type: 'object',
@@ -217,7 +204,7 @@ export default {
               return !res_id || state !== 'draft' || move_type !== 'entry'
             }
           },
-          {
+          button_cancel2: {
             name: 'button_cancel',
 
             string: 'Cancel',
@@ -232,7 +219,7 @@ export default {
               return !res_id || state !== 'draft' || move_type === 'entry'
             }
           },
-          {
+          button_draft: {
             name: 'button_draft',
             string: 'Reset to Draft',
             type: 'object',
@@ -245,9 +232,7 @@ export default {
               return !show_reset_to_draft_button
             }
           },
-
-          //   Set as Checked
-          {
+          button_set_checked: {
             name: 'button_set_checked',
             string: '置为已检查',
             type: 'object',
@@ -259,16 +244,15 @@ export default {
               return !to_check
             }
           }
-        ],
+        },
+
         fields: {
           state: { widget: 'statusbar', statusbar_visible: 'draft,posted' }
         }
       },
 
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
 
         _group_warning: {
           _invisible: 1

@@ -285,8 +285,8 @@ export class FormView extends FormModel {
   arch_buttons(record, values) {
     const { view } = this.view_info
     const { arch = {} } = view
-
-    const buttons = arch.buttons || []
+    const buttons2 = arch.buttons || {}
+    const buttons = Object.values(buttons2)
 
     const btns = buttons.filter(btn => {
       return !this.check_invisible(btn, { record, values })
@@ -329,7 +329,9 @@ export class FormView extends FormModel {
 
   header_buttons(formInfo) {
     const header = this.view_header
-    const buttons = header.buttons || []
+    const buttons2 = header.buttons || {}
+    const buttons = Object.values(buttons2)
+
     return buttons.filter(btn => !this.check_invisible(btn, formInfo))
   }
 

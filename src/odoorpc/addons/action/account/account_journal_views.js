@@ -24,9 +24,7 @@ export default {
     buttons: { create: false, edit: false, delete: false },
     arch: {
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
         _group_button_box: {
           _span: 2
           // name: {}

@@ -22,9 +22,7 @@ export default {
 
     arch: {
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
 
         _group_general_information__group_standard_price: {
           list_price: {},

@@ -39,8 +39,8 @@ export default {
 
     arch: {
       header: {
-        buttons: [
-          {
+        buttons: {
+          action_confirm: {
             name: 'action_confirm',
             string: 'Confirm',
             type: 'object',
@@ -50,7 +50,8 @@ export default {
               return state !== 'draft'
             }
           },
-          {
+
+          action_cancel: {
             name: 'action_cancel',
             string: 'Cancel',
             type: 'object',
@@ -60,7 +61,7 @@ export default {
               return state !== 'draft' || state !== 'confirmed'
             }
           },
-          {
+          action_draft: {
             name: 'action_draft',
             string: 'Set Draft',
             type: 'object',
@@ -70,12 +71,12 @@ export default {
               return state !== 'cancel'
             }
           },
-          {
+          action_reset: {
             name: 'action_reset',
             string: 'Reset',
             type: 'object'
           },
-          {
+          action_request: {
             name: 'action_request',
             string: 'Check',
             type: 'object',
@@ -85,7 +86,7 @@ export default {
               return state !== 'confirmed'
             }
           },
-          {
+          action_to_paper: {
             name: 'action_to_paper',
             string: 'Topaper',
             type: 'object',
@@ -95,7 +96,8 @@ export default {
               return state !== 'done'
             }
           }
-        ],
+        },
+
         fields: {
           state: {
             widget: 'statusbar',

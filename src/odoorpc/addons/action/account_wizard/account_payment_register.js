@@ -5,14 +5,14 @@ export default {
     type: 'form',
 
     arch: {
-      buttons: [
-        {
+      buttons: {
+        action_create_payments: {
           name: 'action_create_payments',
           string: 'Create Payment',
           type: 'object',
           btn_type: 'primary'
         }
-      ],
+      },
 
       sheet: {
         _group_invisible: {

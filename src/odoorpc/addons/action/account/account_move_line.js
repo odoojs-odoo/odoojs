@@ -64,10 +64,6 @@ export default {
     type: 'form',
     buttons: { create: false, edit: false, delete: false },
     arch: {
-      header: {
-        buttons: [],
-        fields: {}
-      },
       sheet: {
         _title: {
           display_name: {},

@@ -92,14 +92,8 @@ export default {
     buttons: { create: false, edit: true, delete: false },
 
     arch: {
-      header: {
-        buttons: [],
-        fields: {}
-      },
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
 
         _group_credit_limits: {
           team_id: {}

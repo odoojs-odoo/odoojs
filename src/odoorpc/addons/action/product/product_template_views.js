@@ -118,8 +118,8 @@ export default {
     type: 'form',
     arch: {
       header: {
-        buttons: [
-          {
+        buttons: {
+          action_open_label_layout: {
             string: 'Print Labels',
             name: 'action_open_label_layout',
             type: 'object',
@@ -129,7 +129,7 @@ export default {
               return detailed_type === 'service'
             }
           }
-        ],
+        },
         fields: {}
       },
       sheet: {

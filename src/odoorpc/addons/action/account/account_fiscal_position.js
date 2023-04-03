@@ -290,9 +290,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
         _group_name: {
           _span: 2,
           name: {},

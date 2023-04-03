@@ -8,14 +8,9 @@ export default {
     buttons: { create: true, edit: true, delete: true },
 
     arch: {
-      header: {
-        buttons: [],
-        fields: {}
-      },
+      header: { buttons: {}, fields: {} },
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
 
         _group_bank_details: {
           _span: 2,
@@ -90,14 +85,9 @@ export default {
     model: 'res.partner.bank',
     type: 'form',
     arch: {
-      header: {
-        buttons: [],
-        fields: {}
-      },
+      header: { buttons: {}, fields: {} },
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
 
         _group_name: {
           sequence: { invisible: '1' },

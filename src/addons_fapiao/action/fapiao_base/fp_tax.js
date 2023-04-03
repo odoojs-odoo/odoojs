@@ -25,14 +25,8 @@ export default {
     },
 
     arch: {
-      header: {
-        buttons: [],
-        fields: {}
-      },
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
 
         _group_name: {
           code: {},

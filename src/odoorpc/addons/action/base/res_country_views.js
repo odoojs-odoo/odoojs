@@ -17,14 +17,8 @@ export default {
     buttons: { create: false, edit: true, delete: false },
 
     arch: {
-      header: {
-        buttons: [],
-        fields: {}
-      },
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
 
         _group_image: {
           _span: 2,
@@ -124,15 +118,26 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.country.group',
     type: 'form',
+
     arch: {
       header: {
-        buttons: [],
+        buttons: {
+          action_open_label_layout: {
+            string: 'Print Labels',
+            name: 'action_open_label_layout',
+            type: 'object',
+            invisible({ record }) {
+              // 'invisible': [('detailed_type', '==', 'service')]
+              const { detailed_type } = record
+              return detailed_type === 'service'
+            }
+          }
+        },
+
         fields: {}
       },
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
 
         _group_name: {
           _span: 2,

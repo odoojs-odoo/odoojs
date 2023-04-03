@@ -54,9 +54,8 @@ export default {
 
     arch: {
       header: {
-        buttons: [
-          // Post
-          {
+        buttons: {
+          action_post: {
             name: 'action_post',
             string: '确认',
             type: 'object',
@@ -67,8 +66,7 @@ export default {
               return state !== 'draft'
             }
           },
-
-          {
+          action_draft: {
             name: 'action_draft',
             string: '重置为草稿',
             type: 'object',
@@ -78,8 +76,7 @@ export default {
               return !['posted', 'cancel'].includes(state)
             }
           },
-
-          {
+          action_cancel: {
             name: 'action_cancel',
             string: '取消',
             type: 'object',
@@ -89,7 +86,7 @@ export default {
               return state !== 'draft'
             }
           },
-          {
+          mark_as_sent: {
             name: 'mark_as_sent',
             string: '标记为已发送',
             type: 'object',
@@ -106,7 +103,7 @@ export default {
               )
             }
           },
-          {
+          unmark_as_sent: {
             name: 'unmark_as_sent',
             string: '取消标记为已发送',
             type: 'object',
@@ -123,7 +120,8 @@ export default {
               )
             }
           }
-        ],
+        },
+
         fields: {
           state: { widget: 'statusbar', statusbar_visible: 'draft,posted' }
         }

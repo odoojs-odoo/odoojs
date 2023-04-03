@@ -51,8 +51,8 @@ export default {
 
     arch: {
       header: {
-        buttons: [
-          {
+        buttons: {
+          action_view_sale_advance_payment_inv: {
             name: 'action_view_sale_advance_payment_inv',
             string: 'Create Invoice',
             type: 'action',
@@ -64,7 +64,7 @@ export default {
               return invoice_status !== 'to invoice'
             }
           },
-          {
+          action_view_sale_advance_payment_inv2: {
             name: 'action_view_sale_advance_payment_inv',
             string: 'Create Invoice',
             type: 'action',
@@ -76,8 +76,7 @@ export default {
               return invoice_status !== 'no' || state !== 'sale'
             }
           },
-
-          {
+          action_quotation_send: {
             name: 'action_quotation_send',
             string: 'Send by Email',
             type: 'object',
@@ -88,7 +87,7 @@ export default {
               return state !== 'draft'
             }
           },
-          {
+          action_quotation_send2: {
             name: 'action_quotation_send',
             string: 'Send PRO-FORMA Invoice',
             type: 'object',
@@ -103,8 +102,7 @@ export default {
             // context="{'proforma': True, 'validate_analytic': True}
             context: { proforma: true, validate_analytic: true }
           },
-
-          {
+          action_confirm: {
             name: 'action_confirm',
             string: 'Confirm',
             type: 'object',
@@ -116,8 +114,7 @@ export default {
               return state !== 'sent'
             }
           },
-
-          {
+          action_confirm2: {
             name: 'action_confirm',
             string: 'Confirm',
             type: 'object',
@@ -128,8 +125,7 @@ export default {
               return state !== 'draft'
             }
           },
-
-          {
+          action_quotation_send22: {
             name: 'action_quotation_send',
             string: 'Send PRO-FORMA Invoice',
             type: 'object',
@@ -143,8 +139,7 @@ export default {
             // context="{'proforma': True, 'validate_analytic': True}"/>
             context: { proforma: true, validate_analytic: true }
           },
-
-          {
+          action_quotation_send23: {
             name: 'action_quotation_send',
             string: 'Send by Email',
             type: 'object',
@@ -156,8 +151,7 @@ export default {
               return !['sent', 'sale'].includes(state)
             }
           },
-
-          {
+          action_cancel: {
             name: 'action_cancel',
             string: 'Cancel',
             type: 'object',
@@ -169,8 +163,7 @@ export default {
               return !['draft', 'sent', 'sale'].includes(state) || !res_id
             }
           },
-
-          {
+          action_draft: {
             name: 'action_draft',
             string: 'Set to Quotation',
             type: 'object',
@@ -180,7 +173,7 @@ export default {
               return state !== 'cancel'
             }
           }
-        ],
+        },
 
         fields: {
           state: { widget: 'statusbar', statusbar_visible: 'draft,sent,sale' }

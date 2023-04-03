@@ -25,14 +25,8 @@ export default {
     buttons: { create: false, edit: false, delete: false },
 
     arch: {
-      header: {
-        buttons: [],
-        fields: {}
-      },
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
 
         _group_name: {
           _span: 2,

@@ -28,14 +28,8 @@ export default {
     type: 'form',
 
     arch: {
-      header: {
-        buttons: [],
-        fields: {}
-      },
       sheet: {
-        _title: {
-          display_name: {}
-        },
+        _title: { display_name: {} },
 
         _group_button_box: {
           _span: 2
