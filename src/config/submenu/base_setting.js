@@ -5,6 +5,13 @@ export default {
   name: { en_US: 'Base', zh_CN: '基础配置', zh_HK: '基础配置' },
   children: [
     {
+      action: 'base.open_module_tree',
+      id: 'odoo_base.open_module_tree',
+      icon: 'shopping',
+      name: { en_US: 'Apps', zh_CN: '模块', zh_HK: '模块' }
+    },
+
+    {
       action: 'base.action_currency_form',
       id: 'odoo_base.action_currency_form',
       icon: 'shopping',

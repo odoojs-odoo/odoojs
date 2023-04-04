@@ -6,26 +6,14 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _group_name: {},
+        _group_country_group: {},
         _group_pricelist_ids: {
-          _span: 2,
+          _attr: { col: 24 },
           pricelist_ids: {
             widget: 'x2many_tree',
             views: {
               tree: { fields: { name: {} } },
-              form: {
-                arch: {
-                  sheet: {
-                    _group_name: {
-                      name: {}
-                    },
-
-                    _group_name2: {
-                      name: {}
-                    }
-                  }
-                }
-              }
+              form: { arch: { sheet: { _group_name: { name: {} } } } }
             }
           }
         }

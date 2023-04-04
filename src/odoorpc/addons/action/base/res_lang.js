@@ -3,12 +3,17 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.lang',
     type: 'tree',
+    // tree view. 除了 fields 之外 还有其他标签
+    // todo
+    // <header>
+    //  <button name="action_activate_langs" type="object" string="Activate"/>
+    // </header>
     fields: {
       name: {},
-      code: {},
-      iso_code: {},
-      url_code: { invisible: 1 },
-      direction: {},
+      code: { groups: 'base.group_no_one' },
+      iso_code: { groups: 'base.group_no_one' },
+      url_code: { groups: 'base.group_no_one', invisible: 1 },
+      direction: { groups: 'base.group_no_one' },
       active: {}
     }
   },
@@ -18,31 +23,45 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_name: {
-          name: {}
+        _div_button_box: {
+          _button: {
+            _attr: {
+              string: 'Activate and Translate',
+              name: 'base.action_view_base_language_install',
+              type: 'action',
+              icon: 'fa-refresh'
+            }
+          }
         },
 
-        _group_image: {
-          flag_image: { widget: 'image' }
+        flag_image: { widget: 'image' },
+
+        _div_title: {
+          _label: { _attr: { for: 'name' } },
+          _h1: { name: { placeholder: 'e.g. French' } }
         },
 
-        _group_code: {
-          code: {},
-          iso_code: {},
-          url_code: { invisible: 1, required: 0 },
-          active: {}
+        _group_1: {
+          _group_1: {
+            code: {},
+            iso_code: {},
+            url_code: { invisible: 1, required: 0 },
+            active: { widget: 'boolean_toggle' }
+          },
+
+          _group_2: {
+            direction: {},
+            grouping: {},
+            decimal_point: {},
+            thousands_sep: {},
+            date_format: {},
+            time_format: {},
+            week_start: {}
+          }
         },
 
-        _group_set: {
-          direction: {},
-          grouping: {},
-          decimal_point: {},
-          thousands_sep: {},
-          date_format: {},
-          time_format: {},
-          week_start: {}
+        _div: {
+          // help
         }
       }
     }

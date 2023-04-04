@@ -50,121 +50,29 @@ export class X2mForm extends X2mFormModel {
     super(field_info, { ...payload })
   }
 
-  view_sheet() {
-    const sheet_get = () => {
-      const view = this.field_info.views.form
+  get view_info() {
+    return { view: this.field_info.views.form }
+  }
 
-      const { arch = {} } = view
+  get arch_sheet() {
+    const view = this.field_info.views.form
+    const { arch = {} } = view
+    const { sheet = {} } = arch
+    return sheet
+  }
 
-      if (arch.sheet) {
-        return arch.sheet
-      }
+  viewhelp_get() {
+    return new ViewHelp(this)
+  }
 
-      const fields = this.fields
-
-      const fs = Object.keys(fields)
-        .filter(item => !fields[item].invisible && !fields[item].is_title)
-        .reduce((acc, fld) => {
-          const tname = `_group_${fld}`
-          const meta = {
-            [fld]: fields[fld]
-          }
-          if (fields[fld].span) {
-            meta._span = fields[fld].span
-          }
-
-          acc[tname] = meta
-
-          return acc
-        }, {})
-
-      return fs
-    }
-
-    const sheet = sheet_get()
-
-    // console.log(sheet, this.fields)
-
-    const meta_get = (fld, meta = {}) => {
-      return { ...this.fields[fld], ...meta, name: fld }
-    }
-
-    function item_get(node) {
-      return Object.keys(node).reduce((acc, item) => {
-        if (item[0] === '_') {
-          const attr = item.substring(1)
-          acc[attr] = node[item]
-        } else {
-          if (!acc.children) {
-            acc.children = {}
-          }
-          acc.children[item] = meta_get(item, node[item])
-        }
-
-        return acc
-      }, {})
-    }
-
-    const sheet_items = Object.keys(sheet).reduce(
-      (acc, item) => {
-        const node = item_get(sheet[item])
-
-        if (node.span) {
-          if (acc.y) {
-            const tname = `group_${acc.x}_1`
-            acc.data[tname] = {
-              name: tname,
-              x: acc.x,
-              y: acc.y,
-              children: {}
-            }
-            acc.y = 0
-            acc.x = acc.x + 1
-          }
-        }
-
-        acc.data[item] = { name: item, x: acc.x, y: acc.y, ...node }
-
-        if (node.span) {
-          acc.y = 1
-        }
-
-        acc.y = 1 - acc.y
-        if (!acc.y) {
-          acc.x = acc.x + 1
-        }
-
-        return acc
-      },
-      { data: {}, x: 0, y: 0 }
-    )
-
-    const total_len = Object.keys(sheet_items.data).length
-
-    if (total_len) {
-      const last_fld = Object.keys(sheet_items.data)[total_len - 1]
-      const last = sheet_items.data[last_fld]
-      if (!last.y && !last.span) {
-        const tname = `group_${last.x}_1`
-        sheet_items.data[tname] = {
-          name: tname,
-          x: last.x,
-          y: 1,
-          children: {}
-        }
-      }
-    }
-
-    return { children: sheet_items.data }
+  view_sheet(formInfo) {
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.view_sheet({ ...formInfo, for_o2m: true })
   }
 
   //
   // check modifiers
   //
-
-  viewhelp_get() {
-    return new ViewHelp(this)
-  }
 
   check_invisible(fieldInfo, kw) {
     const viewhelp = this.viewhelp_get()

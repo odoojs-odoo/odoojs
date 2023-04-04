@@ -18,12 +18,9 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_name: {
-          _span: 2,
-          name: {},
-          // color: { widget: 'color_picker' },
+        _group: {
+          name: { placeholder: 'e.g. "Consulting Services"' },
+          color: { widget: 'color_picker' },
           parent_id: {},
           active: { widget: 'boolean_toggle' }
         }

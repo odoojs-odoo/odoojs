@@ -42,6 +42,150 @@ export class ViewHelp {
     return this._formview.view_info
   }
 
+  get arch_sheet() {
+    return this._formview.arch_sheet
+  }
+
+  view_sheet(formInfo) {
+    // console.log('view_sheet', formInfo)
+    // tree view 也需要 类似的处理, 因为 tree col 除了字段外, 还有 button 等
+
+    // sheet 规范
+    // 1. 字母开头的都是 字段
+    // 2. 字段内的属性 常规定义.
+    // 3. _label_xxx 标签 专用于 单行显示 标签
+    // 3. 其内部结构 为 _label_xxx: {_attr: {for: xx, string: xx}}
+    // 4. _title_xxx 专用于 定义标题显示
+    // 4. _group_xxx 标签 专用于 控制布局
+    // 2. _group 可以嵌套两层用于 布局控制
+    // 3. 外层 _group 占格 col=24
+    // 4. 内层 _group 占格 col=12
+    // 5. _group 内的元素 竖排显示
+    // 8. 其他 如 _div_xxx 等, 是 通用的 html 标签
+    // 9. 已经实现: div, h1, p, ...
+    // 10. 标签的属性 一律定义在 _attr 之内
+    // 11. 标签的属性 包括: string, invisible, text 等
+    //
+
+    const format_string = fieldInfo => {
+      if (fieldInfo.nolabel) return undefined
+      if (!fieldInfo.string) return undefined
+      if (typeof fieldInfo.string !== 'function') return fieldInfo.string
+      return this.get_string(fieldInfo, formInfo)
+    }
+
+    const required_get = fieldInfo => {
+      if (!formInfo.editable) return undefined
+      if (!fieldInfo.required) return undefined
+      if (typeof fieldInfo.required !== 'function') return fieldInfo.required
+      return this.check_required(fieldInfo, formInfo)
+    }
+
+    const meta_get = (fld, meta = {}) => {
+      const fieldInfo = { ...this.fields[fld], ...meta, name: fld }
+      const string = format_string(fieldInfo)
+      const required = required_get(fieldInfo)
+      return { ...fieldInfo, string, required }
+    }
+
+    const for_label_tag = node => {
+      const attr = node._attr || {}
+      if (attr.string) return this.get_string({ ...attr }, formInfo)
+      const meta = meta_get(attr.for)
+      return meta.string
+    }
+
+    function is_attr(str) {
+      return str === '_attr'
+    }
+
+    function tag_get(str) {
+      if (!str[0] === '_') return false
+      const tag = str.split('_')[1]
+      if (tag === 'attr') return false
+      return tag
+    }
+
+    function is_field(str) {
+      return str[0] !== '_'
+    }
+
+    const node_get = (node, for_title) => {
+      const res = Object.keys(node).reduce((acc, cur) => {
+        if (is_attr(cur)) {
+          acc = { ...acc, ...node[cur] }
+        } else {
+          if (!acc.children) acc.children = {}
+
+          if (is_field(cur)) {
+            // const invisible = node[cur].invisible
+            const invisible2 = this.check_invisible(node[cur], formInfo)
+            if (!invisible2) {
+              const { editable } = formInfo
+              const meta2 = {
+                ...(for_title && !editable ? { nolabel: 1 } : {}),
+                ...node[cur]
+              }
+              const meta = meta_get(cur, meta2)
+              acc.children[cur] = { ...meta }
+            }
+          } else {
+            const tag = tag_get(cur)
+            if (tag) {
+              // const invisible = (node[cur]._attr || {}).invisible
+              const invisible2 = this.check_invisible(
+                node[cur]._attr || {},
+                formInfo
+              )
+              if (!invisible2) {
+                if (tag === 'label') {
+                  const label = for_label_tag(node[cur])
+                  acc.children[cur] = { tag, name: cur, string: label }
+                } else {
+                  const for_title2 = cur === '_div_title'
+                  const next = node_get(node[cur], for_title || for_title2)
+                  acc.children[cur] = { tag, name: cur, ...next }
+                }
+              }
+            }
+          }
+        }
+
+        return acc
+      }, {})
+
+      return res
+    }
+
+    // const title_get = sheet => {
+    //   const title0 = sheet._title || {}
+    //   const title = node_get(title0, true)
+    //   // return { display_name: { name: 'display_name' } }
+    //   return title.children
+    // }
+
+    const children_get = sheet => {
+      const children0 = Object.keys(sheet).reduce((acc, item) => {
+        acc[item] = sheet[item]
+        return acc
+      }, {})
+
+      const children = node_get(children0)
+      return children.children
+    }
+
+    const sheet = this.arch_sheet
+    //
+    // const title = title_get(sheet)
+    const children = children_get(sheet)
+
+    // console.log('sheet', sheet)
+    // console.log('title', title)
+    console.log('children', children)
+
+    return { children }
+  }
+
   check_invisible_for_tree(fieldInfo, kw = {}) {
     if (typeof fieldInfo === 'string') return false
     if (!this._check_groups(fieldInfo)) return true

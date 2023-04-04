@@ -257,24 +257,35 @@ function merge_views(views) {
 
 //
 
-// function test(views) {
-//   const list = [
-//     // 'base.view_partner_form',
-//     // 'product.view_partner_form',
-//     'base.view_country_group_form',
-//     'product.inherits_website_sale_country_group_form'
-//   ]
+function test(views) {
+  // const list = [
+  //   // 'base.view_partner_form',
+  //   // 'product.view_partner_form',
+  //   'base.view_country_group_form',
+  //   'product.inherits_website_sale_country_group_form'
+  // ]
 
-//   const views2 = list.reduce((acc, key) => {
-//     acc[key] = views[key]
-//     return acc
-//   }, {})
+  // const views2 = list.reduce((acc, key) => {
+  //   acc[key] = views[key]
+  //   return acc
+  // }, {})
 
-//   console.log(views2)
-//   const views3 = merge_views(views2)
+  // console.log(views2)
+  console.log('1,', time(), views)
 
-//   console.log('ok', views3)
-// }
+  const views3 = merge_views(views)
+
+  console.log('ok', time(), views3)
+}
+
+function time() {
+  const dt = new Date()
+  const min = dt.getMinutes()
+  const sec = dt.getSeconds()
+  const ms = dt.getMilliseconds()
+
+  return [min, sec, ms]
+}
 
 export class Addons {
   constructor() {}
@@ -299,9 +310,11 @@ export class Addons {
     const menus = filter_fn(res, 'ir.ui.menu')
     const actions = filter_fn(res, 'ir.actions')
     const views_to_merge = filter_fn(res, 'ir.ui.view')
+    // const views = merge_views(views_to_merge)
+
+    const views = views_to_merge
     // test(views_to_merge)
-    const views = merge_views(views_to_merge)
-    // console.log(views_to_merge)
+
     const view_get_first = (res_model, mode) => {
       const res = Object.values(views)
         .filter(item => item.model === res_model && item.type === mode)

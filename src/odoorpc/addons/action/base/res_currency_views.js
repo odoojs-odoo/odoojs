@@ -21,67 +21,99 @@ export default {
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_name: {
-          name: {},
-          full_name: {},
-          active: {}
+        is_current_company_currency: { invisible: '1' },
+        _div: {
+          _attr: {
+            groups: 'base.group_no_one',
+            // oe_edit_only
+            invisible({ editable }) {
+              return !editable
+            },
+            text: 'You cannot reduce the number of decimal places of a currency already used on an accounting entry.'
+          }
         },
 
-        _group_currency_unit: {
-          currency_unit_label: {},
-          currency_subunit_label: {}
+        _div_2: {
+          _attr: {
+            invisible({ record }) {
+              // 'invisible': [('is_current_company_currency','=',False)]
+              const { is_current_company_currency } = record
+              return !is_current_company_currency
+            },
+            text: "This is your company's currency."
+          }
         },
 
-        _group_price_accuracy: {
-          rounding: {},
-          decimal_places: {}
+        _group_1: {
+          _group_11: {
+            name: {},
+            full_name: { string: 'Name' },
+            active: { widget: 'boolean_toggle' }
+          },
+          _group_12: {
+            currency_unit_label: {},
+            currency_subunit_label: {}
+          }
         },
 
-        _group_display: {
-          symbol: {},
-          position: {}
+        _group_2: {
+          _attr: {
+            groups: 'base.group_no_one'
+          },
+          _group_21: {
+            rounding: {},
+            decimal_places: {}
+          },
+
+          _group_22: {
+            symbol: {},
+            position: {}
+          }
         },
 
-        _group_date: {
-          date: {},
-          rate: {}
-        },
+        _notebook: {
+          _attr: {
+            invisible({ record }) {
+              // 'invisible': [('is_current_company_currency','=',True)]}"
+              const { is_current_company_currency } = record
+              return is_current_company_currency
+            }
+          },
 
-        _group_rates: {
-          _span: 2,
+          _page_rates: {
+            _attr: { string: 'Rates' },
+            rate_ids: {
+              widget: 'x2many_tree',
+              views: {
+                tree: {
+                  fields: {
+                    name: {},
+                    company_id: { groups: 'base.group_multi_company' },
+                    company_rate: {},
+                    inverse_company_rate: {},
+                    rate: { optional: 'hide' },
+                    write_date: { optional: 'hide' }
+                  }
+                },
 
-          rate_ids: {
-            widget: 'x2many_tree',
-            views: {
-              tree: {
-                fields: {
-                  name: {},
-                  company_id: {},
-                  company_rate: {},
-                  inverse_company_rate: {},
-                  rate: {},
-                  write_date: {}
-                }
-              },
-              form: {
-                fields: {
-                  name: {},
-                  company_id: {},
-                  company_rate: {},
-                  inverse_company_rate: {},
-                  rate: {},
-                  write_date: {}
+                form: {
+                  arch: {
+                    sheet: {
+                      name: {},
+                      company_id: { groups: 'base.group_multi_company' },
+                      company_rate: {},
+                      inverse_company_rate: {},
+                      rate: {},
+                      write_date: {}
+                    }
+                  }
                 }
               }
             }
           }
         }
       }
-    },
-
-    fields: {}
+    }
   },
 
   view_currency_search: {

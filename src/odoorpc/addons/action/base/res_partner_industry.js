@@ -15,18 +15,13 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_name: {
-          _span: 2,
+        _group: {
           name: {},
           full_name: {},
           active: { widget: 'boolean_toggle' }
         }
       }
-    },
-
-    fields: {}
+    }
   },
 
   res_partner_industry_view_search: {

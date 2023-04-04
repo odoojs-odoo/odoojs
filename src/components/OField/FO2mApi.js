@@ -42,7 +42,6 @@ export function useFO2m(props, ctx) {
 
     relationInfo.value = relation.field_info
     state.relationFieldReady = true
-
     ctx.emit('load-relation', props.fieldName, relation.field_info)
   }
 

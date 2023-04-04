@@ -26,6 +26,14 @@ const load_from_files_list = files_list => {
   }, {})
 }
 
+function time() {
+  const dt = new Date()
+  const min = dt.getMinutes()
+  const sec = dt.getSeconds()
+  const ms = dt.getMilliseconds()
+
+  return [min, sec, ms]
+}
 export class BaseView {
   static metadata_fields(model) {
     const web_fields = load_from_files_list(this.web_fields_list)
@@ -136,6 +144,37 @@ export class BaseView {
   //   return x2m._load_views()
   // }
 
+  get_fields_from_sheet(sheet) {
+    function is_tag(str) {
+      if (!str[0] === '_') return false
+
+      const tag = str.split('_')[1]
+      if (tag === 'attr') return false
+      if (tag === 'label') return false
+
+      return tag
+    }
+
+    function is_field(str) {
+      return str[0] !== '_'
+    }
+
+    function find_field(node) {
+      return Object.keys(node).reduce((acc, cur) => {
+        if (is_field(cur)) {
+          acc[cur] = node[cur]
+        } else if (is_tag(cur)) {
+          const children = find_field(node[cur])
+          acc = { ...acc, ...children }
+        }
+
+        return acc
+      }, {})
+    }
+
+    return find_field(sheet)
+  }
+
   async _load_fields() {
     const model = this.res_model
     const Model = this.env.model(model)
@@ -146,24 +185,15 @@ export class BaseView {
       const { arch = {} } = view
       const { sheet = {} } = arch
 
-      return Object.keys(sheet).reduce((acc, cur) => {
-        const acc2_res = Object.keys(sheet[cur]).reduce((acc2, cur2) => {
-          if (cur2[0] !== '_') {
-            acc2[cur2] = sheet[cur][cur2]
-          }
-
-          return acc2
-        }, {})
-
-        acc = { ...acc, ...acc2_res }
-
-        return acc
-      }, {})
+      return this.get_fields_from_sheet(sheet)
     }
 
     const fields_raw_get = () => {
+      // console.log('fs1,', time())
+      // const fs = { display_name: {} }
       const fs = fields_raw_get_from_sheet()
-      // console.log(fs)
+      // console.log('fs1 ok,', time(), fs)
+
       const fs2 = action.views[this._type].fields || {}
 
       return { ...fs2, ...fs }

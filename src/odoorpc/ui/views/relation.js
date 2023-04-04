@@ -134,6 +134,37 @@ export class Relation extends Field {
     return fields2
   }
 
+  get_fields_from_sheet(sheet) {
+    function is_tag(str) {
+      if (!str[0] === '_') return false
+
+      const tag = str.split('_')[1]
+      if (tag === 'attr') return false
+      if (tag === 'label') return false
+
+      return tag
+    }
+
+    function is_field(str) {
+      return str[0] !== '_'
+    }
+
+    function find_field(node) {
+      return Object.keys(node).reduce((acc, cur) => {
+        if (is_field(cur)) {
+          acc[cur] = node[cur]
+        } else if (is_tag(cur)) {
+          const children = find_field(node[cur])
+          acc = { ...acc, ...children }
+        }
+
+        return acc
+      }, {})
+    }
+
+    return find_field(sheet)
+  }
+
   async _load_views() {
     const meta = this.field_info
 
@@ -155,25 +186,14 @@ export class Relation extends Field {
 
     const raw_form_get_from_sheet = () => {
       const sheet = (formview.arch || {}).sheet || {}
-      return Object.keys(sheet).reduce((acc, cur) => {
-        const acc2_res = Object.keys(sheet[cur]).reduce((acc2, cur2) => {
-          if (cur2[0] !== '_') {
-            acc2[cur2] = sheet[cur][cur2]
-          }
-
-          return acc2
-        }, {})
-
-        acc = { ...acc, ...acc2_res }
-
-        return acc
-      }, {})
+      return this.get_fields_from_sheet(sheet)
     }
 
     const raw_form_get = () => {
       const fs = raw_form_get_from_sheet()
 
       const fs2 = formview.fields || {}
+
       return { display_name: {}, ...fs2, ...fs }
     }
 

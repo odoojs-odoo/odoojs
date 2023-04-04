@@ -25,8 +25,9 @@ export class X2mBase {
     }
     const { record, values } = parentInfo
     const parent_record = prt.merge_to_modifiers(record, values)
+    const active_id = parent_record.id
     const env = this.env
-    const ctx = context_fn({ env, context, record: { ...parent_record } })
+    const ctx = context_fn({ env, context, record: parent_record, active_id })
     return { ...context, ...ctx }
   }
 

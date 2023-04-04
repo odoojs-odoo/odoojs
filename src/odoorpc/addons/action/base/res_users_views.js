@@ -5,44 +5,102 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: { display_name: {} },
+        _div_button_box: {},
+        _widget: {},
+        active_partner: { invisible: '1' },
+        _div_alert: {},
 
-        _group_name: {
-          partner_id: { readonly2: '1' },
-          name: { required: '1' },
-          login: {}
+        avatar_128: { invisible: '1' },
+        image_1920: { widget: 'image', preview_image: 'avatar_128' },
+        _div_title: {
+          _h1: {
+            name: { nolabel: 0, required: '1' }
+          },
+          email: { invisible: '1' },
+          _h2: {
+            login: { nolabel: 0, placeholder: 'e.g. email@yourcompany.com' }
+          },
+          _div: {
+            partner_id: { nolabel: 0, readonly: '1' },
+            share: { invisible: '1' }
+          }
         },
 
-        _group_logo: {
-          image_1920: { widget: 'image' }
-        },
+        _notebook: {
+          _page_access_rights: {
+            _attr: { name: 'access_rights', string: 'Access Rights' },
+            _group_access_rights: {
+              _attr: {
+                string: 'Multi Companies',
+                invisible({ record }) {
+                  //attrs="{'invisible': [('companies_count', '&lt;=', 1)]
+                  const { companies_count } = record
+                  return companies_count <= 1
+                }
+              },
+              company_ids: {
+                widget: 'many2many_tags',
+                string: 'Allowed Companies'
+              },
+              company_id: { string: 'Default Company' },
+              companies_count: { invisible: '1' }
+            },
+            groups_id: {
+              widget: 'x2many_tree',
+              views: {
+                tree: {
+                  fields: {
+                    name: {}
+                  }
+                },
+                form: {
+                  arch: {
+                    sheet: {
+                      name: {}
+                    }
+                  }
+                }
+              }
+            }
+          },
 
-        _group_access_rights: {
-          company_ids: { widget: 'many2many_tags' },
-          company_id: {}
-        },
-
-        _group_access_rights2: {
-          _span: 2
-          // groups_id: {}
-        },
-
-        _group_preferences: {
-          lang: {},
-          tz: {}
-        },
-        _group_action: {
-          action_id: {}
-        },
-        _group_messaging: {
-          signature: {}
+          _page_preferences: {
+            _attr: { name: 'preferences', string: 'Preferences' },
+            _group: {
+              _group_preferences: {
+                _attr: { name: 'preferences', string: 'Localization' },
+                active: { invisible: '1' },
+                lang: { required: '1' },
+                _button: {
+                  _attr: {
+                    type: 'action',
+                    name: 'base.action_view_base_language_install',
+                    title: 'Add a language'
+                  }
+                },
+                tz: { widget: 'timezone_mismatch' },
+                tz_offset: { invisible: '1' }
+              },
+              _group_2: {
+                _attr: {
+                  string: 'Menus Customization',
+                  groups: 'base.group_no_one',
+                  invisible({ record }) {
+                    // 'invisible': [('share', '=', True)]
+                    const { share } = record
+                    return share
+                  }
+                },
+                action_id: {}
+              }
+            },
+            _group_messaging: {
+              signature: {},
+              login_date: {}
+            }
+          }
         }
       }
-    },
-
-    fields: {
-      // active_partner: { readonly: 1, invisible: '1' },
-      // login_date: {}
     }
   },
 

@@ -8,41 +8,61 @@ export default {
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
+        logo: { widget: 'image' },
 
-        _group_name: {
-          partner_id: { readonly2: '1' },
-          name: {}
+        _div_title: {
+          _attr: { for: 'name' },
+          _h1: { name: { placeholder: 'e.g. My Company' } }
         },
 
-        _group_logo: {
-          logo: { widget: 'image' }
-        },
+        _notebook: {
+          _page_general_info: {
+            _attr: { string: 'General Information' },
+            _group: {
+              _group: {
+                partner_id: {
+                  string: 'Contact',
+                  readonly: '1',
+                  required: 0,
+                  groups: 'base.group_no_one'
+                },
+                _label: {
+                  _attr: { for: 'street', string: 'Address' }
+                },
+                _div: {
+                  street: { nolabel: 1, placeholder: 'Street...' },
+                  street2: { nolabel: 1, placeholder: 'Street 2...' },
+                  city: { nolabel: 1, placeholder: 'City' },
+                  state_id: { nolabel: 1, placeholder: 'State' },
+                  zip: { nolabel: 1, placeholder: 'ZIP' },
+                  country_id: { nolabel: 1, placeholder: 'Country' }
+                },
+                vat: {},
+                company_registry: {},
+                currency_id: {}
+              },
 
-        _group_address: {
-          street: {},
-          street2: {},
-          city: {},
-          state_id: {},
-          zip: {},
-          country_id: {},
-          company_registry: {},
-          currency_id: {}
-        },
-
-        _group_phone: {
-          phone: {},
-          mobile: {},
-          email: {},
-          website: {},
-          parent_id: {}
+              _group_2: {
+                phone: {},
+                mobile: {},
+                email: {},
+                website: {
+                  string: 'Website',
+                  widget: 'url',
+                  placeholder: 'e.g. https://www.odoo.com'
+                },
+                parent_id: { groups: 'base.group_multi_company' },
+                sequence: { invisible: 1 },
+                favicon: { widget: 'image', groups: 'base.group_no_one' }
+              },
+              _group_social_media: {}
+            }
+          }
         }
       }
     },
 
-    fields: {
-      sequence: { invisible: 1 }
-    }
+    fields: {}
   },
   view_company_tree: {
     _odoo_model: 'ir.ui.view',

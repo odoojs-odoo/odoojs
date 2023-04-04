@@ -18,74 +18,64 @@ export default {
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
+        // _div_button_box: {},
+        // image_url: { widget: 'image_url' },
 
-        _group_image: {
-          _span: 2,
-          image_url: { widget: 'image_url' }
-        },
-
-        _group_country_details: {
-          name: {},
-          currency_id: {},
-          code: {}
-        },
-        _group_phone_vat_settings: {
-          phone_code: {},
-          vat_label: {},
-          zip_required: {},
-          state_required: {}
-        },
-        _group_address_view_id: {
-          _span: 2,
-          address_view_id: {}
-        },
-
-        _group_address_view_id2: {
-          _span: 2,
-          _html: 1,
-          _children: {
-            a: 'Choose a subview of partners that includes only address fields, to change the way users can input addresses.'
+        _group_main_group: {
+          _group_country_details: {
+            name: {},
+            currency_id: {},
+            code: {}
+          },
+          _group_phone_vat_settings: {
+            phone_code: {},
+            vat_label: {},
+            zip_required: {},
+            state_required: {}
           }
         },
 
-        _group_address_format: {
-          _span: 2,
-          address_format: {}
-        },
-        _group_address_format2: {
-          _span: 2,
-          _html: 1,
-          _children: {
-            a: 'Change the way addresses are displayed in reports'
-          }
-        },
+        _group_advanced_address_formatting: {
+          _attr: {
+            string: 'Advanced Address Formatting',
+            groups: 'base.group_no_one'
+          },
 
-        _group_name_position: {
+          // 这种没必要的 label. 这里不支持
+          // 这里嵌套. 二级控制, 必须用 group
+          // 其他 div 等 标签都是直接选渲染用的. 无法再做布局用
+          // _label: { _attr: { for: 'address_view_id' } },
+          _group_1: {
+            address_view_id: {},
+            _div: {
+              _attr: {
+                text: 'Choose a subview of partners that includes only address fields, to change the way users can input addresses.'
+              }
+            }
+          },
+          // _label_2: { _attr: { for: 'address_format' } },
+          _group_2: {
+            address_format: { placeholder: 'Address format...' },
+            _div: {
+              _attr: {
+                text: 'Change the way addresses are displayed in reports'
+              }
+            }
+          },
           name_position: {}
         },
 
-        _group_state_ids: {
-          _span: 2,
-          state_ids: {
-            span: 2,
-            label: '省/州',
-            string: '',
-            widget: 'x2many_tree',
-            views: {
-              tree: { fields: { name: {}, code: {}, display_name: {} } },
-              kanban: {
-                fields: { name: {}, code: {} },
-                templates: {
-                  title({ record }) {
-                    return record.name
-                  },
-                  default({ record }) {
-                    return record.code
-                  }
-                }
-              },
-              form: { fields: { display_name: {}, name: {}, code: {} } }
+        _label: { _attr: { for: 'state_ids' } },
+
+        state_ids: {
+          widget: 'x2many_tree',
+          nolabel: 1,
+          views: {
+            tree: { fields: { name: {}, code: {} } },
+            form: {
+              arch: {
+                sheet: { name: {}, code: {} }
+              }
             }
           }
         }
@@ -137,34 +127,15 @@ export default {
         fields: {}
       },
       sheet: {
-        _title: { display_name: {} },
+        _div_title: {
+          _label: { _attr: { for: 'name', string: 'Group Name' } },
+          _h1: { name: { placeholder: 'e.g. Europe' } }
+        },
 
-        _group_name: {
-          _span: 2,
-          name: {},
-          country_ids: {
-            widget: 'many2many_tags'
-          }
+        _group_country_group: {
+          country_ids: { widget: 'many2many_tags' }
         }
       }
-    },
-
-    fields: {
-      // pricelist_ids: {
-      //   widget: 'x2many_tree',
-      //   views: {
-      //     tree: { fields: { name: {} } },
-      //     kanban: {
-      //       fields: { name: {} },
-      //       templates: {
-      //         title({ record }) {
-      //           return record.name
-      //         }
-      //       }
-      //     },
-      //     form: { fields: { name: {} } }
-      //   }
-      // }
     }
   },
 

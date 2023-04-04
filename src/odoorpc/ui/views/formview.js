@@ -147,139 +147,12 @@ export class FormView extends FormModel {
     return header
   }
 
-  view_sheet() {
-    const sheet_get = () => {
-      const { view } = this.view_info
-      const { arch = {} } = view
-
-      if (arch.sheet) {
-        return arch.sheet
-      }
-
-      const fields = this.action_info.views[this._type].fields
-      const fs = Object.keys(fields)
-        .filter(item => !fields[item].invisible && !fields[item].is_title)
-        .reduce((acc, fld) => {
-          const tname = `_group_${fld}`
-          const meta = {
-            [fld]: fields[fld]
-          }
-          if (fields[fld].span) {
-            meta._span = fields[fld].span
-          }
-
-          acc[tname] = meta
-
-          return acc
-        }, {})
-
-      const title_nodes = Object.keys(fields).filter(
-        item => !fields[item].invisible && fields[item].is_title
-      )
-
-      if (title_nodes.length) {
-        fs._title = {
-          [title_nodes[0]]: fields[title_nodes[0]]
-        }
-      }
-
-      return fs
-    }
-
-    const sheet = sheet_get()
-
-    const meta_get = (fld, meta = {}) => {
-      return { ...this.fields[fld], ...meta, name: fld }
-    }
-
-    function item_get(node) {
-      return Object.keys(node).reduce((acc, item) => {
-        if (item[0] === '_') {
-          const attr = item.substring(1)
-          acc[attr] = node[item]
-        } else {
-          if (!acc.children) {
-            acc.children = {}
-          }
-          acc.children[item] = meta_get(item, node[item])
-        }
-
-        return acc
-      }, {})
-    }
-
-    const group_get = group => {
-      const group_items = Object.keys(group).reduce(
-        (acc, item) => {
-          const node = item_get(group[item])
-
-          if (node.span) {
-            if (acc.y) {
-              const tname = `group_${acc.x}_1`
-              acc.data[tname] = {
-                name: tname,
-                x: acc.x,
-                y: acc.y,
-                children: {}
-              }
-              acc.y = 0
-              acc.x = acc.x + 1
-            }
-          }
-
-          acc.data[item] = { name: item, x: acc.x, y: acc.y, ...node }
-
-          if (node.span) {
-            acc.y = 1
-          }
-
-          acc.y = 1 - acc.y
-          if (!acc.y) {
-            acc.x = acc.x + 1
-          }
-
-          return acc
-        },
-        { data: {}, x: 0, y: 0 }
-      )
-
-      const total_len = Object.keys(group_items.data).length
-
-      if (total_len) {
-        const last_fld = Object.keys(group_items.data)[total_len - 1]
-        const last = group_items.data[last_fld]
-        if (!last.y && !last.span) {
-          const tname = `group_${last.x}_1`
-          group_items.data[tname] = {
-            name: tname,
-            x: last.x,
-            y: 1,
-            children: {}
-          }
-        }
-      }
-
-      // console.log('group_items', group_items.data)
-
-      return group_items.data
-    }
-
-    const children0 = Object.keys(sheet)
-      .filter(item => item !== '_title')
-      .reduce((acc, item) => {
-        acc[item] = sheet[item]
-        return acc
-      }, {})
-
-    const children = group_get(children0)
-
-    const title0 = sheet._title || {}
-    const title = Object.keys(title0).reduce((acc, fld) => {
-      acc[fld] = meta_get(fld)
-      return acc
-    }, {})
-
-    return { title, children }
+  get arch_sheet() {
+    const action = this.action_info
+    const view = action.views.form
+    const { arch = {} } = view
+    const { sheet = {} } = arch
+    return sheet
   }
 
   arch_buttons(record, values) {
@@ -359,12 +232,20 @@ export class FormView extends FormModel {
   }
 
   //
-  // check modifiers
   //
-
+  //
   viewhelp_get() {
     return new ViewHelp(this)
   }
+
+  view_sheet(formInfo) {
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.view_sheet(formInfo)
+  }
+
+  //
+  // check modifiers
+  //
 
   check_invisible(fieldInfo, kw) {
     const viewhelp = this.viewhelp_get()
@@ -492,4 +373,139 @@ export class FormView extends FormModel {
     //   }
     // }
   }
+
+  // view_sheet2() {
+  //   const sheet_get = () => {
+  //     const { view } = this.view_info
+  //     const { arch = {} } = view
+
+  //     if (arch.sheet) {
+  //       return arch.sheet
+  //     }
+
+  //     const fields = this.action_info.views[this._type].fields
+  //     const fs = Object.keys(fields)
+  //       .filter(item => !fields[item].invisible && !fields[item].is_title)
+  //       .reduce((acc, fld) => {
+  //         const tname = `_group_${fld}`
+  //         const meta = {
+  //           [fld]: fields[fld]
+  //         }
+  //         if (fields[fld].span) {
+  //           meta._span = fields[fld].span
+  //         }
+
+  //         acc[tname] = meta
+
+  //         return acc
+  //       }, {})
+
+  //     const title_nodes = Object.keys(fields).filter(
+  //       item => !fields[item].invisible && fields[item].is_title
+  //     )
+
+  //     if (title_nodes.length) {
+  //       fs._title = {
+  //         [title_nodes[0]]: fields[title_nodes[0]]
+  //       }
+  //     }
+
+  //     return fs
+  //   }
+
+  //   const sheet = sheet_get()
+
+  //   const meta_get = (fld, meta = {}) => {
+  //     return { ...this.fields[fld], ...meta, name: fld }
+  //   }
+
+  //   function item_get(node) {
+  //     return Object.keys(node).reduce((acc, item) => {
+  //       if (item[0] === '_') {
+  //         const attr = item.substring(1)
+  //         acc[attr] = node[item]
+  //       } else {
+  //         if (!acc.children) {
+  //           acc.children = {}
+  //         }
+  //         acc.children[item] = meta_get(item, node[item])
+  //       }
+
+  //       return acc
+  //     }, {})
+  //   }
+
+  //   const group_get = group => {
+  //     const group_items = Object.keys(group).reduce(
+  //       (acc, item) => {
+  //         const node = item_get(group[item])
+
+  //         if (node.span) {
+  //           if (acc.y) {
+  //             const tname = `group_${acc.x}_1`
+  //             acc.data[tname] = {
+  //               name: tname,
+  //               x: acc.x,
+  //               y: acc.y,
+  //               children: {}
+  //             }
+  //             acc.y = 0
+  //             acc.x = acc.x + 1
+  //           }
+  //         }
+
+  //         acc.data[item] = { name: item, x: acc.x, y: acc.y, ...node }
+
+  //         if (node.span) {
+  //           acc.y = 1
+  //         }
+
+  //         acc.y = 1 - acc.y
+  //         if (!acc.y) {
+  //           acc.x = acc.x + 1
+  //         }
+
+  //         return acc
+  //       },
+  //       { data: {}, x: 0, y: 0 }
+  //     )
+
+  //     const total_len = Object.keys(group_items.data).length
+
+  //     if (total_len) {
+  //       const last_fld = Object.keys(group_items.data)[total_len - 1]
+  //       const last = group_items.data[last_fld]
+  //       if (!last.y && !last.span) {
+  //         const tname = `group_${last.x}_1`
+  //         group_items.data[tname] = {
+  //           name: tname,
+  //           x: last.x,
+  //           y: 1,
+  //           children: {}
+  //         }
+  //       }
+  //     }
+
+  //     // console.log('group_items', group_items.data)
+
+  //     return group_items.data
+  //   }
+
+  //   const children0 = Object.keys(sheet)
+  //     .filter(item => item !== '_title')
+  //     .reduce((acc, item) => {
+  //       acc[item] = sheet[item]
+  //       return acc
+  //     }, {})
+
+  //   const children = group_get(children0)
+
+  //   const title0 = sheet._title || {}
+  //   const title = Object.keys(title0).reduce((acc, fld) => {
+  //     acc[fld] = meta_get(fld)
+  //     return acc
+  //   }, {})
+
+  //   return { title, children }
+  // }
 }

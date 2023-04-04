@@ -10,27 +10,39 @@ export default {
     arch: {
       header: { buttons: {}, fields: {} },
       sheet: {
-        _title: { display_name: {} },
+        _widget: {
+          _attr: {
+            name: 'web_ribbon',
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible({ record }) {
+              // invisible': [('active', '=', True)]
+              const { active } = record
+              return active
+            }
+          }
+        },
 
         _group_bank_details: {
-          _span: 2,
           name: {},
           bic: {}
         },
 
-        _group_address_details: {
-          street: { label: '地址', string: '', placeholder: 'Street...' },
-          street2: { string: '', placeholder: 'Street 2...' },
-          city: { string: '', placeholder: 'City' },
-          state: { string: '', placeholder: 'State' },
-          zip: { string: '', placeholder: 'ZIP' },
-          country: { string: '', placeholder: 'Country' }
-        },
-
-        _group_communication_details: {
-          phone: {},
-          email: { widget: 'email' },
-          active: { invisible: '1' }
+        _group: {
+          _group_address_details: {
+            _label: { _attr: { for: 'street', string: 'Bank Address' } },
+            street: { nolabel: 1, placeholder: 'Street...' },
+            street2: { nolabel: 1, placeholder: 'Street 2...' },
+            city: { nolabel: 1, placeholder: 'City' },
+            state: { nolabel: 1, placeholder: 'State' },
+            zip: { nolabel: 1, placeholder: 'ZIP' },
+            country: { nolabel: 1, placeholder: 'Country' }
+          },
+          _group_communication_details: {
+            phone: {},
+            email: { widget: 'email' },
+            active: { invisible: '1' }
+          }
         }
       }
     }
@@ -87,22 +99,35 @@ export default {
     arch: {
       header: { buttons: {}, fields: {} },
       sheet: {
-        _title: { display_name: {} },
-
-        _group_name: {
-          sequence: { invisible: '1' },
-          acc_type: { invisible: '1' },
-          acc_number: {},
-          company_id: { groups: 'base.group_multi_company' },
-          partner_id: {},
-          acc_holder_name: {}
+        _widget: {
+          _attr: {
+            name: 'web_ribbon',
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible({ record }) {
+              // invisible': [('active', '=', True)]
+              const { active } = record
+              return active
+            }
+          }
         },
 
-        _group_bank: {
-          bank_id: {},
-          currency_id: { groups: 'base.group_multi_currency' },
-          allow_out_payment: { widget: 'boolean_toggle' },
-          active: { invisible: '1' }
+        _group: {
+          _group_name: {
+            sequence: { invisible: '1' },
+            acc_type: { invisible: '1' },
+            acc_number: {},
+            company_id: { groups: 'base.group_multi_company' },
+            partner_id: {},
+            acc_holder_name: {}
+          },
+
+          _group_bank: {
+            bank_id: {},
+            currency_id: { groups: 'base.group_multi_currency' },
+            allow_out_payment: { widget: 'boolean_toggle' },
+            active: { invisible: '1' }
+          }
         }
       }
     }

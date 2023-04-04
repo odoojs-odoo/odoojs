@@ -23,6 +23,7 @@ export function useL10n() {
   })
 
   function tr(str) {
+    if (!str) return str
     if (typeof str === 'string') return str
     else {
       const str2 = str || {}

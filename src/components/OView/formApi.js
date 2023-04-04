@@ -93,6 +93,7 @@ export function useForm(props, ctx) {
   }
 
   async function loadData(res_id) {
+    if (!localState.formview) return
     const record = await localState.formview.read(res_id)
     state.record = record
   }
@@ -109,8 +110,8 @@ export function useForm(props, ctx) {
         state.formviewReady = true
         // await sleep(1000)
         state.fields = await formview.load_fields()
-        state.viewInfo = formview.view_info
 
+        state.viewInfo = formview.view_info
         state.formviewFieldReady = true
       }
     },

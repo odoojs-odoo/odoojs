@@ -1,41 +1,11 @@
 <template>
   <span>
     <a-modal v-model:visible="visible2" :title="modalTitle" width="600px">
-      <a-form
-        autocomplete="off"
+      <FormSheet
+        :model="mVal"
+        :formInfo="formInfo"
         style="background-color: white; margin-top: 5px; padding: 5px"
-      >
-        <a-descriptions
-          :column="2"
-          style="background-color: white; padding: 5px; margin-top: 5px"
-          size="small"
-        >
-          <template v-for="group in sheet.children" :key="group.name">
-            <a-descriptions-item :span="group.span">
-              <a-descriptions :column="1">
-                <template v-for="meta in group.children" :key="meta.name">
-                  <a-descriptions-item>
-                    <template v-if="meta.type">
-                      <a-form-item
-                        :name="meta.name"
-                        :label="tr(meta.string)"
-                        style="margin-bottom: 5px"
-                      >
-                        <OField
-                          width="270px"
-                          :field-name="meta.name"
-                          :field-info="meta"
-                          :form-info="formInfo"
-                        />
-                      </a-form-item>
-                    </template>
-                  </a-descriptions-item>
-                </template>
-              </a-descriptions>
-            </a-descriptions-item>
-          </template>
-        </a-descriptions>
-      </a-form>
+      />
 
       <template #footer>
         <a-space v-if="readonly">
@@ -61,6 +31,8 @@
 <script setup>
 import { defineProps, defineEmits, computed } from 'vue'
 import { useM2mForm } from './m2mFormApi'
+import FormSheet from '@/components/OView/FormSheet.vue'
+
 import OField from '@/components/OField/OField.vue'
 
 import { useL10n } from '@/components/tools/useL10n'
@@ -78,6 +50,8 @@ const emit = defineEmits(['update:visible', 'row-remove'])
 const modalTitle = computed(() =>
   props.record.id ? props.record.display_name : '添加'
 )
+
+const mVal = {}
 
 const visible2 = computed({
   get() {

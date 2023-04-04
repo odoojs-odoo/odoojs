@@ -15,7 +15,11 @@
     </template>
 
     <template v-else>
-      <template v-if="readonly"> {{ dVal }} </template>
+      <template v-if="fieldInfo.type === 'text'">
+        <span v-html="full_text(dVal)"> </span>
+      </template>
+
+      <template v-else-if="readonly"> {{ dVal }} </template>
 
       <template v-else>
         <OInput
@@ -53,6 +57,11 @@ const widget_nodo = [
   'text'
 ]
 const { mVal, dVal, readonly, onChange } = useField(props, { emit })
+
+function full_text(txt) {
+  if (!txt) return txt
+  return txt.replace(/\n/g, '<br/>')
+}
 </script>
 
 <style type="text/css"></style>
