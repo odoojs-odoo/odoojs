@@ -14,7 +14,6 @@
           </template>
         </template>
         <template v-else>
-          no group {{ node2.name }}
           <TagNode
             :model="model2"
             :node="node2"

@@ -54,7 +54,8 @@ const tags_done = {
   h6: 1,
   div: 1,
   p: 1,
-  b: 1
+  b: 1,
+  hr: 1
 }
 
 const { tr } = useL10n()
