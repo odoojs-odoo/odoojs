@@ -297,8 +297,9 @@ export class X2mTree extends X2mTreeBase {
     const records2 = records.reduce((acc, tup) => {
       const op = tup[0]
       if (op === 6) acc = [tup]
-      else if (op === 5) acc = [tup]
-      else if ([4, 3, 2, 1, 0].includes(op)) {
+      else if (op === 5) {
+        acc = for_write ? [] : [tup]
+      } else if ([4, 3, 2, 1, 0].includes(op)) {
         acc = _do_loop(acc, tup)
       }
 

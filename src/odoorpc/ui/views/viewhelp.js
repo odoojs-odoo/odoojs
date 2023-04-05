@@ -507,21 +507,24 @@ export class ViewHelp {
         } else if (!val.length) {
           acc[fld] = val
         } else {
+          // console.log('o2m', fld, val)
           const rel = this.env.relation(meta)
           if (!rel) {
             acc[fld] = val
           } else {
             // 转 格式
+            // [5,0,0] => []
             // [4,id,{}]  =>  [4,id]
             // [1,id,{}]  =>  [1,id,{}] 递归处理
             // [0,id,{}]  =>  [0,id,{}] 递归处理
-
-            acc[fld] = rel.tree.format_to_write(val, {
+            const val2 = rel.tree.format_to_write(val, {
               record,
               values,
               viewInfo: this.view_info,
               fields: this.fields
             })
+
+            acc[fld] = val2
           }
         }
       } else if (meta.type === 'many2one') {
