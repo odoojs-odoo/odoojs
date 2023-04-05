@@ -6,39 +6,60 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: { display_name: {} },
+        _group: {
+          _group_uom_details: {
+            name: {},
+            category_id: {},
+            uom_type: { readonly: 1 },
 
-        _group_name: {
-          name: {},
-          category_id: {},
-          uom_type: { readonly2: 1 },
-          factor: {
-            readonly: ({ record }) => {
-              // 'readonly':[('uom_type','=','bigger')]
-              const { uom_type } = record
-              return uom_type === 'bigger'
+            _div_factor: {
+              _attr: {
+                invisible: ({ record }) => {
+                  // 'invisible':[('uom_type','!=','smaller')]
+                  const { uom_type } = record
+                  return uom_type !== 'smaller'
+                }
+              },
+              factor: {
+                readonly: ({ record }) => {
+                  // 'readonly':[('uom_type','=','bigger')]
+                  const { uom_type } = record
+                  return uom_type === 'bigger'
+                }
+              },
+
+              _span: {
+                _attr: {
+                  text: 'e.g: 1*(reference unit)=ratio*(this unit)'
+                }
+              }
             },
-            invisible: ({ record }) => {
-              // 'invisible':[('uom_type','!=','smaller')]
-              const { uom_type } = record
-              return uom_type !== 'smaller'
-            }
-          },
-          factor_inv: {
-            // 'readonly':[('uom_type','!=','bigger')]
-            readonly: ({ record }) => {
-              const { uom_type } = record
-              return uom_type !== 'bigger'
-            },
-            invisible: ({ record }) => {
-              // 'invisible':[('uom_type','!=','bigger')]
-              const { uom_type } = record
-              return uom_type !== 'bigger'
+
+            _div_factor_inv: {
+              _attr: {
+                invisible: ({ record }) => {
+                  // 'invisible':[('uom_type','!=','bigger')]
+                  const { uom_type } = record
+                  return uom_type !== 'bigger'
+                }
+              },
+              factor_inv: {
+                // 'readonly':[('uom_type','!=','bigger')]
+                readonly: ({ record }) => {
+                  const { uom_type } = record
+                  return uom_type !== 'bigger'
+                }
+              },
+              _span: {
+                _attr: {
+                  text: 'e.g: 1*(this unit)=ratio*(reference unit)'
+                }
+              }
             }
           }
         },
 
-        _group_active: {
+        _group_active_rounding: {
           active: { widget: 'boolean_toggle' },
           rounding: {}
         }

@@ -89,14 +89,35 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.partner',
     type: 'form',
+    inherit_id: 'base.view_partner_form',
     buttons: { create: false, edit: true, delete: false },
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_credit_limits: {
-          team_id: {}
+        _div_parent: {
+          parent_id: {
+            // context
+            //  {'default_is_company': True, 'show_vat': True, 'default_user_id': user_id, 'default_team_id': team_id}
+            context({ record }) {
+              const { user_id, team_id } = record
+              return {
+                default_is_company: true,
+                show_vat: true,
+                default_user_id: user_id,
+                default_team_id: team_id
+              }
+            }
+          }
+        },
+        _notebook: {
+          _page_sales_purchases: {
+            _group_sales_purchases: {
+              _group_sale: {
+                user_id: {},
+                team_id: { groups: 'base.group_no_one' }
+              }
+            }
+          }
         }
       }
     }

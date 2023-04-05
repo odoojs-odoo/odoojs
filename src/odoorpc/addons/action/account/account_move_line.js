@@ -65,14 +65,10 @@ export default {
     buttons: { create: false, edit: false, delete: false },
     arch: {
       sheet: {
-        _title: {
-          display_name: {},
-          company_id: { invisible: 1 },
-          parent_state: { invisible: 1 }
-        },
+        company_id: { invisible: 1 },
+        parent_state: { invisible: 1 },
 
         _group_name: {
-          _span: 2,
           name: {},
           partner_id: {
             readonly: '1',
@@ -80,136 +76,180 @@ export default {
             domain: ['|', ['parent_id', '=', false], ['is_company', '=', true]]
           }
         },
-        _group_Amount: {
-          account_id: {
-            // domain="[('company_id', '=', company_id)]" readonly="1"
-          },
-          debit: { readonly: '1' },
-          credit: { readonly: '1' },
-          balance: { readonly: '1' },
-          quantity: { readonly: '1' }
-        },
-        _group_Accounting_Documents: {
-          move_id: { readonly: '1' },
-          statement_id: {
-            readonly: '1',
-            invisible: ({ record }) => {
-              // 'invisible': [('statement_line_id','=',False)]
-              const { statement_line_id } = record
-              return !statement_line_id
+
+        _notebook: {
+          _page_information: {
+            _attr: { string: 'Information', name: 'information' },
+            _group: {
+              _group_Amount: {
+                _attr: { string: 'Amount' },
+                account_id: {
+                  // domain="[('company_id', '=', company_id)]" readonly="1"
+                },
+                debit: { readonly: '1' },
+                credit: { readonly: '1' },
+                balance: { readonly: '1' },
+                quantity: { readonly: '1' }
+              },
+              _group_Accounting_Documents: {
+                _attr: { string: 'Accounting Documents' },
+                move_id: { readonly: '1' },
+                statement_id: {
+                  readonly: '1',
+                  invisible: ({ record }) => {
+                    // 'invisible': [('statement_line_id','=',False)]
+                    const { statement_line_id } = record
+                    return !statement_line_id
+                  }
+                }
+              },
+              _group_date: {
+                _attr: { string: 'Dates' },
+                date: { groups: 'account.group_account_readonly' },
+                date_maturity: {}
+              },
+              _group_tax: {
+                _attr: {
+                  string: 'Taxes',
+                  invisible: ({ record }) => {
+                    // 'invisible': [('tax_line_id','=',False), ('tax_ids','=',[])]}">
+                    const { tax_line_id, tax_ids = [] } = record
+                    return !tax_line_id && !tax_ids.length
+                  }
+                },
+
+                tax_line_id: {
+                  readonly: '1',
+                  invisible: ({ record }) => {
+                    // 'invisible': [('tax_line_id','=',False)]
+                    const { tax_line_id } = record
+                    return !tax_line_id
+                  }
+                },
+                tax_ids: {
+                  widget: 'many2many_tags',
+                  readonly: '1',
+                  invisible: ({ record }) => {
+                    // 'invisible': [('tax_ids','=',[])]
+                    const { tax_ids = [] } = record
+                    return !tax_ids.length
+                  }
+                },
+                tax_tag_invert: { readonly: '1', groups: 'base.group_no_one' },
+                tax_audit: {}
+              },
+
+              _group_Matching: {
+                _attr: {
+                  string: 'Matching',
+                  invisible: ({ record }) => {
+                    // 'invisible':[('matched_debit_ids', '=', []),
+                    // ('matched_credit_ids', '=', [])]
+                    const { matched_debit_ids = [], matched_credit_ids = [] } =
+                      record
+                    return (
+                      !matched_debit_ids.length && !matched_credit_ids.length
+                    )
+                  }
+                },
+
+                full_reconcile_id: {
+                  invisible: ({ record }) => {
+                    // 'invisible':[('full_reconcile_id','=',False)]
+                    const { full_reconcile_id } = record
+                    return !full_reconcile_id
+                  }
+                },
+                matched_debit_ids: { invisible: 1 },
+                matched_credit_ids: { invisible: 1 },
+                _button: {
+                  _attr: {
+                    string: '-> View partially reconciled entries',
+                    name: 'open_reconcile_view',
+                    type: 'object',
+                    invisible: ({ record }) => {
+                      // 'invisible': ['|',
+                      // ('full_reconcile_id', '!=', False),
+                      // '&amp;', ('matched_debit_ids', '=', []),
+                      // ('matched_credit_ids', '=', [])]
+                      const {
+                        full_reconcile_id,
+                        matched_debit_ids,
+                        matched_credit_ids
+                      } = record
+                      return (
+                        full_reconcile_id ||
+                        (!matched_debit_ids.length &&
+                          !matched_credit_ids.length)
+                      )
+                    }
+                  }
+                }
+              },
+
+              _group_currency_id: {
+                _attr: {
+                  string: 'Currency',
+                  groups: 'base.group_multi_currency'
+                },
+
+                currency_id: { invisible: 1 },
+                amount_currency: {}
+              },
+
+              _group_product_id: {
+                _attr: {
+                  string: 'Product',
+                  invisible: ({ record }) => {
+                    // 'invisible': [('product_id', '=', False)]
+                    const { product_id } = record
+                    return !product_id
+                  }
+                },
+
+                product_id: { readonly: '1' }
+              },
+
+              _group_States: {
+                _attr: { string: 'States' },
+                blocked: {}
+              },
+
+              _group_analytic: {
+                _attr: {
+                  string: 'Analytic',
+                  groups: 'analytic.group_analytic_accounting'
+                },
+                analytic_distribution: {
+                  widget: 'analytic_distribution',
+                  groups: 'analytic.group_analytic_accounting',
+                  readonly: '1'
+                }
+              }
             }
-          }
-        },
-        _group_date: {
-          date: {
-            groups: 'account.group_account_readonly'
           },
-          date_maturity: {}
-        },
-        _group_tax: {
-          _invisible: ({ record }) => {
-            // 'invisible': [('tax_line_id','=',False), ('tax_ids','=',[])]}">
-            const { tax_line_id, tax_ids } = record
-            return !tax_line_id && !tax_ids.length
-          },
-          tax_line_id: {
-            readonly: '1',
-            invisible: ({ record }) => {
-              // 'invisible': [('tax_line_id','=',False)]
-              const { tax_line_id } = record
-              return !tax_line_id
+          _page_analytic_line: {
+            _attr: {
+              string: 'Analytic Lines',
+              name: 'analytic_lines',
+              groups: 'analytic.group_analytic_accounting'
+            },
+
+            date: { invisible: 1 },
+            analytic_line_ids: {
+              // context="{'tree_view_ref':'analytic.view_account_analytic_line_tree',
+              // 'default_general_account_id':account_id,
+              // 'default_name': name,
+              // 'default_date':date, 'amount': (debit or 0.0)-(credit or 0.0)}
             }
-          },
-          tax_ids: {
-            widget: 'many2many_tags',
-            readonly: '1',
-            invisible: ({ record }) => {
-              // 'invisible': [('tax_ids','=',[])]
-              const { tax_ids } = record
-              return !tax_ids.length
-            }
-          },
-          tax_tag_invert: {
-            readonly: '1',
-            groups: 'base.group_no_one'
-          },
-          tax_audit: {}
-        },
-
-        _group_Matching: {
-          _invisible: ({ record }) => {
-            // 'invisible':[('matched_debit_ids', '=', []),
-            // ('matched_credit_ids', '=', [])]
-            const { matched_debit_ids, matched_credit_ids } = record
-            return !matched_debit_ids.length && !matched_credit_ids.length
-          },
-
-          full_reconcile_id: {
-            // 未核销, 显示 一个按钮 View partially reconciled entries
-            // call open_reconcile_view
-            // 在 m2o 页面 通过 widget 搞定
-            widget: 'many2one_button',
-            _action: {
-              string: '核销',
-              name: 'open_reconcile_view',
-              type: 'object'
-            }
-            //
-            // 'invisible':[('full_reconcile_id','=',False)]
-            //
-            // 'invisible': [
-            // '|', ('full_reconcile_id', '!=', False),
-            // '&amp;', ('matched_debit_ids', '=', []),
-            // ('matched_credit_ids', '=', [])]
-            //
-          },
-          matched_debit_ids: { invisible: 1 },
-          matched_credit_ids: { invisible: 1 }
-        },
-
-        _group_currency_id: {
-          _groups: 'base.group_multi_currency',
-          currency_id: { invisible: 1 },
-          amount_currency: {}
-        },
-
-        _group_product_id: {
-          _invisible: ({ record }) => {
-            // 'invisible': [('product_id', '=', False)]
-            const { product_id } = record
-            return !product_id
-          },
-          product_id: { readonly: '1' }
-        },
-
-        _group_States: {
-          blocked: {}
-        },
-
-        _group_analytic: {
-          analytic_distribution: {
-            widget: 'analytic_distribution',
-            groups: 'analytic.group_analytic_accounting',
-            readonly: '1'
-          }
-        },
-
-        _group_analytic_line: {
-          // todo
-          _groups: 'analytic.group_analytic_accounting',
-          _invisible: 1,
-          _span: 2,
-          date: { invisible: 1 },
-          analytic_line_ids: {
-            // context="{'tree_view_ref':'analytic.view_account_analytic_line_tree',
-            // 'default_general_account_id':account_id,
-            // 'default_name': name,
-            // 'default_date':date, 'amount': (debit or 0.0)-(credit or 0.0)}
           }
         }
       }
     }
   },
+
+  // 302
+  // view_account_move_line_filter
 
   action_account_moves_all: {
     _odoo_model: 'ir.actions',

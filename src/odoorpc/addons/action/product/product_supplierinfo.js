@@ -29,27 +29,43 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_vendor: {
-          // _span: 2,
-          partner_id: {
-            // context: { res_partner_search_mode: 'supplier' }
+        _group: {
+          _group_vendor: {
+            _attr: { name: 'vendor', string: 'Vendor' },
+            partner_id: { context: { res_partner_search_mode: 'supplier' } },
+            product_name: {},
+            product_code: {},
+            delay: {},
+            _span: { _attr: { text: 'days' } }
           },
-          product_name: {},
-          product_code: {},
-          delay: {}
-        },
-        _group_pricelist: {
-          product_tmpl_id: {},
-          product_id: {},
-          min_qty: {},
-          product_uom: {},
-          price: {},
-          currency_id: {},
-          date_start: {},
-          date_end: {},
-          company_id: {}
+          _group_pricelist: {
+            _attr: { string: 'Pricelist' },
+            product_tmpl_id: {
+              string: 'Product',
+              invisible({ context }) {
+                // invisible="context.get('visible_product_tmpl_id', True)"
+                return context.visible_product_tmpl_id
+              }
+            },
+            product_id: { groups: 'product.group_product_variant' },
+            _div: {
+              _attr: { class: 'o_row' },
+              min_qty: {},
+              product_uom: { groups: 'uom.group_uom' }
+            },
+            _div_price: {
+              _attr: { class: 'o_row' },
+              price: { string: 'Unit Price' },
+              currency_id: { groups: 'base.group_multi_currency' }
+            },
+            _div_date: {
+              _attr: { class: 'o_row' },
+              date_start: { string: 'Validity' },
+              _span: { _attr: { text: 'to' } },
+              date_end: { nolabel: 1 }
+            },
+            company_id: {}
+          }
         }
       }
     }

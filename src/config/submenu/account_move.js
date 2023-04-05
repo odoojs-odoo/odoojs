@@ -52,12 +52,21 @@ export default {
       icon: 'shopping',
       name: { en_US: 'Journal Items', zh_CN: '会计分录', zh_HK: '会计分录' }
     },
+
     {
-      action: 'account.account_analytic_line_action_entries',
-      id: 'odoo_account.account_analytic_line_action_entries',
+      action: 'analytic.account_analytic_plan_action',
+      id: 'odoo_analytic.account_analytic_plan_action',
+      icon: 'shopping',
+      name: { en_US: 'Analytic Plans', zh_CN: '分析计划', zh_HK: '分析计划' }
+    },
+
+    {
+      action: 'analytic.account_analytic_line_action_entries',
+      id: 'odoo_analytic.account_analytic_line_action_entries',
       icon: 'shopping',
       name: { en_US: 'Analytic Items', zh_CN: '分析明细', zh_HK: '分析明细' }
     },
+
     {
       id: 'odoo.account_move',
       icon: 'shopping',

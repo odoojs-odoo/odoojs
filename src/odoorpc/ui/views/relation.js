@@ -207,7 +207,8 @@ export class Relation extends Field {
     const fields_meta = await this.metadata_fields_get()
 
     const fields_info = await this.Model.fields_get(Object.keys(fields_raw))
-
+    const { readonly: readonly_for_write } = fields_info
+    fields_info.readonly_for_write = readonly_for_write
     const fields_tree = Object.keys(raw_tree).reduce((acc, cur) => {
       acc[cur] = {
         ...fields_info[cur],

@@ -126,6 +126,7 @@ export class ViewHelp {
                 ...(for_title && !editable ? { nolabel: 1 } : {}),
                 ...node[cur]
               }
+              // console.log(cur, node[cur], meta2)
               const meta = meta_get(cur, meta2)
               acc.children[cur] = { ...meta }
             }
@@ -175,13 +176,13 @@ export class ViewHelp {
     }
 
     const sheet = this.arch_sheet
-    //
+    // console.log(sheet)
     // const title = title_get(sheet)
     const children = children_get(sheet)
 
     // console.log('sheet', sheet)
     // console.log('title', title)
-    console.log('children', children)
+    // console.log('children', children)
 
     return { children }
   }
@@ -211,6 +212,7 @@ export class ViewHelp {
   }
 
   check_invisible(fieldInfo, kw) {
+    // return 0
     if (typeof fieldInfo === 'string') {
       return false
     }
@@ -223,9 +225,11 @@ export class ViewHelp {
   }
 
   check_readonly(fieldInfo, kw) {
-    if ('readonly2' in fieldInfo) {
-      return this._check_modifiers('readonly2', fieldInfo, kw)
-    }
+    // readonly2 废弃不用了
+    // 需要检查 merge_for_write
+    // if ('readonly2' in fieldInfo) {
+    //   return this._check_modifiers('readonly2', fieldInfo, kw)
+    // }
 
     if (!('states' in fieldInfo)) {
       return this._check_modifiers('readonly', fieldInfo, kw)
@@ -284,6 +288,9 @@ export class ViewHelp {
     // sale.order.order_date 的 groups 依赖于 state
     // 因此, 在 sale.order.order_date 中 使用 invisible 实现
     // 以确保 groups 仅仅是 字符串
+
+    // return true
+
     if (!fieldInfo.groups) return true
     return this.env.has_group(fieldInfo.groups)
   }
@@ -455,6 +462,8 @@ export class ViewHelp {
   }
 
   _format_to_write_get_readonly(meta, record) {
+    // todo . fields_get .readonly and viewxml readonly
+    //
     const meta_readonly_get = record2 => {
       if (typeof meta.readonly === 'function') {
         return meta.readonly({ record: record2 })

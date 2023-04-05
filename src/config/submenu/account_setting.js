@@ -74,24 +74,6 @@ export default {
       id: 'odoo_account.action_payment_term_form',
       icon: 'shopping',
       name: { en_US: 'Payment Terms', zh_CN: '支付条款', zh_HK: '支付条款' }
-    },
-
-    {
-      action: 'account.action_analytic_distribution_model',
-      id: 'odoo_account.action_analytic_distribution_model',
-      icon: 'shopping',
-      name: {
-        en_US: 'Analytic Distribution Models',
-        zh_CN: '分析分配模型',
-        zh_HK: '分析分配模型'
-      }
-    },
-
-    {
-      action: 'account.account_analytic_plan_action',
-      id: 'odoo_account.account_analytic_plan_action',
-      icon: 'shopping',
-      name: { en_US: 'Analytic Plans', zh_CN: '分析计划', zh_HK: '分析计划' }
     }
   ]
 }

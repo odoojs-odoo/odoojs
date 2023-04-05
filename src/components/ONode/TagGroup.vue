@@ -3,6 +3,12 @@
     <template v-for="node2 in node.children || {}" :key="node2.name">
       <a-col :span="node.col || 12">
         <template v-if="node2.tag && node2.tag === 'group'">
+          <template v-if="node2.string">
+            <h1>
+              <i>{{ node2.string }}</i>
+            </h1>
+          </template>
+
           <template v-for="item in node2.children || {}" :key="item.name">
             <TagNode
               :model="model2"

@@ -4,11 +4,11 @@ export default {
     model: 'product.pricelist',
     type: 'tree',
     fields: {
-      display_name: {},
+      sequence: { widget: 'handle' },
       name: {},
-      discount_policy: {},
-      currency_id: {},
-      company_id: {}
+      discount_policy: { groups: 'product.group_discount_per_so_line' },
+      currency_id: { groups: 'base.group_multi_currency' },
+      company_id: { groups: 'base.group_multi_company' }
     }
   },
 
@@ -18,39 +18,71 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_name: {
-          name: {},
-          currency_id: {},
-          company_id: {}
-        },
-
-        _group_config: {
-          discount_policy: { widget: 'radio' },
-          country_group_ids: {
-            widget: 'many2many_tags'
+        _widget: {
+          _attr: {
+            name: 'web_ribbon',
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible({ record }) {
+              //  attrs="{'invisible': [('active', '=', True)]
+              const { active } = record
+              return active
+            }
           }
         },
 
-        _group_pricelist_rules: {
-          _span: 2,
-          item_ids: {
-            widget: 'x2many_tree',
-            context: { default_base: 'list_price' },
-            views: {
-              kanban: {
-                fields: { display_name: {} },
-                templates: {
-                  // title
+        _div_title: {
+          name: { placeholder: 'e.g. USD Retailers' }
+        },
+
+        _group_pricelist_settings: {
+          currency_id: { groups: 'base.group_multi_currency' },
+          active: { invisible: 1 },
+          company_id: { groups: 'base.group_multi_company' }
+        },
+
+        _notebook: {
+          _page_pricelist_rules: {
+            _attr: { name: 'pricelist_rules', string: 'Price Rules' },
+            item_ids: {
+              nolabel: '1',
+              widget: 'x2many_tree',
+              context: { default_base: 'list_price' },
+              views: {
+                tree: {
+                  fields: {
+                    display_name: {}
+                  }
+                },
+                form: {
+                  arch: {
+                    sheet: {
+                      display_name: {}
+                    }
+                  }
                 }
+              }
+            }
+          },
+
+          _page_pricelist_config: {
+            _attr: { name: 'pricelist_config', string: 'Configuration' },
+            _group: {
+              _group_pricelist_availability: {
+                _attr: {
+                  name: 'pricelist_availability',
+                  string: 'Availability'
+                },
+                country_group_ids: { widget: 'many2many_tags' }
               },
 
-              tree: {
-                fields: { display_name: {} }
-              },
-              form: {
-                fields: { display_name: {} }
+              _group_pricelist_discounts: {
+                _attr: {
+                  name: 'pricelist_discounts',
+                  string: 'Discounts',
+                  groups: 'product.group_discount_per_so_line'
+                },
+                discount_policy: { widget: 'radio' }
               }
             }
           }
@@ -66,7 +98,7 @@ export default {
     arch: {
       fields: {
         name: {},
-        currency_id: {}
+        currency_id: { groups: 'base.group_multi_currency' }
       },
 
       filters: {

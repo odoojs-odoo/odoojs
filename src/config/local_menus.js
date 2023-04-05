@@ -5,9 +5,12 @@ import product_product from './submenu/product_product'
 
 import analytic_setting from './submenu/analytic_setting'
 import account_setting from './submenu/account_setting'
+
 import account_move from './submenu/account_move'
 
 import fapiao from './submenu/fapiao'
+import sale_setting from './submenu/sale_setting'
+
 import sale from './submenu/sale'
 
 export const local_menus_tree = [
@@ -16,7 +19,13 @@ export const local_menus_tree = [
     icon: 'shopping',
     theme: 'twoTone',
     name: { en_US: 'Setting', zh_CN: '系统配置', zh_HK: '系统配置' },
-    children: [base_setting, product_setting, analytic_setting, account_setting]
+    children: [
+      base_setting,
+      product_setting,
+      analytic_setting,
+      account_setting,
+      sale_setting
+    ]
   },
   {
     id: 'odoo.master',

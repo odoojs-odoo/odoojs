@@ -4,10 +4,13 @@ export default {
     model: 'account.analytic.distribution.model',
     type: 'tree',
     fields: {
-      partner_id: {},
-      partner_category_id: {},
-      company_id: {},
-      analytic_distribution: { widget: 'analytic_distribution' }
+      partner_id: { optional: 'show' },
+      partner_category_id: { optional: 'hide' },
+      company_id: { optional: 'show', groups: 'base.group_multi_company' },
+      analytic_distribution: {
+        optional: 'show',
+        widget: 'analytic_distribution'
+      }
     }
   },
 
@@ -17,18 +20,16 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_name: {
-          _span: 2,
-          partner_id: {},
-          partner_category_id: {},
-          company_id: {}
-        },
-
-        _group_analytic_distribution: {
-          _span: 2,
-          analytic_distribution: { widget: 'analytic_distribution' }
+        _group: {
+          _group_partner_id: {
+            _attr: { string: 'Simultaneous conditions to meet' },
+            partner_id: {},
+            partner_category_id: {},
+            company_id: { groups: 'base.group_multi_company' }
+          },
+          _group_analytic_distribution: {
+            analytic_distribution: { widget: 'analytic_distribution' }
+          }
         }
       }
     }

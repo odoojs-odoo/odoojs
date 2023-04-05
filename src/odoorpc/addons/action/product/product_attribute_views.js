@@ -4,7 +4,7 @@ export default {
     model: 'product.attribute',
     type: 'tree',
     fields: {
-      // sequence: {},
+      sequence: { widget: 'handle' },
       name: {},
       display_type: {},
       create_variant: {}
@@ -16,22 +16,32 @@ export default {
     model: 'product.attribute',
     type: 'form',
 
-    //
-
     arch: {
       sheet: {
-        _title: { display_name: {} },
-        _group_button_box: {
-          _span: 2,
-          // number_related_products: { invisible: 1 }
-          number_related_products: {
-            string: 'Related Products'
+        number_related_products: { invisible: 1 },
+
+        _div_button_box: {
+          _button: {
+            _attr: {
+              name: 'action_open_related_products',
+              type: 'object',
+              icon: 'fa-bars',
+              invisible({ record }) {
+                // 'invisible': [('number_related_products', '=', [])]}"
+                // odoo 笔误 number_related_products 是 integer 字段
+
+                console.log(record)
+                const { number_related_products } = record
+                return !number_related_products
+              }
+            },
+
+            number_related_products: { string: 'Related Products' }
           }
         },
 
-        _group_name: {
-          // sequence: {},
-          name: {},
+        _group_main_fields: {
+          name: { string: 'Attribute Name' },
           display_type: { widget: 'radio' },
           create_variant: {
             widget: 'radio',
@@ -43,29 +53,46 @@ export default {
           }
         },
 
-        _group_attribute_values: {
-          _span: 2,
-          value_ids: {
-            widget: 'x2many_tree', // one2many
-            views: {
-              tree: {
-                fields: {
-                  sequence: {},
-                  name: {},
-                  display_type: { invisible: 1 },
-                  is_custom: {}
-                  // html_color: {}
-                }
-              },
-              form: {
-                arch: {
-                  sheet: {
-                    _group_name: {
-                      // sequence: {},
-                      name: {},
-                      display_type: {},
-                      is_custom: {}
-                      // html_color: {}
+        _notebook: {
+          _page_attribute_values: {
+            _attr: { string: 'Attribute Values', name: 'attribute_values' },
+            value_ids: {
+              widget: 'x2many_tree', // one2many
+              nolabel: '1',
+              views: {
+                tree: {
+                  fields: {
+                    sequence: { widget: 'handle' },
+                    name: {},
+                    display_type: { invisible: 1 },
+                    is_custom: { groups: 'product.group_product_variant' },
+                    html_color: {
+                      widget: 'color',
+                      invisible({ record }) {
+                        // 'column_invisible': [('parent.display_type', '!=', 'color')]}"
+                        const { parent: prt } = record
+                        return prt.display_type !== 'color'
+                      }
+                    }
+                  }
+                },
+                form: {
+                  arch: {
+                    sheet: {
+                      _group_name: {
+                        sequence: { widget: 'handle' },
+                        name: {},
+                        display_type: { invisible: 1 },
+                        is_custom: { groups: 'product.group_product_variant' },
+                        html_color: {
+                          widget: 'color',
+                          invisible({ record }) {
+                            // 'column_invisible': [('parent.display_type', '!=', 'color')]}"
+                            const { parent: prt } = record
+                            return prt.display_type !== 'color'
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -74,9 +101,7 @@ export default {
           }
         }
       }
-    },
-
-    fields: {}
+    }
   },
 
   attribute_action: {

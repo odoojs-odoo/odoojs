@@ -6,8 +6,8 @@ export default {
     fields: {
       name: {},
       default_applicability: {},
-      //   color: {},
-      company_id: {}
+      color: { widget: 'color_picker' },
+      company_id: { groups: 'base.group_multi_company' }
     }
   },
 
@@ -17,30 +17,80 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_name: {
-          name: {},
-          //   color: {},
-          parent_id: {},
-          company_id: {}
+        _div_button_box: {
+          _button_action_view_children_plans: {
+            _attr: {
+              name: 'action_view_children_plans',
+              type: 'object',
+              icon: 'fa-bars'
+            },
+            children_count: { string: 'Subplans', widget: 'statinfo' }
+          },
+          _button_action_view_analytical_accounts: {
+            _attr: {
+              name: 'action_view_analytical_accounts',
+              type: 'object',
+              icon: 'fa-bars'
+            },
+            all_account_count: {
+              string: 'Analytic Accounts',
+              widget: 'statinfo'
+            }
+          }
         },
 
-        _group_balance: {
-          children_count: {},
-          all_account_count: {},
-          default_applicability: {}
+        _div_title: {
+          _h1: { name: {} }
         },
-        _group_childs: {
-          _span: 2,
-          applicability_ids: {
-            widget: 'x2many_tree',
-            views: {
-              tree: {
-                fields: { business_domain: {}, applicability: {} }
-              },
-              form: {
-                fields: { business_domain: {}, applicability: {} }
+
+        _group: {
+          _group_name: {
+            parent_id: {},
+            default_applicability: {
+              invisible({ record }) {
+                // 'invisible':
+                // [('parent_id', '!=', False)]
+                const { parent_id } = record
+                return !parent_id
+              }
+            },
+            color: { widget: 'color_picker' }
+          },
+
+          _group_company_id: {
+            company_id: { groups: 'base.group_multi_company' }
+          }
+        },
+
+        _notebook: {
+          _page_applicability: {
+            _attr: {
+              string: 'Applicability',
+              name: 'applicability',
+              invisible({ record }) {
+                // 'invisible':
+                // [('parent_id', '!=', False)]
+                const { parent_id } = record
+                return !parent_id
+              }
+            },
+            applicability_ids: {
+              widget: 'x2many_tree',
+              views: {
+                tree: {
+                  fields: {
+                    business_domain: {},
+                    applicability: {}
+                  }
+                },
+                form: {
+                  arch: {
+                    sheet: {
+                      business_domain: {},
+                      applicability: {}
+                    }
+                  }
+                }
               }
             }
           }

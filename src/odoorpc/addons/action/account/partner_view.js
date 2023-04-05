@@ -23,32 +23,67 @@ export default {
     inherit_id: 'base.view_partner_form',
     arch: {
       sheet: {
-        // _group_button_box: {
-        //   _span: 2,
-        //   total_invoiced: { string: 'Invoiced' }
-        // },
-        // _group_internal_notes: {},
-        // _group_internal_notes__invoice: {
-        //   // groups='account.group_account_invoice,account.group_account_readonly',
-        //   // groups="account.group_warning_account"
-        //   _groups:
-        //     'account.group_account_invoice,account.group_account_readonly,account.group_warning_account',
-        //   invoice_warn: { required: '1' },
-        //   invoice_warn_msg: {
-        //     required: ({ record }) => {
-        //       // 'required':
-        //       // [('invoice_warn','!=', False),
-        //       // ('invoice_warn','!=','no-message')],
-        //       const { invoice_warn } = record
-        //       return invoice_warn && invoice_warn !== 'no-message'
-        //     },
-        //     invisible: ({ record }) => {
-        //       // 'invisible':[('invoice_warn','in',(False,'no-message'))]
-        //       const { invoice_warn } = record
-        //       return !invoice_warn || invoice_warn === 'no-message'
-        //     }
-        //   }
-        // }
+        _div_first: {
+          _attr: {
+            invisible: 1,
+            help: '占位置用, 后续继承, 插入数据定位用'
+          }
+        },
+
+        _div_button_box: {
+          _button_action_view_partner_invoices: {
+            _attr: {
+              groups:
+                'account.group_account_invoice,account.group_account_readonly',
+              type: 'object',
+              class: 'oe_stat_button',
+              icon: 'fa-pencil-square-o',
+              name: 'action_view_partner_invoices',
+              context({ active_id }) {
+                //  context="{'default_partner_id': active_id}"
+                return {
+                  default_partner_id: active_id
+                }
+              }
+            },
+            currency_id: { invisible: '1' },
+            total_invoiced: { widget: 'monetary', string: 'Invoiced' }
+          }
+        },
+
+        _notebook: {
+          _page_internal_notes: {
+            _group_invoice: {
+              _attr: {
+                groups:
+                  'account.group_account_invoice,account.group_account_readonly,account.group_warning_account'
+              },
+              _group_invoice2: {
+                _attr: {
+                  groups: 'account.group_warning_account'
+                },
+                _separator: { _attr: { string: 'Warning on the Invoice' } },
+                invoice_warn: { required: '1' },
+                invoice_warn_msg: {
+                  nolabel: '1',
+                  placeholder: 'Type a message...',
+                  required: ({ record }) => {
+                    // 'required':
+                    // [('invoice_warn','!=', False),
+                    // ('invoice_warn','!=','no-message')],
+                    const { invoice_warn } = record
+                    return invoice_warn && invoice_warn !== 'no-message'
+                  },
+                  invisible: ({ record }) => {
+                    // 'invisible':[('invoice_warn','in',(False,'no-message'))]
+                    const { invoice_warn } = record
+                    return !invoice_warn || invoice_warn === 'no-message'
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -61,10 +96,144 @@ export default {
 
     arch: {
       sheet: {
-        // _group_button_box: {
-        //   _span: 2,
-        //   total_invoiced: { string: 'Invoiced' }
-        // },
+        _div_first: {},
+        _div_alert_duplicated_bank_account_partners_count: {
+          _attr: {
+            groups:
+              'account.group_account_invoice,account.group_account_readonly',
+            invisible({ record }) {
+              // {'invisible': [('duplicated_bank_account_partners_count', '=', 0)]}">
+              const { duplicated_bank_account_partners_count } = record
+              return !duplicated_bank_account_partners_count
+            }
+          },
+          _span_1: {
+            _attr: {
+              text: ' One or more Bank Accounts set on this partner are also used by other '
+            }
+          },
+          _bold: {
+            _button: {
+              _attr: {
+                type: 'object',
+                name: 'action_view_partner_with_same_bank',
+                role: 'button',
+                string: 'Partners'
+              }
+            }
+          },
+          _span_3: {
+            _attr: {
+              text: '. Please make sure that this is a wanted behavior.'
+            }
+          }
+          //
+        },
+
+        _notebook: {
+          _page_sales_purchases: {},
+          _page_accounting: {
+            _attr: {
+              string: 'Invoicing',
+              name: 'accounting',
+              groups:
+                'account.group_account_invoice,account.group_account_readonly',
+              invisible: ({ record }) => {
+                // 'invisible': [('is_company','=',False),
+                // ('parent_id','!=',False)]
+                const { is_company, parent_id } = record
+                return !is_company && !parent_id
+              }
+            },
+            duplicated_bank_account_partners_count: { invisible: '1' },
+            show_credit_limit: { invisible: '1' },
+            _group_accounting: {
+              _group_banks: {
+                _attr: {
+                  string: 'Bank Accounts',
+                  name: 'banks',
+                  groups:
+                    'account.group_account_invoice,account.group_account_readonly'
+                },
+
+                bank_ids: {
+                  nolabel: '1',
+                  widget: 'x2many_tree',
+                  context: { default_allow_out_payment: true },
+                  views: {
+                    tree: {
+                      fields: {
+                        sequence: { widget: 'handle' },
+                        bank_id: {},
+                        acc_number: {},
+                        allow_out_payment: { widget: 'boolean_toggle' },
+                        acc_holder_name: { invisible: '1' }
+                      }
+                    },
+                    form: {
+                      fields: {
+                        sequence: { widget: 'handle' },
+                        bank_id: {},
+                        acc_number: {},
+                        allow_out_payment: { widget: 'boolean_toggle' },
+                        acc_holder_name: { invisible: '1' }
+                      }
+                    }
+                  }
+                },
+
+                _button: {
+                  _attr: {
+                    type: 'action',
+                    string: 'View accounts detail',
+                    name: 'base.action_res_partner_bank_account_form',
+                    context({ active_id }) {
+                      return {
+                        search_default_partner_id: active_id,
+                        default_partner_id: active_id
+                      }
+                    }
+                  }
+                }
+              },
+              _group_accounting_entries: {
+                _attr: {
+                  string: 'Accounting Entries',
+                  name: 'accounting_entries',
+                  groups: 'account.group_account_readonly'
+                },
+                currency_id: { invisible: '1' },
+                property_account_receivable_id: {},
+                property_account_payable_id: {}
+              },
+              _group_credit_limits: {
+                _attr: {
+                  string: 'Credit Limits',
+                  name: 'credit_limits',
+                  groups:
+                    'account.group_account_invoice,account.group_account_readonly',
+
+                  invisible: ({ record }) => {
+                    // 'invisible': [('show_credit_limit', '=', False)]
+                    const { show_credit_limit } = record
+                    return !show_credit_limit
+                  }
+                },
+
+                credit: {},
+                use_partner_credit_limit: {},
+                credit_limit: {
+                  invisible: ({ record }) => {
+                    // 'invisible': [('use_partner_credit_limit', '=', False)]
+                    const { use_partner_credit_limit } = record
+                    return !use_partner_credit_limit
+                  }
+                }
+              }
+            }
+          }
+        }
+
         // _group_sales_purchases__sale: {
         //   property_payment_term_id: {
         //     groups:
@@ -84,93 +253,6 @@ export default {
         //   }
         // },
         // _group_sales_purchases__misc: {},
-        // _group_accounting__banks: {
-        //   _span: 2,
-        //   // for group_accounting
-        //   _groups:
-        //     'account.group_account_invoice,account.group_account_readonly',
-        //   _invisible: ({ record }) => {
-        //     // for group_accounting
-        //     // 'invisible': [('is_company','=',False),
-        //     // ('parent_id','!=',False)]
-        //     const { is_company, parent_id } = record
-        //     return !is_company && !parent_id
-        //   },
-        //   duplicated_bank_account_partners_count: { invisible: '1' },
-        //   show_credit_limit: { invisible: '1' },
-        //   bank_ids: {
-        //     _sapn: 2,
-        //     widget: 'x2many_tree',
-        //     context: { default_allow_out_payment: true },
-        //     views: {
-        //       tree: {
-        //         fields: {
-        //           sequence: { widget: 'handle' },
-        //           bank_id: {},
-        //           acc_number: {},
-        //           allow_out_payment: { widget: 'boolean_toggle' },
-        //           acc_holder_name: { invisible: '1' }
-        //         }
-        //       },
-        //       form: {
-        //         fields: {
-        //           sequence: { widget: 'handle' },
-        //           bank_id: {},
-        //           acc_number: {},
-        //           allow_out_payment: { widget: 'boolean_toggle' },
-        //           acc_holder_name: { invisible: '1' }
-        //         }
-        //       }
-        //     }
-        //     // <button type="action" class="btn-link"
-        //     //     name="%(base.action_res_partner_bank_account_form)d"
-        //     //     context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}"
-        //     //     string="View accounts detail"
-        //     //     colspan="2"
-        //     // />
-        //   }
-        // },
-        // _group_accounting__accounting_entries: {
-        //   // for group_accounting
-        //   _groups:
-        //     'account.group_account_invoice,account.group_account_readonly',
-        //   // for group_accounting_entries
-        //   // groups="account.group_account_readonly"
-        //   _invisible: ({ record }) => {
-        //     // for group_accounting
-        //     // 'invisible': [('is_company','=',False),
-        //     // ('parent_id','!=',False)]
-        //     const { is_company, parent_id } = record
-        //     return !is_company && !parent_id
-        //   },
-        //   currency_id: { invisible: '1' },
-        //   property_account_receivable_id: {},
-        //   property_account_payable_id: {}
-        // },
-        // _group_accounting__credit_limits: {
-        //   // for group_accounting
-        //   _groups:
-        //     'account.group_account_invoice,account.group_account_readonly',
-        //   // for group_accounting
-        //   // groups="account.group_account_invoice,account.group_account_readonly"
-        //   _invisible: ({ record }) => {
-        //     // for group_accounting
-        //     // 'invisible': [('is_company','=',False), ('parent_id','!=',False)]
-        //     // for group_credit_limits
-        //     // 'invisible': [('show_credit_limit', '=', False)]
-        //     const { is_company, parent_id, show_credit_limit } = record
-        //     return (!is_company && !parent_id) || !show_credit_limit
-        //   },
-        //   credit: {},
-        //   use_partner_credit_limit: {},
-        //   credit_limit: {
-        //     invisible: ({ record }) => {
-        //       // 'invisible': [('use_partner_credit_limit', '=', False)]
-        //       const { use_partner_credit_limit } = record
-        //       return !use_partner_credit_limit
-        //     }
-        //   }
-        // }
       }
     }
   },

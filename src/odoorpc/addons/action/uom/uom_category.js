@@ -5,59 +5,61 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
         _group_name: {
           name: {},
           reference_uom_id: { invisible: '1' }
         },
 
-        _group_uom_lines: {
-          _span: 2,
-          uom_ids: {
-            widget: 'x2many_tree',
-            context: ({ record }) => {
-              return {
-                default_uom_type: 'smaller',
-                default_category_id: record.id
-              }
-            },
-            views: {
-              tree: {
-                fields: {
-                  name: {},
-                  uom_type: {},
-                  factor: { invisible: '1' },
-                  factor_inv: { invisible: '1' },
-                  ratio: {
-                    // 'readonly': [('uom_type', '=', 'reference')]}"
-                    readonly({ record }) {
-                      const { uom_type } = record
-                      return uom_type === 'reference'
-                    }
-                  },
-                  active: {},
-                  rounding: {}
+        _notebook: {
+          _page_uom_lines: {
+            _attr: { string: 'Units of Measure', name: 'uom_lines' },
+            uom_ids: {
+              widget: 'x2many_tree',
+              context: ({ record }) => {
+                return {
+                  default_uom_type: 'smaller',
+                  default_category_id: record.id
                 }
               },
-
-              form: {
-                arch: {
-                  sheet: {
-                    _group_name: {
-                      name: {},
-                      uom_type: {},
-                      factor: { invisible: '1' },
-                      factor_inv: { invisible: '1' },
-                      ratio: {
+              views: {
+                tree: {
+                  fields: {
+                    name: {},
+                    uom_type: {},
+                    factor: { invisible: '1' },
+                    factor_inv: { invisible: '1' },
+                    ratio: {
+                      string: 'Ratio',
+                      readonly({ record }) {
                         // 'readonly': [('uom_type', '=', 'reference')]}"
-                        readonly({ record }) {
-                          const { uom_type } = record
-                          return uom_type === 'reference'
-                        }
-                      },
-                      active: {},
-                      rounding: {}
+                        const { uom_type } = record
+                        return uom_type === 'reference'
+                      }
+                    },
+                    active: {},
+                    rounding: {}
+                  }
+                },
+
+                form: {
+                  arch: {
+                    sheet: {
+                      _group_name: {
+                        name: {},
+                        uom_type: {},
+                        factor: { invisible: '1' },
+                        factor_inv: { invisible: '1' },
+                        ratio: {
+                          string: 'Ratio',
+                          readonly({ record }) {
+                            // 'readonly': [('uom_type', '=', 'reference')]}"
+                            const { uom_type } = record
+                            return uom_type === 'reference'
+                          }
+                        },
+                        active: {},
+                        rounding: {}
+                      }
                     }
                   }
                 }

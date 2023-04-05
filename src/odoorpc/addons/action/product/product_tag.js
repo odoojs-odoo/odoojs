@@ -4,10 +4,7 @@ export default {
     model: 'product.tag',
     type: 'tree',
 
-    fields: {
-      name: {}
-      //   color: { widget: 'color_picker' },
-    }
+    fields: { name: {}, color: { widget: 'color_picker' } }
   },
   product_tag_form_view: {
     _odoo_model: 'ir.ui.view',
@@ -15,12 +12,11 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_name: {
-          _span: 2,
-          name: {},
-          //   color: { widget: 'color_picker' },
+        _group: {
+          _group_name: {
+            name: {},
+            color: { widget: 'color_picker' }
+          },
           product_ids: { widget: 'many2many_tags' }
         }
       }

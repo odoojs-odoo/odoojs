@@ -4,9 +4,9 @@ export default {
     model: 'account.incoterms',
     type: 'tree',
     fields: {
+      active: { invisible: '1' },
       code: {},
-      name: {},
-      active: { invisible: '1' }
+      name: {}
     }
   },
 
@@ -16,12 +16,22 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
+        _widget: {
+          _attr: {
+            name: 'web_ribbon',
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible({ record }) {
+              // invisible': [('active', '=', True)]
+              const { active } = record
+              return active
+            }
+          }
+        },
         _group_name: {
+          active: { invisible: '1' },
           code: {},
-          name: {},
-          active: { invisible: '1', widget: 'web_ribbon' }
+          name: {}
         }
       }
     }

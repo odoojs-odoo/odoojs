@@ -1,12 +1,9 @@
-import sale_setting from './sale_setting'
-
 export default {
   id: 'odoo.sale',
   icon: 'shopping',
   theme: 'twoTone',
   name: { en_US: 'Sale', zh_CN: '销售', zh_HK: '销售' },
   children: [
-    sale_setting,
     {
       id: 'sale_master',
       icon: 'shopping',

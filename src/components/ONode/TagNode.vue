@@ -3,6 +3,11 @@
     <template v-if="node.tag === 'label'">
       <b>{{ node.string }}</b>
     </template>
+
+    <template v-if="node.tag === 'separator'">
+      <b>{{ node.string }}</b>
+    </template>
+
     <template v-else-if="nodeTag">
       <component :is="nodeTag">
         <template v-if="node.text"> {{ node.text }} </template>
@@ -46,17 +51,11 @@
 import { defineProps, defineEmits, computed } from 'vue'
 import OField from '@/components/OField/OField.vue'
 import { useL10n } from '@/components/tools/useL10n'
+const tags_h = { h1: 1, h2: 1, h3: 1, h6: 1, b: 1, strong: 1 }
+const tags_div = { div: 1, span: 1, hr: 1 }
+const tags_other = { p: 1, separator: 1 }
 
-const tags_done = {
-  h1: 1,
-  h2: 1,
-  h3: 1,
-  h6: 1,
-  div: 1,
-  p: 1,
-  b: 1,
-  hr: 1
-}
+const tags_done = { ...tags_h, ...tags_div, ...tags_other }
 
 const { tr } = useL10n()
 

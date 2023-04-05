@@ -22,22 +22,52 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: { display_name: {} },
+        company_id: { invisible: 1 },
 
-        _group_name: {
-          name: {},
-          code: {},
-          partner_id: {},
-          active: {}
+        _div_button_box: {
+          _button_account_analytic_line_action: {
+            _attr: {
+              type: 'action',
+              name: 'account_analytic_line_action',
+              icon: 'fa-usd'
+            },
+            balance: { string: 'Gross Margin', widget: 'monetary' }
+          }
         },
 
-        _group_balance: {
-          debit: {},
-          credit: {},
-          balance: {},
-          plan_id: {},
-          company_id: {},
-          currency_id: {}
+        _widget: {
+          _attr: {
+            name: 'web_ribbon',
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: ({ record }) => {
+              // 'invisible': [('active', '=', True)]
+              const { active } = record
+              return active
+            }
+          }
+        },
+
+        _div_title: {
+          _h1: { name: { placeholder: 'e.g. Project XYZ' } }
+        },
+
+        _div_project: {},
+        _group_main: {
+          _group_name: {
+            active: { invisible: '1' },
+            partner_id: {},
+            code: {}
+          },
+
+          _group_balance: {
+            // debit: {},
+            // credit: {},
+            //
+            plan_id: {},
+            company_id: { groups: 'base.group_multi_company' },
+            currency_id: { groups: 'base.group_multi_currency' }
+          }
         }
       }
     }

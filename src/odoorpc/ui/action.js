@@ -167,15 +167,17 @@ function merge_dict(dst, src) {
   const keys = getkeys()
 
   const res = keys.reduce((acc, key) => {
+    const in_left = key in dst
+    const in_right = key in src
     const left = dst[key]
     const right = src[key]
 
-    if (!left) {
-      if (right) {
+    if (!in_left) {
+      if (in_right) {
         acc[key] = right
       }
     } else {
-      if (!right) {
+      if (!in_right) {
         acc[key] = left
       } else {
         if (typeof right !== 'object') {
@@ -256,7 +258,6 @@ function merge_views(views) {
 }
 
 //
-
 function test(views) {
   // const list = [
   //   // 'base.view_partner_form',
@@ -310,9 +311,9 @@ export class Addons {
     const menus = filter_fn(res, 'ir.ui.menu')
     const actions = filter_fn(res, 'ir.actions')
     const views_to_merge = filter_fn(res, 'ir.ui.view')
-    // const views = merge_views(views_to_merge)
+    const views = merge_views(views_to_merge)
 
-    const views = views_to_merge
+    // const views = views_to_merge
     // test(views_to_merge)
 
     const view_get_first = (res_model, mode) => {

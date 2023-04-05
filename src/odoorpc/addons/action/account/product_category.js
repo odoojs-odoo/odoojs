@@ -7,11 +7,15 @@ export default {
     arch: {
       sheet: {
         _group_first: {},
-
-        _group_account_propertyt: {
-          _groups: 'account.group_account_readonly',
-          property_account_income_categ_id: {},
-          property_account_expense_categ_id: {}
+        _group_account_property: {
+          _group_account_property: {
+            _attr: {
+              string: 'Account Properties',
+              groups: 'account.group_account_readonly'
+            },
+            property_account_income_categ_id: {},
+            property_account_expense_categ_id: {}
+          }
         }
       }
     }

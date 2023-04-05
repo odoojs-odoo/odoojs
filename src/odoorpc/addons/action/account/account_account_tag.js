@@ -6,14 +6,23 @@ export default {
 
     arch: {
       sheet: {
+        _widget: {
+          _attr: {
+            name: 'web_ribbon',
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible({ record }) {
+              // invisible': [('active', '=', True)]
+              const { active } = record
+              return active
+            }
+          }
+        },
         _title: { display_name: {} },
 
         _group_name: {
+          active: { invisible: '1' },
           name: {},
-          active: { invisible: '1', widget: 'web_ribbon' }
-        },
-
-        _group_logo: {
           applicability: {},
           tax_negate: {
             readonly: '1',

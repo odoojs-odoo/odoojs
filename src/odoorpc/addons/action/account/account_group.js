@@ -7,7 +7,7 @@ export default {
       code_prefix_start: {},
       code_prefix_end: {},
       name: {},
-      company_id: {}
+      company_id: { groups: 'base.group_multi_company' }
     }
   },
 
@@ -17,15 +17,11 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: {
-          display_name: { disable_field_onchange: 1 }
-        },
-
         _group_name: {
+          name: {},
           code_prefix_start: {},
           code_prefix_end: {},
-          name: {},
-          company_id: {}
+          company_id: { groups: 'base.group_multi_company' }
         }
       }
     }
@@ -38,9 +34,8 @@ export default {
     arch: {
       fields: {
         name: {
-          // "['|', ('code_prefix_start', '=like', self + '%'), ('name', 'ilike', self)]"
-
           filter_domain(self) {
+            // "['|', ('code_prefix_start', '=like', self + '%'), ('name', 'ilike', self)]"
             return [
               '|',
               ['code_prefix_start', '=like', `${self}%`],
@@ -68,17 +63,3 @@ export default {
     }
   }
 }
-
-// <record id="action_account_group_action" model="ir.actions.act_window">
-// <field name="name">Account Groups</field>
-// <field name="type">ir.actions.act_window</field>
-// <field name="res_model">account.group</field>
-// <field name="view_mode">tree,form</field>
-// </record>
-
-// <record id="action_account_group_action" model="ir.actions.act_window">
-// <field name="name">Account Groups</field>
-// <field name="type">ir.actions.act_window</field>
-// <field name="res_model">account.group</field>
-// <field name="view_mode">tree,form</field>
-// </record>

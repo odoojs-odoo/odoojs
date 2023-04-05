@@ -1,57 +1,43 @@
 export default {
-  view_account_analytic_account_list: {
-    _odoo_model: 'ir.ui.view',
-    model: 'account.analytic.account',
-    type: 'tree',
-    buttons: { create: false, edit: true, delete: false },
-
-    fields: {
-      company_id: {},
-      name: {},
-      code: {},
-      partner_id: {},
-      plan_id: {},
-      debit: {},
-      credit: {},
-      balance: {},
-      active: {}
-    }
-  },
-
   view_account_analytic_account_form: {
     _odoo_model: 'ir.ui.view',
     model: 'account.analytic.account',
     type: 'form',
+    inherit_id: 'analytic.view_account_analytic_account_form',
     buttons: { create: false, edit: false, delete: false },
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
+        _div_button_box: {
+          _button_action_view_invoice: {
+            _attr: {
+              type: 'object',
+              name: 'action_view_invoice',
+              icon: 'fa-pencil-square-o',
+              invisible({ record }) {
+                // 'invisible': [('invoice_count', '=', 0)]
+                const { invoice_count } = record
+                return !invoice_count
+              }
+            },
+            invoice_count: { widget: 'statinfo', string: 'Customer Invoices' }
+          },
 
-        _group_name: {
-          _span: 2,
-          name: {}
-        },
-
-        _group_button_box: {
-          invoice_count: { widget: 'statinfo' },
-          vendor_bill_count: { widget: 'statinfo' }
+          _button_action_view_vendor_bill: {
+            _attr: {
+              type: 'object',
+              name: 'action_view_vendor_bill',
+              icon: 'fa-file-text-o',
+              invisible({ record }) {
+                //'invisible': [('vendor_bill_count', '=', 0)]
+                const { vendor_bill_count } = record
+                return !vendor_bill_count
+              }
+            },
+            vendor_bill_count: { string: 'Vendor Bills', widget: 'statinfo' }
+          }
         }
       }
-    }
-  },
-
-  action_account_analytic_account_form: {
-    _odoo_model: 'ir.actions',
-    name: '分析科目',
-    type: 'ir.actions.act_window',
-    res_model: 'account.analytic.account',
-    search_view_id: 'analytic.view_account_analytic_account_search',
-    domain: [],
-    context: { search_default_active: 1 },
-    views: {
-      tree: 'view_account_analytic_account_list',
-      form: 'view_account_analytic_account_form'
     }
   }
 }

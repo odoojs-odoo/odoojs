@@ -4,10 +4,11 @@ export default {
     model: 'account.journal.group',
     type: 'tree',
     fields: {
-      sequence: {},
+      // company_id: { invisible: '1' },
+      sequence: { widget: 'handle' },
       name: {},
       excluded_journal_ids: { widget: 'many2many_tags' },
-      company_id: {}
+      company_id: { groups: 'base.group_multi_company' }
     }
   },
 
@@ -17,14 +18,12 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: {
-          display_name: { disable_field_onchange: 1 }
-        },
         _group_name: {
-          name: {},
+          // company_id: { invisible: '1' },
+          name: { placeholder: 'e.g. GAAP, IFRS, ...' },
           excluded_journal_ids: { widget: 'many2many_tags' },
-          sequence: {},
-          company_id: {}
+          sequence: { groups: 'base.group_no_one' },
+          company_id: { groups: 'base.group_multi_company' }
         }
       }
     }

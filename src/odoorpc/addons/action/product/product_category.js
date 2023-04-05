@@ -5,7 +5,7 @@ export default {
     type: 'tree',
 
     fields: {
-      display_name: {}
+      display_name: { string: 'Product Category' }
     }
   },
 
@@ -15,15 +15,28 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_button_box: {
-          _span: 2,
-          product_count: {}
+        _div_button_box: {
+          _button: {
+            _attr: {
+              name: 'product_template_action_all',
+              icon: 'fa-th-list',
+              type: 'action',
+              context({ active_id }) {
+                return {
+                  search_default_categ_id: active_id,
+                  default_categ_id: active_id,
+                  group_expand: true
+                }
+              }
+            },
+            product_count: { string: 'Products' }
+          }
         },
 
-        _group_name: {
-          name: {}
+        _div_title: {
+          _h1: {
+            name: { string: 'Category', placeholder: 'e.g. Lamps' }
+          }
         },
 
         _group_first: {

@@ -6,16 +6,16 @@ export default {
     fields: {
       // company_id: { invisible: '1' },
       product_uom_category_id: { invisible: '1' },
-      date: {},
+      date: { optional: 'show' },
       name: {},
       account_id: {},
       plan_id: {},
       currency_id: { invisible: '1' },
-      unit_amount: {},
-      product_uom_id: {},
-      partner_id: {},
-      company_id: {},
-      amount: {}
+      unit_amount: { sum: 'Quantity', optional: 'hide' },
+      product_uom_id: { optional: 'hide' },
+      partner_id: { optional: 'hide' },
+      company_id: { groups: 'base.group_multi_company' },
+      amount: { sum: 'Total', optional: 'show' }
     }
   },
 
@@ -25,22 +25,22 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _title: { display_name: {} },
+        _group: {
+          _group_analytic_item: {
+            _attr: { name: 'analytic_item', string: 'Analytic Item' },
+            name: {},
+            account_id: {},
+            date: {},
+            company_id: { groups: 'base.group_multi_company' }
+          },
 
-        _group_name: {
-          _span: 2,
-          name: {},
-          account_id: {},
-          date: {},
-          company_id: {}
-        },
-
-        _group_amount: {
-          _span: 2,
-          amount: {},
-          product_uom_category_id: { invisible: '1' },
-          product_uom_id: {},
-          currency_id: { invisible: '1' }
+          _group_amount: {
+            _attr: { name: 'amount', string: 'Amount' },
+            amount: {},
+            product_uom_category_id: { invisible: '1' },
+            product_uom_id: {},
+            currency_id: { invisible: '1' }
+          }
         }
       }
     }

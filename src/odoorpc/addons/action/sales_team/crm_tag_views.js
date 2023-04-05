@@ -4,8 +4,8 @@ export default {
     model: 'crm.tag',
     type: 'tree',
     fields: {
-      name: {}
-      // color: {}
+      name: {},
+      color: { widget: 'color_picker' }
     }
   },
   sales_team_crm_tag_view_form: {
@@ -15,12 +15,14 @@ export default {
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
+        _div_title: {
+          _h1: { name: { placeholder: 'e.g. Services' } }
+        },
 
         _group_name: {
-          _span: 2,
-          name: {},
-          color: {}
+          _group_name: {
+            color: { required: 'True', widget: 'color_picker' }
+          }
         }
       }
     }

@@ -59,7 +59,7 @@ export default {
           }
         },
 
-        _group_button_box: {},
+        _div_button_box: {},
         _widget: {
           _attr: {
             name: 'web_ribbon',
@@ -162,7 +162,8 @@ export default {
               },
               readonly({ record }) {
                 // 'readonly': [('user_ids', '!=', [])]
-                return record.user_ids.length
+                const { user_ids = [] } = record
+                return user_ids.length > 0
               },
               invisible: ({ record }) => {
                 // [('is_company','=', True)],
@@ -249,7 +250,8 @@ export default {
               context: "{'gravatar_image': True}",
               required({ record }) {
                 // 'required': [('user_ids','!=', [])]
-                return (record.user_ids || []).length > 0
+                const { user_ids = [] } = record
+                return user_ids.length > 0
               }
             },
             website: {
@@ -279,7 +281,6 @@ export default {
           }
         },
 
-        _div: {},
         _notebook: {
           _page_contact_addresses: {
             _attr: { string: 'Contacts & Addresses' },

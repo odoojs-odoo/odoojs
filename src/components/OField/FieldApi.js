@@ -39,12 +39,14 @@ export function useField(props, ctx) {
         autosave_many2many_tags: 'FM2mTags',
         many2many_tags: 'FM2mTags',
         x2many_tree: 'FMany2many',
-        default: 'FMany2many'
+        many2many: 'FM2mTags',
+        default: 'FM2mTags'
       },
       one2many: {
         x2many_tree: 'FOne2many',
         many2many_tags: 'FM2mTags',
-        default: 'FOne2many'
+        one2many: 'FM2mTags',
+        default: 'FM2mTags'
       },
       binary: 'FBinary'
     }

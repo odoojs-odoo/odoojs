@@ -22,39 +22,101 @@ export default {
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_general_information__group_standard_price: {
-          list_price: {},
-          taxes_id: {
-            widget: 'many2many_tags'
-            // context="{'default_type_tax_use':'sale', 'search_default_sale': 1, 'search_default_service': type == 'service', 'search_default_goods': type == 'consu'}"
+        _notebook: {
+          _page_general_information: {
+            _group_general_information: {
+              _group_group_standard_price: {
+                _div_list_price: {
+                  tax_string: {}
+                },
+                taxes_id: {
+                  widget: 'many2many_tags',
+                  context({ record }) {
+                    // context="{
+                    // 'default_type_tax_use':'sale',
+                    // 'search_default_sale': 1,
+                    // 'search_default_service': type == 'service',
+                    // 'search_default_goods': type == 'consu'}"
+                    const { type } = record
+                    return {
+                      default_type_tax_use: 'sale',
+                      search_default_sale: 1,
+                      search_default_service: type == 'service',
+                      search_default_goods: type == 'consu'
+                    }
+                  }
+                }
+              }
+            }
           },
 
-          tax_string: {}
-        },
+          _page_purchase: {
+            _attr: {
+              invisible({ record }) {
+                //  覆盖上级的方法, 暂时只能重写
+                // invisible: '1'
+                //  attrs="{'invisible':[('purchase_ok','=',False)]}",
+                const { purchase_ok } = record
+                return !purchase_ok
+              }
+            },
+            _group_purchase: {
+              _group_bill: {
+                supplier_taxes_id: {
+                  widget: 'many2many_tags',
+                  context({ record }) {
+                    // context="{'default_type_tax_use':'purchase',
+                    // 'search_default_purchase': 1,
+                    // 'search_default_service': type == 'service',
+                    // 'search_default_goods': type == 'consu'}"
 
-        _group_purchase__purchase__bill: {
-          supplier_taxes_id: {
-            widget: 'many2many_tags'
-            // context="{'default_type_tax_use':'purchase', 'search_default_purchase': 1, 'search_default_service': type == 'service', 'search_default_goods': type == 'consu'}"
+                    const { type } = record
+                    return {
+                      default_type_tax_use: 'purchase',
+                      search_default_purchase: 1,
+                      search_default_service: type == 'service',
+                      search_default_goods: type == 'consu'
+                    }
+                  }
+                }
+              }
+            }
+          },
+
+          _page_inventory: {},
+
+          _page_invoicing: {
+            _attr: {
+              string: 'Accounting',
+              name: 'invoicing',
+              groups:
+                'account.group_account_readonly,account.group_account_invoice'
+            },
+            _group_properties: {
+              _attr: {
+                groups: 'account.group_account_readonly'
+              },
+
+              _group_receivables: {
+                _attr: { string: 'Receivables' },
+                property_account_income_id: {}
+              },
+              _group_payables: {
+                _attr: { name: 'payables', string: 'Payables' },
+                property_account_expense_id: {}
+              }
+            }
           }
-        },
-
-        _group_inventory__packaging: {},
-
-        _group_invoicing__properties: {
-          _groups:
-            'account.group_account_readonly,account.group_account_invoice',
-
-          property_account_income_id: {},
-          property_account_expense_id: {}
-        },
-
-        _group_invoicing__accounting: {
-          _groups:
-            'account.group_account_readonly,account.group_account_invoice'
         }
+        // _title: { display_name: {} },
+        // _group_general_information__group_standard_price: {
+        //   list_price: {},
+
+        // },
+        // _group_purchase__purchase__bill: {
+
+        // },
+        // _group_inventory__packaging: {},
       }
     }
   },

@@ -26,14 +26,14 @@ const load_from_files_list = files_list => {
   }, {})
 }
 
-function time() {
-  const dt = new Date()
-  const min = dt.getMinutes()
-  const sec = dt.getSeconds()
-  const ms = dt.getMilliseconds()
+// function time() {
+//   const dt = new Date()
+//   const min = dt.getMinutes()
+//   const sec = dt.getSeconds()
+//   const ms = dt.getMilliseconds()
 
-  return [min, sec, ms]
-}
+//   return [min, sec, ms]
+// }
 export class BaseView {
   static metadata_fields(model) {
     const web_fields = load_from_files_list(this.web_fields_list)
@@ -203,6 +203,7 @@ export class BaseView {
 
     const fields_list = Object.keys(fields_raw)
     const info = await Model.fields_get(fields_list)
+    const { readonly: readonly_for_write } = info
 
     const fields_in_model = await this.metadata_fields_get()
 
@@ -210,7 +211,8 @@ export class BaseView {
       acc[cur] = {
         ...(info[cur] || {}),
         ...(fields_in_model[cur] || {}),
-        ...(fields_raw[cur] || {})
+        ...(fields_raw[cur] || {}),
+        readonly_for_write
       }
       return acc
     }, {})

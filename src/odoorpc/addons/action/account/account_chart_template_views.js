@@ -6,129 +6,147 @@ export default {
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_name: {
-          name: {},
-          active: { invisible: '1', widget: 'web_ribbon' }
-        },
-
-        _group_name2: {
-          type_tax_use: {}
-        },
-
-        _group_tax_definitions: {
-          amount_type: {},
-          amount: {
-            readonly: '1',
-            // 'invisible':[('amount_type','=', 'group')]
-            invisible: [['amount_type', '=', 'group']]
+        // active: { invisible: '1', widget: 'web_ribbon' },
+        _group_main_group: {
+          _group: {
+            name: {}
+          },
+          _group_2: {
+            type_tax_use: {}
           }
         },
 
-        _group_children_tax_ids: {
-          _span: 2,
-          children_tax_ids: {
-            invisible({ record }) {
-              // 'invisible':
-              // ['|', ('amount_type','!=','group'),
-              // ('type_tax_use','=','none')]}"
-              const { amount_type, type_tax_use } = record
-              return amount_type !== 'group' || type_tax_use === 'none'
-            },
-            domain({ record }) {
-              // domain="[('type_tax_use','in',('none',type_tax_use)),
-              // ('amount_type','!=','group')]">
-              const { type_tax_use } = record
-              return [
-                ['type_tax_use', 'in', ['none', type_tax_use]],
-                ['amount_type', '!=', 'group']
-              ]
-            },
-
-            views: {
-              tree: {
-                fields: {
-                  // sequence: {},
-                  name: {},
-                  amount_type: {},
-                  amount: {}
+        _notebook: {
+          _page_tax_definitions: {
+            _attr: { name: 'definition', string: 'Definition' },
+            _group_tax_definitions: {
+              _group: {
+                amount_type: {},
+                amount: {
+                  readonly: '1',
+                  // 'invisible':[('amount_type','=', 'group')]
+                  invisible: [['amount_type', '=', 'group']]
+                },
+                _span: {
+                  _attr: {
+                    invisible({ record }) {
+                      // 'invisible':[('amount_type','=','fixed')]
+                      const { amount_type } = record
+                      return amount_type === 'fixed'
+                    },
+                    text: '%'
+                  }
                 }
+              }
+            },
+            children_tax_ids: {
+              invisible({ record }) {
+                // 'invisible':
+                // ['|', ('amount_type','!=','group'),
+                // ('type_tax_use','=','none')]}"
+                const { amount_type, type_tax_use } = record
+                return amount_type !== 'group' || type_tax_use === 'none'
               },
-              form: {
-                fields: {
-                  // sequence: {},
-                  name: {},
-                  amount_type: {},
-                  amount: {}
+              domain({ record }) {
+                // domain="[('type_tax_use','in',('none',type_tax_use)),
+                // ('amount_type','!=','group')]">
+                const { type_tax_use } = record
+                return [
+                  ['type_tax_use', 'in', ['none', type_tax_use]],
+                  ['amount_type', '!=', 'group']
+                ]
+              },
+
+              views: {
+                tree: {
+                  fields: {
+                    sequence: { widget: 'handle' },
+                    name: {},
+                    amount_type: {},
+                    amount: {}
+                  }
+                },
+                form: {
+                  arch: {
+                    sheet: {
+                      sequence: { widget: 'handle' },
+                      name: {},
+                      amount_type: {},
+                      amount: {}
+                    }
+                  }
                 }
               }
             }
-          }
-        },
+          },
 
-        _group_advanced_definitions: {
-          description: {
-            invisible({ record }) {
-              // 'invisible':[('amount_type','=', 'group')]
-              const { amount_type } = record
-              return amount_type === 'group'
-            }
-          },
-          analytic: {
-            invisible({ record }) {
-              // 'invisible':[('amount_type','=', 'group')]
-              const { amount_type } = record
-              return amount_type === 'group'
-            }
-          }
-        },
-
-        _group_price_definitions: {
-          price_include: {
-            invisible({ record }) {
-              // 'invisible':[('amount_type','=', 'group')]
-              const { amount_type } = record
-              return amount_type === 'group'
-            }
-          },
-          include_base_amount: {
-            invisible({ record }) {
-              // 'invisible':[('amount_type','=', 'group')]
-              const { amount_type } = record
-              return amount_type === 'group'
-            }
-          },
-          is_base_affected: {
-            invisible({ record }) {
-              // 'invisible': ['|', ('amount_type','=', 'group'),
-              // ('price_include', '=', True)]
-              const { amount_type, price_include } = record
-              return amount_type === 'group' || price_include
-            }
-          }
-        },
-
-        _group_tax_configuration: {
-          active: {},
-          tax_exigibility: {
-            widget: 'radio',
-            invisible({ record }) {
-              // 'invisible':[('amount_type','=', 'group')]
-              const { amount_type } = record
-              return amount_type === 'group'
-            }
-          },
-          cash_basis_transition_account_id: {
-            invisible({ record }) {
-              // 'invisible': [('tax_exigibility', '=', 'on_invoice')]
-              const { tax_exigibility } = record
-              return tax_exigibility === 'on_invoice'
-            },
-            required({ record }) {
-              // 'required': [('tax_exigibility', '=', 'on_payment')]
-              const { tax_exigibility } = record
-              return tax_exigibility === 'on_payment'
+          _page_advanced_options: {
+            _attr: { name: 'advanced_options', string: 'Advanced Options' },
+            _group_advanced_definitions: {
+              _group: {
+                description: {
+                  invisible({ record }) {
+                    // 'invisible':[('amount_type','=', 'group')]
+                    const { amount_type } = record
+                    return amount_type === 'group'
+                  }
+                },
+                analytic: {
+                  groups: 'analytic.group_analytic_accounting',
+                  invisible({ record }) {
+                    // 'invisible':[('amount_type','=', 'group')]
+                    const { amount_type } = record
+                    return amount_type === 'group'
+                  }
+                }
+              },
+              _group_price_definitions: {
+                price_include: {
+                  invisible({ record }) {
+                    // 'invisible':[('amount_type','=', 'group')]
+                    const { amount_type } = record
+                    return amount_type === 'group'
+                  }
+                },
+                include_base_amount: {
+                  invisible({ record }) {
+                    // 'invisible':[('amount_type','=', 'group')]
+                    const { amount_type } = record
+                    return amount_type === 'group'
+                  }
+                },
+                is_base_affected: {
+                  invisible({ record }) {
+                    // 'invisible': ['|', ('amount_type','=', 'group'),
+                    // ('price_include', '=', True)]
+                    const { amount_type, price_include } = record
+                    return amount_type === 'group' || price_include
+                  }
+                }
+              },
+              _group_tax_configuration: {
+                active: { groups: 'base.group_no_one' },
+                tax_exigibility: {
+                  widget: 'radio',
+                  invisible({ record }) {
+                    // 'invisible':[('amount_type','=', 'group')]
+                    const { amount_type } = record
+                    return amount_type === 'group'
+                  }
+                },
+                cash_basis_transition_account_id: {
+                  invisible({ record }) {
+                    // 'invisible': [('tax_exigibility', '=', 'on_invoice')]
+                    const { tax_exigibility } = record
+                    return tax_exigibility === 'on_invoice'
+                  },
+                  required({ record }) {
+                    // 'required': [('tax_exigibility', '=', 'on_payment')]
+                    const { tax_exigibility } = record
+                    return tax_exigibility === 'on_payment'
+                  }
+                }
+              }
             }
           }
         }

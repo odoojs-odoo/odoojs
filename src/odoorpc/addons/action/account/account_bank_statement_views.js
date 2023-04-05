@@ -6,23 +6,23 @@ export default {
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
+        balance_end: { invisible: '1' },
+        currency_id: { invisible: '1' },
+        is_complete: { invisible: '1' },
+        is_valid: { invisible: '1' },
 
-        _group_name: {
-          balance_end: { invisible: '1' },
-          currency_id: { invisible: '1' },
-          is_complete: { invisible: '1' },
-          is_valid: { invisible: '1' },
+        _group: {
+          _group_name: {
+            company_id: { groups: 'base.group_multi_company' },
+            journal_id: {},
+            name: {}
+          },
 
-          company_id: {},
-          journal_id: {},
-          name: {}
-        },
-
-        _group_balance: {
-          date: {},
-          balance_start: {},
-          balance_end_real: {}
+          _group_balance: {
+            date: {},
+            balance_start: {},
+            balance_end_real: {}
+          }
         }
       }
     }
@@ -35,7 +35,7 @@ export default {
       name: {},
       date: {},
       journal_id: {},
-      company_id: {},
+      company_id: { groups: 'base.group_multi_company' },
       balance_start: {},
       balance_end_real: {},
       balance_end: { invisible: '1' },
@@ -59,10 +59,7 @@ export default {
 
       filters: {
         group_active: {
-          empty: {
-            string: 'Empty',
-            domain: [['line_ids', '=', []]]
-          },
+          empty: { string: 'Empty', domain: [['line_ids', '=', []]] },
           invalid: {
             string: 'Invalid',
             domain: ['|', ['is_valid', '=', false], ['is_complete', '=', false]]
@@ -70,10 +67,7 @@ export default {
         },
 
         group_date: {
-          filter_date: {
-            string: '已归档',
-            date: 'date'
-          }
+          filter_date: { string: '已归档', date: 'date' }
         }
       }
     }

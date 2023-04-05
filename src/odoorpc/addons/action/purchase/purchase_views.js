@@ -277,7 +277,7 @@ export default {
             type: 'object',
             context: { create_bill: true },
             invisible: ({ record }) => {
-              const { state, invoice_status, order_line } = record
+              const { state, invoice_status, order_line = [] } = record
               return (
                 !['purchase', 'done'].includes(state) ||
                 !['no', 'invoiced'].includes(invoice_status) ||
