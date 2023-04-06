@@ -1,3 +1,70 @@
+const invoice_line_ids_form_sheet = {
+  display_type: { invisible: '1' },
+  company_id: { invisible: '1' },
+  partner_id: { invisible: '1' },
+
+  _group_product: {
+    product_id: { widget2: 'many2one_barcode' },
+    quantity: {},
+    product_uom_category_id: { invisible: '1' },
+    product_uom_id: {},
+    price_unit: {},
+    discount: {}
+  },
+
+  _group_account: {
+    account_id: {
+      readonly: '1',
+      domain({ record }) {
+        // domain="[('deprecated', '=', False),
+        // ('account_type', 'not in', ('asset_receivable', 'liability_payable')),
+        // ('company_id', '=', parent.company_id), ('is_off_balance', '=', False)]"
+        const { parent: prt } = record
+        return [
+          ['deprecated', '=', false],
+          ['account_type', 'not in', ['asset_receivable', 'liability_payable']],
+          ['company_id', '=', prt.company_id],
+          ['is_off_balance', '=', false]
+        ]
+      }
+    },
+    tax_ids: { widget: 'many2many_tags' },
+    analytic_distribution: { widget: 'analytic_distribution' }
+  },
+
+  _group_name: {
+    name: { widget: 'text' }
+  },
+  _group_amount: {
+    price_subtotal: {},
+    price_total: {}
+  }
+}
+
+const line_ids_form_sheet = {
+  _group_name: {
+    account_id: {},
+    partner_id: {},
+    name: {},
+    analytic_distribution: { widget: 'analytic_distribution' },
+    amount_currency: {},
+    company_currency_id: { invisible: 1 },
+    company_id: { invisible: 1 },
+    currency_id: {},
+    debit: {},
+    credit: {},
+    balance: { invisible: 1 },
+    tax_ids: { widget: 'autosave_many2many_tags' },
+    date_maturity: {
+      required: 0,
+      invisible({ context }) {
+        // context.get('view_no_maturity', False)
+        return context.view_no_maturity
+      }
+    }
+  }
+}
+
 const view_move_form_sheet = {
   _div_alert: {
     _attr: { help: 'alert todo', invisible: 1 }
@@ -445,56 +512,7 @@ const view_move_form_sheet = {
               // product_uom_id: { invisible: '1' }
             }
           },
-          form: {
-            arch: {
-              sheet: {
-                display_type: { invisible: '1' },
-                company_id: { invisible: '1' },
-                partner_id: { invisible: '1' },
-
-                _group_product: {
-                  product_id: { widget2: 'many2one_barcode' },
-                  quantity: {},
-                  product_uom_category_id: { invisible: '1' },
-                  product_uom_id: {},
-                  price_unit: {},
-                  discount: {}
-                },
-
-                _group_account: {
-                  account_id: {
-                    readonly: '1',
-                    domain({ record }) {
-                      // domain="[('deprecated', '=', False),
-                      // ('account_type', 'not in', ('asset_receivable', 'liability_payable')),
-                      // ('company_id', '=', parent.company_id), ('is_off_balance', '=', False)]"
-                      const { parent: prt } = record
-                      return [
-                        ['deprecated', '=', false],
-                        [
-                          'account_type',
-                          'not in',
-                          ['asset_receivable', 'liability_payable']
-                        ],
-                        ['company_id', '=', prt.company_id],
-                        ['is_off_balance', '=', false]
-                      ]
-                    }
-                  },
-                  tax_ids: { widget: 'many2many_tags' },
-                  analytic_distribution: { widget: 'analytic_distribution' }
-                },
-
-                _group_name: {
-                  name: { widget: 'text' }
-                },
-                _group_amount: {
-                  price_subtotal: {},
-                  price_total: {}
-                }
-              }
-            }
-          }
+          form: { arch: { sheet: { ...invoice_line_ids_form_sheet } } }
         }
       },
 
@@ -668,33 +686,7 @@ const view_move_form_sheet = {
               account_type: { invisible: '1' }
             }
           },
-          form: {
-            arch: {
-              sheet: {
-                _group_name: {
-                  account_id: {},
-                  partner_id: {},
-                  name: {},
-                  analytic_distribution: { widget: 'analytic_distribution' },
-                  amount_currency: {},
-                  company_currency_id: { invisible: 1 },
-                  company_id: { invisible: 1 },
-                  currency_id: {},
-                  debit: {},
-                  credit: {},
-                  balance: { invisible: 1 },
-                  tax_ids: { widget: 'autosave_many2many_tags' },
-                  date_maturity: {
-                    required: 0,
-                    invisible({ context }) {
-                      // context.get('view_no_maturity', False)
-                      return context.view_no_maturity
-                    }
-                  }
-                }
-              }
-            }
-          }
+          form: { arch: { sheet: { ...line_ids_form_sheet } } }
         }
       },
 
