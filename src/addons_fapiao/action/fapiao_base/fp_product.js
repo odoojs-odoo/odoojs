@@ -30,22 +30,22 @@ export default {
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_name: {
-          code: {},
-          name: {},
-          partner_id: {},
-          in_out: {}
-        },
-        _group_desc: {
-          vat_product_id: {},
-          vat_product_code: {},
-          vat_product_name: {},
-          spec: {},
-          uom: {},
-          tax_id: {},
-          active: {}
+        _group: {
+          _group_name: {
+            code: {},
+            name: {},
+            partner_id: {},
+            in_out: {}
+          },
+          _group_desc: {
+            vat_product_id: {},
+            vat_product_code: {},
+            vat_product_name: {},
+            spec: {},
+            uom: {},
+            tax_id: {},
+            active: {}
+          }
         }
       }
     }

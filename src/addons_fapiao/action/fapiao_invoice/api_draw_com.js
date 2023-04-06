@@ -7,7 +7,7 @@ export default {
     fields: {
       company_id: {},
       name: {},
-      tin: {}
+      tin: { secret: 1 }
       //   api_draw_id: {}
     }
   },
@@ -24,23 +24,23 @@ export default {
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_name: {
-          company_id: {},
-          name: {},
-          tin: {}
-        },
-        _group_desc: {
-          api_draw_id: {},
-          nuonuo_app_key: {},
-          nuonuo_app_secret: {},
-          nuonuo_user_id: {},
-          nuonuo_access_token: {},
-          nuonuo_refresh_token: {},
-          nuonuo_expires_in: {},
-          nuonuo_lasttime: {},
-          nuonuo_print_aes_key: {}
+        _group: {
+          _group_name: {
+            company_id: {},
+            name: {},
+            tin: { secret: 1 }
+          },
+          _group_desc: {
+            api_draw_id: { secret: 1 },
+            nuonuo_app_key: { secret: 1 },
+            nuonuo_app_secret: { secret: 1 },
+            // nuonuo_user_id: {secret: 1 },
+            nuonuo_access_token: { secret: 1 }
+            // nuonuo_refresh_token: {secret: 1 },
+            // nuonuo_expires_in: {secret: 1 },
+            // nuonuo_lasttime: {secret: 1 },
+            // nuonuo_print_aes_key: {secret: 1 }
+          }
         }
       }
     }

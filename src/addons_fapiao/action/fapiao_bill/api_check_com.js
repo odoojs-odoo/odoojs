@@ -7,7 +7,7 @@ export default {
     fields: {
       company_id: {},
       name: {},
-      tin: {}
+      tin: { secret: 1 }
       //   api_check_id: {}
     }
   },
@@ -24,20 +24,20 @@ export default {
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_name: {
-          company_id: {},
-          name: {},
-          tin: {}
-        },
-        _group_desc: {
-          api_check_id: {},
-          zncspt_app_key: {},
-          zncspt_app_secret: {},
-          zncspt_access_token: {},
-          zncspt_expires_in: {},
-          zncspt_lasttime: {}
+        _group: {
+          _group_name: {
+            company_id: {},
+            name: {},
+            tin: { secret: 1 }
+          },
+          _group_desc: {
+            api_check_id: { secret: 1 },
+            zncspt_app_key: { secret: 1 },
+            zncspt_app_secret: { secret: 1 },
+            zncspt_access_token: { secret: 1 }
+            // zncspt_expires_in: {},
+            // zncspt_lasttime: {}
+          }
         }
       }
     }

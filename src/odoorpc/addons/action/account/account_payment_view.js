@@ -5,7 +5,7 @@ export default {
     type: 'tree',
 
     fields: {
-      is_internal_transfer: { invisible: '1' },
+      // is_internal_transfer: { invisible: '1' },
       company_currency_id: { invisible: '1' },
       date: {},
       name: {},
@@ -21,8 +21,16 @@ export default {
           return maps[default_payment_type] || { en_US: 'Vendor' }
         }
       },
-      amount_signed: { string: 'Amount in Currency' },
-      currency_id: { string: 'Payment Currency' },
+      amount_signed: {
+        string: 'Amount in Currency',
+        groups: 'base.group_multi_currency',
+        optional: 'hide'
+      },
+      currency_id: {
+        string: 'Payment Currency',
+        groups: 'base.group_multi_currency',
+        optional: 'hide'
+      },
       amount_company_currency_signed: { widget: 'monetary', string: 'Amount' },
 
       state: {
@@ -127,251 +135,283 @@ export default {
         }
       },
       sheet: {
-        _title: {
-          display_name: {},
-          state: { invisible: 1 },
+        is_move_sent: { invisible: 1 },
+        is_reconciled: { invisible: 1 },
+        is_matched: { invisible: 1 },
+        payment_method_code: { invisible: 1 },
+        show_partner_bank_account: { invisible: 1 },
+        require_partner_bank_account: { invisible: 1 },
+        available_payment_method_line_ids: { invisible: 1 },
+        available_partner_bank_ids: { invisible: 1 },
+        suitable_journal_ids: { invisible: 1 },
+        country_code: { invisible: 1 },
+        partner_type: { invisible: 1 },
+        posted_before: { invisible: 1 },
+        reconciled_invoices_type: { invisible: 1 },
+        company_id: { invisible: 1 },
+        paired_internal_transfer_payment_id: { invisible: 1 },
+        available_journal_ids: { invisible: 1 },
 
-          is_move_sent: { invisible: 1 },
-          is_reconciled: { invisible: 1 },
-          is_matched: { invisible: 1 },
-          payment_method_code: { invisible: 1 },
-          show_partner_bank_account: { invisible: 1 },
-          require_partner_bank_account: { invisible: 1 },
-          available_payment_method_line_ids: { invisible: 1 },
-          available_partner_bank_ids: { invisible: 1 },
-          suitable_journal_ids: { invisible: 1 },
-          country_code: { invisible: 1 },
-          // partner_type: { invisible: 1 },
-          posted_before: { invisible: 1 },
-          reconciled_invoices_type: { invisible: 1 },
-          company_id: { invisible: 1 },
-          paired_internal_transfer_payment_id: { invisible: 1 },
-          available_journal_ids: { invisible: 1 }
+        state: { invisible: 1 },
+
+        _div_button_box: {
+          // _span: 2,
+          // _invisible: 1,
+          // // _invisible({ editable }) {
+          // //   return editable
+          // // },
+          // reconciled_invoices_count: {},
+          // reconciled_bills_count: {},
+          // reconciled_statement_lines_count: {}
         },
 
-        // _group_button_box: {
-        //   _span: 2,
-        //   _invisible: 1,
-        //   // _invisible({ editable }) {
-        //   //   return editable
-        //   // },
-        //   reconciled_invoices_count: {},
-        //   reconciled_bills_count: {},
-        //   reconciled_statement_lines_count: {}
-        // },
+        _widget: {
+          //
+        },
+
+        _div_title: {
+          _h1_name1: {
+            _attr: {
+              invisible: ({ record }) => {
+                //'invisible': [('state', '!=', 'draft')]
+                const { state } = record
+                return state !== 'draft'
+              }
+            },
+            _span: 'Draft'
+          },
+
+          _h1_name2: {
+            _attr: {
+              invisible: ({ record }) => {
+                //'invisible': [('state', '=', 'draft')]
+                const { state } = record
+                return state === 'draft'
+              }
+            },
+            name: { readonly: '1' }
+          }
+        },
 
         _group_name: {
-          _span: 2,
-          name: { readonly: '1' },
-          // state: { widget: 'web_ribbon' }
-          partner_type: { readonly: '1' }
-        },
-        _group_1: {
-          is_internal_transfer: {
-            readonly2: 1,
-            readonly: ({ record }) => {
-              // 'readonly': [('state', '!=', 'draft')]
-              const { state } = record
-              return state !== 'draft'
-            }
-          },
-
-          payment_type: {
-            widget: 'radio',
-            readonly: ({ record }) => {
-              // 'readonly': [('state', '!=', 'draft')]
-              const { state } = record
-              return state !== 'draft'
-            }
-          },
-
-          partner_id: {
-            readonly: ({ record }) => {
-              // 'readonly':[('state', '!=', 'draft')]
-              const { state } = record
-              return state !== 'draft'
-            },
-            invisible({ record }) {
-              // 'invisible':['|',
-              // ('partner_type','!=','customer'),
-              // ('is_internal_transfer', '=', True)]
-              // 'invisible':['|',
-              // ('partner_type','!=','supplier'),
-              // ('is_internal_transfer', '=', True)]
-              const { is_internal_transfer } = record
-              return is_internal_transfer
+          _group_group1: {
+            partner_type: {
+              readonly: '1',
+              invisible: ({ record }) => {
+                const { is_internal_transfer } = record
+                return is_internal_transfer
+              },
+              help: '额外增加的字段'
             },
 
-            string({ record }) {
-              // Customer 'invisible':['|',
-              // ('partner_type','!=','customer'),
-              // ('is_internal_transfer', '=', True)]
-              // Vendor 'invisible':['|',
-              // ('partner_type','!=','supplier'),
-              // ('is_internal_transfer', '=', True)]
-
-              const maps = {
-                customer: { en_US: 'Customer' },
-                supplier: { en_US: 'Vendor' }
+            is_internal_transfer: {
+              force_save: '1',
+              readonly: 1
+              // readonly: ({ record }) => {
+              //   // 'readonly': [('state', '!=', 'draft')]
+              //   const { state } = record
+              //   return state !== 'draft'
+              // }
+            },
+            payment_type: {
+              widget: 'radio',
+              readonly: ({ record }) => {
+                // 'readonly': [('state', '!=', 'draft')]
+                const { state } = record
+                return state !== 'draft'
               }
-              const { partner_type } = record
-              return maps[partner_type] || 'Customer'
-            }
-          },
-
-          amount: {
-            readonly: ({ record }) => {
-              // 'readonly': [('state', '!=', 'draft')]
-              const { state } = record
-              return state !== 'draft'
-            }
-          },
-          currency_id: {
-            readonly: ({ record }) => {
-              // 'readonly': [('state', '!=', 'draft')]
-              const { state } = record
-              return state !== 'draft'
-            }
-          },
-          date: {
-            readonly: ({ record }) => {
-              // 'readonly': [('state', '!=', 'draft')]
-              const { state } = record
-              return state !== 'draft'
-            }
-          },
-          ref: {}
-        },
-        _group_2: {
-          journal_id: {
-            readonly({ record }) {
-              // 'readonly': [('state', '!=', 'draft')]
-              const { state } = record
-              return state !== 'draft'
             },
 
-            domain({ record }) {
-              // domain="[('id', 'in', available_journal_ids)]"
-              const { available_journal_ids } = record
-              return [['id', 'in', available_journal_ids]]
-            }
-          },
-          payment_method_line_id: {
-            required: '1',
-            readonly: ({ record }) => {
-              // 'readonly': [('state', '!=', 'draft')]
-              const { state } = record
-              return state !== 'draft'
-            }
-          },
+            partner_id: {
+              readonly: ({ record }) => {
+                // 'readonly':[('state', '!=', 'draft')]
+                const { state } = record
+                return state !== 'draft'
+              },
+              invisible({ record }) {
+                // 'invisible':['|',
+                // ('partner_type','!=','customer'),
+                // ('is_internal_transfer', '=', True)]
+                // 'invisible':['|',
+                // ('partner_type','!=','supplier'),
+                // ('is_internal_transfer', '=', True)]
+                const { is_internal_transfer } = record
+                return is_internal_transfer
+              },
 
-          partner_bank_id: {
-            readonly({ record }) {
-              console.log(record)
-              // checked: account_payment_view.xml, line 294
-              // Company Bank Account  'invisible': ['|', '|',
-              // ('show_partner_bank_account', '=', False),
-              // ('is_internal_transfer', '=', True),
-              // ('payment_type', '=', 'outbound')],
-              const { payment_type } = record
-              return payment_type !== 'outbound'
-            },
+              string({ record }) {
+                // Customer 'invisible':['|',
+                // ('partner_type','!=','customer'),
+                // ('is_internal_transfer', '=', True)]
+                // Vendor 'invisible':['|',
+                // ('partner_type','!=','supplier'),
+                // ('is_internal_transfer', '=', True)]
 
-            required({ record }) {
-              // 'required': [('require_partner_bank_account', '=', True),
-              // ('is_internal_transfer', '=', False)],
-              // 'required': [('require_partner_bank_account', '=', True),
-              // ('is_internal_transfer', '=', False)],
-
-              // 'required': [('require_partner_bank_account', '=', True),
-              // ('is_internal_transfer', '=', False)],
-
-              const { require_partner_bank_account, is_internal_transfer } =
-                record
-              return require_partner_bank_account && !is_internal_transfer
-            },
-
-            invisible({ record }) {
-              // Customer Bank Account
-              // 'invisible': ['|', '|', '|',
-              // ('show_partner_bank_account', '=', False),
-              // ('partner_type','!=','customer'),
-              // ('is_internal_transfer', '=', True),
-              // ('payment_type', '=', 'inbound')],
-              // Vendor Bank Account
-              // 'invisible': ['|', '|', '|',
-              // ('show_partner_bank_account', '=', False),
-              // ('partner_type','!=','supplier'),
-              // ('is_internal_transfer', '=', True),
-              // ('payment_type', '=', 'inbound')],
-              // Company Bank Account  'invisible': ['|', '|',
-              // ('show_partner_bank_account', '=', False),
-              // ('is_internal_transfer', '=', True),
-              // ('payment_type', '=', 'outbound')],
-              const {
-                show_partner_bank_account,
-                is_internal_transfer,
-                payment_type
-              } = record
-              return (
-                !show_partner_bank_account ||
-                is_internal_transfer ||
-                payment_type === 'inbound' ||
-                payment_type === 'outbound'
-              )
-            },
-
-            string({ record }) {
-              // Customer Bank Account
-              // 'invisible': ['|', '|', '|',
-              // ('show_partner_bank_account', '=', False),
-              // ('partner_type','!=','customer'),
-              // ('is_internal_transfer', '=', True),
-              // ('payment_type', '=', 'inbound')],
-              // Vendor Bank Account
-              // 'invisible': ['|', '|', '|',
-              // ('show_partner_bank_account', '=', False),
-              // ('partner_type','!=','supplier'),
-              // ('is_internal_transfer', '=', True),
-              // ('payment_type', '=', 'inbound')],
-
-              // Company Bank Account  'invisible': ['|', '|',
-              // ('show_partner_bank_account', '=', False),
-              // ('is_internal_transfer', '=', True),
-              // ('payment_type', '=', 'outbound')],
-
-              const maps = {
-                customer: { en_US: 'Customer' },
-                supplier: { en_US: 'Vendor' }
-              }
-              const { partner_type, payment_type } = record
-
-              if (payment_type === 'outbound')
-                return { en_US: 'Company Bank Account' }
-              else {
+                const maps = {
+                  customer: { en_US: 'Customer' },
+                  supplier: { en_US: 'Vendor' }
+                }
+                const { partner_type } = record
                 return maps[partner_type] || 'Customer'
               }
-            }
-          },
-
-          destination_journal_id: {
-            readonly({ record }) {
-              // 'readonly': [('state', '!=', 'draft')]
-              const { state } = record
-              return state !== 'draft'
             },
-            invisible({ record }) {
-              // 'invisible': [('is_internal_transfer', '=', False)],
-              const { is_internal_transfer } = record
-              return !is_internal_transfer
-            },
-            required({ record }) {
-              // 'required': [('is_internal_transfer', '=', True),('state', '=', 'draft')]
-              const { is_internal_transfer, state } = record
-              return is_internal_transfer && state === 'draft'
-            }
-          },
 
+            amount: {
+              readonly: ({ record }) => {
+                // 'readonly': [('state', '!=', 'draft')]
+                const { state } = record
+                return state !== 'draft'
+              }
+            },
+            currency_id: {
+              readonly: ({ record }) => {
+                // 'readonly': [('state', '!=', 'draft')]
+                const { state } = record
+                return state !== 'draft'
+              }
+            },
+            date: {
+              readonly: ({ record }) => {
+                // 'readonly': [('state', '!=', 'draft')]
+                const { state } = record
+                return state !== 'draft'
+              }
+            },
+            ref: {}
+          },
+          _group_group2: {
+            journal_id: {
+              readonly({ record }) {
+                // 'readonly': [('state', '!=', 'draft')]
+                const { state } = record
+                return state !== 'draft'
+              },
+
+              domain({ record }) {
+                // domain="[('id', 'in', available_journal_ids)]"
+                const { available_journal_ids } = record
+                return [['id', 'in', available_journal_ids]]
+              }
+            },
+            payment_method_line_id: {
+              required: '1',
+              readonly: ({ record }) => {
+                // 'readonly': [('state', '!=', 'draft')]
+                const { state } = record
+                return state !== 'draft'
+              }
+            },
+
+            partner_bank_id: {
+              readonly({ record }) {
+                console.log(record)
+                // checked: account_payment_view.xml, line 294
+                // Company Bank Account  'invisible': ['|', '|',
+                // ('show_partner_bank_account', '=', False),
+                // ('is_internal_transfer', '=', True),
+                // ('payment_type', '=', 'outbound')],
+                const { payment_type } = record
+                return payment_type !== 'outbound'
+              },
+
+              required({ record }) {
+                // 'required': [('require_partner_bank_account', '=', True),
+                // ('is_internal_transfer', '=', False)],
+                // 'required': [('require_partner_bank_account', '=', True),
+                // ('is_internal_transfer', '=', False)],
+
+                // 'required': [('require_partner_bank_account', '=', True),
+                // ('is_internal_transfer', '=', False)],
+
+                const { require_partner_bank_account, is_internal_transfer } =
+                  record
+                return require_partner_bank_account && !is_internal_transfer
+              },
+
+              invisible({ record }) {
+                // Customer Bank Account
+                // 'invisible': ['|', '|', '|',
+                // ('show_partner_bank_account', '=', False),
+                // ('partner_type','!=','customer'),
+                // ('is_internal_transfer', '=', True),
+                // ('payment_type', '=', 'inbound')],
+                // Vendor Bank Account
+                // 'invisible': ['|', '|', '|',
+                // ('show_partner_bank_account', '=', False),
+                // ('partner_type','!=','supplier'),
+                // ('is_internal_transfer', '=', True),
+                // ('payment_type', '=', 'inbound')],
+                // Company Bank Account  'invisible': ['|', '|',
+                // ('show_partner_bank_account', '=', False),
+                // ('is_internal_transfer', '=', True),
+                // ('payment_type', '=', 'outbound')],
+                const {
+                  show_partner_bank_account,
+                  is_internal_transfer,
+                  payment_type
+                } = record
+                return (
+                  !show_partner_bank_account ||
+                  is_internal_transfer ||
+                  payment_type === 'inbound' ||
+                  payment_type === 'outbound'
+                )
+              },
+
+              string({ record }) {
+                // Customer Bank Account
+                // 'invisible': ['|', '|', '|',
+                // ('show_partner_bank_account', '=', False),
+                // ('partner_type','!=','customer'),
+                // ('is_internal_transfer', '=', True),
+                // ('payment_type', '=', 'inbound')],
+                // Vendor Bank Account
+                // 'invisible': ['|', '|', '|',
+                // ('show_partner_bank_account', '=', False),
+                // ('partner_type','!=','supplier'),
+                // ('is_internal_transfer', '=', True),
+                // ('payment_type', '=', 'inbound')],
+
+                // Company Bank Account  'invisible': ['|', '|',
+                // ('show_partner_bank_account', '=', False),
+                // ('is_internal_transfer', '=', True),
+                // ('payment_type', '=', 'outbound')],
+
+                const maps = {
+                  customer: { en_US: 'Customer' },
+                  supplier: { en_US: 'Vendor' }
+                }
+                const { partner_type, payment_type } = record
+
+                if (payment_type === 'outbound')
+                  return { en_US: 'Company Bank Account' }
+                else {
+                  return maps[partner_type] || 'Customer'
+                }
+              }
+            },
+
+            destination_journal_id: {
+              readonly({ record }) {
+                // 'readonly': [('state', '!=', 'draft')]
+                const { state } = record
+                return state !== 'draft'
+              },
+              invisible({ record }) {
+                // 'invisible': [('is_internal_transfer', '=', False)],
+                const { is_internal_transfer } = record
+                return !is_internal_transfer
+              },
+              required({ record }) {
+                // 'required': [('is_internal_transfer', '=', True),('state', '=', 'draft')]
+                const { is_internal_transfer, state } = record
+                return is_internal_transfer && state === 'draft'
+              }
+            }
+          }
+        },
+
+        _group_group3: {
           qr_code: {
             widget: 'html',
             invisible({ record }) {

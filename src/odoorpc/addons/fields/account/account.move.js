@@ -1,12 +1,4 @@
 const ModelFields = {
-  tax_lock_date_message: {
-    groups: 'account.group_account_invoice,account.group_account_readonly'
-  },
-
-  partner_credit_warning: {
-    groups: 'account.group_account_invoice,account.group_account_readonly'
-  },
-
   company_id: { required: '1', groups: 'base.group_multi_company' },
 
   name: {
@@ -16,6 +8,36 @@ const ModelFields = {
       return state !== 'draft'
     }
   },
+
+  ref: {
+    string({ record }) {
+      // <label for="ref" string="Bill Reference"
+      //  attrs="{'invisible':
+      // [('move_type', 'not in', ('in_invoice', 'in_receipt', 'in_refund'))]}" />
+
+      const in_moves = ['in_invoice', 'in_refund', 'in_receipt']
+
+      const not_in_label = {
+        en_US: 'Reference', //  'Customer Reference'
+        zh_CN: '编号',
+        zh_HK: '编号'
+      }
+      const in_label = {
+        en_US: 'Bill Reference',
+        zh_CN: '供应商账单编号',
+        zh_HK: '供应商账单编号'
+      }
+
+      const { move_type } = record
+
+      if (in_moves.includes(move_type)) {
+        return in_label
+      } else {
+        return not_in_label
+      }
+    }
+  },
+
   date: {
     readonly: ({ record }) => {
       // 'readonly': [('state', '!=', 'draft')],
@@ -23,12 +45,111 @@ const ModelFields = {
       return state !== 'draft'
     }
   },
+
   state: {
     selection: [
       ['draft', { en_US: 'Draft', zh_CN: '草稿', zh_HK: '草稿' }],
       ['posted', { en_US: 'Posted', zh_CN: '过账', zh_HK: '过账' }],
       ['cancel', { en_US: 'Cancelled', zh_CN: '取消', zh_HK: '取消' }]
     ]
+  },
+
+  partner_id: {
+    string({ record }) {
+      const out_moves = ['out_invoice', 'out_refund', 'out_receipt']
+      const in_moves = ['in_invoice', 'in_refund', 'in_receipt']
+
+      const out_label = {
+        en_US: 'Customer',
+        zh_CN: '客户',
+        zh_HK: '客户'
+      }
+      const in_label = {
+        en_US: 'Vendor',
+        zh_CN: '供应商',
+        zh_HK: '供应商'
+      }
+
+      const { move_type } = record
+
+      if (out_moves.includes(move_type)) {
+        return out_label
+      } else if (in_moves.includes(move_type)) {
+        return in_label
+      } else {
+        return in_label
+      }
+    },
+    domain({ record }) {
+      // [('company_id', 'in', [company_id, False])]
+
+      const { company_id } = record
+      return [['company_id', 'in', [company_id, false]]]
+    }
+  },
+
+  partner_shipping_id: {
+    groups: 'account.group_delivery_invoice_address',
+    readonly({ record }) {
+      // 'readonly': [('state', '!=', 'draft')]
+      const { state } = record
+      return state !== 'draft'
+    },
+    domain({ record }) {
+      // ['|', ('company_id', '=', False), ('company_id', '=', company_id)]
+
+      const { company_id } = record
+      return ['|', ['company_id', '=', false], ['company_id', '=', company_id]]
+    }
+  },
+
+  partner_bank_id: {
+    domain: ({ record }) => {
+      // domain="[('partner_id', '=', bank_partner_id)]"
+      const { bank_partner_id } = record
+      return [['partner_id', '=', bank_partner_id]]
+    },
+
+    readonly({ record }) {
+      // attrs="{'readonly': [('state', '!=', 'draft')]}
+      const { state } = record
+      return state !== 'draft'
+    },
+
+    context: ({ record }) => {
+      // context="{'default_partner_id': bank_partner_id}"
+      const { bank_partner_id } = record
+      return { default_partner_id: bank_partner_id }
+    }
+  },
+
+  partner_credit_warning: {
+    groups: 'account.group_account_invoice,account.group_account_readonly'
+  },
+
+  currency_id: {
+    groups: 'base.group_multi_currency',
+    readonly: ({ record }) => {
+      // 'readonly': [('state', '!=', 'draft')]
+      const { state } = record
+      return state !== 'draft'
+    }
+  },
+
+  fiscal_position_id: {
+    domain({ record }) {
+      // [('company_id', '=', company_id)]
+      const { company_id } = record
+      return [['company_id', '=', company_id]]
+    },
+
+    quick_edit_total_amount: {
+      readonly({ record }) {
+        // 'readonly': [('state', '!=', 'draft')]
+        const { state } = record
+        return state !== 'draft'
+      }
+    }
   },
 
   invoice_line_ids: {
@@ -105,6 +226,40 @@ const ModelFields = {
   },
 
   invoice_date: {
+    // for tree view
+    string2({ context }) {
+      // <field name="invoice_date" optional="show"
+      // invisible="context.get('default_move_type') not in (
+      // 'in_invoice', 'in_refund','in_receipt')"
+      // string="Bill Date"/>
+      // <field name="invoice_date" optional="show"
+      // invisible="context.get('default_move_type') not in (
+      // 'out_invoice', 'out_refund','out_receipt')" string="Invoice Date"/>
+
+      const default_move_type = context.default_move_type
+      const move_types_in = ['in_invoice', 'in_refund', 'in_receipt']
+      const move_types_out = ['out_invoice', 'out_refund', 'out_receipt']
+
+      const str_in = {
+        en_US: 'Bill Date',
+        zh_CN: '账单日期',
+        zh_HK: '账单日期'
+      }
+      const str_out = {
+        en_US: 'Invoice Date',
+        zh_CN: '开票日期',
+        zh_HK: '开票日期'
+      }
+
+      if (move_types_in.includes(default_move_type)) {
+        return str_in
+      } else if (move_types_out.includes(default_move_type)) {
+        return str_out
+      } else {
+        return str_out
+      }
+    },
+
     string({ record }) {
       const out_moves = ['out_invoice', 'out_refund', 'out_receipt']
       const in_moves = ['in_invoice', 'in_refund', 'in_receipt']
@@ -153,128 +308,39 @@ const ModelFields = {
       ]
     }
   },
-  currency_id: {
-    groups: 'base.group_multi_currency',
-    readonly: ({ record }) => {
-      // 'readonly': [('state', '!=', 'draft')]
-      const { state } = record
-      return state !== 'draft'
-    }
-  },
+  invoice_cash_rounding_id: { groups: 'account.group_cash_rounding' },
+  invoice_partner_display_name: {
+    string({ context }) {
+      // <field name="invoice_partner_display_name"
+      // invisible="context.get('default_move_type') not in (
+      // 'in_invoice', 'in_refund','in_receipt')" groups="base.group_user"
+      // string="Vendor" />
+      // <field name="invoice_partner_display_name"
+      // invisible="context.get('default_move_type') not in (
+      // 'out_invoice', 'out_refund','out_receipt')" groups="base.group_user"
+      // string="Customer" />
 
-  partner_id: {
-    string({ record }) {
-      const out_moves = ['out_invoice', 'out_refund', 'out_receipt']
-      const in_moves = ['in_invoice', 'in_refund', 'in_receipt']
+      const default_move_type = context.default_move_type
+      const move_types_in = ['in_invoice', 'in_refund', 'in_receipt']
+      const move_types_out = ['out_invoice', 'out_refund', 'out_receipt']
 
-      const out_label = {
-        en_US: 'Customer',
-        zh_CN: '客户',
-        zh_HK: '客户'
-      }
-      const in_label = {
-        en_US: 'Vendor',
-        zh_CN: '供应商',
-        zh_HK: '供应商'
-      }
+      const str_in = { en_US: 'Vendor', zh_CN: '供应商', zh_HK: '供应商' }
+      const str_out = { en_US: 'Customer', zh_CN: '客户', zh_HK: '客户' }
 
-      const { move_type } = record
-
-      if (out_moves.includes(move_type)) {
-        return out_label
-      } else if (in_moves.includes(move_type)) {
-        return in_label
+      if (move_types_in.includes(default_move_type)) {
+        return str_in
+      } else if (move_types_out.includes(default_move_type)) {
+        return str_out
       } else {
-        return in_label
-      }
-    },
-    domain({ record }) {
-      // [('company_id', 'in', [company_id, False])]
-
-      const { company_id } = record
-      return [['company_id', 'in', [company_id, false]]]
-    }
-  },
-
-  ref: {
-    string({ record }) {
-      // <label for="ref" string="Bill Reference"
-      //  attrs="{'invisible':
-      // [('move_type', 'not in', ('in_invoice', 'in_receipt', 'in_refund'))]}" />
-
-      const in_moves = ['in_invoice', 'in_refund', 'in_receipt']
-
-      const not_in_label = {
-        en_US: 'Reference', //  'Customer Reference'
-        zh_CN: '编号',
-        zh_HK: '编号'
-      }
-      const in_label = {
-        en_US: 'Bill Reference',
-        zh_CN: '供应商账单编号',
-        zh_HK: '供应商账单编号'
-      }
-
-      const { move_type } = record
-
-      if (in_moves.includes(move_type)) {
-        return in_label
-      } else {
-        return not_in_label
+        return str_out
       }
     }
   },
 
-  partner_shipping_id: {
-    groups: 'account.group_delivery_invoice_address',
-    readonly({ record }) {
-      // 'readonly': [('state', '!=', 'draft')]
-      const { state } = record
-      return state !== 'draft'
-    },
-    domain({ record }) {
-      // ['|', ('company_id', '=', False), ('company_id', '=', company_id)]
-
-      const { company_id } = record
-      return ['|', ['company_id', '=', false], ['company_id', '=', company_id]]
-    }
+  tax_lock_date_message: {
+    groups: 'account.group_account_invoice,account.group_account_readonly'
   },
 
-  partner_bank_id: {
-    domain: ({ record }) => {
-      // domain="[('partner_id', '=', bank_partner_id)]"
-      const { bank_partner_id } = record
-      return [['partner_id', '=', bank_partner_id]]
-    },
-
-    readonly({ record }) {
-      // attrs="{'readonly': [('state', '!=', 'draft')]}
-      const { state } = record
-      return state !== 'draft'
-    },
-
-    context: ({ record }) => {
-      // context="{'default_partner_id': bank_partner_id}"
-      const { bank_partner_id } = record
-      return { default_partner_id: bank_partner_id }
-    }
-  },
-
-  fiscal_position_id: {
-    domain({ record }) {
-      // [('company_id', '=', company_id)]
-      const { company_id } = record
-      return [['company_id', '=', company_id]]
-    },
-
-    quick_edit_total_amount: {
-      readonly({ record }) {
-        // 'readonly': [('state', '!=', 'draft')]
-        const { state } = record
-        return state !== 'draft'
-      }
-    }
-  },
   tax_totals: {
     readonly({ record }) {
       // 'readonly': ['|', ('state', '!=', 'draft'),
@@ -288,6 +354,7 @@ const ModelFields = {
       )
     }
   },
+
   auto_post: {
     readonly({ record }) {
       // 'readonly': [('state','!=','draft')]
@@ -301,8 +368,7 @@ const ModelFields = {
       const { state } = record
       return state !== 'draft'
     }
-  },
-  invoice_cash_rounding_id: { groups: 'account.group_cash_rounding' }
+  }
 }
 
 const AddonsFields = {

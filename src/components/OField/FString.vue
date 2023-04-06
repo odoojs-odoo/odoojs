@@ -19,6 +19,8 @@
         <span v-html="full_text(dVal)"> </span>
       </template>
 
+      <template v-else-if="fieldInfo.secret"> {{ 'xxxxxxxxxx' }} </template>
+
       <template v-else-if="readonly"> {{ dVal }} </template>
 
       <template v-else>

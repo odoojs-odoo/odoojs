@@ -25,24 +25,23 @@ export default {
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
+        _group: {
+          _group_name: {
+            code: {},
+            name: {},
+            shortname: {},
 
-        _group_name: {
-          code: {},
-          name: {},
-          shortname: {},
-
-          parent_id: {}
-        },
-        _group_desc: {
-          ratio_str: {},
-          vat_special: {},
-          grouped: {},
-          active: {}
-        },
-        _group_note: {
-          _span: 1,
-          note: {}
+            parent_id: {}
+          },
+          _group_desc: {
+            ratio_str: {},
+            vat_special: {},
+            grouped: {},
+            active: {}
+          },
+          _group_note: {
+            note: {}
+          }
         }
       }
     }

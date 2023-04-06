@@ -145,6 +145,9 @@ export class Relation extends Field {
     }
 
     function find_field(node) {
+      if (typeof node !== 'object') {
+        return {}
+      }
       return Object.keys(node).reduce((acc, cur) => {
         if (is_field(cur)) {
           acc[cur] = node[cur]

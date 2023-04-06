@@ -38,48 +38,49 @@
       </a-button>
     </template>
   </a-space>
+  <div>
+    <ActionButton
+      :has-delete="buttons.delete"
+      :has-active="hasActive"
+      @button-click="onClickCRUD(name)"
+    />
 
-  <ActionButton
-    :has-delete="buttons.delete"
-    :has-active="hasActive"
-    @button-click="onClickCRUD(name)"
-  />
+    <div></div>
 
-  <div></div>
+    <StatusBar :currentState="currentState" :states="statusbarVisible" />
 
-  <StatusBar :currentState="currentState" :states="statusbarVisible" />
+    <template v-if="!formInfo.editable">
+      <a-space
+        style="
+          float: right;
+          margin-right: 10px;
+          margin-top: 5px;
+          margin-bottom: 20px;
+        "
+      >
+        <template v-for="btn in headerButtons" :key="btn.name">
+          <a-button size="small" :type="btn.btn_type" @click="onBtnClick(btn)">
+            {{ btn.string }}
+          </a-button>
+        </template>
+      </a-space>
+    </template>
 
-  <template v-if="!formInfo.editable">
-    <a-space
-      style="
-        float: right;
-        margin-right: 10px;
-        margin-top: 5px;
-        margin-bottom: 20px;
-      "
-    >
-      <template v-for="btn in headerButtons" :key="btn.name">
-        <a-button size="small" :type="btn.btn_type" @click="onBtnClick(btn)">
-          {{ btn.string }}
-        </a-button>
-      </template>
-    </a-space>
-  </template>
+    <WizardForm
+      v-model:visible="wizardVisible"
+      :action-id="wizardAction"
+      @done="onWizardDone"
+    />
+  </div>
+  <div>.</div>
 
-  <WizardForm
-    v-model:visible="wizardVisible"
-    :action-id="wizardAction"
-    @done="onWizardDone"
-  />
-
-  <div></div>
   <FormSheet
     ref="editRef"
     :model="mVal"
     :formInfo="formInfo"
-    style="background-color: white; margin-top: 5px; padding: 5px"
     @change="onChange"
     @load-relation="onLoadReation"
+    style="background-color: white; margin-top: 30px; padding: 5px"
   />
 </template>
 

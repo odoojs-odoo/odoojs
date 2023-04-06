@@ -18,16 +18,13 @@ export default {
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
         _group_name: {
           company_id: {},
           name: {},
           code: {}
         }
       }
-    },
-    fields: {}
+    }
   },
 
   action_company_taxmachine: {

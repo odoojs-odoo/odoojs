@@ -108,15 +108,6 @@ export default {
             }
           }
         }
-        // _title: { display_name: {} },
-        // _group_general_information__group_standard_price: {
-        //   list_price: {},
-
-        // },
-        // _group_purchase__purchase__bill: {
-
-        // },
-        // _group_inventory__packaging: {},
       }
     }
   },

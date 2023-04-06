@@ -23,26 +23,26 @@ export default {
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_name: {
-          company_id: {},
-          user_id: {},
-          name: {},
-          login: {}
-        },
-        _group_taxmachine: {
-          payee_name: {},
-          checker_name: {},
-          drawer_name: {},
-          taxmachine_id: {
-            // domain="[('company_id', '=', company_id)]"
-            domain({ record }) {
-              const { company_id } = record
-              return [['company_id', '=', company_id]]
-            }
+        _group: {
+          _group_name: {
+            company_id: {},
+            user_id: {},
+            name: {},
+            login: {}
           },
-          taxmachine_code: {}
+          _group_taxmachine: {
+            payee_name: {},
+            checker_name: {},
+            drawer_name: {},
+            taxmachine_id: {
+              // domain="[('company_id', '=', company_id)]"
+              domain({ record }) {
+                const { company_id } = record
+                return [['company_id', '=', company_id]]
+              }
+            },
+            taxmachine_code: {}
+          }
         }
       }
     },

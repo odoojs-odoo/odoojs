@@ -104,93 +104,76 @@ export default {
         }
       },
       sheet: {
-        _title: {
-          state: { invisible: 1 },
-          display_name: {}
-        },
+        state: { invisible: 1 },
+        _group: {
+          _group_name: {
+            name: { invisible: 1 },
+            company_id: {},
+            //   tin: {}
+            user_id: {},
+            ocr_time: {},
+            attachment_id: { widget: 'attachment' }
+          },
+          _group_ocr: {
+            glority_api_qrcode: {},
+            glority_api_company_seal: {},
+            glority_api_kind: {},
+            glority_api_service_name: {},
+            glority_api_province: {},
+            glority_api_city: {}
+          },
 
-        _group_name: {
-          name: { invisible: 1 },
-          company_id: {},
-          //   tin: {}
-          user_id: {},
-          ocr_time: {},
-          attachment_id: { widget: 'attachment' }
-        },
+          _group_type: {
+            type: {},
+            invoice_type: {},
+            taxmachine_code: {}
+          },
 
-        _group_ocr: {
-          glority_api_qrcode: {},
-          glority_api_company_seal: {},
-          glority_api_kind: {},
-          glority_api_service_name: {},
-          glority_api_province: {},
-          glority_api_city: {}
-        },
+          _group_code: {
+            invoice_code: {},
+            invoice_number: {},
+            date_fapiao: {},
+            check_code: {}
+          },
 
-        _group_type: {
-          type: {},
-          invoice_type: {},
-          taxmachine_code: {}
-        },
+          _group_buyer: {
+            buyer_name: { label: '购买方', string: '', readonly: 1 },
+            buyer_tin: { string: '', readonly: 1 },
+            buyer_address_phone: { string: '', readonly: 1 },
+            buyer_bank_account: { string: '', readonly: 1 }
+          },
 
-        _group_code: {
-          invoice_code: {},
-          invoice_number: {},
-          date_fapiao: {},
-          check_code: {}
-        },
+          _group_comp: {
+            company_name: { label: '报销单位', string: '', readonly: 1 },
+            company_tin: { string: '', readonly: 1 },
+            company_address_phone: { string: '', readonly: 1 },
+            company_bank_account: { string: '', readonly: 1 }
+          },
 
-        _group_buyer: {
-          buyer_name: { label: '购买方', string: '', readonly: 1 },
-          buyer_tin: { string: '', readonly: 1 },
-          buyer_address_phone: { string: '', readonly: 1 },
-          buyer_bank_account: { string: '', readonly: 1 }
-        },
+          _group_amount_cn: {
+            cn_amount_total: {}
+          },
 
-        _group_comp: {
-          company_name: { label: '报销单位', string: '', readonly: 1 },
-          company_tin: { string: '', readonly: 1 },
-          company_address_phone: { string: '', readonly: 1 },
-          company_bank_account: { string: '', readonly: 1 }
-        },
+          _group_amount: {
+            amount_total: {},
+            amount_untaxed: {},
+            amount_tax: {}
+          },
 
-        _group_amount_cn: {
-          cn_amount_total: {}
-        },
+          _group_saler: {
+            partner_name: { label: '销售方', string: '', readonly: 1 },
+            partner_tin: { string: '', readonly: 1 },
+            partner_address_phone: { string: '', readonly: 1 },
+            partner_bank_account: { string: '', readonly: 1 }
+          },
 
-        _group_amount: {
-          amount_total: {},
-          amount_untaxed: {},
-          amount_tax: {}
-        },
-
-        _group_saler: {
-          partner_name: { label: '销售方', string: '', readonly: 1 },
-          partner_tin: { string: '', readonly: 1 },
-          partner_address_phone: { string: '', readonly: 1 },
-          partner_bank_account: { string: '', readonly: 1 }
-        },
-
-        _group_note: {
-          payee_name: {},
-          checker_name: {},
-          drawer_name: {},
-          note: {}
+          _group_note: {
+            payee_name: {},
+            checker_name: {},
+            drawer_name: {},
+            note: {}
+          }
         }
-
-        // _group_lines: {
-        //   _span: 2,
-        //   line_ids: {
-        //     string: '',
-        //     widget: 'x2many_tree',
-        //     views: {
-        //       tree: {
-        //         fields: {}
-        //       },
-        //       form: {}
-        //     }
-        //   }
-        // }
       }
     }
   },

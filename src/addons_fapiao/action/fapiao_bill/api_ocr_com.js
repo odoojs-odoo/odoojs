@@ -7,7 +7,7 @@ export default {
     fields: {
       company_id: {},
       name: {},
-      tin: {}
+      tin: { secret: 1 }
       //   api_ocr_id: {}
     }
   },
@@ -24,17 +24,17 @@ export default {
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_name: {
-          company_id: {},
-          name: {},
-          tin: {}
-        },
-        _group_desc: {
-          api_ocr_id: {},
-          glority_app_key: {},
-          glority_app_secret: {}
+        _group: {
+          _group_name: {
+            company_id: {},
+            name: {},
+            tin: { secret: 1 }
+          },
+          _group_desc: {
+            api_ocr_id: { secret: 1 },
+            glority_app_key: { secret: 1 },
+            glority_app_secret: { secret: 1 }
+          }
         }
       }
     }

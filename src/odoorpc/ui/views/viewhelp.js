@@ -55,7 +55,6 @@ export class ViewHelp {
     // 2. 字段内的属性 常规定义.
     // 3. _label_xxx 标签 专用于 单行显示 标签
     // 3. 其内部结构 为 _label_xxx: {_attr: {for: xx, string: xx}}
-    // 4. _title_xxx 专用于 定义标题显示
     // 4. _group_xxx 标签 专用于 控制布局
     // 2. _group 可以嵌套两层用于 布局控制
     // 3. 外层 _group 占格 col=24
@@ -68,7 +67,6 @@ export class ViewHelp {
     //
 
     const format_string = fieldInfo => {
-      if (fieldInfo.nolabel) return undefined
       if (!fieldInfo.string) return undefined
       if (typeof fieldInfo.string !== 'function') return fieldInfo.string
       return this.get_string(fieldInfo, formInfo)
@@ -90,9 +88,17 @@ export class ViewHelp {
 
     const for_label_tag = node => {
       const attr = node._attr || {}
-      if (attr.string) return this.get_string({ ...attr }, formInfo)
       const meta = meta_get(attr.for)
-      return meta.string
+
+      if (attr.string) {
+        return {
+          for: attr.for,
+          fieldInfo: meta,
+          string: this.get_string({ ...attr }, formInfo)
+        }
+      }
+
+      return { for: attr.for, fieldInfo: meta, string: meta.string }
     }
 
     function is_attr(str) {
@@ -126,26 +132,69 @@ export class ViewHelp {
                 ...(for_title && !editable ? { nolabel: 1 } : {}),
                 ...node[cur]
               }
-              // console.log(cur, node[cur], meta2)
               const meta = meta_get(cur, meta2)
+
               acc.children[cur] = { ...meta }
             }
           } else {
             const tag = tag_get(cur)
             if (tag) {
-              // const invisible = (node[cur]._attr || {}).invisible
-              const invisible2 = this.check_invisible(
-                node[cur]._attr || {},
-                formInfo
-              )
-              if (!invisible2) {
-                if (tag === 'label') {
-                  const label = for_label_tag(node[cur])
-                  acc.children[cur] = { tag, name: cur, string: label }
-                } else {
-                  const for_title2 = cur === '_div_title'
-                  const next = node_get(node[cur], for_title || for_title2)
-                  acc.children[cur] = { tag, name: cur, ...next }
+              if (typeof node[cur] !== 'object') {
+                acc.children[cur] = { tag, name: cur, text: node[cur] }
+              } else {
+                // const invisible = (node[cur]._attr || {}).invisible
+                const invisible2 = this.check_invisible(
+                  node[cur]._attr || {},
+                  formInfo
+                )
+                if (!invisible2) {
+                  if (tag === 'label') {
+                    const label = for_label_tag(node[cur])
+                    acc.children[cur] = {
+                      tag,
+                      name: cur,
+                      ...label
+                    }
+                  } else {
+                    const for_title2 = cur === '_div_title'
+                    const next = node_get(node[cur], for_title || for_title2)
+                    acc.children[cur] = { tag, name: cur, ...next }
+                  }
+
+                  if (tag === 'field') {
+                    const find_label_from_field2 = fnode => {
+                      const labels = Object.keys(fnode.children).filter(
+                        item => fnode.children[item].tag === 'label'
+                      )
+                      if (labels.length) {
+                        return fnode.children[labels[0]]
+                      } else {
+                        return {}
+                      }
+                    }
+
+                    const find_item_from_field2 = fnode => {
+                      const labels = Object.keys(fnode.children).filter(
+                        item => fnode.children[item].tag !== 'label'
+                      )
+
+                      if (labels.length) {
+                        return fnode.children[labels[0]].children
+                      } else {
+                        return {}
+                      }
+                    }
+
+                    const fnode = acc.children[cur]
+                    const lnode = find_label_from_field2(fnode)
+                    const fitem = find_item_from_field2(fnode)
+
+                    acc.children[cur] = {
+                      ...fnode,
+                      label: lnode,
+                      children: fitem
+                    }
+                  }
                 }
               }
             }
@@ -158,20 +207,14 @@ export class ViewHelp {
       return res
     }
 
-    // const title_get = sheet => {
-    //   const title0 = sheet._title || {}
-    //   const title = node_get(title0, true)
-    //   // return { display_name: { name: 'display_name' } }
-    //   return title.children
-    // }
-
     const children_get = sheet => {
-      const children0 = Object.keys(sheet).reduce((acc, item) => {
-        acc[item] = sheet[item]
-        return acc
-      }, {})
+      // const children0 = Object.keys(sheet).reduce((acc, item) => {
+      //   acc[item] = sheet[item]
+      //   return acc
+      // }, {})
 
-      const children = node_get(children0)
+      const children = node_get(sheet)
+
       return children.children
     }
 
@@ -181,8 +224,7 @@ export class ViewHelp {
     const children = children_get(sheet)
 
     // console.log('sheet', sheet)
-    // console.log('title', title)
-    // console.log('children', children)
+    console.log('children', children)
 
     return { children }
   }
@@ -225,8 +267,8 @@ export class ViewHelp {
   }
 
   check_readonly(fieldInfo, kw) {
-    // readonly2 废弃不用了
-    // 需要检查 merge_for_write
+    // // readonly2 用于前端自定义 readonly
+    // // 需要检查 merge_for_write
     // if ('readonly2' in fieldInfo) {
     //   return this._check_modifiers('readonly2', fieldInfo, kw)
     // }
@@ -464,6 +506,11 @@ export class ViewHelp {
   _format_to_write_get_readonly(meta, record) {
     // todo . fields_get .readonly and viewxml readonly
     //
+
+    if (meta.force_save) {
+      return false
+    }
+
     const meta_readonly_get = record2 => {
       if (typeof meta.readonly === 'function') {
         return meta.readonly({ record: record2 })

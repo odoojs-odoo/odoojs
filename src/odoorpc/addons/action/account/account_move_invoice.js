@@ -124,67 +124,8 @@ export default {
     fields: {
       made_sequence_hole: { invisible: 1 },
       name: {},
-      invoice_partner_display_name: {
-        string({ context }) {
-          // <field name="invoice_partner_display_name"
-          // invisible="context.get('default_move_type') not in (
-          // 'in_invoice', 'in_refund','in_receipt')" groups="base.group_user"
-          // string="Vendor" />
-          // <field name="invoice_partner_display_name"
-          // invisible="context.get('default_move_type') not in (
-          // 'out_invoice', 'out_refund','out_receipt')" groups="base.group_user"
-          // string="Customer" />
-
-          const default_move_type = context.default_move_type
-          const move_types_in = ['in_invoice', 'in_refund', 'in_receipt']
-          const move_types_out = ['out_invoice', 'out_refund', 'out_receipt']
-
-          const str_in = { en_US: 'Vendor', zh_CN: '供应商', zh_HK: '供应商' }
-          const str_out = { en_US: 'Customer', zh_CN: '客户', zh_HK: '客户' }
-
-          if (move_types_in.includes(default_move_type)) {
-            return str_in
-          } else if (move_types_out.includes(default_move_type)) {
-            return str_out
-          } else {
-            return str_out
-          }
-        }
-      },
-      invoice_date: {
-        string({ context }) {
-          // <field name="invoice_date" optional="show"
-          // invisible="context.get('default_move_type') not in (
-          // 'in_invoice', 'in_refund','in_receipt')"
-          // string="Bill Date"/>
-          // <field name="invoice_date" optional="show"
-          // invisible="context.get('default_move_type') not in (
-          // 'out_invoice', 'out_refund','out_receipt')" string="Invoice Date"/>
-
-          const default_move_type = context.default_move_type
-          const move_types_in = ['in_invoice', 'in_refund', 'in_receipt']
-          const move_types_out = ['out_invoice', 'out_refund', 'out_receipt']
-
-          const str_in = {
-            en_US: 'Bill Date',
-            zh_CN: '账单日期',
-            zh_HK: '账单日期'
-          }
-          const str_out = {
-            en_US: 'Invoice Date',
-            zh_CN: '开票日期',
-            zh_HK: '开票日期'
-          }
-
-          if (move_types_in.includes(default_move_type)) {
-            return str_in
-          } else if (move_types_out.includes(default_move_type)) {
-            return str_out
-          } else {
-            return str_out
-          }
-        }
-      },
+      invoice_partner_display_name: {},
+      invoice_date: {},
       // date: { string: 'Accounting Date' },
       invoice_date_due: {
         widget: 'remaining_days'

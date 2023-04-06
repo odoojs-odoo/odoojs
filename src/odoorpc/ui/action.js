@@ -311,6 +311,7 @@ export class Addons {
     const menus = filter_fn(res, 'ir.ui.menu')
     const actions = filter_fn(res, 'ir.actions')
     const views_to_merge = filter_fn(res, 'ir.ui.view')
+
     const views = merge_views(views_to_merge)
 
     // const views = views_to_merge

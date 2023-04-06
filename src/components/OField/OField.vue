@@ -1,6 +1,8 @@
 <template>
   <span>
-    <template v-if="widgetName">
+    <template v-if="fieldInfo.secret"> {{ 'xxxxxxxxxx' }} </template>
+
+    <template v-else-if="widgetName">
       <template v-if="widgetMap[widgetName]">
         <!-- <div>
           in OField: {{ [fieldName, formInfo.formType] }}:

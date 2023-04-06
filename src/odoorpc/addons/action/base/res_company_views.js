@@ -1,5 +1,3 @@
-// ok
-
 export default {
   view_company_form: {
     _odoo_model: 'ir.ui.view',

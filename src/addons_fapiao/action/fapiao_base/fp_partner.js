@@ -23,93 +23,92 @@ export default {
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
-        _group_name: {
-          name: {},
-          shortname: {},
-          fapiao_name: {},
-          code: {},
-          tin: {}
-        },
+        _group: {
+          _group_name: {
+            name: {},
+            shortname: {},
+            fapiao_name: {},
+            code: {},
+            tin: {}
+          },
 
-        _group_flag: {
-          be_company: { invisible: 1 },
-          draw_company_id: {
-            required({ record }) {
-              const { be_company } = record
-              return be_company
+          _group_flag: {
+            be_company: { invisible: 1 },
+            draw_company_id: {
+              required({ record }) {
+                const { be_company } = record
+                return be_company
+              },
+              invisible({ record }) {
+                const { be_company } = record
+                return !be_company
+              }
             },
-            invisible({ record }) {
-              const { be_company } = record
-              return !be_company
-            }
-          },
-          be_customer: {
-            invisible({ record }) {
-              const { be_company } = record
-              return be_company
-            }
-          },
-          be_supplier: {
-            invisible({ record }) {
-              const { be_company } = record
-              return be_company
-            }
-          }
-        },
-
-        _group_address: {
-          _span: 2,
-          address_phone: {
-            invisible({ record }) {
-              const { address_phone2 } = record
-              return address_phone2
-            }
-          },
-          address: {
-            invisible({ record }) {
-              const { address_phone2 } = record
-              return address_phone2
-            }
-          },
-          phone: {
-            invisible({ record }) {
-              const { address_phone2 } = record
-              return address_phone2
-            }
-          },
-          address_phone2: {
-            invisible({ record }) {
-              const { address, phone } = record
-              return address && phone
-            }
-          }
-        },
-        _group_bank: {
-          _span: 2,
-          bank_account: {
-            invisible({ record }) {
-              const { bank_account2 } = record
-              return bank_account2
-            }
-          },
-          bank_name: {
-            invisible({ record }) {
-              const { bank_account2 } = record
-              return bank_account2
-            }
-          },
-          acc_number: {
-            invisible({ record }) {
-              const { bank_account2 } = record
-              return bank_account2
+            be_customer: {
+              invisible({ record }) {
+                const { be_company } = record
+                return be_company
+              }
+            },
+            be_supplier: {
+              invisible({ record }) {
+                const { be_company } = record
+                return be_company
+              }
             }
           },
 
-          bank_account2: {
-            invisible({ record }) {
-              const { bank_name, acc_number } = record
-              return bank_name && acc_number
+          _group_address: {
+            address_phone: {
+              invisible({ record }) {
+                const { address_phone2 } = record
+                return address_phone2
+              }
+            },
+            address: {
+              invisible({ record }) {
+                const { address_phone2 } = record
+                return address_phone2
+              }
+            },
+            phone: {
+              invisible({ record }) {
+                const { address_phone2 } = record
+                return address_phone2
+              }
+            },
+            address_phone2: {
+              invisible({ record }) {
+                const { address, phone } = record
+                return address && phone
+              }
+            }
+          },
+          _group_bank: {
+            bank_account: {
+              invisible({ record }) {
+                const { bank_account2 } = record
+                return bank_account2
+              }
+            },
+            bank_name: {
+              invisible({ record }) {
+                const { bank_account2 } = record
+                return bank_account2
+              }
+            },
+            acc_number: {
+              invisible({ record }) {
+                const { bank_account2 } = record
+                return bank_account2
+              }
+            },
+
+            bank_account2: {
+              invisible({ record }) {
+                const { bank_name, acc_number } = record
+                return bank_name && acc_number
+              }
             }
           }
         }

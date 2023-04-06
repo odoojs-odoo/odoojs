@@ -137,87 +137,84 @@ export default {
         }
       },
       sheet: {
-        _title: {
-          state: { invisible: 1 },
-          display_name: {}
+        state: { invisible: 1 },
+        _group: {
+          _group_name: {
+            name: { invisible: 1 },
+            company_id: {},
+            //   tin: {}
+            user_id: {},
+            time_fapiao: {},
+            fapiao_status: {},
+            draw_serial_num: {}
+          },
+          _group_check: {
+            nuonuo_serial_num: {},
+            nuonuo_api_status: {},
+            nuonuo_api_status_msg: {},
+            nuonuo_api_fail_cause: {}
+          },
+
+          _group_type: {
+            type: {},
+            invoice_type: {},
+            taxmachine_code: {}
+          },
+
+          _group_code: {
+            invoice_code: {},
+            invoice_number: {},
+            date_fapiao: {},
+            check_code: {}
+          },
+
+          _group_buyer: {
+            partner_id: { label: '购买方', string: '' },
+            partner_tin: { string: '', readonly: 1 },
+            partner_address_phone: { string: '', readonly: 1 },
+            partner_bank_account: { string: '', readonly: 1 }
+          },
+
+          _group_comp: {}
         },
 
-        _group_name: {
-          name: { invisible: 1 },
-          company_id: {},
-          //   tin: {}
-          user_id: {},
-          time_fapiao: {},
-          fapiao_status: {},
-          draw_serial_num: {}
-        },
-
-        _group_check: {
-          nuonuo_serial_num: {},
-          nuonuo_api_status: {},
-          nuonuo_api_status_msg: {},
-          nuonuo_api_fail_cause: {}
-        },
-
-        _group_type: {
-          type: {},
-          invoice_type: {},
-          taxmachine_code: {}
-        },
-
-        _group_code: {
-          invoice_code: {},
-          invoice_number: {},
-          date_fapiao: {},
-          check_code: {}
-        },
-
-        _group_buyer: {
-          partner_id: { label: '购买方', string: '' },
-          partner_tin: { string: '', readonly: 1 },
-          partner_address_phone: { string: '', readonly: 1 },
-          partner_bank_account: { string: '', readonly: 1 }
-        },
-
-        _group_comp: {},
-
-        _group_lines: {
-          _span: 2,
-          input_line_ids: {
-            string: '',
-            widget: 'x2many_tree',
-            views: {
-              tree: {
-                fields: {
-                  //   line_type: {},
-                  row_number: { string: 'No' },
-                  //   ref_row_number: {},
-                  //   name: {},
-                  vat_product_id: {},
-                  product_id: {},
-                  product_spec: {},
-                  product_uom: {},
-                  // tax_id: {},
-                  quantity: {},
-                  // price_unit: {},
-                  price_untax: {},
-                  // amount_total: {},
-                  amount_untaxed: {},
-                  tax_ratio: {},
-                  amount_tax: {},
-                  // amount_discount: {},
-                  amount_untaxed_discount: {},
-                  amount_tax_discount: {}
-                }
-              },
-              form: {
-                arch: {
-                  sheet: {
+        input_line_ids: {
+          string: '',
+          widget: 'x2many_tree',
+          views: {
+            tree: {
+              fields: {
+                //   line_type: {},
+                row_number: { string: 'No' },
+                //   ref_row_number: {},
+                //   name: {},
+                vat_product_id: {},
+                product_id: {},
+                product_spec: {},
+                product_uom: {},
+                // tax_id: {},
+                quantity: {},
+                // price_unit: {},
+                price_untax: {},
+                // amount_total: {},
+                amount_untaxed: {},
+                tax_ratio: {},
+                amount_tax: {},
+                // amount_discount: {},
+                amount_untaxed_discount: {},
+                amount_tax_discount: {}
+              }
+            },
+            form: {
+              arch: {
+                sheet: {
+                  _group: {
                     _group_number: {
                       sequence: {},
                       row_number: {},
                       row_number_discount: {}
                     },
+
                     _group_product: {
                       //   name: {},
                       vat_product_id: {},
@@ -244,28 +241,29 @@ export default {
           }
         },
 
-        _group_amount_cn: {
-          cn_amount_total: {}
-        },
+        _group_2: {
+          _group_amount_cn: {
+            cn_amount_total: {}
+          },
 
-        _group_amount: {
-          amount_total: {},
-          amount_untaxed: {},
-          amount_tax: {}
-        },
+          _group_amount: {
+            amount_total: {},
+            amount_untaxed: {},
+            amount_tax: {}
+          },
+          _group_saler: {
+            company_name: { label: '销售方', string: '', readonly: 1 },
+            company_tin: { string: '', readonly: 1 },
+            company_address_phone: { string: '', readonly: 1 },
+            company_bank_account: { string: '', readonly: 1 }
+          },
 
-        _group_saler: {
-          company_name: { label: '销售方', string: '', readonly: 1 },
-          company_tin: { string: '', readonly: 1 },
-          company_address_phone: { string: '', readonly: 1 },
-          company_bank_account: { string: '', readonly: 1 }
-        },
-
-        _group_note: {
-          payee_name: {},
-          checker_name: {},
-          drawer_name: {},
-          note: {}
+          _group_note: {
+            payee_name: {},
+            checker_name: {},
+            drawer_name: {},
+            note: {}
+          }
         }
       }
     }

@@ -26,15 +26,15 @@ export default {
 
     arch: {
       sheet: {
-        _title: { display_name: {} },
-
-        _group_name: {
-          code: {},
-          name: {}
-        },
-        _group_taxmachine: {
-          tax_ratio: {},
-          active: {}
+        _group: {
+          _group_name: {
+            code: {},
+            name: {}
+          },
+          _group_taxmachine: {
+            tax_ratio: {},
+            active: {}
+          }
         }
       }
     }

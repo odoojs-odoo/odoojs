@@ -36,7 +36,7 @@ export default {
             city: { nolabel: 1, placeholder: 'City' },
             state: { nolabel: 1, placeholder: 'State' },
             zip: { nolabel: 1, placeholder: 'ZIP' },
-            country: { nolabel: 1, placeholder: 'Country' }
+            country: { placeholder: 'Country' }
           },
           _group_communication_details: {
             phone: {},

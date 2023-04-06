@@ -43,6 +43,18 @@
         />
       </template>
 
+      <template v-else-if="node.tag && node.name === '_div_title'">
+        <template v-for="item in node.children || {}" :key="item.name">
+          <TagNode
+            :model="model2"
+            :node="item"
+            :form-info="formInfo"
+            @change="onChange"
+            @load-relation="onLoadReation"
+          />
+        </template>
+      </template>
+
       <template v-else>
         <TagNode
           :model="model2"
