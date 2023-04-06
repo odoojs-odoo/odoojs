@@ -53,14 +53,9 @@ export class Field {
   check_readonly(formInfo) {
     const meta = this._field_info
     const formview = this.formview_get(formInfo)
-    if (meta.name === 'input_line_ids') {
-      console.log(meta.name, '1')
-    }
+
     if (!formview) {
       return true
-    }
-    if (meta.name === 'input_line_ids') {
-      console.log(meta.name, '2')
     }
 
     return formview.check_readonly(meta, formInfo)

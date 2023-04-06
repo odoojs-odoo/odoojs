@@ -3,27 +3,6 @@ import controllers from './controllers'
 
 const web = controllers.web
 
-// function _date_format(date) {
-//   const year = date.getFullYear().toString().padStart(4, '0')
-//   const month = (date.getMonth() + 1).toString().padStart(2, '0')
-//   const day = date.getDate().toString().padStart(2, '0')
-
-//   const hh = date.getHours().toString().padStart(2, '0')
-//   const mm = date.getMinutes().toString().padStart(2, '0')
-//   const ss = date.getSeconds().toString().padStart(2, '0')
-
-//   const today_str = `${year}-${month}-${day} ${hh}:${mm}:${ss}`
-//   return today_str
-// }
-
-// function date_format(date) {
-//   if (date && typeof date === 'object') {
-//     return _date_format(date)
-//   } else {
-//     return date
-//   }
-// }
-
 class MetaModel {
   constructor() {}
 
@@ -278,6 +257,10 @@ export class Model extends BaseModel {
     super(payload)
   }
 
+  // todo 不取所有字段. 应该取当前页面
+  // groups 有权限的 字段
+  // 实际上 影响不大
+  // 参考测试: account.move 的 partner_shipping_id 字段
   static _get_field_onchange() {
     const o2m_get = (views, pfld) => {
       const flds = Object.keys(views).reduce((acc, view) => {

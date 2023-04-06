@@ -60,7 +60,7 @@ export class Environment {
 
     // 开启 debug模式 需要在用户中设置
     // todo. 暂时 约定 无 debug 模式
-    const debug = 1
+    const debug = 0
 
     const no_one = 'base.group_no_one'
     const refs = ref_name.split(',')
