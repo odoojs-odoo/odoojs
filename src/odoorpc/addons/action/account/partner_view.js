@@ -63,17 +63,10 @@ export default {
                   groups: 'account.group_warning_account'
                 },
                 _separator: { _attr: { string: 'Warning on the Invoice' } },
-                invoice_warn: { required: '1' },
+                invoice_warn: {},
                 invoice_warn_msg: {
                   nolabel: '1',
-                  placeholder: 'Type a message...',
-                  required: ({ record }) => {
-                    // 'required':
-                    // [('invoice_warn','!=', False),
-                    // ('invoice_warn','!=','no-message')],
-                    const { invoice_warn } = record
-                    return invoice_warn && invoice_warn !== 'no-message'
-                  },
+
                   invisible: ({ record }) => {
                     // 'invisible':[('invoice_warn','in',(False,'no-message'))]
                     const { invoice_warn } = record

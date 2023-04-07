@@ -1,7 +1,7 @@
 const ModelFields = {
   display_name: {},
   image_url: {},
-  name: {},
+  name: { string: 'Name' },
   code: {},
   currency_id: {},
   phone_code: {},
@@ -11,19 +11,17 @@ const ModelFields = {
   address_view_id: {},
   address_format: {},
   name_position: {},
-  state_ids: { string: '州省' }
+  state_ids: { string: 'States' }
 }
 
 const StateModelFields = {
-  display_name: {},
-  name: {},
-  code: {}
+  name: { string: 'Name' },
+  code: { string: 'Code' }
 }
 
 const GroupModelFields = {
-  name: {},
-  country_ids: {}
-  // pricelist_ids: {}
+  name: { string: 'Name' },
+  country_ids: { string: 'Countrys' }
 }
 
 const AddonsFields = {

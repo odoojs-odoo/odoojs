@@ -1,31 +1,5 @@
 import { Action } from '../action'
 
-const load_from_files = files => {
-  // 不同模块中, 同一个模型. 可以merge. 没有继承关系, 纯merge
-  return files.keys().reduce((models, modulePath) => {
-    const value = files(modulePath)
-    // console.log('AddonsFields2,', modulePath, value.default)
-    const models_from = value.default
-    Object.keys(models_from).forEach(model_name => {
-      const dest = models[model_name] || {}
-      models[model_name] = { ...dest, ...models_from[model_name] }
-    })
-
-    return models
-  }, {})
-}
-
-const load_from_files_list = files_list => {
-  return files_list.reduce((acc, files) => {
-    const acc2 = load_from_files(files)
-    Object.keys(acc2).forEach(model_name => {
-      const dest = acc[model_name] || {}
-      acc[model_name] = { ...dest, ...acc2[model_name] }
-    })
-    return acc
-  }, {})
-}
-
 // function time() {
 //   const dt = new Date()
 //   const min = dt.getMinutes()
@@ -36,7 +10,7 @@ const load_from_files_list = files_list => {
 // }
 export class BaseView {
   static metadata_fields(model) {
-    const web_fields = load_from_files_list(this.web_fields_list)
+    const web_fields = Action.get_web_fields()
     return web_fields[model] || {}
   }
 
@@ -56,6 +30,8 @@ export class BaseView {
     // 例子 sale.order.user_id
     const model = this.res_model
     const fields = this.constructor.metadata_fields(model)
+
+    console.log(model, fields)
 
     const fields2 = {}
     for (const fld of Object.keys(fields)) {
@@ -266,4 +242,28 @@ export class BaseView {
   }
 }
 
-BaseView.web_fields_list = []
+// const load_from_files = files => {
+//   // 不同模块中, 同一个模型. 可以merge. 没有继承关系, 纯merge
+//   return files.keys().reduce((models, modulePath) => {
+//     const value = files(modulePath)
+//     // console.log('AddonsFields2,', modulePath, value.default)
+//     const models_from = value.default
+//     Object.keys(models_from).forEach(model_name => {
+//       const dest = models[model_name] || {}
+//       models[model_name] = { ...dest, ...models_from[model_name] }
+//     })
+
+//     return models
+//   }, {})
+// }
+
+// const load_from_files_list = files_list => {
+//   return files_list.reduce((acc, files) => {
+//     const acc2 = load_from_files(files)
+//     Object.keys(acc2).forEach(model_name => {
+//       const dest = acc[model_name] || {}
+//       acc[model_name] = { ...dest, ...acc2[model_name] }
+//     })
+//     return acc
+//   }, {})
+// }

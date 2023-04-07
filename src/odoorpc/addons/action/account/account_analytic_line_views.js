@@ -41,13 +41,7 @@ export default {
             _attr: { name: 'accounting', string: 'Accounting' },
 
             move_line_id: { widget: 'line_open_move_widget' },
-            general_account_id: {
-              readonly({ record }) {
-                // 'readonly': [('move_line_id', '!=', False)]
-                const { move_line_id } = record
-                return !move_line_id
-              }
-            }
+            general_account_id: {}
           }
         }
       }

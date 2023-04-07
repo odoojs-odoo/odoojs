@@ -20,13 +20,7 @@ export default {
                   return uom_type !== 'smaller'
                 }
               },
-              factor: {
-                readonly: ({ record }) => {
-                  // 'readonly':[('uom_type','=','bigger')]
-                  const { uom_type } = record
-                  return uom_type === 'bigger'
-                }
-              },
+              factor: {},
 
               _span: {
                 _attr: {
@@ -43,13 +37,7 @@ export default {
                   return uom_type !== 'bigger'
                 }
               },
-              factor_inv: {
-                // 'readonly':[('uom_type','!=','bigger')]
-                readonly: ({ record }) => {
-                  const { uom_type } = record
-                  return uom_type !== 'bigger'
-                }
-              },
+              factor_inv: {},
               _span: {
                 _attr: {
                   text: 'e.g: 1*(this unit)=ratio*(reference unit)'

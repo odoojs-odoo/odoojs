@@ -101,24 +101,21 @@ export default {
 
             attribute_line_ids: {
               widget: 'x2many_tree',
-              context: { show_attribute: false },
+
               views: {
                 tree: {
                   fields: {
                     value_count: { invisible: 1 },
-                    attribute_id: {
-                      readonly({ record }) {
-                        // 'readonly': [('id', '!=', False)]
-                        return !record.id
-                      }
-                    },
+                    attribute_id: {},
                     value_ids: { widget: 'many2many_tags' }
                     // _button: {
-                    //   groups: 'product.group_product_variant',
-                    //   name: 'action_open_attribute_values',
-                    //   string: 'Configure',
-                    //   type: 'object',
-                    //   class: 'float-end btn-secondary'
+                    //   _attr: {
+                    //     groups: 'product.group_product_variant',
+                    //     name: 'action_open_attribute_values',
+                    //     string: 'Configure',
+                    //     type: 'object',
+                    //     class: 'float-end btn-secondary'
+                    //   }
                     // }
                   }
                 },
@@ -127,12 +124,7 @@ export default {
                   arch: {
                     sheet: {
                       value_count: { invisible: 1 },
-                      attribute_id: {
-                        readonly({ record }) {
-                          // 'readonly': [('id', '!=', False)]
-                          return !record.id
-                        }
-                      },
+                      attribute_id: {},
                       value_ids: { widget: 'many2many_tags' },
                       _button: {
                         groups: 'product.group_product_variant',
@@ -199,20 +191,28 @@ export default {
               groups: 'product.group_product_pricelist',
               type: 'object'
             },
-            pricelist_item_count: {
-              string({ record }) {
-                const { pricelist_item_count } = record
-                return pricelist_item_count === 1
-                  ? {
-                      en_US: 'Extra Prices',
-                      zh_CN: '额外价格',
-                      zh_HK: '额外价格'
-                    }
-                  : {
-                      en_US: 'Extra Price',
-                      zh_CN: '额外价格',
-                      zh_HK: '额外价格'
-                    }
+
+            _div_: {
+              _span: { pricelist_item_count: {} },
+              _span_text: {
+                _attr: {
+                  text: 'Extra Prices', //  '额外价格'
+                  invisible({ record }) {
+                    // 'invisible': [('pricelist_item_count', '=', 1)]
+                    const { pricelist_item_count } = record
+                    return pricelist_item_count === 1
+                  }
+                }
+              },
+              _span_text2: {
+                _attr: {
+                  text: 'Extra Price', //  '额外价格'
+                  invisible({ record }) {
+                    //'invisible': [('pricelist_item_count', '!=', 1)]
+                    const { pricelist_item_count } = record
+                    return pricelist_item_count !== 1
+                  }
+                }
               }
             }
           }

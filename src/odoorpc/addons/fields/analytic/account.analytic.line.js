@@ -21,6 +21,13 @@ const ModelFields = {
       const { company_id } = record
       return [['company_id', 'in', [company_id, false]]]
     }
+  },
+  general_account_id: {
+    readonly({ record }) {
+      // 'readonly': [('move_line_id', '!=', False)]
+      const { move_line_id } = record
+      return !move_line_id
+    }
   }
 }
 const AddonsFields = {

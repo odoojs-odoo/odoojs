@@ -1,7 +1,12 @@
-import { Addons } from '@/odoorpc/ui/action'
-import { addons_list } from '@/config/config'
+import api from '@/odoorpc'
 
-const actions = Addons.load(addons_list).actions
+import { baseURL, timeout, messageError, addons_dict } from '@/config/config'
+
+api.init({ baseURL, timeout, messageError, addons_dict })
+
+const addons_data = api.addons_data
+
+const actions = addons_data.actions
 
 const default_component = () => import('@/components/OView/WebView')
 
@@ -11,7 +16,7 @@ const routers = Object.keys(actions).reduce((acc, act) => {
   const path = ['', 'web', ...xml_id.split('.')].join('/')
   const component = default_component
   acc[act] = { path, component, name: path }
-  // console.log('--act---',act,'--acc---',acc,'--acc[act]----',acc[act] ,'---xml_id----', xml_id);
+
   return acc
 }, {})
 

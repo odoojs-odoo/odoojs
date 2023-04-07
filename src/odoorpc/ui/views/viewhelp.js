@@ -169,7 +169,7 @@ export class ViewHelp {
                       if (labels.length) {
                         return fnode.children[labels[0]]
                       } else {
-                        return {}
+                        return { for: '', string: '', fieldInfo: {} }
                       }
                     }
 
@@ -178,14 +178,28 @@ export class ViewHelp {
                         item => fnode.children[item].tag !== 'label'
                       )
 
-                      if (labels.length) {
-                        return fnode.children[labels[0]].children
-                      } else {
-                        return {}
-                      }
+                      return labels.reduce((accok, item) => {
+                        accok[item] = fnode.children[item]
+                        return accok
+                      }, {})
+
+                      // if (labels.length) {
+
+                      //   return
+                      //   // const nextnode = fnode.children[labels[0]]
+                      //   // return nextnode.children
+                      //   // if (nextnode.tag) {
+                      //   //   return nextnode.children
+                      //   // } else {
+                      //   //   return { [labels[0]]: nextnode }
+                      //   // }
+                      // } else {
+                      //   return {}
+                      // }
                     }
 
                     const fnode = acc.children[cur]
+                    console.log({ ...fnode })
                     const lnode = find_label_from_field2(fnode)
                     const fitem = find_item_from_field2(fnode)
 
@@ -224,7 +238,7 @@ export class ViewHelp {
     const children = children_get(sheet)
 
     // console.log('sheet', sheet)
-    console.log('children', children)
+    // console.log('children', children)
 
     return { children }
   }

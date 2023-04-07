@@ -5,24 +5,9 @@ import ui from './ui'
 
 const web = controllers.web
 
-// ok
-const AddonsFiles = require.context('./addons/models', true, /\.js$/)
-
-const AddonsModels = AddonsFiles.keys().reduce((models, modulePath) => {
-  const value = AddonsFiles(modulePath)
-  models = { ...models, ...value.default }
-  return models
-}, {})
-
-const AllModels = { ...AddonsModels }
-
 export class Environment {
   constructor(payload = {}) {
     const { context } = payload
-    const { web_models_list = [] } = payload
-
-    this.web_models_list = web_models_list
-
     this.web = web
 
     if (context) this._context = context
@@ -183,20 +168,8 @@ export class Environment {
   }
 
   _create_model_class({ model, fields = {} }) {
-    const WebModels = this.web_models_list.reduce((acc, one) => {
-      const AddonsModels2 = one.keys().reduce((models, modulePath) => {
-        const value = one(modulePath)
-        models = { ...models, ...value.default }
-        return models
-      }, {})
-
-      acc = { ...acc, ...AddonsModels2 }
-      return acc
-    }, {})
-
-    // const WebModels = {}
-    const BaseModel2 = WebModels[model] || AllModels[model] || BaseModel
-
+    const WebModels2 = ui.Action.get_models()
+    const BaseModel2 = WebModels2[model] || BaseModel
     // const env = this
 
     class Model extends BaseModel2 {

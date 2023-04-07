@@ -4,6 +4,22 @@ export default {
     model: 'account.payment',
     type: 'tree',
 
+    // arch: {
+    //   tree: {
+
+    //     partner_id: {
+    //       string({ context }) {
+    //         const maps = {
+    //           inbound: { en_US: 'Customer' },
+    //           outbound: { en_US: 'Vendor' }
+    //         }
+    //         const { default_payment_type } = context
+    //         return maps[default_payment_type] || { en_US: 'Vendor' }
+    //       }
+    //     }
+    //   }
+    // },
+
     fields: {
       // is_internal_transfer: { invisible: '1' },
       company_currency_id: { invisible: '1' },
@@ -204,208 +220,125 @@ export default {
               help: '额外增加的字段'
             },
 
-            is_internal_transfer: {
-              force_save: '1',
-              readonly: 1
-              // readonly: ({ record }) => {
-              //   // 'readonly': [('state', '!=', 'draft')]
-              //   const { state } = record
-              //   return state !== 'draft'
-              // }
-            },
-            payment_type: {
-              widget: 'radio',
-              readonly: ({ record }) => {
-                // 'readonly': [('state', '!=', 'draft')]
-                const { state } = record
-                return state !== 'draft'
-              }
-            },
+            is_internal_transfer: { force_save: '1', readonly: 1 },
+            payment_type: { widget: 'radio' },
 
-            partner_id: {
-              readonly: ({ record }) => {
-                // 'readonly':[('state', '!=', 'draft')]
-                const { state } = record
-                return state !== 'draft'
-              },
-              invisible({ record }) {
-                // 'invisible':['|',
-                // ('partner_type','!=','customer'),
-                // ('is_internal_transfer', '=', True)]
-                // 'invisible':['|',
-                // ('partner_type','!=','supplier'),
-                // ('is_internal_transfer', '=', True)]
-                const { is_internal_transfer } = record
-                return is_internal_transfer
-              },
-
-              string({ record }) {
-                // Customer 'invisible':['|',
-                // ('partner_type','!=','customer'),
-                // ('is_internal_transfer', '=', True)]
-                // Vendor 'invisible':['|',
-                // ('partner_type','!=','supplier'),
-                // ('is_internal_transfer', '=', True)]
-
-                const maps = {
-                  customer: { en_US: 'Customer' },
-                  supplier: { en_US: 'Vendor' }
+            _div_partner_id_customer: {
+              _attr: {
+                invisible({ record }) {
+                  // 'invisible':['|',
+                  // ('partner_type','!=','customer'),
+                  // ('is_internal_transfer', '=', True)]
+                  const { partner_type, is_internal_transfer } = record
+                  return partner_type !== 'customer' || is_internal_transfer
                 }
-                const { partner_type } = record
-                return maps[partner_type] || 'Customer'
-              }
+              },
+              partner_id: { string: 'Customer' }
             },
 
-            amount: {
-              readonly: ({ record }) => {
-                // 'readonly': [('state', '!=', 'draft')]
-                const { state } = record
-                return state !== 'draft'
-              }
+            _div_partner_id_supplier: {
+              _attr: {
+                invisible({ record }) {
+                  // 'invisible':['|',
+                  // ('partner_type','!=','supplier'),
+                  // ('is_internal_transfer', '=', True)]
+                  const { partner_type, is_internal_transfer } = record
+                  return partner_type !== 'supplier' || is_internal_transfer
+                }
+              },
+              partner_id: { string: 'Vendor' }
             },
-            currency_id: {
-              readonly: ({ record }) => {
-                // 'readonly': [('state', '!=', 'draft')]
-                const { state } = record
-                return state !== 'draft'
-              }
-            },
-            date: {
-              readonly: ({ record }) => {
-                // 'readonly': [('state', '!=', 'draft')]
-                const { state } = record
-                return state !== 'draft'
-              }
-            },
+
+            amount: {},
+            currency_id: {},
+            date: {},
             ref: {}
           },
           _group_group2: {
-            journal_id: {
-              readonly({ record }) {
-                // 'readonly': [('state', '!=', 'draft')]
-                const { state } = record
-                return state !== 'draft'
-              },
+            journal_id: {},
+            payment_method_line_id: {},
 
-              domain({ record }) {
-                // domain="[('id', 'in', available_journal_ids)]"
-                const { available_journal_ids } = record
-                return [['id', 'in', available_journal_ids]]
-              }
-            },
-            payment_method_line_id: {
-              required: '1',
-              readonly: ({ record }) => {
-                // 'readonly': [('state', '!=', 'draft')]
-                const { state } = record
-                return state !== 'draft'
-              }
-            },
+            _field_partner_bank_id_customer: {
+              _attr: {
+                invisible({ record }) {
+                  // Customer Bank Account
+                  // 'invisible': ['|', '|', '|',
+                  // ('show_partner_bank_account', '=', False),
+                  // ('partner_type','!=','customer'),
+                  // ('is_internal_transfer', '=', True),
+                  // ('payment_type', '=', 'inbound')],
 
-            partner_bank_id: {
-              readonly({ record }) {
-                console.log(record)
-                // checked: account_payment_view.xml, line 294
-                // Company Bank Account  'invisible': ['|', '|',
-                // ('show_partner_bank_account', '=', False),
-                // ('is_internal_transfer', '=', True),
-                // ('payment_type', '=', 'outbound')],
-                const { payment_type } = record
-                return payment_type !== 'outbound'
-              },
-
-              required({ record }) {
-                // 'required': [('require_partner_bank_account', '=', True),
-                // ('is_internal_transfer', '=', False)],
-                // 'required': [('require_partner_bank_account', '=', True),
-                // ('is_internal_transfer', '=', False)],
-
-                // 'required': [('require_partner_bank_account', '=', True),
-                // ('is_internal_transfer', '=', False)],
-
-                const { require_partner_bank_account, is_internal_transfer } =
-                  record
-                return require_partner_bank_account && !is_internal_transfer
-              },
-
-              invisible({ record }) {
-                // Customer Bank Account
-                // 'invisible': ['|', '|', '|',
-                // ('show_partner_bank_account', '=', False),
-                // ('partner_type','!=','customer'),
-                // ('is_internal_transfer', '=', True),
-                // ('payment_type', '=', 'inbound')],
-                // Vendor Bank Account
-                // 'invisible': ['|', '|', '|',
-                // ('show_partner_bank_account', '=', False),
-                // ('partner_type','!=','supplier'),
-                // ('is_internal_transfer', '=', True),
-                // ('payment_type', '=', 'inbound')],
-                // Company Bank Account  'invisible': ['|', '|',
-                // ('show_partner_bank_account', '=', False),
-                // ('is_internal_transfer', '=', True),
-                // ('payment_type', '=', 'outbound')],
-                const {
-                  show_partner_bank_account,
-                  is_internal_transfer,
-                  payment_type
-                } = record
-                return (
-                  !show_partner_bank_account ||
-                  is_internal_transfer ||
-                  payment_type === 'inbound' ||
-                  payment_type === 'outbound'
-                )
-              },
-
-              string({ record }) {
-                // Customer Bank Account
-                // 'invisible': ['|', '|', '|',
-                // ('show_partner_bank_account', '=', False),
-                // ('partner_type','!=','customer'),
-                // ('is_internal_transfer', '=', True),
-                // ('payment_type', '=', 'inbound')],
-                // Vendor Bank Account
-                // 'invisible': ['|', '|', '|',
-                // ('show_partner_bank_account', '=', False),
-                // ('partner_type','!=','supplier'),
-                // ('is_internal_transfer', '=', True),
-                // ('payment_type', '=', 'inbound')],
-
-                // Company Bank Account  'invisible': ['|', '|',
-                // ('show_partner_bank_account', '=', False),
-                // ('is_internal_transfer', '=', True),
-                // ('payment_type', '=', 'outbound')],
-
-                const maps = {
-                  customer: { en_US: 'Customer' },
-                  supplier: { en_US: 'Vendor' }
+                  const {
+                    show_partner_bank_account,
+                    partner_type,
+                    is_internal_transfer,
+                    payment_type
+                  } = record
+                  return (
+                    !show_partner_bank_account ||
+                    partner_type !== 'customer' ||
+                    is_internal_transfer ||
+                    payment_type === 'inbound'
+                  )
                 }
-                const { partner_type, payment_type } = record
+              },
+              partner_bank_id: { string: 'Customer Bank Account' }
+            },
 
-                if (payment_type === 'outbound')
-                  return { en_US: 'Company Bank Account' }
-                else {
-                  return maps[partner_type] || 'Customer'
+            _field_partner_bank_id_supplier: {
+              _attr: {
+                invisible({ record }) {
+                  // 'invisible': ['|', '|', '|',
+                  // ('show_partner_bank_account', '=', False),
+                  // ('partner_type','!=','supplier'),
+                  // ('is_internal_transfer', '=', True),
+                  // ('payment_type', '=', 'inbound')],
+
+                  const {
+                    show_partner_bank_account,
+                    partner_type,
+                    is_internal_transfer,
+                    payment_type
+                  } = record
+                  return (
+                    !show_partner_bank_account ||
+                    partner_type !== 'supplier' ||
+                    is_internal_transfer ||
+                    payment_type === 'inbound'
+                  )
                 }
-              }
+              },
+              partner_bank_id: { string: 'Vendor Bank Account' }
+            },
+
+            _field_partner_bank_id_company: {
+              _attr: {
+                invisible({ record }) {
+                  //  'invisible': ['|', '|',
+                  // ('show_partner_bank_account', '=', False),
+                  // ('is_internal_transfer', '=', True),
+                  // ('payment_type', '=', 'outbound')],
+
+                  const {
+                    show_partner_bank_account,
+                    is_internal_transfer,
+                    payment_type
+                  } = record
+                  return (
+                    !show_partner_bank_account ||
+                    is_internal_transfer ||
+                    payment_type === 'outbound'
+                  )
+                }
+              },
+              partner_bank_id: { string: 'Company Bank Account' }
             },
 
             destination_journal_id: {
-              readonly({ record }) {
-                // 'readonly': [('state', '!=', 'draft')]
-                const { state } = record
-                return state !== 'draft'
-              },
               invisible({ record }) {
                 // 'invisible': [('is_internal_transfer', '=', False)],
                 const { is_internal_transfer } = record
                 return !is_internal_transfer
-              },
-              required({ record }) {
-                // 'required': [('is_internal_transfer', '=', True),('state', '=', 'draft')]
-                const { is_internal_transfer, state } = record
-                return is_internal_transfer && state === 'draft'
               }
             }
           }

@@ -41,18 +41,9 @@ export default {
         },
 
         _group_1: {
-          journal_id: {
-            required: '1',
-            domain({ record }) {
-              // domain="[('id', 'in', available_journal_ids)]")
-              const { available_journal_ids } = record
-              return [['id', 'in', available_journal_ids]]
-            }
-          },
-          payment_method_line_id: { required: '1' },
+          journal_id: {},
+          payment_method_line_id: {},
           partner_bank_id: {
-            //  context="{'default_allow_out_payment': True}"/>
-            context: { default_allow_out_payment: true },
             invisible({ record }) {
               // 'invisible': ['|',
               //   ('show_partner_bank_account', '=', False),
@@ -69,29 +60,6 @@ export default {
                 !show_partner_bank_account ||
                 !can_edit_wizard ||
                 (can_group_payments && !group_payment)
-              )
-            },
-
-            readonly({ record }) {
-              // 'readonly': [('payment_type', '=', 'inbound')]
-              const { payment_type } = record
-              return payment_type === 'inbound'
-            },
-
-            required({ record }) {
-              // 'required': [('require_partner_bank_account', '=', True),
-              // ('can_edit_wizard', '=', True), '|',
-              // ('can_group_payments', '=', False), ('group_payment', '=', False)],
-              const {
-                require_partner_bank_account,
-                can_edit_wizard,
-                can_group_payments,
-                group_payment
-              } = record
-              return (
-                require_partner_bank_account &&
-                can_edit_wizard &&
-                (!can_group_payments || !group_payment)
               )
             }
           },
@@ -117,7 +85,6 @@ export default {
             }
           },
           currency_id: {
-            required: '1',
             invisible({ record }) {
               // 'invisible': ['|',
               //   ('can_edit_wizard', '=', False),
@@ -174,19 +141,6 @@ export default {
               return (
                 hide_writeoff_section || payment_difference_handling === 'open'
               )
-            },
-            required({ record }) {
-              // 'required':
-              //   [('payment_difference_handling', '=', 'reconcile'),
-              //   ('early_payment_discount_mode', '=', False)]}"/>
-              const {
-                payment_difference_handling,
-                early_payment_discount_mode
-              } = record
-              return (
-                payment_difference_handling === 'reconcile' &&
-                !early_payment_discount_mode
-              )
             }
           },
           writeoff_label: {
@@ -199,12 +153,6 @@ export default {
               return (
                 hide_writeoff_section || payment_difference_handling === 'open'
               )
-            },
-            required({ record }) {
-              // 'required':
-              //   [('payment_difference_handling', '=', 'reconcile')]
-              const { payment_difference_handling } = record
-              return payment_difference_handling === 'reconcile'
             }
           }
         }

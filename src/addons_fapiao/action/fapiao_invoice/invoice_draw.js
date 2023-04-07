@@ -169,10 +169,11 @@ export default {
           },
 
           _group_buyer: {
-            partner_id: { label: '购买方', string: '' },
-            partner_tin: { string: '', readonly: 1 },
-            partner_address_phone: { string: '', readonly: 1 },
-            partner_bank_account: { string: '', readonly: 1 }
+            _b_buyer: '购买方',
+            partner_id: { nolabel: 1 },
+            partner_tin: { nolabel: 1 },
+            partner_address_phone: { nolabel: 1 },
+            partner_bank_account: { nolabel: 1 }
           },
 
           _group_comp: {}
@@ -252,10 +253,11 @@ export default {
             amount_tax: {}
           },
           _group_saler: {
-            company_name: { label: '销售方', string: '', readonly: 1 },
-            company_tin: { string: '', readonly: 1 },
-            company_address_phone: { string: '', readonly: 1 },
-            company_bank_account: { string: '', readonly: 1 }
+            _b_company: '销售方',
+            company_name: { nolabel: 1 },
+            company_tin: { nolabel: 1 },
+            company_address_phone: { nolabel: 1 },
+            company_bank_account: { nolabel: 1 }
           },
 
           _group_note: {

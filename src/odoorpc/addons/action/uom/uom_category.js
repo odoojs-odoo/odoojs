@@ -28,14 +28,7 @@ export default {
                     uom_type: {},
                     factor: { invisible: '1' },
                     factor_inv: { invisible: '1' },
-                    ratio: {
-                      string: 'Ratio',
-                      readonly({ record }) {
-                        // 'readonly': [('uom_type', '=', 'reference')]}"
-                        const { uom_type } = record
-                        return uom_type === 'reference'
-                      }
-                    },
+                    ratio: {},
                     active: {},
                     rounding: {}
                   }
@@ -49,14 +42,7 @@ export default {
                         uom_type: {},
                         factor: { invisible: '1' },
                         factor_inv: { invisible: '1' },
-                        ratio: {
-                          string: 'Ratio',
-                          readonly({ record }) {
-                            // 'readonly': [('uom_type', '=', 'reference')]}"
-                            const { uom_type } = record
-                            return uom_type === 'reference'
-                          }
-                        },
+                        ratio: {},
                         active: {},
                         rounding: {}
                       }

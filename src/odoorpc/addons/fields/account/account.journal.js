@@ -1,39 +1,24 @@
 const ModelFields = {
+  code: { placeholder: 'e.g. INV' },
+  currency_id: { groups: 'base.group_multi_currency' },
+
   default_account_id: {
-    string({ record }) {
-      const default_account = {
-        en_US: 'Default Account',
-        zh_CN: '默认科目',
-        zh_HK: '默认科目'
-      }
+    groups: 'account.group_account_readonly',
+    required({ record }) {
+      // 'required': [
+      // '|',
+      // '&amp;',
+      // ('id', '!=', False),
+      // ('type', 'in', ('bank', 'cash')),
+      // ('type', 'in', ('sale', 'purchase'))]
+      const { type, id: res_id } = record
 
-      const maps = {
-        bank: {
-          en_US: 'Bank Account',
-          zh_CN: '银行存款科目',
-          zh_HK: '银行存款科目'
-        },
-        cash: {
-          en_US: 'Cash Account',
-          zh_CN: '现金科目',
-          zh_HK: '现金科目'
-        },
-        sale: {
-          en_US: 'Default Income Account',
-          zh_CN: '默认收入科目',
-          zh_HK: '默认收入科目'
-        },
-        purchase: {
-          en_US: 'Default Expense Account',
-          zh_CN: '默认费用科目',
-          zh_HK: '默认费用科目'
-        },
-        general: default_account
-      }
-
-      const { type } = record
-      return maps[type] || default_account
+      return (
+        (res_id && ['bank', 'cash'].includes(type)) ||
+        ['sale', 'purchase'].includes(type)
+      )
     },
+
     domain({ record }) {
       // domain="
       // [('deprecated', '=', False),
@@ -53,6 +38,12 @@ const ModelFields = {
   },
 
   suspense_account_id: {
+    groups: 'account.group_account_readonly',
+    required({ record }) {
+      // [('type', 'in', ('bank', 'cash'))]
+      const { type } = record
+      return ['bank', 'cash'].includes(type)
+    },
     domain({ record }) {
       // [('deprecated', '=', False),
       //   ('company_id', '=', company_id),
@@ -81,6 +72,7 @@ const ModelFields = {
       ]
     }
   },
+
   loss_account_id: {
     domain({ record }) {
       // [('deprecated', '=', False),
@@ -97,6 +89,7 @@ const ModelFields = {
   },
 
   bank_account_id: {
+    string: 'Account Number',
     domain({ record }) {
       // [
       // ('partner_id','=', company_partner_id),
@@ -112,8 +105,26 @@ const ModelFields = {
         ['company_id', '=', false],
         ['company_id', '=', company_id]
       ]
+    },
+    context({ record }) {
+      // context="{'default_partner_id': company_partner_id}"
+      const { company_partner_id } = record
+      return {
+        default_partner_id: company_partner_id
+      }
     }
-  }
+  },
+
+  bank_statements_source: {
+    groups: 'account.group_account_readonly',
+    required({ record }) {
+      // 'required': [('type', '=', 'bank')]
+      const { type } = record
+      return type === 'bank'
+    }
+  },
+
+  restrict_mode_hash_table: { groups: 'account.group_account_readonly' }
 }
 
 const AddonsFields = {

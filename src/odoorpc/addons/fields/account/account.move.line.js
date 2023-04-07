@@ -1,48 +1,8 @@
 const ModelFields = {
-  name: {
-    // string() {
-    //   // <label for="name" string="Description" attrs="{'invisible': [('display_type', 'in', ('line_note', 'line_section'))]}"/>
-    //   // <label for="name" string="Section" attrs="{'invisible': [('display_type', '!=', 'line_section')]}"/>
-    //   // <label for="name" string="Note" attrs="{'invisible': [('display_type', '!=', 'line_note')]}"/>
-    // }
-  },
+  name: {},
 
-  discount: { string: 'Disc.%' },
-  product_id: {
-    //  for account.move.invoice_line_ids
-    domain: ({ record, context }) => {
-      // domain="
-      // context.get('default_move_type') in ('out_invoice', 'out_refund', 'out_receipt')
-      // and [('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]
-      // or [('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]
-      // "
-      const { parent: prt } = record
-      return ['out_invoice', 'out_refund', 'out_receipt'].includes(
-        context.default_move_type
-      )
-        ? [
-            ['sale_ok', '=', true],
-            '|',
-            ['company_id', '=', false],
-            ['company_id', '=', prt.company_id]
-          ]
-        : [
-            ['purchase_ok', '=', true],
-            '|',
-            ['company_id', '=', false],
-            ['company_id', '=', prt.company_id]
-          ]
-    }
-  },
-  product_uom_id: {
-    groups: 'uom.group_uom',
-    // for model
-    domain({ record }) {
-      // [('category_id', '=', product_uom_category_id)]
-      const { product_uom_category_id } = record
-      return [['category_id', '=', product_uom_category_id]]
-    }
-  },
+  date: { groups: 'account.group_account_readonly' },
+
   account_id: {
     groups: 'account.group_account_readonly',
     required({ record }) {
@@ -96,13 +56,53 @@ const ModelFields = {
       return [['company_id', '=', company_id]]
     }
   },
+
   analytic_distribution: {
     groups: 'analytic.group_analytic_accounting'
   },
+
   partner_id: {
+    // 'readonly':[('move_type', '!=', 'entry')]
     domain: () => {
       // domain="['|', ('parent_id', '=', False), ('is_company', '=', True)]
       return ['|', ['parent_id', '=', false], ['is_company', '=', true]]
+    }
+  },
+
+  product_id: {
+    //  for account.move.invoice_line_ids
+    domain: ({ record, context }) => {
+      // domain="
+      // context.get('default_move_type') in ('out_invoice', 'out_refund', 'out_receipt')
+      // and [('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]
+      // or [('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]
+      // "
+      const { parent: prt } = record
+      return ['out_invoice', 'out_refund', 'out_receipt'].includes(
+        context.default_move_type
+      )
+        ? [
+            ['sale_ok', '=', true],
+            '|',
+            ['company_id', '=', false],
+            ['company_id', '=', prt.company_id]
+          ]
+        : [
+            ['purchase_ok', '=', true],
+            '|',
+            ['company_id', '=', false],
+            ['company_id', '=', prt.company_id]
+          ]
+    }
+  },
+
+  product_uom_id: {
+    groups: 'uom.group_uom',
+    // for model
+    domain({ record }) {
+      // [('category_id', '=', product_uom_category_id)]
+      const { product_uom_category_id } = record
+      return [['category_id', '=', product_uom_category_id]]
     }
   },
 
@@ -192,7 +192,9 @@ const ModelFields = {
       ]
     }
   },
+
   tax_tag_invert: { readonly: '1', groups: 'base.group_no_one' },
+
   debit: {
     readonly({ record }) {
       // 'readonly':
@@ -216,6 +218,7 @@ const ModelFields = {
       )
     }
   },
+
   credit: {
     readonly({ record }) {
       // 'readonly':
@@ -239,12 +242,15 @@ const ModelFields = {
       )
     }
   },
+
+  discount: { string: 'Disc.%' },
   price_subtotal: {
     groups: 'account.group_show_line_subtotals_tax_excluded'
   },
   price_total: {
     groups: 'account.group_show_line_subtotals_tax_included'
   },
+
   amount_currency: { groups: 'base.group_multi_currency' },
   currency_id: { groups: 'base.group_multi_currency' }
 }

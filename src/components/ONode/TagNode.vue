@@ -4,10 +4,9 @@
       <b>{{ node.string }}</b>
     </template>
 
-    <!--     
-    <template v-if="node.tag === 'separator'">
+    <template v-else-if="node.tag === 'separator'">
       <b>{{ node.string }}</b>
-    </template> -->
+    </template>
 
     <template v-else-if="nodeTag">
       <component :is="nodeTag">
@@ -49,7 +48,7 @@
     <template v-else>
       <template v-if="['widget'].includes(node.tag)"> </template>
 
-      <template v-else> todo:{{ [node.name, node.tag] }} </template>
+      <template v-else> todo22:{{ [node.name, node.tag] }} </template>
     </template>
   </template>
 
@@ -92,7 +91,7 @@
 import { defineProps, defineEmits, computed } from 'vue'
 import OField from '@/components/OField/OField.vue'
 import { useL10n } from '@/components/tools/useL10n'
-import { object } from 'vue-types'
+
 const tags_h = { h1: 1, h2: 1, h3: 1, h6: 1, b: 1, strong: 1 }
 const tags_div = { div: 1, span: 1, hr: 1 }
 const tags_other = { p: 1, separator: 1 }

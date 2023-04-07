@@ -139,11 +139,6 @@ export default {
                     // 'invisible': [('tax_exigibility', '=', 'on_invoice')]
                     const { tax_exigibility } = record
                     return tax_exigibility === 'on_invoice'
-                  },
-                  required({ record }) {
-                    // 'required': [('tax_exigibility', '=', 'on_payment')]
-                    const { tax_exigibility } = record
-                    return tax_exigibility === 'on_payment'
                   }
                 }
               }

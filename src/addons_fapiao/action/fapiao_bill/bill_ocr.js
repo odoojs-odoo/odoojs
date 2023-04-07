@@ -137,17 +137,19 @@ export default {
           },
 
           _group_buyer: {
-            buyer_name: { label: '购买方', string: '', readonly: 1 },
-            buyer_tin: { string: '', readonly: 1 },
-            buyer_address_phone: { string: '', readonly: 1 },
-            buyer_bank_account: { string: '', readonly: 1 }
+            _b_buyer: '购买方',
+            buyer_name: { nolabel: 1 },
+            buyer_tin: { nolabel: 1 },
+            buyer_address_phone: { nolabel: 1 },
+            buyer_bank_account: { nolabel: 1 }
           },
 
           _group_comp: {
-            company_name: { label: '报销单位', string: '', readonly: 1 },
-            company_tin: { string: '', readonly: 1 },
-            company_address_phone: { string: '', readonly: 1 },
-            company_bank_account: { string: '', readonly: 1 }
+            _b_company: '报销单位',
+            company_name: { nolabel: 1 },
+            company_tin: { nolabel: 1 },
+            company_address_phone: { nolabel: 1 },
+            company_bank_account: { nolabel: 1 }
           },
 
           _group_amount_cn: {
@@ -161,10 +163,11 @@ export default {
           },
 
           _group_saler: {
-            partner_name: { label: '销售方', string: '', readonly: 1 },
-            partner_tin: { string: '', readonly: 1 },
-            partner_address_phone: { string: '', readonly: 1 },
-            partner_bank_account: { string: '', readonly: 1 }
+            _b_partner: '销售方',
+            partner_name: { label: 1 },
+            partner_tin: { label: 1 },
+            partner_address_phone: { label: 1 },
+            partner_bank_account: { label: 1 }
           },
 
           _group_note: {

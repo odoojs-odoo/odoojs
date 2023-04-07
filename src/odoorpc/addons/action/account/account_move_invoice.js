@@ -121,6 +121,43 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.move',
     type: 'tree',
+    arch: {
+      _field_invoice_partner_display_name__customer: {
+        _attr: {
+          groups: 'base.group_user',
+          invisible({ context }) {
+            // invisible="context.get('default_move_type') not in (
+            // 'out_invoice', 'out_refund','out_receipt')" groups="base.group_user"
+            const default_move_type = context.default_move_type
+            const move_types_out = ['out_invoice', 'out_refund', 'out_receipt']
+            return move_types_out.includes(default_move_type)
+          }
+        },
+        invoice_partner_display_name: {
+          string: 'Customer'
+          // const str_out = { en_US: 'Customer', zh_CN: '客户', zh_HK: '客户' }
+        }
+      },
+      _field_invoice_partner_display_name__vendor: {
+        _attr: {
+          groups: 'base.group_user',
+          invisible({ context }) {
+            // invisible="context.get('default_move_type') not in (
+            // 'in_invoice', 'in_refund','in_receipt')"
+            // string="Vendor" />
+
+            const default_move_type = context.default_move_type
+            const move_types_in = ['in_invoice', 'in_refund', 'in_receipt']
+
+            return move_types_in.includes(default_move_type)
+          }
+        },
+        invoice_partner_display_name: {
+          string: 'Vendor'
+          // const str_in = { en_US: 'Vendor', zh_CN: '供应商', zh_HK: '供应商' }
+        }
+      }
+    },
     fields: {
       made_sequence_hole: { invisible: 1 },
       name: {},

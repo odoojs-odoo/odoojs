@@ -1,10 +1,3 @@
-/*
- * @Author: Nxf
- * @Date: 2023-02-05 15:40:56
- * @LastEditors: Nxf
- * @LastEditTime: 2023-02-05 15:52:27
- * @Descripttion:
- */
 import { createRouter } from 'vue-router'
 import { createWebHashHistory } from 'vue-router'
 

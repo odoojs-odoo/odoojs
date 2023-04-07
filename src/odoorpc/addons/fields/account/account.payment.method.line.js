@@ -12,6 +12,10 @@ const ModelFields = {
   },
 
   payment_account_id: {
+    groups: 'account.group_account_readonly',
+    string: 'Outstanding Receipts accounts',
+    placeholder: 'Leave empty to use the default outstanding account',
+
     domain({ record }) {
       // [
       // ('deprecated', '=', False),

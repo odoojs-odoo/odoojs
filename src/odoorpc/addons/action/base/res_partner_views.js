@@ -15,7 +15,7 @@ export default {
       country_id: { optional: 'show', readonly: '1' },
       vat: { optional: 'hide', readonly: '1' },
       category_id: { optional: 'show', widget: 'many2many_tags' },
-      company_id: { groups: 'base.group_multi_company', readonly: '1' },
+      company_id: { readonly: '1' },
       is_company: { invisible: '1' },
       parent_id: { invisible: '1', readonly: '1' },
       active: { invisible: '1' }
@@ -85,21 +85,26 @@ export default {
           country_code: { invisible: 1 },
           company_type: { nolabel: 0, widget: 'radio' },
           _h1: {
-            name: {
-              nolabel: 0,
-              string({ editable }) {
-                return editable ? '名称' : ''
+            _field_name_company: {
+              _attr: {
+                invisible({ record }) {
+                  // 'invisible': [('is_company','=', False)]
+                  const { is_company } = record
+                  return !is_company
+                }
               },
-              required: ({ record }) => {
-                // [('type', '=', 'contact')]
-                return record.type === 'contact'
+              name: { placeholder: 'e.g. Lumber Inc' }
+            },
+
+            _field_name_individual: {
+              _attr: {
+                invisible({ record }) {
+                  // 'invisible': [('is_company','=', True)]
+                  const { is_company } = record
+                  return is_company
+                }
               },
-              placeholder({ record }) {
-                // placeholder="e.g. Lumber Inc"
-                // placeholder="e.g. Brandom Freeman"
-                const { is_company } = record
-                return is_company ? 'e.g. Lumber Inc' : 'e.g. Brandom Freeman'
-              }
+              name: { placeholder: 'e.g. Brandom Freeman' }
             }
           }
         },
@@ -156,87 +161,32 @@ export default {
           _group_address: {
             type: {
               widget: 'radio',
-              required: ({ record }) => {
-                // 'required': [('is_company','!=', True)],
-                return !record.is_company
-              },
-              readonly({ record }) {
-                // 'readonly': [('user_ids', '!=', [])]
-                const { user_ids = [] } = record
-                return user_ids.length > 0
-              },
               invisible: ({ record }) => {
                 // [('is_company','=', True)],
                 return record.is_company
               }
             },
 
-            _label_address: {
-              _attr: {
-                string({ record }) {
-                  const { type, is_company } = record
-                  return !is_company && type ? type : 'Address'
-                }
-              }
-            },
+            // _label_address: {
+            //   _attr: {
+            //     string({ record }) {
+            //       const { type, is_company } = record
+            //       return !is_company && type ? type : 'Address'
+            //     }
+            //   }
+            // },
 
-            street: {
-              placeholder: 'Street...',
-              readonly({ record }) {
-                // 'readonly':
-                // [('type', '=', 'contact'),
-                // ('parent_id', '!=', False)]
-                const { type, parent_id } = record
-                return type === 'contact' && parent_id
-              }
-            },
-            street2: {
-              placeholder: 'Street 2...',
-              readonly({ record }) {
-                const { type, parent_id } = record
-                return type === 'contact' && parent_id
-              }
-            },
-            city: {
-              placeholder: 'City',
-              readonly({ record }) {
-                const { type, parent_id } = record
-                return type === 'contact' && parent_id
-              }
-            },
-            state_id: {
-              placeholder: 'State',
-              readonly({ record }) {
-                const { type, parent_id } = record
-                return type === 'contact' && parent_id
-              }
-            },
-            zip: {
-              placeholder: 'ZIP',
-              readonly({ record }) {
-                const { type, parent_id } = record
-                return type === 'contact' && parent_id
-              }
-            },
-            country_id: {
-              placeholder: 'Country',
-              readonly({ record }) {
-                const { type, parent_id } = record
-                return type === 'contact' && parent_id
-              }
-            },
-            vat: {
-              readonly({ record }) {
-                // 'readonly': [('parent_id','!=',False)]
-                const { parent_id } = record
-                return parent_id
-              }
-            }
+            street: {},
+            street2: {},
+            city: {},
+            state_id: {},
+            zip: {},
+            country_id: {},
+            vat: {}
           },
 
           _group_comunication: {
             function: {
-              placeholder: 'e.g. Sales Director',
               invisible: ({ record }) => {
                 // [('is_company','=', True)]
                 const { is_company } = record
@@ -246,20 +196,9 @@ export default {
             phone: { widget: 'phone' },
             mobile: { widget: 'phone' },
             user_ids: { invisible: 1 },
-            email: {
-              context: "{'gravatar_image': True}",
-              required({ record }) {
-                // 'required': [('user_ids','!=', [])]
-                const { user_ids = [] } = record
-                return user_ids.length > 0
-              }
-            },
-            website: {
-              widget: 'url',
-              placeholder: 'e.g. https://www.odoo.com'
-            },
+            email: {},
+            website: { widget: 'url' },
             title: {
-              placeholder: 'e.g. Mister',
               invisible: ({ record }) => {
                 // [('is_company','=', True)]
                 const { is_company } = record
@@ -412,31 +351,31 @@ export default {
                       _hr: {},
                       _group: {
                         _group_name: {
-                          name: {
-                            string: 'Contact Name',
-                            required({ record }) {
-                              // required' : [('type', '=', 'contact')]
-                              return record.type === 'contact'
-                            }
-                          },
+                          name: { string: 'Contact Name' },
                           title: {
-                            placeholder: 'e.g. Mr.',
                             invisible({ record }) {
                               // 'invisible': [('type','!=', 'contact')]
                               return record.type !== 'contact'
                             }
                           },
                           function: {
-                            placeholder: 'e.g. Sales Director',
                             invisible({ record }) {
                               // 'invisible': [('type','!=', 'contact')]
                               return record.type !== 'contact'
                             }
                           },
-                          // <label for="street" string="Address" attrs="{'invisible': [('type','=', 'contact')]}"/>
+
+                          _b_addres: {
+                            _attr: {
+                              text: 'Address',
+                              invisible({ record }) {
+                                // 'invisible': [('type','=', 'contact'
+                                const { type } = record
+                                return type === 'contact'
+                              }
+                            }
+                          },
                           street: {
-                            string: ' ',
-                            placeholder: 'Street...',
                             invisible({ record }) {
                               // 'invisible': [('type','=', 'contact'
                               const { type } = record
@@ -444,8 +383,6 @@ export default {
                             }
                           },
                           street2: {
-                            string: ' ',
-                            placeholder: 'Street 2...',
                             invisible({ record }) {
                               // 'invisible': [('type','=', 'contact'
                               const { type } = record
@@ -453,8 +390,6 @@ export default {
                             }
                           },
                           city: {
-                            string: ' ',
-                            placeholder: 'City',
                             invisible({ record }) {
                               // 'invisible': [('type','=', 'contact'
                               const { type } = record
@@ -462,8 +397,6 @@ export default {
                             }
                           },
                           state_id: {
-                            string: ' ',
-                            placeholder: 'State',
                             invisible({ record }) {
                               // 'invisible': [('type','=', 'contact'
                               const { type } = record
@@ -471,8 +404,6 @@ export default {
                             }
                           },
                           zip: {
-                            string: ' ',
-                            placeholder: 'ZIP',
                             invisible({ record }) {
                               // 'invisible': [('type','=', 'contact'
                               const { type } = record
@@ -480,8 +411,6 @@ export default {
                             }
                           },
                           country_id: {
-                            string: ' ',
-                            placeholder: 'Country',
                             invisible({ record }) {
                               // 'invisible': [('type','=', 'contact'
                               const { type } = record
@@ -527,14 +456,7 @@ export default {
                   }
                 },
                 ref: { string: 'Reference' },
-                company_id: {
-                  groups: 'base.group_multi_company',
-                  readonly({ record }) {
-                    // 'readonly': [('parent_id', '!=', False)]
-                    const { parent_id } = record
-                    return parent_id
-                  }
-                },
+                company_id: {},
                 industry_id: {
                   invisible: ({ record }) => {
                     // 'invisible': [('is_company', '=', False)]

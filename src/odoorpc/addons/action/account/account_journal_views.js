@@ -31,6 +31,53 @@ export default {
     buttons: { create: false, edit: false, delete: false },
     arch: {
       sheet: {
+        type: { invisible: 1 },
+        // _field_default_account_id: {
+        //   _label_bank: {
+        //     _attr: {
+        //       for: 'default_account_id',
+        //       string: 'Bank Account',
+        //       invisible: ({ record }) => record.type !== 'bank'
+        //     }
+        //   },
+        //   _label_cash: {
+        //     _attr: {
+        //       for: 'default_account_id',
+        //       string: 'Cash Account',
+        //       invisible: ({ record }) => record.type !== 'cash'
+        //     }
+        //   },
+
+        //   _label_sale: {
+        //     _attr: {
+        //       for: 'default_account_id',
+        //       string: 'Default Income Account',
+        //       invisible: ({ record }) => record.type !== 'sale'
+        //     }
+        //   },
+
+        //   _label_purchase: {
+        //     _attr: {
+        //       for: 'default_account_id',
+        //       string: 'Default Expense Account',
+        //       invisible: ({ record }) => record.type !== 'purchase'
+        //     }
+        //   },
+
+        //   _label_general: {
+        //     _attr: {
+        //       for: 'default_account_id',
+        //       string: 'Default Account',
+        //       help: 'If set, this account is used to automatically balance entries.',
+        //       invisible: ({ record }) => record.type !== 'general'
+        //     }
+        //   },
+
+        //   default_account_id: {
+        //     invisible: ({ record }) => !record.type
+        //   }
+        // },
+
         company_id: { invisible: '1' },
         bank_statements_source: { invisible: '1' },
 
@@ -83,74 +130,54 @@ export default {
             _group: {
               _group_Accounting_Information: {
                 _attr: { string: 'Accounting Information' },
-                default_account_id: {
-                  groups: 'account.group_account_readonly',
-                  string({ record }) {
-                    const { type } = record
 
-                    const general_account = {
-                      en_US: 'Default Account',
-                      zh_CN: '默认科目',
-                      zh_HK: '默认科目'
+                _field_default_account_id: {
+                  _label_bank: {
+                    _attr: {
+                      for: 'default_account_id',
+                      string: 'Bank Account',
+                      invisible: ({ record }) => record.type !== 'bank'
                     }
-
-                    const type_map = {
-                      bank: {
-                        en_US: 'Bank Account',
-                        zh_CN: '银行科目',
-                        zh_HK: '银行科目'
-                      },
-                      cash: {
-                        en_US: 'Cash Account',
-                        zh_CN: '现金科目',
-                        zh_HK: '现金科目'
-                      },
-                      sale: {
-                        en_US: 'Default Income Account',
-                        zh_CN: '默认收入科目',
-                        zh_HK: '默认收入科目'
-                      },
-                      purchase: {
-                        en_US: 'Default Expense Account',
-                        zh_CN: '默认支出科目',
-                        zh_HK: '默认支出科目'
-                      },
-                      general: general_account
-                    }
-
-                    return type_map[type] || general_account
                   },
-                  required({ record }) {
-                    // 'required': [
-                    // '|',
-                    // '&amp;',
-                    // ('id', '!=', False),
-                    // ('type', 'in', ('bank', 'cash')),
-                    // ('type', 'in', ('sale', 'purchase'))]
-                    const { type, id: res_id } = record
-                    console.log(
-                      record,
-                      (res_id && ['bank', 'cash'].includes(type)) ||
-                        ['sale', 'purchase'].includes(type)
-                    )
-                    return (
-                      (res_id && ['bank', 'cash'].includes(type)) ||
-                      ['sale', 'purchase'].includes(type)
-                    )
+                  _label_cash: {
+                    _attr: {
+                      for: 'default_account_id',
+                      string: 'Cash Account',
+                      invisible: ({ record }) => record.type !== 'cash'
+                    }
                   },
 
-                  invisible({ record }) {
-                    const { type } = record
-                    return !type
+                  _label_sale: {
+                    _attr: {
+                      for: 'default_account_id',
+                      string: 'Default Income Account',
+                      invisible: ({ record }) => record.type !== 'sale'
+                    }
+                  },
+
+                  _label_purchase: {
+                    _attr: {
+                      for: 'default_account_id',
+                      string: 'Default Expense Account',
+                      invisible: ({ record }) => record.type !== 'purchase'
+                    }
+                  },
+
+                  _label_general: {
+                    _attr: {
+                      for: 'default_account_id',
+                      string: 'Default Account',
+                      help: 'If set, this account is used to automatically balance entries.',
+                      invisible: ({ record }) => record.type !== 'general'
+                    }
+                  },
+
+                  default_account_id: {
+                    invisible: ({ record }) => !record.type
                   }
                 },
+
                 suspense_account_id: {
-                  groups: 'account.group_account_readonly',
-                  required({ record }) {
-                    // [('type', 'in', ('bank', 'cash'))]
-                    const { type } = record
-                    return ['bank', 'cash'].includes(type)
-                  },
                   invisible({ record }) {
                     // [('type', 'not in', ('bank', 'cash'))]
                     const { type } = record
@@ -186,8 +213,8 @@ export default {
                     return !['bank', 'cash'].includes(type)
                   }
                 },
-                code: { placeholder: 'e.g. INV' },
-                currency_id: { groups: 'base.group_multi_currency' }
+                code: {},
+                currency_id: {}
               },
               _group_bank_account_number: {
                 _attr: {
@@ -200,19 +227,7 @@ export default {
                   }
                 },
                 company_partner_id: { invisible: 1 },
-                bank_account_id: {
-                  string: 'Account Number',
-                  // [('partner_id','=', company_partner_id),
-                  // '|', ('company_id', '=', False),
-                  // ('company_id', '=', company_id)]
-                  context({ record }) {
-                    // context="{'default_partner_id': company_partner_id}"
-                    const { company_partner_id } = record
-                    return {
-                      default_partner_id: company_partner_id
-                    }
-                  }
-                },
+                bank_account_id: {},
                 bank_id: {
                   invisible({ record }) {
                     // 'invisible': [('bank_account_id', '=', False)]
@@ -220,15 +235,7 @@ export default {
                     return !bank_account_id
                   }
                 },
-                bank_statements_source: {
-                  widget: 'radio',
-                  groups: 'account.group_account_readonly',
-                  required({ record }) {
-                    // 'required': [('type', '=', 'bank')]
-                    const { type } = record
-                    return type === 'bank'
-                  }
-                }
+                bank_statements_source: { widget: 'radio' }
               }
             }
           },
@@ -256,13 +263,7 @@ export default {
                     sequence: { widget: 'handle' },
                     payment_method_id: {},
                     name: {},
-                    payment_account_id: {
-                      groups: 'account.group_account_readonly',
-                      optional: 'hide',
-                      string: 'Outstanding Receipts accounts',
-                      placeholder:
-                        'Leave empty to use the default outstanding account'
-                    }
+                    payment_account_id: { optional: 'hide' }
                   }
                 },
                 form: {
@@ -272,49 +273,9 @@ export default {
                       payment_type: { invisible: 1 },
                       company_id: { invisible: 1 },
                       sequence: { widget: 'handle' },
-                      payment_method_id: {
-                        domain({ record }) {
-                          // [('payment_type', '=?', payment_type),
-                          // ('id', 'in', available_payment_method_ids)]
-                          const { payment_type, available_payment_method_ids } =
-                            record
-                          return [
-                            ['payment_type', '=?', payment_type],
-                            ['id', 'in', available_payment_method_ids]
-                          ]
-                        }
-                      },
+                      payment_method_id: {},
                       name: {},
-                      payment_account_id: {
-                        groups: 'account.group_account_readonly',
-                        string: 'Outstanding Receipts accounts',
-                        placeholder:
-                          'Leave empty to use the default outstanding account',
-                        domain({ record }) {
-                          // [('deprecated', '=', False),
-                          // ('company_id', '=', company_id),
-                          // ('account_type', 'not in', ('asset_receivable', 'liability_payable')),
-                          // '|', ('account_type', 'in', ('asset_current', 'liability_current')),
-                          // ('id', '=', parent.default_account_id)]
-                          const { company_id, parent: prt } = record
-                          return [
-                            ['deprecated', '=', false],
-                            ['company_id', '=', company_id],
-                            [
-                              'account_type',
-                              'not in',
-                              ['asset_receivable', 'liability_payable']
-                            ],
-                            '|',
-                            [
-                              'account_type',
-                              'in',
-                              ['asset_current', 'liability_current']
-                            ],
-                            ['id', '=', prt.default_account_id]
-                          ]
-                        }
-                      }
+                      payment_account_id: {}
                     }
                   }
                 }
@@ -345,13 +306,7 @@ export default {
                     sequence: { widget: 'handle' },
                     payment_method_id: {},
                     name: {},
-                    payment_account_id: {
-                      groups: 'account.group_account_readonly',
-                      optional: 'hide',
-                      string: 'Outstanding Receipts accounts',
-                      placeholder:
-                        'Leave empty to use the default outstanding account'
-                    }
+                    payment_account_id: { optional: 'hide' }
                   }
                 },
                 form: {
@@ -361,48 +316,9 @@ export default {
                       payment_type: { invisible: 1 },
                       company_id: { invisible: 1 },
                       sequence: { widget: 'handle' },
-                      payment_method_id: {
-                        domain({ record }) {
-                          // [('payment_type', '=?', payment_type),
-                          // ('id', 'in', available_payment_method_ids)]
-                          const { payment_type, available_payment_method_ids } =
-                            record
-                          return [
-                            ['payment_type', '=?', payment_type],
-                            ['id', 'in', available_payment_method_ids]
-                          ]
-                        }
-                      },
+                      payment_method_id: {},
                       name: {},
-                      payment_account_id: {
-                        groups: 'account.group_account_readonly',
-                        string: 'Outstanding Receipts accounts',
-                        placeholder:
-                          'Leave empty to use the default outstanding account',
-                        domain({ record }) {
-                          // [('deprecated', '=', False), ('company_id', '=', company_id),
-                          // ('account_type', 'not in', ('asset_receivable', 'liability_payable')),
-                          // '|', ('account_type', 'in', ('asset_current', 'liability_current')),
-                          // ('id', '=', parent.default_account_id)]
-                          const { company_id, parent: prt } = record
-                          return [
-                            ['deprecated', '=', false],
-                            ['company_id', '=', company_id],
-                            [
-                              'account_type',
-                              'not in',
-                              ['asset_receivable', 'liability_payable']
-                            ],
-                            '|',
-                            [
-                              'account_type',
-                              'in',
-                              ['asset_current', 'liability_current']
-                            ],
-                            ['id', '=', prt.default_account_id]
-                          ]
-                        }
-                      }
+                      payment_account_id: {}
                     }
                   }
                 }
@@ -424,7 +340,6 @@ export default {
                 _div: { _attr: { text: 'Keep empty for no control' } },
                 account_control_ids: { widget: 'many2many_tags' },
                 restrict_mode_hash_table: {
-                  groups: 'account.group_account_readonly',
                   invisible({ record }) {
                     // 'invisible': [('type', 'in', ['bank', 'cash'])]
                     const { type } = record

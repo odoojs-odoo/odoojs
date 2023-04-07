@@ -43,14 +43,7 @@ export default {
         _group_main_fields: {
           name: { string: 'Attribute Name' },
           display_type: { widget: 'radio' },
-          create_variant: {
-            widget: 'radio',
-            readonly({ record }) {
-              // 'readonly': [('number_related_products', '!=', 0)]
-              const { number_related_products } = record
-              return number_related_products !== 0
-            }
-          }
+          create_variant: { widget: 'radio' }
         },
 
         _notebook: {

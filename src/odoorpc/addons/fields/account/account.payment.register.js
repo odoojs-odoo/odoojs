@@ -7,6 +7,7 @@ const ModelFields = {
       return [['id', 'in', available_journal_ids]]
     }
   },
+
   partner_bank_id: {
     domain({ record }) {
       // domain="[('id', 'in', available_partner_bank_ids)]",

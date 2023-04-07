@@ -25,25 +25,23 @@ export class RPC {
   constructor() {}
 
   static init({ baseURL, timeout, messageError, ...payload }) {
-    const { addons_list, web_fields_list, web_models_list = [] } = payload
+    const { addons_dict } = payload
+
     JsonRequest.baseURL = baseURL
     JsonRequest.timeout = timeout
     JsonRequest.messageError = messageError
 
     this.baseURL = baseURL
-    this.web_models_list = web_models_list
 
-    if (addons_list) {
-      ui.Addons.addons_list = [...ui.Addons.addons_list, ...addons_list]
-    }
+    ui.Addons.load_addons(addons_dict)
+  }
 
-    if (web_fields_list) {
-      ui.BaseView.web_fields_list = web_fields_list
-    }
+  static get addons_data() {
+    return ui.Addons.addons_register
   }
 
   static get env() {
-    return new Environment({ web_models_list: this.web_models_list })
+    return new Environment()
   }
 
   static get tools() {

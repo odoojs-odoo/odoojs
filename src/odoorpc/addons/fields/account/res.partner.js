@@ -49,6 +49,18 @@ const ModelFields = {
       const current_company_id = env.web.session.current_company_id
       return [['company_id', 'in', [current_company_id, false]]]
     }
+  },
+
+  invoice_warn: { required: '1' },
+  invoice_warn_msg: {
+    placeholder: 'Type a message...',
+    required: ({ record }) => {
+      // 'required':
+      // [('invoice_warn','!=', False),
+      // ('invoice_warn','!=','no-message')],
+      const { invoice_warn } = record
+      return invoice_warn && invoice_warn !== 'no-message'
+    }
   }
 }
 

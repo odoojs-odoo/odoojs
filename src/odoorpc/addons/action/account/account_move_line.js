@@ -14,23 +14,14 @@ export default {
       },
       journal_id: { optional: 'hide' },
       move_name: { string: 'Journal Entry', widget: 'open_move_widget' },
-      account_id: {
-        groups: 'account.group_account_readonly'
-        // domain="[('company_id', '=', company_id)]"
-      },
-      partner_id: {
-        optional: 'show'
-        // 'readonly':[('move_type', '!=', 'entry')]
-      },
+      account_id: {},
+      partner_id: { optional: 'show' },
       ref: { optional: 'hide' },
       product_id: { optional: 'hide' },
       name: { optional: 'show' },
       tax_ids: { widget: 'many2many_tags', optional: 'hide' },
-      amount_currency: {
-        groups: 'base.group_multi_currency',
-        optional: 'show'
-      },
-      currency_id: { groups: 'base.group_multi_currency', optional: 'hide' },
+      amount_currency: { optional: 'show' },
+      currency_id: { optional: 'hide' },
       debit: {},
       credit: {},
       tax_tag_ids: { widget: 'many2many_tags', optional: 'hide' },
@@ -105,7 +96,7 @@ export default {
               },
               _group_date: {
                 _attr: { string: 'Dates' },
-                date: { groups: 'account.group_account_readonly' },
+                date: {},
                 date_maturity: {}
               },
               _group_tax: {
@@ -135,7 +126,7 @@ export default {
                     return !tax_ids.length
                   }
                 },
-                tax_tag_invert: { readonly: '1', groups: 'base.group_no_one' },
+                tax_tag_invert: {},
                 tax_audit: {}
               },
 

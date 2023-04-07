@@ -16,6 +16,7 @@ const invoice_line_ids_form_sheet = {
     account_id: {
       readonly: '1',
       domain({ record }) {
+        // invoice_line_ids 专用的 的 account_id.domain
         // domain="[('deprecated', '=', False),
         // ('account_type', 'not in', ('asset_receivable', 'liability_payable')),
         // ('company_id', '=', parent.company_id), ('is_off_balance', '=', False)]"
@@ -33,7 +34,46 @@ const invoice_line_ids_form_sheet = {
   },
 
   _group_name: {
-    name: { widget: 'text' }
+    _field_name: {
+      _label_Description: {
+        _attr: {
+          for: 'name',
+          string: 'Description',
+          invisible({ record }) {
+            // 'invisible': [('display_type', 'in',
+            // ('line_note', 'line_section'))]}"/>
+            const { display_type } = record
+            return ['line_note', 'line_section'].includes(display_type)
+          }
+        }
+      },
+
+      _label_Section: {
+        _attr: {
+          for: 'name',
+          string: 'Section',
+          invisible({ record }) {
+            // 'invisible': [('display_type', '!=', 'line_section')]}"/>
+            const { display_type } = record
+            return display_type !== 'line_section'
+          }
+        }
+      },
+
+      _label_Note: {
+        _attr: {
+          for: 'name',
+          string: 'Note',
+          invisible({ record }) {
+            // 'invisible': [('display_type', '!=', 'line_note')]}"/>
+            const { display_type } = record
+            return display_type !== 'line_note'
+          }
+        }
+      },
+
+      name: { widget: 'text' }
+    }
   },
   _group_amount: {
     price_subtotal: {},
@@ -266,25 +306,53 @@ const view_move_form_sheet = {
 
   _group: {
     _group_header_left_group: {
-      partner_id: {
-        invisible({ record }) {
-          // 'invisible': [
-          // ('move_type', 'not in', (
-          // 'out_invoice', 'out_refund', 'in_invoice', 'in_refund',
-          // 'out_receipt', 'in_receipt'))]
+      _field_partner_id: {
+        _attr: {
+          invisible({ record }) {
+            // 'invisible': [
+            // ('move_type', 'not in',
+            // ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]
 
-          const move_types = [
-            'out_invoice',
-            'out_refund',
-            'in_invoice',
-            'in_refund',
-            'out_receipt',
-            'in_receipt'
-          ]
+            const move_types = [
+              'out_invoice',
+              'out_refund',
+              'in_invoice',
+              'in_refund',
+              'out_receipt',
+              'in_receipt'
+            ]
 
-          const { move_type } = record
-          return !move_types.includes(move_type)
-        }
+            const { move_type } = record
+            return !move_types.includes(move_type)
+          }
+        },
+        _label_customer: {
+          _attr: {
+            for: 'partner_id',
+            string: 'Customer',
+            invisible({ record }) {
+              // 'invisible': [('move_type', 'not in',
+              // ('out_invoice', 'out_refund', 'out_receipt'))]
+              const move_types = ['out_invoice', 'out_refund', 'out_receipt']
+              const { move_type } = record
+              return !move_types.includes(move_type)
+            }
+          }
+        },
+        _label_vendor: {
+          _attr: {
+            for: 'partner_id',
+            string: 'Vendor',
+            invisible({ record }) {
+              // 'invisible': [('move_type', 'not in',
+              // ('in_invoice', 'in_refund', 'in_receipt'))]
+              const move_types = ['in_invoice', 'in_refund', 'in_receipt']
+              const { move_type } = record
+              return !move_types.includes(move_type)
+            }
+          }
+        },
+        partner_id: {}
       },
 
       partner_shipping_id: {
@@ -308,22 +376,28 @@ const view_move_form_sheet = {
         }
       },
 
+      _field_ref: {
+        _attr: {
+          invisible({ record }) {
+            // 'invisible':[('move_type', 'not in',
+            // ('in_invoice', 'in_receipt', 'in_refund'))]
+            const { move_type } = record
+            const in_moves = ['in_invoice', 'in_refund', 'in_receipt']
+            return !in_moves.includes(move_type)
+          }
+        },
+        _label: { _attr: { for: 'ref', string: 'Bill Reference' } },
+
+        ref: {}
+      },
+
       ref: {
         invisible({ record }) {
-          //  <field name="ref" nolabel="1"
-          // attrs="{'invisible':[('move_type', 'not in', ('in_invoice', 'in_receipt', 'in_refund'))]}" />
-          //  <field name="ref"
-          // attrs="{'invisible':[('move_type', 'in', ('in_invoice', 'in_receipt', 'in_refund', 'out_invoice', 'out_refund'))]}"/>
+          // 'invisible':[('move_type', 'in',
+          // ('in_invoice', 'in_receipt', 'in_refund', 'out_invoice', 'out_refund'))]
           const { move_type } = record
           const in_moves = ['in_invoice', 'in_refund', 'in_receipt']
-          const out_moves = ['out_invoice', 'out_refund']
-          if (in_moves.includes(move_type)) {
-            return false
-          } else if (out_moves.includes(move_type)) {
-            return true
-          } else {
-            return false
-          }
+          return in_moves.includes(move_type)
         }
       },
 
@@ -349,25 +423,61 @@ const view_move_form_sheet = {
     },
 
     _group_header_right_group: {
-      invoice_date: {
-        invisible({ record }) {
-          // 'invisible':
-          // [('move_type', 'not in', (
-          // 'out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]
+      _field_invoice_date: {
+        _attr: {
+          invisible({ record }) {
+            // 'invisible':
+            // [('move_type', 'not in', (
+            // 'out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]
 
-          const type_map = [
-            'out_invoice',
-            'out_refund',
-            'in_invoice',
-            'in_refund',
-            'out_receipt',
-            'in_receipt'
-          ]
+            const type_map = [
+              'out_invoice',
+              'out_refund',
+              'in_invoice',
+              'in_refund',
+              'out_receipt',
+              'in_receipt'
+            ]
 
-          const { move_type } = record
-          return !type_map.includes(move_type)
-        }
+            const { move_type } = record
+            return !type_map.includes(move_type)
+          }
+        },
+
+        _label_invoice: {
+          _attr: {
+            for: 'invoice_date',
+            string: 'Invoice Date',
+            invisible({ record }) {
+              //  'invisible':
+              // [('move_type', 'not in',
+              // ('out_invoice', 'out_refund', 'out_receipt'))]
+              const type_map = ['out_invoice', 'out_refund', 'out_receipt']
+              const { move_type } = record
+              return !type_map.includes(move_type)
+            }
+          }
+        },
+        _label_bill: {
+          _attr: {
+            for: 'invoice_date',
+            string: 'Bill Date',
+            // 'invisible': [('move_type', 'not in',
+            // ('in_invoice', 'in_refund', 'in_receipt'))]}"/>
+
+            invisible({ record }) {
+              //  'invisible':
+              // [('move_type', 'not in',
+              // ('out_invoice', 'out_refund', 'out_receipt'))]
+              const type_map = ['in_invoice', 'in_refund', 'in_receipt']
+              const { move_type } = record
+              return !type_map.includes(move_type)
+            }
+          }
+        },
+        invoice_date: {}
       },
+
       date: {
         invisible({ record }) {
           // 'invisible':

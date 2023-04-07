@@ -1,5 +1,5 @@
 const ModelFields = {
-  name: {},
+  name: { string: 'Number' },
   state: {
     selection: [
       ['draft', { en_US: 'Quotation', zh_CN: '报价单', zh_HK: '报价单' }],
@@ -8,6 +8,19 @@ const ModelFields = {
       ['done', { en_US: 'Locked', zh_CN: '已锁定', zh_HK: '已锁定' }],
       ['cancel', { en_US: 'Cancelled', zh_CN: '取消', zh_HK: '取消' }]
     ]
+  },
+
+  company_id: { groups: 'base.group_multi_company' },
+  create_date: { string: 'Creation Date' },
+  date_order: { string: 'Order Date' },
+  commitment_date: { string: 'Delivery Date' },
+
+  order_line: {
+    readonly: ({ record }) => {
+      // 'readonly': [('state', 'in', ('done','cancel'))]
+      const { state } = record
+      return ['done', 'cancel'].includes(state)
+    }
   },
 
   partner_id: {
@@ -19,10 +32,20 @@ const ModelFields = {
         ['type', '!=', 'private'],
         ['company_id', 'in', [false, company_id]]
       ]
+    },
+    //  context="{'res_partner_search_mode': 'customer',
+    // 'show_address': 1, 'show_vat': True}"
+
+    context: {
+      res_partner_search_mode: 'customer',
+      show_address: 1,
+      show_vat: true
     }
   },
 
   partner_invoice_id: {
+    groups: 'account.group_delivery_invoice_address',
+    context: { default_type: 'invoice' },
     domain({ record }) {
       // domain="['|', ('company_id', '=', False),
       //   ('company_id', '=', company_id)]")
@@ -32,6 +55,8 @@ const ModelFields = {
   },
 
   partner_shipping_id: {
+    groups: 'account.group_delivery_invoice_address',
+    context: { default_type: 'delivery' },
     domain({ record }) {
       // domain="['|', ('company_id', '=', False),
       //   ('company_id', '=', company_id)]",)
@@ -58,6 +83,7 @@ const ModelFields = {
   },
 
   pricelist_id: {
+    groups: 'product.group_product_pricelist',
     domain({ record }) {
       // domain="['|', ('company_id', '=', False),
       // ('company_id', '=', company_id)]",
@@ -95,13 +121,21 @@ const ModelFields = {
   },
 
   analytic_account_id: {
+    groups: 'analytic.group_analytic_accounting',
+    readonly: ({ record }) => {
+      // 'readonly': [('invoice_count','!=',0),('state','=','sale')]
+      const { invoice_count, state } = record
+      return invoice_count && state === 'sale'
+    },
     domain({ record }) {
       // domain="['|', ('company_id', '=', False),
       // ('company_id', '=', company_id)]")
       const { company_id } = record
       return ['|', ['company_id', '=', false], ['company_id', '=', company_id]]
     }
-  }
+  },
+
+  invoice_status: { groups: 'base.group_no_one' }
 }
 
 const AddonsFields = {

@@ -35,10 +35,6 @@ export default {
           _group_flag: {
             be_company: { invisible: 1 },
             draw_company_id: {
-              required({ record }) {
-                const { be_company } = record
-                return be_company
-              },
               invisible({ record }) {
                 const { be_company } = record
                 return !be_company

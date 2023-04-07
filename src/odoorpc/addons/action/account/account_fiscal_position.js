@@ -111,13 +111,7 @@ export default {
                 return !auto_apply
               }
             },
-            country_id: {
-              required: ({ record }) => {
-                // 'required': [('foreign_vat', '!=', False)]
-                const { foreign_vat } = record
-                return foreign_vat
-              }
-            },
+            country_id: {},
             state_ids: {
               widget: 'many2many_tags',
               invisible: ({ record }) => {

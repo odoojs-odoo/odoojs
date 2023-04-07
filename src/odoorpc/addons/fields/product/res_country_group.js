@@ -1,5 +1,5 @@
 const ModelFields = {
-  pricelist_ids: {}
+  pricelist_ids: { string: 'Pricelists' }
 }
 
 const AddonsFields = {
