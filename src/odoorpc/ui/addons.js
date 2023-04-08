@@ -154,10 +154,10 @@ export class Addons {
     }
 
     const addons_data = this.addons_register
-    const { i18n = {} } = addons_data
+    const { l10n = {} } = addons_data
 
-    const en_US = i18n.en_US || {}
-    const local_patch = i18n[lang] || {}
+    const en_US = l10n.en_US || {}
+    const local_patch = l10n[lang] || {}
 
     const local = merge_dict(en_US, local_patch)
 
@@ -183,14 +183,14 @@ export class Addons {
     const { actions_views, models_for_fields = {}, models = {} } = res
     const actions_views2 = this.split_actions(actions_views)
     const done = { ...actions_views2 }
-    const { i18n = {} } = res
+    const { l10n = {} } = res
 
     this.addons_register = {
       ...done,
       actions_views,
       models_for_fields,
       models,
-      i18n: { ...i18n, en_US: { actions_views, models_for_fields } }
+      l10n: { ...l10n, en_US: { actions_views, models_for_fields } }
     }
   }
 
@@ -211,23 +211,19 @@ export class Addons {
 
       acc.models = { ...(acc.models || {}), ...models }
 
-      const { i18n = {} } = one
-
-      const i18n22 = this.load_addons_for_i18n(acc.i18n || {}, i18n)
-      // console.log(acc.i18n, i18n22)
-
-      acc.i18n = { ...i18n22 }
-
+      const { l10n = {} } = one
+      const l10n22 = this.load_addons_for_l10n(acc.l10n || {}, l10n)
+      acc.l10n = { ...l10n22 }
       return acc
     }, {})
   }
 
-  static load_addons_for_i18n(i18n, i18n_from) {
-    const keys = Object.keys({ ...i18n, ...i18n_from })
+  static load_addons_for_l10n(l10n, l10n_from) {
+    const keys = Object.keys({ ...l10n, ...l10n_from })
 
     return keys.reduce((acc, lang) => {
-      const old_lang = i18n[lang] || {}
-      const new_lang = i18n_from[lang] || {}
+      const old_lang = l10n[lang] || {}
+      const new_lang = l10n_from[lang] || {}
 
       const old_actions_views = old_lang.actions_views || {}
       const new_actions_views = new_lang.actions_views || {}
@@ -261,34 +257,34 @@ export class Addons {
         acc.models_for_fields = one_addons
       } else if (type === 'models') {
         acc.models = { ...(acc.models || {}), ...value.default }
-      } else if (type === 'i18n') {
+      } else if (type === 'l10n') {
         const lang = paths[2]
         const type2 = paths[3]
         const module_name = paths[4]
 
-        if (!acc.i18n) {
-          acc.i18n = {}
+        if (!acc.l10n) {
+          acc.l10n = {}
         }
 
-        if (!acc.i18n[lang]) {
-          acc.i18n[lang] = {}
+        if (!acc.l10n[lang]) {
+          acc.l10n[lang] = {}
         }
-        if (!acc.i18n[lang].actions_views) {
-          acc.i18n[lang].actions_views = {}
+        if (!acc.l10n[lang].actions_views) {
+          acc.l10n[lang].actions_views = {}
         }
 
-        if (!acc.i18n[lang].models_for_fields) {
-          acc.i18n[lang].models_for_fields = {}
+        if (!acc.l10n[lang].models_for_fields) {
+          acc.l10n[lang].models_for_fields = {}
         }
 
         if (type2 === 'action') {
           const one_addons = this.load_one_action(value.default, module_name)
-          const old = acc.i18n[lang].actions_views
-          acc.i18n[lang].actions_views = { ...old, ...one_addons }
+          const old = acc.l10n[lang].actions_views
+          acc.l10n[lang].actions_views = { ...old, ...one_addons }
         } else if (type2 === 'fields') {
-          const old = acc.i18n[lang].models_for_fields
+          const old = acc.l10n[lang].models_for_fields
           const one_addons = this.load_one_fields(old, value.default)
-          acc.i18n[lang].models_for_fields = one_addons
+          acc.l10n[lang].models_for_fields = one_addons
         }
       } else {
         // console.log(paths, value)

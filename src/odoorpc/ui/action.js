@@ -90,11 +90,6 @@ export class Action {
 
     const views_all = addons_data.views
 
-    // const i18n = addons_data.i18n || {}
-    // const views2 = i18n[this.env.lang].actions_views || {}
-
-    // console.log(info.views)
-
     const views = Object.keys(info.views).reduce((acc, cur) => {
       const view_info = (info.views[cur] && views_all[info.views[cur]]) || {}
 
