@@ -25,7 +25,7 @@
     <template v-else-if="node.tag === 'field'">
       <a-form-item
         :name="node.label.for"
-        :label="tr(node.label.string)"
+        :label="node.label.string"
         :rules="getRules(node.label.fieldInfo)"
         :labelCol="{ style: 'fontWeight:bold' }"
         style="margin-bottom: 5px"
@@ -68,7 +68,7 @@
     <template v-else>
       <a-form-item
         :name="node.name"
-        :label="!node.nolabel ? tr(node.string) : undefined"
+        :label="!node.nolabel ? node.string : undefined"
         :rules="getRules(node)"
         :labelCol="{ style: 'fontWeight:bold' }"
         style="margin-bottom: 5px"
@@ -90,15 +90,12 @@
 <script setup>
 import { defineProps, defineEmits, computed } from 'vue'
 import OField from '@/components/OField/OField.vue'
-import { useL10n } from '@/components/tools/useL10n'
 
 const tags_h = { h1: 1, h2: 1, h3: 1, h6: 1, b: 1, strong: 1 }
 const tags_div = { div: 1, span: 1, hr: 1 }
 const tags_other = { p: 1, separator: 1 }
 
 const tags_done = { ...tags_h, ...tags_div, ...tags_other }
-
-const { tr } = useL10n()
 
 const props = defineProps(['model', 'formInfo', 'node', 'nolabel'])
 const emit = defineEmits(['change', 'load-relation'])
@@ -121,7 +118,7 @@ const nodeTag = computed(() => {
 
 function getRules(fieldInfo) {
   if (!fieldInfo.required) return undefined
-  return [{ required: true, message: `请输入${tr(fieldInfo.string)}!` }]
+  return [{ required: true, message: `请输入${fieldInfo.string}!` }]
 }
 
 async function onChange(fname, ...args) {

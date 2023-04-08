@@ -1,10 +1,7 @@
 import { computed, toRaw } from 'vue'
 import api from '@/odoorpc'
-import { useL10n } from '@/components/tools/useL10n'
 
 export function useO2mTree(props) {
-  const { tr } = useL10n()
-
   const treeview = computed(() => {
     if (props.relationInfo) {
       const rel = api.env.relation(toRaw(props.relationInfo))
@@ -36,7 +33,7 @@ export function useO2mTree(props) {
       return {
         dataIndex: fld,
         key: fld,
-        title: tr(meta.string),
+        title: meta.string,
         // ellipsis: 'ellipsis' in meta ? meta.ellipsis : true,
         // align: 'center',
         width: meta.web_col_width,

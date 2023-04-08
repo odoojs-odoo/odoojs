@@ -1,11 +1,7 @@
-import { watch, computed, reactive, ref, toRaw } from 'vue'
+import { watch, computed, reactive, ref } from 'vue'
 import api from '@/odoorpc'
 
-import { useL10n } from '@/components/tools/useL10n'
-
 export function useTreeView(props) {
-  const { tr } = useL10n()
-
   const localState = {
     treeview: null
   }
@@ -51,7 +47,7 @@ export function useTreeView(props) {
       return {
         dataIndex: fld,
         key: fld,
-        title: tr(meta.string),
+        title: meta.string,
         // ellipsis: 'ellipsis' in meta ? meta.ellipsis : true,
         // align: 'center',
         width: meta.web_col_width,
@@ -142,7 +138,7 @@ export function useTreeView(props) {
 
   function onExportAll() {
     if (localState.treeview) {
-      localState.treeview.export_xlsx_all(tr)
+      localState.treeview.export_xlsx_all()
     }
   }
 

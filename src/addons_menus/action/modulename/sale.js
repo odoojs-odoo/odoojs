@@ -5,7 +5,7 @@ export default {
     name: 'Sale',
     sequence: 50,
     children: {
-      sale_master: {
+      menu_sale_master: {
         name: 'Master',
         children: {
           res_partner_action_customer: {
@@ -14,11 +14,11 @@ export default {
           }
         }
       },
-      action_quotations_with_onboarding: {
+      menu_action_quotations_with_onboarding: {
         name: 'Quotations',
         action: 'sale.action_quotations_with_onboarding'
       },
-      action_orders: {
+      menu_action_orders: {
         name: 'Sales Orders',
         action: 'sale.action_orders'
       }

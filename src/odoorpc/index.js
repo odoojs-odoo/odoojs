@@ -48,7 +48,7 @@ export class RPC {
   static async login(...args) {
     const info = await this.web.login(...args)
     const lang = this.web.session.context.lang
-    ui.Addons.set_lang(lang)
+    ui.Addons.set_lang(lang, true)
     return info
   }
 

@@ -33,11 +33,6 @@ import { defineProps, defineEmits, computed } from 'vue'
 import { useM2mForm } from './m2mFormApi'
 import FormSheet from '@/components/OView/FormSheet.vue'
 
-import OField from '@/components/OField/OField.vue'
-
-import { useL10n } from '@/components/tools/useL10n'
-const { tr } = useL10n()
-
 const props = defineProps([
   'visible',
   'readonly',

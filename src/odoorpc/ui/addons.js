@@ -148,7 +148,11 @@ function merge_views(views) {
 export class Addons {
   constructor() {}
 
-  static set_lang(lang) {
+  static set_lang(lang, force) {
+    if (!force && this.lang_set && this.lang_set === lang) {
+      return
+    }
+
     const addons_data = this.addons_register
     const { i18n = {} } = addons_data
 
@@ -166,6 +170,8 @@ export class Addons {
       ...actions_views2,
       models_for_fields
     }
+
+    this.lang_set = lang
   }
 
   static load_addons(addons_dict) {
@@ -489,6 +495,8 @@ export class Addons {
 }
 
 Addons.addons_register = {}
+
+Addons.lang_set = undefined
 
 //
 // function test(views) {

@@ -60,8 +60,6 @@
 <script setup>
 import api from '@/odoorpc'
 import { defineProps, defineEmits, ref, reactive, watch } from 'vue'
-// import { useL10n } from '@/components/tools/useL10n'
-// const { tr } = useL10n()
 
 function VNodes(_, { attrs }) {
   return attrs.vnodes

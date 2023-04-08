@@ -8,7 +8,7 @@
     :filter-option="false"
     :show-arrow="false"
     :options="selectOptions"
-    :placeholder="tr(placeholder)"
+    :placeholder="placeholder"
     :style="compute_style"
     @search="handleSearch"
     @dropdownVisibleChange="dropdownVisibleChange"
@@ -33,8 +33,6 @@
 
 <script setup>
 import { defineProps, defineEmits, computed } from 'vue'
-import { useL10n } from '@/components/tools/useL10n'
-const { tr } = useL10n()
 
 function VNodes(_, { attrs }) {
   return attrs.vnodes

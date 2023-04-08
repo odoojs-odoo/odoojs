@@ -5,7 +5,7 @@ export default {
     name: 'Account Move',
     sequence: 30,
     children: {
-      account_move_master: {
+      menu_account_move_master: {
         name: 'Master Data',
         children: {
           res_partner_action_customer: {
@@ -26,53 +26,53 @@ export default {
           }
         }
       },
-      action_account_moves_all: {
+      menu_action_account_moves_all: {
         action: 'account.action_account_moves_all',
         name: 'Journal Items'
       },
-      account_analytic_line_action_entries: {
+      menu_account_analytic_line_action_entries: {
         action: 'analytic.account_analytic_line_action_entries',
         name: 'Analytic Items'
       },
-      account_move: {
+      menu_account_move: {
         name: 'Account Move',
         children: {
-          action_move_journal_line: {
+          menu_action_move_journal_line: {
             action: 'account.action_move_journal_line',
             name: 'Journal Entries'
           },
-          action_move_out_invoice_type: {
+          menu_action_move_out_invoice_type: {
             action: 'account.action_move_out_invoice_type',
             name: 'Invoices'
           },
-          action_move_in_invoice_type: {
+          menu_action_move_in_invoice_type: {
             action: 'account.action_move_in_invoice_type',
             name: 'Bills'
           }
         }
       },
-      account_payment: {
+      menu_account_payment: {
         name: 'Payments',
         children: {
-          action_account_payments: {
+          menu_action_account_payments: {
             action: 'account.action_account_payments',
             name: 'Payments In'
           },
 
-          action_account_payments_payable: {
+          menu_action_account_payments_payable: {
             action: 'account.action_account_payments_payable',
             name: 'Payments Out'
           },
 
-          action_account_payments_transfer: {
+          menu_action_account_payments_transfer: {
             action: 'account.action_account_payments_transfer',
             name: 'Internal Transfers'
           },
-          action_bank_statement_tree: {
+          menu_action_bank_statement_tree: {
             action: 'account.action_bank_statement_tree',
             name: 'Bank Statements'
           },
-          action_view_bank_statement_tree: {
+          menu_action_view_bank_statement_tree: {
             action: 'account.action_view_bank_statement_tree',
             name: 'Cash Registers'
           }

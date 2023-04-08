@@ -5,7 +5,7 @@
     <a-date-picker
       v-model:value="mVal"
       :show-time="showTime"
-      :placeholder="tr(placeholder)"
+      :placeholder="placeholder"
       :style="compute_style"
       @change="onChange"
       @ok="onOK"
@@ -17,9 +17,6 @@
 import { defineProps, defineEmits, computed } from 'vue'
 
 import dayjs from 'dayjs'
-
-import { useL10n } from '@/components/tools/useL10n'
-const { tr } = useL10n()
 
 const props = defineProps(['modelValue', 'width', 'placeholder', 'showTime'])
 const emit = defineEmits(['update:modelValue', 'change'])

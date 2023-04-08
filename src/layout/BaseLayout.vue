@@ -149,8 +149,6 @@ import Lang from '@/components/Lang.vue'
 import SubMenu from './SubMenu'
 import api from '@/odoorpc'
 
-import { useL10n } from '@/components/tools/useL10n'
-
 export default defineComponent({
   name: 'BaseLayout',
   components: {
@@ -163,8 +161,6 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter()
-
-    const { tr } = useL10n()
 
     const menus_tree = computed(() => menus_tree_get())
     const menus_data = computed(() => menus_data_get())
@@ -205,7 +201,7 @@ export default defineComponent({
         if (old == undefined) {
           // console.log('-=-==-=-=---- old == undefined');
           // panes.value = [...panes, { title: menu.name, key: name }]
-          const newItem = { title: tr(menu.name), key: name }
+          const newItem = { title: menu.name, key: name }
           panes.value.push(newItem)
           // console.log('------= new panes.value  =------',panes.value);
         }
@@ -373,7 +369,7 @@ export default defineComponent({
       if (old == undefined) {
         // console.log('-=-==-=-=---- old == undefined');
         // panes.value = [...panes, { title: menu.name, key: name }]
-        const newItem = { title: tr(menu.name), key: name }
+        const newItem = { title: menu.name, key: name }
         panes.value.push(newItem)
         // console.log('------= new panes.value  =------', panes.value);
       }

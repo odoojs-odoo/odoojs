@@ -42,7 +42,7 @@ class TreeModel extends BaseView {
     return await this.Model.unlink(ids)
   }
 
-  async export_xlsx_all(tr) {
+  async export_xlsx_all() {
     const fields = Object.keys(this.fields)
       .filter(item => {
         const meta = this.fields[item]
@@ -51,7 +51,7 @@ class TreeModel extends BaseView {
       .map(item => {
         const meta = this.fields[item]
         const { name, string: label, store, type } = meta
-        return { name, label: tr ? tr(label) : label, store, type }
+        return { name, label, store, type }
       })
 
     console.log(fields)

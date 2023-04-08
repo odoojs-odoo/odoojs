@@ -5,11 +5,11 @@ export default {
     name: 'Analytic Setting',
     sequence: 14,
     children: {
-      action_analytic_distribution_model: {
+      menu_action_analytic_distribution_model: {
         name: 'Analytic Distribution Models',
         action: 'analytic.action_analytic_distribution_model'
       },
-      action_account_analytic_account_form: {
+      menu_action_account_analytic_account_form: {
         name: 'Analytic Accounts',
         action: 'analytic.action_account_analytic_account_form'
       }

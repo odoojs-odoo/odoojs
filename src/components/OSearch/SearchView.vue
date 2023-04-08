@@ -12,8 +12,8 @@
     <div style="flex: 1; line-height: 32px">
       <SearchChar
         v-if="defaultItemName && !showSearchMore"
-        :title="tr(searchItems[defaultItemName].string)"
-        :placeholder="tr(searchItems[defaultItemName].string)"
+        :title="searchItems[defaultItemName].string"
+        :placeholder="searchItems[defaultItemName].string"
         :value="(searchValues[defaultItemName] || {}).values || []"
         @change="val => onSearchChange(searchItems[defaultItemName], val)"
       />
@@ -31,9 +31,9 @@
             <template v-if="item.meta.type === 'many2one'">
               <!-- {{ item.type }} {{ item.meta.type }} -->
               <SearchMany2one
-                :title="tr(item.string)"
+                :title="item.string"
                 :fieldInfo="item.meta"
-                :placeholder="tr(item.string)"
+                :placeholder="item.string"
                 :value="(searchValues[item.name] || {}).values || []"
                 @change="val => onSearchChange(item, val)"
               />
@@ -41,8 +41,8 @@
             </template>
             <template v-else>
               <SearchChar
-                :title="tr(item.string)"
-                :placeholder="tr(item.string)"
+                :title="item.string"
+                :placeholder="item.string"
                 :value="(searchValues[item.name] || {}).values || []"
                 @change="val => onSearchChange(item, val)"
               />
@@ -54,8 +54,8 @@
               <!-- {{ item.type }} {{ item.selection }} -->
 
               <SearchSelect
-                :title="tr(item.string)"
-                :placeholder="tr(item.string)"
+                :title="item.string"
+                :placeholder="item.string"
                 :value="(searchValues[item.name] || {}).values || []"
                 :options="item.selection"
                 @change="val => onSearchChange(item, val)"
@@ -66,7 +66,7 @@
             <template v-for="item2 in item.date_children" :key="item2.name">
               <SearchDate
                 class="searchDataComp"
-                :title="tr(item2.string)"
+                :title="item2.string"
                 :value="
                   (
                     ((searchValues[item.name] || {}).date_children || {})[
@@ -108,9 +108,6 @@ import SearchMany2one from './SearchMany2one.vue'
 import SearchDate from './SearchDate.vue'
 
 import { defineProps, defineEmits, computed, ref, watch } from 'vue'
-import { useL10n } from '@/components/tools/useL10n'
-
-const { tr } = useL10n()
 
 const props = defineProps(['searchValues', 'searchItems', 'actionId'])
 const emit = defineEmits(['change'])

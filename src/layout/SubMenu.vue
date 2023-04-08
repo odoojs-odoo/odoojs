@@ -14,7 +14,7 @@
           <component :is="$antIcons[item.icon]" />
         </template>
         <template #title>
-          <span>{{ tr(item.name) }}</span>
+          <span>{{ item.name }}</span>
         </template>
 
         <SubMenu
@@ -28,7 +28,7 @@
     <template v-else>
       <a-menu-item :key="item.id">
         <component :is="$antIcons[item.icon]" />
-        <span>{{ tr(item.name) }}</span>
+        <span>{{ item.name }}</span>
       </a-menu-item>
     </template>
   </template>
@@ -36,11 +36,8 @@
 
 <script setup>
 import { defineProps } from 'vue'
-import { useL10n } from '@/components/tools/useL10n'
 
 defineProps(['menuData', 'collapsed'])
-
-const { tr } = useL10n()
 
 function is_sub_menu(menu) {
   const is_sub_menu =

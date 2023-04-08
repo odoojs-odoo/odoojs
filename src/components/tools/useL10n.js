@@ -1,6 +1,8 @@
 import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
 
+// 没有用了
+
 export function useL10n() {
   const i18n = useI18n()
 

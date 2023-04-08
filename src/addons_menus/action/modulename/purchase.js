@@ -5,7 +5,7 @@ export default {
     name: 'Purchase',
     sequence: 50,
     children: {
-      sale_master: {
+      menu_sale_master: {
         name: 'Master'
         // children: {
         //   res_partner_action_customer: {
@@ -14,11 +14,11 @@ export default {
         //   }
         // }
       },
-      purchase_rfq: {
+      menu_purchase_rfq: {
         name: 'Requests for Quotation',
         action: 'purchase.purchase_rfq'
       },
-      purchase_form_action: {
+      menu_purchase_form_action: {
         name: 'Purchase Orders',
         action: 'purchase.purchase_form_action'
       }
