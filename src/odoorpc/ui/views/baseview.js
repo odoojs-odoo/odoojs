@@ -31,8 +31,6 @@ export class BaseView {
     const model = this.res_model
     const fields = this.constructor.metadata_fields(model)
 
-    console.log(this.env.lang, model, fields)
-
     const fields2 = {}
     for (const fld of Object.keys(fields)) {
       const meta = fields[fld]

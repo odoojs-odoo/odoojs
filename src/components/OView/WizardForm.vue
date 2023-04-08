@@ -3,7 +3,7 @@
     <a-modal
       v-model:visible="visible2"
       :title="(actionId || {}).name"
-      width="600px"
+      width="300"
     >
       <FormSheet
         ref="editRef"

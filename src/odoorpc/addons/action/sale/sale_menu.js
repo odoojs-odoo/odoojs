@@ -2,6 +2,7 @@ export default {
   sale_menu_root: {
     _odoo_model: 'ir.ui.menu',
     name: '销售',
+    parent: 'base.menu_odoo_root',
     icon: 'shopping',
     theme: 'twoTone',
     sequence: 30

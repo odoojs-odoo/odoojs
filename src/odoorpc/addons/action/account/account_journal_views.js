@@ -457,6 +457,7 @@ export default {
     arch: {
       fields: {
         name: {
+          string: 'Journal',
           filter_domain: self => {
             return ['|', ['name', 'ilike', self], ['code', '=like', self]]
           }
@@ -466,26 +467,29 @@ export default {
       filters: {
         group_dashboard: {
           dashboard: {
-            string: { en_US: 'Favorites', zh_CN: '已归档', zh_HK: '已归档' },
+            string: 'Favorites',
             domain: [['show_on_dashboard', '=', true]]
           }
         },
 
         group_type: {
-          sales: { string: '销售', domain: [['type', '=', 'sale']] },
-          purchases: { string: '采购', domain: [['type', '=', 'purchase']] },
+          sales: { string: 'Sales', domain: [['type', '=', 'sale']] },
+          purchases: {
+            string: 'Purchases',
+            domain: [['type', '=', 'purchase']]
+          },
           liquidity: {
-            string: '流动',
+            string: 'Liquidity',
             domain: ['|', ['type', '=', 'cash'], ['type', '=', 'bank']]
           },
           miscellaneous: {
-            string: '杂项',
+            string: 'Miscellaneous',
             domain: [['type', 'not in', ['sale', 'purchase', 'cash', 'bank']]]
           }
         },
 
         group_active: {
-          inactive: { string: '已归档', domain: [['active', '=', false]] }
+          inactive: { string: 'Archived', domain: [['active', '=', false]] }
         }
       }
     }

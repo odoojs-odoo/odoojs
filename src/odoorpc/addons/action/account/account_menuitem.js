@@ -2,7 +2,7 @@ export default {
   menu_finance: {
     _odoo_model: 'ir.ui.menu',
     name: '开票',
-
+    parent: 'base.menu_odoo_root',
     sequence: 55,
     children: {
       menu_finance_receivables: {

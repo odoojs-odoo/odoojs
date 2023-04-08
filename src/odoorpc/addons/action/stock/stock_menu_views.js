@@ -2,6 +2,7 @@ export default {
   menu_stock_root: {
     _odoo_model: 'ir.ui.menu',
     name: '库存',
+    parent: 'base.menu_odoo_root',
     // active: false,
     sequence: 140
   },

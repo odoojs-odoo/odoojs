@@ -133,10 +133,7 @@ export default {
             return move_types_out.includes(default_move_type)
           }
         },
-        invoice_partner_display_name: {
-          string: 'Customer'
-          // const str_out = { en_US: 'Customer', zh_CN: '客户', zh_HK: '客户' }
-        }
+        invoice_partner_display_name: { string: 'Customer' }
       },
       _field_invoice_partner_display_name__vendor: {
         _attr: {
@@ -152,10 +149,7 @@ export default {
             return move_types_in.includes(default_move_type)
           }
         },
-        invoice_partner_display_name: {
-          string: 'Vendor'
-          // const str_in = { en_US: 'Vendor', zh_CN: '供应商', zh_HK: '供应商' }
-        }
+        invoice_partner_display_name: { string: 'Vendor' }
       }
     },
     fields: {

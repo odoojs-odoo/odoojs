@@ -1,9 +1,16 @@
 // todo
 
 export default {
+  menu_odoo_root: {
+    _odoo_model: 'ir.ui.menu',
+    name: 'OdooMenu',
+    sequence: 100
+  },
+
   menu_board_root: {
     _odoo_model: 'ir.ui.menu',
     name: 'Dashboards',
+    parent: 'menu_odoo_root',
     //   icon: 'shopping',
     //   theme: 'twoTone',
     active: false,
@@ -12,20 +19,22 @@ export default {
 
   menu_administration: {
     _odoo_model: 'ir.ui.menu',
-    name: { en_US: 'Setting', zh_CN: '设置' },
+    parent: 'menu_odoo_root',
+    name: 'Setting',
     sequence: 550
   },
 
   menu_users: {
     _odoo_model: 'ir.ui.menu',
     parent: 'menu_administration',
-    name: { en_US: 'User And Company', zh_CN: '用户和公司' },
+    name: 'User And Company',
     sequence: 1
   },
 
   menu_management: {
     _odoo_model: 'ir.ui.menu',
-    name: { en_US: 'Apps', zh_CN: '模块' },
+    parent: 'menu_odoo_root',
+    name: 'Apps',
     sequence: 500
   }
 }

@@ -10,11 +10,11 @@ export default {
     //     partner_id: {
     //       string({ context }) {
     //         const maps = {
-    //           inbound: { en_US: 'Customer' },
-    //           outbound: { en_US: 'Vendor' }
+    //           inbound: 'Customer',
+    //           outbound: 'Vendor'
     //         }
     //         const { default_payment_type } = context
-    //         return maps[default_payment_type] || { en_US: 'Vendor' }
+    //         return maps[default_payment_type] || 'Vendor'
     //       }
     //     }
     //   }
@@ -30,11 +30,11 @@ export default {
       partner_id: {
         string({ context }) {
           const maps = {
-            inbound: { en_US: 'Customer' },
-            outbound: { en_US: 'Vendor' }
+            inbound: 'Customer',
+            outbound: 'Vendor'
           }
           const { default_payment_type } = context
-          return maps[default_payment_type] || { en_US: 'Vendor' }
+          return maps[default_payment_type] || 'Vendor'
         }
       },
       amount_signed: {

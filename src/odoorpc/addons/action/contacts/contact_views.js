@@ -18,7 +18,9 @@ export default {
 
   menu_contacts: {
     _odoo_model: 'ir.ui.menu',
+    parent: 'base.menu_odoo_root',
     name: '联系人',
+
     sequence: 20,
     children: {
       res_partner_menu_contacts: {

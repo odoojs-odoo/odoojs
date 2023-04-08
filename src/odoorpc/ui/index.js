@@ -1,4 +1,6 @@
-import { Addons, Menus, Action } from './action'
+import { Menus, Action } from './action'
+
+import { Addons } from './addons'
 
 import { BaseView } from './views/baseview'
 import { TreeView } from './views/treeview'

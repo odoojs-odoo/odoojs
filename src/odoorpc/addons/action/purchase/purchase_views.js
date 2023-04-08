@@ -20,96 +20,6 @@ const date_tools = {
 }
 
 export default {
-  menu_purchase_root: {
-    _odoo_model: 'ir.ui.menu',
-    name: '采购',
-    sequence: 135
-  },
-
-  menu_procurement_management: {
-    _odoo_model: 'ir.ui.menu',
-    name: '订单',
-    parent: 'menu_purchase_root',
-    sequence: 1
-  },
-
-  menu_procurement_management_supplier_name: {
-    _odoo_model: 'ir.ui.menu',
-    name: '供应商',
-    action: 'account.res_partner_action_supplier',
-    parent: 'menu_procurement_management',
-    sequence: 15
-  },
-
-  menu_purchase_config: {
-    _odoo_model: 'ir.ui.menu',
-    name: '配置',
-    parent: 'menu_purchase_root',
-    sequence: 100
-  },
-
-  menu_product_pricelist_action2_purchase: {
-    _odoo_model: 'ir.ui.menu',
-    name: '供应商价格表',
-    action: 'product.product_supplierinfo_type_action',
-    parent: 'menu_purchase_config',
-    sequence: 1
-  },
-
-  menu_product_in_config_purchase: {
-    _odoo_model: 'ir.ui.menu',
-    name: '产品',
-    parent: 'menu_purchase_config',
-    sequence: 30
-  },
-
-  menu_product_attribute_action: {
-    _odoo_model: 'ir.ui.menu',
-    name: '产品属性',
-    action: 'product.attribute_action',
-    parent: 'menu_product_in_config_purchase',
-    sequence: 1
-  },
-
-  menu_product_category_config_purchase: {
-    _odoo_model: 'ir.ui.menu',
-    name: '产品类别',
-    action: 'product.product_category_action_form',
-    parent: 'menu_product_in_config_purchase',
-    sequence: 3
-  },
-
-  menu_unit_of_measure_in_config_purchase: {
-    _odoo_model: 'ir.ui.menu',
-    name: '度量单位',
-    parent: 'menu_purchase_config',
-    sequence: 40
-  },
-
-  menu_purchase_uom_form_action: {
-    _odoo_model: 'ir.ui.menu',
-    name: '度量单位',
-    action: 'uom.product_uom_form_action',
-    parent: 'menu_unit_of_measure_in_config_purchase',
-    sequence: 5
-  },
-
-  menu_purchase_uom_categ_form_action: {
-    _odoo_model: 'ir.ui.menu',
-    name: '度量单位类别',
-    action: 'uom.product_uom_categ_form_action',
-    parent: 'menu_unit_of_measure_in_config_purchase',
-    sequence: 10
-  },
-
-  menu_purchase_products: {
-    _odoo_model: 'ir.ui.menu',
-    name: '产品',
-    parent: 'menu_purchase_root',
-    sequence: 5
-  },
-  //
-
   product_normal_action_puchased: {
     _odoo_model: 'ir.actions',
     name: '产品',
@@ -121,14 +31,6 @@ export default {
       search_default_filter_to_purchase: 1,
       purchase_product_template: 1
     }
-  },
-
-  menu_procurement_partner_contact_form: {
-    _odoo_model: 'ir.ui.menu',
-    name: '产品',
-    action: 'product_normal_action_puchased',
-    parent: 'menu_purchase_products',
-    sequence: 20
   },
 
   //
@@ -499,20 +401,55 @@ export default {
     model: 'purchase.order',
     type: 'tree',
     fields: {
-      priority: {},
-      name: {},
-      date_approve: {},
+      priority: { optional: 'show', widget: 'priority' },
+      partner_ref: { optional: 'hide' },
+      name: { string: 'Reference' },
+      date_approve: {
+        widget: 'date',
+        optional: 'show',
+        invisible({ context }) {
+          // invisible="context.get('quotation_only', False)"
+          return context.quotation_only
+        }
+      },
       partner_id: {},
-      company_id: {},
-      date_planned: {},
-      user_id: {},
-      date_order: {},
-      origin: {},
-      amount_untaxed: {},
-      amount_total: {},
-      currency_id: {},
-      state: {},
-      invoice_status: {}
+      company_id: { optional: 'show' },
+
+      user_id: { widget: 'many2one_avatar_user', optional: 'show' },
+      date_order: {
+        optional: 'show',
+        invisible({ context }) {
+          // invisible="not context.get('quotation_only', False)"
+          return !context.quotation_only
+        }
+      },
+      origin: { optional: 'show' },
+      amount_untaxed: {
+        sum: 'Total Untaxed amount',
+        string: 'Untaxed',
+        widget: 'monetary',
+        optional: 'hide'
+      },
+      amount_total: {
+        sum: 'Total amount',
+        widget: 'monetary',
+        optional: 'show'
+      },
+      currency_id: { invisible: '1' },
+      state: { invisible: '1' },
+      invoice_status: {
+        widget: 'badge',
+        optional: 'show'
+        // decoration-success="invoice_status == 'invoiced'"
+        // decoration-info="invoice_status == 'to invoice'" optional="show"
+      },
+      date_planned: {
+        optional: 'show',
+        invisible({ context }) {
+          // invisible="context.get('quotation_only', False)"
+          return context.quotation_only
+        }
+      }
     }
   },
 
@@ -522,20 +459,54 @@ export default {
     type: 'tree',
     priority: 10,
     fields: {
-      priority: {},
-      name: {},
-      date_approve: {},
+      priority: { optional: 'show', widget: 'priority' },
+      partner_ref: { optional: 'hide' },
+      name: { string: 'Reference' },
+      date_approve: {
+        widget: 'date',
+        optional: 'show',
+        invisible({ context }) {
+          // invisible="context.get('quotation_only', False)"
+          return context.quotation_only
+        }
+      },
       partner_id: {},
-      company_id: {},
-      date_planned: {},
-      user_id: {},
-      date_order: {},
-      origin: {},
-      amount_untaxed: {},
-      amount_total: {},
-      currency_id: {},
-      state: {},
-      invoice_status: {}
+      company_id: { optional: 'show' },
+      date_planned: {
+        optional: 'show',
+        invisible({ context }) {
+          // invisible="context.get('quotation_only', False)"
+          return context.quotation_only
+        }
+      },
+      user_id: { widget: 'many2one_avatar_user', optional: 'show' },
+      date_order: {
+        optional: 'show',
+        invisible({ context }) {
+          // invisible="not context.get('quotation_only', False)"
+          return !context.quotation_only
+        }
+      },
+      origin: { optional: 'show' },
+      amount_untaxed: {
+        sum: 'Total Untaxed amount',
+        string: 'Untaxed',
+        widget: 'monetary',
+        optional: 'hide'
+      },
+      amount_total: {
+        sum: 'Total amount',
+        widget: 'monetary',
+        optional: 'show'
+      },
+      currency_id: { invisible: '1' },
+      state: { invisible: '1' },
+      invoice_status: {
+        widget: 'badge',
+        optional: 'show'
+        // decoration-success="invoice_status == 'invoiced'"
+        // decoration-info="invoice_status == 'to invoice'" optional="show"
+      }
     }
   },
 
@@ -546,7 +517,7 @@ export default {
     arch: {
       fields: {
         name: {
-          string: '订单',
+          string: 'Order',
           filter_domain: self => {
             return [
               '|',
@@ -566,39 +537,39 @@ export default {
       filters: {
         group_me: {
           my_purchases: {
-            string: '我的订单',
+            string: 'My Purchases',
             domain: ({ env }) => {
               const uid = env.uid
               return [['user_id', '=', uid]]
             }
           },
-          starred: { string: '我的收藏', domain: [['priority', '=', '1']] }
+          starred: { string: 'Starred', domain: [['priority', '=', '1']] }
         },
         group_state_rfq: {
           draft: {
-            string: '询价单',
+            string: 'RFQs',
             domain: [['state', 'in', ['draft', 'sent', 'to approve']]]
           }
         },
         group_state: {
           approved: {
-            string: '采购订单',
+            string: 'Purchase Orders',
             domain: [['state', 'in', ['purchase', 'done']]]
           },
           to_approve: {
-            string: '待确认',
+            string: 'To Approve',
             domain: [['state', 'in', ['to approve']]]
           }
         },
         group_type: {
-          order_date: { string: '订单日期', date: 'date_order' },
+          order_date: { string: 'Order Date', date: 'date_order' },
           draft_rfqs: {
-            string: '草稿询价单',
+            string: 'Draft RFQs',
             domain: [['state', '=', 'draft']]
           },
 
           waiting_rfqs: {
-            string: '已发送等待回复的询价单',
+            string: 'Waiting RFQs',
             domain: () => {
               const today = date_tools.today
               return [
@@ -608,7 +579,7 @@ export default {
             }
           },
           late_rfqs: {
-            string: '超期待确认的询价单',
+            string: 'Late RFQs',
             domain: () => {
               const today = date_tools.today
               return [
@@ -629,7 +600,7 @@ export default {
     arch: {
       fields: {
         name: {
-          string: '订单',
+          string: 'Order',
           filter_domain: self => {
             return [
               '|',
@@ -648,33 +619,33 @@ export default {
       filters: {
         group_me: {
           my_purchases: {
-            string: '我的订单',
+            string: 'My Orders',
             domain: ({ env }) => {
               const uid = env.uid
               return [['user_id', '=', uid]]
             }
           },
-          starred: { string: '我的收藏', domain: [['priority', '=', '1']] }
+          starred: { string: 'Starred', domain: [['priority', '=', '1']] }
         },
         group_state: {
           unconfirmed: {
-            string: '等待应答',
+            string: 'Not Acknowledged',
             domain: [
               ['mail_reception_confirmed', '=', false],
               ['state', '=', 'purchase']
             ]
           },
           not_invoiced: {
-            string: '待收账单',
+            string: 'Waiting Bills',
             domain: [['invoice_status', '=', 'to invoice']]
           },
           invoiced: {
-            string: '待收账单',
+            string: 'Bills Received',
             domain: [['invoice_status', '=', 'invoiced']]
           }
         },
         group_date: {
-          order_date: { string: '订单日期', date: 'date_order' }
+          order_date: { string: 'Order Date', date: 'date_order' }
         }
       }
     }
@@ -682,16 +653,12 @@ export default {
 
   purchase_rfq: {
     _odoo_model: 'ir.actions',
-    name: '询价单',
+    name: 'Requests for Quotation',
     type: 'ir.actions.act_window',
     res_model: 'purchase.order',
     search_view_id: 'view_purchase_order_filter',
     domain: [],
-    context: {
-      quotation_only: true
-      // search_default_waiting_rfqs: 1,
-      // search_default_order_date: ['2021-01-01', '2022-12-12']
-    },
+    context: { quotation_only: true },
     views: {
       tree: 'purchase_order_kpis_tree',
       form: 'purchase_order_form'
@@ -700,7 +667,7 @@ export default {
 
   purchase_form_action: {
     _odoo_model: 'ir.actions',
-    name: '采购订单',
+    name: 'Purchase Orders',
     type: 'ir.actions.act_window',
     res_model: 'purchase.order',
     search_view_id: 'purchase_order_view_search',
@@ -710,21 +677,5 @@ export default {
       tree: 'purchase_order_view_tree',
       form: 'purchase_order_form'
     }
-  },
-
-  menu_purchase_form_action: {
-    _odoo_model: 'ir.ui.menu',
-    name: '采购订单',
-    action: 'purchase_form_action',
-    parent: 'menu_procurement_management',
-    sequence: 6
-  },
-
-  menu_purchase_rfq: {
-    _odoo_model: 'ir.ui.menu',
-    name: '询价单',
-    action: 'purchase_rfq',
-    parent: 'menu_procurement_management',
-    sequence: 0
   }
 }

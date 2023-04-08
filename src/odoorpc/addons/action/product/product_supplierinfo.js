@@ -95,7 +95,7 @@ export default {
 
         group_active: {
           active: {
-            string: { en_US: 'Active', zh_CN: '激活的', zh_HK: '激活的' },
+            string: 'Active',
             domain() {
               const last_date = date_tools.increase(new Date(), -1)
               // [
@@ -113,7 +113,7 @@ export default {
           },
 
           archived: {
-            string: { en_US: 'Archived', zh_CN: '已归档', zh_HK: '已归档' },
+            string: 'Archived',
             domain() {
               const last_date = date_tools.increase(new Date(), -1)
 

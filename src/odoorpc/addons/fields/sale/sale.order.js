@@ -2,11 +2,11 @@ const ModelFields = {
   name: { string: 'Number' },
   state: {
     selection: [
-      ['draft', { en_US: 'Quotation', zh_CN: '报价单', zh_HK: '报价单' }],
-      ['sent', { en_US: 'Quotation Sent', zh_CN: '已发送', zh_HK: '已发送' }],
-      ['sale', { en_US: 'Sales Order', zh_CN: '销售订单', zh_HK: '销售订单' }],
-      ['done', { en_US: 'Locked', zh_CN: '已锁定', zh_HK: '已锁定' }],
-      ['cancel', { en_US: 'Cancelled', zh_CN: '取消', zh_HK: '取消' }]
+      ['draft', 'Quotation'],
+      ['sent', 'Quotation Sent'],
+      ['sale', 'Sales Order'],
+      ['done', 'Locked'],
+      ['cancel', 'Cancelled']
     ]
   },
 

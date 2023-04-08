@@ -1,8 +1,8 @@
 const ModelFields = {
-  name: { string: { en_US: 'Name', zh_CN: '名称', zh_HK: '名稱' } },
-  code: { string: { en_US: 'Code', zh_CN: '编码', zh_HK: '编码' } },
+  name: { string: 'Name' },
+  code: { string: 'Code' },
   partner_id: {
-    string: { en_US: 'Customer', zh_CN: '客户', zh_HK: '客户' },
+    string: 'Customer',
     domain({ record }) {
       //   [('company_id', 'in', [company_id, False])]
       const { company_id } = record
@@ -11,7 +11,7 @@ const ModelFields = {
   },
 
   plan_id: {
-    string: { en_US: 'Plan', zh_CN: '计划', zh_HK: '计划' },
+    string: 'Plan',
     domain({ record }) {
       //   [('company_id', 'in', [company_id, False])]
       const { company_id } = record
@@ -19,7 +19,7 @@ const ModelFields = {
     }
   },
 
-  active: { string: { en_US: 'Active', zh_CN: '激活', zh_HK: '激活' } }
+  active: { string: 'Active' }
 }
 
 const AddonsFields = {

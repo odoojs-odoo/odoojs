@@ -1,16 +1,16 @@
 const ModelFields = {
   display_name: {
-    disable_field_onchange: 1
-    // string: { en_US: 'Name', zh_CN: '名称', zh_HK: '名称' }
+    disable_field_onchange: 1,
+    string: 'Name'
   },
-  name: { string: { en_US: 'Name', zh_CN: '名称', zh_HK: '名稱' } },
-  bic: { string: { en_US: 'Code', zh_CN: '编码', zh_HK: '編碼' } },
+  name: { string: 'Name' },
+  bic: { string: 'Code' },
 
   street: {},
   street2: {},
   city: {},
   state: {
-    string: '州省',
+    string: 'States',
     // domain="[('country_id', '=?', country_id)]"
     domain: ({ record }) => {
       const { country } = record
@@ -31,10 +31,8 @@ const PartnerBankFields = {
   sequence: {},
   acc_type: {},
   acc_number: {},
-  partner_id: {
-    string: { en_US: 'Partner', zh_CN: '參與人', zh_HK: '參與人' }
-  },
-  company_id: { string: { en_US: 'Company', zh_CN: '公司', zh_HK: '公司' } },
+  partner_id: { string: 'Partner' },
+  company_id: { string: 'Company' },
   bank_id: {},
   acc_holder_name: {},
   active: {}

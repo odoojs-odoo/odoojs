@@ -2,9 +2,9 @@ const ModelFields = {
   name: {},
   state: {
     selection: [
-      ['draft', { en_US: 'Draft', zh_CN: '草稿', zh_HK: '草稿' }],
-      ['posted', { en_US: 'Posted', zh_CN: '过账', zh_HK: '过账' }],
-      ['cancel', { en_US: 'Cancelled', zh_CN: '取消', zh_HK: '取消' }]
+      ['draft', 'Draft'],
+      ['posted', 'Posted'],
+      ['cancel', 'Cancelled']
     ]
   },
 
@@ -19,8 +19,8 @@ const ModelFields = {
 
   payment_type: {
     selection: [
-      ['outbound', { en_US: 'Send', zh_CN: '支付', zh_HK: '支付' }],
-      ['inbound', { en_US: 'Receive', zh_CN: '收款', zh_HK: '收款' }]
+      ['outbound', 'Send'],
+      ['inbound', 'Receive']
     ],
     readonly: ({ record }) => {
       // 'readonly': [('state', '!=', 'draft')]
@@ -31,8 +31,8 @@ const ModelFields = {
 
   partner_type: {
     selection: [
-      ['customer', { en_US: 'Customer', zh_CN: '客户', zh_HK: '客户' }],
-      ['supplier', { en_US: 'Vendor', zh_CN: '供应商', zh_HK: '供应商' }]
+      ['customer', 'Customer'],
+      ['supplier', 'Vendor']
     ]
   },
 

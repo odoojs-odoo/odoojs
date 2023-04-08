@@ -1,5 +1,3 @@
-// ok
-
 export default {
   view_res_bank_form: {
     _odoo_model: 'ir.ui.view',
@@ -69,10 +67,7 @@ export default {
 
       filters: {
         group_active: {
-          inactive: {
-            string: { en_US: 'Archived', zh_CN: '已归档', zh_HK: '已歸檔' },
-            domain: [['active', '=', false]]
-          }
+          inactive: { string: 'Archived', domain: [['active', '=', false]] }
         }
       }
     }
@@ -156,7 +151,7 @@ export default {
       fields: {
         bank_name: {
           _default: 1,
-          string: { en_US: 'Bank Name', zh_CN: '銀行名稱', zh_HK: '銀行名稱' },
+          string: 'Bank Name',
 
           filter_domain: self => {
             return [
@@ -166,12 +161,8 @@ export default {
             ]
           }
         },
-        company_id: {
-          string: { en_US: 'Company', zh_CN: '公司', zh_HK: '公司' }
-        },
-        partner_id: {
-          string: { en_US: 'Partner', zh_CN: '參與人', zh_HK: '參與人' }
-        }
+        company_id: { string: 'Company' },
+        partner_id: { string: 'Partner' }
       },
       filters: {
         group_active: {

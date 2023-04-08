@@ -212,22 +212,24 @@ const view_order_form_sheet = {
         _div_row: {
           pricelist_id: {},
           _button: {
-            name: 'action_update_prices',
-            type: 'object',
-            string: ' Update Prices',
-            help: 'Recompute all prices based on this pricelist',
-            confirm:
-              'This will update all unit prices based on the currently set pricelist.',
+            _attr: {
+              name: 'action_update_prices',
+              type: 'object',
+              string: ' Update Prices',
+              help: 'Recompute all prices based on this pricelist',
+              confirm:
+                'This will update all unit prices based on the currently set pricelist.',
 
-            invisible: ({ record }) => {
-              //'invisible':
-              // ['|', ('show_update_pricelist', '=', False),
-              // ('state', 'in', ['sale', 'done', 'cancel'])]}"/>
-              const { show_update_pricelist, state } = record
-              return (
-                !show_update_pricelist ||
-                ['sale', 'done', 'cancel'].includes(state)
-              )
+              invisible: ({ record }) => {
+                //'invisible':
+                // ['|', ('show_update_pricelist', '=', False),
+                // ('state', 'in', ['sale', 'done', 'cancel'])]}"/>
+                const { show_update_pricelist, state } = record
+                return (
+                  !show_update_pricelist ||
+                  ['sale', 'done', 'cancel'].includes(state)
+                )
+              }
             }
           }
         }

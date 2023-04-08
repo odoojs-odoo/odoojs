@@ -1,14 +1,14 @@
 const ModelFields = {
-  //   name: {},
-  //   state: {
-  //     selection: [
-  //       ['draft', { en_US: 'Quotation', zh_CN: '报价单', zh_HK: '报价单' }],
-  //       ['sent', { en_US: 'Quotation Sent', zh_CN: '已发送', zh_HK: '已发送' }],
-  //       ['sale', { en_US: 'Sales Order', zh_CN: '销售订单', zh_HK: '销售订单' }],
-  //       ['done', { en_US: 'Locked', zh_CN: '已锁定', zh_HK: '已锁定' }],
-  //       ['cancel', { en_US: 'Cancelled', zh_CN: '取消', zh_HK: '取消' }]
-  //     ]
-  //   },
+  name: {},
+  state: {
+    selection: [
+      ['draft', 'Quotation'],
+      ['sent', 'Quotation Sent'],
+      ['sale', 'Sales Order'],
+      ['done', 'Locked'],
+      ['cancel', 'Cancelled']
+    ]
+  },
 
   product_id: {
     readonly: ({ record }) => {
@@ -160,33 +160,17 @@ const ModelFields = {
 
   qty_delivered_method: {
     selection: [
-      ['manual', { en_US: 'Manual', zh_CN: '手工', zh_HK: '手工' }],
-      [
-        'analytic',
-        {
-          en_US: 'Analytic From Expenses',
-          zh_CN: '根据费用分析',
-          zh_HK: '根据费用分析'
-        }
-      ]
+      ['manual', 'Manual'],
+      ['analytic', 'Analytic From Expenses']
     ]
   },
 
   invoice_status: {
     selection: [
-      [
-        'upselling',
-        { en_US: 'Upselling Opportunity', zh_CN: '超卖', zh_HK: '超卖' }
-      ],
-      [
-        'invoiced',
-        { en_US: 'Fully Invoiced', zh_CN: '已开票', zh_HK: '已开票' }
-      ],
-      [
-        'to invoice',
-        { en_US: 'To Invoice', zh_CN: '部分开票', zh_HK: '部分开票' }
-      ],
-      ['no', { en_US: 'Nothing to Invoice', zh_CN: '未开票', zh_HK: '未开票' }]
+      ['upselling', 'Upselling Opportunity'],
+      ['invoiced', 'Fully Invoiced'],
+      ['to invoice', 'To Invoice'],
+      ['no', 'Nothing to Invoice']
     ]
   }
 }

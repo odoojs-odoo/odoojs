@@ -80,11 +80,7 @@ export default {
     arch: {
       fields: {
         name: {
-          string: {
-            en_US: 'Analytic Account',
-            zh_CN: '分析科目',
-            zh_HK: '分析科目'
-          },
+          string: 'Analytic Account',
 
           filter_domain: self => {
             // ['|', ('name', 'ilike', self), ('code', 'ilike', self)]
@@ -97,7 +93,7 @@ export default {
       filters: {
         group_active: {
           inactive: {
-            string: { en_US: 'Archived', zh_CN: '已归档', zh_HK: '已归档' },
+            string: 'Archived',
             domain: [['active', '=', false]]
           }
         }

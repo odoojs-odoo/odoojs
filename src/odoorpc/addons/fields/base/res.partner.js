@@ -124,11 +124,11 @@ const TitleFields = {
 const CategoryFields = {
   display_name: {
     disable_field_onchange: 1,
-    string: { en_US: 'Name', zh_CN: '名称', zh_HK: '名称' }
+    string: 'Name'
   },
-  name: { string: { en_US: 'Name', zh_CN: '名称', zh_HK: '名称' } },
-  parent_id: { string: { en_US: 'Parent', zh_CN: '上级', zh_HK: '上级' } },
-  active: { string: { en_US: 'Active', zh_CN: '激活', zh_HK: '激活' } }
+  name: { string: 'Name' },
+  parent_id: { string: 'Parent' },
+  active: { string: 'Active' }
 }
 
 const IndustryFields = {

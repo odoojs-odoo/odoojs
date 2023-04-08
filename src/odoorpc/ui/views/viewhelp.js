@@ -329,8 +329,13 @@ export class ViewHelp {
     // return viewhelp.get_domain(fieldInfo, kw)
 
     const domain = this._check_modifiers('domain', fieldInfo, kw)
-
-    return domain || []
+    if (typeof domain === 'string') {
+      alert(`todo, domain is string, ${fieldInfo.name}, ${domain}`)
+      console.log(fieldInfo.name, domain)
+      return []
+    } else {
+      return domain || []
+    }
   }
 
   // _check_states(fieldInfo) {
