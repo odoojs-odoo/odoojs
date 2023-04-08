@@ -60,6 +60,10 @@ export class Environment {
     return this.session.uid
   }
 
+  get lang() {
+    return this.context.lang || 'en_US'
+  }
+
   get context() {
     return this._context
   }

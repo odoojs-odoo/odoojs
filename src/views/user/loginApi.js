@@ -46,7 +46,7 @@ export default {
     if (!this.checkVerificationCode(values)) {
       return false
     } else {
-      const info = await api.web.login({
+      const info = await api.login({
         db: database,
         login: username,
         password: password

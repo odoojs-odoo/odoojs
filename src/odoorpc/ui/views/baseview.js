@@ -10,8 +10,8 @@ import { Action } from '../action'
 // }
 export class BaseView {
   static metadata_fields(model) {
-    const web_fields = Action.get_web_fields()
-    return web_fields[model] || {}
+    const web_fields = Action.get_web_fields(model)
+    return web_fields
   }
 
   constructor(action_id, payload = {}) {
@@ -31,7 +31,7 @@ export class BaseView {
     const model = this.res_model
     const fields = this.constructor.metadata_fields(model)
 
-    console.log(model, fields)
+    console.log(this.env.lang, model, fields)
 
     const fields2 = {}
     for (const fld of Object.keys(fields)) {

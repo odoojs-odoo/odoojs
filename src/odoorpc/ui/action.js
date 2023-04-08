@@ -125,7 +125,12 @@ function merge_tree(views, tree) {
   }, {})
 
   return list.reduce((acc, key) => {
-    acc[key] = res
+    const todo = { ...res }
+    const inherit_id = views[key].inherit_id
+    if (inherit_id) {
+      todo.inherit_id = inherit_id
+    }
+    acc[key] = todo
     return acc
   }, {})
 }
@@ -174,6 +179,28 @@ function time() {
 export class Addons {
   constructor() {}
 
+  static set_lang(lang) {
+    const addons_data = this.addons_register
+    const { i18n = {} } = addons_data
+
+    const en_US = i18n.en_US || {}
+    const local_patch = i18n[lang] || {}
+
+    const local = merge_dict(en_US, local_patch)
+
+    const { actions_views, models_for_fields } = local
+
+    const actions_views2 = this.split_actions(actions_views)
+
+    console.log(actions_views2, models_for_fields)
+
+    this.addons_register = {
+      ...this.addons_register,
+      ...actions_views2,
+      models_for_fields
+    }
+  }
+
   static load_addons(addons_dict) {
     const { odoo_addons, ...other_addons } = addons_dict
     const addons_list = [odoo_addons, ...Object.values(other_addons)]
@@ -182,16 +209,23 @@ export class Addons {
 
     const { actions_views, models_for_fields = {}, models = {} } = res
     const actions_views2 = this.split_actions(actions_views)
-
     const done = { ...actions_views2 }
+    const { i18n = {} } = res
 
-    this.addons_register = { ...done, models_for_fields, models }
+    this.addons_register = {
+      ...done,
+      actions_views,
+      models_for_fields,
+      models,
+      i18n: { ...i18n, en_US: { actions_views, models_for_fields } }
+    }
+
+    console.log(this.addons_register)
   }
 
   static load_addons_all(addons_list) {
     return addons_list.reduce((acc, files) => {
       const one = this.load_addons_one(files)
-
       const { actions_views = {}, models_for_fields = {}, models = {} } = one
 
       acc.actions_views = {
@@ -206,6 +240,34 @@ export class Addons {
 
       acc.models = { ...(acc.models || {}), ...models }
 
+      const { i18n = {} } = one
+
+      const i18n22 = this.load_addons_for_i18n(acc.i18n || {}, i18n)
+      // console.log(acc.i18n, i18n22)
+
+      acc.i18n = { ...i18n22 }
+
+      return acc
+    }, {})
+  }
+
+  static load_addons_for_i18n(i18n, i18n_from) {
+    const keys = Object.keys({ ...i18n, ...i18n_from })
+
+    return keys.reduce((acc, lang) => {
+      const old_lang = i18n[lang] || {}
+      const new_lang = i18n_from[lang] || {}
+
+      const old_actions_views = old_lang.actions_views || {}
+      const new_actions_views = new_lang.actions_views || {}
+
+      const old_fields = old_lang.models_for_fields || {}
+      const new_fields = new_lang.models_for_fields || {}
+
+      acc[lang] = {
+        actions_views: { ...old_actions_views, ...new_actions_views },
+        models_for_fields: { ...old_fields, ...new_fields }
+      }
       return acc
     }, {})
   }
@@ -228,6 +290,35 @@ export class Addons {
         acc.models_for_fields = one_addons
       } else if (type === 'models') {
         acc.models = { ...(acc.models || {}), ...value.default }
+      } else if (type === 'i18n') {
+        const lang = paths[2]
+        const type2 = paths[3]
+        const module_name = paths[4]
+
+        if (!acc.i18n) {
+          acc.i18n = {}
+        }
+
+        if (!acc.i18n[lang]) {
+          acc.i18n[lang] = {}
+        }
+        if (!acc.i18n[lang].actions_views) {
+          acc.i18n[lang].actions_views = {}
+        }
+
+        if (!acc.i18n[lang].models_for_fields) {
+          acc.i18n[lang].models_for_fields = {}
+        }
+
+        if (type2 === 'action') {
+          const one_addons = this.load_one_action(value.default, module_name)
+          const old = acc.i18n[lang].actions_views
+          acc.i18n[lang].actions_views = { ...old, ...one_addons }
+        } else if (type2 === 'fields') {
+          const old = acc.i18n[lang].models_for_fields
+          const one_addons = this.load_one_fields(old, value.default)
+          acc.i18n[lang].models_for_fields = one_addons
+        }
       } else {
         // console.log(paths, value)
       }
@@ -365,11 +456,9 @@ export class Addons {
     const menus = filter_fn(res, 'ir.ui.menu')
     const actions = filter_fn(res, 'ir.actions')
     const views_to_merge = filter_fn(res, 'ir.ui.view')
-
     const views = merge_views(views_to_merge)
-
-    // const views = views_to_merge
     // test(views_to_merge)
+    // const views = views_to_merge
 
     const view_get_first = (res_model, mode) => {
       const res = Object.values(views)
@@ -482,10 +571,12 @@ export class Menus {
 }
 
 export class Action {
-  static get_web_fields() {
+  static get_web_fields(model) {
     const addons_data = Addons.addons_register
     const { models_for_fields } = addons_data
-    return models_for_fields
+    const web_fields = models_for_fields[model] || {}
+
+    return web_fields
   }
 
   static get_models() {
@@ -518,11 +609,17 @@ export class Action {
     const actions = addons_data.actions
     const info = actions[action]
     if (!info) {
-      // throw `${action} error`
-      return {}
+      throw `${action} error`
+      // return {}
     }
 
     const views_all = addons_data.views
+
+    // const i18n = addons_data.i18n || {}
+    // const views2 = i18n[this.env.lang].actions_views || {}
+
+    // console.log(info.views)
+
     const views = Object.keys(info.views).reduce((acc, cur) => {
       const view_info = (info.views[cur] && views_all[info.views[cur]]) || {}
 

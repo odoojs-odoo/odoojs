@@ -56,7 +56,7 @@ router.beforeEach(async (to, from, next) => {
     return
   }
 
-  const hasToken = await api.web.session_check()
+  const hasToken = await api.session_check()
 
   if (hasToken) {
     next()

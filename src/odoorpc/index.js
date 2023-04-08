@@ -36,6 +36,24 @@ export class RPC {
     ui.Addons.load_addons(addons_dict)
   }
 
+  static async session_check() {
+    const info = await this.web.session_check()
+    if (info) {
+      const lang = this.web.session.context.lang
+      console.log(lang)
+      ui.Addons.set_lang(lang)
+    }
+    return info
+  }
+
+  static async login(...args) {
+    const info = await this.web.login(...args)
+    const lang = this.web.session.context.lang
+    console.log(lang)
+    ui.Addons.set_lang(lang)
+    return info
+  }
+
   static get addons_data() {
     return ui.Addons.addons_register
   }
