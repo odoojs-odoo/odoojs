@@ -27,6 +27,8 @@ export function useForm(props, ctx) {
     formview: null
   }
 
+  const viewActions = computed(() => api.global_config.view.actions)
+
   const state = reactive({
     formviewReady: false,
     formviewFieldReady: false,
@@ -372,7 +374,7 @@ export function useForm(props, ctx) {
         // state.mVal = {...}
       }
     }),
-
+    viewActions,
     formInfo,
     buttons,
     headerButtons,

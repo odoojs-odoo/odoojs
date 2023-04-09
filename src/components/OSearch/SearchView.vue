@@ -94,8 +94,8 @@
           <down-circle-outlined v-else />
         </template>
 
-        <span v-if="showSearchMore">{{ $t('showMoreSearch.close') }}</span>
-        <span v-else>{{ $t('showMoreSearch.advancedSearch') }}</span>
+        <span v-if="showSearchMore">{{ viewActions.close }}</span>
+        <span v-else>{{ viewActions.advancedSearch }}</span>
       </a-button>
     </div>
   </div>
@@ -107,10 +107,14 @@ import SearchSelect from './SearchSelect.vue'
 import SearchMany2one from './SearchMany2one.vue'
 import SearchDate from './SearchDate.vue'
 
+import api from '@/odoorpc'
+
 import { defineProps, defineEmits, computed, ref, watch } from 'vue'
 
 const props = defineProps(['searchValues', 'searchItems', 'actionId'])
 const emit = defineEmits(['change'])
+
+const viewActions = computed(() => api.global_config.view.actions)
 
 const defaultItemName = computed(() => {
   // console.log(props.searchItems)

@@ -27,9 +27,10 @@
 import dayjs from 'dayjs'
 
 import { defineProps, defineEmits, computed, reactive, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
+import api from '@/odoorpc'
+
+const viewActions = computed(() => api.global_config.view.actions)
 
 const props = defineProps(['modelValue', 'title'])
 const emit = defineEmits(['change'])
@@ -49,7 +50,7 @@ watch(
 const buttons = computed(() => [
   {
     key: 'today',
-    label: t('timeSearch.today'),
+    label: viewActions.value.searchToday,
     date_get: () => {
       const today = date_tools.today
       return [today, today]
@@ -57,7 +58,7 @@ const buttons = computed(() => [
   },
   {
     key: 'last_1_month',
-    label: t('timeSearch.oneMonth'),
+    label: viewActions.value.searchOneMonth,
     date_get: () => {
       const today = date_tools.today
       const last = date_tools.today_last_month
@@ -66,7 +67,7 @@ const buttons = computed(() => [
   },
   {
     key: 'last_3_months',
-    label: t('timeSearch.threeMonths'),
+    label: viewActions.value.searchThreeMonths,
     date_get: () => {
       const today = date_tools.today
       const last = date_tools.today_for_last_month(3)
@@ -75,7 +76,7 @@ const buttons = computed(() => [
   },
   {
     key: 'last_6_months',
-    label: t('timeSearch.sixMonths'),
+    label: viewActions.value.searchSixMonths,
     date_get: () => {
       const today = date_tools.today
       const last = date_tools.today_for_last_month(6)

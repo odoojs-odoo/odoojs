@@ -2,7 +2,7 @@
   <a-space>
     <template v-if="!formInfo.editable">
       <a-button size="small" v-if="buttons.edit" @click="onClickCRUD('edit')">
-        {{ $t('act.edit') }}
+        {{ viewActions.edit }}
       </a-button>
       <a-button
         v-if="buttons.create"
@@ -10,31 +10,31 @@
         type="primary"
         @click="onClickCRUD('new')"
       >
-        {{ $t('act.create') }}
+        {{ viewActions.create }}
       </a-button>
 
       <a-popconfirm
         v-if="buttons.delete"
-        :title="$t('act.deleteTip')"
-        :ok-text="$t('act.confirm')"
-        :cancel-text="$t('act.cancel')"
+        :title="viewActions.deleteTip"
+        :ok-text="viewActions.confirm"
+        :cancel-text="viewActions.cancel"
         @confirm="onClickDelConfirm"
       >
         <!-- @click="onClickDel" -->
         <a-button size="small" type="danger">
-          {{ $t('act.delete') }}
+          {{ viewActions.delete }}
         </a-button>
       </a-popconfirm>
       <a-button size="small" type="primary" @click="onClickCRUD('back')">
-        {{ $t('act.back') }}
+        {{ viewActions.back }}
       </a-button>
     </template>
     <template v-if="formInfo.editable">
       <a-button size="small" @click="onClickCRUD('save')">
-        {{ $t('act.save') }}
+        {{ viewActions.save }}
       </a-button>
       <a-button size="small" @click="onClickCRUD('cancel')">
-        {{ $t('act.cancel') }}
+        {{ viewActions.cancel }}
       </a-button>
     </template>
   </a-space>
@@ -101,7 +101,7 @@ const editRef = ref()
 const useData = useForm(props, { router, editRef })
 
 const { mVal, formInfo } = useData
-const { buttons, hasActive } = useData
+const { viewActions, buttons, hasActive } = useData
 
 const { headerButtons, currentState, statusbarVisible } = useData
 

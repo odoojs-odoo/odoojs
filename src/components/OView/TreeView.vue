@@ -18,11 +18,11 @@
       @click="onClickNew"
       class="createBtn"
     >
-      {{ $t('act.create') }}
+      {{ viewActions.create }}
     </a-button>
 
     <a-tooltip class="expBtn">
-      <template #title>{{ $t('act.exportAll') }}</template>
+      <template #title> {{ viewActions.exportAll }}</template>
       <a-button size="small" @click="onExportAll">
         <template #icon>
           <download-outlined />
@@ -77,7 +77,8 @@ const emit = defineEmits(['search-change'])
 
 const useData = useTreeView(props, { emit })
 
-const { records, columns, pagination, buttons, hasActive } = useData
+const { records, columns, pagination } = useData
+const { viewActions, buttons, hasActive } = useData
 
 const { searchValues, searchItems, onSearchChange } = useData
 

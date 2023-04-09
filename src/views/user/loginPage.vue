@@ -70,7 +70,7 @@ import loginApi from './loginApi'
 import { defineComponent, reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { SyncOutlined } from '@ant-design/icons-vue'
-import { useI18n } from 'vue-i18n'
+
 import Lang from '@/components/Lang.vue'
 export default defineComponent({
   components: {
@@ -91,7 +91,6 @@ export default defineComponent({
     // 定义 state, 其内容为组件的响应式数据. 若调用外部方法, 第一个参数必须为 state
     const state = { formState, databaseOptions, codeNum }
 
-    const { t } = useI18n()
     // ----- 以下定义组件的响应式方法, 待 return
     // 组件的响应式方法, 命名为on开头的函数
     function onClickCodeNum() {
@@ -124,8 +123,7 @@ export default defineComponent({
       ...state,
       onClickCodeNum,
       onFinish,
-      onFinishFailed,
-      t
+      onFinishFailed
     }
   }
 })

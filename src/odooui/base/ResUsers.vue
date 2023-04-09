@@ -3,30 +3,30 @@
 
   <a-space>
     <template v-if="!formInfo.editable">
-      <a-button size="small" @click="onClickCRUD('edit')"> 
-        {{ $t('act.edit') }} 
+      <a-button size="small" @click="onClickCRUD('edit')">
+        {{ viewActions.edit }}
       </a-button>
       <a-popconfirm
-        :title="$t('act.deleteTip')"
-        :ok-text="$t('act.confirm')"
-        :cancel-text="$t('act.cancel')"
+        :title="viewActions.deleteTip"
+        :ok-text="viewActions.confirm"
+        :cancel-text="viewActions.cancel"
         @confirm="onClickDelConfirm"
       >
         <!-- @click="onClickDel" -->
-        <a-button size="small" type="danger"> 
-          {{ $t('act.delete') }} 
+        <a-button size="small" type="danger">
+          {{ viewActions.delete }}
         </a-button>
       </a-popconfirm>
       <a-button size="small" type="primary" @click="onClickCRUD('back')">
-        {{ $t('act.back') }} 
+        {{ viewActions.back }}
       </a-button>
     </template>
     <template v-if="formInfo.editable">
-      <a-button size="small" @click="onClickCRUD('save')"> 
-        {{ $t('act.save') }} 
+      <a-button size="small" @click="onClickCRUD('save')">
+        {{ viewActions.save }}
       </a-button>
       <a-button size="small" @click="onClickCRUD('cancel')">
-        {{ $t('act.cancel') }}
+        {{ viewActions.cancel }}
       </a-button>
     </template>
   </a-space>
@@ -44,13 +44,17 @@
   >
     <!--      bordered -->
     <a-descriptions
-      :title="`${$t('resUser.name')}: ${record.display_name}`"
+      :title="`${resUsersView.name}: ${record.display_name}`"
       :column="2"
       style="background-color: white; padding: 5px; margin-top: 5px"
       size="small"
     >
       <a-descriptions-item>
-        <a-form-item name="login" :label="$t('resUser.account')" style="margin-bottom: 5px">
+        <a-form-item
+          name="login"
+          :label="resUsersView.account"
+          style="margin-bottom: 5px"
+        >
           <OField
             v-model="mVal['login']"
             width="270px"
@@ -64,7 +68,11 @@
 
       <a-descriptions-item>
         <!-- :rules="[]" -->
-        <a-form-item name="name" :label="$t('resUser.name')" style="margin-bottom: 5px">
+        <a-form-item
+          name="name"
+          :label="resUsersView.name"
+          style="margin-bottom: 5px"
+        >
           <OField
             v-model="mVal['name']"
             width="270px"
@@ -77,7 +85,11 @@
       </a-descriptions-item>
 
       <a-descriptions-item>
-        <a-form-item name="phone" :label="$t('resUser.phone')" style="margin-bottom: 5px">
+        <a-form-item
+          name="phone"
+          :label="resUsersView.phone"
+          style="margin-bottom: 5px"
+        >
           <OField
             v-model="mVal['phone']"
             width="270px"
@@ -92,7 +104,7 @@
       <a-descriptions-item>
         <a-form-item
           name="company_id"
-          :label="$t('resUser.currentComp')"
+          :label="resUsersView.currentComp"
           style="margin-bottom: 5px"
         >
           <OField
@@ -107,7 +119,11 @@
       </a-descriptions-item>
 
       <a-descriptions-item>
-        <a-form-item name="company_ids" :label="$t('resUser.companies')" style="margin-bottom: 5px">
+        <a-form-item
+          name="company_ids"
+          :label="resUsersView.companies"
+          style="margin-bottom: 5px"
+        >
           <OField
             v-model="mVal['company_ids']"
             width="270px"
@@ -119,7 +135,7 @@
         </a-form-item>
       </a-descriptions-item>
 
-      <a-descriptions-item :label="$t('resUser.latestLogin')">
+      <a-descriptions-item :label="resUsersView.latestLogin">
         <OField
           v-model="mVal['login_date']"
           width="270px"
@@ -141,6 +157,8 @@ import { useForm } from '@/components/OView/formApi'
 import StatusBar from '@/components/OView/StatusBar.vue'
 
 import OField from '@/components/OField/OField.vue'
+import api from '@/odoorpc'
+
 const router = useRouter()
 const props = defineProps(['actionId', 'resId'])
 const editRef = ref()
@@ -148,6 +166,7 @@ const {
   mVal,
   fields,
   formInfo,
+  viewActions,
   currentState,
   statusbarVisible,
   onChange,
@@ -158,6 +177,8 @@ const record = computed(() => formInfo.value.record)
 function onClickDelConfirm() {
   onClickCRUD('del')
 }
+
+const resUsersView = computed(() => api.global_config.resUsersView)
 
 // const labelCol = { span: 4 }
 // const wrapperCol = { span: 16 }

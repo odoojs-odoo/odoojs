@@ -2,6 +2,8 @@ import { watch, computed, reactive, ref } from 'vue'
 import api from '@/odoorpc'
 
 export function useTreeView(props) {
+  const viewActions = computed(() => api.global_config.view.actions)
+
   const localState = {
     treeview: null
   }
@@ -187,6 +189,7 @@ export function useTreeView(props) {
   return {
     records,
     columns,
+    viewActions,
     buttons,
     hasActive,
     pagination,

@@ -57,7 +57,7 @@
             font-weight: bold;
           "
         >
-          {{ $t('mainTitle.projectTitle') }}
+          {{ mainTitle.project }}
         </div>
         <!-- 下拉 -->
         <Lang class="langSelect" />
@@ -118,8 +118,8 @@
         <router-view />
       </a-layout-content>
       <a-layout-footer id="layoutFooter">
-        {{ $t('mainTitle.projectTitle') }} {{ $t('mainTitle.copyright') }}
-        {{ $t('mainTitle.supplier') }}
+        {{ mainTitle.project }} {{ mainTitle.copyright }}
+        {{ mainTitle.supplier }}
       </a-layout-footer>
     </a-layout>
   </a-layout>
@@ -165,7 +165,9 @@ export default defineComponent({
     const menus_tree = computed(() => menus_tree_get())
     const menus_data = computed(() => menus_data_get())
 
-    console.log(api.global_config)
+    const global_config = computed(() => api.global_config)
+
+    console.log(global_config)
 
     // console.log('menus_tree, ', menus_tree)
     const session_info = computed(() => {
@@ -386,7 +388,7 @@ export default defineComponent({
       ...toRefs(state),
       panes,
       activeKey,
-
+      mainTitle: global_config.value.main,
       onChangeTabs,
       onEdit,
       onMenuClick,
