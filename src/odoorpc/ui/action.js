@@ -24,8 +24,6 @@ const menus_load = addons_data => {
 
   const children = menus_get()
 
-  // console.log(addons_menus, children)
-
   return { children }
 }
 

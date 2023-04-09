@@ -1,4 +1,4 @@
-import Models from '@/odoorpc/addons/models/res.partner'
+import Models from '@/addons_global/models/res.partner'
 
 const Model = Models['res.partner.category']
 

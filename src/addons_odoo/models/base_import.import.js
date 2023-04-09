@@ -1,6 +1,6 @@
 // base_imort  TBD , 暂时保留, 功能未调试
 
-import { Model } from '../../models'
+import { Model } from '@/odoorpc/models'
 
 export class Base_importImport extends Model {
   constructor(...args) {

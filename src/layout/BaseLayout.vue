@@ -165,6 +165,8 @@ export default defineComponent({
     const menus_tree = computed(() => menus_tree_get())
     const menus_data = computed(() => menus_data_get())
 
+    console.log(api.global_config)
+
     // console.log('menus_tree, ', menus_tree)
     const session_info = computed(() => {
       return api.web.session.session_info || {}
@@ -188,7 +190,11 @@ export default defineComponent({
       state.openKeys = [openK]
       //
       const name = router.currentRoute.value.query.menu
-      // console.log('------=  currentRoute  =------',name)
+      console.log(
+        '------=  currentRoute  =------',
+        router.currentRoute.value,
+        name
+      )
 
       if (name) {
         const menu = menus_data.value[name]

@@ -1,4 +1,4 @@
-import { Model } from '../../models'
+import { Model } from '@/odoorpc/models'
 
 export class IrModelData extends Model {
   constructor(...args) {

@@ -5,9 +5,7 @@ export const odoo_menus_tree_get = () => {
   const menus = [...(menu_data.children || [])]
   // console.log('menus', menu_data)
 
-  const local_menus = menus.filter(
-    item => item.id === 'modulename.menu_web_root'
-  )
+  const local_menus = menus.filter(item => item.id === 'menus.menu_web_root')
 
   const local_menus2 = local_menus[0].children
 

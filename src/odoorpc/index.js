@@ -56,6 +56,11 @@ export class RPC {
     return ui.Addons.addons_register
   }
 
+  static get global_config() {
+    const app = ui.Addons.addons_register.app || {}
+    return app
+  }
+
   static get env() {
     return new Environment()
   }

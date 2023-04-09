@@ -149,6 +149,7 @@ export class Addons {
   constructor() {}
 
   static set_lang(lang, force) {
+    console.log(this.addons_register)
     if (!force && this.lang_set && this.lang_set === lang) {
       return
     }
@@ -161,16 +162,18 @@ export class Addons {
 
     const local = merge_dict(en_US, local_patch)
 
-    const { actions_views, models_for_fields } = local
+    const { actions_views, models_for_fields, app } = local
 
     const actions_views2 = this.split_actions(actions_views)
 
     this.addons_register = {
       ...this.addons_register,
       ...actions_views2,
-      models_for_fields
+      models_for_fields,
+      app
     }
 
+    console.log(this.addons_register)
     this.lang_set = lang
   }
 
@@ -180,7 +183,7 @@ export class Addons {
 
     const res = this.load_addons_all(addons_list)
 
-    const { actions_views, models_for_fields = {}, models = {} } = res
+    const { actions_views, models_for_fields = {}, models = {}, app = {} } = res
     const actions_views2 = this.split_actions(actions_views)
     const done = { ...actions_views2 }
     const { l10n = {} } = res
@@ -190,7 +193,8 @@ export class Addons {
       actions_views,
       models_for_fields,
       models,
-      l10n: { ...l10n, en_US: { actions_views, models_for_fields } }
+      app,
+      l10n: { ...l10n, en_US: { actions_views, models_for_fields, app } }
     }
   }
 
@@ -198,7 +202,9 @@ export class Addons {
     return addons_list.reduce((acc, files) => {
       const one = this.load_addons_one(files)
       const { actions_views = {}, models_for_fields = {}, models = {} } = one
+      const { app = {} } = one
 
+      // console.log(one)
       acc.actions_views = {
         ...(acc.actions_views || {}),
         ...actions_views
@@ -210,6 +216,7 @@ export class Addons {
       }
 
       acc.models = { ...(acc.models || {}), ...models }
+      acc.app = { ...(acc.app || {}), ...app }
 
       const { l10n = {} } = one
       const l10n22 = this.load_addons_for_l10n(acc.l10n || {}, l10n)
@@ -231,9 +238,13 @@ export class Addons {
       const old_fields = old_lang.models_for_fields || {}
       const new_fields = new_lang.models_for_fields || {}
 
+      const old_app = old_lang.app || {}
+      const new_app = new_lang.app || {}
+
       acc[lang] = {
         actions_views: { ...old_actions_views, ...new_actions_views },
-        models_for_fields: { ...old_fields, ...new_fields }
+        models_for_fields: { ...old_fields, ...new_fields },
+        app: { ...old_app, ...new_app }
       }
       return acc
     }, {})
@@ -257,6 +268,9 @@ export class Addons {
         acc.models_for_fields = one_addons
       } else if (type === 'models') {
         acc.models = { ...(acc.models || {}), ...value.default }
+      } else if (type === 'app') {
+        // console.log(paths, value.default)
+        acc.app = { ...(acc.app || {}), ...value.default }
       } else if (type === 'l10n') {
         const lang = paths[2]
         const type2 = paths[3]
@@ -277,6 +291,10 @@ export class Addons {
           acc.l10n[lang].models_for_fields = {}
         }
 
+        if (!acc.l10n[lang].app) {
+          acc.l10n[lang].app = {}
+        }
+
         if (type2 === 'action') {
           const one_addons = this.load_one_action(value.default, module_name)
           const old = acc.l10n[lang].actions_views
@@ -285,9 +303,11 @@ export class Addons {
           const old = acc.l10n[lang].models_for_fields
           const one_addons = this.load_one_fields(old, value.default)
           acc.l10n[lang].models_for_fields = one_addons
+        } else if (type2 === 'app') {
+          acc.l10n[lang].app = { ...value.default }
         }
       } else {
-        // console.log(paths, value)
+        console.log(paths, value.default)
       }
 
       return acc
