@@ -755,24 +755,6 @@ class Home extends FileRequest {
 
 Home._login_info = undefined
 
-// async _get_qweb() {
-//   const Model = this.env.model('ir.module.module')
-
-//   const domain = [['state', '=', 'installed']]
-
-//   const mods2 = await Model.search_read({ domain, fields: ['name'] })
-//   const mods = mods2.map(item => item.name).join(',')
-//   // console.log(mods, this.session_info.cache_hashes.qweb)
-//   // /web/webclient/qweb
-
-//   const hash_id = this.session_info.cache_hashes.qweb
-
-//   const url = `/web/webclient/qweb/${hash_id}?mods=${mods}`
-//   const res = await this.odoorpc.json_get(url, {})
-//   console.log(res)
-//   return res
-// }
-
 export const web = Home
 
 web.webclient = Webclient

@@ -1,4 +1,30 @@
-import { tuples_to_ids } from '@/odoorpc/tools'
+export function tuples_to_ids(tuples) {
+  // m2m
+  // [6,],[5,],[4,id],[3,id]
+  //
+
+  // console.log('tuples_to_ids 1', tuples)
+
+  const ids = tuples.reduce((acc, tup) => {
+    const op = tup[0]
+    if (op === 6) return [...tup[2]]
+    if (op === 5) return []
+
+    if ([4, 1].includes(op)) {
+      const rid = tup[1]
+      if (acc.includes(rid)) return [...acc]
+      else return [...acc, rid]
+    }
+
+    if ([3, 2].includes(op)) return acc.filter(item => item !== tup[1])
+
+    // 不应该走到这里
+    return acc
+  }, [])
+
+  // console.log('tuples_to_ids 2', ids)
+  return ids
+}
 
 function _date_format(date) {
   const year = date.getFullYear().toString().padStart(4, '0')
