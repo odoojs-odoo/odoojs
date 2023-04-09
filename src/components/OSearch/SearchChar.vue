@@ -1,9 +1,7 @@
 <template>
   <span>
-    <span v-if="title"> 
-      <b>
-        {{ title }}:
-      </b>
+    <span v-if="title">
+      <b> {{ title }}: </b>
     </span>
 
     <a-select
@@ -19,7 +17,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, reactive, watch } from 'vue'
+import { reactive, watch } from 'vue'
 const props = defineProps(['value', 'title', 'placeholder'])
 const emit = defineEmits(['change'])
 const state = reactive({

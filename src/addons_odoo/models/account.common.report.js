@@ -1,6 +1,6 @@
 // 财务报表功能, 暂时保留
 
-import { Model } from '@/odoorpc/models'
+import { Model } from '@/odoojs-rpc/models'
 
 export class AccountCommonReport extends Model {
   constructor(...args) {

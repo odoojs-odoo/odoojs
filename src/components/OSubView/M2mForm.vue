@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed } from 'vue'
+import { computed } from 'vue'
 import { useM2mForm } from './m2mFormApi'
 import FormSheet from '@/components/OView/FormSheet.vue'
 

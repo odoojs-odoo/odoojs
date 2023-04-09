@@ -21,7 +21,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 import { DownloadOutlined } from '@ant-design/icons-vue'
 
 import { useWAttachment } from './WAttachApi'
@@ -36,7 +35,7 @@ const props = defineProps([
 
 const emit = defineEmits(['update:modelValue', 'change'])
 
-const { mVal, dVal, readonly, onUpload, onDownload } = useWAttachment(props, {
+const { dVal, readonly, onUpload, onDownload } = useWAttachment(props, {
   emit
 })
 </script>

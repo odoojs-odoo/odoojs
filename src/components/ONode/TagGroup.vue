@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed } from 'vue'
+import { computed } from 'vue'
 import TagNode from '@/components/ONode/TagNode.vue'
 
 const props = defineProps(['model', 'formInfo', 'node'])

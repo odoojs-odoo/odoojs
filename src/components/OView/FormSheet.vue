@@ -69,15 +69,21 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, defineExpose, computed, ref } from 'vue'
+import { computed, ref } from 'vue'
 
 import { useFormSheet } from './formSheetApi'
 
 import TagNode from '@/components/ONode/TagNode.vue'
 import TagGroup from '@/components/ONode/TagGroup.vue'
 
+const editRef = ref()
+function validate() {
+  return editRef.value.validate()
+}
+
 const props = defineProps(['model', 'formInfo'])
 const emit = defineEmits(['change', 'load-relation'])
+defineExpose({ validate })
 
 const model2 = computed({
   get() {
@@ -89,13 +95,6 @@ const model2 = computed({
     // state.mVal = {...}
   }
 })
-
-const editRef = ref()
-function validate() {
-  return editRef.value.validate()
-}
-
-defineExpose({ validate })
 
 const { sheet } = useFormSheet(props)
 

@@ -28,7 +28,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 import { useField } from './FieldApi'
 
 import WAnalyticDistribution from './WAnalyticDistribution.vue'

@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref } from 'vue'
+import { ref } from 'vue'
 import { useFO2m } from './FO2mApi'
 
 import O2mTree from '@/components/OSubView/O2mTree.vue'

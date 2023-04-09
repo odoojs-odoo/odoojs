@@ -26,7 +26,7 @@
 <script setup>
 import dayjs from 'dayjs'
 
-import { defineProps, defineEmits, computed, reactive, watch } from 'vue'
+import { computed, reactive, watch } from 'vue'
 
 import api from '@/odoorpc'
 

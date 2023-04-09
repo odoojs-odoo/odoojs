@@ -27,7 +27,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 import { useFNumber } from './FNumberApi'
 
 import OInputNumber from '@/components/OInput/OInputNumber.vue'

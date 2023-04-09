@@ -28,8 +28,6 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-
 defineProps(['menuData', 'collapsed'])
 
 function is_sub_menu(menu) {

@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref, toRaw } from 'vue'
+import { ref, toRaw } from 'vue'
 import { useFM2o, useMoreSearch } from './FM2oApi'
 import OMany2one from '@/components/OInput/OMany2one.vue'
 

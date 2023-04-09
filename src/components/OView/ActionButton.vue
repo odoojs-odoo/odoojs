@@ -26,8 +26,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
-
 defineProps(['hasDelete', 'hasActive'])
 const emit = defineEmits(['button-click'])
 

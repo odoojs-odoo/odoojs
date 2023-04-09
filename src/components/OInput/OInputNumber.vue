@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed, reactive } from 'vue'
+import { computed, reactive } from 'vue'
 const props = defineProps(['modelValue', 'width', 'placeholder'])
 const emit = defineEmits(['update:modelValue', 'change'])
 

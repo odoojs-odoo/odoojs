@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed, reactive, watch } from 'vue'
+import { computed, reactive, watch } from 'vue'
 
 const props = defineProps(['value', 'title', 'placeholder', 'options'])
 const emit = defineEmits(['change'])

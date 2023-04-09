@@ -38,7 +38,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 import { useField } from './FieldApi'
 
 import FSelection from '@/components/OField/FSelection.vue'

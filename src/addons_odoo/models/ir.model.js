@@ -1,4 +1,4 @@
-import { Model } from '@/odoorpc/models'
+import { Model } from '@/odoojs-rpc/models'
 
 export class IrModelData extends Model {
   constructor(...args) {

@@ -109,7 +109,7 @@ import SearchDate from './SearchDate.vue'
 
 import api from '@/odoorpc'
 
-import { defineProps, defineEmits, computed, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 const props = defineProps(['searchValues', 'searchItems', 'actionId'])
 const emit = defineEmits(['change'])

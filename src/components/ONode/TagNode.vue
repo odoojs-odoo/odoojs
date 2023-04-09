@@ -88,7 +88,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed } from 'vue'
+import { computed } from 'vue'
 import OField from '@/components/OField/OField.vue'
 
 const tags_h = { h1: 1, h2: 1, h3: 1, h6: 1, b: 1, strong: 1 }

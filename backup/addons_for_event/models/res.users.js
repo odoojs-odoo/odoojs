@@ -1,6 +1,4 @@
-// import { Model } from '@/odoojs/models'
-
-import { Model } from '@/odoorpc/models'
+import { Model } from '@/odoojs-rpc/models'
 
 export class ResUsers extends Model {
   constructor() {

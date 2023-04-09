@@ -59,7 +59,7 @@
 
 <script setup>
 import api from '@/odoorpc'
-import { defineProps, defineEmits, ref, reactive, watch } from 'vue'
+import { ref, reactive, watch } from 'vue'
 
 function VNodes(_, { attrs }) {
   return attrs.vnodes

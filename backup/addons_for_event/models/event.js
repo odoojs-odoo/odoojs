@@ -1,4 +1,4 @@
-import { Model } from '@/odoorpc/models'
+import { Model } from '@/odoojs-rpc/models'
 
 // import { parseTime } from '@/utils'
 
@@ -8,14 +8,14 @@ const dateHelper = {
   // hour_min: 8,
   // hour_max: 20,
   str00: value => value.toString().padStart(2, '0'),
-  date2str: function(date) {
+  date2str: function (date) {
     const yyyy = this.str00(date.getFullYear())
     const mm = this.str00(date.getMonth() + 1)
     const dd = this.str00(date.getDate())
     return `${yyyy}-${mm}-${dd}`
   },
 
-  toUTCString: function(date) {
+  toUTCString: function (date) {
     const yyyy = this.str00(date.getUTCFullYear())
     const mm = this.str00(date.getUTCMonth() + 1)
     const dd = this.str00(date.getUTCDate())

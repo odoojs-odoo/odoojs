@@ -32,11 +32,13 @@ import { useRouter } from 'vue-router'
 import TreeView from '@/components/OView/TreeView.vue'
 import FormView from '@/components/OView/FormView.vue'
 
-import api from '@/odoorpc'
+import { OViewComponents as components } from '@/config/local_view'
 
 // const views = { tree: TreeView, form: FormView }
 
-import { OViewComponents as components } from '@/config/local_view'
+function path2action_id(path) {
+  return path.split('/').slice(2).join('.')
+}
 
 const { actionId, viewType, resId } = userCurrentRoute()
 
@@ -46,7 +48,7 @@ function userCurrentRoute() {
   const router = useRouter()
   const actionId = computed(() => {
     const rounteVal = router.currentRoute.value
-    return api.tools.path2action_id(rounteVal.path)
+    return path2action_id(rounteVal.path)
   })
 
   const viewType = computed(() => {

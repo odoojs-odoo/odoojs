@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useO2mForm } from './o2mFormApi'
 import FormSheet from '@/components/OView/FormSheet.vue'
 

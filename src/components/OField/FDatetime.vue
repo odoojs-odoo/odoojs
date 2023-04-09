@@ -29,7 +29,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 import { useFDatetime } from './FDatetimeApi'
 import ODatePicker from '@/components/OInput/ODatePicker.vue'
 

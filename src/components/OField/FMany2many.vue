@@ -33,7 +33,7 @@
 import M2mTree from '@/components/OSubView/M2mTree.vue'
 import M2mForm from '@/components/OSubView/M2mForm.vue'
 import M2mNew from '@/components/OSubView/M2mNew.vue'
-import { defineProps, defineEmits, ref } from 'vue'
+import { ref } from 'vue'
 
 import { useFM2m } from './FM2mApi'
 

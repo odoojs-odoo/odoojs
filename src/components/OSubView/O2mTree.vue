@@ -23,7 +23,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 import { useO2mTree } from './o2mTreeApi'
 import OField from '@/components/OField/OField.vue'
 

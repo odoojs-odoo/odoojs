@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed, toRaw } from 'vue'
+import { computed, toRaw } from 'vue'
 import { useField } from './FieldApi'
 const props = defineProps([
   'modelValue',
@@ -29,7 +29,7 @@ const props = defineProps([
 
 const emit = defineEmits(['update:modelValue', 'change'])
 
-const { mVal, dVal, readonly } = useField(props, { emit })
+const { readonly } = useField(props, { emit })
 
 const formatted_amount_untaxed = computed(() => {
   const recordMerged = { ...props.formInfo.record, ...props.formInfo.values }

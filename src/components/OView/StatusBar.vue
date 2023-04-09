@@ -20,8 +20,6 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-
 defineProps(['states', 'currentState'])
 </script>
 

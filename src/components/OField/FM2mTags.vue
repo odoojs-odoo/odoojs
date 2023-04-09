@@ -63,7 +63,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useFM2mTags, useMoreSearch } from './FM2mTagsApi'
 
 function VNodes(_, { attrs }) {

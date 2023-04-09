@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed, ref, toRaw } from 'vue'
+import { computed, ref, toRaw } from 'vue'
 import { useM2mNew } from './m2mNewApi'
 
 const props = defineProps([

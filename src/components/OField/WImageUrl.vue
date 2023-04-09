@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { defineProps, computed } from 'vue'
+import { computed } from 'vue'
 import { useField } from './FieldApi'
 
 import api from '@/odoorpc'
