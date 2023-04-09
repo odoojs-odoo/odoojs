@@ -1,5 +1,4 @@
 import controllers from './controllers'
-// import { tuples_to_ids } from '@/odoorpc/tools'
 
 const web = controllers.web
 
