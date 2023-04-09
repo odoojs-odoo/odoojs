@@ -1,4 +1,4 @@
-import { Model } from '@/odoojs-rpc/models'
+import { Model } from '@/odoorpc/models'
 
 export class PartnerIndustry extends Model {
   constructor(...args) {

@@ -1,4 +1,4 @@
-import { Model } from '@/odoojs-rpc/models'
+import { Model } from '@/odoorpc/models'
 
 // import { parseTime } from '@/utils'
 
