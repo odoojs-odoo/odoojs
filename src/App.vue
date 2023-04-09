@@ -1,7 +1,7 @@
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-  <a-config-provider :locale="currentLanguage === 'en' ? enUS : zhCN">
+  <a-config-provider :locale="ant_langs[lang]">
     <router-view />
     <!-- <TestAPI /> -->
   </a-config-provider>
@@ -11,27 +11,25 @@
 // import HelloWorld from './components/HelloWorld.vue'
 // import TestAPI from '@/components/TestAPI.vue'
 
-import { computed, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { provide, ref, watch } from 'vue'
+import zh_CN from 'ant-design-vue/es/locale/zh_CN'
+import en_US from 'ant-design-vue/es/locale/en_US'
 
-import zhCN from 'ant-design-vue/es/locale/zh_CN'
-import enUS from 'ant-design-vue/es/locale/en_US'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
+import api from '@/odoorpc'
 
-dayjs.locale('zh-cn')
+const ant_langs = { zh_CN, en_US }
 
-const i18n = useI18n()
-const currentLanguage = computed(() => {
-  if (i18n.locale.value === 'en') {
-    return 'en'
-  } else {
-    return 'zh-cn'
-  }
-})
+const api_lang = api.env.lang
+const lang = ref(api_lang)
+provide('lang', lang)
 
-watch(currentLanguage, val => {
-  dayjs.locale(val)
+const dayjs_langs = { zh_CN: 'zh-cn', en_US: 'en' }
+
+dayjs.locale(dayjs_langs[api_lang])
+watch(lang, val => {
+  dayjs.locale(dayjs_langs[val])
 })
 </script>
 

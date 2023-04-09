@@ -42,7 +42,7 @@ export default {
   },
 
   async handleLogin(values) {
-    const { database, username, password } = values
+    const { database, username, password, lang } = values
     if (!this.checkVerificationCode(values)) {
       return false
     } else {
@@ -51,7 +51,8 @@ export default {
         login: username,
         password: password
       })
-      console.log('login ok:', info)
+
+      await api.env.set_lang(lang)
 
       return info
     }

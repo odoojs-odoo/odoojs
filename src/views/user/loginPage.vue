@@ -55,11 +55,12 @@
         </a-form-item>
 
         <a-form-item :wrapper-col="{ offset: 8, span: 8 }">
-          <a-button class="loginBtn" type="primary" html-type="submit"
-            >登录</a-button
-          >
+          <a-button class="loginBtn" type="primary" html-type="submit">
+            登录
+          </a-button>
         </a-form-item>
       </a-form>
+      {{ lang }}
       <lang class="langSelect" />
     </div>
   </div>
@@ -67,11 +68,11 @@
 
 <script>
 import loginApi from './loginApi'
-import { defineComponent, reactive, ref, onMounted } from 'vue'
+import { defineComponent, reactive, ref, onMounted, inject } from 'vue'
 import { useRouter } from 'vue-router'
 import { SyncOutlined } from '@ant-design/icons-vue'
 
-import Lang from '@/components/Lang.vue'
+import Lang from '@/components/LangMenu.vue'
 export default defineComponent({
   components: {
     SyncOutlined,
@@ -82,6 +83,9 @@ export default defineComponent({
     // 必须先初始化调用 useRouter. 否则 返回 null. 这是vue3的bug
     const router = useRouter()
 
+    const lang = inject('lang')
+
+    console.log(lang)
     // 以下定义组件响应式变量. 待 return
     const formState = reactive({ ...loginApi.formState })
     // 使用 ref 表示该变量为一个引用地址. 后续其他代码可以修改其值
@@ -98,7 +102,7 @@ export default defineComponent({
     }
 
     async function onFinish(values) {
-      callOnFinish({ state, router }, values)
+      callOnFinish({ state, router }, { ...values, lang: lang.value })
     }
 
     // 约定, 不使用箭头函数的格式. 这里是一个反面例子
@@ -121,6 +125,7 @@ export default defineComponent({
     // return 返回 组件的 响应式数据和方法
     return {
       ...state,
+      lang,
       onClickCodeNum,
       onFinish,
       onFinishFailed

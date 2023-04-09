@@ -530,6 +530,15 @@ class Home extends FileRequest {
     }
   }
 
+  static async set_lang(val) {
+    if (Session._session_info) {
+      Session._session_info.user_context.lang = val
+      return true
+    } else {
+      return false
+    }
+  }
+
   static _check_is_group_user() {
     const context = Session.user_context
 
@@ -713,10 +722,9 @@ class Home extends FileRequest {
         await Session.check()
       }
       await this.get_session()
-
-      return true
+      return 1
     } catch (error) {
-      return false
+      return 0
     }
   }
 

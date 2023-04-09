@@ -57,7 +57,7 @@
             font-weight: bold;
           "
         >
-          {{ mainTitle.project }}
+          {{ mainTitle.project }} {{ [lang] }}
         </div>
         <!-- 下拉 -->
         <Lang class="langSelect" />
@@ -126,8 +126,6 @@
 </template>
 
 <script>
-import { menus_tree_get, menus_data_get } from '@/config/menu'
-
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -145,9 +143,11 @@ import {
   toRaw
 } from 'vue'
 import { useRouter } from 'vue-router'
-import Lang from '@/components/Lang.vue'
+import Lang from '@/components/LangMenu.vue'
 import SubMenu from './SubMenu'
 import api from '@/odoorpc'
+
+import { useMenu } from '@/components/useApi/useMenu'
 
 export default defineComponent({
   name: 'BaseLayout',
@@ -161,13 +161,7 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter()
-
-    const menus_tree = computed(() => menus_tree_get())
-    const menus_data = computed(() => menus_data_get())
-
-    const global_config = computed(() => api.global_config)
-
-    console.log(global_config)
+    const { lang, menus_tree, menus_data, global_config } = useMenu()
 
     // console.log('menus_tree, ', menus_tree)
     const session_info = computed(() => {
@@ -384,6 +378,7 @@ export default defineComponent({
       activeKey.value = name
     }
     return {
+      lang,
       state,
       ...toRefs(state),
       panes,

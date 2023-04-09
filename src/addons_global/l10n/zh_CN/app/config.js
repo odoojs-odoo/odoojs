@@ -21,5 +21,13 @@ export default {
       searchThreeMonths: '近3个月',
       searchSixMonths: '近半年'
     }
+  },
+  resUsersView: {
+    account: 'Account',
+    name: 'User Name',
+    phone: 'Phone',
+    currentComp: 'Current Company',
+    companies: 'Companies',
+    latestLogin: 'Latest Login'
   }
 }

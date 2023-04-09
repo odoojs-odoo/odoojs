@@ -5,7 +5,6 @@ import router from './router'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import * as antIcons from '@ant-design/icons-vue'
-import i18n from '@/i18n'
 
 const app = createApp(App)
 
@@ -18,8 +17,6 @@ app.config.globalProperties.$antIcons = antIcons
 app.use(Antd)
 
 app.use(router)
-
-app.use(i18n)
 
 app.mount('#app')
 
