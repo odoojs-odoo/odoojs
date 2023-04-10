@@ -120,6 +120,7 @@ export class X2mForm extends X2mFormModel {
 
   merge_to_onchange(record, values) {
     // call by editmodel.onchange
+    // call by treeview.format_to_onchange
     const viewhelp = this.viewhelp_get()
     return viewhelp.merge_to_onchange(record, values, { for_o2m: true })
   }
@@ -133,8 +134,8 @@ export class X2mForm extends X2mFormModel {
     })
   }
 
+  // never to call
   format_to_onchange(record) {
-    // call by treeview.format_to_onchange
     const viewhelp = this.viewhelp_get()
     return viewhelp._format_to_onchange(record, true)
   }

@@ -19,6 +19,196 @@ const date_tools = {
   }
 }
 
+const order_line = {
+  widget: 'x2many_tree',
+
+  views: {
+    tree: {
+      fields: {
+        display_type: { invisible: 1 },
+        currency_id: { invisible: 1 },
+        state: { invisible: 1 },
+        product_type: { invisible: 1 },
+        // product_uom: { invisible: 1 },
+        product_uom_category_id: { invisible: 1 },
+        invoice_lines: { invisible: 1 },
+        sequence: { widget: 'handle' },
+        product_id: {},
+
+        name: { widget: 'section_and_note_text' },
+        date_planned: { optional: 'hide', force_save: '1' },
+        analytic_distribution: {
+          widget: 'analytic_distribution',
+          optional: 'hide'
+        },
+
+        product_qty: {},
+        qty_received_manual: { invisible: 1 },
+        qty_received_method: { invisible: 1 },
+        qty_received: {
+          string: 'Received',
+          optional: 'show',
+          invisible: ({ record }) => {
+            //  "{'column_invisible':
+            // [('parent.state', 'not in', ('purchase', 'done'))],
+            const { parent: prt } = record
+            return !['purchase', 'done'].includes(prt.state)
+          }
+        },
+        qty_invoiced: {
+          string: 'Billed',
+          optional: 'show',
+          invisible: ({ record }) => {
+            //'column_invisible': [('parent.state', 'not in',
+            // ('purchase', 'done'))]
+
+            const { parent: prt } = record
+            return !['purchase', 'done'].includes(prt.state)
+          }
+        },
+        product_uom: { force_save: '1', optional: 'show' },
+
+        product_packaging_qty: {
+          optional: 'show',
+          invisible: ({ record }) => {
+            // invisible':
+            // ['|', ('product_id', '=', False),
+            // ('product_packaging_id', '=', False)]}"
+            const { product_id, product_packaging_id } = record
+            return !product_id || !product_packaging_id
+          }
+        },
+        product_packaging_id: {
+          optional: 'show',
+          invisible: ({ record }) => {
+            //'invisible': [('product_id', '=', False)]}"
+            const { product_id } = record
+            return !product_id
+          }
+        },
+        price_unit: {},
+        // <button name="action_purchase_history" type="object" icon="fa-history" title="Purchase History" attrs="{'invisible': [('id', '=', False)]}"/>
+
+        taxes_id: { widget: 'many2many_tags', optional: 'show' },
+        price_subtotal: { widget: 'monetary' },
+        price_total: { invisible: 1 },
+        price_tax: { invisible: 1 }
+      }
+    },
+
+    form: {
+      arch: {
+        sheet: {
+          state: { invisible: 1 },
+          display_type: { invisible: 1 },
+          sequence: {},
+          _group: {
+            _attr: {
+              invisible: ({ record }) => {
+                //'invisible':[('display_type', '!=', False)]
+                const { display_type } = record
+                return display_type
+              }
+            },
+            _group: {
+              product_uom_category_id: { invisible: 1 },
+
+              product_id: {},
+
+              _field_product_qty: {
+                _label: { for: 'product_qty' },
+                _div: {
+                  product_qty: {},
+                  product_uom: {}
+                }
+              },
+              qty_received_method: { invisible: 1 },
+              qty_received: {
+                invisible: ({ record }) => {
+                  //'invisible': [('parent.state', 'not in', ('purchase', 'done'))],
+                  const { parent: prt } = record
+                  return ['purchase', 'done'].includes(prt.state)
+                }
+              },
+              qty_invoiced: {
+                invisible: ({ record }) => {
+                  //'invisible': [('parent.state', 'not in', ('purchase', 'done'))],
+                  const { parent: prt } = record
+                  return ['purchase', 'done'].includes(prt.state)
+                }
+              },
+              product_packaging_id: {
+                invisible: ({ record }) => {
+                  // invisible': [('product_id', '=', False)]     const { parent: prt } = record
+                  const { product_id } = record
+                  return !product_id
+                }
+              },
+
+              price_unit: {},
+              taxes_id: { widget: 'many2many_tags' }
+            },
+            _group_2: {
+              date_planned: { widget: 'date' },
+              analytic_distribution: { widget: 'analytic_distribution' }
+            }
+          },
+
+          _notebook: {
+            _attr: {
+              invisible: ({ record }) => {
+                //'invisible':[('display_type', '!=', False)]
+                const { display_type } = record
+                return display_type
+              }
+            },
+            _page_notes: {
+              _attr: { string: 'Notes', name: 'notes' },
+              name: {}
+            },
+            _page_invoices_incoming_shiptments: {
+              _attr: {
+                string: 'Invoices and Incoming Shipments',
+                name: 'invoices_incoming_shiptments'
+              },
+              invoice_lines: {}
+            }
+          },
+
+          _label_line_section: {
+            _attr: {
+              for: 'name',
+              string: 'Section Name (eg. Products, Services)'
+            },
+            invisible({ record }) {
+              // 'invisible': [('display_type', '!=', 'line_section')]
+              const { display_type } = record
+              return display_type !== 'line_section'
+            }
+          },
+
+          _label_line_note: {
+            _attr: { for: 'name', string: 'Note' },
+            invisible({ record }) {
+              // 'invisible': [('display_type', '!=', 'line_note')]
+              const { display_type } = record
+              return display_type !== 'line_note'
+            }
+          },
+
+          name: {
+            invisible({ record }) {
+              // 'invisible': [('display_type', '=', False)]
+              const { display_type } = record
+              return !display_type
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 export default {
   product_normal_action_puchased: {
     _odoo_model: 'ir.actions',
@@ -32,8 +222,6 @@ export default {
       purchase_product_template: 1
     }
   },
-
-  //
 
   purchase_order_form: {
     _odoo_model: 'ir.ui.view',
@@ -59,7 +247,7 @@ export default {
         buttons: {
           action_rfq_send: {
             name: 'action_rfq_send',
-            string: '发送到邮箱',
+            string: 'Send by Email',
             type: 'object',
             context: { send_rfq: true },
             // states: 'draft',
@@ -70,8 +258,9 @@ export default {
             }
           },
           print_quotation: {
+            groups: 'base.group_user',
             name: 'print_quotation',
-            string: '打印报价单',
+            string: 'Print RFQ',
             type: 'object',
             context: { send_rfq: true },
             // states: 'draft',
@@ -83,7 +272,7 @@ export default {
           },
           button_confirm: {
             name: 'button_confirm',
-            string: '确认',
+            string: 'Confirm Order',
             type: 'object',
             // states: 'sent',
             btn_type: 'primary',
@@ -93,8 +282,9 @@ export default {
             }
           },
           button_approve: {
+            groups: 'purchase.group_purchase_manager',
             name: 'button_approve',
-            string: '批准',
+            string: 'Approve Order',
             type: 'object',
             // states: 'to approve',
             btn_type: 'primary',
@@ -105,7 +295,7 @@ export default {
           },
           action_create_invoice: {
             name: 'action_create_invoice',
-            string: '生成账单',
+            string: 'Create Bill',
             type: 'object',
             btn_type: 'primary',
             context: { create_bill: true },
@@ -119,7 +309,7 @@ export default {
           },
           action_rfq_send2: {
             name: 'action_rfq_send',
-            string: '再次发送到邮箱',
+            string: 'Re-Send by Email',
             type: 'object',
             context: { send_rfq: true },
             // states: 'sent',
@@ -129,8 +319,9 @@ export default {
             }
           },
           print_quotation2: {
+            groups: 'base.group_user',
             name: 'print_quotation',
-            string: '打印报价单2',
+            string: 'Print RFQ',
             type: 'object',
             context: { send_rfq: true },
             // states: 'sent',
@@ -141,7 +332,7 @@ export default {
           },
           button_confirm2: {
             name: 'button_confirm',
-            string: '确认2',
+            string: 'Confirm Order',
             type: 'object',
             // states: 'draft',
             invisible: ({ record }) => {
@@ -151,7 +342,7 @@ export default {
           },
           action_rfq_send22: {
             name: 'action_rfq_send',
-            string: '发送订单到邮箱',
+            string: 'Send PO by Email',
             type: 'object',
             context: { send_rfq: false },
             // states: 'purchase',
@@ -161,8 +352,9 @@ export default {
             }
           },
           confirm_reminder_mail: {
+            groups: 'base.group_no_one',
             name: 'confirm_reminder_mail',
-            string: '确认接受日期',
+            string: 'Confirm Receipt Date',
             type: 'object',
             invisible: ({ record }) => {
               const { state, mail_reminder_confirmed, date_planned } = record
@@ -175,7 +367,7 @@ export default {
           },
           action_create_invoice2: {
             name: 'action_create_invoice',
-            string: '生成账单2',
+            string: 'Create Bill',
             type: 'object',
             context: { create_bill: true },
             invisible: ({ record }) => {
@@ -189,7 +381,7 @@ export default {
           },
           button_draft: {
             name: 'button_draft',
-            string: '重置为草稿',
+            string: 'Set to Draft',
             type: 'object',
             // states: 'cancel',
             invisible: ({ record }) => {
@@ -199,7 +391,7 @@ export default {
           },
           button_cancel: {
             name: 'button_cancel',
-            string: '取消',
+            string: 'Cancel',
             type: 'object',
             // states: 'draft,to approve,sent,purchase',
             invisible: ({ record }) => {
@@ -211,7 +403,7 @@ export default {
           },
           button_done: {
             name: 'button_done',
-            string: '锁定',
+            string: 'Lock',
             type: 'object',
             // states: 'purchase',
             invisible: ({ record }) => {
@@ -220,8 +412,9 @@ export default {
             }
           },
           button_unlock: {
+            groups: 'purchase.group_purchase_manager',
             name: 'button_unlock',
-            string: '解锁',
+            string: 'Unlock',
             type: 'object',
             // states: 'done',
             invisible: ({ record }) => {
@@ -237,158 +430,225 @@ export default {
             statusbar_visible: 'draft,sent,purchase'
           }
         }
-      }
-    },
+      },
 
-    fields: {
-      priority: {},
-      name: {},
-      partner_id: {},
-      partner_ref: {},
-      currency_id: {},
+      sheet: {
+        //
 
-      date_order: {},
-      date_approve: {},
-      date_planned: {},
-      mail_reminder_confirmed: {},
-      reminder_date_before_receipt: {},
-
-      notes: {},
-      tax_totals_json: {},
-
-      user_id: {},
-      company_id: {},
-      origin: {},
-      invoice_status: {},
-      payment_term_id: {},
-      fiscal_position_id: {},
-
-      // amount_total: {},
-      // state: {},
-      //
-
-      order_line: {
-        widget: 'x2many_tree',
-        context: { default_state: 'draft' },
-        readonly: ({ record }) => {
-          const { state } = record
-          return ['done', 'cancel'].includes(state)
+        state: { invisible: 1 },
+        _div_button_box: {
+          _button_action_view_invoice: {
+            _attr: {
+              type: 'object',
+              name: 'action_view_invoice',
+              icon: 'fa-pencil-square-o',
+              invisible({ record }) {
+                //  'invisible':['|',
+                // ('invoice_count', '=', 0),
+                // ('state', 'in', ('draft','sent','to approve'))]
+                const { invoice_count, state } = record
+                return (
+                  !invoice_count ||
+                  ['draft', 'sent', 'to approve'].includes(state)
+                )
+              }
+            },
+            invoice_count: { widget: 'statinfo', string: 'Vendor Bills' },
+            invoice_ids: { invisible: '1' }
+          }
         },
 
-        views: {
-          tree: {
-            fields: {
-              state: { invisible: 1 },
-              display_type: { invisible: 1 },
-              sequence: {},
-
-              product_id: {
-                readonly: ({ record }) => {
+        _div_title: {
+          _h1: {
+            _span: {
+              _attr: {
+                text: 'Request for Quotation',
+                invisible({ record }) {
+                  //  'invisible': [('state','not in',('draft','sent'))]
                   const { state } = record
-                  return ['purchase', 'to approve', 'done', 'cancel'].includes(
-                    state
-                  )
-                },
-                required: ({ record }) => {
-                  const { display_type } = record
-                  return !display_type
-                },
+                  return !['draft', 'sent'].includes(state)
+                }
+              }
+            },
 
-                context: ({ record }) => {
-                  const { parent: parent2, product_qty, product_uom } = record
-                  return {
-                    partner_id: parent2.partner_id,
-                    quantity: product_qty,
-                    uom: product_uom,
-                    company_id: parent2.company_id
+            _span_2: {
+              _attr: {
+                text: 'Purchase Order',
+                invisible({ record }) {
+                  // 'invisible': [('state','in',('draft','sent'))]
+                  const { state } = record
+                  return ['draft', 'sent'].includes(state)
+                }
+              }
+            },
+
+            priority: { widget: 'priority' },
+            name: { readonly: '1' }
+          }
+        },
+
+        _group: {
+          _group: {
+            partner_id: { widget: 'res_partner_many2one' },
+            partner_ref: {},
+            currency_id: {
+              groups: 'base.group_multi_currency',
+              force_save: '1'
+            },
+            company_id: { invisible: '1' }
+            // currency_id: {
+            //   invisible: '1',
+            //   groups: '!base.group_multi_currency'
+            // }
+          },
+
+          _group_2: {
+            date_order: {
+              invisible({ record }) {
+                // 'invisible': [('state','in',('purchase','done'))]
+                const { state } = record
+                return ['purchase', 'done'].includes(state)
+              }
+            },
+
+            _field_date_approve: {
+              _attr: {
+                invisible({ record }) {
+                  // 'invisible': [('state','not in',('purchase','done'))]
+                  const { state } = record
+                  return !['purchase', 'done'].includes(state)
+                }
+              },
+              _label: { _attr: { for: 'date_approve' } },
+
+              _div: {
+                date_approve: {},
+                mail_reception_confirmed: { invisible: '1' },
+                _span: {
+                  _attr: {
+                    invisible({ record }) {
+                      // 'invisible': [('mail_reception_confirmed','=', False)]
+                      const { mail_reception_confirmed } = record
+                      return !mail_reception_confirmed
+                    },
+                    text: '(confirmed by vendor)'
+                  }
+                }
+              }
+            },
+
+            _field_date_planned: {
+              _label: { _attr: { for: 'date_planned' } },
+
+              _div: {
+                date_planned: {
+                  readonly({ record }) {
+                    // 'readonly': [('state', 'not in',
+                    // ('draft', 'sent', 'to approve', 'purchase'))]
+                    const { state } = record
+                    return ![
+                      'draft',
+                      'sent',
+                      'to approve',
+                      'purchase'
+                    ].includes(state)
                   }
                 },
-
-                domain: ({ record }) => {
-                  const { parent: parent2 } = record
-                  return [
-                    ['purchase_ok', '=', true],
-                    '|',
-                    ['company_id', '=', false],
-                    ['company_id', '=', parent2.company_id]
-                  ]
+                mail_reminder_confirmed: { invisible: '1' },
+                _span: {
+                  _attr: {
+                    invisible({ record }) {
+                      // 'invisible':
+                      // [('mail_reminder_confirmed', '=', False)]
+                      const { mail_reminder_confirmed } = record
+                      return !mail_reminder_confirmed
+                    },
+                    text: '(confirmed by vendor)'
+                  }
                 }
+              }
+            },
+
+            _field_receipt_reminder_email: {
+              _attr: { groups: 'purchase.group_send_reminder' },
+              receipt_reminder_email: {},
+              _span: 'Ask confirmation',
+              _div: {
+                _attr: {
+                  invisible({ record }) {
+                    // 'invisible': [('receipt_reminder_email', '=', False)]
+                    const { receipt_reminder_email } = record
+                    return !receipt_reminder_email
+                  }
+                },
+                reminder_date_before_receipt: {},
+                _span: ' day(s) before',
+                _widget: {
+                  _attr: {
+                    name: 'toaster_button',
+                    button_name: 'send_reminder_preview',
+                    title:
+                      'Preview the reminder email by sending it to yourself.',
+                    invisible({ record }) {
+                      //'invisible': [('id', '=', False)]
+                      const { id: res_id } = record
+                      return !res_id
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+
+        _notebook: {
+          _page_products: {
+            _attr: { string: 'Products', name: 'products' },
+            tax_country_id: { invisible: '1' },
+            order_line: order_line,
+
+            _group: {
+              _group: {
+                notes: {}
               },
 
-              //
-              name: {},
-              date_planned: {
-                required: ({ record }) => {
-                  const { display_type } = record
-                  return !display_type
+              _group_2: {
+                tax_totals: {
+                  widget: 'account-tax-totals-field',
+                  nolabel: '1',
+                  readonly: '1'
                 }
-              },
-
-              product_qty: {},
-              qty_received: {},
-              qty_invoiced: {},
-              product_uom: {},
-              price_unit: {},
-              price_subtotal: {}
+              }
             }
           },
 
-          form: {
-            fields: {
-              state: { invisible: 1 },
-              display_type: { invisible: 1 },
-              sequence: {},
+          _page_purchase_delivery_invoice: {
+            _attr: {
+              string: 'Other Information',
+              name: 'purchase_delivery_invoice'
+            },
 
-              product_id: {
-                readonly: ({ record }) => {
-                  const { state } = record
-                  return ['purchase', 'to approve', 'done', 'cancel'].includes(
-                    state
-                  )
-                },
-                required: ({ record }) => {
-                  const { display_type } = record
-                  return !display_type
-                },
+            _group: {
+              _group_other_info: {
+                user_id: { widget: 'many2one_avatar_user' },
+                company_id: {},
+                origin: {}
+              },
 
-                context: ({ record }) => {
-                  const { parent: parent2, product_qty, product_uom } = record
-                  return {
-                    partner_id: parent2.partner_id,
-                    quantity: product_qty,
-                    uom: product_uom,
-                    company_id: parent2.company_id
+              _group_invoice_info: {
+                invoice_status: {
+                  invisible({ record }) {
+                    // 'invisible': [('state', 'in',
+                    // ('draft', 'sent', 'to approve', 'cancel'))]
+                    const { state } = record
+                    return ['draft', 'sent', 'to approve', 'cancel'].includes(
+                      state
+                    )
                   }
                 },
-
-                domain: ({ record }) => {
-                  const { parent: parent2 } = record
-                  return [
-                    ['purchase_ok', '=', true],
-                    '|',
-                    ['company_id', '=', false],
-                    ['company_id', '=', parent2.company_id]
-                  ]
-                }
-              },
-
-              product_qty: {},
-              qty_received: {},
-              qty_invoiced: {},
-              product_uom: {},
-
-              price_unit: {},
-              price_subtotal: {},
-
-              date_planned: {
-                required: ({ record }) => {
-                  const { display_type } = record
-                  return !display_type
-                }
-              },
-              name: {},
-
-              invoice_lines: {}
+                payment_term_id: {},
+                fiscal_position_id: {}
+              }
             }
           }
         }

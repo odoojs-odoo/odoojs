@@ -307,17 +307,13 @@ export class ViewHelp {
   }
 
   check_readonly(fieldInfo, kw) {
-    // // readonly2 用于前端自定义 readonly
     // // 需要检查 merge_for_write
-    // if ('readonly2' in fieldInfo) {
-    //   return this._check_modifiers('readonly2', fieldInfo, kw)
-    // }
 
     if (!('states' in fieldInfo)) {
       return this._check_modifiers('readonly', fieldInfo, kw)
     }
 
-    if (fieldInfo.readonly === 'function ') {
+    if (typeof fieldInfo.readonly === 'function') {
       return this._check_modifiers('readonly', fieldInfo, kw)
     }
 

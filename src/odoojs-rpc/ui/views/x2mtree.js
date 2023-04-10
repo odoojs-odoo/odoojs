@@ -229,7 +229,10 @@ export class X2mTree extends X2mTreeBase {
           return [op, rid, false]
         } else if ([1, 0].includes(op)) {
           const x2mform = this.relation.form
-          const vals2 = x2mform.format_to_onchange(vals)
+
+          // const vals2 = x2mform.format_to_onchange(vals)
+          // merge 函数 会对 vals 中的数据格式做转化
+          const vals2 = x2mform.merge_to_onchange({}, vals)
           return [op, rid, vals2]
         } else {
           // never here

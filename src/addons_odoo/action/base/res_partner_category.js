@@ -4,6 +4,12 @@ export default {
     model: 'res.partner.category',
     type: 'tree',
 
+    arch: {
+      sheet: {
+        name: {}
+      }
+    },
+
     fields: {
       display_name: {},
       name: {},
