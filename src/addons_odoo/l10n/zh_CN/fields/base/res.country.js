@@ -20,7 +20,7 @@ const StateModelFields = {
 }
 
 const GroupModelFields = {
-  // name: { string: '名称' }
+  name: { string: '名称' },
   country_ids: { string: '国家' }
 }
 

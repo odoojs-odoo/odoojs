@@ -1,8 +1,9 @@
 import { watch, computed, reactive, ref } from 'vue'
 import api from '@/odoorpc'
+import { useLang } from '@/components/useApi/useLang'
 
 export function useTreeView(props) {
-  const viewActions = computed(() => api.global_config.view.actions)
+  const { lang } = useLang()
 
   const localState = {
     treeview: null
@@ -11,35 +12,58 @@ export function useTreeView(props) {
   const state = reactive({
     treeviewReady: false,
     treeviewFieldsReady: false,
-    fields: {},
 
-    pagination: {
-      // current
-      // position: 'top'
-      // total: 0,
-      // pageSize: PageSize
-      // pageSizeOptions: ['10', '20', '30', '40']
-    },
-    searchItems: {},
-    searchValues: {},
+    lang_changed: 1,
+    pagination_changed: 1,
+    search_changed: 1,
+
     records: []
   })
 
   const activeIds = ref([])
 
+  function check_lang() {
+    return state.lang_changed
+  }
+
+  function view_get() {
+    check_lang()
+    return state.treeviewFieldsReady ? localState.treeview : undefined
+  }
+
+  function langChange(lg) {
+    const view = view_get()
+    if (!view) return false
+    view.set_lang(lg)
+    state.lang_changed += 1
+    loadDataByIds()
+  }
+
+  watch(
+    lang,
+    // eslint-disable-next-line no-unused-vars
+    async (newVal, oldVal) => {
+      console.log(newVal, oldVal)
+      langChange(newVal)
+    },
+    { immediate: true }
+  )
+
+  const viewActions = computed(() => {
+    check_lang(lang.value)
+    return api.global_config.view.actions
+  })
+
   const buttons = computed(() => {
-    // console.log(state.treeviewReady)
-    //
-    if (state.treeviewReady && localState.treeview) {
-      return localState.treeview.buttons
-    } else {
-      return {}
-    }
+    const view = view_get()
+    return view ? view.buttons : {}
   })
 
   const hasActive = computed(() => {
     // 判断 存档和取消存档 菜单是否显示
-    const active = state.fields.active
+    const view = view_get()
+    if (!view) return false
+    const active = view.fields.active
     return active ? true : false
   })
 
@@ -62,30 +86,43 @@ export function useTreeView(props) {
   }
 
   const columns = computed(() => {
-    if (state.treeviewFieldsReady && localState.treeview) {
-      const flds = localState.treeview.get_columns()
-      const cols91 = fields2cols(flds)
-      const cols92 = cols91.filter(item => item._widget !== 'handle')
-      return cols92
-    } else {
-      return []
-    }
+    const view = view_get()
+    if (!view) return []
+
+    const flds = view.get_columns()
+    const cols91 = fields2cols(flds)
+    const cols92 = cols91.filter(item => item._widget !== 'handle')
+    return cols92
   })
 
-  const records = computed(() => state.records)
-  const pagination = computed(() => state.pagination)
-  const searchValues = computed(() => state.searchValues)
-  const searchItems = computed(() => state.searchItems)
+  const pagination = computed(() => {
+    const view = view_get(state.pagination_changed)
+    return view ? view.pagination : {}
+  })
+  const searchValues = computed(() => {
+    const view = view_get(state.search_changed)
+    return view ? view.search_values : {}
+  })
+
+  const searchItems = computed(() => {
+    const view = view_get()
+    return view ? view.search_items : {}
+  })
+
+  // load data
 
   async function loadDataByIds() {
-    const treeview = localState.treeview
+    const view = view_get()
+    if (!view) return
+
+    const treeview = view
     const ids = state.records.map(item => item.id)
     const records = await treeview.read(ids)
     state.records = records
   }
   async function loadData(treeview) {
     const records = await treeview.search_read()
-    state.pagination = { ...treeview.pagination }
+    state.pagination_changed += 1
     state.records = records
   }
 
@@ -103,72 +140,71 @@ export function useTreeView(props) {
       localState.treeview = treeview
       state.treeviewReady = true
       // await sleep(1000)
-      state.fields = await treeview.load_fields()
+      await treeview.load_fields()
 
       state.treeviewFieldsReady = true
       await treeview.searchview.load_search()
-      state.searchItems = { ...treeview.search_items }
-      state.searchValues = { ...treeview.search_values }
       // await sleep(1000)
       await loadData(treeview)
-
-      // console.log(state.searchValues)
     },
     { immediate: true }
   )
 
   async function onTableChange(pagination) {
-    if (localState.treeview) {
-      localState.treeview.pagination = pagination
-      await loadData(localState.treeview)
-    }
+    const view = view_get()
+    if (!view) return
+
+    view.pagination = pagination
+    await loadData(view)
   }
 
   async function onSearchChange(item, value) {
-    if (localState.treeview) {
-      const searchValues = localState.treeview.search_change(item, value)
-      state.searchValues = searchValues
-      state.pagination = {
-        ...localState.treeview.pagination,
-        current: 1,
-        total: 0
-      }
+    const view = view_get()
+    if (!view) return
 
-      await loadData(localState.treeview)
-    }
+    view.search_change(item, value)
+    state.search_changed += 1
+    await loadData(view)
   }
 
   function onExportAll() {
-    if (localState.treeview) {
-      localState.treeview.export_xlsx_all()
-    }
+    const view = view_get()
+    if (!view) return
+
+    view.export_xlsx_all()
   }
 
   async function onUnarchive() {
-    if (!localState.treeview) return
+    const view = view_get()
+    if (!view) return
+
     const ids = activeIds.value
-    console.log(ids, ids.length)
-    await localState.treeview.unarchive(ids)
+    // console.log(ids, ids.length)
+    await view.unarchive(ids)
     activeIds.value = []
     loadDataByIds()
   }
 
   async function onArchive() {
-    if (!localState.treeview) return
+    const view = view_get()
+    if (!view) return
+
     const ids = activeIds.value
 
-    await localState.treeview.archive(ids)
+    await view.archive(ids)
     activeIds.value = []
     loadDataByIds()
   }
 
   async function onClickDel() {
-    if (!localState.treeview) return
+    const view = view_get()
+    if (!view) return
+
     const ids = activeIds.value
     //   // console.log(' handleUnlink ', ids)
-    await localState.treeview.unlink(ids)
+    await view.unlink(ids)
     activeIds.value = []
-    loadData(localState.treeview)
+    loadData(view)
   }
 
   const onSelectChange = keys => {
@@ -185,6 +221,8 @@ export function useTreeView(props) {
     console.log([btn, btn_fns[btn]])
     btn_fns[btn]()
   }
+
+  const records = computed(() => state.records)
 
   return {
     records,

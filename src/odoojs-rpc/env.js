@@ -64,9 +64,14 @@ export class Environment {
     return this.context.lang || 'en_US'
   }
 
+  _set_env_lang(val) {
+    this._context = { ...this._context, lang: val }
+  }
+
   async set_lang(val) {
     const res = await web.set_lang(val)
     ui.Addons.set_lang(val, true)
+    this._context = { ...this._context, lang: val }
     return res
   }
 

@@ -63,17 +63,8 @@ export class Action {
 
     const { env, context } = payload
     this._env = env
-
-    const info =
-      typeof action_id === 'string'
-        ? this.load_action_info(action_id)
-        : action_id
-
-    if (context) {
-      this._raw_info = { ...info, context: { ...info.context, ...context } }
-    } else {
-      this._raw_info = info
-    }
+    this._context = context
+    this._action_id = action_id
   }
 
   load_action_info(action) {
@@ -103,26 +94,48 @@ export class Action {
   }
 
   get info() {
-    return this._raw_info
+    const action_id = this._action_id
+    const context = this._context || {}
+
+    const info =
+      typeof action_id === 'string'
+        ? this.load_action_info(action_id)
+        : action_id
+
+    const ctx1 = this.get_context_default(info.context)
+
+    return { ...info, context: { ...ctx1, ...context } }
   }
 
   get env() {
     return this._env
   }
+  get_context_default(ctx) {
+    if (typeof ctx !== 'function') {
+      return ctx || {}
+    }
+    //
+    const ctx2 = ctx({ record: this.env.context })
+    return ctx2
+  }
 
+  // todo
   get context_default() {
     const ctx = this.info.context
     if (typeof ctx !== 'function') {
       return ctx || {}
     }
+    //
     const ctx2 = ctx({ record: this.env.context })
     return ctx2
   }
 
+  // todo
   get context() {
     const ctx1 = this.context_default
     const ctx2 = this.env.context
-    return { ...ctx2, ...ctx1 }
+    const ctx3 = this._context || {}
+    return { ...ctx2, ...ctx1, ...ctx3 }
   }
 
   get domain() {

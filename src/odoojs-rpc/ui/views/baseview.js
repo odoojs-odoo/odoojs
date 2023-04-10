@@ -118,6 +118,37 @@ export class BaseView {
   //   return x2m._load_views()
   // }
 
+  set_lang(lang) {
+    const fields = this._fields_info
+
+    const model = this.res_model
+    const fields_in_sheet = this._load_fields_from_sheet()
+    const fields_in_model = this.constructor.metadata_fields(model)
+
+    function str_get(fld) {
+      const meta1 = fields_in_sheet[fld] || {}
+      const meta2 = fields_in_model[fld] || {}
+      const meta3 = fields[fld] || {}
+
+      if ('string' in meta1) {
+        return meta1.string
+      } else if ('string' in meta2) {
+        return meta2.string
+      } else {
+        return meta3.string
+      }
+    }
+
+    const fields2 = Object.keys(fields).reduce((acc, fld) => {
+      acc[fld] = { ...fields[fld], string: str_get(fld) }
+      return acc
+    }, {})
+
+    this._fields_info = fields2
+
+    this.env._set_env_lang(lang)
+  }
+
   get_fields_from_sheet(sheet) {
     function is_tag(str) {
       if (!str[0] === '_') return false
@@ -152,11 +183,7 @@ export class BaseView {
     return find_field(sheet)
   }
 
-  async _load_fields() {
-    const model = this.res_model
-    const Model = this.env.model(model)
-    const action = this.action_info
-
+  _load_fields_from_sheet() {
     const fields_raw_get_from_sheet = () => {
       const { view } = this.view_info
       const { arch = {} } = view
@@ -170,17 +197,23 @@ export class BaseView {
       // const fs = { display_name: {} }
       const fs = fields_raw_get_from_sheet()
       // console.log('fs1 ok,', time(), fs)
-
+      const action = this.action_info
       const fs2 = action.views[this._type].fields || {}
 
       return { ...fs2, ...fs }
     }
 
-    const fields_raw = fields_raw_get()
+    return fields_raw_get()
+  }
 
+  async _load_fields() {
+    const model = this.res_model
+    const Model = this.env.model(model)
+    const fields_raw = this._load_fields_from_sheet()
     const fields_list = Object.keys(fields_raw)
     const info = await Model.fields_get(fields_list)
-    const { readonly: readonly_for_write } = info
+
+    // const { readonly: readonly_for_write } = info
 
     const fields_in_model = await this.metadata_fields_get()
 
@@ -188,8 +221,8 @@ export class BaseView {
       acc[cur] = {
         ...(info[cur] || {}),
         ...(fields_in_model[cur] || {}),
-        ...(fields_raw[cur] || {}),
-        readonly_for_write
+        ...(fields_raw[cur] || {})
+        // readonly_for_write
       }
       return acc
     }, {})

@@ -1,5 +1,6 @@
 <template>
   <a-space>
+    {{ formInfo.lang }}
     <template v-if="!formInfo.editable">
       <a-button size="small" v-if="buttons.edit" @click="onClickCRUD('edit')">
         {{ viewActions.edit }}

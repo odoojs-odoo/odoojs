@@ -162,16 +162,15 @@ import api from '@/odoorpc'
 const router = useRouter()
 const props = defineProps(['actionId', 'resId'])
 const editRef = ref()
-const {
-  mVal,
-  fields,
-  formInfo,
-  viewActions,
-  currentState,
-  statusbarVisible,
-  onChange,
-  onClickCRUD
-} = useForm(props, { router, editRef })
+
+const useData = useForm(props, { router, editRef })
+const { viewActions, currentState, statusbarVisible } = useData
+
+const { mVal, formInfo, onChange, onClickCRUD } = useData
+
+const fields = computed(() => {
+  return formInfo.value.fields
+})
 
 const record = computed(() => formInfo.value.record)
 function onClickDelConfirm() {

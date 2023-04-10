@@ -1,6 +1,6 @@
 import { computed, reactive, toRaw, watch, ref } from 'vue'
 import api from '@/odoorpc'
-
+import { useLang } from '@/components/useApi/useLang'
 function sleep(millisecond) {
   return new Promise(resolve => {
     setTimeout(() => {
@@ -23,36 +23,97 @@ export const try_call = async fn => {
 }
 
 export function useForm(props, ctx) {
+  const { lang } = useLang()
   const localState = {
     formview: null
   }
 
-  const viewActions = computed(() => api.global_config.view.actions)
-
   const state = reactive({
     formviewReady: false,
     formviewFieldReady: false,
+
+    lang_changed: 1,
+    view_changed: 1,
+
     mVal: {},
-    fields: {},
-    viewInfo: {},
+
     record: {},
     editable: false,
     values: {}
   })
 
-  const buttons = computed(() => {
-    if (state.formviewReady && localState.formview) {
-      return localState.formview.buttons
-    } else {
-      return {}
+  function check_lang() {
+    return state.lang_changed
+  }
+
+  function view_get() {
+    check_lang()
+    return state.formviewFieldReady ? localState.formview : undefined
+  }
+
+  function check_view_changed() {
+    return state.view_changed
+  }
+
+  const formInfo = computed(() => {
+    check_view_changed()
+
+    const info = {
+      record: toRaw(state.record),
+      values: toRaw(state.values),
+      editable: toRaw(state.editable)
     }
+
+    const view = view_get()
+    const viewInfo = view ? view.view_info : {}
+    const fields = view ? view.fields : {}
+
+    return { viewInfo, fields, ...info }
+  })
+
+  function langChange(lg) {
+    const view = view_get()
+    if (!view) return false
+    view.set_lang(lg)
+    state.lang_changed += 1
+
+    const res_id = state.record.id
+    loadData(res_id)
+  }
+
+  // watch lang
+  watch(
+    lang,
+    // eslint-disable-next-line no-unused-vars
+    async (newVal, oldVal) => {
+      // console.log(newVal, oldVal)
+      langChange(newVal)
+    },
+    { immediate: true }
+  )
+
+  const viewActions = computed(() => {
+    check_lang(lang.value)
+    return api.global_config.view.actions
+  })
+
+  const buttons = computed(() => {
+    const view = view_get()
+    return view ? view.buttons : {}
+  })
+
+  const hasActive = computed(() => {
+    // 判断 存档和取消存档 菜单是否显示
+    const view = view_get()
+    if (!view) return false
+    const active = view.fields.active
+    return active ? true : false
   })
 
   const headerButtons = computed(() => {
-    return state.formviewReady && localState.formview
-      ? // ? localState.formview.header_buttons(state.record, state.values)
-        localState.formview.header_buttons(formInfo.value)
-      : []
+    const view = view_get()
+    if (!view) return []
+    return view.header_buttons(formInfo.value)
   })
 
   // const archButtons = computed(() => {
@@ -64,39 +125,35 @@ export function useForm(props, ctx) {
   // })
 
   const currentState = computed(() => {
-    return state.formviewReady && localState.formview
-      ? { ...state.record, ...state.values }[
-          localState.formview.state_field_name
-        ]
-      : ''
+    const view = view_get()
+    if (!view) return ''
+    const record = { ...state.record, ...state.values }
+    return record[view.state_field_name] || ''
   })
 
   const statusbarVisible = computed(() => {
-    return state.formviewReady && localState.formview
-      ? localState.formview.header_statusbar_visible(currentState.value)
-      : []
-  })
-
-  const hasActive = computed(() => {
-    // 判断 存档和取消存档 菜单是否显示
-    const active = state.fields.active
-    return active ? true : false
+    const view = view_get()
+    if (!view) return []
+    return view.header_statusbar_visible(currentState.value)
   })
 
   async function onLoadReation(fieldName, relation_info) {
-    if (!localState.formview) return
+    const view = view_get()
+    if (!view) return
 
-    localState.formview.load_relations_done({ [fieldName]: relation_info })
+    view.load_relations_done({ [fieldName]: relation_info })
 
     await sleep(100)
-    state.fields = localState.formview.fields
-    state.viewInfo = localState.formview.view_info
+    state.view_changed += 1
+
     await sleep(100)
   }
 
   async function loadData(res_id) {
-    if (!localState.formview) return
-    const record = await localState.formview.read(res_id)
+    const view = view_get()
+    if (!view) return
+
+    const record = await view.read(res_id)
     state.record = record
   }
 
@@ -111,9 +168,9 @@ export function useForm(props, ctx) {
         localState.formview = formview
         state.formviewReady = true
         // await sleep(1000)
-        state.fields = await formview.load_fields()
+        await formview.load_fields()
+        state.view_changed += 1
 
-        state.viewInfo = formview.view_info
         state.formviewFieldReady = true
       }
     },
@@ -148,9 +205,10 @@ export function useForm(props, ctx) {
 
   async function onChange(fname, value) {
     // console.log('onChange in formview', fname, value)
-    if (!localState.formview) return
+    const view = view_get()
+    if (!view) return
 
-    const formview = localState.formview
+    const formview = view
 
     const result = await formview.onchange(fname, value)
     const { values: values2 = {} } = result
@@ -164,12 +222,10 @@ export function useForm(props, ctx) {
   }
 
   async function handelCommit() {
-    if (!localState.formview) {
-      // error
-      return
-    }
+    const view = view_get()
+    if (!view) return
 
-    const id_ret = await localState.formview.commit(async done => {
+    const id_ret = await view.commit(async done => {
       await sleep(100)
       // 在提交函数中执行 校验.
       // 提交函数 会进行排队. 等待 以前的 onchange 全部完成.
@@ -184,7 +240,7 @@ export function useForm(props, ctx) {
     if (id_ret) {
       if (props.resId) {
         state.editable = false
-        const record = await localState.formview.read(id_ret)
+        const record = await view.read(id_ret)
         state.record = record
         state.values = {}
       } else {
@@ -201,9 +257,10 @@ export function useForm(props, ctx) {
 
   // 编辑按钮触发
   function onClickEdit() {
-    if (!localState.formview) return
+    const view = view_get()
+    if (!view) return
 
-    state.mVal = localState.formview.set_editable(state.record)
+    state.mVal = view.set_editable(state.record)
     state.values = {}
     state.editable = true
   }
@@ -243,8 +300,10 @@ export function useForm(props, ctx) {
 
   // 删除按钮触发
   async function onClickDel() {
-    if (!localState.formview) return
-    await localState.formview.unlink(state.record.id)
+    const view = view_get()
+    if (!view) return
+
+    await view.unlink(state.record.id)
     const rounteVal = ctx.router.currentRoute.value
     const { query, path } = rounteVal
     const { menu } = query
@@ -266,10 +325,11 @@ export function useForm(props, ctx) {
     if (state.editable) {
       return
     }
-    if (!localState.formview) return
+    const view = view_get()
+    if (!view) return
 
     const res_id = state.record.id
-    await localState.formview.unarchive(res_id)
+    await view.unarchive(res_id)
     await loadData(res_id)
   }
 
@@ -277,10 +337,11 @@ export function useForm(props, ctx) {
     if (state.editable) {
       return
     }
-    if (!localState.formview) return
+    const view = view_get()
+    if (!view) return
 
     const res_id = state.record.id
-    await localState.formview.archive(res_id)
+    await view.archive(res_id)
     await loadData(res_id)
   }
 
@@ -320,13 +381,11 @@ export function useForm(props, ctx) {
     if (state.editable) {
       return
     }
-    if (!localState.formview) return
+    const view = view_get()
+    if (!view) return
 
     const { error, result } = await try_call(async () => {
-      return await localState.formview.button_clicked({
-        ...btn,
-        record: state.record
-      })
+      return await view.button_clicked({ ...btn, record: state.record })
     })
 
     if (error) {
@@ -352,18 +411,7 @@ export function useForm(props, ctx) {
     await loadData(res_id)
   }
 
-  const formInfo = computed(() => {
-    return {
-      viewInfo: toRaw(state.viewInfo),
-      fields: toRaw(state.fields),
-      record: toRaw(state.record),
-      values: toRaw(state.values),
-      editable: state.editable
-    }
-  })
-
   return {
-    fields: computed(() => state.fields), // 自定义页面需要
     mVal: computed({
       get() {
         return state.mVal

@@ -131,6 +131,13 @@ export class TreeBaseView extends TreeModel {
     }
   }
 
+  search_change(item, value) {
+    const res = this.searchview.search_change(item, value)
+    this._pagination = { ...this._pagination, current: 1, total: 0 }
+
+    return res
+  }
+
   // pagination: {
   //   // current
   //   // position: 'top'

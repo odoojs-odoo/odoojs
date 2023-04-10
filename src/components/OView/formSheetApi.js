@@ -21,6 +21,7 @@ export function useFormSheet(props) {
   const sheet = computed(() => {
     const formview = formview_get()
     if (!formview) return { title: {}, children: {} }
+
     return formview.view_sheet(props.formInfo)
   })
 
