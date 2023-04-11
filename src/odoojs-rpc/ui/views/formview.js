@@ -2,8 +2,6 @@ import { BaseView } from './baseview'
 
 import { EditModel } from './editmodel'
 
-import { ViewHelp } from './viewhelp'
-
 // eslint-disable-next-line no-unused-vars
 const cp = val => JSON.parse(JSON.stringify(val))
 
@@ -234,9 +232,6 @@ export class FormView extends FormModel {
   //
   //
   //
-  viewhelp_get() {
-    return new ViewHelp(this)
-  }
 
   view_sheet(formInfo) {
     const viewhelp = this.viewhelp_get()

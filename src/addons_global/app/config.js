@@ -20,7 +20,10 @@ export default {
       searchToday: 'Today',
       searchOneMonth: 'Last 30 days',
       searchThreeMonths: 'Last 3 months',
-      searchSixMonths: 'Last 6 months'
+      searchSixMonths: 'Last 6 months',
+      actions: 'Actions',
+      archive: 'Archive',
+      unarchive: 'Unarchive'
     }
   },
 

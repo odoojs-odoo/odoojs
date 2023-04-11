@@ -45,7 +45,7 @@ const emit = defineEmits(['update:modelValue', 'change', 'load-relation'])
 
 const useData = useFO2m(props, { emit })
 
-const { readonly, relationInfo, treeRecords } = useData
+const { lang, readonly, relationInfo, treeRecords } = useData
 const { rowPick, rowNew, rowRemove, rowCommit } = useData
 
 const modalVisible = ref(false)

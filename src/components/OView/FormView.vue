@@ -41,6 +41,7 @@
   </a-space>
   <div>
     <ActionButton
+      v-if="buttons.delete && hasActive"
       :has-delete="buttons.delete"
       :has-active="hasActive"
       @button-click="onClickCRUD(name)"

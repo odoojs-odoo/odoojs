@@ -32,7 +32,7 @@
 
     <ActionButton
       class="actBtn"
-      v-if="activeIds.length"
+      v-if="activeIds.length && buttons.delete && hasActive"
       :has-delete="buttons.delete"
       :has-active="hasActive"
       @button-click="onClickCRUD"
@@ -54,6 +54,8 @@
     :scroll="widthAndHeight"
   >
     <template #bodyCell="{ column, record }">
+      <!-- <TreeCol /> -->
+
       <OField
         :field-name="column.dataIndex"
         :field-info="column._meta"
@@ -69,6 +71,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTreeView } from './treeApi'
 import OField from '@/components/OField/OField.vue'
+import TreeCol from '@/components/ONode/TreeCol.vue'
 
 import ActionButton from './ActionButton.vue'
 import SearchView from '@/components/OSearch/SearchView.vue'

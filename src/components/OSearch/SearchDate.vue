@@ -28,9 +28,8 @@ import dayjs from 'dayjs'
 
 import { computed, reactive, watch } from 'vue'
 
-import api from '@/odoorpc'
-
-const viewActions = computed(() => api.global_config.view.actions)
+import { useGlobalConfig } from '@/components/useApi/useGlobalConfig'
+const { viewActions } = useGlobalConfig()
 
 const props = defineProps(['modelValue', 'title'])
 const emit = defineEmits(['change'])

@@ -19,7 +19,10 @@ export default {
       searchToday: '今天',
       searchOneMonth: '近30天',
       searchThreeMonths: '近3个月',
-      searchSixMonths: '近半年'
+      searchSixMonths: '近半年',
+      actions: '操作',
+      archive: '存档',
+      unarchive: '取消存档'
     }
   },
   resUsersView: {

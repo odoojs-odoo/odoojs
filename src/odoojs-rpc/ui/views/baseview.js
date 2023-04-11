@@ -1,13 +1,7 @@
 import { Action } from '../action'
 
-// function time() {
-//   const dt = new Date()
-//   const min = dt.getMinutes()
-//   const sec = dt.getSeconds()
-//   const ms = dt.getMilliseconds()
+import { ViewHelp } from './viewhelp'
 
-//   return [min, sec, ms]
-// }
 export class BaseView {
   static metadata_fields(model) {
     const web_fields = Action.get_web_fields(model)
@@ -20,6 +14,10 @@ export class BaseView {
     this._type = type
     this._env = env
     this._fields_info = fields
+  }
+
+  viewhelp_get() {
+    return new ViewHelp(this)
   }
 
   async metadata_fields_get() {
@@ -118,69 +116,67 @@ export class BaseView {
   //   return x2m._load_views()
   // }
 
-  set_lang(lang) {
-    const fields = this._fields_info
+  async set_lang(lang) {
+    this.env._set_env_lang(lang)
 
     const model = this.res_model
+    const Model = this.env.model(model)
+
+    const fields = this._fields_info
+
+    const fields_list = Object.keys(fields)
+    const fields_odoo = await Model.fields_get(fields_list, [
+      'string',
+      'selection'
+    ])
+
     const fields_in_sheet = this._load_fields_from_sheet()
     const fields_in_model = this.constructor.metadata_fields(model)
 
-    function str_get(fld) {
+    function new_meta_get(fld) {
       const meta1 = fields_in_sheet[fld] || {}
       const meta2 = fields_in_model[fld] || {}
-      const meta3 = fields[fld] || {}
+      const meta3 = fields_odoo[fld] || {}
+      const meta4 = fields[fld] || {}
 
-      if ('string' in meta1) {
-        return meta1.string
-      } else if ('string' in meta2) {
-        return meta2.string
-      } else {
-        return meta3.string
+      function str_get() {
+        if ('string' in meta1) {
+          return meta1.string
+        } else if ('string' in meta2) {
+          return meta2.string
+        } else if ('string' in meta3) {
+          return meta3.string
+        } else {
+          return meta4.string
+        }
       }
+      function sel_get() {
+        if ('selection' in meta3) {
+          if ('selection' in meta2) {
+            return { selection: meta2.selection }
+          } else {
+            return { selection: meta3.selection }
+          }
+        } else {
+          return {}
+        }
+      }
+
+      return { string: str_get(), ...sel_get() }
     }
 
     const fields2 = Object.keys(fields).reduce((acc, fld) => {
-      acc[fld] = { ...fields[fld], string: str_get(fld) }
+      acc[fld] = { ...fields[fld], ...new_meta_get(fld) }
       return acc
     }, {})
 
     this._fields_info = fields2
-
-    this.env._set_env_lang(lang)
+    return fields2
   }
 
   get_fields_from_sheet(sheet) {
-    function is_tag(str) {
-      if (!str[0] === '_') return false
-
-      const tag = str.split('_')[1]
-      if (tag === 'attr') return false
-      if (tag === 'label') return false
-
-      return tag
-    }
-
-    function is_field(str) {
-      return str[0] !== '_'
-    }
-
-    function find_field(node) {
-      if (typeof node !== 'object') {
-        return {}
-      }
-      return Object.keys(node).reduce((acc, cur) => {
-        if (is_field(cur)) {
-          acc[cur] = node[cur]
-        } else if (is_tag(cur)) {
-          const children = find_field(node[cur])
-          acc = { ...acc, ...children }
-        }
-
-        return acc
-      }, {})
-    }
-
-    return find_field(sheet)
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.get_fields_from_sheet(sheet)
   }
 
   _load_fields_from_sheet() {
@@ -193,10 +189,7 @@ export class BaseView {
     }
 
     const fields_raw_get = () => {
-      // console.log('fs1,', time())
-      // const fs = { display_name: {} }
       const fs = fields_raw_get_from_sheet()
-      // console.log('fs1 ok,', time(), fs)
       const action = this.action_info
       const fs2 = action.views[this._type].fields || {}
 
@@ -207,13 +200,12 @@ export class BaseView {
   }
 
   async _load_fields() {
+    // todo. search view 中 也用到了 fields_get
     const model = this.res_model
     const Model = this.env.model(model)
     const fields_raw = this._load_fields_from_sheet()
     const fields_list = Object.keys(fields_raw)
     const info = await Model.fields_get(fields_list)
-
-    // const { readonly: readonly_for_write } = info
 
     const fields_in_model = await this.metadata_fields_get()
 
@@ -222,24 +214,9 @@ export class BaseView {
         ...(info[cur] || {}),
         ...(fields_in_model[cur] || {}),
         ...(fields_raw[cur] || {})
-        // readonly_for_write
       }
       return acc
     }, {})
-
-    // console.log('xxxx fields,', model, fields)
-
-    // console.log(fields)
-
-    // for (const fld in fields) {
-    //   // console.log(fields, fld, fields[fld])
-    //   const meta = fields[fld]
-    //   if (meta.widget === 'x2many_tree') {
-    //     const views = await this._load_x2m_views(meta)
-    //     // console.log(fld, meta.views, views)
-    //     meta.views = views
-    //   }
-    // }
 
     this._fields_info = fields
 
@@ -272,29 +249,3 @@ export class BaseView {
     return true
   }
 }
-
-// const load_from_files = files => {
-//   // 不同模块中, 同一个模型. 可以merge. 没有继承关系, 纯merge
-//   return files.keys().reduce((models, modulePath) => {
-//     const value = files(modulePath)
-//     // console.log('AddonsFields2,', modulePath, value.default)
-//     const models_from = value.default
-//     Object.keys(models_from).forEach(model_name => {
-//       const dest = models[model_name] || {}
-//       models[model_name] = { ...dest, ...models_from[model_name] }
-//     })
-
-//     return models
-//   }, {})
-// }
-
-// const load_from_files_list = files_list => {
-//   return files_list.reduce((acc, files) => {
-//     const acc2 = load_from_files(files)
-//     Object.keys(acc2).forEach(model_name => {
-//       const dest = acc[model_name] || {}
-//       acc[model_name] = { ...dest, ...acc2[model_name] }
-//     })
-//     return acc
-//   }, {})
-// }

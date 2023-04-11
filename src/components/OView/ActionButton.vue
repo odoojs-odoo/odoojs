@@ -10,22 +10,33 @@
       "
     >
       <setting-outlined />
-      操作
+      <!-- {{ viewActions }} -->
+      {{ viewActions.actions }}
     </a-button>
 
     <template #overlay>
       <a-menu @click="onMenuClick">
         <!-- TBD 导出功能 暂时屏蔽 -->
         <!-- <a-menu-item key="export"> 导出 </a-menu-item> -->
-        <a-menu-item v-if="hasDelete" key="unlink"> 删除 </a-menu-item>
-        <a-menu-item key="archive" v-if="hasActive"> 存档 </a-menu-item>
-        <a-menu-item key="unarchive" v-if="hasActive"> 取消存档 </a-menu-item>
+        <a-menu-item v-if="hasDelete" key="unlink">
+          {{ viewActions.delete }}
+        </a-menu-item>
+        <a-menu-item key="archive" v-if="hasActive">
+          {{ viewActions.archive }}
+        </a-menu-item>
+        <a-menu-item key="unarchive" v-if="hasActive">
+          {{ viewActions.unarchive }}
+        </a-menu-item>
       </a-menu>
     </template>
   </a-dropdown>
 </template>
 
 <script setup>
+import { useGlobalConfig } from '@/components/useApi/useGlobalConfig'
+
+const { viewActions } = useGlobalConfig()
+
 defineProps(['hasDelete', 'hasActive'])
 const emit = defineEmits(['button-click'])
 

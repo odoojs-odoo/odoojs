@@ -124,7 +124,7 @@ class SearchView1 extends BaseView {
     const arch = view.arch || {
       fields: {
         name: {
-          string: '名称',
+          // string: '名称',
           filter_domain: self => {
             return [['name', 'ilike', self]]
           }

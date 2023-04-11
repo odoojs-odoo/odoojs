@@ -1,12 +1,8 @@
-import { inject, computed } from 'vue'
+import { inject } from 'vue'
 import api from '@/odoorpc'
 
 export function useLang() {
   const lang = inject('lang')
-
-  const currentLanguage = computed(() => {
-    return lang.value || api.env.lang
-  })
 
   async function onchange(val) {
     // 登录页面, 设置语言, 无法更新session
@@ -15,5 +11,5 @@ export function useLang() {
     lang.value = res ? api.env.lang : val
   }
 
-  return { lang, currentLanguage, onchange }
+  return { lang, onchange }
 }

@@ -1,8 +1,6 @@
 import { BaseView } from './baseview'
 import { SearchView } from './searchview'
 
-import { ViewHelp } from './viewhelp'
-
 class TreeModel extends BaseView {
   constructor(action_id, payload = {}) {
     const { type = 'tree', ...payload2 } = payload
@@ -10,6 +8,11 @@ class TreeModel extends BaseView {
     this.searchview = new SearchView(action_id, payload)
   }
 
+  async set_lang(lang) {
+    const res = await super.set_lang(lang)
+    this.searchview.set_fields_by_treeview(res)
+    return res
+  }
   async load_fields() {
     const res = await this._load_fields()
     this.searchview.set_fields_by_treeview(res)
@@ -192,8 +195,13 @@ export class TreeView extends TreeBaseView {
     super(action_id, { ...payload, type: 'tree' })
   }
 
-  viewhelp_get() {
-    return new ViewHelp(this)
+  get arch_sheet() {
+    const action = this.action_info
+    const view = action.views.tree
+
+    const { arch = {} } = view
+    const { sheet = {} } = arch
+    return sheet
   }
 
   check_invisible(fieldInfo) {
@@ -205,8 +213,19 @@ export class TreeView extends TreeBaseView {
     const viewhelp = this.viewhelp_get()
     return viewhelp.get_string(fieldInfo)
   }
+  view_sheet(treeInfo) {
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.view_sheet_for_tree(treeInfo)
+  }
 
   get_columns() {
+    // const sheet = this.view_sheet()
+
+    // const fs = sheet.children || {}
+    // if (Object.keys(fs).length) {
+    //   return fs
+    // }
+
     const fields = this.fields
     const cols = Object.keys(fields).reduce((acc, fld) => {
       const meta = fields[fld]

@@ -107,14 +107,14 @@ import SearchSelect from './SearchSelect.vue'
 import SearchMany2one from './SearchMany2one.vue'
 import SearchDate from './SearchDate.vue'
 
-import api from '@/odoorpc'
-
 import { computed, ref, watch } from 'vue'
+
+import { useGlobalConfig } from '@/components/useApi/useGlobalConfig'
 
 const props = defineProps(['searchValues', 'searchItems', 'actionId'])
 const emit = defineEmits(['change'])
 
-const viewActions = computed(() => api.global_config.view.actions)
+const { viewActions } = useGlobalConfig()
 
 const defaultItemName = computed(() => {
   // console.log(props.searchItems)

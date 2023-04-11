@@ -1,6 +1,9 @@
 import { computed, reactive, toRaw, watch, ref } from 'vue'
 import api from '@/odoorpc'
 import { useLang } from '@/components/useApi/useLang'
+
+import { useGlobalConfig } from '@/components/useApi/useGlobalConfig'
+
 function sleep(millisecond) {
   return new Promise(resolve => {
     setTimeout(() => {
@@ -23,6 +26,7 @@ export const try_call = async fn => {
 }
 
 export function useForm(props, ctx) {
+  const { viewActions } = useGlobalConfig()
   const { lang } = useLang()
   const localState = {
     formview: null
@@ -59,6 +63,7 @@ export function useForm(props, ctx) {
     check_view_changed()
 
     const info = {
+      lang_changed: toRaw(state.lang_changed),
       record: toRaw(state.record),
       values: toRaw(state.values),
       editable: toRaw(state.editable)
@@ -71,10 +76,10 @@ export function useForm(props, ctx) {
     return { viewInfo, fields, ...info }
   })
 
-  function langChange(lg) {
+  async function langChange(lg) {
     const view = view_get()
     if (!view) return false
-    view.set_lang(lg)
+    await view.set_lang(lg)
     state.lang_changed += 1
 
     const res_id = state.record.id
@@ -91,11 +96,6 @@ export function useForm(props, ctx) {
     },
     { immediate: true }
   )
-
-  const viewActions = computed(() => {
-    check_lang(lang.value)
-    return api.global_config.view.actions
-  })
 
   const buttons = computed(() => {
     const view = view_get()

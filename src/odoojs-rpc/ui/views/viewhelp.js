@@ -52,6 +52,9 @@ export class ViewHelp {
     this._formview = formview
   }
 
+  get view() {
+    return this._formview
+  }
   get formview() {
     return this._formview
   }
@@ -69,7 +72,124 @@ export class ViewHelp {
   }
 
   get arch_sheet() {
-    return this._formview.arch_sheet
+    return this.view.arch_sheet
+  }
+
+  //
+  //
+
+  get_fields_from_sheet(sheet) {
+    // call by baseview
+    // call by relation
+
+    function is_tag(str) {
+      if (!str[0] === '_') return false
+
+      const tag = str.split('_')[1]
+      if (tag === 'attr') return false
+      if (tag === 'label') return false
+
+      return tag
+    }
+
+    function is_field(str) {
+      return str[0] !== '_'
+    }
+
+    function find_field(node) {
+      if (typeof node !== 'object') {
+        return {}
+      }
+      return Object.keys(node).reduce((acc, cur) => {
+        if (is_field(cur)) {
+          acc[cur] = node[cur]
+        } else if (is_tag(cur)) {
+          const children = find_field(node[cur])
+          acc = { ...acc, ...children }
+        }
+
+        return acc
+      }, {})
+    }
+
+    return find_field(sheet)
+  }
+
+  view_sheet_for_tree() {
+    console.log(this.view)
+
+    const format_string = fieldInfo => {
+      if (!fieldInfo.string) return undefined
+      if (typeof fieldInfo.string !== 'function') return fieldInfo.string
+      return this.get_string(fieldInfo)
+    }
+
+    const meta_get = (fld, meta = {}) => {
+      const fieldInfo = { ...this.fields[fld], ...meta, name: fld }
+      const string = format_string(fieldInfo)
+
+      return { ...fieldInfo, string }
+    }
+
+    function is_attr(str) {
+      return str === '_attr'
+    }
+
+    function tag_get(str) {
+      if (!str[0] === '_') return false
+      const tag = str.split('_')[1]
+      if (tag === 'attr') return false
+      return tag
+    }
+
+    function is_field(str) {
+      return str[0] !== '_'
+    }
+
+    const node_get = node => {
+      const res = Object.keys(node).reduce((acc, cur) => {
+        if (is_attr(cur)) {
+          acc = { ...acc, ...node[cur] }
+        } else {
+          if (!acc.children) acc.children = {}
+          if (is_field(cur)) {
+            const invisible2 = this.check_invisible_for_tree(node[cur])
+            if (!invisible2) {
+              const meta = meta_get(cur, node[cur])
+
+              acc.children[cur] = { ...meta }
+            }
+          } else {
+            const tag = tag_get(cur)
+            // console.log('tag', tag)
+            if (tag && tag === 'field') {
+              console.log('_field', tag)
+            } else {
+              console.log('tag2', tag)
+            }
+            //
+          }
+        }
+        return acc
+      }, {})
+
+      return res
+    }
+
+    const children_get = sheet => {
+      const children = node_get(sheet)
+      return children.children
+    }
+
+    const sheet = this.arch_sheet
+    console.log(sheet)
+    // const title = title_get(sheet)
+    const children = children_get(sheet)
+
+    // console.log('sheet', sheet)
+    console.log('children', children)
+
+    return { children }
   }
 
   view_sheet(formInfo) {
@@ -248,19 +368,11 @@ export class ViewHelp {
     }
 
     const children_get = sheet => {
-      // const children0 = Object.keys(sheet).reduce((acc, item) => {
-      //   acc[item] = sheet[item]
-      //   return acc
-      // }, {})
-
       const children = node_get(sheet)
-
       return children.children
     }
 
     const sheet = this.arch_sheet
-    // console.log(sheet)
-    // const title = title_get(sheet)
     const children = children_get(sheet)
 
     // console.log('sheet', sheet)

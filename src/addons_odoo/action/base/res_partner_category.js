@@ -6,7 +6,14 @@ export default {
 
     arch: {
       sheet: {
-        name: {}
+        display_name: {},
+        name: {},
+        _field_parent_id: {
+          _attr: { name: 'parent_id', string: '上级' },
+          parent_id: {}
+        },
+
+        active: { widget: 'boolean_toggle' }
       }
     },
 

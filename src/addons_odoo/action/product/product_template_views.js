@@ -486,44 +486,30 @@ export default {
 
       filters: {
         group_type: {
-          services: { string: '服务', domain: [['type', '=', 'service']] },
+          services: { string: 'Services', domain: [['type', '=', 'service']] },
           consumable: {
-            string: '产品',
+            string: 'Products',
             domain: [['type', 'in', ['consu', 'product']]]
           }
         },
 
         group_sell_purchase: {
           filter_to_sell: {
-            string: '可销售',
+            string: 'Can be Sold',
             domain: [['sale_ok', '=', true]]
           },
           filter_to_purchase: {
-            string: '可采购',
+            string: 'Can be Purchased',
             domain: [['purchase_ok', '=', true]]
           }
         },
         group_favorites: {
-          favorites: { string: '收藏', domain: [['priority', '=', '1']] }
+          favorites: { string: 'Favorites', domain: [['priority', '=', '1']] }
         },
         group_active: {
-          inactive: { string: '已归档', domain: [['active', '=', false]] }
+          inactive: { string: 'Archived', domain: [['active', '=', false]] }
         }
       }
-    }
-  },
-
-  product_template_action_all: {
-    _odoo_model: 'ir.actions',
-    name: 'Products',
-    type: 'ir.actions.act_window',
-    res_model: 'product.template',
-    search_view_id: 'product_template_search_view',
-    domain: [],
-    context: {},
-    views: {
-      tree: 'product_template_tree_view',
-      form: 'product_template_form_view'
     }
   }
 }

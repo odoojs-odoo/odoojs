@@ -4,6 +4,8 @@ import { X2mForm } from './x2mform'
 
 import { BaseView } from './baseview'
 
+import { ViewHelp } from './viewhelp'
+
 // call by image_url_get
 const date_tools = {
   now_unique() {
@@ -112,6 +114,96 @@ export class Relation extends Field {
     return this.env.model(model)
   }
 
+  async set_lang(lang) {
+    this.env._set_env_lang(lang)
+    const meta = this.field_info
+    const is_x2many_tree =
+      ['one2many', 'many2many'].includes(meta.type) &&
+      meta.widget === 'x2many_tree'
+
+    if (!is_x2many_tree) {
+      return
+    }
+
+    const { fields: raw_tree } = this._load_fields_from_tree('tree')
+    const { fields: raw_kanban } = this._load_fields_from_tree('kanban')
+    const { fields: raw_form } = this._load_fields_from_form('form')
+
+    const fields_raw = { ...raw_tree, ...raw_kanban, ...raw_form }
+
+    const model = this.field_info.relation
+    const Model = this.env.model(model)
+
+    const fields_raw_list = Object.keys(fields_raw)
+    const fields_odoo = await Model.fields_get(fields_raw_list, ['string'])
+    const fields_in_model = BaseView.metadata_fields(model)
+
+    const fields_in_sheet = {
+      tree: raw_tree,
+      kanban: raw_kanban,
+      form: raw_form
+    }
+
+    function new_meta_get(fld, viewtype, fields) {
+      const meta1 = fields_in_sheet[viewtype][fld] || {}
+      const meta2 = fields_in_model[fld] || {}
+      const meta3 = fields_odoo[fld] || {}
+      const meta4 = fields[fld] || {}
+
+      function str_get() {
+        if ('string' in meta1) {
+          return meta1.string
+        } else if ('string' in meta2) {
+          return meta2.string
+        } else if ('string' in meta3) {
+          return meta3.string
+        } else {
+          return meta4.string
+        }
+      }
+
+      function sel_get() {
+        if ('selection' in meta3) {
+          if ('selection' in meta2) {
+            return { selection: meta2.selection }
+          } else {
+            return { selection: meta3.selection }
+          }
+        } else {
+          return {}
+        }
+      }
+
+      return { string: str_get(), ...sel_get() }
+    }
+
+    const get_fields = viewtype => {
+      const meta = this.field_info
+      const views = meta.views || {}
+      const view = views[viewtype] || {}
+      const fields = view.fields || {}
+      return { view, fields }
+    }
+
+    const get_view = viewtype => {
+      const { view, fields } = get_fields(viewtype)
+      const fields2 = Object.keys(fields).reduce((acc, fld) => {
+        acc[fld] = { ...fields[fld], ...new_meta_get(fld, viewtype, fields) }
+        return acc
+      }, {})
+
+      return { ...view, fields: fields2 }
+    }
+
+    const tree = get_view('tree')
+    const kanban = get_view('kanban')
+    const form = get_view('form')
+
+    const views = { tree, kanban, form }
+
+    this._views = views
+  }
+
   async metadata_fields_get() {
     const model = this.field_info.relation
     const fields = BaseView.metadata_fields(model)
@@ -129,38 +221,40 @@ export class Relation extends Field {
     return fields2
   }
 
+  viewhelp_get() {
+    return new ViewHelp(this)
+  }
+
   get_fields_from_sheet(sheet) {
-    function is_tag(str) {
-      if (!str[0] === '_') return false
+    const viewhelp = this.viewhelp_get()
+    return viewhelp.get_fields_from_sheet(sheet)
+  }
 
-      const tag = str.split('_')[1]
-      if (tag === 'attr') return false
-      if (tag === 'label') return false
+  _load_fields_from_tree(viewtype) {
+    const meta = this._field_info
+    const views = meta.views || {}
+    const view = views[viewtype] || {}
+    const fields = view.fields || {}
+    return { view, fields }
+  }
 
-      return tag
+  _load_fields_from_form(viewtype) {
+    const meta = this._field_info
+    const views = meta.views || {}
+    const view = views[viewtype] || {}
+    const raw_form_get_from_sheet = () => {
+      const sheet = (view.arch || {}).sheet || {}
+      return this.get_fields_from_sheet(sheet)
     }
 
-    function is_field(str) {
-      return str[0] !== '_'
+    const raw_form_get = () => {
+      const fs = raw_form_get_from_sheet()
+      const fs2 = view.fields || {}
+      return { ...fs2, ...fs }
     }
 
-    function find_field(node) {
-      if (typeof node !== 'object') {
-        return {}
-      }
-      return Object.keys(node).reduce((acc, cur) => {
-        if (is_field(cur)) {
-          acc[cur] = node[cur]
-        } else if (is_tag(cur)) {
-          const children = find_field(node[cur])
-          acc = { ...acc, ...children }
-        }
-
-        return acc
-      }, {})
-    }
-
-    return find_field(sheet)
+    const fields = raw_form_get()
+    return { view, fields }
   }
 
   async _load_views() {
@@ -174,39 +268,20 @@ export class Relation extends Field {
       return { tree: {}, kanban: {}, form: {} }
     }
 
-    const views = meta.views || {}
-    const treeview = views.tree || {}
-    const raw_tree = treeview.fields || { display_name: {} }
-    const kanbanview = views.kanban || {}
-    const raw_kanban = kanbanview.fields || { display_name: {} }
+    const { view: treeview, fields: raw_tree } =
+      this._load_fields_from_tree('tree')
+    const { view: kanbanview, fields: raw_kanban } =
+      this._load_fields_from_tree('kanban')
 
-    const formview = views.form || {}
-
-    const raw_form_get_from_sheet = () => {
-      const sheet = (formview.arch || {}).sheet || {}
-      return this.get_fields_from_sheet(sheet)
-    }
-
-    const raw_form_get = () => {
-      const fs = raw_form_get_from_sheet()
-
-      const fs2 = formview.fields || {}
-
-      return { display_name: {}, ...fs2, ...fs }
-    }
-
-    const raw_form = raw_form_get()
-
-    // const formview = views.form || {}
-    // const raw_form = { display_name: {}, ...(formview.fields || {}) }
+    const { view: formview, fields: raw_form } =
+      this._load_fields_from_form('form')
 
     const fields_raw = { ...raw_tree, ...raw_kanban, ...raw_form }
 
     const fields_meta = await this.metadata_fields_get()
 
     const fields_info = await this.Model.fields_get(Object.keys(fields_raw))
-    const { readonly: readonly_for_write } = fields_info
-    fields_info.readonly_for_write = readonly_for_write
+
     const fields_tree = Object.keys(raw_tree).reduce((acc, cur) => {
       acc[cur] = {
         ...fields_info[cur],

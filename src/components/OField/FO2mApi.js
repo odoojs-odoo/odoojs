@@ -1,9 +1,11 @@
 import { computed, watch, reactive, ref, toRaw } from 'vue'
 import { useField } from './FieldApi'
-
+import { useLang } from '@/components/useApi/useLang'
 import api from '@/odoorpc'
 
 export function useFO2m(props, ctx) {
+  const { lang } = useLang()
+
   const { readonly } = useField(props, ctx)
 
   const localState = {
@@ -13,11 +15,27 @@ export function useFO2m(props, ctx) {
   const state = reactive({
     relationReady: false,
     relationFieldReady: false,
+
+    lang_changed: 1,
     records: [],
     values: []
   })
 
-  const relationInfo = ref(null)
+  function check_lang() {
+    return state.lang_changed
+  }
+
+  function relation_get() {
+    check_lang()
+    return state.relationFieldReady ? localState.relation : undefined
+  }
+
+  const relationInfo = computed(() => {
+    const rel = relation_get()
+    if (!rel) return
+
+    return rel.field_info
+  })
 
   const valueReadonly = computed(
     () => props.formInfo.record[props.fieldName] || []
@@ -25,12 +43,37 @@ export function useFO2m(props, ctx) {
 
   // 编辑过的数据 也 放在一起
   const treeRecords = computed(() => {
-    if (!state.relationReady) return []
+    const rel = relation_get()
+    if (!rel) return []
     else {
       // console.log('o2m treeRecords', treeRecords)
-      return localState.relation.tree.format_to_display(toRaw(state.records))
+      return rel.tree.format_to_display(toRaw(state.records))
     }
   })
+
+  async function langChange(lg) {
+    const rel = relation_get()
+    if (!rel) return
+
+    await rel.set_lang(lg)
+    ctx.emit('load-relation', props.fieldName, rel.field_info)
+
+    state.lang_changed += 1
+    const res_ids = valueReadonly.value
+    // console.log('set ok,', state.lang_changed)
+    loadRelationData(res_ids)
+  }
+
+  // watch lang
+  watch(
+    () => props.formInfo.lang_changed,
+    // eslint-disable-next-line no-unused-vars
+    async (newVal, oldVal) => {
+      // console.log(newVal, oldVal, state.relationFieldReady)
+      langChange(lang.value)
+    },
+    { immediate: true }
+  )
 
   async function loadRelationInfo() {
     const relation = api.env.relation(props.fieldInfo)
@@ -40,7 +83,7 @@ export function useFO2m(props, ctx) {
 
     await relation.load_views()
 
-    relationInfo.value = relation.field_info
+    // relationInfo.value = relation.field_info
     state.relationFieldReady = true
     ctx.emit('load-relation', props.fieldName, relation.field_info)
   }
@@ -52,6 +95,7 @@ export function useFO2m(props, ctx) {
     async (newVal, oldVal) => {
       if (newVal && newVal === 'one2many') {
         // console.log(newVal, oldVal)
+
         loadRelationInfo()
       }
     },
@@ -60,21 +104,20 @@ export function useFO2m(props, ctx) {
 
   // todo. 在form 页面 点新增时 时. state.records 有缓存
   async function loadRelationData(ids) {
-    const info = relationInfo.value
-    if (!info) {
-      // state.records = []
-      return
-    }
     if (!ids.length) {
       // state.records = []
       return
-    } else {
-      const relation = api.env.relation(info)
-      const parentInfo = toRaw(props.formInfo)
-      const treeview = relation.tree
-      const records = await treeview.read(ids, { parentInfo })
-      state.records = treeview.format_to_tuples(records)
     }
+    const rel = relation_get()
+    if (!rel) {
+      // state.records = []
+      return
+    }
+    const relation = rel
+    const parentInfo = toRaw(props.formInfo)
+    const treeview = relation.tree
+    const records = await treeview.read(ids, { parentInfo })
+    state.records = treeview.format_to_tuples(records)
 
     // 主表 新增, 从表 o2m 字段有默认值时, 执行 以下代码. 待处理 todo 2023-2-13
     //   // if (for_new) {
@@ -96,16 +139,34 @@ export function useFO2m(props, ctx) {
     //   // }
   }
 
+  function check_equ_array(list1, list2) {
+    const arr = [...list1, ...list2]
+    const s1 = new Set(arr)
+    return [...s1].length === list2.length
+  }
   // load Relation Readonly data
   watch(
-    [relationInfo, valueReadonly],
+    [() => state.relationFieldReady, valueReadonly],
     // eslint-disable-next-line no-unused-vars
     (newVal, oldVal) => {
-      // console.log(newVal, oldVal)
-      const [info, ids] = [...newVal]
-      if (ids && info) {
-        loadRelationData(ids)
+      // console.log('watch', newVal, oldVal)
+      const [relationFieldReady_old, newids] = [...newVal]
+      const [relationFieldReady_new, oldids] = [...oldVal]
+      if (!relationFieldReady_new) {
+        return
+      } else if (!relationFieldReady_old) {
+        return loadRelationData(newids)
+      } else {
+        if (!check_equ_array(newids, oldids)) {
+          return loadRelationData(newids)
+        }
       }
+
+      // if (ids && relationFieldReady) {
+      //   console.log('watch  ok,', state.lang_changed)
+
+      //   loadRelationData(ids)
+      // }
     },
     { immediate: true }
   )
@@ -124,42 +185,55 @@ export function useFO2m(props, ctx) {
   )
 
   function treeCancle() {
-    if (!state.relationFieldReady) {
-      // raise error
-      return
-    }
-    const treeview = localState.relation.tree
+    const rel = relation_get()
+    if (!rel) return
+
+    // if (!state.relationFieldReady) {
+    //   // raise error
+    //   return
+    // }
+
+    const treeview = rel.tree
     const records = treeview.tree_cancle(toRaw(state.records))
     state.records = records
   }
 
   function rowPick(row = {}) {
-    if (!state.relationFieldReady) {
-      // raise error
-      return { record: {}, values: {} }
-    }
-    const treeview = localState.relation.tree
+    const rel = relation_get()
+    if (!rel) return { record: {}, values: {} }
+
+    // if (!state.relationFieldReady) {
+    //   // raise error
+    //   return { record: {}, values: {} }
+    // }
+    const treeview = rel.tree
     const one = treeview.pick_one(toRaw(state.records), row.id)
     // console.log(row, row.id, one, state.records)
     return one
   }
 
   async function rowNew() {
-    if (!state.relationFieldReady) {
-      // raise error
-      return { record: {}, values: {} }
-    }
+    const rel = relation_get()
+    if (!rel) return { record: {}, values: {} }
+    // if (!state.relationFieldReady) {
+    //   // raise error
+    //   return { record: {}, values: {} }
+    // }
     // 在 o2mForm 中 触发 onchange new
     return { record: {}, values: {} }
   }
 
   function rowRemove(row) {
     // console.log('rowRemove,record', row, row.id)
-    if (!state.relationFieldReady) {
-      // raise error
-      return
-    }
-    const treeview = localState.relation.tree
+    // if (!state.relationFieldReady) {
+    //   // raise error
+    //   return
+    // }
+
+    const rel = relation_get()
+    if (!rel) return
+
+    const treeview = rel.tree
 
     const records = treeview.remove_one(toRaw(state.records), row.id)
 
@@ -169,12 +243,15 @@ export function useFO2m(props, ctx) {
 
   function rowCommit(row, value) {
     // console.log('onRowCommit', row, value)
-    if (!state.relationFieldReady) {
-      // raise error
-      return
-    }
+    // if (!state.relationFieldReady) {
+    //   // raise error
+    //   return
+    // }
 
-    const treeview = localState.relation.tree
+    const rel = relation_get()
+    if (!rel) return
+
+    const treeview = rel.tree
     const records = treeview.upinsert_one(toRaw(state.records), row.id, value)
 
     state.records = records
@@ -182,6 +259,7 @@ export function useFO2m(props, ctx) {
   }
 
   return {
+    lang,
     readonly,
     relationInfo,
     treeRecords,

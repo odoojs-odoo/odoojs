@@ -2,7 +2,10 @@ import { watch, computed, reactive, ref } from 'vue'
 import api from '@/odoorpc'
 import { useLang } from '@/components/useApi/useLang'
 
+import { useGlobalConfig } from '@/components/useApi/useGlobalConfig'
+
 export function useTreeView(props) {
+  const { viewActions } = useGlobalConfig()
   const { lang } = useLang()
 
   const localState = {
@@ -31,28 +34,24 @@ export function useTreeView(props) {
     return state.treeviewFieldsReady ? localState.treeview : undefined
   }
 
-  function langChange(lg) {
+  async function langChange(lg) {
     const view = view_get()
     if (!view) return false
-    view.set_lang(lg)
+    await view.set_lang(lg)
     state.lang_changed += 1
     loadDataByIds()
   }
 
+  // watch lang
   watch(
     lang,
     // eslint-disable-next-line no-unused-vars
     async (newVal, oldVal) => {
-      console.log(newVal, oldVal)
+      // console.log(newVal, oldVal)
       langChange(newVal)
     },
     { immediate: true }
   )
-
-  const viewActions = computed(() => {
-    check_lang(lang.value)
-    return api.global_config.view.actions
-  })
 
   const buttons = computed(() => {
     const view = view_get()
@@ -90,6 +89,8 @@ export function useTreeView(props) {
     if (!view) return []
 
     const flds = view.get_columns()
+
+    console.log(flds)
     const cols91 = fields2cols(flds)
     const cols92 = cols91.filter(item => item._widget !== 'handle')
     return cols92

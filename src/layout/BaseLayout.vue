@@ -147,7 +147,7 @@ import Lang from '@/components/LangMenu.vue'
 import SubMenu from './SubMenu'
 import api from '@/odoorpc'
 
-import { useMenu } from '@/components/useApi/useMenu'
+import { useGlobalConfig } from '@/components/useApi/useGlobalConfig'
 
 export default defineComponent({
   name: 'BaseLayout',
@@ -161,17 +161,14 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter()
-    const { lang, menus_tree, menus_data, global_config } = useMenu()
+    const { lang, mainTitle, menus_tree, menus_data } = useGlobalConfig()
 
-    // console.log('menus_tree, ', menus_tree)
     const session_info = computed(() => {
       return api.web.session.session_info || {}
     })
     const panes = ref([{ title: '首页', key: 'home', closable: false }])
     const state = reactive({
       collapsed: false,
-      menus_tree,
-      menus_data,
       selectedKeys: [''],
       openKeys: [''],
       session_info
@@ -194,7 +191,6 @@ export default defineComponent({
 
       if (name) {
         const menu = menus_data.value[name]
-        // console.log('------=  menu  =------', menu, '===', menus_data)
         const rawPanes = toRaw(panes.value)
         // console.log('------=  panes.value  =------',rawPanes)
 
@@ -289,7 +285,6 @@ export default defineComponent({
         return
       }
 
-      // console.log('----- click web ------', name, state.menus_data)
       const menu = menus_data.value[name] || {}
       // console.log('---- layout menu ---', menu, [menu.id])
       state.selectedKeys = [menu.id]
@@ -362,7 +357,6 @@ export default defineComponent({
       // const name = router.currentRoute.value.query.menu
       // console.log('------=  currentRoute  =------', name)
 
-      // console.log('------=  menu  =------', menu, '===', menus_data)
       const rawPanes = toRaw(panes.value)
       // console.log('------=  panes.value  =------', rawPanes)
 
@@ -379,11 +373,13 @@ export default defineComponent({
     }
     return {
       lang,
+      mainTitle,
+      menus_tree,
+
       state,
       ...toRefs(state),
       panes,
       activeKey,
-      mainTitle: global_config.value.main,
       onChangeTabs,
       onEdit,
       onMenuClick,
