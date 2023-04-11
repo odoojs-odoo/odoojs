@@ -1,4 +1,4 @@
-import { computed, watch, reactive, ref, toRaw } from 'vue'
+import { computed, watch, reactive, toRaw } from 'vue'
 import { useField } from './FieldApi'
 import { useLang } from '@/components/useApi/useLang'
 import api from '@/odoorpc'
@@ -60,7 +60,6 @@ export function useFO2m(props, ctx) {
 
     state.lang_changed += 1
     const res_ids = valueReadonly.value
-    // console.log('set ok,', state.lang_changed)
     loadRelationData(res_ids)
   }
 
@@ -83,7 +82,6 @@ export function useFO2m(props, ctx) {
 
     await relation.load_views()
 
-    // relationInfo.value = relation.field_info
     state.relationFieldReady = true
     ctx.emit('load-relation', props.fieldName, relation.field_info)
   }
@@ -95,7 +93,6 @@ export function useFO2m(props, ctx) {
     async (newVal, oldVal) => {
       if (newVal && newVal === 'one2many') {
         // console.log(newVal, oldVal)
-
         loadRelationInfo()
       }
     },
@@ -161,12 +158,6 @@ export function useFO2m(props, ctx) {
           return loadRelationData(newids)
         }
       }
-
-      // if (ids && relationFieldReady) {
-      //   console.log('watch  ok,', state.lang_changed)
-
-      //   loadRelationData(ids)
-      // }
     },
     { immediate: true }
   )

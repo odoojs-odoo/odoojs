@@ -511,5 +511,19 @@ export default {
         }
       }
     }
+  },
+
+  product_template_action_all: {
+    _odoo_model: 'ir.actions',
+    name: 'Products',
+    type: 'ir.actions.act_window',
+    res_model: 'product.template',
+    search_view_id: 'product_template_search_view',
+    domain: [],
+    context: {},
+    views: {
+      tree: 'product_template_tree_view',
+      form: 'product_template_form_view'
+    }
   }
 }
