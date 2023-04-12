@@ -37,9 +37,9 @@ export function useFO2m(props, ctx) {
     return rel.field_info
   })
 
-  const valueReadonly = computed(
-    () => props.formInfo.record[props.fieldName] || []
-  )
+  const valueReadonly = computed(() => {
+    return props.formInfo.record[props.fieldName] || []
+  })
 
   // 编辑过的数据 也 放在一起
   const treeRecords = computed(() => {
@@ -99,7 +99,7 @@ export function useFO2m(props, ctx) {
   // todo. 在form 页面 点新增时 时. state.records 有缓存
   async function loadRelationData(ids) {
     if (!ids.length) {
-      // state.records = []
+      state.records = []
       return
     }
     const rel = relation_get()
@@ -134,6 +134,9 @@ export function useFO2m(props, ctx) {
   }
 
   function check_equ_array(list1, list2) {
+    if (list1.length !== list2.length) {
+      return false
+    }
     const arr = [...list1, ...list2]
     const s1 = new Set(arr)
     return [...s1].length === list2.length
@@ -143,7 +146,6 @@ export function useFO2m(props, ctx) {
     [() => state.relationFieldReady, valueReadonly],
     // eslint-disable-next-line no-unused-vars
     (newVal, oldVal) => {
-      console.log('watch', newVal, oldVal)
       const [relationFieldReady_new, newids] = [...newVal]
       const [relationFieldReady_old, oldids] = [...oldVal]
       if (!relationFieldReady_new) {
