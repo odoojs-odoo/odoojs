@@ -209,19 +209,48 @@ export class ViewHelp {
         }
       }
 
-      const find_item_from_field2 = fnode => {
+      const find_item_from_field2 = (fnode, fname) => {
         const labels = Object.keys(fnode.children).filter(
           item => fnode.children[item].tag !== 'label'
         )
 
-        return labels.reduce((accok, item) => {
+        const items = labels.reduce((accok, item) => {
           accok[item] = fnode.children[item]
           return accok
         }, {})
+
+        // 多个字段时. 只允许一个字段 是 ant-form-item
+        // 其他字段只能放在 a-form-item-rest 里
+        // 或者 改变 label 标签的使用方式.
+        // 编辑时. 不考虑 label标签
+        function set_label_for(fn) {
+          return Object.keys(fn).reduce((acc, key) => {
+            const meta = fn[key]
+            if (meta.children) {
+              acc[key] = {
+                ...meta,
+                children: set_label_for(meta.children)
+              }
+            } else {
+              if (meta.name !== fname) {
+                acc[key] = { ...meta, form_item_rest: 1 }
+              } else {
+                acc[key] = { ...meta }
+              }
+            }
+
+            return acc
+          }, {})
+        }
+
+        const items2 = set_label_for(items)
+        return items2
       }
 
       const lnode = find_label_from_field2(oldnode)
-      const fitem = find_item_from_field2(oldnode)
+      const fname = lnode.for
+
+      const fitem = find_item_from_field2(oldnode, fname)
 
       return { ...oldnode, label: lnode, children: fitem }
     }

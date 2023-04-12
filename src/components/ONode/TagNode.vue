@@ -55,15 +55,33 @@
 
   <template v-else>
     <template v-if="nolabel">
-      <OField
-        v-model="model2[node.name]"
-        width="270px"
-        :field-name="node.name"
-        :field-info="node"
-        :form-info="formInfo"
-        @change="(...args) => onChange(node.name, ...args)"
-        @load-relation="onLoadReation"
-      />
+      <!-- {{ [node.name, node.form_item_rest] }} -->
+
+      <template v-if="node.form_item_rest">
+        <a-form-item-rest>
+          <OField
+            v-model="model2[node.name]"
+            width="270px"
+            :field-name="node.name"
+            :field-info="node"
+            :form-info="formInfo"
+            @change="(...args) => onChange(node.name, ...args)"
+            @load-relation="onLoadReation"
+          />
+        </a-form-item-rest>
+      </template>
+
+      <template v-else>
+        <OField
+          v-model="model2[node.name]"
+          width="270px"
+          :field-name="node.name"
+          :field-info="node"
+          :form-info="formInfo"
+          @change="(...args) => onChange(node.name, ...args)"
+          @load-relation="onLoadReation"
+        />
+      </template>
     </template>
 
     <template v-else>
