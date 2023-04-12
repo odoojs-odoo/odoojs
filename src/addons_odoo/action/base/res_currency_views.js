@@ -3,14 +3,16 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.currency',
     type: 'tree',
-    fields: {
-      name: {},
-      symbol: {},
-      full_name: {},
-      date: {},
-      rate: {},
-      inverse_rate: {},
-      active: {}
+    arch: {
+      sheet: {
+        name: {},
+        symbol: {},
+        full_name: {},
+        date: {},
+        rate: {},
+        inverse_rate: {},
+        active: {}
+      }
     }
   },
 
@@ -86,13 +88,15 @@ export default {
               widget: 'x2many_tree',
               views: {
                 tree: {
-                  fields: {
-                    name: {},
-                    company_id: { groups: 'base.group_multi_company' },
-                    company_rate: {},
-                    inverse_company_rate: {},
-                    rate: { optional: 'hide' },
-                    write_date: { optional: 'hide' }
+                  arch: {
+                    sheet: {
+                      name: {},
+                      company_id: { groups: 'base.group_multi_company' },
+                      company_rate: {},
+                      inverse_company_rate: {},
+                      rate: { optional: 'hide' },
+                      write_date: { optional: 'hide' }
+                    }
                   }
                 },
 

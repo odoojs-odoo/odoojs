@@ -6,15 +6,17 @@ export default {
     model: 'account.tax',
     type: 'tree',
     buttons: { create: false, edit: false, delete: false },
-    fields: {
-      sequence: {},
-      name: {},
-      type_tax_use: {},
-      tax_scope: {},
-      description: {},
-      company_id: {},
-      // country_id: {},
-      active: {}
+    arch: {
+      sheet: {
+        sequence: {},
+        name: {},
+        type_tax_use: {},
+        tax_scope: {},
+        description: {},
+        company_id: {},
+        // country_id: {},
+        active: {}
+      }
     }
   },
 
@@ -88,41 +90,43 @@ export default {
     model: 'account.tax.group',
     type: 'tree',
     buttons: { create: false, edit: false, delete: false },
-    fields: {
-      sequence: {},
-      name: {},
-      country_id: {},
-      property_tax_payable_account_id: {
-        domain: ({ record }) => {
-          const { context = {} } = record
-          if (context.force_account_company) {
-            return [['company_id', '=', context.force_account_company]]
-          } else {
-            return []
+    arch: {
+      sheet: {
+        sequence: {},
+        name: {},
+        country_id: {},
+        property_tax_payable_account_id: {
+          domain: ({ record }) => {
+            const { context = {} } = record
+            if (context.force_account_company) {
+              return [['company_id', '=', context.force_account_company]]
+            } else {
+              return []
+            }
           }
-        }
-      },
-      property_tax_receivable_account_id: {
-        domain: ({ record }) => {
-          const { context = {} } = record
-          if (context.force_account_company) {
-            return [['company_id', '=', context.force_account_company]]
-          } else {
-            return []
+        },
+        property_tax_receivable_account_id: {
+          domain: ({ record }) => {
+            const { context = {} } = record
+            if (context.force_account_company) {
+              return [['company_id', '=', context.force_account_company]]
+            } else {
+              return []
+            }
           }
-        }
-      },
-      property_advance_tax_payment_account_id: {
-        domain: ({ record }) => {
-          const { context = {} } = record
-          if (context.force_account_company) {
-            return [['company_id', '=', context.force_account_company]]
-          } else {
-            return []
+        },
+        property_advance_tax_payment_account_id: {
+          domain: ({ record }) => {
+            const { context = {} } = record
+            if (context.force_account_company) {
+              return [['company_id', '=', context.force_account_company]]
+            } else {
+              return []
+            }
           }
-        }
-      },
-      preceding_subtotal: {}
+        },
+        preceding_subtotal: {}
+      }
     }
   },
 

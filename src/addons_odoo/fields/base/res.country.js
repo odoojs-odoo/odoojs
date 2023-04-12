@@ -11,7 +11,9 @@ const ModelFields = {
   address_view_id: {},
   address_format: {},
   name_position: {},
-  state_ids: { string: 'States' }
+  state_ids: {
+    // string: 'States'
+  }
 }
 
 const StateModelFields = {

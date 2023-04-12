@@ -4,11 +4,12 @@ export default {
     model: 'fp.vat.product',
     type: 'tree',
     buttons: { create: false, edit: false, delete: false },
-
-    fields: {
-      code: {},
-      name: {},
-      shortname: {}
+    arch: {
+      sheet: {
+        code: {},
+        name: {},
+        shortname: {}
+      }
     }
   },
 

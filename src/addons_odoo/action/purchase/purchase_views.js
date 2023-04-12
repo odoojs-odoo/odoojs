@@ -24,75 +24,77 @@ const order_line = {
 
   views: {
     tree: {
-      fields: {
-        display_type: { invisible: 1 },
-        currency_id: { invisible: 1 },
-        state: { invisible: 1 },
-        product_type: { invisible: 1 },
-        // product_uom: { invisible: 1 },
-        product_uom_category_id: { invisible: 1 },
-        invoice_lines: { invisible: 1 },
-        sequence: { widget: 'handle' },
-        product_id: {},
+      arch: {
+        sheet: {
+          display_type: { invisible: 1 },
+          currency_id: { invisible: 1 },
+          state: { invisible: 1 },
+          product_type: { invisible: 1 },
+          // product_uom: { invisible: 1 },
+          product_uom_category_id: { invisible: 1 },
+          invoice_lines: { invisible: 1 },
+          sequence: { widget: 'handle' },
+          product_id: {},
 
-        name: { widget: 'section_and_note_text' },
-        date_planned: { optional: 'hide', force_save: '1' },
-        analytic_distribution: {
-          widget: 'analytic_distribution',
-          optional: 'hide'
-        },
+          name: { widget: 'section_and_note_text' },
+          date_planned: { optional: 'hide', force_save: '1' },
+          analytic_distribution: {
+            widget: 'analytic_distribution',
+            optional: 'hide'
+          },
 
-        product_qty: {},
-        qty_received_manual: { invisible: 1 },
-        qty_received_method: { invisible: 1 },
-        qty_received: {
-          string: 'Received',
-          optional: 'show',
-          invisible: ({ record }) => {
-            //  "{'column_invisible':
-            // [('parent.state', 'not in', ('purchase', 'done'))],
-            const { parent: prt } = record
-            return !['purchase', 'done'].includes(prt.state)
-          }
-        },
-        qty_invoiced: {
-          string: 'Billed',
-          optional: 'show',
-          invisible: ({ record }) => {
-            //'column_invisible': [('parent.state', 'not in',
-            // ('purchase', 'done'))]
+          product_qty: {},
+          qty_received_manual: { invisible: 1 },
+          qty_received_method: { invisible: 1 },
+          qty_received: {
+            string: 'Received',
+            optional: 'show',
+            invisible: ({ record }) => {
+              //  "{'column_invisible':
+              // [('parent.state', 'not in', ('purchase', 'done'))],
+              const { parent: prt } = record
+              return !['purchase', 'done'].includes(prt.state)
+            }
+          },
+          qty_invoiced: {
+            string: 'Billed',
+            optional: 'show',
+            invisible: ({ record }) => {
+              //'column_invisible': [('parent.state', 'not in',
+              // ('purchase', 'done'))]
 
-            const { parent: prt } = record
-            return !['purchase', 'done'].includes(prt.state)
-          }
-        },
-        product_uom: { force_save: '1', optional: 'show' },
+              const { parent: prt } = record
+              return !['purchase', 'done'].includes(prt.state)
+            }
+          },
+          product_uom: { force_save: '1', optional: 'show' },
 
-        product_packaging_qty: {
-          optional: 'show',
-          invisible: ({ record }) => {
-            // invisible':
-            // ['|', ('product_id', '=', False),
-            // ('product_packaging_id', '=', False)]}"
-            const { product_id, product_packaging_id } = record
-            return !product_id || !product_packaging_id
-          }
-        },
-        product_packaging_id: {
-          optional: 'show',
-          invisible: ({ record }) => {
-            //'invisible': [('product_id', '=', False)]}"
-            const { product_id } = record
-            return !product_id
-          }
-        },
-        price_unit: {},
-        // <button name="action_purchase_history" type="object" icon="fa-history" title="Purchase History" attrs="{'invisible': [('id', '=', False)]}"/>
+          product_packaging_qty: {
+            optional: 'show',
+            invisible: ({ record }) => {
+              // invisible':
+              // ['|', ('product_id', '=', False),
+              // ('product_packaging_id', '=', False)]}"
+              const { product_id, product_packaging_id } = record
+              return !product_id || !product_packaging_id
+            }
+          },
+          product_packaging_id: {
+            optional: 'show',
+            invisible: ({ record }) => {
+              //'invisible': [('product_id', '=', False)]}"
+              const { product_id } = record
+              return !product_id
+            }
+          },
+          price_unit: {},
+          // <button name="action_purchase_history" type="object" icon="fa-history" title="Purchase History" attrs="{'invisible': [('id', '=', False)]}"/>
 
-        taxes_id: { widget: 'many2many_tags', optional: 'show' },
-        price_subtotal: { widget: 'monetary' },
-        price_total: { invisible: 1 },
-        price_tax: { invisible: 1 }
+          taxes_id: { widget: 'many2many_tags', optional: 'show' },
+          price_subtotal: { widget: 'monetary' },
+          price_total: { invisible: 1 },
+          price_tax: { invisible: 1 }
+        }
       }
     },
 
@@ -176,10 +178,8 @@ const order_line = {
           },
 
           _label_line_section: {
-            _attr: {
-              for: 'name',
-              string: 'Section Name (eg. Products, Services)'
-            },
+            for: 'name',
+            string: 'Section Name (eg. Products, Services)',
             invisible({ record }) {
               // 'invisible': [('display_type', '!=', 'line_section')]
               const { display_type } = record
@@ -188,7 +188,8 @@ const order_line = {
           },
 
           _label_line_note: {
-            _attr: { for: 'name', string: 'Note' },
+            for: 'name',
+            string: 'Note',
             invisible({ record }) {
               // 'invisible': [('display_type', '!=', 'line_note')]
               const { display_type } = record
@@ -519,7 +520,7 @@ export default {
                   return !['purchase', 'done'].includes(state)
                 }
               },
-              _label: { _attr: { for: 'date_approve' } },
+              _label: { for: 'date_approve' },
 
               _div: {
                 date_approve: {},
@@ -538,7 +539,7 @@ export default {
             },
 
             _field_date_planned: {
-              _label: { _attr: { for: 'date_planned' } },
+              _label: { for: 'date_planned' },
 
               _div: {
                 date_planned: {
@@ -660,54 +661,56 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'purchase.order',
     type: 'tree',
-    fields: {
-      priority: { optional: 'show', widget: 'priority' },
-      partner_ref: { optional: 'hide' },
-      name: { string: 'Reference' },
-      date_approve: {
-        widget: 'date',
-        optional: 'show',
-        invisible({ context }) {
-          // invisible="context.get('quotation_only', False)"
-          return context.quotation_only
-        }
-      },
-      partner_id: {},
-      company_id: { optional: 'show' },
+    arch: {
+      sheet: {
+        priority: { optional: 'show', widget: 'priority' },
+        partner_ref: { optional: 'hide' },
+        name: { string: 'Reference' },
+        date_approve: {
+          widget: 'date',
+          optional: 'show',
+          invisible({ context }) {
+            // invisible="context.get('quotation_only', False)"
+            return context.quotation_only
+          }
+        },
+        partner_id: {},
+        company_id: { optional: 'show' },
 
-      user_id: { widget: 'many2one_avatar_user', optional: 'show' },
-      date_order: {
-        optional: 'show',
-        invisible({ context }) {
-          // invisible="not context.get('quotation_only', False)"
-          return !context.quotation_only
-        }
-      },
-      origin: { optional: 'show' },
-      amount_untaxed: {
-        sum: 'Total Untaxed amount',
-        string: 'Untaxed',
-        widget: 'monetary',
-        optional: 'hide'
-      },
-      amount_total: {
-        sum: 'Total amount',
-        widget: 'monetary',
-        optional: 'show'
-      },
-      currency_id: { invisible: '1' },
-      state: { invisible: '1' },
-      invoice_status: {
-        widget: 'badge',
-        optional: 'show'
-        // decoration-success="invoice_status == 'invoiced'"
-        // decoration-info="invoice_status == 'to invoice'" optional="show"
-      },
-      date_planned: {
-        optional: 'show',
-        invisible({ context }) {
-          // invisible="context.get('quotation_only', False)"
-          return context.quotation_only
+        user_id: { widget: 'many2one_avatar_user', optional: 'show' },
+        date_order: {
+          optional: 'show',
+          invisible({ context }) {
+            // invisible="not context.get('quotation_only', False)"
+            return !context.quotation_only
+          }
+        },
+        origin: { optional: 'show' },
+        amount_untaxed: {
+          sum: 'Total Untaxed amount',
+          string: 'Untaxed',
+          widget: 'monetary',
+          optional: 'hide'
+        },
+        amount_total: {
+          sum: 'Total amount',
+          widget: 'monetary',
+          optional: 'show'
+        },
+        currency_id: { invisible: '1' },
+        state: { invisible: '1' },
+        invoice_status: {
+          widget: 'badge',
+          optional: 'show'
+          // decoration-success="invoice_status == 'invoiced'"
+          // decoration-info="invoice_status == 'to invoice'" optional="show"
+        },
+        date_planned: {
+          optional: 'show',
+          invisible({ context }) {
+            // invisible="context.get('quotation_only', False)"
+            return context.quotation_only
+          }
         }
       }
     }
@@ -717,55 +720,56 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'purchase.order',
     type: 'tree',
-    priority: 10,
-    fields: {
-      priority: { optional: 'show', widget: 'priority' },
-      partner_ref: { optional: 'hide' },
-      name: { string: 'Reference' },
-      date_approve: {
-        widget: 'date',
-        optional: 'show',
-        invisible({ context }) {
-          // invisible="context.get('quotation_only', False)"
-          return context.quotation_only
+    arch: {
+      sheet: {
+        priority: { optional: 'show', widget: 'priority' },
+        partner_ref: { optional: 'hide' },
+        name: { string: 'Reference' },
+        date_approve: {
+          widget: 'date',
+          optional: 'show',
+          invisible({ context }) {
+            // invisible="context.get('quotation_only', False)"
+            return context.quotation_only
+          }
+        },
+        partner_id: {},
+        company_id: { optional: 'show' },
+        date_planned: {
+          optional: 'show',
+          invisible({ context }) {
+            // invisible="context.get('quotation_only', False)"
+            return context.quotation_only
+          }
+        },
+        user_id: { widget: 'many2one_avatar_user', optional: 'show' },
+        date_order: {
+          optional: 'show',
+          invisible({ context }) {
+            // invisible="not context.get('quotation_only', False)"
+            return !context.quotation_only
+          }
+        },
+        origin: { optional: 'show' },
+        amount_untaxed: {
+          sum: 'Total Untaxed amount',
+          string: 'Untaxed',
+          widget: 'monetary',
+          optional: 'hide'
+        },
+        amount_total: {
+          sum: 'Total amount',
+          widget: 'monetary',
+          optional: 'show'
+        },
+        currency_id: { invisible: '1' },
+        state: { invisible: '1' },
+        invoice_status: {
+          widget: 'badge',
+          optional: 'show'
+          // decoration-success="invoice_status == 'invoiced'"
+          // decoration-info="invoice_status == 'to invoice'" optional="show"
         }
-      },
-      partner_id: {},
-      company_id: { optional: 'show' },
-      date_planned: {
-        optional: 'show',
-        invisible({ context }) {
-          // invisible="context.get('quotation_only', False)"
-          return context.quotation_only
-        }
-      },
-      user_id: { widget: 'many2one_avatar_user', optional: 'show' },
-      date_order: {
-        optional: 'show',
-        invisible({ context }) {
-          // invisible="not context.get('quotation_only', False)"
-          return !context.quotation_only
-        }
-      },
-      origin: { optional: 'show' },
-      amount_untaxed: {
-        sum: 'Total Untaxed amount',
-        string: 'Untaxed',
-        widget: 'monetary',
-        optional: 'hide'
-      },
-      amount_total: {
-        sum: 'Total amount',
-        widget: 'monetary',
-        optional: 'show'
-      },
-      currency_id: { invisible: '1' },
-      state: { invisible: '1' },
-      invoice_status: {
-        widget: 'badge',
-        optional: 'show'
-        // decoration-success="invoice_status == 'invoiced'"
-        // decoration-info="invoice_status == 'to invoice'" optional="show"
       }
     }
   },

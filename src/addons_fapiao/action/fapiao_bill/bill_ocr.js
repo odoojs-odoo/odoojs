@@ -3,25 +3,26 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'fp.bill.ocr',
     type: 'tree',
-
-    fields: {
-      type: {},
-      name: {},
-      state: {},
-      ocr_time: {},
-      //   company_id: {},
-      //   user_id: {},
-      attachment_id: {},
-      //   api_ocr_id: {},
-      invoice_type: {},
-      date_fapiao: {},
-      invoice_code: {},
-      invoice_number: {},
-      amount_total: {},
-      //   amount_untaxed: {},
-      //   amount_tax: {},
-      //   company_partner_id: {},
-      partner_id: {}
+    arch: {
+      sheet: {
+        type: {},
+        name: {},
+        state: {},
+        ocr_time: {},
+        //   company_id: {},
+        //   user_id: {},
+        attachment_id: {},
+        //   api_ocr_id: {},
+        invoice_type: {},
+        date_fapiao: {},
+        invoice_code: {},
+        invoice_number: {},
+        amount_total: {},
+        //   amount_untaxed: {},
+        //   amount_tax: {},
+        //   company_partner_id: {},
+        partner_id: {}
+      }
     }
   },
 

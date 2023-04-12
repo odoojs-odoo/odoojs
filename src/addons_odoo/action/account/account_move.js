@@ -36,39 +36,33 @@ const invoice_line_ids_form_sheet = {
   _group_name: {
     _field_name: {
       _label_Description: {
-        _attr: {
-          for: 'name',
-          string: 'Description',
-          invisible({ record }) {
-            // 'invisible': [('display_type', 'in',
-            // ('line_note', 'line_section'))]}"/>
-            const { display_type } = record
-            return ['line_note', 'line_section'].includes(display_type)
-          }
+        for: 'name',
+        string: 'Description',
+        invisible({ record }) {
+          // 'invisible': [('display_type', 'in',
+          // ('line_note', 'line_section'))]}"/>
+          const { display_type } = record
+          return ['line_note', 'line_section'].includes(display_type)
         }
       },
 
       _label_Section: {
-        _attr: {
-          for: 'name',
-          string: 'Section',
-          invisible({ record }) {
-            // 'invisible': [('display_type', '!=', 'line_section')]}"/>
-            const { display_type } = record
-            return display_type !== 'line_section'
-          }
+        for: 'name',
+        string: 'Section',
+        invisible({ record }) {
+          // 'invisible': [('display_type', '!=', 'line_section')]}"/>
+          const { display_type } = record
+          return display_type !== 'line_section'
         }
       },
 
       _label_Note: {
-        _attr: {
-          for: 'name',
-          string: 'Note',
-          invisible({ record }) {
-            // 'invisible': [('display_type', '!=', 'line_note')]}"/>
-            const { display_type } = record
-            return display_type !== 'line_note'
-          }
+        for: 'name',
+        string: 'Note',
+        invisible({ record }) {
+          // 'invisible': [('display_type', '!=', 'line_note')]}"/>
+          const { display_type } = record
+          return display_type !== 'line_note'
         }
       },
 
@@ -327,29 +321,25 @@ const view_move_form_sheet = {
           }
         },
         _label_customer: {
-          _attr: {
-            for: 'partner_id',
-            string: 'Customer',
-            invisible({ record }) {
-              // 'invisible': [('move_type', 'not in',
-              // ('out_invoice', 'out_refund', 'out_receipt'))]
-              const move_types = ['out_invoice', 'out_refund', 'out_receipt']
-              const { move_type } = record
-              return !move_types.includes(move_type)
-            }
+          for: 'partner_id',
+          string: 'Customer',
+          invisible({ record }) {
+            // 'invisible': [('move_type', 'not in',
+            // ('out_invoice', 'out_refund', 'out_receipt'))]
+            const move_types = ['out_invoice', 'out_refund', 'out_receipt']
+            const { move_type } = record
+            return !move_types.includes(move_type)
           }
         },
         _label_vendor: {
-          _attr: {
-            for: 'partner_id',
-            string: 'Vendor',
-            invisible({ record }) {
-              // 'invisible': [('move_type', 'not in',
-              // ('in_invoice', 'in_refund', 'in_receipt'))]
-              const move_types = ['in_invoice', 'in_refund', 'in_receipt']
-              const { move_type } = record
-              return !move_types.includes(move_type)
-            }
+          for: 'partner_id',
+          string: 'Vendor',
+          invisible({ record }) {
+            // 'invisible': [('move_type', 'not in',
+            // ('in_invoice', 'in_refund', 'in_receipt'))]
+            const move_types = ['in_invoice', 'in_refund', 'in_receipt']
+            const { move_type } = record
+            return !move_types.includes(move_type)
           }
         },
         partner_id: {}
@@ -386,8 +376,7 @@ const view_move_form_sheet = {
             return !in_moves.includes(move_type)
           }
         },
-        _label: { _attr: { for: 'ref', string: 'Bill Reference' } },
-
+        _label: { for: 'ref', string: 'Bill Reference' },
         ref: {}
       },
 
@@ -445,34 +434,26 @@ const view_move_form_sheet = {
         },
 
         _label_invoice: {
-          _attr: {
-            for: 'invoice_date',
-            string: 'Invoice Date',
-            invisible({ record }) {
-              //  'invisible':
-              // [('move_type', 'not in',
-              // ('out_invoice', 'out_refund', 'out_receipt'))]
-              const type_map = ['out_invoice', 'out_refund', 'out_receipt']
-              const { move_type } = record
-              return !type_map.includes(move_type)
-            }
+          for: 'invoice_date',
+          string: 'Invoice Date',
+          invisible({ record }) {
+            //  'invisible':
+            // [('move_type', 'not in',
+            // ('out_invoice', 'out_refund', 'out_receipt'))]
+            const type_map = ['out_invoice', 'out_refund', 'out_receipt']
+            const { move_type } = record
+            return !type_map.includes(move_type)
           }
         },
         _label_bill: {
-          _attr: {
-            for: 'invoice_date',
-            string: 'Bill Date',
+          for: 'invoice_date',
+          string: 'Bill Date',
+          invisible({ record }) {
             // 'invisible': [('move_type', 'not in',
             // ('in_invoice', 'in_refund', 'in_receipt'))]}"/>
-
-            invisible({ record }) {
-              //  'invisible':
-              // [('move_type', 'not in',
-              // ('out_invoice', 'out_refund', 'out_receipt'))]
-              const type_map = ['in_invoice', 'in_refund', 'in_receipt']
-              const { move_type } = record
-              return !type_map.includes(move_type)
-            }
+            const type_map = ['in_invoice', 'in_refund', 'in_receipt']
+            const { move_type } = record
+            return !type_map.includes(move_type)
           }
         },
         invoice_date: {}
@@ -596,30 +577,32 @@ const view_move_form_sheet = {
 
         views: {
           tree: {
-            fields: {
-              sequence: { widget: 'handle' },
-              product_id: { optional: 'show' },
-              name: { optional: 'show', widget: 'section_and_note_text' },
-              account_id: {},
-              analytic_distribution: {
-                widget: 'analytic_distribution',
-                optional: 'show'
-              },
-              quantity: { optional: 'show' },
-              product_uom_category_id: { invisible: '1' },
-              product_uom_id: { optional: 'show' },
-              price_unit: {},
-              discount: { optional: 'hide' },
-              tax_ids: { widget: 'many2many_tags', optional: 'show' },
-              price_subtotal: {},
-              price_total: {},
+            arch: {
+              sheet: {
+                sequence: { widget: 'handle' },
+                product_id: { optional: 'show' },
+                name: { optional: 'show', widget: 'section_and_note_text' },
+                account_id: {},
+                analytic_distribution: {
+                  widget: 'analytic_distribution',
+                  optional: 'show'
+                },
+                quantity: { optional: 'show' },
+                product_uom_category_id: { invisible: '1' },
+                product_uom_id: { optional: 'show' },
+                price_unit: {},
+                discount: { optional: 'hide' },
+                tax_ids: { widget: 'many2many_tags', optional: 'show' },
+                price_subtotal: {},
+                price_total: {},
 
-              partner_id: { invisible: '1' },
-              currency_id: { invisible: '1' },
-              company_id: { invisible: '1' },
-              company_currency_id: { invisible: '1' },
-              display_type: { invisible: '1' }
-              // product_uom_id: { invisible: '1' }
+                partner_id: { invisible: '1' },
+                currency_id: { invisible: '1' },
+                company_id: { invisible: '1' },
+                company_currency_id: { invisible: '1' },
+                display_type: { invisible: '1' }
+                // product_uom_id: { invisible: '1' }
+              }
             }
           },
           form: { arch: { sheet: { ...invoice_line_ids_form_sheet } } }
@@ -704,96 +687,98 @@ const view_move_form_sheet = {
 
         views: {
           tree: {
-            fields: {
-              // sequence: {},
-              account_id: {
-                invisible: ({ record }) => {
-                  // 'invisible': [('display_type', 'in', ('line_section', 'line_note'))],
-                  const { display_type } = record
-                  return ['line_section', 'line_note'].includes(display_type)
-                }
-              },
-              partner_id: {
-                optional: 'show',
-                invisible: ({ record }) => {
-                  // attrs="{'column_invisible':
-                  // [('parent.move_type', '!=', 'entry')]}"/>
-                  const { parent: prt } = record
-                  return prt.move_type !== 'entry'
-                }
-              },
-              name: {
-                optional: 'show',
-                widget: 'section_and_note_text'
-              },
-              analytic_distribution: {
-                widget: 'analytic_distribution',
-                optional: 'show'
-              },
-              date_maturity: {
-                optional: 'hide',
-                invisible: ({ record }) => {
-                  // invisible="context.get('view_no_maturity')"
-                  //  'invisible':
-                  // [('display_type', 'in', ('line_section', 'line_note'))]}"/>
-                  const { context, display_type } = record
-                  return (
-                    context.view_no_maturity ||
-                    ['line_section', 'line_note'].includes(display_type)
-                  )
-                }
-              },
-              amount_currency: { optional: 'hide' },
-              currency_id: {
-                optional: 'hide',
-                invisible: ({ record }) => {
-                  // attrs="{'column_invisible':
-                  // [('parent.move_type', '!=', 'entry')]}"/>
-                  const { parent: prt } = record
-                  return prt.move_type !== 'entry'
-                }
-              },
-              tax_ids: {
-                widget: 'autosave_many2many_tags',
-                optional: 'hide'
-              },
-              debit: {
-                invisible: ({ record }) => {
-                  // 'invisible':
-                  // [('display_type', 'in', ('line_section', 'line_note'))],
-                  const { display_type } = record
-                  return ['line_section', 'line_note'].includes(display_type)
-                }
-              },
-              credit: {
-                invisible: ({ record }) => {
-                  // 'invisible':
-                  // [('display_type', 'in', ('line_section', 'line_note'))],
-                  const { display_type } = record
-                  return ['line_section', 'line_note'].includes(display_type)
-                }
-              },
-              balance: { invisible: '1' },
-              discount_date: { optional: 'hide' },
-              discount_amount_currency: { optional: 'hide' },
-              tax_tag_ids: { widget: 'many2many_tags', optional: 'show' },
-              tax_tag_invert: { optional: 'hide' },
-              // <button name="action_automatic_entry"
-              // type="object"
-              // icon="fa-calendar"
-              // string="Cut-Off"
-              // aria-label="Change Period"
-              // class="float-end"
-              // attrs="{'invisible': [('account_internal_group', 'not in', ('income', 'expense'))], 'column_invisible': ['|', ('parent.move_type', '=', 'entry'), ('parent.state', '!=', 'posted')]}"
-              // context="{'hide_automatic_options': 1, 'default_action': 'change_period'}"/>
+            arch: {
+              sheet: {
+                // sequence: {},
+                account_id: {
+                  invisible: ({ record }) => {
+                    // 'invisible': [('display_type', 'in', ('line_section', 'line_note'))],
+                    const { display_type } = record
+                    return ['line_section', 'line_note'].includes(display_type)
+                  }
+                },
+                partner_id: {
+                  optional: 'show',
+                  invisible: ({ record }) => {
+                    // attrs="{'column_invisible':
+                    // [('parent.move_type', '!=', 'entry')]}"/>
+                    const { parent: prt } = record
+                    return prt.move_type !== 'entry'
+                  }
+                },
+                name: {
+                  optional: 'show',
+                  widget: 'section_and_note_text'
+                },
+                analytic_distribution: {
+                  widget: 'analytic_distribution',
+                  optional: 'show'
+                },
+                date_maturity: {
+                  optional: 'hide',
+                  invisible: ({ record }) => {
+                    // invisible="context.get('view_no_maturity')"
+                    //  'invisible':
+                    // [('display_type', 'in', ('line_section', 'line_note'))]}"/>
+                    const { context, display_type } = record
+                    return (
+                      context.view_no_maturity ||
+                      ['line_section', 'line_note'].includes(display_type)
+                    )
+                  }
+                },
+                amount_currency: { optional: 'hide' },
+                currency_id: {
+                  optional: 'hide',
+                  invisible: ({ record }) => {
+                    // attrs="{'column_invisible':
+                    // [('parent.move_type', '!=', 'entry')]}"/>
+                    const { parent: prt } = record
+                    return prt.move_type !== 'entry'
+                  }
+                },
+                tax_ids: {
+                  widget: 'autosave_many2many_tags',
+                  optional: 'hide'
+                },
+                debit: {
+                  invisible: ({ record }) => {
+                    // 'invisible':
+                    // [('display_type', 'in', ('line_section', 'line_note'))],
+                    const { display_type } = record
+                    return ['line_section', 'line_note'].includes(display_type)
+                  }
+                },
+                credit: {
+                  invisible: ({ record }) => {
+                    // 'invisible':
+                    // [('display_type', 'in', ('line_section', 'line_note'))],
+                    const { display_type } = record
+                    return ['line_section', 'line_note'].includes(display_type)
+                  }
+                },
+                balance: { invisible: '1' },
+                discount_date: { optional: 'hide' },
+                discount_amount_currency: { optional: 'hide' },
+                tax_tag_ids: { widget: 'many2many_tags', optional: 'show' },
+                tax_tag_invert: { optional: 'hide' },
+                // <button name="action_automatic_entry"
+                // type="object"
+                // icon="fa-calendar"
+                // string="Cut-Off"
+                // aria-label="Change Period"
+                // class="float-end"
+                // attrs="{'invisible': [('account_internal_group', 'not in', ('income', 'expense'))], 'column_invisible': ['|', ('parent.move_type', '=', 'entry'), ('parent.state', '!=', 'posted')]}"
+                // context="{'hide_automatic_options': 1, 'default_action': 'change_period'}"/>
 
-              tax_line_id: { invisible: '1' },
-              company_currency_id: { invisible: '1' },
-              display_type: { invisible: '1' },
-              company_id: { invisible: '1' },
-              sequence: { invisible: '1' },
-              account_internal_group: { invisible: '1' },
-              account_type: { invisible: '1' }
+                tax_line_id: { invisible: '1' },
+                company_currency_id: { invisible: '1' },
+                display_type: { invisible: '1' },
+                company_id: { invisible: '1' },
+                sequence: { invisible: '1' },
+                account_internal_group: { invisible: '1' },
+                account_type: { invisible: '1' }
+              }
             }
           },
           form: { arch: { sheet: { ...line_ids_form_sheet } } }
@@ -939,21 +924,23 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.move',
     type: 'tree',
-    fields: {
-      made_sequence_hole: { invisible: 1 },
-      date: {},
-      name: {},
-      partner_id: { optional: 'show' },
-      ref: { optional: 'show' },
-      journal_id: {},
-      company_id: { optional: 'show' },
-      amount_total_signed: {},
-      state: {
-        widget: 'badge'
-        // decoration-info="state == 'draft'" decoration-success="state == 'posted'"
-      },
-      currency_id: { invisible: 1 },
-      to_check: { widget: 'boolean_toggle', optional: 'hide' }
+    arch: {
+      sheet: {
+        made_sequence_hole: { invisible: 1 },
+        date: {},
+        name: {},
+        partner_id: { optional: 'show' },
+        ref: { optional: 'show' },
+        journal_id: {},
+        company_id: { optional: 'show' },
+        amount_total_signed: {},
+        state: {
+          widget: 'badge'
+          // decoration-info="state == 'draft'" decoration-success="state == 'posted'"
+        },
+        currency_id: { invisible: 1 },
+        to_check: { widget: 'boolean_toggle', optional: 'hide' }
+      }
     }
   },
 

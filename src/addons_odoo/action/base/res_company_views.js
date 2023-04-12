@@ -24,9 +24,7 @@ export default {
                   required: 0,
                   groups: 'base.group_no_one'
                 },
-                _label: {
-                  _attr: { for: 'street', string: 'Address' }
-                },
+                _label: { for: 'street', string: 'Address' },
                 _div: {
                   street: { nolabel: 1, placeholder: 'Street...' },
                   street2: { nolabel: 1, placeholder: 'Street 2...' },
@@ -66,10 +64,12 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.company',
     type: 'tree',
-    fields: {
-      // sequence: {},
-      name: {},
-      partner_id: {}
+    arch: {
+      sheet: {
+        // sequence: {},
+        name: {},
+        partner_id: {}
+      }
     }
   },
 

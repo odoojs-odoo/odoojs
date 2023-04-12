@@ -4,19 +4,20 @@ export default {
     model: 'account.analytic.line',
     type: 'tree',
     inherit_id: 'analytic.view_account_analytic_line_tree',
-
-    fields: {
-      account_id: {},
-      ref: {
-        optional: 'hide',
-        invisible({ context }) {
-          // invisible="context.get('to_invoice', False)"
-          return !context.to_invoice
-        }
-      },
-      general_account_id: { optional: 'hide' },
-      move_line_id: { widget: 'line_open_move_widget', optional: 'hide' },
-      product_id: { optional: 'hide' }
+    arch: {
+      sheet: {
+        account_id: {},
+        ref: {
+          optional: 'hide',
+          invisible({ context }) {
+            // invisible="context.get('to_invoice', False)"
+            return !context.to_invoice
+          }
+        },
+        general_account_id: { optional: 'hide' },
+        move_line_id: { widget: 'line_open_move_widget', optional: 'hide' },
+        product_id: { optional: 'hide' }
+      }
     }
   },
 

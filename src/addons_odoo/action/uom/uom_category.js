@@ -23,14 +23,16 @@ export default {
               },
               views: {
                 tree: {
-                  fields: {
-                    name: {},
-                    uom_type: {},
-                    factor: { invisible: '1' },
-                    factor_inv: { invisible: '1' },
-                    ratio: {},
-                    active: {},
-                    rounding: {}
+                  arch: {
+                    sheet: {
+                      name: {},
+                      uom_type: {},
+                      factor: { invisible: '1' },
+                      factor_inv: { invisible: '1' },
+                      ratio: {},
+                      active: {},
+                      rounding: {}
+                    }
                   }
                 },
 
@@ -61,9 +63,11 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'uom.category',
     type: 'tree',
-    fields: {
-      name: {},
-      uom_ids: { widget: 'many2many_tags' }
+    arch: {
+      sheet: {
+        name: {},
+        uom_ids: { widget: 'many2many_tags' }
+      }
     }
   },
 

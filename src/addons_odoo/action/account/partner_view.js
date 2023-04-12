@@ -155,21 +155,25 @@ export default {
                   context: { default_allow_out_payment: true },
                   views: {
                     tree: {
-                      fields: {
-                        sequence: { widget: 'handle' },
-                        bank_id: {},
-                        acc_number: {},
-                        allow_out_payment: { widget: 'boolean_toggle' },
-                        acc_holder_name: { invisible: '1' }
+                      arch: {
+                        sheet: {
+                          sequence: { widget: 'handle' },
+                          bank_id: {},
+                          acc_number: {},
+                          allow_out_payment: { widget: 'boolean_toggle' },
+                          acc_holder_name: { invisible: '1' }
+                        }
                       }
                     },
                     form: {
-                      fields: {
-                        sequence: { widget: 'handle' },
-                        bank_id: {},
-                        acc_number: {},
-                        allow_out_payment: { widget: 'boolean_toggle' },
-                        acc_holder_name: { invisible: '1' }
+                      arch: {
+                        sheet: {
+                          sequence: { widget: 'handle' },
+                          bank_id: {},
+                          acc_number: {},
+                          allow_out_payment: { widget: 'boolean_toggle' },
+                          acc_holder_name: { invisible: '1' }
+                        }
                       }
                     }
                   }

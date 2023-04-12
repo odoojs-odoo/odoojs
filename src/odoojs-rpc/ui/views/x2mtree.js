@@ -102,6 +102,19 @@ export class X2mTree extends X2mTreeBase {
     return viewhelp.get_string(fieldInfo, { ...kw, for_o2m: true })
   }
 
+  get arch_sheet() {
+    const view = this.field_info.views[this._type]
+    const { arch = {} } = view
+    const { sheet = {} } = arch
+    return sheet
+  }
+
+  view_sheet(kw) {
+    const viewhelp = this.viewhelp_get()
+    const sheet = viewhelp.view_sheet(kw)
+    return sheet
+  }
+
   get_columns(kw) {
     const fields = this.fields
     const cols = Object.keys(fields).reduce((acc, fld) => {

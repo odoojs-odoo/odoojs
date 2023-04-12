@@ -84,7 +84,7 @@ const ModelFields = {
       const { type, parent_id } = record
       return type === 'contact' && parent_id
     },
-    string: '州省',
+    string: 'State',
     domain: ({ record }) => {
       // domain="[('country_id', '=?', country_id)]"
       const { country_id } = record
@@ -123,8 +123,8 @@ const TitleFields = {
 
 const CategoryFields = {
   display_name: {
-    disable_field_onchange: 1,
-    string: 'Name'
+    disable_field_onchange: 1
+    // string: 'Name'
   },
   name: { string: 'Name' },
   parent_id: { string: 'Parent' },

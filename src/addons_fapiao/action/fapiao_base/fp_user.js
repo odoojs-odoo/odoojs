@@ -3,16 +3,17 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'fp.users',
     type: 'tree',
-    priority: 2,
-    fields: {
-      company_id: {},
-      name: {},
-      login: {},
-      payee_name: {},
-      checker_name: {},
-      drawer_name: {},
-      taxmachine_id: {},
-      taxmachine_code: {}
+    arch: {
+      sheet: {
+        company_id: {},
+        name: {},
+        login: {},
+        payee_name: {},
+        checker_name: {},
+        drawer_name: {},
+        taxmachine_id: {},
+        taxmachine_code: {}
+      }
     }
   },
 

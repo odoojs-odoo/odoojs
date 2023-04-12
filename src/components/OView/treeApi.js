@@ -70,7 +70,7 @@ export function useTreeView(props) {
     const cols = Object.keys(fields).map(fld => {
       const meta = fields[fld] || {}
       return {
-        dataIndex: fld,
+        dataIndex: meta.name,
         key: fld,
         title: meta.string,
         // ellipsis: 'ellipsis' in meta ? meta.ellipsis : true,
@@ -88,11 +88,11 @@ export function useTreeView(props) {
     const view = view_get()
     if (!view) return []
 
-    const flds = view.get_columns()
-
-    console.log(flds)
+    const sheet = view.view_sheet()
+    const flds = sheet.children
     const cols91 = fields2cols(flds)
     const cols92 = cols91.filter(item => item._widget !== 'handle')
+
     return cols92
   })
 

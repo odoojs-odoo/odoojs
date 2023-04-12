@@ -49,8 +49,10 @@ export default {
               widget: 'x2many_tree',
               views: {
                 tree: {
-                  fields: {
-                    name: {}
+                  arch: {
+                    sheet: {
+                      name: {}
+                    }
                   }
                 },
                 form: {
@@ -108,12 +110,14 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.users',
     type: 'tree',
-    fields: {
-      name: {},
-      login: {},
-      lang: {},
-      login_date: {},
-      company_id: {}
+    arch: {
+      sheet: {
+        name: {},
+        login: {},
+        lang: {},
+        login_date: {},
+        company_id: {}
+      }
     }
   },
 

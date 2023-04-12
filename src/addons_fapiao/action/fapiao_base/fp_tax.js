@@ -4,12 +4,13 @@ export default {
     model: 'fp.tax',
     type: 'tree',
     buttons: { create: false, edit: false, delete: false },
-
-    fields: {
-      code: {},
-      name: {},
-      tax_ratio: {},
-      active: {}
+    arch: {
+      sheet: {
+        code: {},
+        name: {},
+        tax_ratio: {},
+        active: {}
+      }
     }
   },
 

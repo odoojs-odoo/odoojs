@@ -3,10 +3,12 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.partner.industry',
     type: 'tree',
-    fields: {
-      name: {},
-      full_name: {},
-      active: { invisible: 1 }
+    arch: {
+      sheet: {
+        name: {},
+        full_name: {},
+        active: { invisible: 1 }
+      }
     }
   },
   res_partner_industry_view_form: {

@@ -3,27 +3,28 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'fp.bill.check',
     type: 'tree',
-
-    fields: {
-      type: {},
-      name: {},
-      state: {},
-      fapiao_status: {},
-      check_time: {},
-      company_id: { invisible: 1 },
-      user_id: { invisible: 1 },
-      api_check_id: { invisible: 1 },
-      invoice_type: {},
-      date_fapiao: {},
-      invoice_code: {},
-      invoice_number: {},
-      check_code: {},
-      amount_total: {},
-      amount_untaxed: { invisible: 1 },
-      amount_tax: { invisible: 1 },
-      company_partner_id: { invisible: 1 },
-      buyer_id: {},
-      partner_id: {}
+    arch: {
+      sheet: {
+        type: {},
+        name: {},
+        state: {},
+        fapiao_status: {},
+        check_time: {},
+        company_id: { invisible: 1 },
+        user_id: { invisible: 1 },
+        api_check_id: { invisible: 1 },
+        invoice_type: {},
+        date_fapiao: {},
+        invoice_code: {},
+        invoice_number: {},
+        check_code: {},
+        amount_total: {},
+        amount_untaxed: { invisible: 1 },
+        amount_tax: { invisible: 1 },
+        company_partner_id: { invisible: 1 },
+        buyer_id: {},
+        partner_id: {}
+      }
     }
   },
 
@@ -158,22 +159,24 @@ export default {
           widget: 'x2many_tree',
           views: {
             tree: {
-              fields: {
-                line_type: { invisible: 1 },
-                row_number: { string: 'No' },
-                ref_row_number: { invisible: 1 },
-                name: { invisible: 1 },
-                vat_product_name: {},
-                product_name: {},
-                product_spec: {},
-                product_uom: {},
-                quantity: {},
-                price_untax: {},
-                price_unit: { invisible: 1 },
-                amount_untaxed: {},
-                tax_ratio: {},
-                amount_tax: {},
-                amount_total: { invisible: 1 }
+              arch: {
+                sheet: {
+                  line_type: { invisible: 1 },
+                  row_number: { string: 'No' },
+                  ref_row_number: { invisible: 1 },
+                  name: { invisible: 1 },
+                  vat_product_name: {},
+                  product_name: {},
+                  product_spec: {},
+                  product_uom: {},
+                  quantity: {},
+                  price_untax: {},
+                  price_unit: { invisible: 1 },
+                  amount_untaxed: {},
+                  tax_ratio: {},
+                  amount_tax: {},
+                  amount_total: { invisible: 1 }
+                }
               }
             },
             form: {

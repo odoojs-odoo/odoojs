@@ -66,39 +66,33 @@ const order_line_form_sheet = {
 
   _field_name: {
     _label_Description: {
-      _attr: {
-        for: 'name',
-        string: 'Description',
-        invisible({ record }) {
-          // 'invisible': [('display_type', '!=', False)]
-          const { display_type } = record
-          return !display_type
-        }
+      for: 'name',
+      string: 'Description',
+      invisible({ record }) {
+        // 'invisible': [('display_type', '!=', False)]
+        const { display_type } = record
+        return !display_type
       }
     },
 
     _label_Section: {
-      _attr: {
-        for: 'name',
-        string: 'Section Name (eg. Products, Services)',
-        invisible({ record }) {
-          // 'invisible': [('display_type', '!=', 'line_section')]}"/>
-          const { display_type } = record
-          return display_type !== 'line_section'
-        }
+      for: 'name',
+      string: 'Section Name (eg. Products, Services)',
+      invisible({ record }) {
+        // 'invisible': [('display_type', '!=', 'line_section')]}"/>
+        const { display_type } = record
+        return display_type !== 'line_section'
       }
     },
 
     _label_Note: {
-      _attr: {
-        for: 'name',
-        string: 'Note',
-        invisible({ record }) {
-          // string="Note"
-          //  'invisible': [('display_type', '!=', 'line_note')]
-          const { display_type } = record
-          return display_type !== 'line_note'
-        }
+      for: 'name',
+      string: 'Note',
+      invisible({ record }) {
+        // string="Note"
+        //  'invisible': [('display_type', '!=', 'line_note')]
+        const { display_type } = record
+        return display_type !== 'line_note'
       }
     },
 
@@ -207,7 +201,7 @@ const view_order_form_sheet = {
       show_update_pricelist: { invisible: 1 },
       _field_pricelist_id: {
         _attr: { groups: 'product.group_product_pricelist' },
-        _label: { _attr: { for: 'pricelist_id' } },
+        _label: { for: 'pricelist_id' },
 
         _div_row: {
           pricelist_id: {},
@@ -251,94 +245,96 @@ const view_order_form_sheet = {
         widget: 'x2many_tree',
         views: {
           tree: {
-            fields: {
-              sequence: { widget: 'handle' },
-              display_type: { invisible: 1 },
-              product_uom_category_id: { invisible: 1 },
-              product_type: { invisible: 1 },
-              currency_id: { invisible: 1 },
-              product_updatable: { invisible: 1 },
-              product_id: { widget: 'sol_product_many2one' },
-              product_template_id: { invisible: '1' },
-              name: { widget: 'section_and_note_text', optional: 'show' },
-              analytic_distribution: {
-                widget: 'analytic_distribution',
-                optional: 'hide'
-              },
-              product_uom_qty: {
-                // widget: ''
-                // 查看库存?
-              },
-              qty_delivered: {
-                optional: 'show',
-                invisible: ({ record }) => {
-                  // 'column_invisible': [('parent.state', 'not in', ['sale', 'done'])],
-                  const { parent: prt } = record
-                  return !['sale', 'done'].includes(prt.state)
-                }
-              },
-              qty_delivered_method: { invisible: 1 },
-              qty_invoiced: {
-                optional: 'show',
-                invisible: ({ record }) => {
-                  // 'column_invisible': [('parent.state', 'not in', ['sale', 'done'])],
-                  const { parent: prt } = record
-                  return !['sale', 'done'].includes(prt.state)
-                }
-              },
-              qty_to_invoice: { invisible: '1' },
-              product_uom_readonly: { invisible: '1' },
-              // product_uom: { invisible: '1' },
-              product_uom: {
-                optional: 'show'
-              },
-              customer_lead: { optional: 'hide' },
-              product_packaging_qty: {
-                optional: 'show',
-                invisible: ({ record }) => {
-                  // 'invisible': ['|', ('product_id', '=', False),
-                  // ('product_packaging_id', '=', False)]
-                  const { product_id, product_packaging_id } = record
-                  return !product_id || !product_packaging_id
-                }
-              },
-              product_packaging_id: {
-                optional: 'show',
-                // context="{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}
-                invisible: ({ record }) => {
-                  // 'invisible': [('product_id', '=', False)]}"
-                  const { product_id } = record
-                  return !product_id
-                }
-              },
-              price_unit: {},
-              tax_id: { widget: 'many2many_tags' },
-              discount: {
-                widget: 'sol_discount',
-                optional: 'show'
-              },
-              is_downpayment: { invisible: '1' },
-              price_subtotal: {
-                widget: 'monetary',
-                invisible: ({ record }) => {
-                  // 'invisible': [('is_downpayment', '=', True)]
-                  const { is_downpayment } = record
-                  return is_downpayment
-                }
-              },
-              price_total: {
-                widget: 'monetary',
-                invisible: ({ record }) => {
-                  // 'invisible': [('is_downpayment', '=', True)]
-                  const { is_downpayment } = record
-                  return is_downpayment
-                }
-              },
-              state: { invisible: '1' },
-              invoice_status: { invisible: '1' },
-              // currency_id: { invisible: '1' },
-              price_tax: { invisible: '1' },
-              company_id: { invisible: '1' }
+            arch: {
+              sheet: {
+                sequence: { widget: 'handle' },
+                display_type: { invisible: 1 },
+                product_uom_category_id: { invisible: 1 },
+                product_type: { invisible: 1 },
+                currency_id: { invisible: 1 },
+                product_updatable: { invisible: 1 },
+                product_id: { widget: 'sol_product_many2one' },
+                product_template_id: { invisible: '1' },
+                name: { widget: 'section_and_note_text', optional: 'show' },
+                analytic_distribution: {
+                  widget: 'analytic_distribution',
+                  optional: 'hide'
+                },
+                product_uom_qty: {
+                  // widget: ''
+                  // 查看库存?
+                },
+                qty_delivered: {
+                  optional: 'show',
+                  invisible: ({ record }) => {
+                    // 'column_invisible': [('parent.state', 'not in', ['sale', 'done'])],
+                    const { parent: prt } = record
+                    return !['sale', 'done'].includes(prt.state)
+                  }
+                },
+                qty_delivered_method: { invisible: 1 },
+                qty_invoiced: {
+                  optional: 'show',
+                  invisible: ({ record }) => {
+                    // 'column_invisible': [('parent.state', 'not in', ['sale', 'done'])],
+                    const { parent: prt } = record
+                    return !['sale', 'done'].includes(prt.state)
+                  }
+                },
+                qty_to_invoice: { invisible: '1' },
+                product_uom_readonly: { invisible: '1' },
+                // product_uom: { invisible: '1' },
+                product_uom: {
+                  optional: 'show'
+                },
+                customer_lead: { optional: 'hide' },
+                product_packaging_qty: {
+                  optional: 'show',
+                  invisible: ({ record }) => {
+                    // 'invisible': ['|', ('product_id', '=', False),
+                    // ('product_packaging_id', '=', False)]
+                    const { product_id, product_packaging_id } = record
+                    return !product_id || !product_packaging_id
+                  }
+                },
+                product_packaging_id: {
+                  optional: 'show',
+                  // context="{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}
+                  invisible: ({ record }) => {
+                    // 'invisible': [('product_id', '=', False)]}"
+                    const { product_id } = record
+                    return !product_id
+                  }
+                },
+                price_unit: {},
+                tax_id: { widget: 'many2many_tags' },
+                discount: {
+                  widget: 'sol_discount',
+                  optional: 'show'
+                },
+                is_downpayment: { invisible: '1' },
+                price_subtotal: {
+                  widget: 'monetary',
+                  invisible: ({ record }) => {
+                    // 'invisible': [('is_downpayment', '=', True)]
+                    const { is_downpayment } = record
+                    return is_downpayment
+                  }
+                },
+                price_total: {
+                  widget: 'monetary',
+                  invisible: ({ record }) => {
+                    // 'invisible': [('is_downpayment', '=', True)]
+                    const { is_downpayment } = record
+                    return is_downpayment
+                  }
+                },
+                state: { invisible: '1' },
+                invoice_status: { invisible: '1' },
+                // currency_id: { invisible: '1' },
+                price_tax: { invisible: '1' },
+                company_id: { invisible: '1' }
+              }
             }
           },
 
@@ -388,7 +384,7 @@ const view_order_form_sheet = {
         _group_sale_info: {
           show_update_fpos: { invisible: '1' },
           _field_fiscal_position_id: {
-            _label: { _attr: { for: 'fiscal_position_id' } },
+            _label: { for: 'fiscal_position_id' },
             _div_row: {
               fiscal_position_id: {},
               _button: {
@@ -472,30 +468,31 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'sale.order',
     type: 'tree',
-    priority: 2,
-    fields: {
-      message_needaction: { invisible: '1' },
-      name: {},
-      create_date: { widget: 'date' },
-      date_order: { widget: 'date' },
-      commitment_date: { optional: 'hide' },
-      expected_date: { optional: 'hide' },
-      partner_id: {},
-      user_id: { optional: 'show', widget: 'many2one_avatar_user' },
-      team_id: { optional: 'hide' },
-      company_id: { optional: 'show' },
-      amount_untaxed: { widget: 'monetary', optional: 'hide' },
-      amount_tax: { widget: 'monetary', optional: 'hide' },
-      amount_total: { widget: 'monetary', optional: 'show' },
-      currency_id: { invisible: '1' },
-      invoice_status: {
-        widget: 'badge'
-        // decoration-success="invoice_status == 'invoiced'"
-        // decoration-info="invoice_status == 'to invoice'"
-        // decoration-warning="invoice_status == 'upselling'"
-      },
-      tag_ids: { widget: 'many2many_tags', optional: 'hide' },
-      state: { invisible: '1' }
+    arch: {
+      sheet: {
+        message_needaction: { invisible: '1' },
+        name: {},
+        create_date: { widget: 'date' },
+        date_order: { widget: 'date' },
+        commitment_date: { optional: 'hide' },
+        expected_date: { optional: 'hide' },
+        partner_id: {},
+        user_id: { optional: 'show', widget: 'many2one_avatar_user' },
+        team_id: { optional: 'hide' },
+        company_id: { optional: 'show' },
+        amount_untaxed: { widget: 'monetary', optional: 'hide' },
+        amount_tax: { widget: 'monetary', optional: 'hide' },
+        amount_total: { widget: 'monetary', optional: 'show' },
+        currency_id: { invisible: '1' },
+        invoice_status: {
+          widget: 'badge'
+          // decoration-success="invoice_status == 'invoiced'"
+          // decoration-info="invoice_status == 'to invoice'"
+          // decoration-warning="invoice_status == 'upselling'"
+        },
+        tag_ids: { widget: 'many2many_tags', optional: 'hide' },
+        state: { invisible: '1' }
+      }
     }
   },
 

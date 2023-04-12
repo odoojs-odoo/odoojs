@@ -24,22 +24,23 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'product.supplierinfo',
     type: 'tree',
-
-    fields: {
-      sequence: {},
-      partner_id: {},
-      product_id: {},
-      product_tmpl_id: {},
-      product_name: {},
-      product_code: {},
-      date_start: {},
-      date_end: {},
-      company_id: {},
-      min_qty: {},
-      product_uom: {},
-      price: {},
-      currency_id: {},
-      delay: {}
+    arch: {
+      sheet: {
+        sequence: {},
+        partner_id: {},
+        product_id: {},
+        product_tmpl_id: {},
+        product_name: {},
+        product_code: {},
+        date_start: {},
+        date_end: {},
+        company_id: {},
+        min_qty: {},
+        product_uom: {},
+        price: {},
+        currency_id: {},
+        delay: {}
+      }
     }
   },
   product_supplierinfo_form_view: {

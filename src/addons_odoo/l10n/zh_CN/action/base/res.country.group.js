@@ -3,11 +3,7 @@ export default {
     arch: {
       sheet: {
         _div_title: {
-          _label: {
-            _attr: {
-              string: '组名称'
-            }
-          }
+          _label: { string: '组名称' }
         }
       }
     }

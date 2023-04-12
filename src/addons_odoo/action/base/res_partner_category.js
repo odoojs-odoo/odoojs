@@ -3,26 +3,14 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.partner.category',
     type: 'tree',
-
     arch: {
       sheet: {
         display_name: {},
         name: {},
-        _field_parent_id: {
-          _attr: { name: 'parent_id', string: '上级' },
-          parent_id: {}
-        },
-
+        parent_id: {},
         active: { widget: 'boolean_toggle' }
+        // color: {}
       }
-    },
-
-    fields: {
-      display_name: {},
-      name: {},
-      parent_id: {},
-      active: { widget: 'boolean_toggle' }
-      // color: {}
     }
   },
   view_partner_category_form: {

@@ -3,9 +3,11 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.partner.title',
     type: 'tree',
-    fields: {
-      name: {},
-      shortcut: {}
+    arch: {
+      sheet: {
+        name: {},
+        shortcut: {}
+      }
     }
   },
   view_partner_title_form: {

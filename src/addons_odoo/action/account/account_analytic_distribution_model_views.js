@@ -4,14 +4,16 @@ export default {
     model: 'account.analytic.distribution.model',
     type: 'tree',
     inherit_id: 'analytic.account_analytic_distribution_model_tree_view',
-    fields: {
-      account_prefix: { optional: 'show' },
-      partner_id: {},
-      partner_category_id: {},
-      product_id: { optional: 'show' },
-      product_categ_id: { optional: 'hide' },
-      company_id: {},
-      analytic_distribution: {}
+    arch: {
+      sheet: {
+        account_prefix: { optional: 'show' },
+        partner_id: {},
+        partner_category_id: {},
+        product_id: { optional: 'show' },
+        product_categ_id: { optional: 'hide' },
+        company_id: {},
+        analytic_distribution: {}
+      }
     }
   },
 

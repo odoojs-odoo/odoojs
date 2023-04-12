@@ -4,13 +4,14 @@ export default {
     model: 'product.template',
     type: 'tree',
     buttons: { create: false, edit: true, delete: false },
-
-    fields: {
-      default_code: {},
-      name: {},
-      list_price: { widget: 'monetary' },
-      taxes_id: { widget: 'many2many_tags' },
-      supplier_taxes_id: { widget: 'many2many_tags' }
+    arch: {
+      sheet: {
+        default_code: {},
+        name: {},
+        list_price: { widget: 'monetary' },
+        taxes_id: { widget: 'many2many_tags' },
+        supplier_taxes_id: { widget: 'many2many_tags' }
+      }
     }
   },
 

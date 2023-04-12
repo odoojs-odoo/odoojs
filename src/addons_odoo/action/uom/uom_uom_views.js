@@ -59,10 +59,12 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'uom.uom',
     type: 'tree',
-    fields: {
-      name: {},
-      category_id: {},
-      uom_type: {}
+    arch: {
+      sheet: {
+        name: {},
+        category_id: {},
+        uom_type: {}
+      }
     }
   },
 

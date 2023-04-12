@@ -11,9 +11,10 @@
     <template v-else-if="nodeTag">
       <component :is="nodeTag">
         <template v-if="node.text"> {{ node.text }} </template>
-        <template v-for="sub in node.children || {}" :key="sub.name">
+        <template v-for="sub in node.children || {}" :key="sub.nodename">
           <TagNode
             :model="model"
+            :nolabel="nolabel"
             :node="sub"
             :form-info="formInfo"
             @change="onChange"
@@ -31,7 +32,7 @@
         style="margin-bottom: 5px"
       >
         <div class="o_row">
-          <template v-for="sub in node.children" :key="sub.name">
+          <template v-for="sub in node.children" :key="sub.nodename">
             <TagNode
               :model="model"
               :nolabel="1"
@@ -48,7 +49,7 @@
     <template v-else>
       <template v-if="['widget'].includes(node.tag)"> </template>
 
-      <template v-else> todo22:{{ [node.name, node.tag] }} </template>
+      <template v-else> todo22:{{ [node.nodename, node.tag] }} </template>
     </template>
   </template>
 

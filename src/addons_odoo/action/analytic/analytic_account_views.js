@@ -3,16 +3,18 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.analytic.account',
     type: 'tree',
-    fields: {
-      company_id: {},
-      name: {},
-      code: {},
-      partner_id: {},
-      plan_id: {},
-      debit: {},
-      credit: {},
-      balance: {},
-      active: {}
+    arch: {
+      sheet: {
+        company_id: {},
+        name: {},
+        code: {},
+        partner_id: {},
+        plan_id: {},
+        debit: {},
+        credit: {},
+        balance: {},
+        active: {}
+      }
     }
   },
 

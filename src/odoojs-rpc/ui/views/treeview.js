@@ -213,29 +213,32 @@ export class TreeView extends TreeBaseView {
     const viewhelp = this.viewhelp_get()
     return viewhelp.get_string(fieldInfo)
   }
-  view_sheet(treeInfo) {
+
+  view_sheet() {
     const viewhelp = this.viewhelp_get()
-    return viewhelp.view_sheet_for_tree(treeInfo)
+    const sheet = viewhelp.view_sheet({})
+
+    return sheet
   }
 
-  get_columns() {
-    // const sheet = this.view_sheet()
+  // get_columns() {
+  //   const from_fields = () => {
+  //     const fields = this.fields
+  //     const cols = Object.keys(fields).reduce((acc, fld) => {
+  //       const meta = fields[fld]
+  //       const invs = this.check_invisible(meta)
+  //       if (!invs) {
+  //         acc[fld] = { ...meta, string: this.get_string(meta) }
+  //       }
+  //       return acc
+  //     }, {})
 
-    // const fs = sheet.children || {}
-    // if (Object.keys(fs).length) {
-    //   return fs
-    // }
+  //     return cols
+  //   }
 
-    const fields = this.fields
-    const cols = Object.keys(fields).reduce((acc, fld) => {
-      const meta = fields[fld]
-      const invs = this.check_invisible(meta)
-      if (!invs) {
-        acc[fld] = { ...meta, string: this.get_string(meta) }
-      }
-      return acc
-    }, {})
+  //   const cols = from_fields()
 
-    return cols
-  }
+  //   const sheet = this.view_sheet()
+  //   return sheet.children
+  // }
 }

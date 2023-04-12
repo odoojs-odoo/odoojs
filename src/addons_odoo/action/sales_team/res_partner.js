@@ -65,23 +65,24 @@ export default {
     model: 'res.partner',
     type: 'tree',
     buttons: { create: false, edit: true, delete: false },
-
-    fields: {
-      display_name: {},
-      type: {},
-      phone: {},
-      email: {},
-      user_id: {},
-      team_id: {}
-      // city: {},
-      // // state_id:{},
-      // country_id: {},
-      // // vat:{},
-      // // category_id:{},
-      // company_id: {}
-      // // is_company: {},
-      // // parent_id: {},
-      // // active: {}
+    arch: {
+      sheet: {
+        display_name: {},
+        type: {},
+        phone: {},
+        email: {},
+        user_id: {},
+        team_id: {}
+        // city: {},
+        // // state_id:{},
+        // country_id: {},
+        // // vat:{},
+        // // category_id:{},
+        // company_id: {}
+        // // is_company: {},
+        // // parent_id: {},
+        // // active: {}
+      }
     }
   },
 

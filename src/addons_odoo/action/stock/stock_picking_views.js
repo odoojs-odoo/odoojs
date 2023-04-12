@@ -24,13 +24,15 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'stock.picking.type',
     type: 'tree',
-    fields: {
-      sequence: {},
-      name: {},
-      active: {},
-      warehouse_id: {},
-      sequence_id: {},
-      company_id: {}
+    arch: {
+      sheet: {
+        sequence: {},
+        name: {},
+        active: {},
+        warehouse_id: {},
+        sequence_id: {},
+        company_id: {}
+      }
     }
   },
 
@@ -112,24 +114,26 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'stock.picking',
     type: 'tree',
-    fields: {
-      priority: {},
-      name: {},
-      location_id: {},
-      location_dest_id: {},
-      partner_id: {},
-      //   is_signed: {},
-      user_id: {},
-      scheduled_date: {},
-      //   products_availability_state: {},
-      products_availability: {},
-      //   date_deadline: {},
-      date_done: {},
-      origin: {},
-      //   backorder_id: {},
-      //   picking_type_id: {},
-      company_id: {},
-      state: {}
+    arch: {
+      sheet: {
+        priority: {},
+        name: {},
+        location_id: {},
+        location_dest_id: {},
+        partner_id: {},
+        //   is_signed: {},
+        user_id: {},
+        scheduled_date: {},
+        //   products_availability_state: {},
+        products_availability: {},
+        //   date_deadline: {},
+        date_done: {},
+        origin: {},
+        //   backorder_id: {},
+        //   picking_type_id: {},
+        company_id: {},
+        state: {}
+      }
     }
   },
 

@@ -3,8 +3,12 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'product.tag',
     type: 'tree',
-
-    fields: { name: {}, color: { widget: 'color_picker' } }
+    arch: {
+      sheet: {
+        name: {},
+        color: { widget: 'color_picker' }
+      }
+    }
   },
   product_tag_form_view: {
     _odoo_model: 'ir.ui.view',

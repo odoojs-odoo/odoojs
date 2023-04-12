@@ -3,12 +3,13 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'fp.api.check.company',
     type: 'tree',
-
-    fields: {
-      company_id: {},
-      name: {},
-      tin: { secret: 1 }
-      //   api_check_id: {}
+    arch: {
+      sheet: {
+        company_id: {},
+        name: {},
+        tin: { secret: 1 }
+        //   api_check_id: {}
+      }
     }
   },
 

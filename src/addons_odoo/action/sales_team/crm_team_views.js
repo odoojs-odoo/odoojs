@@ -4,15 +4,17 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'crm.team',
     type: 'tree',
-    fields: {
-      sequence: { widget: 'handle' },
-      name: { readonly: '1' },
-      active: { invisible: '1' },
-      user_id: {
-        domain: [['share', '=', false]],
-        widget: 'many2one_avatar_user'
-      },
-      company_id: { groups: 'base.group_multi_company' }
+    arch: {
+      sheet: {
+        sequence: { widget: 'handle' },
+        name: { readonly: '1' },
+        active: { invisible: '1' },
+        user_id: {
+          domain: [['share', '=', false]],
+          widget: 'many2one_avatar_user'
+        },
+        company_id: { groups: 'base.group_multi_company' }
+      }
     }
   },
 
@@ -80,7 +82,13 @@ export default {
             member_ids: {
               widget: 'x2many_tree',
               views: {
-                tree: { fields: { name: {} } },
+                tree: {
+                  arch: {
+                    sheet: {
+                      name: {}
+                    }
+                  }
+                },
                 form: {
                   arch: {
                     sheet: {
@@ -110,7 +118,11 @@ export default {
                 }
               },
               views: {
-                tree: { fields: { name: {} } },
+                tree: {
+                  arch: {
+                    sheet: { name: {} }
+                  }
+                },
                 form: {
                   arch: {
                     sheet: {

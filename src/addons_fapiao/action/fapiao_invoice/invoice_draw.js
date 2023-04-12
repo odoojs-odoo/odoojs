@@ -3,28 +3,29 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'fp.invoice.draw',
     type: 'tree',
+    arch: {
+      sheet: {
+        type: {},
+        name: {},
+        state: {},
+        fapiao_status: {},
 
-    fields: {
-      type: {},
-      name: {},
-      state: {},
-      fapiao_status: {},
+        //   company_id: {},
+        //   user_id: {},
+        //   api_draw_id: {},
+        invoice_type: {},
+        time_fapiao: {},
+        date_fapiao: {},
 
-      //   company_id: {},
-      //   user_id: {},
-      //   api_draw_id: {},
-      invoice_type: {},
-      time_fapiao: {},
-      date_fapiao: {},
-
-      invoice_code: {},
-      invoice_number: {},
-      check_code: {},
-      amount_total: {},
-      //   amount_untaxed: {},
-      //   amount_tax: {},
-      //   company_partner_id: {},
-      partner_id: {}
+        invoice_code: {},
+        invoice_number: {},
+        check_code: {},
+        amount_total: {},
+        //   amount_untaxed: {},
+        //   amount_tax: {},
+        //   company_partner_id: {},
+        partner_id: {}
+      }
     }
   },
 
@@ -184,26 +185,28 @@ export default {
           widget: 'x2many_tree',
           views: {
             tree: {
-              fields: {
-                //   line_type: {},
-                row_number: { string: 'No' },
-                //   ref_row_number: {},
-                //   name: {},
-                vat_product_id: {},
-                product_id: {},
-                product_spec: {},
-                product_uom: {},
-                // tax_id: {},
-                quantity: {},
-                // price_unit: {},
-                price_untax: {},
-                // amount_total: {},
-                amount_untaxed: {},
-                tax_ratio: {},
-                amount_tax: {},
-                // amount_discount: {},
-                amount_untaxed_discount: {},
-                amount_tax_discount: {}
+              arch: {
+                sheet: {
+                  //   line_type: {},
+                  row_number: { string: 'No' },
+                  //   ref_row_number: {},
+                  //   name: {},
+                  vat_product_id: {},
+                  product_id: {},
+                  product_spec: {},
+                  product_uom: {},
+                  // tax_id: {},
+                  quantity: {},
+                  // price_unit: {},
+                  price_untax: {},
+                  // amount_total: {},
+                  amount_untaxed: {},
+                  tax_ratio: {},
+                  amount_tax: {},
+                  // amount_discount: {},
+                  amount_untaxed_discount: {},
+                  amount_tax_discount: {}
+                }
               }
             },
             form: {

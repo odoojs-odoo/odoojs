@@ -54,13 +54,16 @@
     :scroll="widthAndHeight"
   >
     <template #bodyCell="{ column, record }">
-      <!-- <TreeCol /> -->
-
-      <OField
-        :field-name="column.dataIndex"
-        :field-info="column._meta"
-        :form-info="{ record }"
-      />
+      <template v-if="column._meta.tag">
+        todo: {{ column._meta.tag }}
+      </template>
+      <template v-else>
+        <OField
+          :field-name="column.dataIndex"
+          :field-info="column._meta"
+          :form-info="{ record }"
+        />
+      </template>
     </template>
   </a-table>
 </template>
@@ -71,7 +74,6 @@ import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTreeView } from './treeApi'
 import OField from '@/components/OField/OField.vue'
-import TreeCol from '@/components/ONode/TreeCol.vue'
 
 import ActionButton from './ActionButton.vue'
 import SearchView from '@/components/OSearch/SearchView.vue'

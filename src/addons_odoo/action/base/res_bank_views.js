@@ -28,7 +28,7 @@ export default {
 
         _group: {
           _group_address_details: {
-            _label: { _attr: { for: 'street', string: 'Bank Address' } },
+            _label: { for: 'street', string: 'Bank Address' },
             street: { nolabel: 1, placeholder: 'Street...' },
             street2: { nolabel: 1, placeholder: 'Street 2...' },
             city: { nolabel: 1, placeholder: 'City' },
@@ -49,10 +49,12 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.bank',
     type: 'tree',
-    fields: {
-      name: {},
-      bic: {},
-      country: {}
+    arch: {
+      sheet: {
+        name: {},
+        bic: {},
+        country: {}
+      }
     }
   },
 
@@ -132,14 +134,16 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.partner.bank',
     type: 'tree',
-    fields: {
-      sequence: { widget: 'handle' },
-      acc_number: {},
-      bank_name: {},
-      company_id: { groups: 'base.group_multi_company' },
-      partner_id: {},
-      acc_holder_name: { invisible: '1' },
-      allow_out_payment: { widget: 'boolean_toggle' }
+    arch: {
+      sheet: {
+        sequence: { widget: 'handle' },
+        acc_number: {},
+        bank_name: {},
+        company_id: { groups: 'base.group_multi_company' },
+        partner_id: {},
+        acc_holder_name: { invisible: '1' },
+        allow_out_payment: { widget: 'boolean_toggle' }
+      }
     }
   },
 

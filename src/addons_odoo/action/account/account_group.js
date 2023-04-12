@@ -3,11 +3,13 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.group',
     type: 'tree',
-    fields: {
-      code_prefix_start: {},
-      code_prefix_end: {},
-      name: {},
-      company_id: { groups: 'base.group_multi_company' }
+    arch: {
+      sheet: {
+        code_prefix_start: {},
+        code_prefix_end: {},
+        name: {},
+        company_id: { groups: 'base.group_multi_company' }
+      }
     }
   },
 

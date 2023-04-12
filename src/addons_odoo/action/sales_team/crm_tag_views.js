@@ -3,9 +3,11 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'crm.tag',
     type: 'tree',
-    fields: {
-      name: {},
-      color: { widget: 'color_picker' }
+    arch: {
+      sheet: {
+        name: {},
+        color: { widget: 'color_picker' }
+      }
     }
   },
   sales_team_crm_tag_view_form: {

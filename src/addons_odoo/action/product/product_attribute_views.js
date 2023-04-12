@@ -3,11 +3,13 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'product.attribute',
     type: 'tree',
-    fields: {
-      sequence: { widget: 'handle' },
-      name: {},
-      display_type: {},
-      create_variant: {}
+    arch: {
+      sheet: {
+        sequence: { widget: 'handle' },
+        name: {},
+        display_type: {},
+        create_variant: {}
+      }
     }
   },
 
@@ -54,17 +56,19 @@ export default {
               nolabel: '1',
               views: {
                 tree: {
-                  fields: {
-                    sequence: { widget: 'handle' },
-                    name: {},
-                    display_type: { invisible: 1 },
-                    is_custom: { groups: 'product.group_product_variant' },
-                    html_color: {
-                      widget: 'color',
-                      invisible({ record }) {
-                        // 'column_invisible': [('parent.display_type', '!=', 'color')]}"
-                        const { parent: prt } = record
-                        return prt.display_type !== 'color'
+                  arch: {
+                    sheet: {
+                      sequence: { widget: 'handle' },
+                      name: {},
+                      display_type: { invisible: 1 },
+                      is_custom: { groups: 'product.group_product_variant' },
+                      html_color: {
+                        widget: 'color',
+                        invisible({ record }) {
+                          // 'column_invisible': [('parent.display_type', '!=', 'color')]}"
+                          const { parent: prt } = record
+                          return prt.display_type !== 'color'
+                        }
                       }
                     }
                   }

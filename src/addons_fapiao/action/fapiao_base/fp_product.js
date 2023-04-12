@@ -3,18 +3,20 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'fp.product',
     type: 'tree',
-    fields: {
-      partner_id: {},
-      in_out: {},
-      //   vat_product_id: {},
-      vat_product_code: {},
-      vat_product_name: {},
-      name: {},
-      code: {},
-      spec: {},
-      uom: {},
-      tax_id: {},
-      active: {}
+    arch: {
+      sheet: {
+        partner_id: {},
+        in_out: {},
+        //   vat_product_id: {},
+        vat_product_code: {},
+        vat_product_name: {},
+        name: {},
+        code: {},
+        spec: {},
+        uom: {},
+        tax_id: {},
+        active: {}
+      }
     }
   },
 

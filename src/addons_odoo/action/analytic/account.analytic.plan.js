@@ -3,11 +3,13 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.analytic.plan',
     type: 'tree',
-    fields: {
-      name: {},
-      default_applicability: {},
-      color: { widget: 'color_picker' },
-      company_id: { groups: 'base.group_multi_company' }
+    arch: {
+      sheet: {
+        name: {},
+        default_applicability: {},
+        color: { widget: 'color_picker' },
+        company_id: { groups: 'base.group_multi_company' }
+      }
     }
   },
 
@@ -78,9 +80,11 @@ export default {
               widget: 'x2many_tree',
               views: {
                 tree: {
-                  fields: {
-                    business_domain: {},
-                    applicability: {}
+                  arch: {
+                    sheet: {
+                      business_domain: {},
+                      applicability: {}
+                    }
                   }
                 },
                 form: {

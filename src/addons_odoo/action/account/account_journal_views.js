@@ -4,22 +4,24 @@ export default {
     model: 'account.journal',
     type: 'tree',
     buttons: { create: false, edit: false, delete: false },
-    fields: {
-      sequence: { widget: 'handle' },
-      name: {},
-      type: {},
-      journal_group_ids: {
-        widget: 'many2many_tags',
-        readonly: '1',
-        optional: 'show'
-      },
-      currency_id: { groups: 'base.group_multi_currency', optional: 'hide' },
-      code: { optional: 'show' },
-      default_account_id: { optional: 'show' },
-      active: { optional: 'hide' },
-      company_id: {
-        groups: 'base.group_multi_company',
-        active: { optional: 'hide' }
+    arch: {
+      sheet: {
+        sequence: { widget: 'handle' },
+        name: {},
+        type: {},
+        journal_group_ids: {
+          widget: 'many2many_tags',
+          readonly: '1',
+          optional: 'show'
+        },
+        currency_id: { groups: 'base.group_multi_currency', optional: 'hide' },
+        code: { optional: 'show' },
+        default_account_id: { optional: 'show' },
+        active: { optional: 'hide' },
+        company_id: {
+          groups: 'base.group_multi_company',
+          active: { optional: 'hide' }
+        }
       }
     }
   },
@@ -32,52 +34,6 @@ export default {
     arch: {
       sheet: {
         type: { invisible: 1 },
-        // _field_default_account_id: {
-        //   _label_bank: {
-        //     _attr: {
-        //       for: 'default_account_id',
-        //       string: 'Bank Account',
-        //       invisible: ({ record }) => record.type !== 'bank'
-        //     }
-        //   },
-        //   _label_cash: {
-        //     _attr: {
-        //       for: 'default_account_id',
-        //       string: 'Cash Account',
-        //       invisible: ({ record }) => record.type !== 'cash'
-        //     }
-        //   },
-
-        //   _label_sale: {
-        //     _attr: {
-        //       for: 'default_account_id',
-        //       string: 'Default Income Account',
-        //       invisible: ({ record }) => record.type !== 'sale'
-        //     }
-        //   },
-
-        //   _label_purchase: {
-        //     _attr: {
-        //       for: 'default_account_id',
-        //       string: 'Default Expense Account',
-        //       invisible: ({ record }) => record.type !== 'purchase'
-        //     }
-        //   },
-
-        //   _label_general: {
-        //     _attr: {
-        //       for: 'default_account_id',
-        //       string: 'Default Account',
-        //       help: 'If set, this account is used to automatically balance entries.',
-        //       invisible: ({ record }) => record.type !== 'general'
-        //     }
-        //   },
-
-        //   default_account_id: {
-        //     invisible: ({ record }) => !record.type
-        //   }
-        // },
-
         company_id: { invisible: '1' },
         bank_statements_source: { invisible: '1' },
 
@@ -133,43 +89,33 @@ export default {
 
                 _field_default_account_id: {
                   _label_bank: {
-                    _attr: {
-                      for: 'default_account_id',
-                      string: 'Bank Account',
-                      invisible: ({ record }) => record.type !== 'bank'
-                    }
+                    for: 'default_account_id',
+                    string: 'Bank Account',
+                    invisible: ({ record }) => record.type !== 'bank'
                   },
                   _label_cash: {
-                    _attr: {
-                      for: 'default_account_id',
-                      string: 'Cash Account',
-                      invisible: ({ record }) => record.type !== 'cash'
-                    }
+                    for: 'default_account_id',
+                    string: 'Cash Account',
+                    invisible: ({ record }) => record.type !== 'cash'
                   },
 
                   _label_sale: {
-                    _attr: {
-                      for: 'default_account_id',
-                      string: 'Default Income Account',
-                      invisible: ({ record }) => record.type !== 'sale'
-                    }
+                    for: 'default_account_id',
+                    string: 'Default Income Account',
+                    invisible: ({ record }) => record.type !== 'sale'
                   },
 
                   _label_purchase: {
-                    _attr: {
-                      for: 'default_account_id',
-                      string: 'Default Expense Account',
-                      invisible: ({ record }) => record.type !== 'purchase'
-                    }
+                    for: 'default_account_id',
+                    string: 'Default Expense Account',
+                    invisible: ({ record }) => record.type !== 'purchase'
                   },
 
                   _label_general: {
-                    _attr: {
-                      for: 'default_account_id',
-                      string: 'Default Account',
-                      help: 'If set, this account is used to automatically balance entries.',
-                      invisible: ({ record }) => record.type !== 'general'
-                    }
+                    for: 'default_account_id',
+                    string: 'Default Account',
+                    help: 'If set, this account is used to automatically balance entries.',
+                    invisible: ({ record }) => record.type !== 'general'
                   },
 
                   default_account_id: {
@@ -256,14 +202,16 @@ export default {
               constext: { default_payment_type: 'inbound' },
               views: {
                 tree: {
-                  fields: {
-                    available_payment_method_ids: { invisible: 1 },
-                    payment_type: { invisible: 1 },
-                    company_id: { invisible: 1 },
-                    sequence: { widget: 'handle' },
-                    payment_method_id: {},
-                    name: {},
-                    payment_account_id: { optional: 'hide' }
+                  arch: {
+                    sheet: {
+                      available_payment_method_ids: { invisible: 1 },
+                      payment_type: { invisible: 1 },
+                      company_id: { invisible: 1 },
+                      sequence: { widget: 'handle' },
+                      payment_method_id: {},
+                      name: {},
+                      payment_account_id: { optional: 'hide' }
+                    }
                   }
                 },
                 form: {
@@ -299,14 +247,16 @@ export default {
               constext: { default_payment_type: 'outbound' },
               views: {
                 tree: {
-                  fields: {
-                    available_payment_method_ids: { invisible: 1 },
-                    payment_type: { invisible: 1 },
-                    company_id: { invisible: 1 },
-                    sequence: { widget: 'handle' },
-                    payment_method_id: {},
-                    name: {},
-                    payment_account_id: { optional: 'hide' }
+                  arch: {
+                    sheet: {
+                      available_payment_method_ids: { invisible: 1 },
+                      payment_type: { invisible: 1 },
+                      company_id: { invisible: 1 },
+                      sequence: { widget: 'handle' },
+                      payment_method_id: {},
+                      name: {},
+                      payment_account_id: { optional: 'hide' }
+                    }
                   }
                 },
                 form: {

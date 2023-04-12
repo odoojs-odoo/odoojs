@@ -3,18 +3,18 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.lang',
     type: 'tree',
-    // tree view. 除了 fields 之外 还有其他标签
-    // todo
-    // <header>
-    //  <button name="action_activate_langs" type="object" string="Activate"/>
-    // </header>
-    fields: {
-      name: {},
-      code: { groups: 'base.group_no_one' },
-      iso_code: { groups: 'base.group_no_one' },
-      url_code: { groups: 'base.group_no_one', invisible: 1 },
-      direction: { groups: 'base.group_no_one' },
-      active: {}
+    arch: {
+      sheet: {
+        // <header>
+        //  <button name="action_activate_langs" type="object" string="Activate"/>
+        // </header>
+        name: {},
+        code: { groups: 'base.group_no_one' },
+        iso_code: { groups: 'base.group_no_one' },
+        url_code: { groups: 'base.group_no_one', invisible: 1 },
+        direction: { groups: 'base.group_no_one' },
+        active: {}
+      }
     }
   },
   res_lang_form: {
@@ -37,7 +37,7 @@ export default {
         flag_image: { widget: 'image' },
 
         _div_title: {
-          _label: { _attr: { for: 'name' } },
+          _label: { for: 'name' },
           _h1: { name: { placeholder: 'e.g. French' } }
         },
 

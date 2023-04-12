@@ -3,18 +3,20 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'product.template',
     type: 'tree',
-    fields: {
-      priority: {},
-      name: {},
-      default_code: {},
-      product_tag_ids: { widget: 'many2many_tags' },
-      barcode: {},
-      company_id: {},
-      list_price: { widget: 'monetary' },
-      standard_price: { widget: 'monetary' },
-      categ_id: {},
-      detailed_type: {},
-      uom_id: {}
+    arch: {
+      sheet: {
+        priority: {},
+        name: {},
+        default_code: {},
+        product_tag_ids: { widget: 'many2many_tags' },
+        barcode: {},
+        company_id: {},
+        list_price: { widget: 'monetary' },
+        standard_price: { widget: 'monetary' },
+        categ_id: {},
+        detailed_type: {},
+        uom_id: {}
+      }
     }
   },
 
@@ -104,19 +106,21 @@ export default {
 
               views: {
                 tree: {
-                  fields: {
-                    value_count: { invisible: 1 },
-                    attribute_id: {},
-                    value_ids: { widget: 'many2many_tags' }
-                    // _button: {
-                    //   _attr: {
-                    //     groups: 'product.group_product_variant',
-                    //     name: 'action_open_attribute_values',
-                    //     string: 'Configure',
-                    //     type: 'object',
-                    //     class: 'float-end btn-secondary'
-                    //   }
-                    // }
+                  arch: {
+                    sheet: {
+                      value_count: { invisible: 1 },
+                      attribute_id: {},
+                      value_ids: { widget: 'many2many_tags' }
+                      // _button: {
+                      //   _attr: {
+                      //     groups: 'product.group_product_variant',
+                      //     name: 'action_open_attribute_values',
+                      //     string: 'Configure',
+                      //     type: 'object',
+                      //     class: 'float-end btn-secondary'
+                      //   }
+                      // }
+                    }
                   }
                 },
 

@@ -1,14 +1,17 @@
 <template>
   <a-form :model="model2" ref="editRef" autocomplete="off">
-    <template v-for="node in sheet.children || {}" :key="node.name">
+    <template v-for="node in sheet.children || {}" :key="node.nodename">
       <template v-if="node.tag && node.tag === 'notebook'">
         <a-tabs type="card">
           <a-tab-pane
             v-for="page in node.children || {}"
-            :key="page.name"
+            :key="page.nodename"
             :tab="page.string"
           >
-            <template v-for="node2 in page.children || {}" :key="node2.name">
+            <template
+              v-for="node2 in page.children || {}"
+              :key="node2.nodename"
+            >
               <template v-if="node2.tag && node2.tag === 'group'">
                 <TagGroup
                   :model="model2"
@@ -43,8 +46,8 @@
         />
       </template>
 
-      <template v-else-if="node.tag && node.name === '_div_title'">
-        <template v-for="item in node.children || {}" :key="item.name">
+      <template v-else-if="node.tag && node.nodename === '_div_title'">
+        <template v-for="item in node.children || {}" :key="item.nodename">
           <TagNode
             :model="model2"
             :node="item"

@@ -4,46 +4,48 @@ export default {
     model: 'account.account',
     type: 'tree',
     buttons: { create: false, edit: false, delete: false },
-    fields: {
-      // company_id: { invisible: 1 },
-      code: {},
-      name: {},
-      account_type: { widget: 'account_type_selection' },
-      group_id: { optional: 'hide' },
-      internal_group: { invisible: 1 },
-      reconcile: {
-        widget: 'boolean_toggle',
+    arch: {
+      sheet: {
+        // company_id: { invisible: 1 },
+        code: {},
+        name: {},
+        account_type: { widget: 'account_type_selection' },
+        group_id: { optional: 'hide' },
+        internal_group: { invisible: 1 },
+        reconcile: {
+          widget: 'boolean_toggle',
 
-        invisible({ record }) {
-          // 'invisible':
-          // ['|', ('account_type', 'in',
-          // ('asset_cash', 'liability_credit_card')),
-          // ('internal_group', '=', 'off_balance')]
-          const { account_type, internal_group } = record
-          return (
-            ['asset_cash', 'liability_credit_card'].includes(account_type) ||
-            internal_group === 'off_balance'
-          )
-        }
-      },
-      non_trade: {
-        widget: 'boolean_toggle',
-        optional: 'hide',
-        invisible({ record }) {
-          // 'invisible':
-          // [('account_type', 'not in',
-          // ('liability_payable', 'asset_receivable'))]
-          const { account_type } = record
-          return ['liability_payable', 'asset_receivable'].includes(
-            account_type
-          )
-        }
-      },
-      tax_ids: { optional: 'hide', widget: 'many2many_tags' },
-      tag_ids: { optional: 'hide', widget: 'many2many_tags' },
-      allowed_journal_ids: { optional: 'hide', widget: 'many2many_tags' },
-      currency_id: { groups: 'base.group_multi_currency' },
-      company_id: { groups: 'base.group_multi_company' }
+          invisible({ record }) {
+            // 'invisible':
+            // ['|', ('account_type', 'in',
+            // ('asset_cash', 'liability_credit_card')),
+            // ('internal_group', '=', 'off_balance')]
+            const { account_type, internal_group } = record
+            return (
+              ['asset_cash', 'liability_credit_card'].includes(account_type) ||
+              internal_group === 'off_balance'
+            )
+          }
+        },
+        non_trade: {
+          widget: 'boolean_toggle',
+          optional: 'hide',
+          invisible({ record }) {
+            // 'invisible':
+            // [('account_type', 'not in',
+            // ('liability_payable', 'asset_receivable'))]
+            const { account_type } = record
+            return ['liability_payable', 'asset_receivable'].includes(
+              account_type
+            )
+          }
+        },
+        tax_ids: { optional: 'hide', widget: 'many2many_tags' },
+        tag_ids: { optional: 'hide', widget: 'many2many_tags' },
+        allowed_journal_ids: { optional: 'hide', widget: 'many2many_tags' },
+        currency_id: { groups: 'base.group_multi_currency' },
+        company_id: { groups: 'base.group_multi_company' }
+      }
     }
   },
 

@@ -3,8 +3,10 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.country.group',
     type: 'tree',
-    fields: {
-      name: {}
+    arch: {
+      sheet: {
+        name: {}
+      }
     }
   },
 
@@ -32,7 +34,7 @@ export default {
       },
       sheet: {
         _div_title: {
-          _label: { _attr: { for: 'name', string: 'Group Name' } },
+          _label: { for: 'name', string: 'Group Name' },
           _h1: { name: { placeholder: 'e.g. Europe' } }
         },
 

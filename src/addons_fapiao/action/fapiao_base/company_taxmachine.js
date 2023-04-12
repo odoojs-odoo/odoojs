@@ -3,11 +3,12 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'fp.company.taxmachine',
     type: 'tree',
-    priority: 2,
-    fields: {
-      company_id: {},
-      name: {},
-      code: {}
+    arch: {
+      sheet: {
+        company_id: {},
+        name: {},
+        code: {}
+      }
     }
   },
 

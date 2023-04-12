@@ -31,17 +31,19 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.bank.statement',
     type: 'tree',
-    fields: {
-      name: {},
-      date: {},
-      journal_id: {},
-      company_id: { groups: 'base.group_multi_company' },
-      balance_start: {},
-      balance_end_real: {},
-      balance_end: { invisible: '1' },
-      currency_id: { invisible: '1' },
-      is_complete: { invisible: '1' },
-      is_valid: { invisible: '1' }
+    arch: {
+      sheet: {
+        name: {},
+        date: {},
+        journal_id: {},
+        company_id: { groups: 'base.group_multi_company' },
+        balance_start: {},
+        balance_end_real: {},
+        balance_end: { invisible: '1' },
+        currency_id: { invisible: '1' },
+        is_complete: { invisible: '1' },
+        is_valid: { invisible: '1' }
+      }
     }
   },
 

@@ -3,13 +3,15 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.analytic.distribution.model',
     type: 'tree',
-    fields: {
-      partner_id: { optional: 'show' },
-      partner_category_id: { optional: 'hide' },
-      company_id: { optional: 'show', groups: 'base.group_multi_company' },
-      analytic_distribution: {
-        optional: 'show',
-        widget: 'analytic_distribution'
+    arch: {
+      sheet: {
+        partner_id: { optional: 'show' },
+        partner_category_id: { optional: 'hide' },
+        company_id: { optional: 'show', groups: 'base.group_multi_company' },
+        analytic_distribution: {
+          optional: 'show',
+          widget: 'analytic_distribution'
+        }
       }
     }
   },

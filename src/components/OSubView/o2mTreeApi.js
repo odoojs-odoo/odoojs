@@ -46,14 +46,18 @@ export function useO2mTree(props) {
   }
 
   const columns = computed(() => {
-    if (treeview.value) {
-      const flds = treeview.value.get_columns(toRaw(treeInfo.value))
-      const cols = fields2cols(flds)
-      const cols2 = cols.filter(item => item._widget !== 'handle')
-      return cols2
-    } else {
-      return []
-    }
+    const view = treeview.value
+    if (!view) return []
+
+    // const flds = view.get_columns(toRaw(treeInfo.value))
+
+    const sheet = view.view_sheet(toRaw(treeInfo.value))
+    const flds = sheet.children
+
+    const cols = fields2cols(flds)
+    // console.log()
+    const cols2 = cols.filter(item => item._widget !== 'handle')
+    return cols2
   })
 
   return { columns }

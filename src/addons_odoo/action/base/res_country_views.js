@@ -4,9 +4,11 @@ export default {
     model: 'res.country',
     type: 'tree',
     buttons: { create: false, delete: false },
-    fields: {
-      name: {},
-      code: {}
+    arch: {
+      sheet: {
+        name: {},
+        code: {}
+      }
     }
   },
 
@@ -43,7 +45,7 @@ export default {
           },
 
           _field_address_view_id: {
-            _label: { _attr: { for: 'address_view_id' } },
+            _label: { for: 'address_view_id' },
             _div_row: {
               address_view_id: {},
               _div: 'Choose a subview of partners that includes only address fields, to change the way users can input addresses.'
@@ -51,7 +53,7 @@ export default {
           },
 
           _field_address_format: {
-            _label_2: { _attr: { for: 'address_format' } },
+            _label_2: { for: 'address_format' },
             _div_row: {
               address_format: { placeholder: 'Address format...' },
               _div: 'Change the way addresses are displayed in reports'
@@ -60,13 +62,20 @@ export default {
           name_position: {}
         },
 
-        _label: { _attr: { for: 'state_ids' } },
+        _label: { for: 'state_ids' },
 
         state_ids: {
           widget: 'x2many_tree',
           nolabel: 1,
           views: {
-            tree: { fields: { name: {}, code: {} } },
+            tree: {
+              arch: {
+                sheet: {
+                  name: {},
+                  code: {}
+                }
+              }
+            },
             form: {
               arch: {
                 sheet: { name: {}, code: {} }

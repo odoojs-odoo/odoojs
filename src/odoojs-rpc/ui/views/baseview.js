@@ -97,11 +97,12 @@ export class BaseView {
   }
 
   get view_info() {
+    const action = this.action_info
+    const view = action.views[this._type]
+
     return {
       action: this.action_info,
-      view: {
-        fields: this.fields
-      }
+      view: { ...view, fields: this.fields }
     }
   }
 
@@ -184,7 +185,6 @@ export class BaseView {
       const { view } = this.view_info
       const { arch = {} } = view
       const { sheet = {} } = arch
-
       return this.get_fields_from_sheet(sheet)
     }
 
@@ -192,7 +192,6 @@ export class BaseView {
       const fs = fields_raw_get_from_sheet()
       const action = this.action_info
       const fs2 = action.views[this._type].fields || {}
-
       return { ...fs2, ...fs }
     }
 
@@ -200,10 +199,10 @@ export class BaseView {
   }
 
   async _load_fields() {
-    // todo. search view 中 也用到了 fields_get
     const model = this.res_model
     const Model = this.env.model(model)
     const fields_raw = this._load_fields_from_sheet()
+
     const fields_list = Object.keys(fields_raw)
     const info = await Model.fields_get(fields_list)
 

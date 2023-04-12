@@ -3,55 +3,51 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.payment',
     type: 'tree',
+    arch: {
+      sheet: {
+        // is_internal_transfer: { invisible: '1' },
+        company_currency_id: { invisible: '1' },
+        date: {},
+        name: {},
+        journal_id: {},
+        payment_method_line_id: {},
 
-    // arch: {
-    //   tree: {
-
-    //     partner_id: {
-    //       string({ context }) {
-    //         const maps = {
-    //           inbound: 'Customer',
-    //           outbound: 'Vendor'
-    //         }
-    //         const { default_payment_type } = context
-    //         return maps[default_payment_type] || 'Vendor'
-    //       }
-    //     }
-    //   }
-    // },
-
-    fields: {
-      // is_internal_transfer: { invisible: '1' },
-      company_currency_id: { invisible: '1' },
-      date: {},
-      name: {},
-      journal_id: {},
-      payment_method_line_id: {},
-      partner_id: {
-        string({ context }) {
-          const maps = {
-            inbound: 'Customer',
-            outbound: 'Vendor'
+        _cols_partner_id_inbound: {
+          name: 'partner_id',
+          string: 'Customer',
+          invisible({ context }) {
+            const { default_payment_type } = context
+            return default_payment_type !== 'inbound'
           }
-          const { default_payment_type } = context
-          return maps[default_payment_type] || 'Vendor'
-        }
-      },
-      amount_signed: {
-        string: 'Amount in Currency',
-        groups: 'base.group_multi_currency',
-        optional: 'hide'
-      },
-      currency_id: {
-        string: 'Payment Currency',
-        groups: 'base.group_multi_currency',
-        optional: 'hide'
-      },
-      amount_company_currency_signed: { widget: 'monetary', string: 'Amount' },
+        },
+        _cols_partner_id_outbound: {
+          name: 'partner_id',
+          string: 'Vendor',
+          invisible({ context }) {
+            const { default_payment_type } = context
+            return default_payment_type !== 'outbound'
+          }
+        },
 
-      state: {
-        widget: 'badge'
-        // decoration-info="state == 'draft'" decoration-success="state == 'posted'"
+        amount_signed: {
+          string: 'Amount in Currency',
+          groups: 'base.group_multi_currency',
+          optional: 'hide'
+        },
+        currency_id: {
+          string: 'Payment Currency',
+          groups: 'base.group_multi_currency',
+          optional: 'hide'
+        },
+        amount_company_currency_signed: {
+          widget: 'monetary',
+          string: 'Amount'
+        },
+
+        state: {
+          widget: 'badge'
+          // decoration-info="state == 'draft'" decoration-success="state == 'posted'"
+        }
       }
     }
   },

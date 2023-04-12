@@ -122,8 +122,10 @@ export default {
     model: 'account.move',
     type: 'tree',
     arch: {
-      _field_invoice_partner_display_name__customer: {
-        _attr: {
+      sheet: {
+        _col_invoice_partner_display_name__customer: {
+          name: 'invoice_partner_display_name',
+          string: 'Customer',
           groups: 'base.group_user',
           invisible({ context }) {
             // invisible="context.get('default_move_type') not in (
@@ -133,10 +135,9 @@ export default {
             return move_types_out.includes(default_move_type)
           }
         },
-        invoice_partner_display_name: { string: 'Customer' }
-      },
-      _field_invoice_partner_display_name__vendor: {
-        _attr: {
+        _col_invoice_partner_display_name__vendor: {
+          name: 'invoice_partner_display_name',
+          string: 'Vendor',
           groups: 'base.group_user',
           invisible({ context }) {
             // invisible="context.get('default_move_type') not in (
@@ -149,61 +150,58 @@ export default {
             return move_types_in.includes(default_move_type)
           }
         },
-        invoice_partner_display_name: { string: 'Vendor' }
-      }
-    },
-    fields: {
-      made_sequence_hole: { invisible: 1 },
-      name: {},
-      invoice_partner_display_name: {},
-      invoice_date: {},
-      // date: { string: 'Accounting Date' },
-      invoice_date_due: {
-        widget: 'remaining_days'
-        // 'invisible': [['payment_state', 'in', ('paid', 'in_payment', 'reversed')]]
-      },
-      invoice_origin: { string: 'Source Document' },
-      // payment_reference: {
-      //   invisible({ context }) {
-      //     // invisible="context.get('default_move_type') in ('out_invoice', 'out_refund','out_receipt')"
-      //     const default_move_type = context.default_move_type
-      //     return ['out_invoice', 'out_refund', 'out_receipt'].includes(
-      //       default_move_type
-      //     )
-      //   }
-      // },
-      // ref: {},
-      // invoice_user_id: {
-      //   // invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund','out_receipt')"
-      //   string: 'Salesperson',
-      //   widget: 'many2one_avatar_user'
-      // },
-      company_id: {},
-      amount_untaxed_signed: { string: 'Tax Excluded' },
-      amount_tax_signed: { string: 'Tax' },
-      amount_total_signed: { string: 'Total' },
-      amount_total_in_currency_signed: { string: 'Total in Currency' },
-      // amount_residual_signed: {string:"Amount Due"},
-      // currency_id: {},
-      partner_id: {},
-      company_currency_id: { invisible: '1' },
-      // to_check: { widget:"boolean_toggle"},
-      payment_state: {
-        widget: 'badge'
-        // decoration-danger="payment_state == 'not_paid'"
-        // decoration-warning="payment_state in ('partial', 'in_payment')"
-        // decoration-success="payment_state in ('paid', 'reversed')"
-        // attrs="{'invisible': [('payment_state', 'in', ('invoicing_legacy'))]}"
-      },
-      state: {
-        widget: 'badge'
-        // decoration-success="state == 'posted'"
-        // decoration-info="state == 'draft'" optional="show"/>
-      }
+        made_sequence_hole: { invisible: 1 },
+        name: {},
+        invoice_partner_display_name: {},
+        invoice_date: {},
+        // date: { string: 'Accounting Date' },
+        invoice_date_due: {
+          widget: 'remaining_days'
+          // 'invisible': [['payment_state', 'in', ('paid', 'in_payment', 'reversed')]]
+        },
+        invoice_origin: { string: 'Source Document' },
+        // payment_reference: {
+        //   invisible({ context }) {
+        //     // invisible="context.get('default_move_type') in ('out_invoice', 'out_refund','out_receipt')"
+        //     const default_move_type = context.default_move_type
+        //     return ['out_invoice', 'out_refund', 'out_receipt'].includes(
+        //       default_move_type
+        //     )
+        //   }
+        // },
+        // ref: {},
+        // invoice_user_id: {
+        //   // invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund','out_receipt')"
+        //   string: 'Salesperson',
+        //   widget: 'many2one_avatar_user'
+        // },
+        company_id: {},
+        amount_untaxed_signed: { string: 'Tax Excluded' },
+        amount_tax_signed: { string: 'Tax' },
+        amount_total_signed: { string: 'Total' },
+        amount_total_in_currency_signed: { string: 'Total in Currency' },
+        // amount_residual_signed: {string:"Amount Due"},
+        // currency_id: {},
+        partner_id: {},
+        company_currency_id: { invisible: '1' },
+        // to_check: { widget:"boolean_toggle"},
+        payment_state: {
+          widget: 'badge'
+          // decoration-danger="payment_state == 'not_paid'"
+          // decoration-warning="payment_state in ('partial', 'in_payment')"
+          // decoration-success="payment_state in ('paid', 'reversed')"
+          // attrs="{'invisible': [('payment_state', 'in', ('invoicing_legacy'))]}"
+        },
+        state: {
+          widget: 'badge'
+          // decoration-success="state == 'posted'"
+          // decoration-info="state == 'draft'" optional="show"/>
+        }
 
-      // move_type: {
-      //   // invisible="context.get('default_move_type', True)"
-      // }
+        // move_type: {
+        //   // invisible="context.get('default_move_type', True)"
+        // }
+      }
     }
   },
 

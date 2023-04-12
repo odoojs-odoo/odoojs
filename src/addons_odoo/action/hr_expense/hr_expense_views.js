@@ -3,22 +3,23 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'hr.expense.sheet',
     type: 'tree',
+    arch: {
+      sheet: {
+        employee_id: {},
+        accounting_date: {},
+        name: {},
 
-    fields: {
-      employee_id: {},
-      accounting_date: {},
-      name: {},
+        journal_id: {
+          // domain: ({ record }) => {
+          //   const { suitable_journal_ids } = record
+          //   return [['id', 'in', suitable_journal_ids]]
+          // }
+        },
 
-      journal_id: {
-        // domain: ({ record }) => {
-        //   const { suitable_journal_ids } = record
-        //   return [['id', 'in', suitable_journal_ids]]
-        // }
-      },
-
-      total_amount: {},
-      company_id: {},
-      state: {}
+        total_amount: {},
+        company_id: {},
+        state: {}
+      }
     }
   },
 

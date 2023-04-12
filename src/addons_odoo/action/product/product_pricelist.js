@@ -3,12 +3,14 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'product.pricelist',
     type: 'tree',
-    fields: {
-      sequence: { widget: 'handle' },
-      name: {},
-      discount_policy: { groups: 'product.group_discount_per_so_line' },
-      currency_id: { groups: 'base.group_multi_currency' },
-      company_id: { groups: 'base.group_multi_company' }
+    arch: {
+      sheet: {
+        sequence: { widget: 'handle' },
+        name: {},
+        discount_policy: { groups: 'product.group_discount_per_so_line' },
+        currency_id: { groups: 'base.group_multi_currency' },
+        company_id: { groups: 'base.group_multi_company' }
+      }
     }
   },
 
@@ -50,8 +52,10 @@ export default {
               context: { default_base: 'list_price' },
               views: {
                 tree: {
-                  fields: {
-                    display_name: {}
+                  arch: {
+                    sheet: {
+                      display_name: {}
+                    }
                   }
                 },
                 form: {

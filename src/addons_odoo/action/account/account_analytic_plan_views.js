@@ -11,11 +11,13 @@ export default {
             applicability_ids: {
               views: {
                 tree: {
-                  fields: {
-                    business_domain: {},
-                    account_prefix: {},
-                    product_categ_id: {},
-                    applicability: {}
+                  arch: {
+                    sheet: {
+                      business_domain: {},
+                      account_prefix: {},
+                      product_categ_id: {},
+                      applicability: {}
+                    }
                   }
                 },
                 form: {

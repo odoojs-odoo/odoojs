@@ -36,16 +36,20 @@ export default {
 
         views: {
           tree: {
-            fields: {
-              picking_id: {},
-              to_backorder: {}
+            arch: {
+              sheet: {
+                picking_id: {},
+                to_backorder: {}
+              }
             }
           },
           form: {
-            fields: {
-              // display_name: {},
-              picking_id: {},
-              to_backorder: {}
+            arch: {
+              sheet: {
+                // display_name: {},
+                picking_id: {},
+                to_backorder: {}
+              }
             }
           }
         }

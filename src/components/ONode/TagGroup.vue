@@ -1,6 +1,6 @@
 <template>
   <a-row>
-    <template v-for="node2 in node.children || {}" :key="node2.name">
+    <template v-for="node2 in node.children || {}" :key="node2.nodename">
       <a-col :span="node.col || 12">
         <template v-if="node2.tag && node2.tag === 'group'">
           <template v-if="node2.string">
@@ -9,7 +9,7 @@
             </h1>
           </template>
 
-          <template v-for="item in node2.children || {}" :key="item.name">
+          <template v-for="item in node2.children || {}" :key="item.nodename">
             <TagNode
               :model="model2"
               :node="item"

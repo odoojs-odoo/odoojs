@@ -36,7 +36,9 @@ const TitleFields = {
 }
 
 const CategoryFields = {
-  display_name: { string: '名称' },
+  display_name: {
+    //  string: '名称'
+  },
   name: { string: '名称' },
   parent_id: { string: '上级' },
   active: { string: '激活' }

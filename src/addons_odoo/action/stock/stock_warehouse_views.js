@@ -38,13 +38,15 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'stock.warehouse',
     type: 'tree',
-    fields: {
-      sequence: {},
-      name: {},
-      active: {},
-      lot_stock_id: {},
-      partner_id: {},
-      company_id: {}
+    arch: {
+      sheet: {
+        sequence: {},
+        name: {},
+        active: {},
+        lot_stock_id: {},
+        partner_id: {},
+        company_id: {}
+      }
     }
   },
 

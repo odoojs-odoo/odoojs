@@ -54,10 +54,7 @@ export function useFO2m(props, ctx) {
   async function langChange(lg) {
     const rel = relation_get()
     if (!rel) return
-
     await rel.set_lang(lg)
-    ctx.emit('load-relation', props.fieldName, rel.field_info)
-
     state.lang_changed += 1
     const res_ids = valueReadonly.value
     loadRelationData(res_ids)
@@ -146,9 +143,9 @@ export function useFO2m(props, ctx) {
     [() => state.relationFieldReady, valueReadonly],
     // eslint-disable-next-line no-unused-vars
     (newVal, oldVal) => {
-      // console.log('watch', newVal, oldVal)
-      const [relationFieldReady_old, newids] = [...newVal]
-      const [relationFieldReady_new, oldids] = [...oldVal]
+      console.log('watch', newVal, oldVal)
+      const [relationFieldReady_new, newids] = [...newVal]
+      const [relationFieldReady_old, oldids] = [...oldVal]
       if (!relationFieldReady_new) {
         return
       } else if (!relationFieldReady_old) {

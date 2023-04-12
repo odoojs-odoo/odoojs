@@ -125,9 +125,9 @@ export class Relation extends Field {
       return
     }
 
-    const { fields: raw_tree } = this._load_fields_from_tree('tree')
-    const { fields: raw_kanban } = this._load_fields_from_tree('kanban')
-    const { fields: raw_form } = this._load_fields_from_form('form')
+    const { fields: raw_tree } = this._load_fields_raw('tree')
+    const { fields: raw_kanban } = this._load_fields_raw('kanban')
+    const { fields: raw_form } = this._load_fields_raw('form')
 
     const fields_raw = { ...raw_tree, ...raw_kanban, ...raw_form }
 
@@ -230,30 +230,20 @@ export class Relation extends Field {
     return viewhelp.get_fields_from_sheet(sheet)
   }
 
-  _load_fields_from_tree(viewtype) {
+  _load_fields_raw(viewtype) {
     const meta = this._field_info
     const views = meta.views || {}
     const view = views[viewtype] || {}
-    const fields = view.fields || {}
-    return { view, fields }
-  }
+    const sheet = (view.arch || {}).sheet || {}
+    const fields2 = this.get_fields_from_sheet(sheet)
 
-  _load_fields_from_form(viewtype) {
-    const meta = this._field_info
-    const views = meta.views || {}
-    const view = views[viewtype] || {}
-    const raw_form_get_from_sheet = () => {
-      const sheet = (view.arch || {}).sheet || {}
-      return this.get_fields_from_sheet(sheet)
-    }
+    const fields3 =
+      viewtype === 'form' && !('display_name' in fields2)
+        ? { display_name: {} }
+        : {}
 
-    const raw_form_get = () => {
-      const fs = raw_form_get_from_sheet()
-      const fs2 = view.fields || {}
-      return { ...fs2, ...fs }
-    }
+    const fields = { ...fields2, ...fields3 }
 
-    const fields = raw_form_get()
     return { view, fields }
   }
 
@@ -268,18 +258,11 @@ export class Relation extends Field {
       return { tree: {}, kanban: {}, form: {} }
     }
 
-    const { view: treeview, fields: raw_tree } =
-      this._load_fields_from_tree('tree')
-    const { view: kanbanview, fields: raw_kanban } =
-      this._load_fields_from_tree('kanban')
-
-    const { view: formview, fields: raw_form } =
-      this._load_fields_from_form('form')
-
+    const { view: treeview, fields: raw_tree } = this._load_fields_raw('tree')
+    const { view: kbview, fields: raw_kanban } = this._load_fields_raw('kanban')
+    const { view: formview, fields: raw_form } = this._load_fields_raw('form')
     const fields_raw = { ...raw_tree, ...raw_kanban, ...raw_form }
-
     const fields_meta = await this.metadata_fields_get()
-
     const fields_info = await this.Model.fields_get(Object.keys(fields_raw))
 
     const fields_tree = Object.keys(raw_tree).reduce((acc, cur) => {
@@ -311,7 +294,7 @@ export class Relation extends Field {
 
     const views_info = {
       tree: { ...treeview, fields: fields_tree },
-      kanban: { ...kanbanview, fields: fields_kanban },
+      kanban: { ...kbview, fields: fields_kanban },
       form: { ...formview, fields: fields_form }
     }
 

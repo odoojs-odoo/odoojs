@@ -11,7 +11,13 @@ export default {
         pricelist_ids: {
           widget: 'x2many_tree',
           views: {
-            tree: { fields: { name: {} } },
+            tree: {
+              arch: {
+                sheet: {
+                  name: {}
+                }
+              }
+            },
             form: {
               arch: {
                 sheet: {

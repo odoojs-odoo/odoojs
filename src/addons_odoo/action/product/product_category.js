@@ -3,9 +3,10 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'product.category',
     type: 'tree',
-
-    fields: {
-      display_name: { string: 'Product Category' }
+    arch: {
+      sheet: {
+        display_name: { string: 'Product Category' }
+      }
     }
   },
 

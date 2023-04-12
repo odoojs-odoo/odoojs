@@ -3,10 +3,12 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.payment.term',
     type: 'tree',
-    fields: {
-      sequence: { widget: 'handle' },
-      name: {},
-      company_id: { groups: 'base.group_multi_company' }
+    arch: {
+      sheet: {
+        sequence: { widget: 'handle' },
+        name: {},
+        company_id: { groups: 'base.group_multi_company' }
+      }
     }
   },
 
@@ -43,9 +45,7 @@ export default {
           note: {}
         },
 
-        _label_display_on_invoice: {
-          _attr: { for: 'display_on_invoice' }
-        },
+        _label_display_on_invoice: { for: 'display_on_invoice' },
         display_on_invoice: {},
 
         _separator: { _attr: { string: 'Terms' } },
@@ -56,27 +56,29 @@ export default {
           widget: 'x2many_tree',
           views: {
             tree: {
-              fields: {
-                value: {},
-                value_amount: {
-                  invisible: ({ record }) => {
-                    //  'invisible': [('value', '=', 'balance')]}" digits="[2, 2]"/>
-                    const { value } = record
-                    return value === 'balance'
-                  }
-                },
-                months: {},
-                days: {},
-                end_month: { widget: 'boolean_toggle' },
-                days_after: {
-                  invisible: ({ record }) => {
-                    // 'invisible': [('end_month','=', False)]}"/>
-                    const { end_month } = record
-                    return !end_month
-                  }
-                },
-                discount_percentage: {},
-                discount_days: {}
+              arch: {
+                sheet: {
+                  value: {},
+                  value_amount: {
+                    invisible: ({ record }) => {
+                      //  'invisible': [('value', '=', 'balance')]}" digits="[2, 2]"/>
+                      const { value } = record
+                      return value === 'balance'
+                    }
+                  },
+                  months: {},
+                  days: {},
+                  end_month: { widget: 'boolean_toggle' },
+                  days_after: {
+                    invisible: ({ record }) => {
+                      // 'invisible': [('end_month','=', False)]}"/>
+                      const { end_month } = record
+                      return !end_month
+                    }
+                  },
+                  discount_percentage: {},
+                  discount_days: {}
+                }
               }
             },
             form: {

@@ -3,19 +3,21 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.analytic.line',
     type: 'tree',
-    fields: {
-      // company_id: { invisible: '1' },
-      product_uom_category_id: { invisible: '1' },
-      date: { optional: 'show' },
-      name: {},
-      account_id: {},
-      plan_id: {},
-      currency_id: { invisible: '1' },
-      unit_amount: { sum: 'Quantity', optional: 'hide' },
-      product_uom_id: { optional: 'hide' },
-      partner_id: { optional: 'hide' },
-      company_id: { groups: 'base.group_multi_company' },
-      amount: { sum: 'Total', optional: 'show' }
+    arch: {
+      sheet: {
+        // company_id: { invisible: '1' },
+        product_uom_category_id: { invisible: '1' },
+        date: { optional: 'show' },
+        name: {},
+        account_id: {},
+        plan_id: {},
+        currency_id: { invisible: '1' },
+        unit_amount: { sum: 'Quantity', optional: 'hide' },
+        product_uom_id: { optional: 'hide' },
+        partner_id: { optional: 'hide' },
+        company_id: { groups: 'base.group_multi_company' },
+        amount: { sum: 'Total', optional: 'show' }
+      }
     }
   },
 

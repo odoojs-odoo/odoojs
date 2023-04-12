@@ -3,22 +3,24 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'res.partner',
     type: 'tree',
-    fields: {
-      display_name: { string: 'Name' },
-      type: {},
-      function: { invisible: '1' },
-      phone: { optional: 'show' },
-      email: { optional: 'show' },
-      user_id: { optional: 'show' },
-      city: { optional: 'show' },
-      state_id: { optional: 'hide', readonly: '1' },
-      country_id: { optional: 'show', readonly: '1' },
-      vat: { optional: 'hide', readonly: '1' },
-      category_id: { optional: 'show', widget: 'many2many_tags' },
-      company_id: { readonly: '1' },
-      is_company: { invisible: '1' },
-      parent_id: { invisible: '1', readonly: '1' },
-      active: { invisible: '1' }
+    arch: {
+      sheet: {
+        display_name: { string: 'Name' },
+        type: {},
+        function: { invisible: '1' },
+        phone: { optional: 'show' },
+        email: { optional: 'show' },
+        user_id: { optional: 'show' },
+        city: { optional: 'show' },
+        state_id: { optional: 'hide', readonly: '1' },
+        country_id: { optional: 'show', readonly: '1' },
+        vat: { optional: 'hide', readonly: '1' },
+        category_id: { optional: 'show', widget: 'many2many_tags' },
+        company_id: { readonly: '1' },
+        is_company: { invisible: '1' },
+        parent_id: { invisible: '1', readonly: '1' },
+        active: { invisible: '1' }
+      }
     }
   },
 
@@ -167,14 +169,22 @@ export default {
               }
             },
 
-            // _label_address: {
-            //   _attr: {
-            //     string({ record }) {
-            //       const { type, is_company } = record
-            //       return !is_company && type ? type : 'Address'
-            //     }
-            //   }
-            // },
+            _label_address_type: {
+              // todo:  function . record.type
+              text: 'AddressTodo',
+              invisible({ record }) {
+                const { is_company } = record
+                return is_company
+              }
+            },
+
+            _label_address: {
+              text: 'Address',
+              invisible({ record }) {
+                const { is_company } = record
+                return !is_company
+              }
+            },
 
             street: {},
             street2: {},
@@ -252,17 +262,19 @@ export default {
               },
               views: {
                 tree: {
-                  fields: {
-                    name: {},
-                    type: {},
-                    function: {},
-                    email: {},
-                    zip: { invisible: 1 },
-                    city: {},
-                    state_id: { invisible: 1 },
-                    country_id: { invisible: 1 },
-                    phone: { invisible: 1 },
-                    mobile: { invisible: 1 }
+                  arch: {
+                    sheet: {
+                      name: {},
+                      type: {},
+                      function: {},
+                      email: {},
+                      zip: { invisible: 1 },
+                      city: {},
+                      state_id: { invisible: 1 },
+                      country_id: { invisible: 1 },
+                      phone: { invisible: 1 },
+                      mobile: { invisible: 1 }
+                    }
                   }
                 },
                 form: {

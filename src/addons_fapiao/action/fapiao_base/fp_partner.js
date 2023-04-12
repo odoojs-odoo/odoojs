@@ -3,16 +3,17 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'fp.partner',
     type: 'tree',
-    priority: 2,
-    fields: {
-      //   draw_company_id: {},
-      name: {},
-      shortname: {},
-      fapiao_name: {},
-      code: {},
-      tin: {},
-      address_phone: {},
-      bank_account: {}
+    arch: {
+      sheet: {
+        //   draw_company_id: {},
+        name: {},
+        shortname: {},
+        fapiao_name: {},
+        code: {},
+        tin: {},
+        address_phone: {},
+        bank_account: {}
+      }
     }
   },
 

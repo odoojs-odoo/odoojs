@@ -105,9 +105,19 @@ export default {
               widget: 'x2many_tree',
               views: {
                 tree: {
-                  fields: {
-                    name: {},
-                    state: {}
+                  arch: {
+                    sheet: {
+                      name: {},
+                      state: {}
+                    }
+                  }
+                },
+                form: {
+                  arch: {
+                    sheet: {
+                      name: {},
+                      state: {}
+                    }
                   }
                 }
               }
@@ -123,14 +133,16 @@ export default {
     model: 'ir.module.module',
     type: 'tree',
     buttons: { create: false, edit: false, delete: false },
-    fields: {
-      shortdesc: {},
-      name: {},
-      author: {},
-      website: {},
-      installed_version: {},
-      state: {},
-      category_id: {}
+    arch: {
+      sheet: {
+        shortdesc: {},
+        name: {},
+        author: {},
+        website: {},
+        installed_version: {},
+        state: {},
+        category_id: {}
+      }
     }
   },
 

@@ -47,9 +47,11 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.account.tag',
     type: 'tree',
-    fields: {
-      name: {},
-      applicability: {}
+    arch: {
+      sheet: {
+        name: {},
+        applicability: {}
+      }
     }
   },
 

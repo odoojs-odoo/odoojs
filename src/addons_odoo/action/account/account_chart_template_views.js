@@ -59,11 +59,13 @@ export default {
 
               views: {
                 tree: {
-                  fields: {
-                    sequence: { widget: 'handle' },
-                    name: {},
-                    amount_type: {},
-                    amount: {}
+                  arch: {
+                    sheet: {
+                      sequence: { widget: 'handle' },
+                      name: {},
+                      amount_type: {},
+                      amount: {}
+                    }
                   }
                 },
                 form: {
@@ -153,9 +155,11 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.tax.template',
     type: 'tree',
-    fields: {
-      name: {},
-      description: {}
+    arch: {
+      sheet: {
+        name: {},
+        description: {}
+      }
     }
   },
 

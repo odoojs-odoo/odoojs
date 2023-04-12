@@ -3,10 +3,12 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.incoterms',
     type: 'tree',
-    fields: {
-      active: { invisible: '1' },
-      code: {},
-      name: {}
+    arch: {
+      sheet: {
+        active: { invisible: '1' },
+        code: {},
+        name: {}
+      }
     }
   },
 

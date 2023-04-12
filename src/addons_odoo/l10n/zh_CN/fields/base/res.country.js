@@ -11,7 +11,9 @@ const ModelFields = {
   address_view_id: {},
   address_format: {},
   name_position: {},
-  state_ids: { string: '州省' }
+  state_ids: {
+    string: '州省'
+  }
 }
 
 const StateModelFields = {

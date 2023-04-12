@@ -82,18 +82,27 @@ export class ViewHelp {
     // call by baseview
     // call by relation
 
-    function is_tag(str) {
+    function get_node_name(str) {
       if (!str[0] === '_') return false
-
       const tag = str.split('_')[1]
+      return tag
+    }
+
+    function is_tag(str) {
+      const tag = get_node_name(str)
       if (tag === 'attr') return false
       if (tag === 'label') return false
-
+      if (tag === 'col') return false
       return tag
     }
 
     function is_field(str) {
       return str[0] !== '_'
+    }
+
+    function is_col(str) {
+      const tag = get_node_name(str)
+      return tag === 'col'
     }
 
     function find_field(node) {
@@ -102,7 +111,14 @@ export class ViewHelp {
       }
       return Object.keys(node).reduce((acc, cur) => {
         if (is_field(cur)) {
-          acc[cur] = node[cur]
+          const meta = { ...node[cur] }
+          // delete meta.invisible
+          acc[cur] = meta
+        } else if (is_col(cur)) {
+          const meta = { ...node[cur] }
+          delete meta.name
+          // delete meta.invisible
+          acc[node[cur].name] = meta
         } else if (is_tag(cur)) {
           const children = find_field(node[cur])
           acc = { ...acc, ...children }
@@ -115,86 +131,8 @@ export class ViewHelp {
     return find_field(sheet)
   }
 
-  view_sheet_for_tree() {
-    console.log(this.view)
-
-    const format_string = fieldInfo => {
-      if (!fieldInfo.string) return undefined
-      if (typeof fieldInfo.string !== 'function') return fieldInfo.string
-      return this.get_string(fieldInfo)
-    }
-
-    const meta_get = (fld, meta = {}) => {
-      const fieldInfo = { ...this.fields[fld], ...meta, name: fld }
-      const string = format_string(fieldInfo)
-
-      return { ...fieldInfo, string }
-    }
-
-    function is_attr(str) {
-      return str === '_attr'
-    }
-
-    function tag_get(str) {
-      if (!str[0] === '_') return false
-      const tag = str.split('_')[1]
-      if (tag === 'attr') return false
-      return tag
-    }
-
-    function is_field(str) {
-      return str[0] !== '_'
-    }
-
-    const node_get = node => {
-      const res = Object.keys(node).reduce((acc, cur) => {
-        if (is_attr(cur)) {
-          acc = { ...acc, ...node[cur] }
-        } else {
-          if (!acc.children) acc.children = {}
-          if (is_field(cur)) {
-            const invisible2 = this.check_invisible_for_tree(node[cur])
-            if (!invisible2) {
-              const meta = meta_get(cur, node[cur])
-
-              acc.children[cur] = { ...meta }
-            }
-          } else {
-            const tag = tag_get(cur)
-            // console.log('tag', tag)
-            if (tag && tag === 'field') {
-              console.log('_field', tag)
-            } else {
-              console.log('tag2', tag)
-            }
-            //
-          }
-        }
-        return acc
-      }, {})
-
-      return res
-    }
-
-    const children_get = sheet => {
-      const children = node_get(sheet)
-      return children.children
-    }
-
-    const sheet = this.arch_sheet
-    console.log(sheet)
-    // const title = title_get(sheet)
-    const children = children_get(sheet)
-
-    // console.log('sheet', sheet)
-    console.log('children', children)
-
-    return { children }
-  }
-
   view_sheet(formInfo) {
     // console.log('view_sheet', formInfo)
-    // tree view 也需要 类似的处理, 因为 tree col 除了字段外, 还有 button 等
 
     // sheet 规范
     // 1. 字母开头的都是 字段
@@ -211,6 +149,13 @@ export class ViewHelp {
     // 10. 标签的属性 一律定义在 _attr 之内
     // 11. 标签的属性 包括: string, invisible, text 等
     //
+
+    // const for_label_tag = node => {
+    //   const fname = node.for
+    //   const meta = meta_get(fname)
+    //   const str = this.get_string({ ...node }, formInfo) || meta.string
+    //   return { ...node, string: str, fieldInfo: meta }
+    // }
 
     const format_string = fieldInfo => {
       if (!fieldInfo.string) return undefined
@@ -232,28 +177,18 @@ export class ViewHelp {
       return { ...fieldInfo, string, required }
     }
 
-    const for_label_tag = node => {
-      const attr = node._attr || {}
-      const meta = meta_get(attr.for)
-
-      if (attr.string) {
-        return {
-          for: attr.for,
-          fieldInfo: meta,
-          string: this.get_string({ ...attr }, formInfo)
-        }
-      }
-
-      return { for: attr.for, fieldInfo: meta, string: meta.string }
-    }
-
     function is_attr(str) {
       return str === '_attr'
     }
 
-    function tag_get(str) {
+    function get_node_name(str) {
       if (!str[0] === '_') return false
       const tag = str.split('_')[1]
+      return tag
+    }
+
+    function tag_get(str) {
+      const tag = get_node_name(str)
       if (tag === 'attr') return false
       return tag
     }
@@ -262,7 +197,85 @@ export class ViewHelp {
       return str[0] !== '_'
     }
 
+    function txf_field_node(oldnode) {
+      const find_label_from_field2 = fnode => {
+        const labels = Object.keys(fnode.children).filter(
+          item => fnode.children[item].tag === 'label'
+        )
+        if (labels.length) {
+          return fnode.children[labels[0]]
+        } else {
+          return { for: '', string: '', fieldInfo: {} }
+        }
+      }
+
+      const find_item_from_field2 = fnode => {
+        const labels = Object.keys(fnode.children).filter(
+          item => fnode.children[item].tag !== 'label'
+        )
+
+        return labels.reduce((accok, item) => {
+          accok[item] = fnode.children[item]
+          return accok
+        }, {})
+      }
+
+      const lnode = find_label_from_field2(oldnode)
+      const fitem = find_item_from_field2(oldnode)
+
+      return { ...oldnode, label: lnode, children: fitem }
+    }
+
+    const invisible_get = (nodeinfo, for_tag, nodename, tag) => {
+      function info_get() {
+        if (!for_tag) {
+          return nodeinfo
+        } else if (tag === 'col') {
+          return nodeinfo
+        } else if (tag === 'label') {
+          return nodeinfo
+        } else {
+          return nodeinfo._attr || {}
+        }
+      }
+
+      const info = info_get()
+
+      // console.log([nodename, tag], info, nodeinfo)
+
+      return this.check_invisible(info, formInfo)
+    }
+
     const node_get = (node, for_title) => {
+      const get_field_node = nodename => {
+        const { editable } = formInfo
+        const meta2 = {
+          ...(for_title && !editable ? { nolabel: 1 } : {}),
+          ...node[nodename]
+        }
+        const meta = meta_get(nodename, meta2)
+        return { ...meta }
+      }
+
+      const get_noobject_node = (nodename, tag) => {
+        return { tag, nodename, text: node[nodename] }
+      }
+
+      const get_label_node = (nodename, tag) => {
+        const nd = node[nodename]
+        const fname = nd.for
+        const meta = meta_get(fname)
+        const str = this.get_string({ ...nd }, formInfo) || meta.string
+        return { tag, nodename, ...nd, string: str, fieldInfo: { ...meta } }
+      }
+
+      const get_tag_node = (nodename, tag) => {
+        const for_title2 = nodename === '_div_title'
+        const nd = node[nodename]
+        const next = node_get(nd, for_title || for_title2)
+        return { tag, nodename, ...next }
+      }
+
       const res = Object.keys(node).reduce((acc, cur) => {
         if (is_attr(cur)) {
           acc = { ...acc, ...node[cur] }
@@ -270,90 +283,31 @@ export class ViewHelp {
           if (!acc.children) acc.children = {}
 
           if (is_field(cur)) {
-            // const invisible = node[cur].invisible
-            const invisible2 = this.check_invisible(node[cur], formInfo)
+            const invisible2 = invisible_get(node[cur])
             if (!invisible2) {
-              const { editable } = formInfo
-              const meta2 = {
-                ...(for_title && !editable ? { nolabel: 1 } : {}),
-                ...node[cur]
-              }
-              const meta = meta_get(cur, meta2)
-
-              acc.children[cur] = { ...meta }
+              acc.children[cur] = get_field_node(cur)
             }
           } else {
             const tag = tag_get(cur)
             if (tag) {
               if (typeof node[cur] !== 'object') {
-                acc.children[cur] = { tag, name: cur, text: node[cur] }
+                acc.children[cur] = get_noobject_node(cur, tag)
               } else {
-                // const invisible = (node[cur]._attr || {}).invisible
-                const invisible2 = this.check_invisible(
-                  node[cur]._attr || {},
-                  formInfo
-                )
+                const invisible2 = invisible_get(node[cur], true, cur, tag)
                 if (!invisible2) {
-                  if (tag === 'label') {
-                    const label = for_label_tag(node[cur])
-                    acc.children[cur] = {
-                      tag,
-                      name: cur,
-                      ...label
-                    }
-                  } else {
-                    const for_title2 = cur === '_div_title'
-                    const next = node_get(node[cur], for_title || for_title2)
-                    acc.children[cur] = { tag, name: cur, ...next }
-                  }
-
                   if (tag === 'field') {
-                    const find_label_from_field2 = fnode => {
-                      const labels = Object.keys(fnode.children).filter(
-                        item => fnode.children[item].tag === 'label'
-                      )
-                      if (labels.length) {
-                        return fnode.children[labels[0]]
-                      } else {
-                        return { for: '', string: '', fieldInfo: {} }
-                      }
-                    }
-
-                    const find_item_from_field2 = fnode => {
-                      const labels = Object.keys(fnode.children).filter(
-                        item => fnode.children[item].tag !== 'label'
-                      )
-
-                      return labels.reduce((accok, item) => {
-                        accok[item] = fnode.children[item]
-                        return accok
-                      }, {})
-
-                      // if (labels.length) {
-
-                      //   return
-                      //   // const nextnode = fnode.children[labels[0]]
-                      //   // return nextnode.children
-                      //   // if (nextnode.tag) {
-                      //   //   return nextnode.children
-                      //   // } else {
-                      //   //   return { [labels[0]]: nextnode }
-                      //   // }
-                      // } else {
-                      //   return {}
-                      // }
-                    }
-
-                    const fnode = acc.children[cur]
-                    console.log({ ...fnode })
-                    const lnode = find_label_from_field2(fnode)
-                    const fitem = find_item_from_field2(fnode)
-
-                    acc.children[cur] = {
-                      ...fnode,
-                      label: lnode,
-                      children: fitem
-                    }
+                    const next = get_tag_node(cur, tag)
+                    const next2 = txf_field_node(next)
+                    acc.children[cur] = next2
+                  } else if (tag === 'col') {
+                    const meta2 = node[cur]
+                    const meta = meta_get(meta2.name, meta2)
+                    // console.log('col,', cur, tag, meta)
+                    acc.children[cur] = { ...meta }
+                  } else if (tag === 'label') {
+                    acc.children[cur] = get_label_node(cur, tag)
+                  } else {
+                    acc.children[cur] = get_tag_node(cur, tag)
                   }
                 }
               }
