@@ -2,12 +2,7 @@
   <div>
     <div>Home page</div>
     <div></div>
-    <a-form>
-      <a-form-item name="name" label="Name">
-        <a-input />
-        <a-input />
-      </a-form-item>
-    </a-form>
+
     <div>-----</div>
 
     <a-button type="primary" @click="onLogout">注销再登录</a-button>
