@@ -3,6 +3,10 @@
     <div>Home page</div>
     <div></div>
 
+    <a-button type="primary" class="button-box-button">
+      <div>注销再登录1</div>
+      <div>注销再登录2</div>
+    </a-button>
     <div>-----</div>
 
     <a-button type="primary" @click="onLogout">注销再登录</a-button>
@@ -38,7 +42,8 @@ export default {
 </script>
 
 <style type="text/css" scoped>
-.formItem {
-  margin-bottom: 0px;
+.button-box-button {
+  width: 100px;
+  height: 60px;
 }
 </style>

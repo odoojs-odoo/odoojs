@@ -12,6 +12,10 @@ export default {
       menu_action_account_analytic_account_form: {
         name: 'Analytic Accounts',
         action: 'analytic.action_account_analytic_account_form'
+      },
+      menu_account_analytic_plan_action: {
+        name: 'Analytic Plan',
+        action: 'analytic.account_analytic_plan_action'
       }
     }
   }

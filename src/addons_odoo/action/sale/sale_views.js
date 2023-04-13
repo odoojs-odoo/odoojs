@@ -132,28 +132,33 @@ const view_order_form_sheet = {
   },
 
   _div_button_box: {
-    // // button_box 需要 定义 button, 而非 field
-    // // 因此 form 需要支持:
-    // // _group  这种格式的是 tag
-    // // _group 的 下一级:
-    // //   field 是 字段
-    // //   _span 是属性   // 需要区分 属性和还是 子节点
-    // //   _button 是字段
-    // //   _html 是纯文本
-    // // field 的下一级:
-    // //   常规 field 的定义
-    // _span: 2,
-    // invoice_count: {
-    //   widget: 'statinfo',
-    //   string: 'Invoices',
-    //   button_click: { name: 'action_view_invoice', type: 'object' },
-    //   invisible: ({ record }) => {
-    //     // 'invisible': [('invoice_count', '=', 0)]
-    //     const { invoice_count } = record
-    //     return !invoice_count
-    //   }
-    // }
-    // // action_preview_sale_order 预览
+    _button_action_view_invoice: {
+      _attr: {
+        name: 'action_view_invoice',
+        type: 'object',
+        class: 'oe_stat_button',
+        icon: 'fa-pencil-square-o'
+        // invisible({ record }) {
+        //   // 'invisible': [('invoice_count', '=', 0)]
+        //   const { invoice_count } = record
+        //   return !invoice_count
+        // }
+      },
+      invoice_count: { string: 'Invoices' }
+    },
+
+    _button_action_preview_sale_order: {
+      _attr: {
+        // string: 'Customer Preview',
+        name: 'action_preview_sale_order',
+        type: 'object',
+        class: 'oe_stat_button',
+        icon: 'fa-globe icon'
+      },
+
+      _span: { _attr: { text: 'Customer' } },
+      _span_2: { _attr: { text: 'Preview' } }
+    }
   },
 
   _div_title: { _h1: { name: { readonly: '1' } } },

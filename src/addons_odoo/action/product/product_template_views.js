@@ -56,8 +56,7 @@ export default {
         _div_button_box: {
           _button_product_product_variant_action: {
             _attr: {
-              string: 'Variants',
-              groups: 'product.group_product_variant',
+              // groups: 'product.group_product_variant',
               name: 'product.product_variant_action',
               type: 'action',
               icon: 'fa-sitemap',
@@ -68,7 +67,7 @@ export default {
                 return product_variant_count <= 1
               }
             },
-            product_variant_count: { widget: 'statinfo' }
+            product_variant_count: { widget: 'statinfo', string: 'Variants' }
           }
         },
 
@@ -191,36 +190,33 @@ export default {
         _div_button_box: {
           _button_open_pricelist_rules: {
             _attr: {
-              string: 'Extra Prices',
               name: 'open_pricelist_rules',
               icon: 'fa-list-ul',
               groups: 'product.group_product_pricelist',
               type: 'object'
             },
 
-            _div_: {
-              _span: { pricelist_item_count: {} },
-              _span_text: {
-                _attr: {
-                  text: 'Extra Prices', //  '额外价格'
-                  invisible({ record }) {
-                    // 'invisible': [('pricelist_item_count', '=', 1)]
-                    const { pricelist_item_count } = record
-                    return pricelist_item_count === 1
-                  }
-                }
-              },
-              _span_text2: {
-                _attr: {
-                  text: 'Extra Price', //  '额外价格'
-                  invisible({ record }) {
-                    //'invisible': [('pricelist_item_count', '!=', 1)]
-                    const { pricelist_item_count } = record
-                    return pricelist_item_count !== 1
-                  }
+            _span_text: {
+              _attr: {
+                text: 'Extra Prices', //  '额外价格'
+                invisible({ record }) {
+                  // 'invisible': [('pricelist_item_count', '=', 1)]
+                  const { pricelist_item_count } = record
+                  return pricelist_item_count === 1
                 }
               }
-            }
+            },
+            _span_text2: {
+              _attr: {
+                text: 'Extra Price', //  '额外价格'
+                invisible({ record }) {
+                  //'invisible': [('pricelist_item_count', '!=', 1)]
+                  const { pricelist_item_count } = record
+                  return pricelist_item_count !== 1
+                }
+              }
+            },
+            pricelist_item_count: {}
           }
         },
 

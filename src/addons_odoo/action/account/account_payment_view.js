@@ -167,14 +167,80 @@ export default {
         state: { invisible: 1 },
 
         _div_button_box: {
-          // _span: 2,
-          // _invisible: 1,
-          // // _invisible({ editable }) {
-          // //   return editable
-          // // },
-          // reconciled_invoices_count: {},
-          // reconciled_bills_count: {},
-          // reconciled_statement_lines_count: {}
+          _button_button_open_invoices: {
+            _attr: {
+              name: 'button_open_invoices',
+              type: 'object',
+              class: 'oe_stat_button',
+              icon: 'fa-bars',
+              invisible({ record }) {
+                // 'invisible': [('reconciled_invoices_count','=', 0)]
+                const { reconciled_invoices_count } = record
+                return !reconciled_invoices_count
+              }
+            },
+            reconciled_invoices_count: {},
+            _span: {
+              _attr: {
+                text: 'Invoice',
+                invisible({ record }) {
+                  //'invisible': [('reconciled_invoices_type', '!=', 'invoice')]
+                  const { reconciled_invoices_type } = record
+                  return reconciled_invoices_type !== 'invoice'
+                }
+              }
+            },
+            _span_invoice: {
+              _attr: {
+                text: 'Credit Note',
+                invisible({ record }) {
+                  //'invisible': [('reconciled_invoices_type', '=', 'invoice')]
+                  const { reconciled_invoices_type } = record
+                  return reconciled_invoices_type === 'invoice'
+                }
+              }
+            }
+          },
+
+          _button_button_open_bills: {
+            _attr: {
+              name: 'button_open_bills',
+              type: 'object',
+              class: 'oe_stat_button',
+              icon: 'fa-bars',
+              invisible({ record }) {
+                // 'invisible': [('reconciled_bills_count','=', 0)]
+                const { reconciled_bills_count } = record
+                return !reconciled_bills_count
+              }
+            },
+            reconciled_bills_count: { string: 'Bill' }
+          },
+
+          _button_button_open_statement_lines: {
+            _attr: {
+              name: 'button_open_statement_lines',
+              type: 'object',
+              class: 'oe_stat_button',
+              icon: 'fa-bars',
+              invisible({ record }) {
+                // 'invisible': [('reconciled_statement_lines_count','=', 0)]
+                const { reconciled_statement_lines_count } = record
+                return !reconciled_statement_lines_count
+              }
+            },
+            reconciled_statement_lines_count: { string: 'Transaction' }
+          },
+
+          _button_button_open_journal_entry: {
+            _attr: {
+              string: 'Journal Entry',
+              name: 'button_open_journal_entry',
+              type: 'object',
+              class: 'oe_stat_button',
+              icon: 'fa-bars'
+            }
+          }
         },
 
         _widget: {

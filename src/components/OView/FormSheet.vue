@@ -59,17 +59,8 @@
       </template>
 
       <template v-else-if="node.tag && node.nodename === '_div_button_box'">
-        <template v-for="item in node.children || {}" :key="item.nodename">
-          <!-- {{ item }} -->
-          <TagNode
-            :model="model2"
-            :node="{ ...item, button_box: 1 }"
-            :form-info="formInfo"
-          />
-        </template>
+        <ButtonBox :node="node" :form-info="formInfo" />
       </template>
-
-      <!--  -->
 
       <template v-else>
         <TagNode
@@ -89,6 +80,7 @@ import { computed, ref } from 'vue'
 
 import { useFormSheet } from './formSheetApi'
 
+import ButtonBox from '@/components/ONode/ButtonBox.vue'
 import TagNode from '@/components/ONode/TagNode.vue'
 import TagGroup from '@/components/ONode/TagGroup.vue'
 

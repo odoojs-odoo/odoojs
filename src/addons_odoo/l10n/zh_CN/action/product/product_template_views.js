@@ -32,16 +32,14 @@ export default {
         company_id: { invisible: 1 },
         _div_button_box: {
           _button_open_pricelist_rules: {
-            _div_: {
-              _span_text: {
-                _attr: {
-                  text: '额外价格'
-                }
-              },
-              _span_text2: {
-                _attr: {
-                  text: '额外价格'
-                }
+            _span_text: {
+              _attr: {
+                text: '额外价格'
+              }
+            },
+            _span_text2: {
+              _attr: {
+                text: '额外价格'
               }
             }
           }

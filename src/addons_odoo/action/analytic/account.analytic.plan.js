@@ -22,22 +22,21 @@ export default {
         _div_button_box: {
           _button_action_view_children_plans: {
             _attr: {
-              string: 'Subplans',
               name: 'action_view_children_plans',
               type: 'object',
               icon: 'fa-bars'
             },
-            children_count: { widget: 'statinfo' }
+            children_count: { widget: 'statinfo', string: 'Subplans' }
           },
           _button_action_view_analytical_accounts: {
             _attr: {
-              string: 'Analytic Accounts',
               name: 'action_view_analytical_accounts',
               type: 'object',
               icon: 'fa-bars'
             },
             all_account_count: {
-              widget: 'statinfo'
+              widget: 'statinfo',
+              string: 'Analytic Accounts'
             }
           }
         },

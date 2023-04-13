@@ -11,7 +11,6 @@ export default {
         _div_button_box: {
           _button_action_view_invoice: {
             _attr: {
-              string: 'Customer Invoices',
               type: 'object',
               name: 'action_view_invoice',
               icon: 'fa-pencil-square-o',
@@ -21,12 +20,11 @@ export default {
                 return !invoice_count
               }
             },
-            invoice_count: { widget: 'statinfo' }
+            invoice_count: { widget: 'statinfo', string: 'Customer Invoices' }
           },
 
           _button_action_view_vendor_bill: {
             _attr: {
-              string: 'Vendor Bills',
               type: 'object',
               name: 'action_view_vendor_bill',
               icon: 'fa-file-text-o',
@@ -36,7 +34,7 @@ export default {
                 return !vendor_bill_count
               }
             },
-            vendor_bill_count: { widget: 'statinfo' }
+            vendor_bill_count: { widget: 'statinfo', string: 'Vendor Bills' }
           }
         }
       }

@@ -255,6 +255,69 @@ export class ViewHelp {
       return { ...oldnode, label: lnode, children: fitem }
     }
 
+    function txf_button_box_child(oldnode) {
+      console.log('txf_button_box_child', oldnode)
+
+      const children = oldnode.children
+
+      function stat_value_get(nodes) {
+        const list = Object.keys(nodes || {}).filter(item => !nodes[item].tag)
+        if (!list.length) {
+          return {}
+        }
+
+        const text = list.length ? nodes[list[0]].string : undefined
+
+        const child = list.reduce((acc, key) => {
+          acc[key] = nodes[key]
+          return acc
+        }, {})
+
+        return { text, stat_value: { children: child } }
+      }
+
+      function stat_text_get(nodes, text) {
+        const list = Object.keys(nodes || {}).filter(item => nodes[item].tag)
+        if (!list.length) {
+          return { children: { _span: { tag: 'span', text } } }
+        }
+
+        const child = list.reduce((acc, key) => {
+          acc[key] = nodes[key]
+          return acc
+        }, {})
+
+        return { children: child }
+      }
+
+      const { text, stat_value } = stat_value_get(children)
+      const stat_text = stat_text_get(children, text)
+
+      // console.log('txf_button_box_child 2', stat_text, stat_value)
+
+      const node = { ...oldnode }
+      delete node.children
+      if (stat_text) {
+        node.stat_text = stat_text
+      }
+      if (stat_value) {
+        node.stat_value = stat_value
+      }
+
+      return { ...node }
+    }
+
+    function txf_button_box_node(oldnode) {
+      // console.log(oldnode)
+
+      const children = Object.keys(oldnode.children).reduce((acc, btn) => {
+        acc[btn] = txf_button_box_child(oldnode.children[btn])
+        return acc
+      }, {})
+
+      return { ...oldnode, children }
+    }
+
     const invisible_get = (nodeinfo, for_tag, nodename, tag) => {
       function info_get() {
         if (!for_tag) {
@@ -328,6 +391,10 @@ export class ViewHelp {
                     const next = get_tag_node(cur, tag)
                     const next2 = txf_field_node(next)
                     acc.children[cur] = next2
+                  } else if (cur === '_div_button_box') {
+                    const next = get_tag_node(cur, tag)
+                    const next2 = txf_button_box_node(next)
+                    acc.children[cur] = next2
                   } else if (tag === 'col') {
                     const meta2 = node[cur]
                     const meta = meta_get(meta2.name, meta2)
@@ -359,7 +426,7 @@ export class ViewHelp {
     const children = children_get(sheet)
 
     // console.log('sheet', sheet)
-    // console.log('children', children)
+    console.log('children', children)
 
     return { children }
   }

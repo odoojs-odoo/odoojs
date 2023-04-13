@@ -19,7 +19,6 @@ export default {
         _div_button_box: {
           _button: {
             _attr: {
-              string: 'Products',
               name: 'product_template_action_all',
               icon: 'fa-th-list',
               type: 'action',
@@ -31,7 +30,7 @@ export default {
                 }
               }
             },
-            product_count: {}
+            product_count: { string: 'Products' }
           }
         },
 

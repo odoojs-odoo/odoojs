@@ -12,8 +12,50 @@
       <!-- <b>{{ [node.nodename, node.tag, node] }} </b> -->
 
       <template v-if="node.button_box">
-        <a-button @click="onBtnClick(node)">
-          {{ node.string }}
+        <a-button @click="onBtnClick(node)" style="height: 100">
+          <!-- {{ node.string }} -->
+          <template v-if="node.string">
+            {{ node.string }}
+          </template>
+
+          <template
+            v-else
+            v-for="sub in node.children || {}"
+            :key="sub.nodename || sub.name"
+          >
+            <template v-if="sub.tag">
+              <!-- todo button_box: {{ sub.nodename }} -->
+
+              <!-- <span>  
+                <TagNode  
+                :node="sub.children"
+                :form-info="formInfo"
+              />  
+              </span> -->
+
+              <!-- <TagNode
+                :model="model"
+                :nolabel="nolabel"
+                :node="sub"
+                :form-info="formInfo"
+              /> -->
+            </template>
+
+            <template v-else>
+              <div>
+                <span> {{ sub.string }} </span>
+                <!-- <span> {{ node.name }} </span> -->
+                <span> ( </span>
+                <OField
+                  width="270px"
+                  :field-name="sub.name"
+                  :field-info="sub"
+                  :form-info="formInfo"
+                />
+                <span> ) </span>
+              </div>
+            </template>
+          </template>
         </a-button>
       </template>
 
@@ -139,7 +181,7 @@ const emit = defineEmits(['change', 'load-relation'])
 
 const model2 = computed({
   get() {
-    return props.model
+    return props.model || {}
   },
 
   // eslint-disable-next-line no-unused-vars
