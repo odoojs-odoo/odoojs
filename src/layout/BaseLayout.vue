@@ -57,7 +57,7 @@
             font-weight: bold;
           "
         >
-          {{ mainTitle.project }} {{ [lang] }}
+          {{ mainTitle.project }}
         </div>
         <!-- 下拉 -->
         <Lang class="langSelect" />
@@ -133,15 +133,7 @@ import {
   DownOutlined
 } from '@ant-design/icons-vue'
 
-import {
-  defineComponent,
-  ref,
-  reactive,
-  toRefs,
-  computed,
-  onMounted,
-  toRaw
-} from 'vue'
+import { defineComponent, ref, reactive, toRefs, onMounted, toRaw } from 'vue'
 import { useRouter } from 'vue-router'
 import Lang from '@/components/LangMenu.vue'
 import SubMenu from './SubMenu'
@@ -149,30 +141,36 @@ import api from '@/odoorpc'
 
 import { useGlobalConfig } from '@/components/useApi/useGlobalConfig'
 
+function useMenuController() {
+  const collapsed = ref(false)
+  function onMenuCollaosed() {
+    collapsed.value = !collapsed.value
+  }
+
+  return { collapsed, onMenuCollaosed }
+}
+
 export default defineComponent({
   name: 'BaseLayout',
   components: {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
-    HomeTwoTone,
+    // HomeTwoTone,
     DownOutlined,
     SubMenu,
     Lang
   },
   setup() {
     const router = useRouter()
-    const { lang, mainTitle, menus_tree, menus_data } = useGlobalConfig()
-
-    const session_info = computed(() => {
-      return api.web.session.session_info || {}
-    })
+    const useDataConfig = useGlobalConfig()
+    const { mainTitle, menus_tree, menus_data, session_info } = useDataConfig
+    const { collapsed, onMenuCollaosed } = useMenuController()
     const panes = ref([{ title: '首页', key: 'home', closable: false }])
     const state = reactive({
-      collapsed: false,
       selectedKeys: [''],
-      openKeys: [''],
-      session_info
+      openKeys: ['']
     })
+
     onMounted(() => {
       //
       const currentK = sessionStorage.getItem('currentMenuK')
@@ -225,10 +223,7 @@ export default defineComponent({
       // }
       // sessionStorage.setItem('menuOpenKey', state.openKeys)
     }
-    function onMenuCollaosed() {
-      // console.log('---- onMenuCollaosed -----',state.collapsed);
-      state.collapsed = !state.collapsed
-    }
+
     function onUserMenuClick(e) {
       console.log('==== onMenuClick =====', e)
     }
@@ -372,9 +367,11 @@ export default defineComponent({
       activeKey.value = name
     }
     return {
-      lang,
       mainTitle,
       menus_tree,
+      session_info,
+      collapsed,
+      onMenuCollaosed,
 
       state,
       ...toRefs(state),
@@ -384,7 +381,6 @@ export default defineComponent({
       onEdit,
       onMenuClick,
       onOpenChange,
-      onMenuCollaosed,
       onUserMenuClick,
       onLogout
     }

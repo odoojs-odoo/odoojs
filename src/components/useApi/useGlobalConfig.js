@@ -32,5 +32,17 @@ export function useGlobalConfig() {
   const menus_tree = computed(() => menus_tree_get(lang.value))
   const menus_data = computed(() => menus_data_get(lang.value))
 
-  return { lang, global_config, viewActions, mainTitle, menus_tree, menus_data }
+  const session_info = computed(() => {
+    return api.web.session.session_info || {}
+  })
+
+  return {
+    lang,
+    global_config,
+    viewActions,
+    mainTitle,
+    menus_tree,
+    menus_data,
+    session_info
+  }
 }
