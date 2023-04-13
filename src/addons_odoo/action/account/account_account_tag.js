@@ -18,7 +18,7 @@ export default {
             }
           }
         },
-        _title: { display_name: {} },
+        _div_title: { display_name: {} },
 
         _group_name: {
           active: { invisible: '1' },

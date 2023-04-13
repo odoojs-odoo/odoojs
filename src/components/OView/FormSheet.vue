@@ -58,6 +58,19 @@
         </template>
       </template>
 
+      <template v-else-if="node.tag && node.nodename === '_div_button_box'">
+        <template v-for="item in node.children || {}" :key="item.nodename">
+          <!-- {{ item }} -->
+          <TagNode
+            :model="model2"
+            :node="{ ...item, button_box: 1 }"
+            :form-info="formInfo"
+          />
+        </template>
+      </template>
+
+      <!--  -->
+
       <template v-else>
         <TagNode
           :model="model2"

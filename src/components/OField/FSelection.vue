@@ -12,6 +12,20 @@
       </template>
     </template>
 
+    <template v-else-if="fieldInfo.widget === 'priority'">
+      <template v-if="readonly">
+        <a-radio-group :disabled="true" :value="valDisp" :options="options" />
+      </template>
+
+      <template v-else>
+        <a-radio-group
+          v-model:value="mVal"
+          :options="options"
+          @change="onChangeRadio"
+        />
+      </template>
+    </template>
+
     <template
       v-else-if="fieldInfo.widget && !widget_nodo.includes(fieldInfo.widget)"
     >
@@ -49,12 +63,10 @@ const props = defineProps([
 ])
 
 const emit = defineEmits(['update:modelValue', 'change'])
+const useData = useFSelection(props, { emit })
+const { mVal, valDisp, dVal, readonly, options, onChange } = useData
 
-const { mVal, dVal, readonly, options, onChange } = useFSelection(props, {
-  emit
-})
-
-const widget_nodo = ['badge']
+const widget_nodo = ['badge', 'account_type_selection', 'timezone_mismatch']
 
 function onChangeRadio(e) {
   onChange(e.target.value)

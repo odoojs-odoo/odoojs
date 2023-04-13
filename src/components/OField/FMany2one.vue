@@ -80,7 +80,8 @@ const widget_nodo = [
   'res_partner_many2one',
   'many2one_button',
   'many2one_barcode',
-  'sol_product_many2one'
+  'sol_product_many2one',
+  'line_open_move_widget'
 ]
 function onClickBtn() {
   // const val = props.formInfo.record[props.fieldName]

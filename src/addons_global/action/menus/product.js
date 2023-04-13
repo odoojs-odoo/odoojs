@@ -15,7 +15,7 @@ export default {
       },
       menu_attribute_action: {
         name: 'Product Attributes',
-        action: 'product._action'
+        action: 'product.attribute_action'
       }
     }
   }

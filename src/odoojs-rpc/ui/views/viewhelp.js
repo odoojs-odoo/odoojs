@@ -132,7 +132,7 @@ export class ViewHelp {
   }
 
   view_sheet(formInfo) {
-    // console.log('view_sheet', formInfo)
+    console.log('view_sheet', formInfo)
 
     // sheet 规范
     // 1. 字母开头的都是 字段
@@ -364,6 +364,16 @@ export class ViewHelp {
     return { children }
   }
 
+  check_invisible(fieldInfo, kw) {
+    const { for_tree } = kw
+
+    if (for_tree) {
+      return this.check_invisible_for_tree(fieldInfo, kw)
+    } else {
+      return this.check_invisible_for_form(fieldInfo, kw)
+    }
+  }
+
   check_invisible_for_tree(fieldInfo, kw = {}) {
     if (typeof fieldInfo === 'string') return false
     if (!this._check_groups(fieldInfo)) return true
@@ -388,7 +398,7 @@ export class ViewHelp {
     }, true)
   }
 
-  check_invisible(fieldInfo, kw) {
+  check_invisible_for_form(fieldInfo, kw) {
     // return 0
     if (typeof fieldInfo === 'string') {
       return false

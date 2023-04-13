@@ -7,7 +7,7 @@ export default {
     arch: {
       sheet: {
         _group_country_group: {},
-        _div_pricelist_ids: 'en pricelists in view',
+        _div_pricelist_ids: 'Pricelists for Country Group',
         pricelist_ids: {
           widget: 'x2many_tree',
           views: {

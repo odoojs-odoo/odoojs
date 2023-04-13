@@ -73,7 +73,7 @@ export function useTreeView(props) {
         dataIndex: meta.name,
         key: fld,
         title: meta.string,
-        // ellipsis: 'ellipsis' in meta ? meta.ellipsis : true,
+        ellipsis: 'ellipsis' in meta ? meta.ellipsis : false,
         // align: 'center',
         width: meta.web_col_width,
         _widget: meta.widget,

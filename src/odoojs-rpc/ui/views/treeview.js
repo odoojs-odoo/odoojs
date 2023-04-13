@@ -216,7 +216,7 @@ export class TreeView extends TreeBaseView {
 
   view_sheet() {
     const viewhelp = this.viewhelp_get()
-    const sheet = viewhelp.view_sheet({})
+    const sheet = viewhelp.view_sheet({ for_tree: 1 })
 
     return sheet
   }

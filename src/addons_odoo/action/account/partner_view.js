@@ -33,6 +33,7 @@ export default {
         _div_button_box: {
           _button_action_view_partner_invoices: {
             _attr: {
+              string: 'Invoiced',
               groups:
                 'account.group_account_invoice,account.group_account_readonly',
               type: 'object',
@@ -47,7 +48,7 @@ export default {
               }
             },
             currency_id: { invisible: '1' },
-            total_invoiced: { widget: 'monetary', string: 'Invoiced' }
+            total_invoiced: { widget: 'monetary' }
           }
         },
 

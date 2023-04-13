@@ -14,14 +14,18 @@ export default {
           optional: 'hide'
         },
         journal_id: { optional: 'hide' },
-        move_name: { string: 'Journal Entry', widget: 'open_move_widget' },
-        account_id: {},
+        move_name: {
+          string: 'Journal Entry',
+          widget: 'open_move_widget',
+          ellipsis: true
+        },
+        account_id: { ellipsis: true },
         partner_id: { optional: 'show' },
         ref: { optional: 'hide' },
         product_id: { optional: 'hide' },
-        name: { optional: 'show' },
+        name: { invisible: 'odoojs', optional: 'show', ellipsis: true },
         tax_ids: { widget: 'many2many_tags', optional: 'hide' },
-        amount_currency: { optional: 'show' },
+        amount_currency: { invisible: 'odoojs', optional: 'show' },
         currency_id: { optional: 'hide' },
         debit: {},
         credit: {},

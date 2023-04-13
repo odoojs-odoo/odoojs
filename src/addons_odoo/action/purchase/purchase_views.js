@@ -440,6 +440,7 @@ export default {
         _div_button_box: {
           _button_action_view_invoice: {
             _attr: {
+              string: 'Vendor Bills',
               type: 'object',
               name: 'action_view_invoice',
               icon: 'fa-pencil-square-o',
@@ -454,7 +455,7 @@ export default {
                 )
               }
             },
-            invoice_count: { widget: 'statinfo', string: 'Vendor Bills' },
+            invoice_count: { widget: 'statinfo' },
             invoice_ids: { invisible: '1' }
           }
         },

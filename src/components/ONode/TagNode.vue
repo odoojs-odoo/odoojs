@@ -8,6 +8,23 @@
       <b>{{ node.string }}</b>
     </template>
 
+    <template v-else-if="node.tag === 'button'">
+      <!-- <b>{{ [node.nodename, node.tag, node] }} </b> -->
+
+      <template v-if="node.button_box">
+        <a-button @click="onBtnClick(node)">
+          {{ node.string }}
+        </a-button>
+      </template>
+
+      <template v-else>
+        <a-button @click="onBtnClick(node)">
+          {{ node.string }}
+          <!-- {{ [node.nodename, node.tag, node] }} -->
+        </a-button>
+      </template>
+    </template>
+
     <template v-else-if="nodeTag">
       <component :is="nodeTag">
         <template v-if="node.text"> {{ node.text }} </template>
@@ -23,6 +40,7 @@
         </template>
       </component>
     </template>
+
     <template v-else-if="node.tag === 'field'">
       <a-form-item
         :name="node.label.for"
@@ -49,7 +67,7 @@
     <template v-else>
       <template v-if="['widget'].includes(node.tag)"> </template>
 
-      <template v-else> todo22:{{ [node.nodename, node.tag] }} </template>
+      <template v-else> todo22:{{ [node.nodename, node.tag, node] }} </template>
     </template>
   </template>
 
@@ -146,6 +164,11 @@ async function onChange(fname, ...args) {
 
 async function onLoadReation(fieldName, relation_info) {
   emit('load-relation', fieldName, relation_info)
+}
+
+function onBtnClick(node) {
+  console.log(node)
+  alert([node.name, node.type])
 }
 </script>
 

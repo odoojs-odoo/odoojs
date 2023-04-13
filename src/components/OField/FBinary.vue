@@ -2,6 +2,7 @@
   <span>
     <template v-if="fieldInfo.widget === 'image'">
       <!-- todo widget === image -->
+
       <WImage
         :width="width"
         :field-name="fieldName"

@@ -1,7 +1,8 @@
 <template>
   <span>
+    <!-- style -->
     <template v-if="readonly">
-      <img :src="image_url" style="width: 50%" />
+      <img :src="image_url" :style="style" />
     </template>
 
     <template v-else>
@@ -24,6 +25,14 @@ const image_url = computed(() => {
     return `data:image/png;base64,${dVal.value}`
   } else {
     return undefined
+  }
+})
+
+const style = computed(() => {
+  if (props.fieldInfo.size === 'small') {
+    return { width: 30 }
+  } else {
+    return { width: 60 }
   }
 })
 </script>

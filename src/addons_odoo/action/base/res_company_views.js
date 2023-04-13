@@ -49,7 +49,11 @@ export default {
                 },
                 parent_id: { groups: 'base.group_multi_company' },
                 sequence: { invisible: 1 },
-                favicon: { widget: 'image', groups: 'base.group_no_one' }
+                favicon: {
+                  widget: 'image',
+                  size: 'small',
+                  groups: 'base.group_no_one'
+                }
               },
               _group_social_media: {}
             }

@@ -37,7 +37,7 @@ export default {
         company_id: { invisible: '1' },
         bank_statements_source: { invisible: '1' },
 
-        _din_button_box: {
+        _div_button_box: {
           _button_action_account_moves_all_a: {
             _attr: {
               string: 'Journal Entries',

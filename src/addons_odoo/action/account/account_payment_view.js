@@ -12,7 +12,7 @@ export default {
         journal_id: {},
         payment_method_line_id: {},
 
-        _cols_partner_id_inbound: {
+        _col_partner_id_inbound: {
           name: 'partner_id',
           string: 'Customer',
           invisible({ context }) {
@@ -20,7 +20,7 @@ export default {
             return default_payment_type !== 'inbound'
           }
         },
-        _cols_partner_id_outbound: {
+        _col_partner_id_outbound: {
           name: 'partner_id',
           string: 'Vendor',
           invisible({ context }) {

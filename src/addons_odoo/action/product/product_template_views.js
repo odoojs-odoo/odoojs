@@ -56,6 +56,7 @@ export default {
         _div_button_box: {
           _button_product_product_variant_action: {
             _attr: {
+              string: 'Variants',
               groups: 'product.group_product_variant',
               name: 'product.product_variant_action',
               type: 'action',
@@ -67,7 +68,7 @@ export default {
                 return product_variant_count <= 1
               }
             },
-            product_variant_count: { string: 'Variants', widget: 'statinfo' }
+            product_variant_count: { widget: 'statinfo' }
           }
         },
 
@@ -190,6 +191,7 @@ export default {
         _div_button_box: {
           _button_open_pricelist_rules: {
             _attr: {
+              string: 'Extra Prices',
               name: 'open_pricelist_rules',
               icon: 'fa-list-ul',
               groups: 'product.group_product_pricelist',

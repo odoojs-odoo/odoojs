@@ -3,7 +3,7 @@ export default {
     _odoo_model: 'ir.ui.menu',
     parent: 'menu_web_root',
     name: 'Fapiao',
-    sequence: 40,
+    sequence: 100,
     children: {
       menu_fapiao_setting: {
         name: 'Fapaio Setting',

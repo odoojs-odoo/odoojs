@@ -29,11 +29,12 @@ export default {
         _div_button_box: {
           _button_account_analytic_line_action: {
             _attr: {
+              string: 'Gross Margin',
               type: 'action',
               name: 'account_analytic_line_action',
               icon: 'fa-usd'
             },
-            balance: { string: 'Gross Margin', widget: 'monetary' }
+            balance: { widget: 'monetary' }
           }
         },
 

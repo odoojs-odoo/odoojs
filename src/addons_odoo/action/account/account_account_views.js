@@ -59,6 +59,7 @@ export default {
         _div_button_box: {
           _button_action_open_related_taxes: {
             _attr: {
+              string: 'Taxes',
               name: 'action_open_related_taxes',
               type: 'object',
               icon: 'fa-bars',
@@ -70,17 +71,18 @@ export default {
               }
             },
 
-            related_taxes_amount: { string: 'Taxes' }
+            related_taxes_amount: {}
           },
 
           _button_account_action_move_line_select: {
             _attr: {
+              string: 'Balance',
               name: 'account.action_move_line_select',
               type: 'action',
               icon: 'fa-bars'
             },
 
-            current_balance: { string: 'Balance' }
+            current_balance: {}
           }
         },
         company_id: { invisible: 1 },

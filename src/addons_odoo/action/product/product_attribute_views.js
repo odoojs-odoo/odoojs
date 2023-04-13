@@ -25,6 +25,7 @@ export default {
         _div_button_box: {
           _button: {
             _attr: {
+              string: 'Related Products',
               name: 'action_open_related_products',
               type: 'object',
               icon: 'fa-bars',
@@ -38,7 +39,7 @@ export default {
               }
             },
 
-            number_related_products: { string: 'Related Products' }
+            number_related_products: {}
           }
         },
 

@@ -41,7 +41,7 @@ const props = defineProps([
 
 const emit = defineEmits(['update:modelValue', 'change'])
 
-const widget_nodo = ['monetary', 'statinfo']
+const widget_nodo = ['monetary', 'statinfo', 'color_picker', 'handle']
 
 const { mVal, dVal, readonly, onChange } = useFNumber(props, { emit })
 </script>

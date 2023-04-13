@@ -29,5 +29,5 @@ export function useFSelection(props, ctx) {
     })
   })
 
-  return { ...fieldData, dVal, options, onChange }
+  return { ...fieldData, valDisp, dVal, options, onChange }
 }
