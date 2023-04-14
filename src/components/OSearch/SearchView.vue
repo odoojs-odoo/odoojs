@@ -10,13 +10,17 @@
     "
   >
     <div style="flex: 1; line-height: 32px">
-      <SearchChar
-        v-if="defaultItemName && !showSearchMore"
-        :title="searchItems[defaultItemName].string"
-        :placeholder="searchItems[defaultItemName].string"
-        :value="(searchValues[defaultItemName] || {}).values || []"
-        @change="val => onSearchChange(searchItems[defaultItemName], val)"
-      />
+      <template v-if="Object.keys(defaultItems).length && !showSearchMore">
+        <template v-for="item in defaultItems" :key="item.name">
+          <SearchChar
+            :title="item.string"
+            :placeholder="item.string"
+            :value="(searchValues[item.name] || {}).values || []"
+            @change="val => onSearchChange(item, val)"
+          />
+        </template>
+      </template>
+
       <!-- 更多搜索 -->
       <template v-else>
         <div
@@ -116,37 +120,43 @@ const emit = defineEmits(['change'])
 
 const { viewActions } = useGlobalConfig()
 
-const defaultItemName = computed(() => {
+const defaultItems = computed(() => {
   // console.log(props.searchItems)
 
-  if (props.searchItems.name) {
-    return 'name'
+  function _get() {
+    console.log(props.searchItems)
+    const name_items = Object.keys(props.searchItems).filter(
+      item => props.searchItems[item]._default
+    )
+
+    console.log(name_items)
+
+    if (name_items.length) {
+      return name_items
+    }
+
+    if (props.searchItems.name) {
+      return ['name']
+    }
+
+    return []
   }
 
-  const name_items = Object.keys(props.searchItems).filter(
-    item => props.searchItems[item]._default
-  )
+  const items = _get()
 
-  if (name_items.length) {
-    return name_items[0]
-  } else {
-    return undefined
-  }
+  const items2 = items.reduce((acc, cur) => {
+    acc[cur] = props.searchItems[cur]
+    return acc
+  }, {})
+
+  return items2
 })
 
 const showSearchMoreBtn = computed(() => {
-  const defaultItemName1 = defaultItemName.value
+  const defaultItems2 = defaultItems.value
   const searchItems = props.searchItems
-  // console.log(
-  //   '======  searchItems  ======',
-  //   defaultItemName1,
-  //   Object.keys(searchItems).filter(item => {
-  //     return item !== defaultItemName1
-  //   })
-  // )
-
   const filterRelt = Object.keys(searchItems).filter(item => {
-    return item !== defaultItemName1
+    return !Object.keys(defaultItems2).includes(item)
   })
 
   return filterRelt.length

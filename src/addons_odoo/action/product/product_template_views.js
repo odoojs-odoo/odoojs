@@ -466,6 +466,7 @@ export default {
     arch: {
       fields: {
         name: {
+          _default: 1,
           filter_domain: self => {
             return [
               '|',
@@ -480,6 +481,7 @@ export default {
         },
 
         categ_id: {
+          _default: 1,
           filter_domain: raw_value => {
             return [['categ_id', 'child_of', raw_value]]
           }
