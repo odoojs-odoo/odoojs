@@ -172,7 +172,9 @@ export function useTreeView(props) {
     const view = view_get()
     if (!view) return
 
-    view.export_xlsx_all()
+    const ids = activeIds.value
+
+    view.export_xlsx_all(ids)
   }
 
   async function onUnarchive() {

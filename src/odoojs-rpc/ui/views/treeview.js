@@ -45,7 +45,7 @@ class TreeModel extends BaseView {
     return await this.Model.unlink(ids)
   }
 
-  async export_xlsx_all() {
+  async export_xlsx_all(ids) {
     const fields = Object.keys(this.fields)
       .filter(item => {
         const meta = this.fields[item]
@@ -57,9 +57,9 @@ class TreeModel extends BaseView {
         return { name, label, store, type }
       })
 
-    console.log(fields)
+    // console.log(fields)
 
-    const ids = false
+    // const ids = false
     const domain = this.domain_default
     const groupby = []
     const import_compat = false
