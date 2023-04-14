@@ -6,6 +6,7 @@
       :dataSource="records"
       :columns="columns"
       :customRow="tableCustomRow"
+      :pagination="false"
     >
       <template #bodyCell="{ column, record }">
         <OField

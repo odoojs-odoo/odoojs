@@ -1,7 +1,11 @@
 import { computed } from 'vue'
 import api from '@/odoorpc'
 
-export function useFormSheet(props) {
+import { useTag } from '@/components/useApi/useTag.js'
+
+export function useFormSheet(props, ctx) {
+  const { model2, onChange, onLoadReation } = useTag(props, ctx)
+
   function formview_get() {
     const formInfo = props.formInfo
     if (formInfo.viewInfo) {
@@ -25,5 +29,5 @@ export function useFormSheet(props) {
     return formview.view_sheet(props.formInfo)
   })
 
-  return { sheet }
+  return { sheet, model2, onChange, onLoadReation }
 }

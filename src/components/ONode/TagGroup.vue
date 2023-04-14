@@ -34,30 +34,12 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
 import TagNode from '@/components/ONode/TagNode.vue'
+import { useTag } from '@/components/useApi/useTag.js'
 
 const props = defineProps(['model', 'formInfo', 'node'])
 const emit = defineEmits(['change', 'load-relation'])
-
-const model2 = computed({
-  get() {
-    return props.model
-  },
-
-  // eslint-disable-next-line no-unused-vars
-  set(val) {
-    // state.mVal = {...}
-  }
-})
-
-async function onChange(fname, ...args) {
-  emit('change', fname, ...args)
-}
-
-async function onLoadReation(fieldName, relation_info) {
-  emit('load-relation', fieldName, relation_info)
-}
+const { model2, onChange, onLoadReation } = useTag(props, { emit })
 </script>
 
 <style type="text/css"></style>

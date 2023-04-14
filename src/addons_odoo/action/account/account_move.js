@@ -194,24 +194,105 @@ const view_move_form_sheet = {
     }
   },
 
-  _widget: {
-    // todo
-    // 这里是 widget
-    // Payment status for invoices / receipts
-    //
-    // <widget name="web_ribbon" title="Paid"
-    //         attrs="{'invisible': ['|', ('payment_state', '!=', 'paid'), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}"/>
-    // <widget name="web_ribbon" title="In Payment"
-    //         attrs="{'invisible': ['|', ('payment_state', '!=', 'in_payment'), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}"/>
-    // <widget name="web_ribbon" title="Partial"
-    //         attrs="{'invisible': ['|', ('payment_state', '!=', 'partial'), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}"/>
-    // <widget name="web_ribbon" title="Reversed"
-    //         bg_color="bg-danger"
-    //         attrs="{'invisible': [('payment_state', '!=', 'reversed')]}"/>
-    //  <widget name="web_ribbon" text="Invoicing App Legacy"
-    //         bg_color="bg-info"
-    //         attrs="{'invisible': [('payment_state', '!=', 'invoicing_legacy')]}"
-    //         tooltip="This entry has been generated through the Invoicing app, before installing Accounting. It has been disabled by the 'Invoicing Switch Threshold Date' setting so that it does not impact your accounting."/>
+  // <widget name="web_ribbon" title="Paid"
+  //         attrs="{'invisible': ['|', ('payment_state', '!=', 'paid'), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}"/>
+
+  _widget_web_ribbon_paid: {
+    _attr: {
+      name: 'web_ribbon',
+      title: 'Paid',
+      invisible({ record }) {
+        //'invisible': ['|', ('payment_state', '!=', 'paid'),
+        // ('move_type', 'not in',
+        // ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]
+        const { payment_state, move_type } = record
+        const types = [
+          'out_invoice',
+          'out_refund',
+          'in_invoice',
+          'in_refund',
+          'out_receipt',
+          'in_receipt'
+        ]
+
+        return payment_state !== 'paid' || !types.includes(move_type)
+      }
+    }
+  },
+
+  _widget_web_ribbon_in_payment: {
+    _attr: {
+      name: 'web_ribbon',
+      title: 'In Payment',
+      invisible({ record }) {
+        //'invisible': ['|', ('payment_state', '!=', 'in_payment'),
+        // ('move_type', 'not in',
+        // ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]
+        const { payment_state, move_type } = record
+        const types = [
+          'out_invoice',
+          'out_refund',
+          'in_invoice',
+          'in_refund',
+          'out_receipt',
+          'in_receipt'
+        ]
+
+        return payment_state !== 'in_payment' || !types.includes(move_type)
+      }
+    }
+  },
+
+  _widget_web_ribbon_partial: {
+    _attr: {
+      name: 'web_ribbon',
+      title: 'Partial',
+      invisible({ record }) {
+        //'invisible': ['|', ('payment_state', '!=', 'partial'),
+        // ('move_type', 'not in',
+        // ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]
+        const { payment_state, move_type } = record
+        const types = [
+          'out_invoice',
+          'out_refund',
+          'in_invoice',
+          'in_refund',
+          'out_receipt',
+          'in_receipt'
+        ]
+
+        return payment_state !== 'partial' || !types.includes(move_type)
+      }
+    }
+  },
+
+  _widget_web_ribbon_reversed: {
+    _attr: {
+      name: 'web_ribbon',
+      title: 'Reversed',
+      bg_color: 'bg-danger',
+      invisible({ record }) {
+        //'invisible': [('payment_state', '!=', 'reversed')]
+        const { payment_state } = record
+        return payment_state !== 'reversed'
+      }
+    }
+  },
+
+  _widget_web_ribbon_invoicing_legacy: {
+    _attr: {
+      name: 'web_ribbon',
+      title: 'Invoicing App Legacy',
+      bg_color: 'bg-info',
+      tooltip:
+        "This entry has been generated through the Invoicing app, before installing Accounting. It has been disabled by the 'Invoicing Switch Threshold Date' setting so that it does not impact your accounting.",
+
+      invisible({ record }) {
+        //'invisible': [('payment_state', '!=', 'invoicing_legacy')]
+        const { payment_state } = record
+        return payment_state !== 'invoicing_legacy'
+      }
+    }
   },
 
   state: { invisible: 1 },
@@ -346,6 +427,7 @@ const view_move_form_sheet = {
       },
 
       partner_shipping_id: {
+        groups: 'account.group_delivery_invoice_address',
         invisible({ record }) {
           // attrs="{'invisible': [
           // ('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))],
@@ -385,7 +467,13 @@ const view_move_form_sheet = {
           // 'invisible':[('move_type', 'in',
           // ('in_invoice', 'in_receipt', 'in_refund', 'out_invoice', 'out_refund'))]
           const { move_type } = record
-          const in_moves = ['in_invoice', 'in_refund', 'in_receipt']
+          const in_moves = [
+            'in_invoice',
+            'in_receipt',
+            'in_refund',
+            'out_invoice',
+            'out_refund'
+          ]
           return in_moves.includes(move_type)
         }
       },
@@ -550,6 +638,7 @@ const view_move_form_sheet = {
         }
       },
       currency_id: {
+        groups: 'base.group_multi_currency',
         invisible({ record }) {
           // 'invisible': [('move_type', '=', 'entry')]
           const { move_type } = record
@@ -574,7 +663,7 @@ const view_move_form_sheet = {
 
       invoice_line_ids: {
         widget: 'x2many_tree',
-
+        nolabel: 1,
         views: {
           tree: {
             arch: {
@@ -637,8 +726,8 @@ const view_move_form_sheet = {
                 )
               }
             },
-            tax_totals: { widget: 'account-tax-totals-field' },
-            invoice_payments_widget: { widget: 'payment' },
+            tax_totals: { nolabel: 1, widget: 'account-tax-totals-field' },
+            invoice_payments_widget: { nolabel: 1, widget: 'payment' },
             amount_residual: {
               invisible({ record }) {
                 // attrs="{'invisible':  [('state', '=', 'draft')]}"
@@ -648,6 +737,7 @@ const view_move_form_sheet = {
             }
           },
           invoice_outstanding_credits_debits_widget: {
+            nolabel: 1,
             widget: 'payment',
             invisible({ record }) {
               // 'invisible': ['|',
@@ -1015,7 +1105,7 @@ export default {
           },
           action_invoice_sent: {
             name: 'action_invoice_sent',
-            string: '发送和打印',
+            string: 'Send & Print',
             type: 'object',
             btn_type: 'primary',
             invisible: ({ record }) => {
@@ -1029,7 +1119,7 @@ export default {
           },
           action_invoice_sent2: {
             name: 'action_invoice_sent',
-            string: '发送和打印',
+            string: 'Send & Print',
             type: 'object',
             invisible: ({ record }) => {
               const { state, is_move_sent, move_type } = record
@@ -1157,7 +1247,7 @@ export default {
           },
           button_set_checked: {
             name: 'button_set_checked',
-            string: '置为已检查',
+            string: 'Set as Checked',
             type: 'object',
             groups: 'account.group_account_invoice',
             invisible: ({ record }) => {

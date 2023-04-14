@@ -170,6 +170,8 @@
 import { computed } from 'vue'
 import OField from '@/components/OField/OField.vue'
 
+import { useTag } from '@/components/useApi/useTag.js'
+
 const tags_h = { h1: 1, h2: 1, h3: 1, h6: 1, b: 1, strong: 1 }
 const tags_div = { div: 1, span: 1, hr: 1 }
 const tags_other = { p: 1, separator: 1 }
@@ -179,16 +181,7 @@ const tags_done = { ...tags_h, ...tags_div, ...tags_other }
 const props = defineProps(['model', 'formInfo', 'node', 'nolabel'])
 const emit = defineEmits(['change', 'load-relation'])
 
-const model2 = computed({
-  get() {
-    return props.model || {}
-  },
-
-  // eslint-disable-next-line no-unused-vars
-  set(val) {
-    // state.mVal = {...}
-  }
-})
+const { model2, onChange, onLoadReation } = useTag(props, { emit })
 
 const nodeTag = computed(() => {
   const tag = props.node.tag
@@ -198,14 +191,6 @@ const nodeTag = computed(() => {
 function getRules(fieldInfo) {
   if (!fieldInfo.required) return undefined
   return [{ required: true, message: `请输入${fieldInfo.string}!` }]
-}
-
-async function onChange(fname, ...args) {
-  emit('change', fname, ...args)
-}
-
-async function onLoadReation(fieldName, relation_info) {
-  emit('load-relation', fieldName, relation_info)
 }
 
 function onBtnClick(node) {

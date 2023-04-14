@@ -132,7 +132,7 @@ export class ViewHelp {
   }
 
   view_sheet(formInfo) {
-    console.log('view_sheet', formInfo)
+    // console.log('view_sheet', formInfo)
 
     // sheet 规范
     // 1. 字母开头的都是 字段
@@ -426,7 +426,7 @@ export class ViewHelp {
     const children = children_get(sheet)
 
     // console.log('sheet', sheet)
-    console.log('children', children)
+    // console.log('children', children)
 
     return { children }
   }
