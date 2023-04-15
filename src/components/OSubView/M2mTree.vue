@@ -1,21 +1,12 @@
 <template>
   <span>
     <!-- readonly: {{ readonly }} -->
-
-    <a-table
+    <TreeTable
       :dataSource="records"
       :columns="columns"
-      :customRow="tableCustomRow"
       :pagination="false"
-    >
-      <template #bodyCell="{ column, record }">
-        <OField
-          :field-name="column.dataIndex"
-          :field-info="column._meta"
-          :form-info="{ record }"
-        />
-      </template>
-    </a-table>
+      @row-click="onRowClick"
+    />
 
     <template v-if="!readonly">
       <a-button size="small" @click="onCreate"> 添加 </a-button>
@@ -25,7 +16,7 @@
 
 <script setup>
 import { useM2mTree } from './m2mTreeApi'
-import OField from '@/components/OField/OField.vue'
+import TreeTable from '@/components/ONode/TreeTable.vue'
 
 const props = defineProps([
   'readonly',
@@ -38,15 +29,10 @@ const emit = defineEmits(['row-click', 'row-new'])
 
 const { columns } = useM2mTree(props)
 
-function tableCustomRow(record) {
-  return {
-    // eslint-disable-next-line no-unused-vars
-    onClick: event => {
-      // console.log('click row ', record)
-      emit('row-click', record)
-    }
-  }
+function onRowClick(record) {
+  emit('row-click', record)
 }
+
 function onCreate() {
   emit('row-new')
 }

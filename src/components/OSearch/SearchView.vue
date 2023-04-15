@@ -124,12 +124,12 @@ const defaultItems = computed(() => {
   // console.log(props.searchItems)
 
   function _get() {
-    console.log(props.searchItems)
+    // console.log(props.searchItems)
     const name_items = Object.keys(props.searchItems).filter(
       item => props.searchItems[item]._default
     )
 
-    console.log(name_items)
+    // console.log(name_items)
 
     if (name_items.length) {
       return name_items

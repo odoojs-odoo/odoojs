@@ -141,7 +141,10 @@ export function useFO2m(props, ctx) {
     const s1 = new Set(arr)
     return [...s1].length === list2.length
   }
+
   // load Relation Readonly data
+  // todo.  明细行编辑后, 保存, 刷新页面后, 需要更新
+
   watch(
     [() => state.relationFieldReady, valueReadonly],
     // eslint-disable-next-line no-unused-vars

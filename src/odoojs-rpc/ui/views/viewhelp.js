@@ -308,7 +308,9 @@ export class ViewHelp {
     }
 
     function txf_button_box_node(oldnode) {
-      // console.log(oldnode)
+      if (!oldnode.children) {
+        return { ...oldnode }
+      }
 
       const children = Object.keys(oldnode.children).reduce((acc, btn) => {
         acc[btn] = txf_button_box_child(oldnode.children[btn])

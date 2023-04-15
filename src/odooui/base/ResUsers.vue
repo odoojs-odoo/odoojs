@@ -154,7 +154,7 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useForm } from '@/components/OView/formApi'
 
-import StatusBar from '@/components/OView/StatusBar.vue'
+import StatusBar from '@/components/ONode/StatusBar.vue.js'
 
 import OField from '@/components/OField/OField.vue'
 import api from '@/odoorpc'

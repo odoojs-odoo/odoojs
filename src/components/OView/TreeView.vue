@@ -1,8 +1,5 @@
 <template>
-  <div class="actionZone">
-    <!-- {{ columns }} -->
-    <!-- {{ pagination }} -->
-
+  <div>
     <SearchView
       :search-items="searchItems"
       :search-values="searchValues"
@@ -10,62 +7,27 @@
       @change="onSearchChange"
     />
 
-    <div></div>
-    <a-button
-      v-if="buttons.create"
-      size="small"
-      type="primary"
-      @click="onClickNew"
-      class="createBtn"
-    >
-      {{ viewActions.create }}
-    </a-button>
-
-    <a-tooltip class="expBtn">
-      <template #title> {{ viewActions.exportAll }}</template>
-      <a-button size="small" @click="onExportAll">
-        <template #icon>
-          <download-outlined />
-        </template>
-      </a-button>
-    </a-tooltip>
-
-    <ActionButton
-      class="actBtn"
-      v-if="activeIds.length && buttons.delete && hasActive"
-      :has-delete="buttons.delete"
-      :has-active="hasActive"
+    <CPTree
+      :viewActions="viewActions"
+      :activeIds="activeIds"
+      :buttons="buttons"
+      :hasActive="hasActive"
       @button-click="onClickCRUD"
     />
+    <TreeTable
+      style="margin-top: 5px"
+      :dataSource="records"
+      :columns="columns"
+      :pagination="pagination"
+      :row-selection="{
+        selectedRowKeys: activeIds,
+        onChange: onSelectChange
+      }"
+      :scroll="widthAndHeight"
+      @change="onTableChange"
+      @row-click="onRowClick"
+    />
   </div>
-
-  <a-table
-    row-key="id"
-    :dataSource="records"
-    :columns="columns"
-    :pagination="pagination"
-    :row-selection="{
-      selectedRowKeys: activeIds,
-      onChange: onSelectChange
-    }"
-    :customRow="tableCustomRow"
-    @change="onTableChange"
-    style="margin-top: 5px"
-    :scroll="widthAndHeight"
-  >
-    <template #bodyCell="{ column, record }">
-      <template v-if="column._meta.tag">
-        todo: {{ column._meta.tag }}
-      </template>
-      <template v-else>
-        <OField
-          :field-name="column.dataIndex"
-          :field-info="column._meta"
-          :form-info="{ record }"
-        />
-      </template>
-    </template>
-  </a-table>
 </template>
 
 <script setup>
@@ -73,25 +35,22 @@ import { computed, onMounted, ref } from 'vue'
 
 import { useRouter } from 'vue-router'
 import { useTreeView } from './treeApi'
-import OField from '@/components/OField/OField.vue'
 
-import ActionButton from './ActionButton.vue'
 import SearchView from '@/components/OSearch/SearchView.vue'
+import CPTree from '@/components/ONode/CPTree.vue'
+import TreeTable from '@/components/ONode/TreeTable.vue'
+
 const router = useRouter()
 
 const props = defineProps(['actionId'])
 const emit = defineEmits(['search-change'])
 
-const useData = useTreeView(props, { emit })
-
+const useData = useTreeView(props, { emit, router })
 const { records, columns, pagination } = useData
 const { viewActions, buttons, hasActive } = useData
-
 const { searchValues, searchItems, onSearchChange } = useData
-
 const { onTableChange, activeIds, onSelectChange } = useData
-
-const { onClickCRUD, onExportAll } = useData
+const { onClickCRUD, onRowClick } = useData
 
 const tableHeight = ref(0)
 onMounted(() => {
@@ -101,60 +60,9 @@ onMounted(() => {
   }
 })
 
-function tableCustomRow(record) {
-  const router = useRouter()
-  return {
-    // eslint-disable-next-line no-unused-vars
-    onClick: event => {
-      console.log('click row ', record)
-
-      const rounteVal = router.currentRoute.value
-      const { query, path } = rounteVal
-      const { menu } = query
-
-      const query2 = { menu, view_type: 'form', id: record.id }
-      router.push({ path, query: query2 })
-    }
-  }
-}
-
-// 新增按钮触发
-function onClickNew() {
-  const rounteVal = router.currentRoute.value
-  const { query, path } = rounteVal
-  const { menu } = query
-  const query2 = { menu, view_type: 'form' }
-  router.push({ path, query: query2 })
-}
-//
 const widthAndHeight = computed(() => {
   return { x: 600, y: tableHeight.value }
 })
 </script>
 
-<style type="text/css">
-.ant-table-thead > tr > th {
-  /* background: palegreen; */
-  padding: 8px;
-}
-.ant-table-tbody > tr > td {
-  /* background: palegreen; */
-  padding: 5px;
-}
-.actionZone {
-  /* background: green; */
-  margin: 0px 0px 0px 0px;
-  padding: 0px 5px 0px 5px;
-  position: relative;
-}
-.createBtn {
-  margin-left: 5px;
-}
-.expBtn {
-  margin-left: 5px;
-}
-.actBtn {
-  position: absolute;
-  right: 5px;
-}
-</style>
+<style type="text/css" scoped></style>

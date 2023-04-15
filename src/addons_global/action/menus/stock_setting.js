@@ -1,5 +1,5 @@
 export default {
-  menu_sale_setting: {
+  menu_stock_setting: {
     _odoo_model: 'ir.ui.menu',
     parent: 'menu_setting',
     name: 'Stock Setting',

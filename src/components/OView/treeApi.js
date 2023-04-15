@@ -4,7 +4,7 @@ import { useLang } from '@/components/useApi/useLang'
 
 import { useGlobalConfig } from '@/components/useApi/useGlobalConfig'
 
-export function useTreeView(props) {
+export function useTreeView(props, ctx) {
   const { viewActions } = useGlobalConfig()
   const { lang } = useLang()
 
@@ -215,14 +215,35 @@ export function useTreeView(props) {
     activeIds.value = keys
   }
 
+  // 新增按钮触发
+  function onClickNew() {
+    const rounteVal = ctx.router.currentRoute.value
+    const { query, path } = rounteVal
+    const { menu } = query
+    const query2 = { menu, view_type: 'form' }
+    ctx.router.push({ path, query: query2 })
+  }
+
   function onClickCRUD(btn) {
     const btn_fns = {
+      newform: onClickNew,
+      exportall: onExportAll,
       unlink: onClickDel,
       archive: onArchive,
       unarchive: onUnarchive
     }
     console.log([btn, btn_fns[btn]])
     btn_fns[btn]()
+  }
+
+  function onRowClick(record) {
+    // const router = useRouter()
+    const rounteVal = ctx.router.currentRoute.value
+    const { query, path } = rounteVal
+    const { menu } = query
+
+    const query2 = { menu, view_type: 'form', id: record.id }
+    ctx.router.push({ path, query: query2 })
   }
 
   const records = computed(() => state.records)
@@ -241,6 +262,7 @@ export function useTreeView(props) {
     onSearchChange,
     onExportAll,
     onSelectChange,
-    onClickCRUD
+    onClickCRUD,
+    onRowClick
   }
 }

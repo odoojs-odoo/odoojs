@@ -2,20 +2,12 @@
   <div>
     <!-- readonly: {{ [readonly, records, columns] }} -->
 
-    <a-table
+    <TreeTable
       :dataSource="records"
       :columns="columns"
-      :customRow="tableCustomRow"
       :pagination="false"
-    >
-      <template #bodyCell="{ column, record }">
-        <OField
-          :field-name="column.dataIndex"
-          :field-info="column._meta"
-          :form-info="{ record }"
-        />
-      </template>
-    </a-table>
+      @row-click="onRowClick"
+    />
 
     <template v-if="!readonly">
       <a-button size="small" @click="onCreate"> 新增行 </a-button>
@@ -25,7 +17,8 @@
 
 <script setup>
 import { useO2mTree } from './o2mTreeApi'
-import OField from '@/components/OField/OField.vue'
+
+import TreeTable from '@/components/ONode/TreeTable.vue'
 
 const props = defineProps([
   'readonly',
@@ -37,14 +30,8 @@ const emit = defineEmits(['row-click', 'row-new'])
 
 const { columns } = useO2mTree(props)
 
-function tableCustomRow(record) {
-  return {
-    // eslint-disable-next-line no-unused-vars
-    onClick: event => {
-      // console.log('click row ', record)
-      emit('row-click', record)
-    }
-  }
+function onRowClick(record) {
+  emit('row-click', record)
 }
 
 function onCreate() {
