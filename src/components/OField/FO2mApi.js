@@ -1,10 +1,12 @@
-import { computed, watch, reactive, toRaw } from 'vue'
+import { inject, computed, watch, reactive, toRaw } from 'vue'
 import { useField } from './FieldApi'
 import { useLang } from '@/components/useApi/useLang'
 import api from '@/odoorpc'
 
 export function useFO2m(props, ctx) {
   const { lang } = useLang()
+  const data_changed = inject('data_changed')
+  const edit_cancel = inject('edit_cancel')
 
   const { readonly } = useField(props, ctx)
 
@@ -17,6 +19,7 @@ export function useFO2m(props, ctx) {
     relationFieldReady: false,
 
     lang_changed: 1,
+
     records: [],
     values: []
   })
@@ -40,6 +43,10 @@ export function useFO2m(props, ctx) {
   const valueReadonly = computed(() => {
     return props.formInfo.record[props.fieldName] || []
   })
+
+  // const data_changed = computed(() => {
+  //   return props.formInfo.data_changed
+  // })
 
   // 编辑过的数据 也 放在一起
   const treeRecords = computed(() => {
@@ -146,11 +153,11 @@ export function useFO2m(props, ctx) {
   // todo.  明细行编辑后, 保存, 刷新页面后, 需要更新
 
   watch(
-    [() => state.relationFieldReady, valueReadonly],
+    [() => state.relationFieldReady, valueReadonly, data_changed],
     // eslint-disable-next-line no-unused-vars
     (newVal, oldVal) => {
-      const [relationFieldReady_new, newids] = [...newVal]
-      const [relationFieldReady_old, oldids] = [...oldVal]
+      const [relationFieldReady_new, newids, new_data_changed] = [...newVal]
+      const [relationFieldReady_old, oldids, old_data_changed] = [...oldVal]
       if (!relationFieldReady_new) {
         return
       } else if (!relationFieldReady_old) {
@@ -158,6 +165,11 @@ export function useFO2m(props, ctx) {
       } else {
         if (!check_equ_array(newids, oldids)) {
           return loadRelationData(newids)
+        } else {
+          if (new_data_changed !== old_data_changed) {
+            return loadRelationData(newids)
+          }
+          // console.log('todo', new_data_changed, old_data_changed)
         }
       }
     },
@@ -165,11 +177,12 @@ export function useFO2m(props, ctx) {
   )
 
   // 退出编辑时, 复位 被编辑的值
+  // watch edit_cancel
   watch(
-    readonly,
+    edit_cancel,
     // eslint-disable-next-line no-unused-vars
-    (newVal, oldVal) => {
-      // console.log(newVal, oldVal)
+    async (newVal, oldVal) => {
+      console.log('edit_cancel', newVal, oldVal)
       if (newVal) {
         treeCancle()
       }
@@ -180,11 +193,6 @@ export function useFO2m(props, ctx) {
   function treeCancle() {
     const rel = relation_get()
     if (!rel) return
-
-    // if (!state.relationFieldReady) {
-    //   // raise error
-    //   return
-    // }
 
     const treeview = rel.tree
     const records = treeview.tree_cancle(toRaw(state.records))
@@ -235,12 +243,6 @@ export function useFO2m(props, ctx) {
   }
 
   function rowCommit(row, value) {
-    // console.log('onRowCommit', row, value)
-    // if (!state.relationFieldReady) {
-    //   // raise error
-    //   return
-    // }
-
     const rel = relation_get()
     if (!rel) return
 

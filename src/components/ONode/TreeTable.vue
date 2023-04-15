@@ -53,7 +53,7 @@ async function onTableChange(pagination) {
 }
 </script>
 
-<style type="text/css" scoped>
+<style type="text/css">
 .ant-table-thead > tr > th {
   /* background: palegreen; */
   padding: 8px;

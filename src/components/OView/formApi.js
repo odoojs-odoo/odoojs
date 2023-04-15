@@ -1,4 +1,4 @@
-import { computed, reactive, toRaw, watch, ref } from 'vue'
+import { provide, computed, reactive, toRaw, watch, ref } from 'vue'
 import api from '@/odoorpc'
 import { useLang } from '@/components/useApi/useLang'
 
@@ -31,6 +31,12 @@ export function useForm(props, ctx) {
   const localState = {
     formview: null
   }
+
+  const data_changed = ref(1)
+  provide('data_changed', data_changed)
+
+  const edit_cancel = ref(1)
+  provide('edit_cancel', edit_cancel)
 
   const state = reactive({
     formviewReady: false,
@@ -154,6 +160,7 @@ export function useForm(props, ctx) {
     if (!view) return
 
     const record = await view.read(res_id)
+
     state.record = record
   }
 
@@ -243,6 +250,7 @@ export function useForm(props, ctx) {
         const record = await view.read(id_ret)
         state.record = record
         state.values = {}
+        data_changed.value += 1
       } else {
         const rounteVal = ctx.router.currentRoute.value
         const { query, path } = rounteVal
@@ -269,8 +277,10 @@ export function useForm(props, ctx) {
   function onClickCancel() {
     if (props.resId) {
       state.editable = false
+
       state.mVal = {}
       state.values = {}
+      edit_cancel.value += 1
     } else {
       // // 新增页面 , 点击取消, 返回列表页面
 
