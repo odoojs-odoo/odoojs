@@ -4,7 +4,7 @@ export function useTag(props, ctx) {
   const { emit } = ctx || {}
   const model2 = computed({
     get() {
-      return props.model
+      return props.model || {}
     },
 
     // eslint-disable-next-line no-unused-vars

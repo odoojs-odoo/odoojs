@@ -12,7 +12,8 @@ export class ExtendModel extends Model {
         xml_id: 'account_wizard.action_payment_register_wizard'
       }
     } else {
-      throw 'error'
+      // alert(`todo, ${name}`)
+      // throw 'error'
     }
   }
 }

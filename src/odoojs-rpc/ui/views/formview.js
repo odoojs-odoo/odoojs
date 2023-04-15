@@ -103,7 +103,7 @@ class FormModel extends BaseView {
         record
       })
 
-      const { xml_id } = action_info
+      const { xml_id } = action_info || {}
       if (xml_id) {
         const action = this.new_action(xml_id, { ...action_info })
         return action.info

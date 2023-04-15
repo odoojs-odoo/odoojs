@@ -1,7 +1,7 @@
 <template>
   <div>
     <ActionButton
-      v-if="activeIds.length && buttons.delete && hasActive"
+      v-if="activeIds.length && (buttons.delete || hasActive)"
       :has-delete="buttons.delete"
       :has-active="hasActive"
       @button-click="onClickCRUD"
