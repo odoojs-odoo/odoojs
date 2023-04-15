@@ -14,7 +14,8 @@ const userRoutes = [
     children: [
       {
         path: '/user/login',
-        component: () => import('@/views/user/loginPage'),
+        component: () => import('@/views/user/LoginPage2'),
+        // component: () => import('@/views/user/loginPage'),
         name: 'user-login'
       }
     ]

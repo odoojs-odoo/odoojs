@@ -25,6 +25,7 @@ const move_ids_without_package_tree_sheet = {
   is_quantity_done_editable: { invisible: '1' },
   product_packaging_id: {},
   product_uom_qty: {
+    string: 'Demand',
     invisible({ record }) {
       // 'column_invisible':
       // [('parent.immediate_transfer', '=', True)],
@@ -180,10 +181,89 @@ const move_ids_without_package_tree_sheet = {
 }
 
 const move_ids_without_package_form_sheet = {
-  //
+  product_uom_category_id: { invisible: '1' },
+  additional: { invisible: '1' },
+  move_lines_count: { invisible: '1' },
+  company_id: { invisible: '1' },
+  product_id: {},
+  is_initial_demand_editable: { invisible: '1' },
+  is_quantity_done_editable: { invisible: '1' },
+  product_uom_qty: {
+    string: 'Demand',
+    invisible({ record }) {
+      // 'column_invisible':
+      // [('parent.immediate_transfer', '=', True)],
+      const { parent: prt } = record
+      return prt.immediate_transfer
+    }
+  },
+  reserved_availability: {
+    // 'invisible': (['|','|',
+    // ('parent.state','=', 'done'),
+    // ('parent.picking_type_code', 'in', ['outgoing', 'incoming']),
+    // ('parent.immediate_transfer', '=', True)])
+
+    string: 'Reserved',
+    invisible({ record }) {
+      // 'column_invisible': ['|', '|',
+      // ('parent.state', 'in', ['draft', 'done']),
+      // ('parent.picking_type_code', 'in', ['incoming', 'outgoing'] ),
+      // ('parent.immediate_transfer', '=', True)]
+
+      const { parent: prt } = record
+
+      return (
+        ['draft', 'done'].includes(prt.state) ||
+        ['incoming', 'outgoing'].includes(prt.picking_type_code) ||
+        prt.immediate_transfer
+      )
+    }
+  },
+  product_qty: { invisible: '1' },
+
+  forecast_expected_date: { invisible: '1' },
+
+  forecast_availability: {
+    // string="Reserved" attrs="{
+
+    string: 'Reserved',
+    widget: 'forecast_widget',
+    invisible({ record }) {
+      //'column_invisible': ['|', '|',
+      // ('parent.state', 'in', ['draft', 'done']),
+      // ('parent.picking_type_code', '!=', 'outgoing'),
+      // ('parent.immediate_transfer', '=', True)]}"
+
+      // 'invisible': ['|',
+      // ('parent.picking_type_code', '!=', 'outgoing'),
+      // ('parent.state','=', 'done')]}"
+
+      const { parent: prt } = record
+
+      return (
+        ['draft', 'done'].includes(prt.state) ||
+        prt.picking_type_code !== 'outgoing' ||
+        prt.immediate_transfer
+      )
+    }
+  },
+
+  quantity_done: {
+    string: 'Done',
+    invisible({ record }) {
+      // 'column_invisible':[('parent.state', '=', 'draft'),
+      //  ('parent.immediate_transfer', '=', False)]
+      const { parent: prt } = record
+      return prt.state === 'draft' && !prt.immediate_transfer
+    }
+  },
+  product_uom: {},
+  description_picking: { optional: 'hide' }
 }
 
 const view_picking_form_sheet = {
+  state: { invisible: '1' },
+
   is_locked: { invisible: '1' },
   show_mark_as_todo: { invisible: '1' },
   show_check_availability: { invisible: '1' },
@@ -922,6 +1002,7 @@ export default {
     arch: {
       fields: {
         name: {
+          string: 'Transfer',
           filter_domain: self => {
             return ['|', ['name', 'ilike', self], ['origin', '=like', self]]
           }
@@ -933,69 +1014,131 @@ export default {
         },
         origin: {},
         product_id: {},
-        picking_type_id: {}
+        picking_type_id: {},
+        move_line_ids: {
+          string: 'Package',
+          groups: 'stock.group_tracking_lot',
+          filter_domain: self => {
+            return [
+              '|',
+              ('move_line_ids.package_id.name', 'ilike', self),
+              ('move_line_ids.result_package_id.name', 'ilike', self)
+            ]
+          }
+        }
       },
 
       filters: {
         group_me: {
+          to_do_transfers: {
+            string: 'To Do',
+            domain: ({ env }) => {
+              return [['user_id', 'in', [env.uid, false]]]
+            }
+          },
+
           my_transfers: {
-            string: '我的调拨',
+            string: 'My Transfers',
             domain: ({ env }) => {
               return [['user_id', '=', env.uid]]
             }
           },
           starred: {
-            string: '已收藏',
+            string: 'Starred',
             domain: [['priority', '=', '1']]
           }
         },
         group_state: {
           draft: {
-            string: '草稿',
-            domain: [['state', '=', 'draft']]
+            string: 'Draft',
+            domain: [['state', '=', 'draft']],
+            help: 'Draft Moves'
           },
           waiting: {
-            string: '等待',
-            domain: [['state', 'in', ['confirmed', 'waiting']]]
+            string: 'Waiting',
+            domain: [['state', 'in', ['confirmed', 'waiting']]],
+            help: 'Waiting Moves'
           },
           available: {
-            string: '可用',
-            domain: [['state', '=', 'assigned']]
+            string: 'Ready',
+            domain: [['state', '=', 'assigned']],
+            help: 'Assigned Moves'
           },
           done: {
-            string: '已完成',
-            domain: [['state', '=', 'done']]
+            string: 'Done',
+            domain: [['state', '=', 'done']],
+            help: 'Pickings already processed'
           },
           cancel: {
-            string: '已取消',
-            domain: [['state', '=', 'cancel']]
+            string: 'Cancelled',
+            domain: [['state', '=', 'cancel']],
+            help: 'Cancelled Moves'
+          }
+        },
+
+        group_: {
+          late: {
+            string: 'Late',
+            help: 'Deadline exceed or/and by the scheduled',
+            domain: ({ env }) => {
+              return [
+                ('state', 'in', ('assigned', 'waiting', 'confirmed')),
+                '|',
+                '|',
+                ('has_deadline_issue', '=', true),
+                ('date_deadline', '<', env.date_tools.today),
+                ('scheduled_date', '<', env.date_tools.today)
+              ]
+            }
+          },
+
+          planning_issues: {
+            string: 'Planning Issues',
+
+            help: 'Transfers that are late on scheduled time or one of pickings will be late',
+            domain: ({ env }) => {
+              // ('scheduled_date', '&lt;', time.strftime('%Y-%m-%d %H:%M:%S')),
+              return [
+                '|',
+                ('delay_alert_date', '!=', false),
+                '&amp;',
+                ('scheduled_date', '&lt;', env.date_tools.today),
+                ('state', 'in', ('assigned', 'waiting', 'confirmed'))
+              ]
+            }
+          }
+        },
+
+        group_backorder: {
+          backorder: {
+            string: 'Backorders',
+            domain: [
+              ('backorder_id', '!=', false),
+              ('state', 'in', ('assigned', 'waiting', 'confirmed'))
+            ],
+            help: 'Remaining parts of picking partially processed'
           }
         }
-        // todo
-
-        // group_active: {
-        //   inactive: {
-        //     string: '已归档',
-        //     domain: [['active', '=', false]]
-        //   }
-        // }
       }
     }
   },
 
   action_picking_tree_all: {
     _odoo_model: 'ir.actions',
-    name: '调拨',
+    name: 'Transfers',
     type: 'ir.actions.act_window',
     res_model: 'stock.picking',
     search_view_id: 'view_picking_internal_search',
     domain: [],
-    context: ({ record }) => {
-      const { allowed_company_ids } = record
+    context: ({ env }) => {
       return {
         contact_display: 'partner_address',
-        default_company_id: allowed_company_ids[0]
+        default_company_id: env.context.allowed_company_ids[0]
       }
+    },
+    views: {
+      tree: 'vpicktree',
+      form: 'view_picking_form'
     }
   }
 }

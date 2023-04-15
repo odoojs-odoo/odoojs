@@ -115,7 +115,7 @@ export class Action {
       return ctx || {}
     }
     //
-    const ctx2 = ctx({ record: this.env.context })
+    const ctx2 = ctx({ env: this.env })
     return ctx2
   }
 

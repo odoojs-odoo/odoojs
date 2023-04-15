@@ -5,6 +5,27 @@ import ui from './ui'
 
 const web = controllers.web
 
+const date_tools = {
+  get one_day() {
+    return 1000 * 60 * 60 * 24
+  },
+  format(date) {
+    const year = date.getFullYear().toString().padStart(4, '0')
+    const month = (date.getMonth() + 1).toString().padStart(2, '0')
+    const day = date.getDate().toString().padStart(2, '0')
+    const today_str = `${year}-${month}-${day}`
+    return today_str
+  },
+  increase(date, num = 1) {
+    return this.format(new Date(new Date(date).getTime() + this.one_day * num))
+  },
+
+  get today() {
+    const today = new Date()
+    return this.format(today)
+  }
+}
+
 export class Environment {
   constructor(payload = {}) {
     const { context } = payload
@@ -15,6 +36,10 @@ export class Environment {
       const ctx = web.session.user_context
       this._context = ctx
     }
+  }
+
+  get date_tools() {
+    return date_tools
   }
 
   get menus() {
@@ -107,7 +132,7 @@ export class Environment {
   }
 
   action_info_get(action_id) {
-    const action = new ui.Action(action_id)
+    const action = new ui.Action(action_id, { env: this })
     return action.info
   }
 

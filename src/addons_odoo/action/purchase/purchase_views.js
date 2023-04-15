@@ -1,24 +1,3 @@
-const date_tools = {
-  get one_day() {
-    return 1000 * 60 * 60 * 24
-  },
-  format(date) {
-    const year = date.getFullYear().toString().padStart(4, '0')
-    const month = (date.getMonth() + 1).toString().padStart(2, '0')
-    const day = date.getDate().toString().padStart(2, '0')
-    const today_str = `${year}-${month}-${day}`
-    return today_str
-  },
-  increase(date, num = 1) {
-    return this.format(new Date(new Date(date).getTime() + this.one_day * num))
-  },
-
-  get today() {
-    const today = new Date()
-    return this.format(today)
-  }
-}
-
 const order_line = {
   widget: 'x2many_tree',
 
@@ -834,8 +813,8 @@ export default {
 
           waiting_rfqs: {
             string: 'Waiting RFQs',
-            domain: () => {
-              const today = date_tools.today
+            domain: ({ env }) => {
+              const today = env.date_tools.today
               return [
                 ['state', '=', 'sent'],
                 ['date_order', '>=', today]
@@ -844,8 +823,8 @@ export default {
           },
           late_rfqs: {
             string: 'Late RFQs',
-            domain: () => {
-              const today = date_tools.today
+            domain: ({ env }) => {
+              const today = env.date_tools.today
               return [
                 ['state', 'in', ['draft', 'sent', 'to approve']],
                 ['date_order', '<', today]

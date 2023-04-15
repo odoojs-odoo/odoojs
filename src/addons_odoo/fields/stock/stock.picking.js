@@ -14,8 +14,18 @@ const ModelFields = {
     groups: 'base.group_multi_company',
     force_save: '1'
   },
+
   state: {
-    widget: 'badge'
+    selection: [
+      ['draft', 'Draft'],
+      ['waiting', 'Waiting Another Operation'],
+      ['confirmed', 'Waiting'],
+      ['assigned', 'Ready'],
+      ['done', 'Done'],
+      ['cancel', 'Cancelled']
+    ]
+
+    // widget: 'badge'
     // decoration-danger="state=='cancel'"
     // decoration-info="state== 'assigned'"
     // decoration-muted="state == 'draft'"
@@ -36,17 +46,36 @@ const ModelFields = {
   origin: {},
   backorder_id: {},
 
-  partner_id: {},
+  partner_id: {
+    domain({ record }) {
+      // [('company_id', 'in', [company_id, False])]
+      const { company_id } = record
+      return [['company_id', 'in', [company_id, false]]]
+    }
+  },
   user_id: {
-    //  domain="[('share', '=', False)]
+    domain: [['share', '=', false]]
   },
 
-  group_id: {
-    // groups="base.group_no_one"
-  },
+  group_id: { groups: 'base.group_no_one' },
 
-  location_id: { groups: 'stock.group_stock_multi_locations' },
-  location_dest_id: { groups: 'stock.group_stock_multi_locations' },
+  location_id: {
+    groups: 'stock.group_stock_multi_locations',
+
+    domain({ record }) {
+      // [('company_id', 'in', [company_id, False])]
+      const { company_id } = record
+      return [['company_id', 'in', [company_id, false]]]
+    }
+  },
+  location_dest_id: {
+    groups: 'stock.group_stock_multi_locations',
+    domain({ record }) {
+      // [('company_id', 'in', [company_id, False])]
+      const { company_id } = record
+      return [['company_id', 'in', [company_id, false]]]
+    }
+  },
   is_signed: {
     string: 'Signed',
     groups: 'stock.group_stock_sign_delivery'
