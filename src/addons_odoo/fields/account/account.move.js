@@ -1,5 +1,8 @@
 const ModelFields = {
-  company_id: { required: '1', groups: 'base.group_multi_company' },
+  company_id: {
+    required: '1',
+    groups: 'base.group_multi_company'
+  },
 
   name: {
     readonly({ record }) {
@@ -12,6 +15,7 @@ const ModelFields = {
   ref: {},
 
   date: {
+    string: 'Accounting Date',
     readonly: ({ record }) => {
       // 'readonly': [('state', '!=', 'draft')],
       const { state } = record
@@ -182,7 +186,9 @@ const ModelFields = {
     }
   },
 
-  invoice_user_id: { domain: [['share', '=', false]] },
+  invoice_origin: { string: 'Source Document' },
+
+  invoice_user_id: { string: 'Salesperson', domain: [['share', '=', false]] },
 
   invoice_vendor_bill_id: {
     domain: ({ record }) => {
@@ -201,6 +207,15 @@ const ModelFields = {
   invoice_cash_rounding_id: { groups: 'account.group_cash_rounding' },
 
   invoice_partner_display_name: {},
+
+  amount_untaxed_signed: { string: 'Tax Excluded' },
+  amount_tax_signed: { string: 'Tax' },
+  amount_total_signed: { string: 'Total' },
+  amount_total_in_currency_signed: {
+    string: 'Total in Currency',
+    groups: 'base.group_multi_currency'
+  },
+  amount_residual_signed: { string: 'Amount Due' },
 
   tax_lock_date_message: {
     groups: 'account.group_account_invoice,account.group_account_readonly'

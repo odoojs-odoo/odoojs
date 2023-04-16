@@ -2,7 +2,7 @@
   <div class="login-form-box">
     <div class="form-box">
       <img src="../../assets/logo.png" alt="" class="imgLogo" />
-      <h2>欢迎登录发票管理平台</h2>
+      <h2>欢迎 登录 odoojs 平台</h2>
 
       <a-form
         class="loginForm"
@@ -12,7 +12,8 @@
         @finish="onFinish"
         @finishFailed="onFinishFailed"
       >
-        <a-form-item v-show="is_dev" name="database" label="数据库">
+        <!-- v-show="is_dev" -->
+        <a-form-item name="database" label="数据库">
           <a-select
             v-model:value="formState.database"
             :options="databaseOptions"

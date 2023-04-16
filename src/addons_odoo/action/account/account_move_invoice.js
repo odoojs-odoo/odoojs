@@ -102,6 +102,9 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
+        made_sequence_hole: { invisible: 1 },
+        name: {},
+
         _col_invoice_partner_display_name__customer: {
           name: 'invoice_partner_display_name',
           string: 'Customer',
@@ -129,57 +132,106 @@ export default {
             return move_types_in.includes(default_move_type)
           }
         },
-        made_sequence_hole: { invisible: 1 },
-        name: {},
-        invoice_partner_display_name: {},
+
         invoice_date: {},
-        // date: { string: 'Accounting Date' },
-        invoice_date_due: {
-          widget: 'remaining_days'
-          // 'invisible': [['payment_state', 'in', ('paid', 'in_payment', 'reversed')]]
+
+        _col_invoice_date__customer: {
+          optional: 'show',
+          name: 'invoice_date',
+          string: 'Invoice Date',
+          invisible({ context }) {
+            // invisible="context.get('default_move_type') not in (
+            // 'out_invoice', 'out_refund','out_receipt')" groups="base.group_user"
+            const default_move_type = context.default_move_type
+            const move_types_out = ['out_invoice', 'out_refund', 'out_receipt']
+            return move_types_out.includes(default_move_type)
+          }
         },
-        invoice_origin: { string: 'Source Document' },
-        // payment_reference: {
-        //   invisible({ context }) {
-        //     // invisible="context.get('default_move_type') in ('out_invoice', 'out_refund','out_receipt')"
-        //     const default_move_type = context.default_move_type
-        //     return ['out_invoice', 'out_refund', 'out_receipt'].includes(
-        //       default_move_type
-        //     )
-        //   }
-        // },
-        // ref: {},
-        // invoice_user_id: {
-        //   // invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund','out_receipt')"
-        //   string: 'Salesperson',
-        //   widget: 'many2one_avatar_user'
-        // },
-        company_id: {},
-        amount_untaxed_signed: { string: 'Tax Excluded' },
-        amount_tax_signed: { string: 'Tax' },
-        amount_total_signed: { string: 'Total' },
-        amount_total_in_currency_signed: { string: 'Total in Currency' },
-        // amount_residual_signed: {string:"Amount Due"},
-        // currency_id: {},
+
+        _col_invoice_date__vendor: {
+          optional: 'show',
+          name: 'invoice_date',
+          string: 'Bill Date',
+          invisible({ context }) {
+            // invisible="context.get('default_move_type') not in (
+            // 'in_invoice', 'in_refund','in_receipt')"
+            const default_move_type = context.default_move_type
+            const move_types_in = ['in_invoice', 'in_refund', 'in_receipt']
+            return move_types_in.includes(default_move_type)
+          }
+        },
+
+        date: { optional: 'hide' },
+        invoice_date_due: {
+          optional: 'show',
+          widget: 'remaining_days',
+          invisible({ record }) {
+            // 'invisible': [['payment_state', 'in', (
+            // 'paid', 'in_payment', 'reversed')]]
+            const { payment_state } = record
+            return ['paid', 'in_payment', 'reversed'].includes(payment_state)
+          }
+        },
+        invoice_origin: { optional: 'hide' },
+        payment_reference: {
+          optional: 'hide',
+          invisible({ context }) {
+            // invisible="context.get('default_move_type') in ('out_invoice', 'out_refund','out_receipt')"
+            const default_move_type = context.default_move_type
+            return ['out_invoice', 'out_refund', 'out_receipt'].includes(
+              default_move_type
+            )
+          }
+        },
+        ref: { optional: 'hide' },
+        invoice_user_id: {
+          optional: 'hide',
+          invisible({ context }) {
+            // invisible="context.get('default_move_type') not in (
+            // 'out_invoice', 'out_refund','out_receipt')"
+            const move_types = ['out_invoice', 'out_refund', 'out_receipt']
+            const default_move_type = context.default_move_type
+            return !move_types.includes(default_move_type)
+          },
+
+          widget: 'many2one_avatar_user'
+        },
+        company_id: { optional: 'hide' },
+        amount_untaxed_signed: { optional: 'show' },
+        amount_tax_signed: { optional: 'hide' },
+        amount_total_signed: { optional: 'show' },
+        amount_total_in_currency_signed: { optional: 'show' },
+        amount_residual_signed: { optional: 'hide' },
+        currency_id: { optional: 'hide' },
         partner_id: {},
         company_currency_id: { invisible: '1' },
-        // to_check: { widget:"boolean_toggle"},
+        to_check: { widget: 'boolean_toggle', optional: 'hide' },
         payment_state: {
-          widget: 'badge'
+          optional: 'show',
+          widget: 'badge',
           // decoration-danger="payment_state == 'not_paid'"
           // decoration-warning="payment_state in ('partial', 'in_payment')"
           // decoration-success="payment_state in ('paid', 'reversed')"
-          // attrs="{'invisible': [('payment_state', 'in', ('invoicing_legacy'))]}"
+
+          invisible({ record }) {
+            // 'invisible': [('payment_state', 'in', ('invoicing_legacy'))]
+            const { payment_state } = record
+            return ['invoicing_legacy'].includes(payment_state)
+          }
         },
         state: {
-          widget: 'badge'
+          widget: 'badge',
+          optional: 'show'
           // decoration-success="state == 'posted'"
-          // decoration-info="state == 'draft'" optional="show"/>
-        }
+          // decoration-info="state == 'draft'"
+        },
 
-        // move_type: {
-        //   // invisible="context.get('default_move_type', True)"
-        // }
+        move_type: {
+          invisible({ context }) {
+            // invisible="context.get('default_move_type', True)"
+            return context.default_move_type
+          }
+        }
       }
     }
   },
