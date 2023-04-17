@@ -12,6 +12,11 @@ const odoo_addons = require.context('@/addons_odoo', true, /\.js$/)
 const fapiao_addons = require.context('@/addons_fapiao', true, /\.js$/)
 const global_addons = require.context('@/addons_global', true, /\.js$/)
 
+export const modules_installed = [
+  'uom'
+  //
+]
+
 // model 的合并 有先后顺序.
 // 这里如果 有重名的  model 构成继承关系, 则必须 按照顺序. 后者覆盖前者
 // todo. 考虑 用其他方法, 搞定继承关系. 从而这里不要求顺序

@@ -179,24 +179,80 @@ export class Addons {
     this.lang_set = lang
   }
 
-  static load_addons(addons_dict) {
+  static load_addons(addons_dict, modules_installed) {
     const { odoo_addons, ...other_addons } = addons_dict
     const addons_list = [odoo_addons, ...Object.values(other_addons)]
 
     const res = this.load_addons_all(addons_list)
 
     const {
-      actions_views = {},
+      actions_views: actions_views_todo = {},
       models_for_fields = {},
       models = {},
       app = {}
     } = res
-    const actions_views2 = this.split_actions(actions_views)
-    console.log('modules', actions_views2)
-    const done = { ...actions_views2 }
-    const { l10n = {} } = res
+    const { l10n: l10n_todo = {} } = res
 
-    this.addons_register = {
+    // console.log(modules_installed, res)
+    const actions_views_done = Object.keys(actions_views_todo)
+      .filter(item => modules_installed.includes(item))
+      .reduce((acc, mod) => {
+        acc[mod] = actions_views_todo[mod]
+        return acc
+      }, {})
+
+    function filter_menus(ms) {
+      return Object.keys(ms).reduce((acc, mn) => {
+        const item = ms[mn]
+        if (item.action) {
+          if (modules_installed.includes(item.action.split('.')[0])) {
+            acc[mn] = item
+          }
+        } else {
+          const child = filter_menus(item.children || {})
+          acc[mn] = { ...item, children: child }
+        }
+
+        return acc
+      }, {})
+    }
+
+    const menus = actions_views_todo.menus
+    const menus2 = filter_menus(menus)
+    // console.log(modules_installed, menus, menus2)
+
+    actions_views_done.menus = menus2
+
+    const l10n_done = Object.keys(l10n_todo).reduce((lns, ln) => {
+      const one_ln = l10n_todo[ln]
+
+      if (one_ln.actions_views) {
+        const actions_views_ln = Object.keys(one_ln.actions_views)
+          .filter(item => [...modules_installed, 'menus'].includes(item))
+          .reduce((acc, mod) => {
+            acc[mod] = one_ln.actions_views[mod]
+            return acc
+          }, {})
+
+        lns[ln] = { ...one_ln, actions_views: { ...actions_views_ln } }
+      } else {
+        lns[ln] = one_ln
+      }
+
+      return lns
+    }, {})
+
+    // console.log(modules_installed, actions_views_todo, actions_views_done)
+    // console.log(modules_installed, l10n_todo, l10n_done)
+
+    const actions_views = actions_views_done
+    const l10n = l10n_done
+
+    const actions_views2 = this.split_actions(actions_views)
+
+    const done = { ...actions_views2 }
+
+    const todo = {
       ...done,
       actions_views,
       models_for_fields,
@@ -204,6 +260,8 @@ export class Addons {
       app,
       l10n: { ...l10n, en_US: { actions_views, models_for_fields, app } }
     }
+
+    this.addons_register = todo
   }
 
   static load_addons_all(addons_list) {

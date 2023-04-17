@@ -2,7 +2,9 @@ import api from '@/odoorpc'
 
 import { baseURL, timeout, messageError, addons_dict } from '@/config/config'
 
-api.init({ baseURL, timeout, messageError, addons_dict })
+import { modules_installed } from '@/config/config'
+
+api.init({ baseURL, timeout, messageError, addons_dict, modules_installed })
 
 const addons_data = api.addons_data
 

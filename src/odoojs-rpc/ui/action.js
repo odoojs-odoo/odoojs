@@ -13,13 +13,15 @@ const menus_load = addons_data => {
         }
       })
       .map(item => {
-        return {
-          ...item,
-          children: menus_get(item)
-        }
+        const children = menus_get(item)
+        return { ...item, children }
       })
 
-    return children
+    const children2 = children.filter(
+      item => item.children.length || item.action
+    )
+
+    return children2
   }
 
   const children = menus_get()
@@ -32,6 +34,8 @@ export class Menus {
     const addons_data = Addons.addons_register
     this._addons = addons_data
     this._menus = menus_load(addons_data)
+
+    console.log(this._menus)
   }
 
   get menus() {

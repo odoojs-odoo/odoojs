@@ -25,7 +25,7 @@ export class RPC {
   constructor() {}
 
   static init({ baseURL, timeout, messageError, ...payload }) {
-    const { addons_dict } = payload
+    const { addons_dict, modules_installed } = payload
 
     JsonRequest.baseURL = baseURL
     JsonRequest.timeout = timeout
@@ -33,7 +33,7 @@ export class RPC {
 
     this.baseURL = baseURL
 
-    ui.Addons.load_addons(addons_dict)
+    ui.Addons.load_addons(addons_dict, modules_installed)
   }
 
   static async session_check() {
