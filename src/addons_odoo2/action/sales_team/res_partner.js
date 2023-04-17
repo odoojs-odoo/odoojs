@@ -7,13 +7,13 @@ export default {
       sheet: {
         _xpath: {
           _attr: {
-            expr: '//page[@name='sales_purchases']//field[@name='user_id']',
+            expr: "//page[@name='sales_purchases']//field[@name='user_id']",
             position: 'after'
           },
           team_id: {
             invisible: '1'
           },
-          _field_team_id_536: {
+          _field_team_id_687: {
             team_id: {
               groups: 'base.group_no_one'
             }
@@ -21,7 +21,7 @@ export default {
         },
         parent_id: {
           context: {
-            todo: "{'default_is_company': True, 'show_vat': True, 'default_user_id': user_id, 'default_team_id': team_id}"
+            todo_ctx: "{'default_is_company': True, 'show_vat': True, 'default_user_id': user_id, 'default_team_id': team_id}"
           }
         }
       }

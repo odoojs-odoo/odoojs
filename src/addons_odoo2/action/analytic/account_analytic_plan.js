@@ -16,7 +16,9 @@ export default {
           _button_action_view_children_plans: {
             _attr: {
               name: 'action_view_children_plans',
-              class: 'oe_stat_button'
+              class: 'oe_stat_button',
+              type: 'object',
+              icon: 'fa-bars'
             },
             children_count: {
               string: 'Subplans',
@@ -26,7 +28,9 @@ export default {
           _button_action_view_analytical_accounts: {
             _attr: {
               name: 'action_view_analytical_accounts',
-              class: 'oe_stat_button'
+              class: 'oe_stat_button',
+              type: 'object',
+              icon: 'fa-bars'
             },
             _div: {
               _attr: {
@@ -38,7 +42,7 @@ export default {
                 },
                 all_account_count: {}
               },
-              _span_315: {
+              _span_448: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Analytic Accounts'
@@ -65,7 +69,7 @@ export default {
               widget: 'color_picker'
             }
           },
-          _group_481: {
+          _group_733: {
             company_id: {
               groups: 'base.group_multi_company'
             }
@@ -118,7 +122,7 @@ export default {
     _odoo_model: 'ir.actions',
     name: 'Analytic Plans',
     res_model: 'account.analytic.plan',
-    domain: '[('parent_id', '=', False)]',
+    domain: "[('parent_id', '=', False)]",
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

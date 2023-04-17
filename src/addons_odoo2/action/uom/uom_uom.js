@@ -49,7 +49,7 @@ export default {
               for: 'factor_inv',
               invisible: "[('uom_type', '!=', 'bigger')]"
             },
-            _div_478: {
+            _div_493: {
               _attr: {
                 invisible: "[('uom_type', '!=', 'bigger')]"
               },

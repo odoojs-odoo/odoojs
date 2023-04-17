@@ -17,7 +17,8 @@ export default {
           _attr: {
             name: 'action_read_distribution_model',
             string: 'View',
-            class: 'float-end btn-secondary'
+            class: 'float-end btn-secondary',
+            type: 'object'
           }
         }
       }
@@ -39,19 +40,19 @@ export default {
               partner_id: {},
               partner_category_id: {}
             },
-            _group_780: {
+            _group_761: {
               company_id: {
                 groups: 'base.group_multi_company'
               }
             }
           },
-          _group_645: {
+          _group_745: {
             _attr: {
               string: 'Analytic distribution to apply'
             },
             analytic_distribution: {
               widget: 'analytic_distribution',
-              todo: '{'force_applicability': 'optional', 'disable_save': true}'
+              todo: "{'force_applicability': 'optional', 'disable_save': true}"
             }
           }
         }

@@ -22,7 +22,7 @@ export default {
           _attr: {
             name: 'team_leader',
             string: 'Team Leader',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'user_id'
             }
@@ -40,7 +40,9 @@ export default {
       sheet: {
         _div: {
           _attr: {
-            invisible: "['|', ('is_membership_multi', '=', True), ('member_warning', '=', False)]",
+            attrs: {
+              invisible: "['|', ('is_membership_multi', '=', True), ('member_warning', '=', False)]"
+            },
             class: 'alert alert-info text-center'
           },
           member_warning: {}
@@ -54,9 +56,10 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: "[('active', '=', True)]",
-            title: 'Archived',
-            bg_color: 'bg-danger'
+            attrs: {
+              invisible: "[('active', '=', True)]"
+            },
+            title: 'Archived'
           }
         },
         _div_title: {
@@ -100,7 +103,7 @@ export default {
             },
             company_id: {
               groups: 'base.group_multi_company',
-              no_create: True
+              no_create: true
             },
             currency_id: {
               invisible: '1'
@@ -148,7 +151,7 @@ export default {
                                   }
                                 }
                               },
-                              _div_259: {
+                              _div_358: {
                                 _attr: {
                                   class: 'oe_kanban_details d-flex flex-column ms-3'
                                 },
@@ -181,9 +184,11 @@ export default {
               }
             },
             crm_team_member_ids: {
-              invisible: "['|', ('is_membership_multi', '=', True), ('is_membership_multi', '=', False)]",
+              attrs: {
+                invisible: "['|', ('is_membership_multi', '=', True), ('is_membership_multi', '=', False)]"
+              },
               context: {
-                todo: '{                                     'kanban_view_ref': 'sales_team.crm_team_member_view_kanban_from_team',                                     'form_view_ref': 'sales_team.crm_team_member_view_form_from_team',                                     'tree_view_ref': 'sales_team.crm_team_member_view_tree_from_team',                                     'default_crm_team_id': active_id,                                 }'
+                todo_ctx: "{                                     'kanban_view_ref': 'sales_team.crm_team_member_view_kanban_from_team',                                     'form_view_ref': 'sales_team.crm_team_member_view_form_from_team',                                     'tree_view_ref': 'sales_team.crm_team_member_view_tree_from_team',                                     'default_crm_team_id': active_id,                                 }"
               },
               class: 'w-100'
             }
@@ -232,11 +237,11 @@ export default {
   },
 
   crm_team_action_sales: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Sales Teams',
     res_model: 'crm.team',
     context: {
-      in_sales_app: True
+      in_sales_app: true
     },
     views: {
       tree: '=======todo==========',
@@ -245,7 +250,7 @@ export default {
   },
 
   crm_team_action_pipeline: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Teams',
     res_model: 'crm.team',
     context: {},
@@ -256,7 +261,7 @@ export default {
   },
 
   crm_team_action_config: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Sales Teams',
     res_model: 'crm.team',
     context: {},

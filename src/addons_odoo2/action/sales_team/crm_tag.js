@@ -44,7 +44,7 @@ export default {
   },
 
   sales_team_crm_tag_action: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Tags',
     res_model: 'crm.tag',
     views: {

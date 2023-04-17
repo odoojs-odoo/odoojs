@@ -21,7 +21,7 @@ export default {
         unit_amount: {},
         product_uom_id: {},
         partner_id: {},
-        _field_company_id_618: {
+        _field_company_id_864: {
           company_id: {
             groups: 'base.group_multi_company'
           }
@@ -87,9 +87,9 @@ export default {
     name: 'Gross Margin',
     search_view_id: 'view_account_analytic_line_filter',
     res_model: 'account.analytic.line',
-    domain: '[('account_id','=', active_id)]',
+    domain: "[('account_id','=', active_id)]",
     context: {
-      todo: '{'search_default_group_date': 1, 'default_account_id': active_id}'
+      todo: "{'search_default_group_date': 1, 'default_account_id': active_id}"
     },
     views: {
       tree: 'view_account_analytic_line_tree',

@@ -1,0 +1,155 @@
+export default {
+  ir_access_view_tree: {
+    _odoo_model: 'ir.ui.view',
+    model: 'ir.model.access',
+    type: 'tree',
+    arch: {
+      sheet: {
+        name: {},
+        model_id: {},
+        group_id: {},
+        perm_read: {},
+        perm_write: {},
+        perm_create: {},
+        perm_unlink: {}
+      }
+    }
+  },
+
+  ir_access_view_tree_edition: {
+    _odoo_model: 'ir.ui.view',
+    model: 'ir.model.access',
+    type: 'tree',
+    arch: {
+      sheet: {
+        name: {},
+        model_id: {},
+        group_id: {},
+        perm_read: {},
+        perm_write: {},
+        perm_create: {},
+        perm_unlink: {}
+      }
+    }
+  },
+
+  ir_access_view_form: {
+    _odoo_model: 'ir.ui.view',
+    model: 'ir.model.access',
+    type: 'form',
+    arch: {
+      sheet: {
+        _div: {
+          _attr: {
+            class: 'alert alert-warning text-center',
+            text: 'Please note that modifications will be applied for all users of the specified group'
+          }
+        },
+        _group: {
+          name: {},
+          model_id: {},
+          group_id: {},
+          active: {
+            widget: 'boolean_toggle'
+          }
+        },
+        _group_807: {
+          _attr: {
+            string: 'Access'
+          },
+          perm_read: {},
+          perm_write: {},
+          perm_create: {},
+          perm_unlink: {}
+        }
+      }
+    }
+  },
+
+  ir_access_view_search: {
+    _odoo_model: 'ir.ui.view',
+    model: 'ir.model.access',
+    type: 'search',
+    arch: {
+      name: {
+        string: 'Access Rights'
+      },
+      _filter_global: {
+        _attr: {
+          name: 'global',
+          string: 'Global',
+          domain: "[('group_id', '=', False)]"
+        }
+      },
+      _separator: {},
+      _filter_full_access: {
+        _attr: {
+          name: 'full_access',
+          string: 'Full Access',
+          domain: "[('perm_read', '=', True), ('perm_write', '=', True), ('perm_create', '=', True), ('perm_unlink', '=', True)]"
+        }
+      },
+      _filter_read_access: {
+        _attr: {
+          name: 'read_access',
+          string: 'Read Access',
+          domain: "[('perm_read', '=', True)]"
+        }
+      },
+      _filter_write_access: {
+        _attr: {
+          name: 'write_access',
+          string: 'Write Access',
+          domain: "[('perm_write', '=', True)]"
+        }
+      },
+      _separator_499: {},
+      _filter_inactive: {
+        _attr: {
+          name: 'inactive',
+          string: 'Archived',
+          domain: "[('active', '=', False)]"
+        }
+      },
+      model_id: {},
+      group_id: {},
+      _group: {
+        _attr: {
+          string: 'Group By',
+          groups: 'base.group_no_one'
+        },
+        _filter_group: {
+          _attr: {
+            name: 'group',
+            string: 'Group',
+            domain: "[]",
+            context: {
+              group_by: 'group_id'
+            }
+          }
+        },
+        _filter_group_by_object: {
+          _attr: {
+            name: 'group_by_object',
+            string: 'Model',
+            domain: "[]",
+            context: {
+              group_by: 'model_id'
+            }
+          }
+        }
+      }
+    }
+  },
+
+  ir_access_act: {
+    _odoo_model: 'ir.actions.act_window',
+    name: 'Access Rights',
+    search_view_id: 'ir_access_view_search',
+    res_model: 'ir.model.access',
+    views: {
+      tree: 'ir_access_view_tree_edition',
+      form: '=======todo=========='
+    }
+  }
+}

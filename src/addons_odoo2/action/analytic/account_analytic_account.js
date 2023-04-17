@@ -13,10 +13,12 @@ export default {
             name: 'button_box',
             class: 'oe_button_box'
           },
-          _button_%(account_analytic_line_action)d: {
+          _button_account_analytic_line_action: {
             _attr: {
-              name: '%(account_analytic_line_action)d',
-              class: 'oe_stat_button'
+              name: 'account_analytic_line_action',
+              class: 'oe_stat_button',
+              type: 'action',
+              icon: 'fa-usd'
             },
             _div: {
               _attr: {
@@ -28,7 +30,7 @@ export default {
                   text: 'Gross Margin'
                 }
               },
-              _span_643: {
+              _span_883: {
                 _attr: {
                   class: 'o_stat_value'
                 },
@@ -43,8 +45,7 @@ export default {
           _attr: {
             name: 'web_ribbon',
             invisible: "[('active', '=', True)]",
-            title: 'Archived',
-            bg_color: 'bg-danger'
+            title: 'Archived'
           }
         },
         _div_title: {
@@ -77,17 +78,17 @@ export default {
             partner_id: {},
             code: {}
           },
-          _group_786: {
+          _group_461: {
             plan_id: {
-              no_quick_create: True
+              no_quick_create: true
             },
             company_id: {
               groups: 'base.group_multi_company',
-              no_create: True
+              no_create: true
             },
             currency_id: {
               groups: 'base.group_multi_currency',
-              no_create: True
+              no_create: true
             }
           }
         }
@@ -113,7 +114,7 @@ export default {
         active: {
           invisible: '1'
         },
-        _field_company_id_850: {
+        _field_company_id_399: {
           company_id: {
             groups: 'base.group_multi_company'
           }

@@ -1,70 +1,46 @@
 export default {
-  view_account_analytic_default_tree: {
+  account_analytic_account_view_form_inherit: {
     _odoo_model: 'ir.ui.view',
-    model: 'account.analytic.default',
-    type: 'tree',
-    fields: {
-      sequence: {},
-      analytic_id: {},
-      analytic_tag_ids: { widget: 'many2many_tags' },
-      product_id: {},
-      partner_id: {},
-      user_id: {},
-      account_id: {},
-      date_start: {},
-      date_stop: {},
-      company_id: {}
-    }
-  },
-
-  view_account_analytic_default_form: {
-    _odoo_model: 'ir.ui.view',
-    model: 'account.analytic.default',
-    type: 'form',
-    fields: {
-      sequence: {},
-      analytic_id: {},
-      analytic_tag_ids: { widget: 'many2many_tags' },
-      product_id: {},
-      partner_id: {},
-      user_id: {},
-      account_id: {},
-      date_start: {},
-      date_stop: {},
-      company_id: {}
-    }
-  },
-
-  view_account_analytic_default_form_search: {
-    _odoo_model: 'ir.ui.view',
-    model: 'account.analytic.default',
-    type: 'search',
+    model: 'account.analytic.account',
+    inherit_id: 'analytic.view_account_analytic_account_form',
     arch: {
-      fields: {
-        analytic_id: {},
-        product_id: {},
-        partner_id: {},
-        user_id: {},
-        company_id: {}
-      },
-
-      filters: {}
+      sheet: {
+        _div_button_box: {
+          _attr: {
+            name: 'button_box'
+          },
+          _button_action_view_invoice: {
+            _attr: {
+              name: 'action_view_invoice',
+              attrs: {
+                invisible: "[('invoice_count', '=', 0)]"
+              },
+              class: 'oe_stat_button',
+              type: 'object',
+              icon: 'fa-pencil-square-o'
+            },
+            invoice_count: {
+              string: 'Customer Invoices',
+              widget: 'statinfo'
+            }
+          },
+          _button_action_view_vendor_bill: {
+            _attr: {
+              name: 'action_view_vendor_bill',
+              attrs: {
+                invisible: "[('vendor_bill_count', '=', 0)]"
+              },
+              class: 'oe_stat_button',
+              type: 'object',
+              icon: 'fa-file-text-o'
+            },
+            vendor_bill_count: {
+              string: 'Vendor Bills',
+              widget: 'statinfo'
+            }
+          }
+        }
+      }
     }
-  },
-
-  action_analytic_default_list: {
-    _odoo_model: 'ir.actions',
-    name: '分析科目默认规则',
-    type: 'ir.actions.act_window',
-    res_model: 'account.analytic.default',
-    search_view_id: 'view_account_analytic_default_form_search',
-    domain: [],
-    context: {}
-  },
-  menu_analytic_default_list: {
-    _odoo_model: 'ir.ui.menu',
-    name: '分析科目默认规则',
-    action: 'action_analytic_default_list',
-    parent: 'account.menu_analytic_accounting'
   }
 }

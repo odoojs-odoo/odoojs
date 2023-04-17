@@ -51,7 +51,7 @@ export default {
       sheet: {
         _xpath: {
           _attr: {
-            expr: '//field[@name='crm_team_id']',
+            expr: "//field[@name='crm_team_id']",
             position: 'replace'
           }
         }
@@ -74,7 +74,7 @@ export default {
       sheet: {
         _xpath: {
           _attr: {
-            expr: '//field[@name='crm_team_id']',
+            expr: "//field[@name='crm_team_id']",
             position: 'replace'
           }
         }
@@ -108,7 +108,9 @@ export default {
         },
         _div: {
           _attr: {
-            invisible: "[('member_warning', '=', False)]",
+            attrs: {
+              invisible: "[('member_warning', '=', False)]"
+            },
             class: 'alert alert-info text-center'
           },
           member_warning: {}
@@ -116,14 +118,17 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: "[('active', '=', True)]",
-            title: 'Archived',
-            bg_color: 'bg-danger'
+            attrs: {
+              invisible: "[('active', '=', True)]"
+            },
+            title: 'Archived'
           }
         },
         image_1920: {
           widget: 'image',
-          invisible: "[('user_id', '=', False)]",
+          attrs: {
+            invisible: "[('user_id', '=', False)]"
+          },
           class: 'oe_avatar',
           preview_image: 'image_128'
         },
@@ -141,7 +146,7 @@ export default {
             },
             user_id: {
               class: 'flex-grow-1',
-              no_quick_create: True
+              no_quick_create: true
             }
           }
         },
@@ -161,16 +166,24 @@ export default {
             },
             company_id: {
               groups: 'base.group_multi_company',
-              invisible: "[('user_id', '=', False)]"
+              attrs: {
+                invisible: "[('user_id', '=', False)]"
+              }
             },
             email: {
-              invisible: "[('user_id', '=', False)]"
+              attrs: {
+                invisible: "[('user_id', '=', False)]"
+              }
             },
             mobile: {
-              invisible: "[('user_id', '=', False)]"
+              attrs: {
+                invisible: "[('user_id', '=', False)]"
+              }
             },
             phone: {
-              invisible: "[('user_id', '=', False)]"
+              attrs: {
+                invisible: "[('user_id', '=', False)]"
+              }
             }
           }
         }
@@ -186,7 +199,7 @@ export default {
       sheet: {
         _xpath: {
           _attr: {
-            expr: '//group[@name='group_owner']',
+            expr: "//group[@name='group_owner']",
             position: 'replace'
           }
         }
@@ -195,7 +208,7 @@ export default {
   },
 
   crm_team_member_action: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Team Members',
     res_model: 'crm.team.member',
     views: {

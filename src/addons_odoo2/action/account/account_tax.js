@@ -3,46 +3,161 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.tax',
     type: 'tree',
-    buttons: { create: false, edit: false, delete: false },
-    fields: {
-      sequence: {},
-      name: {},
-      type_tax_use: {},
-      tax_scope: {},
-      description: {},
-      company_id: {},
-      // country_id: {},
-      active: {}
+    arch: {
+      sheet: {
+        sequence: {
+          widget: 'handle'
+        },
+        name: {},
+        type_tax_use: {},
+        tax_scope: {},
+        description: {},
+        company_id: {
+          groups: 'base.group_multi_company',
+          no_create: true
+        },
+        country_id: {},
+        active: {
+          widget: 'boolean_toggle'
+        }
+      }
     }
   },
 
-  view_tax_form: {
+  view_onboarding_tax_tree: {
     _odoo_model: 'ir.ui.view',
     model: 'account.tax',
-    type: 'form',
-    buttons: { create: false, edit: false, delete: false },
-    fields: {
-      sequence: {},
-      name: {},
-      amount_type: {},
-      active: {},
+    inherit_id: 'account.view_tax_tree',
+    arch: {
+      sheet: {
+        _xpath: {
+          _attr: {
+            expr: '//tree',
+            position: 'attributes'
+          },
+          _attribute_default_order: {
+            _attr: {
+              name: 'default_order',
+              text: 'active desc, type_tax_use desc, amount desc, sequence'
+            }
+          }
+        }
+      }
+    }
+  },
 
-      type_tax_use: {},
-      tax_scope: {},
-      amount: {},
+  account_tax_view_tree: {
+    _odoo_model: 'ir.ui.view',
+    model: 'account.tax',
+    type: 'tree',
+    arch: {
+      sheet: {
+        display_name: {
+          string: 'name'
+        },
+        description: {}
+      }
+    }
+  },
 
-      description: {},
-      tax_group_id: {},
-      analytic: {},
+  view_tax_kanban: {
+    _odoo_model: 'ir.ui.view',
+    model: 'account.tax',
+    type: 'otherview',
+    arch: {}
+  },
 
-      company_id: {},
-      country_id: {},
-
-      price_include: {},
-
-      include_base_amount: {},
-
-      children_tax_ids: {}
+  view_account_tax_search: {
+    _odoo_model: 'ir.ui.view',
+    model: 'account.tax',
+    type: 'search',
+    arch: {
+      name_searchable: {
+        string: 'Name'
+      },
+      company_id: {
+        groups: 'base.group_multi_company'
+      },
+      _filter_sale: {
+        _attr: {
+          name: 'sale',
+          string: 'Sale',
+          domain: "[('type_tax_use', '=', 'sale')]"
+        }
+      },
+      _filter_purchase: {
+        _attr: {
+          name: 'purchase',
+          string: 'Purchase',
+          domain: "[('type_tax_use', '=', 'purchase')]"
+        }
+      },
+      _separator: {},
+      _filter_service: {
+        _attr: {
+          name: 'service',
+          string: 'Services',
+          domain: "[('tax_scope', '=', 'service')]"
+        }
+      },
+      _filter_goods: {
+        _attr: {
+          name: 'goods',
+          string: 'Goods',
+          domain: "[('tax_scope', '=', 'consu')]"
+        }
+      },
+      _separator_783: {},
+      _filter_active: {
+        _attr: {
+          name: 'active',
+          string: 'Active',
+          domain: "[('active', '=', True)]"
+        }
+      },
+      _filter_inactive: {
+        _attr: {
+          name: 'inactive',
+          string: 'Inactive',
+          domain: "[('active', '=', False)]"
+        }
+      },
+      _group: {
+        _attr: {
+          string: 'Group By'
+        },
+        _filter_company: {
+          _attr: {
+            name: 'company',
+            string: 'Company',
+            groups: 'base.group_multi_company',
+            domain: [],
+            context: {
+              group_by: 'company_id'
+            }
+          }
+        },
+        _filter_taxapp: {
+          _attr: {
+            name: 'taxapp',
+            string: 'Tax Type',
+            domain: [],
+            context: {
+              group_by: 'type_tax_use'
+            }
+          }
+        },
+        _filter_taxapp_834: {
+          _attr: {
+            name: 'taxapp',
+            string: 'Tax Scope',
+            domain: [],
+            context: {
+              group_by: 'tax_scope'
+            }
+          }
+        }
+      }
     }
   },
 
@@ -51,142 +166,205 @@ export default {
     model: 'account.tax',
     type: 'search',
     arch: {
-      fields: {
-        name: {
-          filter_domain: self => {
-            return [
-              '|',
-              ['name', 'ilike', self],
-              ['description', '=like', self]
-            ]
+      name: {
+        string: 'Tax'
+      },
+      company_id: {
+        groups: 'base.group_multi_company'
+      }
+    }
+  },
+
+  view_tax_form: {
+    _odoo_model: 'ir.ui.view',
+    model: 'account.tax',
+    type: 'form',
+    arch: {
+      sheet: {
+        company_id: {
+          invisible: '1'
+        },
+        _group: {
+          _group: {
+            name: {},
+            amount_type: {},
+            active: {
+              widget: 'boolean_toggle'
+            }
+          },
+          _group_522: {
+            type_tax_use: {},
+            tax_scope: {},
+            _label_amount: {
+              for: 'amount',
+              attrs: {
+                invisible: "[('amount_type', 'not in', ('fixed', 'percent', 'division'))]"
+              }
+            },
+            _div: {
+              _attr: {
+                attrs: {
+                  invisible: "[('amount_type', 'not in', ('fixed', 'percent', 'division'))]"
+                }
+              },
+              amount: {
+                class: 'oe_inline'
+              },
+              _span: {
+                _attr: {
+                  attrs: {
+                    invisible: "[('amount_type', '=', 'fixed')]"
+                  },
+                  class: 'o_form_label oe_inline',
+                  text: '%'
+                }
+              }
+            }
           }
         },
-        company_id: {}
-      },
-
-      filters: {}
+        _notebook: {
+          _page_definition: {
+            _attr: {
+              name: 'definition',
+              string: 'Definition'
+            },
+            _div: {
+              _attr: {
+                attrs: {
+                  invisible: "[('amount_type', '=', 'group')]"
+                }
+              },
+              country_code: {
+                invisible: '1'
+              },
+              _group: {
+                _attr: {
+                  string: 'Distribution for Invoices'
+                },
+                invoice_repartition_line_ids: {}
+              },
+              _group_704: {
+                _attr: {
+                  string: 'Distribution for Refunds'
+                },
+                refund_repartition_line_ids: {}
+              }
+            },
+            children_tax_ids: {
+              domain: {
+                todo_ctx: "[('type_tax_use','in',('none',type_tax_use)), ('amount_type','!=','group')]"
+              },
+              attrs: {
+                invisible: "['|', ('amount_type', '!=', 'group'), ('type_tax_use', '=', 'none')]"
+              },
+              views: {
+                tree: {
+                  arch: {
+                    sheet: {
+                      _attr: {
+                        string: 'Children Taxes'
+                      },
+                      sequence: {
+                        widget: 'handle'
+                      },
+                      name: {},
+                      amount_type: {},
+                      amount: {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          _page_advanced_options: {
+            _attr: {
+              name: 'advanced_options',
+              string: 'Advanced Options'
+            },
+            _group: {
+              _group: {
+                description: {
+                  attrs: {
+                    invisible: "[('amount_type', '=', 'group')]"
+                  }
+                },
+                tax_group_id: {
+                  attrs: {
+                    invisible: "[('amount_type', '=', 'group')]",
+                    required: "[('amount_type', '!=', 'group')]"
+                  }
+                },
+                analytic: {
+                  groups: 'analytic.group_analytic_accounting',
+                  attrs: {
+                    invisible: "[('amount_type', '=', 'group')]"
+                  }
+                },
+                company_id: {
+                  groups: 'base.group_multi_company',
+                  no_create: true
+                },
+                country_id: {}
+              },
+              _group_advanced_booleans: {
+                _attr: {
+                  name: 'advanced_booleans'
+                },
+                price_include: {
+                  attrs: {
+                    invisible: "[('amount_type', '=', 'group')]"
+                  }
+                },
+                include_base_amount: {
+                  attrs: {
+                    invisible: "[('amount_type', '=', 'group')]"
+                  }
+                },
+                is_base_affected: {
+                  groups: 'base.group_no_one',
+                  attrs: {
+                    invisible: "['|', ('amount_type', '=', 'group'), ('price_include', '=', True)]"
+                  }
+                },
+                hide_tax_exigibility: {
+                  invisible: '1'
+                },
+                tax_exigibility: {
+                  widget: 'radio',
+                  groups: 'account.group_account_readonly',
+                  attrs: {
+                    invisible: "['|', ('amount_type', '=', 'group'), ('hide_tax_exigibility', '=', False)]"
+                  }
+                },
+                cash_basis_transition_account_id: {
+                  groups: 'account.group_account_readonly',
+                  attrs: {
+                    invisible: "[('tax_exigibility', '=', 'on_invoice')]",
+                    required: "[('tax_exigibility', '=', 'on_payment')]"
+                  },
+                  no_create: true
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
 
   action_tax_form: {
-    _odoo_model: 'ir.actions',
-    name: '税',
-    type: 'ir.actions.act_window',
+    _odoo_model: 'ir.actions.act_window',
+    name: 'Taxes',
     res_model: 'account.tax',
     domain: [],
     context: {
       search_default_sale: true,
       search_default_purchase: true,
       active_test: false
+    },
+    views: {
+      tree: 'view_tax_tree',
+      form: '=======todo=========='
     }
-  },
-
-  view_tax_group_tree: {
-    _odoo_model: 'ir.ui.view',
-    model: 'account.tax.group',
-    type: 'tree',
-    buttons: { create: false, edit: false, delete: false },
-    fields: {
-      sequence: {},
-      name: {},
-      country_id: {},
-      property_tax_payable_account_id: {
-        domain: ({ record }) => {
-          const { context = {} } = record
-          if (context.force_account_company) {
-            return [['company_id', '=', context.force_account_company]]
-          } else {
-            return []
-          }
-        }
-      },
-      property_tax_receivable_account_id: {
-        domain: ({ record }) => {
-          const { context = {} } = record
-          if (context.force_account_company) {
-            return [['company_id', '=', context.force_account_company]]
-          } else {
-            return []
-          }
-        }
-      },
-      property_advance_tax_payment_account_id: {
-        domain: ({ record }) => {
-          const { context = {} } = record
-          if (context.force_account_company) {
-            return [['company_id', '=', context.force_account_company]]
-          } else {
-            return []
-          }
-        }
-      },
-      preceding_subtotal: {}
-    }
-  },
-
-  view_tax_group_form: {
-    _odoo_model: 'ir.ui.view',
-    model: 'account.tax.group',
-    type: 'form',
-    buttons: { create: false, edit: false, delete: false },
-    fields: {
-      sequence: {},
-      name: {},
-      country_id: {},
-      property_tax_payable_account_id: {
-        domain: ({ record }) => {
-          const { context = {} } = record
-          if (context.force_account_company) {
-            return [['company_id', '=', context.force_account_company]]
-          } else {
-            return []
-          }
-        }
-      },
-      property_tax_receivable_account_id: {
-        domain: ({ record }) => {
-          const { context = {} } = record
-          if (context.force_account_company) {
-            return [['company_id', '=', context.force_account_company]]
-          } else {
-            return []
-          }
-        }
-      },
-      property_advance_tax_payment_account_id: {
-        domain: ({ record }) => {
-          const { context = {} } = record
-          if (context.force_account_company) {
-            return [['company_id', '=', context.force_account_company]]
-          } else {
-            return []
-          }
-        }
-      },
-      preceding_subtotal: {}
-    }
-  },
-
-  account_tax_group_view_search: {
-    _odoo_model: 'ir.ui.view',
-    model: 'account.tax.group',
-    type: 'search',
-    arch: {
-      fields: {
-        name: {},
-        country_id: {}
-      },
-
-      filters: {}
-    }
-  },
-
-  action_tax_group: {
-    _odoo_model: 'ir.actions',
-    name: '税组',
-    type: 'ir.actions.act_window',
-    res_model: 'account.tax.group',
-    domain: [],
-    context: {}
   }
 }

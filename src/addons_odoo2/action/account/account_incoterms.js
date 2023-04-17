@@ -3,10 +3,14 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.incoterms',
     type: 'tree',
-    fields: {
-      code: {},
-      name: {},
-      active: {}
+    arch: {
+      sheet: {
+        active: {
+          invisible: '1'
+        },
+        code: {},
+        name: {}
+      }
     }
   },
 
@@ -14,10 +18,25 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.incoterms',
     type: 'form',
-    fields: {
-      code: {},
-      name: {},
-      active: {}
+    arch: {
+      sheet: {
+        _widget_web_ribbon: {
+          _attr: {
+            name: 'web_ribbon',
+            attrs: {
+              invisible: "[('active', '=', True)]"
+            },
+            title: 'Archived'
+          }
+        },
+        _group: {
+          active: {
+            invisible: '1'
+          },
+          name: {},
+          code: {}
+        }
+      }
     }
   },
 
@@ -26,24 +45,26 @@ export default {
     model: 'account.incoterms',
     type: 'search',
     arch: {
-      fields: {
-        name: {}
-      },
-
-      filters: {
-        group1: {
-          inactive: { string: '已归档', domain: [['active', '=', false]] }
+      name: {},
+      _separator: {},
+      _filter_inactive: {
+        _attr: {
+          name: 'inactive',
+          string: 'Archived',
+          domain: "[('active', '=', False)]"
         }
       }
     }
   },
 
   action_incoterms_tree: {
-    _odoo_model: 'ir.actions',
-    name: '国际贸易术语',
+    _odoo_model: 'ir.actions.act_window',
+    name: 'Incoterms',
     type: 'ir.actions.act_window',
     res_model: 'account.incoterms',
-    domain: [],
-    context: {}
+    views: {
+      tree: '=======todo==========',
+      form: '=======todo=========='
+    }
   }
 }
