@@ -12,7 +12,10 @@ const ModelFields = {
 
   search_view_id: {},
   target: {},
-  type: {},
+  type: {
+    readonly: '1'
+  },
+
   usage: {},
   view_id: {},
   view_ids: {},

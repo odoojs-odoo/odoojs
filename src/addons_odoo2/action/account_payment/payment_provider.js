@@ -16,7 +16,7 @@ export default {
             }
           }
         },
-        _group_payment_followup_965: {
+        _group_payment_followup_939: {
           _attr: {
             name: 'payment_followup'
           },

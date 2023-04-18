@@ -6,16 +6,20 @@ export default {
     arch: {
       sheet: {
         _group: {
-          new_password: {},
-          confirm_password: {}
+          new_password: {
+            required: '1'
+          },
+          confirm_password: {
+            required: '1'
+          }
         },
         _footer: {
           _button_change_password: {
             _attr: {
               name: 'change_password',
+              type: 'object',
               string: 'Change Password',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

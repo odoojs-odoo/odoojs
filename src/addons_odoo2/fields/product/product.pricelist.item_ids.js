@@ -30,7 +30,8 @@ const ModelFields = {
   },
 
   product_tmpl_id: {
-    string: 'Products'
+    string: 'Products',
+    required: '1'
   }
 }
 

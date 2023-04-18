@@ -32,7 +32,9 @@ export default {
         session: {},
         name: {},
         entry_count: {},
-        sql_count: {},
+        sql_count: {
+          optional: 'hide'
+        },
         speedscope_url: {
           widget: 'url'
         },
@@ -58,7 +60,7 @@ export default {
             widget: 'url'
           }
         },
-        _group_842: {
+        _group_835: {
           _attr: {
             invisible: [['qweb', '=', false]]
           },

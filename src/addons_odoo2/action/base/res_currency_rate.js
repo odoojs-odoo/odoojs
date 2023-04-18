@@ -27,9 +27,12 @@ export default {
           digits: '[12,12]'
         },
         rate: {
+          optional: 'hide',
           digits: '[12,12]'
         },
-        write_date: {}
+        write_date: {
+          optional: 'hide'
+        }
       }
     }
   },
@@ -54,7 +57,7 @@ export default {
               digits: '[12,12]'
             }
           },
-          _group_984: {
+          _group_165: {
             currency_id: {},
             company_id: {
               groups: 'base.group_multi_company'

@@ -65,14 +65,5 @@ export default {
       search_default_approved: 1,
       search_default_to_post: 1
     }
-  },
-
-  menu_hr_expense_account_employee_expenses: {
-    _odoo_model: 'ir.ui.menu',
-    active: false,
-    parent: 'account.menu_finance_payables',
-    action: 'action_hr_expense_account',
-    name: '员工报销费用',
-    sequence: 22
   }
 }

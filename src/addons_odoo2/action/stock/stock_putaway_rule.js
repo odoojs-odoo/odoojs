@@ -17,11 +17,12 @@ export default {
         },
         location_in_id: {
           string: 'When product arrives in',
+          readonly: "context.get['fixed_location', False]",
           no_create: true
         },
         product_id: {
           string: 'Product',
-          readonly: [['category_id', '!=', false]],
+          readonly: "context.get['single_product', False]",
           required: [['category_id', '=', false], ['package_type_ids', '=', false]],
           force_save: '1',
           no_create: true,
@@ -29,33 +30,38 @@ export default {
         },
         category_id: {
           string: 'Product Category',
-          readonly: [['product_id', '!=', false]],
+          readonly: "context.get['fixed_category', False]",
           required: [['product_id', '=', false], ['package_type_ids', '=', false]],
           force_save: '1',
           no_create: true,
           no_open: true
         },
-        _field_package_type_ids_379: {
+        _field_package_type_ids_441: {
           package_type_ids: {
             string: 'Package type',
             widget: 'many2many_tags',
             groups: 'stock.group_tracking_lot',
+            optional: 'show',
             no_create: true,
             no_open: true
           }
         },
         location_out_id: {
           readonly: [['location_in_id', '=', false]],
+          optional: 'show',
           no_create: true
         },
         storage_category_id: {
           string: 'Having Category',
           groups: 'stock.group_stock_storage_categories',
+          optional: 'show',
           no_create: true
         },
-        _field_company_id_155: {
+        _field_company_id_688: {
           company_id: {
             groups: 'stock.group_stock_multi_locations',
+            readonly: "context.get['fixed_location', False]",
+            optional: 'show',
             force_save: '1',
             no_create: true
           }
@@ -103,7 +109,7 @@ export default {
           }
         }
       },
-      _group_822: {
+      _group_761: {
         _attr: {
           string: 'Group By'
         },

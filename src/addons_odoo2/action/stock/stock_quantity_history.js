@@ -12,9 +12,9 @@ export default {
           _button_open_at_date: {
             _attr: {
               name: 'open_at_date',
+              type: 'object',
               string: 'Confirm',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

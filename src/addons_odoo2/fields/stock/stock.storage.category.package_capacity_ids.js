@@ -1,6 +1,9 @@
 const ModelFields = {
   company_id: {},
-  package_type_id: {},
+  package_type_id: {
+    required: '1'
+  },
+
   quantity: {}
 }
 

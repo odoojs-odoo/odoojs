@@ -17,6 +17,7 @@ export default {
             domain: {
               todo_ctx: "[('product_tmpl_id', '=', product_tmpl_id)]"
             },
+            readonly: "context.get['default_product_id']",
             no_open: true,
             no_create: true
           },
@@ -26,9 +27,9 @@ export default {
           _button_change_product_qty: {
             _attr: {
               name: 'change_product_qty',
+              type: 'object',
               string: 'Apply',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

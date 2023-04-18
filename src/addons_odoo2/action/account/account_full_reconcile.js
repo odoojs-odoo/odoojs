@@ -11,7 +11,9 @@ export default {
               class: 'oe_title'
             },
             _h1: {
-              name: {}
+              name: {
+                readonly: '1'
+              }
             }
           },
           _separator: {
@@ -19,7 +21,9 @@ export default {
               string: 'Matched Journal Items'
             }
           },
-          reconciled_line_ids: {}
+          reconciled_line_ids: {
+            readonly: '1'
+          }
         }
       }
     }

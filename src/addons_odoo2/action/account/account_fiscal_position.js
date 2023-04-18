@@ -19,9 +19,9 @@ export default {
             _button_action_create_foreign_taxes: {
               _attr: {
                 name: 'action_create_foreign_taxes',
+                type: 'object',
                 string: 'here',
-                class: 'oe_link',
-                type: 'object'
+                class: 'oe_link'
               }
             }
           },
@@ -33,10 +33,10 @@ export default {
             _button_count__open_account_charts_modul: {
               _attr: {
                 name: 'count.open_account_charts_modul',
+                type: 'action',
                 string: 'Install new module',
                 groups: 'base.group_system',
-                class: 'oe_link',
-                type: 'action'
+                class: 'oe_link'
               }
             }
           }
@@ -50,8 +50,9 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _group: {
@@ -72,14 +73,14 @@ export default {
               invisible: '1'
             },
             name: {},
-            _field_company_id_976: {
+            _field_company_id_904: {
               company_id: {
                 groups: 'base.group_multi_company',
                 no_create: true
               }
             }
           },
-          _group_984: {
+          _group_685: {
             auto_apply: {},
             vat_required: {
               invisible: [['auto_apply', '!=', true]]
@@ -118,7 +119,7 @@ export default {
                   class: 'oe_edit_only'
                 }
               },
-              _span_260: 'To',
+              _span_380: 'To',
               zip_to: {
                 class: 'oe_inline'
               }

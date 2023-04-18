@@ -83,7 +83,9 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        title: {},
+        title: {
+          readonly: '1'
+        },
         name: {
           invisible: '1'
         },

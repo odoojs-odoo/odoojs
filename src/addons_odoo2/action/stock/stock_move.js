@@ -42,7 +42,8 @@ export default {
           no_create: true
         },
         product_packaging_id: {
-          groups: 'product.group_stock_packaging'
+          groups: 'product.group_stock_packaging',
+          optional: 'hide'
         },
         product_uom_qty: {
           string: 'Quantity'
@@ -57,7 +58,8 @@ export default {
           groups: 'base.group_multi_company'
         },
         state: {
-          widget: 'badge'
+          widget: 'badge',
+          optional: 'show'
         }
       }
     }
@@ -79,7 +81,8 @@ export default {
           invisible: '1'
         },
         state: {
-          invisible: '1'
+          invisible: '1',
+          readonly: '0'
         },
         picking_type_id: {
           invisible: '1'
@@ -106,7 +109,8 @@ export default {
           invisible: '1'
         },
         show_operations: {
-          invisible: '1'
+          invisible: '1',
+          readonly: '1'
         },
         additional: {
           invisible: '1'
@@ -121,7 +125,8 @@ export default {
           invisible: '1'
         },
         product_id: {
-          readonly: ['|', '&', ['state', '!=', 'draft'], ['additional', '=', false], ['move_lines_count', '>', 0]]
+          readonly: ['|', '&', ['state', '!=', 'draft'], ['additional', '=', false], ['move_lines_count', '>', 0]],
+          required: '1'
         },
         is_initial_demand_editable: {
           invisible: '1'
@@ -205,7 +210,9 @@ export default {
         },
         _group: {
           _group: {
-            product_id: {},
+            product_id: {
+              readonly: '1'
+            },
             _label_product_uom_qty: {
               for: 'product_uom_qty',
               invisible: [['from_immediate_transfer', '=', true]]
@@ -216,36 +223,43 @@ export default {
                 class: 'o_row'
               },
               _span: {
-                product_uom_qty: {}
+                product_uom_qty: {
+                  readonly: '1'
+                }
               },
-              _span_356: {
-                product_uom: {}
+              _span_500: {
+                product_uom: {
+                  readonly: '1'
+                }
               }
             },
             _label_quantity_done: {
               for: 'quantity_done'
             },
-            _div_160: {
+            _div_656: {
               _attr: {
                 class: 'o_row'
               },
               _span: {
-                quantity_done: {}
+                quantity_done: {
+                  readonly: '1'
+                }
               },
-              _span_501: {
+              _span_756: {
                 _attr: {
                   invisible: ['|', ['state', '=', 'done'], ['from_immediate_transfer', '=', true]],
                   text: '/'
                 }
               },
-              _span_981: {
+              _span_219: {
                 reserved_availability: {
                   invisible: ['|', ['state', '=', 'done'], ['from_immediate_transfer', '=', true]]
                 }
               },
-              _span_404: {
+              _span_594: {
                 product_uom: {
-                  invisible: [['from_immediate_transfer', '=', true]]
+                  invisible: [['from_immediate_transfer', '=', true]],
+                  readonly: '1'
                 }
               }
             },
@@ -256,7 +270,7 @@ export default {
               for: 'next_serial_count',
               invisible: [['display_assign_serial', '=', false]]
             },
-            _div_419: {
+            _div_171: {
               _attr: {
                 invisible: [['display_assign_serial', '=', false]],
                 class: 'o_row'
@@ -267,19 +281,19 @@ export default {
               _button_action_assign_serial_show_details: {
                 _attr: {
                   name: 'action_assign_serial_show_details',
-                  class: 'btn-link',
+                  type: 'object',
                   title: 'Assign Serial Numbers',
-                  type: 'object'
+                  class: 'btn-link'
                 },
                 _span: 'Assign Serial Numbers'
               },
               _button_action_clear_lines_show_details: {
                 _attr: {
                   name: 'action_clear_lines_show_details',
-                  invisible: [['display_clear_serial', '=', false]],
-                  class: 'btn-link',
+                  type: 'object',
                   title: 'Clear Lines',
-                  type: 'object'
+                  invisible: [['display_clear_serial', '=', false]],
+                  class: 'btn-link'
                 },
                 _span: 'Clear All'
               }
@@ -303,13 +317,13 @@ export default {
               class: 'oe_highlight'
             }
           },
-          _button_710: {
+          _button_809: {
             _attr: {
               string: 'Discard'
             }
           }
         },
-        _footer_447: {
+        _footer_897: {
           _attr: {
             invisible: ['|', '&', ['state', '!=', 'cancel'], ['state', '!=', 'done'], '&', ['state', '=', 'done'], ['is_locked', '!=', true]],
             class: 'oe_edit_only'
@@ -409,7 +423,7 @@ export default {
               name: {
                 invisible: '1'
               },
-              _div_702: {
+              _div_583: {
                 _attr: {
                   class: 'o_td_label'
                 },
@@ -418,13 +432,15 @@ export default {
                   string: 'Date Scheduled',
                   invisible: [['state', '=', 'done']]
                 },
-                _label_date_662: {
+                _label_date_351: {
                   for: 'date',
                   string: 'Date Processing',
                   invisible: [['state', '!=', 'done']]
                 }
               },
-              date: {},
+              date: {
+                readonly: '1'
+              },
               date_deadline: {
                 force_save: '1'
               }
@@ -451,6 +467,7 @@ export default {
             },
             move_orig_ids: {
               string: 'Origin Moves',
+              readonly: '1',
               views: {
                 tree: {
                   arch: {
@@ -467,6 +484,7 @@ export default {
             },
             move_dest_ids: {
               string: 'Destination Moves',
+              readonly: '1',
               views: {
                 tree: {
                   arch: {
@@ -494,11 +512,17 @@ export default {
     arch: {
       name: {
         string: 'Location',
-        groups: 'stock.group_stock_multi_locations'
+        groups: 'stock.group_stock_multi_locations',
+        filter_domain: {
+          todo_ctx: "['|',('location_id', 'ilike', self),('location_dest_id', 'ilike', self)]"
+        }
       },
       product_id: {},
       origin: {
-        string: 'Reference'
+        string: 'Reference',
+        filter_domain: {
+          todo_ctx: "['|', '|', ('origin', 'ilike', self), ('name', 'ilike', self), ('picking_id', 'ilike', self)]"
+        }
       },
       location_id: {
         string: 'Source Location',
@@ -509,7 +533,10 @@ export default {
         groups: 'stock.group_stock_multi_locations'
       },
       partner_id: {
-        string: 'Partner'
+        string: 'Partner',
+        filter_domain: {
+          todo_ctx: "[('picking_id.partner_id', 'child_of', self)]"
+        }
       },
       _filter_ready: {
         _attr: {
@@ -554,7 +581,7 @@ export default {
           domain: [['is_inventory', '=', true]]
         }
       },
-      _separator_992: {},
+      _separator_983: {},
       _filter_today: {
         _attr: {
           name: 'today',
@@ -701,7 +728,9 @@ export default {
         date: {
           invisible: '1'
         },
-        date_deadline: {},
+        date_deadline: {
+          optional: 'hide'
+        },
         picking_id: {
           string: 'Reference',
           invisible: '1'
@@ -709,7 +738,9 @@ export default {
         sequence: {
           invisible: '1'
         },
-        origin: {},
+        origin: {
+          optional: 'show'
+        },
         product_id: {},
         product_uom_qty: {},
         product_uom: {
@@ -725,7 +756,9 @@ export default {
         location_dest_id: {
           invisible: '1'
         },
-        state: {},
+        state: {
+          optional: 'show'
+        },
         company_id: {
           invisible: '1'
         }

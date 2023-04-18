@@ -10,7 +10,8 @@ const ModelFields = {
   },
 
   product_id: {
-    readonly: [['id', '!=', false]]
+    readonly: [['id', '!=', false]],
+    required: 'True'
   },
 
   product_uom_id: {

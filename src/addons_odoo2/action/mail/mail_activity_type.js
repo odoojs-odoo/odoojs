@@ -8,8 +8,9 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _div_title: {
@@ -43,7 +44,7 @@ export default {
             res_model: {
               groups: 'base.group_no_one'
             },
-            _field_res_model_656: {
+            _field_res_model_273: {
               res_model: {
                 invisible: '1'
               }

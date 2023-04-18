@@ -18,7 +18,7 @@ export default {
               groups: 'base.group_no_one'
             }
           },
-          _group_540: {
+          _group_472: {
             _attr: {
               groups: 'base.group_no_one'
             },

@@ -53,7 +53,7 @@ export default {
             widget: 'boolean_toggle'
           }
         },
-        _group_192: {
+        _group_511: {
           _attr: {
             string: 'Access'
           },
@@ -103,7 +103,7 @@ export default {
           domain: [['perm_write', '=', true]]
         }
       },
-      _separator_832: {},
+      _separator_468: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',

@@ -10,9 +10,9 @@ export default {
           _button_procure_calculation: {
             _attr: {
               name: 'procure_calculation',
+              type: 'object',
               string: 'Run Scheduler',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

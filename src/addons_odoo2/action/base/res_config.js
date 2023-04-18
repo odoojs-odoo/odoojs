@@ -14,17 +14,17 @@ export default {
           _button_action_next: {
             _attr: {
               name: 'action_next',
+              type: 'object',
               string: 'Apply',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button_action_skip: {
             _attr: {
               name: 'action_skip',
+              type: 'object',
               string: 'Cancel',
-              class: 'btn-secondary',
-              type: 'object'
+              class: 'btn-secondary'
             }
           }
         }

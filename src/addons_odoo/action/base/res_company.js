@@ -60,9 +60,7 @@ export default {
           }
         }
       }
-    },
-
-    fields: {}
+    }
   },
   view_company_tree: {
     _odoo_model: 'ir.ui.view',
@@ -70,7 +68,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        // sequence: {},
+        sequence: { widget: 'handle' },
         name: {},
         partner_id: {}
       }
@@ -79,7 +77,7 @@ export default {
 
   action_res_company_form: {
     _odoo_model: 'ir.actions',
-    name: '公司',
+    name: 'Companies',
     type: 'ir.actions.act_window',
     res_model: 'res.company',
     domain: [],
@@ -88,13 +86,5 @@ export default {
       tree: 'view_company_tree',
       form: 'view_company_form'
     }
-  },
-
-  menu_action_res_company_form: {
-    _odoo_model: 'ir.ui.menu',
-    action: 'action_res_company_form',
-    parent: 'menu_users',
-    name: '公司',
-    sequence: 1
   }
 }

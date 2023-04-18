@@ -13,9 +13,9 @@ export default {
           _button_menu_create: {
             _attr: {
               name: 'menu_create',
+              type: 'object',
               string: 'Create Menu',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

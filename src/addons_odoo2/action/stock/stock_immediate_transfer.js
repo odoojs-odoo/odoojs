@@ -10,7 +10,7 @@ export default {
             text: 'You have not recorded'
           },
           _i: 'done',
-          _i_554: 'apply'
+          _i_131: 'apply'
         },
         pick_ids: {
           invisible: '1'
@@ -37,9 +37,9 @@ export default {
           _button_process: {
             _attr: {
               name: 'process',
+              type: 'object',
               string: 'Apply',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

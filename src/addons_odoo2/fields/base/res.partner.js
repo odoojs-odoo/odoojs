@@ -14,8 +14,8 @@ const ModelFields = {
   },
 
   city: {
-    readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]],
-    placeholder: 'City'
+    placeholder: 'City',
+    readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]]
   },
 
   comment: {
@@ -25,7 +25,15 @@ const ModelFields = {
   commercial_partner_id: {},
   company_id: {
     groups: 'base.group_multi_company',
+    readonly: '===todo=='
+  },
+
+  company_id_$_form_$$_103: {
     readonly: [['parent_id', '!=', false]]
+  },
+
+  company_id_$_tree: {
+    readonly: '1'
   },
 
   company_name: {},
@@ -37,7 +45,15 @@ const ModelFields = {
   country_code: {},
   country_id: {
     placeholder: 'Country',
+    readonly: '===todo=='
+  },
+
+  country_id_$_form_$$_861: {
     readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]]
+  },
+
+  country_id_$_tree: {
+    readonly: '1'
   },
 
   display_name: {
@@ -45,44 +61,60 @@ const ModelFields = {
   },
 
   email: {
-    required: [['user_ids', '!=', []]],
+    required: '===todo==',
     context: {
       gravatar_image: true
     }
+  },
+
+  email_$_form_$$_122: {
+    required: "context.get['force_email', False]"
+  },
+
+  email_$_form_$$_189: {
+    required: [['user_ids', '!=', []]]
   },
 
   function: {
     placeholder: 'e.g. Sales Director'
   },
 
-  image_1920: {},
+  image_1920: {
+    readonly: '1'
+  },
+
   industry_id: {},
   is_company: {},
   lang: {},
   mobile: {},
   name: {
     required: '===todo==',
-    placeholder: '===todo=='
+    placeholder: '===todo==',
+    readonly: '1'
   },
 
-  name_$_form_$$_293: {
+  name_$_form_$$_145: {
     required: [['type', '=', 'contact'], ['is_company', '=', true]],
     placeholder: 'e.g. Lumber Inc'
   },
 
-  name_$_form_$$_370: {
-    required: [['type', '=', 'contact']],
-    placeholder: 'e.g. Lumber Inc'
-  },
-
-  name_$_form_$$_408: {
+  name_$_form_$$_275: {
     required: [['type', '=', 'contact'], ['is_company', '=', false]],
     placeholder: 'e.g. Brandom Freeman'
   },
 
-  name_$_form_$$_523: {
+  name_$_form_$$_373: {
+    required: [['type', '=', 'contact']],
+    placeholder: 'e.g. Lumber Inc'
+  },
+
+  name_$_form_$$_762: {
     required: [['type', '=', 'contact']],
     placeholder: 'e.g. Brandom Freeman'
+  },
+
+  name_$_form_$$_988: {
+    required: '0'
   },
 
   parent_id: {
@@ -90,7 +122,8 @@ const ModelFields = {
     context: {
       todo_ctx: "{'default_is_company': True, 'show_vat': True, 'default_user_id': user_id}"
     },
-    placeholder: 'Company Name...'
+    placeholder: 'Company Name...',
+    readonly: '1'
   },
 
   phone: {},
@@ -99,33 +132,39 @@ const ModelFields = {
   },
 
   same_company_registry_partner_id: {},
+  same_vat_partner_id: {},
   state_id: {
     context: '===todo==',
     placeholder: 'State',
-    readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]]
+    readonly: '===todo=='
   },
 
-  state_id_$_form_$$_118: {
-    context: {
-      todo_ctx: "{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"
-    }
-  },
-
-  state_id_$_form_$$_422: {
-    context: {
-      todo_ctx: "{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"
-    }
-  },
-
-  state_id_$_form_$$_609: {
+  state_id_$_form_$$_110: {
     context: {
       todo_ctx: "{'default_country_id': country_id}"
     }
   },
 
-  street2: {
-    placeholder: 'Street 2...',
+  state_id_$_form_$$_152: {
+    context: {
+      todo_ctx: "{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"
+    },
     readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]]
+  },
+
+  state_id_$_form_$$_267: {
+    context: {
+      todo_ctx: "{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"
+    }
+  },
+
+  state_id_$_tree: {
+    readonly: '1'
+  },
+
+  street2: {
+    readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]],
+    placeholder: 'Street 2...'
   },
 
   street: {
@@ -148,8 +187,16 @@ const ModelFields = {
 
   user_ids: {},
   vat: {
-    readonly: [['parent_id', '!=', false]],
+    readonly: '===todo==',
     placeholder: 'e.g. BE0477472701'
+  },
+
+  vat_$_form: {
+    readonly: [['parent_id', '!=', false]]
+  },
+
+  vat_$_tree: {
+    readonly: '1'
   },
 
   website: {

@@ -19,15 +19,15 @@ export default {
           _button_action_open_provider_form: {
             _attr: {
               name: 'action_open_provider_form',
+              type: 'object',
               string: 'SETUP',
               groups: 'base.group_system',
               invisible: [['payment_provider_id', '=', false]],
-              class: 'float-end btn-secondary',
-              type: 'object'
+              class: 'float-end btn-secondary'
             }
           }
         },
-        _xpath_672: {
+        _xpath_663: {
           _attr: {
             expr: "//field[@name='inbound_payment_method_line_ids']/tree",
             position: 'attributes'

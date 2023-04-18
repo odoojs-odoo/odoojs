@@ -6,7 +6,7 @@ export default {
     arch: {
       sheet: {
         _div: 'You are trying to put products going to different locations into the same package',
-        _div_806: {
+        _div_101: {
           move_line_ids: {
             views: {
               tree: {
@@ -43,14 +43,14 @@ export default {
                               },
                               product_id: {}
                             },
-                            _div_788: {
+                            _div_955: {
                               _attr: {
                                 class: 'col-6 o_kanban_primary_right'
                               },
                               qty_done: {}
                             }
                           },
-                          _div_479: {
+                          _div_179: {
                             _attr: {
                               class: 'row'
                             },
@@ -70,10 +70,10 @@ export default {
             }
           }
         },
-        _div_740: {
+        _div_149: {
           _strong: 'Where do you want to send the products ?'
         },
-        _div_548: {
+        _div_193: {
           filtered_location: {
             invisible: '1'
           },
@@ -89,9 +89,9 @@ export default {
           _button_action_done: {
             _attr: {
               name: 'action_done',
+              type: 'object',
               string: 'Confirm',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button_cancel_button: {

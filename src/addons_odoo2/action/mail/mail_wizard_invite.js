@@ -31,9 +31,9 @@ export default {
           _button_add_followers: {
             _attr: {
               name: 'add_followers',
+              type: 'object',
               string: 'Add Followers',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

@@ -12,10 +12,10 @@ export default {
           _button_action_view_purchase_orders: {
             _attr: {
               name: 'action_view_purchase_orders',
-              invisible: [['purchase_order_count', '=', 0]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-credit-card'
+              icon: 'fa-credit-card',
+              invisible: [['purchase_order_count', '=', 0]],
+              class: 'oe_stat_button'
             },
             purchase_order_count: {
               string: 'Purchase Orders',

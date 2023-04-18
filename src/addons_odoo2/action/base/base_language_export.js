@@ -28,30 +28,32 @@ export default {
             _attr: {
               text: 'Here is the exported translation file:'
             },
-            data: {}
+            data: {
+              readonly: '1'
+            }
           },
-          _p_241: {
+          _p_804: {
             _attr: {
               text: 'This file was generated using the universal'
             },
             _strong: 'Unicode/UTF-8'
           },
-          _p_320: {
+          _p_300: {
             _attr: {
               text: 'The next step depends on the file format:'
             },
             _ul: {
               _li: 'CSV format: you may edit it directly with your favorite spreadsheet software,\n                                the rightmost column (value) contains the translations',
-              _li_225: {
+              _li_877: {
                 _attr: {
                   text: 'PO(T) format: you should edit it with a PO editor such as'
                 },
                 _a: 'POEdit'
               },
-              _li_317: 'TGZ format: bundles multiple PO(T) files as a single archive'
+              _li_785: 'TGZ format: bundles multiple PO(T) files as a single archive'
             }
           },
-          _p_975: {
+          _p_733: {
             _attr: {
               text: 'For more details about translating Odoo in your language, please refer to the'
             },
@@ -62,25 +64,25 @@ export default {
           _button_act_getfile: {
             _attr: {
               name: 'act_getfile',
+              type: 'object',
               string: 'Export',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {
             _attr: {
+              type: 'object',
               string: 'Cancel',
-              class: 'btn-secondary',
-              type: 'object'
+              class: 'btn-secondary'
             }
           }
         },
-        _footer_523: {
+        _footer_448: {
           _button: {
             _attr: {
+              type: 'object',
               string: 'Close',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           }
         }

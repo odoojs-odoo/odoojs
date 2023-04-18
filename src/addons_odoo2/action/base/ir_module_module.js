@@ -5,7 +5,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Module'
+        string: 'Module',
+        filter_domain: {
+          todo_ctx: "['|', '|', ('summary', 'ilike', self), ('shortdesc', 'ilike', self), ('name',                         'ilike', self)]"
+        }
       },
       _filter_app: {
         _attr: {
@@ -91,7 +94,7 @@ export default {
           widget: 'image',
           class: 'oe_avatar'
         },
-        _div: {
+        _div_title: {
           _attr: {
             class: 'oe_title mb32'
           },
@@ -123,11 +126,11 @@ export default {
             _button_button_immediate_install: {
               _attr: {
                 name: 'button_immediate_install',
+                type: 'object',
                 string: 'Activate',
                 groups: 'base.group_system',
                 invisible: ['|', ['to_buy', '=', true], ['state', '!=', 'uninstalled']],
-                class: 'btn btn-primary me-1',
-                type: 'object'
+                class: 'btn btn-primary me-1'
               }
             },
             _a: {
@@ -140,46 +143,46 @@ export default {
             _button_button_immediate_upgrade: {
               _attr: {
                 name: 'button_immediate_upgrade',
+                type: 'object',
                 string: 'Upgrade',
                 groups: 'base.group_system',
-                class: 'btn btn-primary me-1',
-                type: 'object'
+                class: 'btn btn-primary me-1'
               }
             },
             _button_button_uninstall_wizard: {
               _attr: {
                 name: 'button_uninstall_wizard',
+                type: 'object',
                 string: 'Uninstall',
                 groups: 'base.group_system',
-                class: 'btn btn-secondary me-1',
-                type: 'object'
+                class: 'btn btn-secondary me-1'
               }
             },
             _button_button_uninstall_cancel: {
               _attr: {
                 name: 'button_uninstall_cancel',
+                type: 'object',
                 string: 'Cancel Uninstall',
                 groups: 'base.group_system',
-                class: 'btn btn-secondary me-1',
-                type: 'object'
+                class: 'btn btn-secondary me-1'
               }
             },
             _button_button_upgrade_cancel: {
               _attr: {
                 name: 'button_upgrade_cancel',
+                type: 'object',
                 string: 'Cancel Upgrade',
                 groups: 'base.group_system',
-                class: 'btn btn-secondary me-1',
-                type: 'object'
+                class: 'btn btn-secondary me-1'
               }
             },
             _button_button_install_cancel: {
               _attr: {
                 name: 'button_install_cancel',
+                type: 'object',
                 string: 'Cancel Install',
                 groups: 'base.group_system',
-                class: 'btn btn-secondary me-1',
-                type: 'object'
+                class: 'btn btn-secondary me-1'
               }
             }
           },
@@ -191,7 +194,7 @@ export default {
             }
           }
         },
-        _div_188: {
+        _div: {
           _attr: {
             class: 'clearfix'
           }
@@ -217,7 +220,7 @@ export default {
                 },
                 summary: {}
               },
-              _group_119: {
+              _group_173: {
                 name: {},
                 license: {},
                 installed_version: {}
@@ -234,7 +237,7 @@ export default {
               application: {},
               state: {}
             },
-            _group_579: {
+            _group_921: {
               _attr: {
                 string: 'Created Views',
                 invisible: [['state', '!=', 'installed']]
@@ -248,12 +251,12 @@ export default {
               }
             },
             views_by_module: {},
-            _group_766: {
+            _group_964: {
               _attr: {
                 string: 'Dependencies'
               }
             },
-            _p_533: {
+            _p_646: {
               _attr: {
                 invisible: [['dependencies_id', 'not in', [None, false]]],
                 class: 'oe_grey',
@@ -275,12 +278,12 @@ export default {
                 }
               }
             },
-            _group_385: {
+            _group_381: {
               _attr: {
                 string: 'Exclusions'
               }
             },
-            _p_468: {
+            _p_647: {
               _attr: {
                 invisible: [['exclusion_ids', 'not in', [None, false]]],
                 class: 'oe_grey',
@@ -322,12 +325,12 @@ export default {
               }
             },
             menus_by_module: {},
-            _group_291: {
+            _group_336: {
               _attr: {
                 string: 'Defined Reports'
               }
             },
-            _p_378: {
+            _p_833: {
               _attr: {
                 invisible: [['reports_by_module', 'not in', [None, false]]],
                 class: 'oe_grey',
@@ -354,9 +357,9 @@ export default {
           _button_button_immediate_install: {
             _attr: {
               name: 'button_immediate_install',
+              type: 'object',
               string: 'Install',
-              groups: 'base.group_system',
-              type: 'object'
+              groups: 'base.group_system'
             }
           }
         },

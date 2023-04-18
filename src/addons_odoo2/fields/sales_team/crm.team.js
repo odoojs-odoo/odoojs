@@ -16,7 +16,8 @@ const ModelFields = {
   member_ids: {},
   member_warning: {},
   name: {
-    placeholder: 'e.g. North America'
+    placeholder: 'e.g. North America',
+    readonly: '1'
   },
 
   sequence: {},

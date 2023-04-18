@@ -31,7 +31,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Action'
+        string: 'Action',
+        filter_domain: {
+          todo_ctx: "['|', ('name','ilike',self), ('type','ilike',self)]"
+        }
       }
     }
   },

@@ -5,7 +5,10 @@ const ModelFields = {
     string: 'Sales'
   },
 
-  sale_warn: {},
+  sale_warn: {
+    required: '1'
+  },
+
   sale_warn_msg: {
     string: 'Message',
     required: [['sale_warn', '!=', false], ['sale_warn', '!=', 'no-message']],

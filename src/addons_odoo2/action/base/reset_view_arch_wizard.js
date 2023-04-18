@@ -20,7 +20,7 @@ export default {
               no_open: true
             }
           },
-          _group_328: {
+          _group_858: {
             reset_mode: {
               widget: 'radio'
             }
@@ -40,13 +40,13 @@ export default {
               text: 'This view has no previous version.'
             }
           },
-          _span_528: {
+          _span_889: {
             _attr: {
               invisible: [['reset_mode', '!=', 'hard']],
               text: 'This view is not coming from a file.'
             }
           },
-          _span_795: {
+          _span_348: {
             _attr: {
               invisible: [['reset_mode', '!=', 'other_view']],
               text: 'You need two views to compare.'
@@ -57,10 +57,10 @@ export default {
           _button_reset_view_button: {
             _attr: {
               name: 'reset_view_button',
+              type: 'object',
               string: 'Reset View',
               invisible: [['has_diff', '=', false]],
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

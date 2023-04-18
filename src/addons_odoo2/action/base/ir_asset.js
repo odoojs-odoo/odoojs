@@ -15,7 +15,7 @@ export default {
               widget: 'boolean_toggle'
             }
           },
-          _group_616: {
+          _group_803: {
             target: {
               invisible: [['directive', '!=', 'replace']]
             },

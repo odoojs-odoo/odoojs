@@ -25,7 +25,7 @@ export default {
               groups: 'base.group_no_one'
             }
           },
-          _group_294: {
+          _group_174: {
             _attr: {
               string: 'Attached To',
               groups: 'base.group_no_one'
@@ -40,7 +40,7 @@ export default {
             },
             public: {}
           },
-          _group_564: {
+          _group_382: {
             _attr: {
               string: 'History',
               groups: 'base.group_no_one',
@@ -55,10 +55,12 @@ export default {
                 name: 'creation_div'
               },
               create_uid: {
-                class: 'oe_inline'
+                class: 'oe_inline',
+                readonly: '1'
               },
               create_date: {
-                class: 'oe_inline'
+                class: 'oe_inline',
+                readonly: '1'
               }
             }
           },
@@ -70,7 +72,7 @@ export default {
             },
             description: {}
           },
-          _group_654: {
+          _group_113: {
             _attr: {
               string: 'Indexed Content',
               groups: 'base.group_no_one'
@@ -109,7 +111,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Attachment'
+        string: 'Attachment',
+        filter_domain: {
+          todo_ctx: "[('name','ilike',self)]"
+        }
       },
       create_date: {},
       _filter_my_documents_filter: {

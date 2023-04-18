@@ -48,22 +48,23 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _group: {
           _group: {
             name: {}
           },
-          _group_826: {
+          _group_857: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
             }
           }
         },
-        _group_493: {
+        _group_545: {
           note: {
             placeholder: 'Payment term explanation for the customer...'
           }
@@ -131,7 +132,7 @@ export default {
               text: 'The Payment Term must have one Balance line.'
             }
           },
-          _div_599: {
+          _div_887: {
             _attr: {
               invisible: [['example_invalid', '=', true]],
               class: 'd-flex',
@@ -143,12 +144,12 @@ export default {
               }
             },
             example_amount: {},
-            _span_417: {
+            _span_159: {
               _attr: {
                 class: 'mx-1'
               }
             },
-            _span_596: {
+            _span_772: {
               _attr: {
                 class: 'mx-1'
               }

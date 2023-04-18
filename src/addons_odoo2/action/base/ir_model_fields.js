@@ -16,7 +16,7 @@ export default {
               readonly: [['state', '!=', 'manual']]
             }
           },
-          _group_647: {
+          _group_799: {
             ttype: {},
             help: {}
           }
@@ -44,7 +44,7 @@ export default {
                   groups: 'base.group_no_one'
                 }
               },
-              _group_146: {
+              _group_553: {
                 translate: {
                   readonly: [['ttype', 'not in', ['char', 'text', 'html']]],
                   invisible: [['ttype', 'not in', ['char', 'text', 'html']]]
@@ -96,7 +96,7 @@ export default {
                 }
               }
             },
-            _group_736: {
+            _group_445: {
               _attr: {
                 readonly: [['ttype', 'not in', ['selection', 'reference']]],
                 invisible: [['ttype', 'not in', ['selection', 'reference']]]
@@ -117,7 +117,7 @@ export default {
                 }
               }
             },
-            _group_903: {
+            _group_437: {
               _attr: {
                 string: 'Advanced Properties',
                 groups: 'base.group_no_one'
@@ -141,44 +141,44 @@ export default {
                   text: 'Computed fields are defined with the fields'
                 },
                 _strong: 'Dependencies',
-                _strong_199: 'Compute'
+                _strong_445: 'Compute'
               },
-              _p_345: {
+              _p_531: {
                 _attr: {
                   text: 'The field'
                 },
                 _strong: 'Dependencies',
                 _code: 'name, size',
-                _code_349: 'partner_id.company_id.name'
+                _code_967: 'partner_id.company_id.name'
               },
-              _p_456: {
+              _p_949: {
                 _attr: {
                   text: 'The field'
                 },
                 _strong: 'Compute'
               },
               _pre: "for record in self:\n        record['size'] = len(record.name)",
-              _p_589: 'The only predefined variables are',
+              _p_223: 'The only predefined variables are',
               _ul: {
                 _li: {
                   _code: 'self'
                 },
-                _li_922: {
+                _li_726: {
                   _code: 'datetime'
                 },
-                _li_599: {
+                _li_583: {
                   _code: 'dateutil'
                 },
-                _li_984: {
+                _li_390: {
                   _code: 'time'
                 }
               },
-              _p_454: {
+              _p_205: {
                 _attr: {
                   text: 'Other features are accessible through'
                 },
                 _code: 'self',
-                _code_697: 'self.env'
+                _code_163: 'self.env'
               }
             }
           },
@@ -230,7 +230,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Field'
+        string: 'Field',
+        filter_domain: {
+          todo_ctx: "['|', ('name','ilike',self), ('field_description','ilike',self)]"
+        }
       },
       _filter_required: {
         _attr: {
@@ -247,7 +250,7 @@ export default {
           domain: [['readonly', '=', true]]
         }
       },
-      _separator_192: {},
+      _separator_618: {},
       _filter_custom: {
         _attr: {
           name: 'custom',
@@ -262,7 +265,7 @@ export default {
           domain: [['state', '=', 'base']]
         }
       },
-      _separator_670: {},
+      _separator_680: {},
       _filter_translate: {
         _attr: {
           name: 'translate',

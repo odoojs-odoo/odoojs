@@ -26,7 +26,7 @@ export default {
 
   action_partner_title_contact: {
     _odoo_model: 'ir.actions',
-    name: '联系人头衔',
+    name: 'Contact Titles',
     type: 'ir.actions.act_window',
     res_model: 'res.partner.title',
     domain: [],

@@ -1,5 +1,8 @@
 const ModelFields = {
-  location_id: {},
+  location_id: {
+    readonly: 'True'
+  },
+
   quant_ids: {}
 }
 

@@ -23,7 +23,9 @@ export default {
       sheet: {
         product_uom_id: {
           __todo__after: {
-            sales: {}
+            sales: {
+              optional: 'show'
+            }
           }
         }
       }

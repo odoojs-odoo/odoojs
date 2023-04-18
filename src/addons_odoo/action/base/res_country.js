@@ -39,6 +39,7 @@ export default {
 
         _group_advanced_address_formatting: {
           _attr: {
+            name: 'advanced_address_formatting',
             string: 'Advanced Address Formatting',
             groups: 'base.group_no_one',
             col: 24
@@ -89,7 +90,7 @@ export default {
 
   action_country: {
     _odoo_model: 'ir.actions',
-    name: '国家',
+    name: 'Countries',
     type: 'ir.actions.act_window',
     res_model: 'res.country',
     domain: [],

@@ -12,7 +12,7 @@ export default {
           },
           buy_to_resupply: {}
         },
-        _xpath_473: {
+        _xpath_230: {
           _attr: {
             expr: "//group[@name='group_resupply']",
             position: 'attributes'

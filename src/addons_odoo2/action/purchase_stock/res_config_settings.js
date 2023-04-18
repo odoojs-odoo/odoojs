@@ -26,9 +26,9 @@ export default {
             },
             _div: {
               _attr: {
+                title: 'This adds a dropshipping route to apply on products in order to request your vendors to deliver to your customers. A product to dropship will generate a purchase request for quotation once the sales order confirmed. This is a on-demand flow. The requested delivery address will be the customer delivery address and not your warehouse.',
                 invisible: [['is_installed_sale', '=', false]],
-                class: 'col-12 col-lg-6 o_setting_box',
-                title: 'This adds a dropshipping route to apply on products in order to request your vendors to deliver to your customers. A product to dropship will generate a purchase request for quotation once the sales order confirmed. This is a on-demand flow. The requested delivery address will be the customer delivery address and not your warehouse.'
+                class: 'col-12 col-lg-6 o_setting_box'
               },
               _div: {
                 _attr: {
@@ -36,7 +36,7 @@ export default {
                 },
                 module_stock_dropshipping: {}
               },
-              _div_585: {
+              _div_652: {
                 _attr: {
                   class: 'o_setting_right_pane'
                 },
@@ -45,8 +45,8 @@ export default {
                 },
                 _a: {
                   _attr: {
-                    class: 'o_doc_link',
-                    title: 'Documentation'
+                    title: 'Documentation',
+                    class: 'o_doc_link'
                   }
                 },
                 _div: {
@@ -85,8 +85,8 @@ export default {
           _div_schedule_receivings_setting_container: {
             _attr: {
               name: 'schedule_receivings_setting_container',
-              class: 'col-12 col-lg-6 o_setting_box',
-              title: 'Margin of error for vendor lead times. When the system generates Purchase Orders for reordering products,they will be scheduled that many days earlier to cope with unexpected vendor delays.'
+              title: 'Margin of error for vendor lead times. When the system generates Purchase Orders for reordering products,they will be scheduled that many days earlier to cope with unexpected vendor delays.',
+              class: 'col-12 col-lg-6 o_setting_box'
             },
             _div: {
               _attr: {
@@ -94,7 +94,7 @@ export default {
               },
               use_po_lead: {}
             },
-            _div_517: {
+            _div_971: {
               _attr: {
                 class: 'o_setting_right_pane'
               },
@@ -103,15 +103,15 @@ export default {
               },
               _a: {
                 _attr: {
-                  class: 'me-2 o_doc_link',
-                  title: 'Documentation'
+                  title: 'Documentation',
+                  class: 'me-2 o_doc_link'
                 }
               },
               _span: {
                 _attr: {
+                  title: 'Values set here are company-specific.',
                   groups: 'base.group_multi_company',
-                  class: 'fa fa-lg fa-building-o',
-                  title: 'Values set here are company-specific.'
+                  class: 'fa fa-lg fa-building-o'
                 }
               },
               _div: {
@@ -120,7 +120,7 @@ export default {
                   text: 'Schedule request for quotations earlier to avoid delays'
                 }
               },
-              _div_852: {
+              _div_832: {
                 _attr: {
                   class: 'content-group'
                 },
@@ -154,9 +154,9 @@ export default {
               },
               _span: {
                 _attr: {
+                  title: 'Values set here are company-specific.',
                   groups: 'base.group_multi_company',
-                  class: 'fa fa-lg fa-building-o',
-                  title: 'Values set here are company-specific.'
+                  class: 'fa fa-lg fa-building-o'
                 }
               },
               _div: {
@@ -165,7 +165,7 @@ export default {
                   text: 'Days needed to confirm a PO'
                 }
               },
-              _div_163: {
+              _div_128: {
                 _attr: {
                   class: 'content-group'
                 },

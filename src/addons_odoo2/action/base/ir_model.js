@@ -21,9 +21,10 @@ export default {
               readonly: [['id', '!=', false]]
             }
           },
-          _group_985: {
+          _group_366: {
             state: {
-              groups: 'base.group_no_one'
+              groups: 'base.group_no_one',
+              readonly: '1'
             },
             modules: {
               groups: 'base.group_no_one'
@@ -69,7 +70,7 @@ export default {
                           name: {},
                           field_description: {}
                         },
-                        _group_904: {
+                        _group_357: {
                           ttype: {},
                           help: {}
                         }
@@ -97,7 +98,7 @@ export default {
                                 groups: 'base.group_no_one'
                               }
                             },
-                            _group_182: {
+                            _group_399: {
                               translate: {
                                 readonly: [['ttype', 'not in', ['char', 'text', 'html']]],
                                 invisible: [['ttype', 'not in', ['char', 'text', 'html']]]
@@ -144,7 +145,7 @@ export default {
                               }
                             }
                           },
-                          _group_120: {
+                          _group_592: {
                             _attr: {
                               readonly: [['ttype', 'not in', ['selection', 'reference']]],
                               invisible: [['ttype', 'not in', ['selection', 'reference']]]
@@ -165,7 +166,7 @@ export default {
                               }
                             }
                           },
-                          _group_967: {
+                          _group_252: {
                             _attr: {
                               string: 'Advanced Properties',
                               groups: 'base.group_no_one'
@@ -189,44 +190,44 @@ export default {
                                 text: 'Computed fields are defined with the fields'
                               },
                               _strong: 'Dependencies',
-                              _strong_104: 'Compute'
+                              _strong_476: 'Compute'
                             },
-                            _p_317: {
+                            _p_412: {
                               _attr: {
                                 text: 'The field'
                               },
                               _strong: 'Dependencies',
                               _code: 'name, size',
-                              _code_871: 'partner_id.company_id.name'
+                              _code_353: 'partner_id.company_id.name'
                             },
-                            _p_282: {
+                            _p_215: {
                               _attr: {
                                 text: 'The field'
                               },
                               _strong: 'Compute'
                             },
                             _pre: "for record in self:\n        record['size'] = len(record.name)",
-                            _p_415: 'The only predefined variables are',
+                            _p_942: 'The only predefined variables are',
                             _ul: {
                               _li: {
                                 _code: 'self'
                               },
-                              _li_710: {
+                              _li_185: {
                                 _code: 'datetime'
                               },
-                              _li_434: {
+                              _li_166: {
                                 _code: 'dateutil'
                               },
-                              _li_493: {
+                              _li_750: {
                                 _code: 'time'
                               }
                             },
-                            _p_572: {
+                            _p_259: {
                               _attr: {
                                 text: 'Other features are accessible through'
                               },
                               _code: 'self',
-                              _code_729: 'self.env'
+                              _code_622: 'self.env'
                             }
                           }
                         },
@@ -257,10 +258,10 @@ export default {
             _button_act_menu_create: {
               _attr: {
                 name: 'act_menu_create',
-                string: 'Create a Menu',
-                groups: 'base.group_no_one',
                 type: 'action',
-                icon: 'fa-align-justify'
+                string: 'Create a Menu',
+                icon: 'fa-align-justify',
+                groups: 'base.group_no_one'
               }
             }
           },
@@ -359,10 +360,16 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Model'
+        string: 'Model',
+        filter_domain: {
+          todo_ctx: "['|', ('name','ilike',self), ('model','ilike',self)]"
+        }
       },
       model: {
-        string: 'Technical Name'
+        string: 'Technical Name',
+        filter_domain: {
+          todo_ctx: "[('model','ilike',self)]"
+        }
       },
       _filter_transient: {
         _attr: {

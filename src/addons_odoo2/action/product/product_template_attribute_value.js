@@ -5,14 +5,20 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        attribute_id: {},
+        attribute_id: {
+          optional: 'hide'
+        },
         name: {},
-        display_type: {},
+        display_type: {
+          optional: 'hide'
+        },
         html_color: {
           widget: 'color',
           invisible: [['display_type', '!=', 'color']]
         },
-        ptav_active: {},
+        ptav_active: {
+          optional: 'hide'
+        },
         price_extra: {
           widget: 'monetary',
           field_digits: true
@@ -32,7 +38,8 @@ export default {
       sheet: {
         _group: {
           ptav_active: {
-            invisible: [['ptav_active', '=', true]]
+            invisible: [['ptav_active', '=', true]],
+            readonly: '1'
           },
           name: {},
           display_type: {

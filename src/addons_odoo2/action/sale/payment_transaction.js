@@ -13,10 +13,10 @@ export default {
           _button_action_view_sales_orders: {
             _attr: {
               name: 'action_view_sales_orders',
-              invisible: [['sale_order_ids_nbr', '=', 0]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-money'
+              icon: 'fa-money',
+              invisible: [['sale_order_ids_nbr', '=', 0]],
+              class: 'oe_stat_button'
             },
             sale_order_ids_nbr: {
               string: 'Sales Order(s)',

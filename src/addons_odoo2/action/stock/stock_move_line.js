@@ -34,18 +34,22 @@ export default {
         },
         product_id: {},
         lot_id: {
-          groups: 'stock.group_production_lot'
+          groups: 'stock.group_production_lot',
+          optional: 'show'
         },
         package_id: {
-          groups: 'stock.group_tracking_lot'
+          groups: 'stock.group_tracking_lot',
+          optional: 'hide'
         },
         result_package_id: {
-          groups: 'stock.group_tracking_lot'
+          groups: 'stock.group_tracking_lot',
+          optional: 'hide'
         },
         location_id: {},
         location_dest_id: {},
         company_id: {
           groups: 'base.group_multi_company',
+          optional: 'hide',
           force_save: '1'
         },
         qty_done: {
@@ -58,11 +62,13 @@ export default {
           no_create: true
         },
         state: {
-          widget: 'badge'
+          widget: 'badge',
+          optional: 'show'
         },
         create_uid: {
           string: 'Done By',
-          widget: 'many2one_avatar_user'
+          widget: 'many2one_avatar_user',
+          optional: 'hide'
         }
       }
     }
@@ -74,12 +80,15 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        date: {},
+        date: {
+          optional: 'hide'
+        },
         picking_id: {},
         picking_partner_id: {},
         product_id: {},
         lot_id: {
-          groups: 'stock.group_production_lot'
+          groups: 'stock.group_production_lot',
+          optional: 'hide'
         },
         location_id: {
           groups: 'stock.group_stock_multi_locations'
@@ -91,20 +100,24 @@ export default {
           groups: 'stock.group_tracking_lot'
         },
         qty_done: {
-          string: 'Quantity Done'
+          string: 'Quantity Done',
+          optional: 'hide'
         },
         product_uom_id: {
           string: 'Unit of Measure',
           groups: 'uom.group_uom',
+          optional: 'hide',
           no_open: true,
           no_create: true
         },
         company_id: {
           groups: 'base.group_multi_company',
+          optional: 'hide',
           force_save: '1'
         },
         state: {
-          widget: 'badge'
+          widget: 'badge',
+          optional: 'show'
         }
       }
     }
@@ -156,7 +169,7 @@ export default {
               no_create: true
             }
           },
-          _group_860: {
+          _group_293: {
             _label_reserved_uom_qty: {
               for: 'reserved_uom_qty',
               string: 'Quantity Reserved',
@@ -167,7 +180,9 @@ export default {
                 invisible: [['state', '=', 'done']],
                 class: 'o_row'
               },
-              reserved_uom_qty: {},
+              reserved_uom_qty: {
+                readonly: '1'
+              },
               product_uom_id: {
                 string: 'Unit of Measure',
                 groups: 'uom.group_uom',
@@ -178,7 +193,7 @@ export default {
               for: 'qty_done',
               string: 'Quantity Done'
             },
-            _div_523: {
+            _div_897: {
               _attr: {
                 class: 'o_row'
               },
@@ -214,7 +229,8 @@ export default {
             },
             create_uid: {
               string: 'Done By',
-              widget: 'many2one_avatar_user'
+              widget: 'many2one_avatar_user',
+              optional: 'hide'
             }
           }
         }
@@ -229,7 +245,10 @@ export default {
     arch: {
       location_id: {
         string: 'Location',
-        groups: 'stock.group_stock_multi_locations'
+        groups: 'stock.group_stock_multi_locations',
+        filter_domain: {
+          todo_ctx: "['|',('location_id', 'ilike', self),('location_dest_id', 'ilike', self)]"
+        }
       },
       product_id: {},
       picking_id: {
@@ -272,7 +291,7 @@ export default {
           domain: [['state', '=', 'done']]
         }
       },
-      _separator_797: {},
+      _separator_917: {},
       _filter_incoming: {
         _attr: {
           name: 'incoming',
@@ -302,7 +321,7 @@ export default {
           domain: [['picking_id.picking_type_id.code', '=', 'mrp_operation']]
         }
       },
-      _separator_667: {},
+      _separator_650: {},
       _filter_date: {
         _attr: {
           name: 'date'
@@ -335,7 +354,7 @@ export default {
           }
         }
       },
-      _separator_593: {},
+      _separator_289: {},
       _filter_inventory: {
         _attr: {
           name: 'inventory',
@@ -343,7 +362,7 @@ export default {
           domain: [['is_inventory', '=', true]]
         }
       },
-      _separator_958: {},
+      _separator_112: {},
       _group_groupby: {
         _attr: {
           name: 'groupby',
@@ -477,7 +496,7 @@ export default {
         package_id: {
           invisible: '1'
         },
-        _field_location_id_343: {
+        _field_location_id_724: {
           location_id: {
             groups: 'stock.group_stock_multi_locations',
             invisible: "not context.get['show_source_location']",
@@ -488,7 +507,7 @@ export default {
             no_create: true
           }
         },
-        _field_location_dest_id_124: {
+        _field_location_dest_id_622: {
           location_dest_id: {
             groups: 'stock.group_stock_multi_locations',
             invisible: "not context.get['show_destination_location']",
@@ -517,7 +536,7 @@ export default {
           readonly: ['&', ['package_level_id', '!=', false], ['parent.picking_type_entire_packs', '=', true]],
           placeholder: 'Write your SN/LN one by one or copy paste a list.'
         },
-        _field_package_id_290: {
+        _field_package_id_969: {
           package_id: {
             groups: 'stock.group_tracking_lot',
             invisible: "not context.get['show_package']",
@@ -537,7 +556,8 @@ export default {
           readonly: ['&', ['package_level_id', '!=', false], ['parent.picking_type_entire_packs', '=', true]]
         },
         reserved_uom_qty: {
-          invisible: "not context.get['show_reserved_quantity']"
+          invisible: "not context.get['show_reserved_quantity']",
+          readonly: '1'
         },
         state: {
           invisible: '1'
@@ -572,7 +592,8 @@ export default {
           readonly: ['|', ['state', '=', 'done'], ['move_id', '!=', false]],
           context: {
             default_detailed_type: 'product'
-          }
+          },
+          required: '1'
         },
         company_id: {
           invisible: '1'
@@ -598,7 +619,7 @@ export default {
         location_dest_id: {
           invisible: '1'
         },
-        _field_location_id_652: {
+        _field_location_id_465: {
           location_id: {
             groups: 'stock.group_stock_multi_locations',
             domain: {
@@ -608,7 +629,7 @@ export default {
             no_create: true
           }
         },
-        _field_location_dest_id_905: {
+        _field_location_dest_id_297: {
           location_dest_id: {
             groups: 'stock.group_stock_multi_locations',
             domain: {
@@ -618,12 +639,12 @@ export default {
             no_create: true
           }
         },
-        _field_package_id_674: {
+        _field_package_id_879: {
           package_id: {
             groups: 'stock.group_tracking_lot'
           }
         },
-        _field_result_package_id_192: {
+        _field_result_package_id_427: {
           result_package_id: {
             groups: 'stock.group_tracking_lot'
           }
@@ -644,7 +665,8 @@ export default {
           invisible: [['lots_visible', '=', false]],
           context: {
             todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id, 'active_picking_id': picking_id}"
-          }
+          },
+          optional: 'show'
         },
         lot_name: {
           groups: 'stock.group_production_lot',
@@ -658,7 +680,9 @@ export default {
           invisible: '1'
         },
         reserved_uom_qty: {
-          column_invisible: ['|', ['parent.immediate_transfer', '=', true], ['parent.picking_type_code', '=', 'incoming']]
+          column_invisible: ['|', ['parent.immediate_transfer', '=', true], ['parent.picking_type_code', '=', 'incoming']],
+          readonly: '1',
+          optional: 'show'
         },
         is_locked: {
           invisible: '1'

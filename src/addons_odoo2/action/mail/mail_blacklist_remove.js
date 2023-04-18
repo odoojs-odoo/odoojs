@@ -20,9 +20,9 @@ export default {
           _button_action_unblacklist_apply: {
             _attr: {
               name: 'action_unblacklist_apply',
+              type: 'object',
               string: 'Confirm',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

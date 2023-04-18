@@ -14,8 +14,8 @@ export default {
             },
             _div: {
               _attr: {
-                class: 'col-12 col-lg-6 o_setting_box',
-                title: 'Affect landed costs on reception operations and split them among products to update their cost price.'
+                title: 'Affect landed costs on reception operations and split them among products to update their cost price.',
+                class: 'col-12 col-lg-6 o_setting_box'
               },
               _div: {
                 _attr: {
@@ -23,7 +23,7 @@ export default {
                 },
                 module_stock_landed_costs: {}
               },
-              _div_701: {
+              _div_491: {
                 _attr: {
                   class: 'o_setting_right_pane'
                 },
@@ -32,8 +32,8 @@ export default {
                 },
                 _a: {
                   _attr: {
-                    class: 'o_doc_link',
-                    title: 'Documentation'
+                    title: 'Documentation',
+                    class: 'o_doc_link'
                   }
                 },
                 _div: {
@@ -42,7 +42,7 @@ export default {
                     text: 'Add additional cost (transport, customs, ...) in the value of the product.'
                   }
                 },
-                _div_411: {
+                _div_538: {
                   _attr: {
                     class: 'content-group'
                   },
@@ -54,7 +54,7 @@ export default {
                 }
               }
             },
-            _div_931: {
+            _div_115: {
               _attr: {
                 invisible: [['group_stock_production_lot', '=', false]],
                 class: 'col-12 col-lg-6 o_setting_box'
@@ -65,7 +65,7 @@ export default {
                 },
                 group_lot_on_invoice: {}
               },
-              _div_725: {
+              _div_384: {
                 _attr: {
                   class: 'o_setting_right_pane'
                 },

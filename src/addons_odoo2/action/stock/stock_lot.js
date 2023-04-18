@@ -20,10 +20,10 @@ export default {
           _button_action_lot_open_transfers: {
             _attr: {
               name: 'action_lot_open_transfers',
-              invisible: [['delivery_count', '=', 0]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-truck'
+              icon: 'fa-truck',
+              invisible: [['delivery_count', '=', 0]],
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -38,7 +38,7 @@ export default {
                   class: 'mr4'
                 }
               },
-              _span_452: {
+              _span_851: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Transfers'
@@ -49,19 +49,19 @@ export default {
           _button_action_lot_open_quants: {
             _attr: {
               name: 'action_lot_open_quants',
-              string: 'Location',
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-arrows'
+              string: 'Location',
+              icon: 'fa-arrows',
+              class: 'oe_stat_button'
             }
           },
           _button_action_stock_report: {
             _attr: {
               name: 'action_stock_report',
-              string: 'Traceability',
-              class: 'oe_stat_button',
               type: 'action',
-              icon: 'fa-arrow-up'
+              string: 'Traceability',
+              icon: 'fa-arrow-up',
+              class: 'oe_stat_button'
             }
           }
         },
@@ -88,6 +88,7 @@ export default {
                 default_detailed_type: 'product',
                 default_tracking: 'lot'
               },
+              readonly: "context.get['set_product_readonly', False]",
               force_save: '1'
             },
             _label_product_qty: {
@@ -109,7 +110,7 @@ export default {
               groups: 'base.group_multi_company'
             }
           },
-          _group_579: {}
+          _group_335: {}
         },
         _notebook: {
           _attr: {
@@ -134,14 +135,21 @@ export default {
     arch: {
       sheet: {
         name: {},
-        ref: {},
-        product_id: {},
-        create_date: {},
+        ref: {
+          optional: 'show'
+        },
+        product_id: {
+          readonly: '1'
+        },
+        create_date: {
+          optional: 'show'
+        },
         company_id: {
           groups: 'base.group_multi_company'
         },
         last_delivery_partner_id: {
-          string: 'Transfer to'
+          string: 'Transfer to',
+          optional: 'hide'
         }
       }
     }
@@ -153,7 +161,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Lot/Serial Number'
+        string: 'Lot/Serial Number',
+        filter_domain: {
+          todo_ctx: "['|', ('name', 'ilike', self),('ref', 'ilike', self)]"
+        }
       },
       product_id: {},
       _group: {

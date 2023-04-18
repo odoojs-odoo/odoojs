@@ -9,9 +9,9 @@ export default {
           _button_action_save_onboarding_fiscal_year: {
             _attr: {
               name: 'action_save_onboarding_fiscal_year',
+              type: 'object',
               string: 'Apply',
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button: {

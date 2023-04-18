@@ -17,14 +17,30 @@ const ModelFields = {
 
   inventory_quantity: {},
   inventory_quantity_auto_apply: {
-    string: 'On Hand Quantity'
+    string: 'On Hand Quantity',
+    readonly: '0'
   },
 
   inventory_quantity_set: {},
   is_outdated: {},
-  last_count_date: {},
+  last_count_date: {
+    readonly: '1'
+  },
+
   location_id: {
-    domain: [['usage', 'in', ['internal', 'transit']]],
+    readonly: '===todo==',
+    domain: [['usage', 'in', ['internal', 'transit']]]
+  },
+
+  location_id_$_form: {
+    readonly: '0'
+  },
+
+  location_id_$_tree_$$_125: {
+    readonly: [['id', '!=', false]]
+  },
+
+  location_id_$_tree_$$_507: {
     readonly: [['id', '!=', false]]
   },
 
@@ -41,28 +57,64 @@ const ModelFields = {
     readonly: [['tracking', 'not in', ['serial', 'lot']]]
   },
 
-  lot_id_$_tree_$$_151: {
+  lot_id_$_tree_$$_796: {
     readonly: ['|', ['id', '!=', false], ['tracking', 'not in', ['serial', 'lot']]]
   },
 
-  lot_id_$_tree_$$_383: {
+  lot_id_$_tree_$$_939: {
     readonly: ['|', ['tracking', 'not in', ['serial', 'lot']], '&', ['id', '!=', false], '|', ['lot_id', '!=', false], ['quantity', '!=', 0]]
   },
 
   owner_id: {
     groups: 'stock.group_tracking_owner',
+    readonly: '===todo=='
+  },
+
+  owner_id_$_form: {
+    readonly: '0'
+  },
+
+  owner_id_$_tree_$$_638: {
+    readonly: [['id', '!=', false]]
+  },
+
+  owner_id_$_tree_$$_792: {
     readonly: [['id', '!=', false]]
   },
 
   package_id: {
     groups: 'stock.group_tracking_lot',
+    readonly: '===todo=='
+  },
+
+  package_id_$_form: {
+    readonly: '0'
+  },
+
+  package_id_$_tree_$$_699: {
+    readonly: [['id', '!=', false]]
+  },
+
+  package_id_$_tree_$$_732: {
     readonly: [['id', '!=', false]]
   },
 
   priority: {},
   product_categ_id: {},
   product_id: {
-    readonly: [['id', '!=', false]]
+    readonly: '===todo=='
+  },
+
+  product_id_$_form: {
+    readonly: '0'
+  },
+
+  product_id_$_tree_$$_924: {
+    readonly: "context.get['single_product', False]"
+  },
+
+  product_id_$_tree_$$_936: {
+    readonly: "context.get['single_product', False]"
   },
 
   product_uom_id: {
@@ -70,12 +122,12 @@ const ModelFields = {
     string: '===todo=='
   },
 
-  product_uom_id_$_tree_$$_695: {
-    string: 'Unit'
+  product_uom_id_$_tree_$$_663: {
+    string: 'UoM'
   },
 
-  product_uom_id_$_tree_$$_879: {
-    string: 'UoM'
+  product_uom_id_$_tree_$$_878: {
+    string: 'Unit'
   },
 
   quantity: {

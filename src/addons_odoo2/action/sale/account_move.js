@@ -39,7 +39,8 @@ export default {
         invoice_user_id: {
           __todo__after: {
             team_id: {
-              invisible: "context.get['default_move_type'] not in ['out_invoice', 'out_refund','out_receipt']"
+              invisible: "context.get['default_move_type'] not in ['out_invoice', 'out_refund','out_receipt']",
+              optional: 'hide'
             }
           }
         }
@@ -60,7 +61,7 @@ export default {
           },
           team_id: {}
         },
-        _xpath_387: {
+        _xpath_490: {
           _attr: {
             expr: "//group[@id='other_tab_group']",
             position: 'inside'
@@ -80,7 +81,7 @@ export default {
             source_id: {}
           }
         },
-        _xpath_241: {
+        _xpath_429: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'
@@ -88,10 +89,10 @@ export default {
           _button_action_view_source_sale_orders: {
             _attr: {
               name: 'action_view_source_sale_orders',
-              invisible: ['|', ['sale_order_count', '=', 0], ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-pencil-square-o'
+              icon: 'fa-pencil-square-o',
+              invisible: ['|', ['sale_order_count', '=', 0], ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]],
+              class: 'oe_stat_button'
             },
             sale_order_count: {
               string: 'Sale Orders',

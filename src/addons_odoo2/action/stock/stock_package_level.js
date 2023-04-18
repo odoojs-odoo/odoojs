@@ -124,7 +124,7 @@ export default {
                 class: 'oe_highlight'
               }
             },
-            _button_270: {
+            _button_242: {
               _attr: {
                 string: 'Discard'
               }
@@ -168,8 +168,8 @@ export default {
         _button_action_show_package_details: {
           _attr: {
             name: 'action_show_package_details',
-            title: 'Display package content',
             type: 'object',
+            title: 'Display package content',
             icon: 'fa-list'
           }
         }

@@ -25,7 +25,9 @@ export default {
             },
             name: {},
             category_id: {},
-            uom_type: {},
+            uom_type: {
+              readonly: '1'
+            },
             _label_factor: {
               for: 'factor',
               invisible: [['uom_type', '!=', 'smaller']]
@@ -49,7 +51,7 @@ export default {
               for: 'factor_inv',
               invisible: [['uom_type', '!=', 'bigger']]
             },
-            _div_190: {
+            _div_135: {
               _attr: {
                 invisible: [['uom_type', '!=', 'bigger']]
               },

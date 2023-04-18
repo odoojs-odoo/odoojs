@@ -9,9 +9,9 @@ export default {
           _button_apply: {
             _attr: {
               name: 'apply',
+              type: 'object',
               string: 'Continue',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {
@@ -29,7 +29,7 @@ export default {
             class: 'oe_inline'
           }
         },
-        _p_772: 'Once done, press continue.'
+        _p_442: 'Once done, press continue.'
       }
     }
   }

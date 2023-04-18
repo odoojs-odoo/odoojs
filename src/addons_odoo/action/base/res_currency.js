@@ -1,4 +1,34 @@
 export default {
+  view_currency_search: {
+    _odoo_model: 'ir.ui.view',
+    model: 'res.currency',
+    type: 'search',
+    arch: {
+      fields: {
+        name: {
+          string: 'Currency'
+          // filter_domain: {
+          //   todo_ctx:
+          //     "('|','|','|','|', ('name', 'ilike', self), ('full_name', 'ilike', self), )"
+          // }
+        }
+      },
+
+      filters: {
+        group_active: {
+          active: {
+            string: 'Active',
+            domain: [['active', '=', true]]
+          },
+          inactive: {
+            string: 'Inactive',
+            domain: [['active', '=', false]]
+          }
+        }
+      }
+    }
+  },
+
   view_currency_tree: {
     _odoo_model: 'ir.ui.view',
     model: 'res.currency',
@@ -7,11 +37,15 @@ export default {
       sheet: {
         name: {},
         symbol: {},
-        full_name: {},
-        date: {},
+        full_name: {
+          string: 'Name'
+        },
+        date: {
+          string: 'Last Update'
+        },
         rate: {},
         inverse_rate: {},
-        active: {}
+        active: { widget: 'boolean_toggle' }
       }
     }
   },
@@ -120,27 +154,9 @@ export default {
     }
   },
 
-  view_currency_search: {
-    _odoo_model: 'ir.ui.view',
-    model: 'res.currency',
-    type: 'search',
-    arch: {
-      fields: {
-        name: {}
-      },
-
-      filters: {
-        group_active: {
-          active: { string: '启用', domain: [['active', '=', true]] },
-          inactive: { string: '停用', domain: [['active', '=', false]] }
-        }
-      }
-    }
-  },
-
   action_currency_form: {
     _odoo_model: 'ir.actions',
-    name: '币种',
+    name: 'Currencies',
     type: 'ir.actions.act_window',
     res_model: 'res.currency',
     search_view_id: 'view_currency_search',

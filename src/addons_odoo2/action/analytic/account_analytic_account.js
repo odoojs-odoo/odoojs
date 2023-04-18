@@ -16,9 +16,9 @@ export default {
           _button_account_analytic_line_action: {
             _attr: {
               name: 'account_analytic_line_action',
-              class: 'oe_stat_button',
               type: 'action',
-              icon: 'fa-usd'
+              icon: 'fa-usd',
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -30,7 +30,7 @@ export default {
                   text: 'Gross Margin'
                 }
               },
-              _span_650: {
+              _span_616: {
                 _attr: {
                   class: 'o_stat_value'
                 },
@@ -44,8 +44,9 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _div_title: {
@@ -78,7 +79,7 @@ export default {
             partner_id: {},
             code: {}
           },
-          _group_168: {
+          _group_331: {
             plan_id: {
               no_quick_create: true
             },
@@ -114,7 +115,7 @@ export default {
         active: {
           invisible: '1'
         },
-        _field_company_id_998: {
+        _field_company_id_759: {
           company_id: {
             groups: 'base.group_multi_company'
           }
@@ -139,7 +140,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Analytic Account'
+        string: 'Analytic Account',
+        filter_domain: {
+          todo_ctx: "['|', ('name', 'ilike', self), ('code', 'ilike', self)]"
+        }
       },
       partner_id: {},
       _separator: {},

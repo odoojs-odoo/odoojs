@@ -22,7 +22,10 @@ const ModelFields = {
   },
 
   country_code: {},
-  country_id: {},
+  country_id: {
+    required: 'True'
+  },
+
   description: {},
   display_name: {
     string: 'name'

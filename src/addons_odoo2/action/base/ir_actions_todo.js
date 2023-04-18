@@ -9,20 +9,22 @@ export default {
           widget: 'handle'
         },
         action_id: {},
-        state: {},
+        state: {
+          readonly: '1'
+        },
         _button_action_launch: {
           _attr: {
             name: 'action_launch',
-            string: 'Launch',
             type: 'object',
+            string: 'Launch',
             icon: 'fa-cogs'
           }
         },
         _button_action_open: {
           _attr: {
             name: 'action_open',
-            string: 'Todo',
             type: 'object',
+            string: 'Todo',
             icon: 'fa-exchange'
           }
         }
@@ -40,23 +42,24 @@ export default {
           _button_action_launch: {
             _attr: {
               name: 'action_launch',
-              string: 'Launch',
-              class: 'oe_highlight',
               type: 'object',
-              icon: 'fa-cogs'
+              string: 'Launch',
+              icon: 'fa-cogs',
+              class: 'oe_highlight'
             }
           },
           _button_action_open: {
             _attr: {
               name: 'action_open',
-              string: 'Set as Todo',
-              class: 'oe_highlight',
               type: 'object',
-              icon: 'fa-exchange'
+              string: 'Set as Todo',
+              icon: 'fa-exchange',
+              class: 'oe_highlight'
             }
           },
           state: {
-            widget: 'statusbar'
+            widget: 'statusbar',
+            readonly: '1'
           }
         },
         _group: {

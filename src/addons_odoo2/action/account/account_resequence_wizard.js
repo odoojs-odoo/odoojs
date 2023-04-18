@@ -20,11 +20,11 @@ export default {
               widget: 'radio'
             }
           },
-          _group_229: {
+          _group_415: {
             first_name: {}
           }
         },
-        _group_639: {
+        _group_595: {
           _label_preview_moves: {
             for: 'preview_moves',
             string: 'Preview Modifications'
@@ -37,9 +37,9 @@ export default {
           _button_resequence: {
             _attr: {
               name: 'resequence',
+              type: 'object',
               string: 'Confirm',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

@@ -14,9 +14,9 @@ export default {
           _button_action_next: {
             _attr: {
               name: 'action_next',
+              type: 'object',
               string: 'Install Apps',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

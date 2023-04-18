@@ -40,18 +40,32 @@ export default {
             class: 'oe_title'
           },
           _h1: {
-            display_name: {}
+            display_name: {
+              readonly: '1'
+            }
           }
         },
         _group: {
           _group: {
-            order_id: {},
-            product_id: {},
-            name: {},
-            product_uom_qty: {},
-            qty_delivered: {},
+            order_id: {
+              readonly: '1'
+            },
+            product_id: {
+              readonly: '1'
+            },
+            name: {
+              readonly: '1'
+            },
+            product_uom_qty: {
+              readonly: '1'
+            },
+            qty_delivered: {
+              readonly: '1'
+            },
             qty_invoiced: {},
-            product_uom: {},
+            product_uom: {
+              readonly: '1'
+            },
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
@@ -66,16 +80,20 @@ export default {
               invisible: '1'
             }
           },
-          _group_813: {
-            price_unit: {},
+          _group_637: {
+            price_unit: {
+              readonly: '1'
+            },
             discount: {
-              groups: 'product.group_discount_per_so_line'
+              groups: 'product.group_discount_per_so_line',
+              readonly: '1'
             },
             price_subtotal: {
               widget: 'monetary'
             },
             tax_id: {
-              widget: 'many2many_tags'
+              widget: 'many2many_tags',
+              readonly: '1'
             },
             price_tax: {
               widget: 'monetary'
@@ -115,7 +133,9 @@ export default {
         }
       },
       order_id: {},
-      order_partner_id: {},
+      order_partner_id: {
+        operator: 'child_of'
+      },
       product_id: {},
       salesman_id: {},
       _group: {

@@ -9,16 +9,16 @@ export default {
           _button_action_capture: {
             _attr: {
               name: 'action_capture',
+              type: 'object',
               string: 'Capture Transaction',
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button_action_void: {
             _attr: {
               name: 'action_void',
-              string: 'Void Transaction',
-              type: 'object'
+              type: 'object',
+              string: 'Void Transaction'
             }
           },
           state: {
@@ -33,10 +33,10 @@ export default {
           _button_action_view_refunds: {
             _attr: {
               name: 'action_view_refunds',
-              invisible: [['refunds_count', '=', 0]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-money'
+              icon: 'fa-money',
+              invisible: [['refunds_count', '=', 0]],
+              class: 'oe_stat_button'
             },
             refunds_count: {
               string: 'Refunds',
@@ -121,7 +121,7 @@ export default {
             partner_lang: {}
           }
         },
-        _group_714: {
+        _group_400: {
           _attr: {
             string: 'Message',
             invisible: [['state_message', '=', false]]
@@ -150,7 +150,8 @@ export default {
         fees: {},
         state: {},
         company_id: {
-          groups: 'base.group_multi_company'
+          groups: 'base.group_multi_company',
+          optional: 'show'
         }
       }
     }

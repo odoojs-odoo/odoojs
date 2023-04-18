@@ -23,36 +23,39 @@ export default {
           _button_mail_action_blacklist_remove: {
             _attr: {
               name: 'mail_action_blacklist_remove',
+              type: 'object',
               string: 'Unblacklist',
               invisible: ['|', ['active', '=', false], ['email', '=', false]],
               context: {
                 todo_ctx: "{'default_email': email}"
               },
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button_action_add: {
             _attr: {
               name: 'action_add',
+              type: 'object',
               string: 'Blacklist',
               invisible: ['|', ['active', '=', true], ['email', '=', false]],
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           }
         },
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _group: {
           _group: {
             email: {},
-            active: {},
+            active: {
+              readonly: '1'
+            },
             _br: {}
           }
         }

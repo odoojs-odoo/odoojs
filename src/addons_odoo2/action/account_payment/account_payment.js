@@ -16,15 +16,15 @@ export default {
           _button_action_refund_wizard: {
             _attr: {
               name: 'action_refund_wizard',
+              type: 'object',
               string: 'Refund',
               groups: 'account.group_account_invoice',
               invisible: [['amount_available_for_refund', '<=', 0]],
-              class: 'btn-secondary',
-              type: 'object'
+              class: 'btn-secondary'
             }
           }
         },
-        _xpath_139: {
+        _xpath_942: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'
@@ -32,10 +32,10 @@ export default {
           _button_action_view_refunds: {
             _attr: {
               name: 'action_view_refunds',
-              invisible: [['refunds_count', '=', 0]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-money'
+              icon: 'fa-money',
+              invisible: [['refunds_count', '=', 0]],
+              class: 'oe_stat_button'
             },
             refunds_count: {
               string: 'Refunds',
@@ -43,7 +43,7 @@ export default {
             }
           }
         },
-        _xpath_610: {
+        _xpath_799: {
           _attr: {
             expr: '//group[2]',
             position: 'inside'

@@ -14,7 +14,7 @@ export default {
             ref: {},
             partner_id: {}
           },
-          _xpath_335: {
+          _xpath_492: {
             _attr: {
               expr: "//field[@name='product_uom_id']",
               position: 'before'
@@ -58,13 +58,19 @@ export default {
               position: 'after'
             },
             ref: {
-              invisible: "context.get['to_invoice', False]"
+              invisible: "context.get['to_invoice', False]",
+              optional: 'hide'
             },
-            general_account_id: {},
+            general_account_id: {
+              optional: 'hide'
+            },
             move_line_id: {
-              widget: 'line_open_move_widget'
+              widget: 'line_open_move_widget',
+              optional: 'hide'
             },
-            product_id: {}
+            product_id: {
+              optional: 'hide'
+            }
           }
         }
       }
@@ -84,9 +90,13 @@ export default {
               position: 'after'
             },
             product_id: {},
-            partner_id: {}
+            partner_id: {
+              filter_domain: {
+                todo_ctx: "[('partner_id','child_of',self)]"
+              }
+            }
           },
-          _xpath_125: {
+          _xpath_427: {
             _attr: {
               expr: "//group[@name='groupby']",
               position: 'after'

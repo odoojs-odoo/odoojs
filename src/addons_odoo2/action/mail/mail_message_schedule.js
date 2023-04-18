@@ -9,8 +9,8 @@ export default {
           _button_force_send: {
             _attr: {
               name: 'force_send',
-              string: 'Force Send',
-              type: 'object'
+              type: 'object',
+              string: 'Force Send'
             }
           }
         },
@@ -18,7 +18,7 @@ export default {
           mail_message_id: {},
           scheduled_datetime: {}
         },
-        _group_163: {
+        _group_682: {
           notification_parameters: {}
         }
       }

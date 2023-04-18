@@ -72,8 +72,8 @@ export default {
         _button_action_open_layer: {
           _attr: {
             name: 'action_open_layer',
-            title: 'Open Valuation Layer',
             type: 'object',
+            title: 'Open Valuation Layer',
             icon: 'fa-arrow-right'
           }
         },
@@ -105,10 +105,10 @@ export default {
           _button_action_revaluation: {
             _attr: {
               name: 'action_revaluation',
-              invisible: ['|', ['cost_method', '=', 'standard'], ['quantity_svl', '<=', 0]],
-              title: 'Add Manual Valuation',
               type: 'object',
-              icon: 'fa-plus'
+              title: 'Add Manual Valuation',
+              icon: 'fa-plus',
+              invisible: ['|', ['cost_method', '=', 'standard'], ['quantity_svl', '<=', 0]]
             }
           }
         }
@@ -158,7 +158,7 @@ export default {
           domain: [['stock_move_id.location_id.usage', 'in', ('internal', 'transit')], ['stock_move_id.location_dest_id.usage', 'not in', ('internal', 'transit')]]
         }
       },
-      _separator_766: {},
+      _separator_519: {},
       _filter_has_remaining_qty: {
         _attr: {
           name: 'has_remaining_qty',

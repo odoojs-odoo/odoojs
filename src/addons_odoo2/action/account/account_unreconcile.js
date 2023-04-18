@@ -20,9 +20,9 @@ export default {
           _button_trans_unrec: {
             _attr: {
               name: 'trans_unrec',
+              type: 'object',
               string: 'Unreconcile',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

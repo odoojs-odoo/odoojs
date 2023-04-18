@@ -12,29 +12,47 @@ export default {
           invisible: '1'
         },
         phone: {
-          class: 'o_force_ltr'
+          class: 'o_force_ltr',
+          optional: 'show'
         },
-        email: {},
+        email: {
+          optional: 'show'
+        },
         user_id: {
           widget: 'many2one_avatar_user',
-          domain: [['share', '=', false]]
+          domain: [['share', '=', false]],
+          optional: 'show'
         },
-        city: {},
-        state_id: {},
-        country_id: {},
-        vat: {},
+        city: {
+          optional: 'show'
+        },
+        state_id: {
+          readonly: '1',
+          optional: 'hide'
+        },
+        country_id: {
+          readonly: '1',
+          optional: 'show'
+        },
+        vat: {
+          readonly: '1',
+          optional: 'hide'
+        },
         category_id: {
           widget: 'many2many_tags',
+          optional: 'hide',
           color_field: 'color'
         },
         company_id: {
-          groups: 'base.group_multi_company'
+          groups: 'base.group_multi_company',
+          readonly: '1'
         },
         is_company: {
           invisible: '1'
         },
         parent_id: {
-          invisible: '1'
+          invisible: '1',
+          readonly: '1'
         },
         active: {
           invisible: '1'
@@ -81,7 +99,7 @@ export default {
               invisible: [['is_company', '=', false]],
               placeholder: 'e.g. Lumber Inc'
             },
-            _field_name_775: {
+            _field_name_469: {
               name: {
                 required: [['type', '=', 'contact'], ['is_company', '=', false]],
                 invisible: [['is_company', '=', true]],
@@ -109,7 +127,7 @@ export default {
           },
           email: {
             widget: 'email',
-            required: [['user_ids', '!=', []]],
+            required: "context.get['force_email', False]",
             context: {
               gravatar_image: true
             }
@@ -139,6 +157,7 @@ export default {
         image_1920: {
           widget: 'image',
           class: 'oe_avatar',
+          readonly: '1',
           preview_image: 'avatar_128'
         },
         _div_title: {
@@ -146,7 +165,9 @@ export default {
             class: 'oe_title'
           },
           _h1: {
-            name: {}
+            name: {
+              readonly: '1'
+            }
           }
         },
         parent_id: {
@@ -215,7 +236,7 @@ export default {
               placeholder: 'e.g. https://www.odoo.com'
             }
           },
-          _group_860: {}
+          _group_573: {}
         }
       }
     }
@@ -228,6 +249,60 @@ export default {
     arch: {
       sheet: {
         _div: {
+          _attr: {
+            invisible: [['same_vat_partner_id', '=', false]],
+            class: 'alert alert-warning oe_edit_only',
+            text: 'A partner with the same'
+          },
+          _span: {
+            _span: {
+              _attr: {
+                class: 'o_vat_label',
+                text: 'Tax ID'
+              }
+            }
+          },
+          same_vat_partner_id: {}
+        },
+        _div_937: {
+          _attr: {
+            invisible: [['same_company_registry_partner_id', '=', false]],
+            class: 'alert alert-warning oe_edit_only',
+            text: 'A partner with the same'
+          },
+          _span: {
+            _span: {
+              _attr: {
+                class: 'o_vat_label',
+                text: 'Company Registry'
+              }
+            }
+          },
+          same_company_registry_partner_id: {}
+        },
+        _div_button_box: {
+          _attr: {
+            name: 'button_box',
+            class: 'oe_button_box'
+          }
+        },
+        _widget_web_ribbon: {
+          _attr: {
+            name: 'web_ribbon',
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
+          }
+        },
+        avatar_128: {
+          invisible: '1'
+        },
+        image_1920: {
+          widget: 'image',
+          class: 'oe_avatar',
+          preview_image: 'avatar_128'
+        },
+        _div_title: {
           _attr: {
             class: 'oe_title mb24'
           },
@@ -257,7 +332,7 @@ export default {
               class: 'text-break',
               placeholder: 'e.g. Lumber Inc'
             },
-            _field_name_488: {
+            _field_name_846: {
               name: {
                 required: [['type', '=', 'contact']],
                 invisible: [['is_company', '=', true]],
@@ -285,51 +360,14 @@ export default {
             _button_create_company: {
               _attr: {
                 name: 'create_company',
-                string: 'Create company',
-                invisible: ['|', '|', ['is_company', '=', true], ['company_name', '=', ''], ['company_name', '=', false]],
-                class: 'oe_edit_only btn-link',
                 type: 'object',
-                icon: 'fa-plus-square'
+                string: 'Create company',
+                icon: 'fa-plus-square',
+                invisible: ['|', '|', ['is_company', '=', true], ['company_name', '=', ''], ['company_name', '=', false]],
+                class: 'oe_edit_only btn-link'
               }
             }
           }
-        },
-        _div_582: {
-          _attr: {
-            invisible: [['same_company_registry_partner_id', '=', false]],
-            class: 'alert alert-warning oe_edit_only',
-            text: 'A partner with the same'
-          },
-          _span: {
-            _span: {
-              _attr: {
-                class: 'o_vat_label',
-                text: 'Company Registry'
-              }
-            }
-          },
-          same_company_registry_partner_id: {}
-        },
-        _div_button_box: {
-          _attr: {
-            name: 'button_box',
-            class: 'oe_button_box'
-          }
-        },
-        _widget_web_ribbon: {
-          _attr: {
-            name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
-          }
-        },
-        avatar_128: {
-          invisible: '1'
-        },
-        image_1920: {
-          widget: 'image',
-          class: 'oe_avatar',
-          preview_image: 'avatar_128'
         },
         _group: {
           _group: {
@@ -404,7 +442,7 @@ export default {
               placeholder: 'e.g. BE0477472701'
             }
           },
-          _group_852: {
+          _group_837: {
             function: {
               invisible: [['is_company', '=', true]],
               placeholder: 'e.g. Sales Director'
@@ -495,7 +533,7 @@ export default {
                               },
                               _img: {}
                             },
-                            _div_666: {
+                            _div_587: {
                               _attr: {
                                 class: 'oe_kanban_details'
                               },
@@ -503,12 +541,12 @@ export default {
                               _div: {
                                 function: {}
                               },
-                              _div_371: {
+                              _div_970: {
                                 email: {
                                   widget: 'email'
                                 }
                               },
-                              _div_894: {
+                              _div_382: {
                                 _div: {
                                   zip: {},
                                   city: {}
@@ -516,13 +554,13 @@ export default {
                                 state_id: {},
                                 country_id: {}
                               },
-                              _div_592: {
+                              _div_133: {
                                 _attr: {
                                   text: 'Phone:'
                                 },
                                 _t: {}
                               },
-                              _div_556: {
+                              _div_282: {
                                 _attr: {
                                   text: 'Mobile:'
                                 },
@@ -544,6 +582,7 @@ export default {
                       _sheet: {
                         type: {
                           widget: 'radio',
+                          required: '1',
                           options: "{'horizontal': true}"
                         },
                         parent_id: {
@@ -560,28 +599,28 @@ export default {
                             },
                             _span: 'Use this to organize the contact details of employees of a given company (e.g. CEO, CFO, ...).'
                           },
-                          _p_505: {
+                          _p_704: {
                             _attr: {
                               invisible: [['type', '!=', 'invoice']],
                               class: 'mb-0'
                             },
                             _span: 'Preferred address for all invoices. Selected by default when you invoice an order that belongs to this company.'
                           },
-                          _p_267: {
+                          _p_671: {
                             _attr: {
                               invisible: [['type', '!=', 'delivery']],
                               class: 'mb-0'
                             },
                             _span: 'Preferred address for all deliveries. Selected by default when you deliver an order that belongs to this company.'
                           },
-                          _p_250: {
+                          _p_973: {
                             _attr: {
                               invisible: [['type', '!=', 'private']],
                               class: 'mb-0'
                             },
                             _span: 'Private addresses are only visible by authorized users and contain sensitive data (employee home addresses, ...).'
                           },
-                          _p_578: {
+                          _p_532: {
                             _attr: {
                               invisible: [['type', '!=', 'other']],
                               class: 'mb-0'
@@ -653,7 +692,7 @@ export default {
                               }
                             }
                           },
-                          _group_829: {
+                          _group_138: {
                             email: {
                               widget: 'email'
                             },
@@ -668,7 +707,7 @@ export default {
                             }
                           }
                         },
-                        _group_768: {
+                        _group_194: {
                           comment: {
                             placeholder: 'Internal notes...'
                           }
@@ -765,7 +804,9 @@ export default {
           for: 'name',
           class: 'oe_edit_only'
         },
-        name: {},
+        name: {
+          required: '0'
+        },
         _group: {
           _group: {
             _label_street: {
@@ -812,7 +853,7 @@ export default {
               }
             }
           },
-          _group_239: {
+          _group_683: {
             phone: {
               widget: 'phone',
               options: "{'enable_sms': false}"
@@ -825,7 +866,7 @@ export default {
             lang: {}
           }
         },
-        _group_170: {
+        _group_522: {
           _attr: {
             string: 'Bank Accounts'
           },
@@ -854,14 +895,30 @@ export default {
     model: 'res.partner',
     type: 'search',
     arch: {
-      name: {},
-      parent_id: {
-        domain: [['is_company', '=', true]]
+      name: {
+        filter_domain: {
+          todo_ctx: "['|', '|', '|', '|', ('display_name', 'ilike', self), ('ref', '=', self), ('email', 'ilike', self), ('vat', 'ilike', self), ('company_registry', 'ilike', self)]"
+        }
       },
-      email: {},
-      phone: {},
+      parent_id: {
+        domain: [['is_company', '=', true]],
+        operator: 'child_of'
+      },
+      email: {
+        filter_domain: {
+          todo_ctx: "[('email', 'ilike', self)]"
+        }
+      },
+      phone: {
+        filter_domain: {
+          todo_ctx: "['|', ('phone', 'ilike', self), ('mobile', 'ilike', self)]"
+        }
+      },
       category_id: {
-        string: 'Tag'
+        string: 'Tag',
+        filter_domain: {
+          todo_ctx: "[('category_id', 'child_of', self)]"
+        }
       },
       user_id: {},
       _separator: {},
@@ -879,7 +936,7 @@ export default {
           domain: [['is_company', '=', true]]
         }
       },
-      _separator_970: {},
+      _separator_350: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -887,7 +944,7 @@ export default {
           domain: [['active', '=', false]]
         }
       },
-      _separator_953: {},
+      _separator_346: {},
       _group_group_by: {
         _attr: {
           name: 'group_by',

@@ -69,8 +69,9 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _div_title: {
@@ -111,19 +112,21 @@ export default {
               invisible: [['action', 'not in', ['pull', 'pull_push']]]
             }
           },
-          _group_343: {
+          _group_492: {
             _div: {
               _label_rule_message: {
                 for: 'rule_message',
                 invisible: '1'
               },
               _div: {
-                rule_message: {}
+                rule_message: {
+                  readonly: '1'
+                }
               }
             }
           }
         },
-        _group_551: {
+        _group_571: {
           _group_apply_on: {
             _attr: {
               name: 'apply_on',
@@ -196,7 +199,7 @@ export default {
             position: 'replace'
           }
         },
-        _xpath_819: {
+        _xpath_491: {
           _attr: {
             expr: "//group[@name='apply_on']",
             position: 'attributes'
@@ -208,7 +211,7 @@ export default {
             }
           }
         },
-        _xpath_451: {
+        _xpath_116: {
           _attr: {
             expr: '//form',
             position: 'inside'

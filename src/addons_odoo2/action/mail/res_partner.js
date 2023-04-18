@@ -24,14 +24,14 @@ export default {
             _button_mail_action_blacklist_remove: {
               _attr: {
                 name: 'mail_action_blacklist_remove',
+                type: 'object',
+                title: 'This email is blacklisted for mass mailings. Click to unblacklist.',
                 groups: 'base.group_user',
                 invisible: [['is_blacklisted', '=', false]],
                 context: {
                   todo_ctx: "{'default_email': email}"
                 },
-                class: 'fa fa-ban text-danger',
-                title: 'This email is blacklisted for mass mailings. Click to unblacklist.',
-                type: 'object'
+                class: 'fa fa-ban text-danger'
               }
             },
             email: {
@@ -43,7 +43,7 @@ export default {
             }
           }
         },
-        _xpath_501: {
+        _xpath_187: {
           _attr: {
             expr: '//sheet',
             position: 'after'
@@ -143,7 +143,8 @@ export default {
             position: 'after'
           },
           activity_ids: {
-            widget: 'list_activity'
+            widget: 'list_activity',
+            optional: 'show'
           }
         }
       }

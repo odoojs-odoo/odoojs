@@ -11,16 +11,21 @@ export default {
             position: 'inside'
           },
           _strong: {
-            quantity: {}
+            quantity: {
+              readonly: 'True'
+            }
           },
           product_uom_name: {
-            class: 'mx-1'
+            class: 'mx-1',
+            readonly: 'True'
           },
-          _strong_127: {
-            location_id: {}
+          _strong_802: {
+            location_id: {
+              readonly: 'True'
+            }
           }
         },
-        _xpath_673: {
+        _xpath_804: {
           _attr: {
             expr: "//button[@name='cancel_button']",
             position: 'replace'
@@ -28,9 +33,9 @@ export default {
           _button_action_cancel: {
             _attr: {
               name: 'action_cancel',
+              type: 'object',
               string: 'Discard',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           }
         }

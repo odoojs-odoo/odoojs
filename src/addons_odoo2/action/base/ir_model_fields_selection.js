@@ -44,7 +44,10 @@ export default {
         string: 'Field'
       },
       name: {
-        string: 'Selection'
+        string: 'Selection',
+        filter_domain: {
+          todo_ctx: "['|', ('name','ilike',self), ('value','ilike',self)]"
+        }
       },
       _filter_group_by_field: {
         _attr: {

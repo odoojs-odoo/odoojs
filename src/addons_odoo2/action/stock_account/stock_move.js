@@ -13,11 +13,11 @@ export default {
           _button_action_get_account_moves: {
             _attr: {
               name: 'action_get_account_moves',
-              string: 'Accounting Entries',
-              groups: 'account.group_account_readonly',
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-usd'
+              string: 'Accounting Entries',
+              icon: 'fa-usd',
+              groups: 'account.group_account_readonly',
+              class: 'oe_stat_button'
             }
           }
         }

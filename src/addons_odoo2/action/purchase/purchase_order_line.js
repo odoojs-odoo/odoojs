@@ -59,7 +59,9 @@ export default {
         },
         _group: {
           _group: {
-            product_id: {},
+            product_id: {
+              readonly: '1'
+            },
             _label_product_qty: {
               for: 'product_qty'
             },
@@ -67,20 +69,24 @@ export default {
               _attr: {
                 class: 'o_row'
               },
-              product_qty: {},
+              product_qty: {
+                readonly: '1'
+              },
               product_uom: {
-                groups: 'uom.group_uom'
+                groups: 'uom.group_uom',
+                readonly: '1'
               }
             },
             price_unit: {}
           },
-          _group_871: {
+          _group_201: {
             taxes_id: {
               widget: 'many2many_tags',
               domain: [['type_tax_use', '=', 'purchase']]
             },
             date_planned: {
-              widget: 'date'
+              widget: 'date',
+              readonly: '1'
             },
             company_id: {
               groups: 'base.group_multi_company',

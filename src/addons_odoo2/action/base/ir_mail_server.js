@@ -9,17 +9,18 @@ export default {
           _button_test_smtp_connection: {
             _attr: {
               name: 'test_smtp_connection',
+              type: 'object',
               string: 'Test Connection',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           }
         },
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _group: {
@@ -29,20 +30,20 @@ export default {
             },
             from_filter: {}
           },
-          _group_247: {
+          _group_728: {
             sequence: {},
             active: {
               invisible: '1'
             }
           }
         },
-        _group_334: {
+        _group_382: {
           _group: {
             smtp_authentication: {
               widget: 'radio'
             }
           },
-          _group_448: {
+          _group_168: {
             _div: {
               _attr: {
                 invisible: [['smtp_authentication_info', '=', false]],
@@ -71,7 +72,7 @@ export default {
                   groups: 'base.group_no_one'
                 }
               },
-              _group_904: {
+              _group_854: {
                 smtp_user: {
                   invisible: [['smtp_authentication', '=', 'certificate']],
                   force_save: '1'
@@ -107,7 +108,9 @@ export default {
         smtp_host: {},
         smtp_user: {},
         smtp_encryption: {},
-        from_filter: {}
+        from_filter: {
+          optional: 'hide'
+        }
       }
     }
   },
@@ -118,7 +121,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Outgoing Mail Server'
+        string: 'Outgoing Mail Server',
+        filter_domain: {
+          todo_ctx: "['|', '|',                                         ('name', 'ilike', self),                                         ('smtp_host', 'ilike', self),                                         ('smtp_user', 'ilike', self)]"
+        }
       },
       smtp_encryption: {},
       from_filter: {},

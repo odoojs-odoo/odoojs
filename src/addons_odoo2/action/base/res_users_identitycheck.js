@@ -9,9 +9,9 @@ export default {
           _button_run_check: {
             _attr: {
               name: 'run_check',
+              type: 'object',
               string: 'Confirm Password',
-              class: 'btn btn-primary',
-              type: 'object'
+              class: 'btn btn-primary'
             }
           },
           _button: {
@@ -28,6 +28,7 @@ export default {
         _div: {
           password: {
             class: 'o_field_highlight col-10 col-md-6 px-0',
+            required: 'True',
             placeholder: '************'
           }
         },

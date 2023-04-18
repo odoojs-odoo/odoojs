@@ -1,5 +1,8 @@
 const ModelFields = {
-  new_passwd: {},
+  new_passwd: {
+    required: 'True'
+  },
+
   user_id: {},
   user_login: {}
 }

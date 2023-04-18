@@ -14,13 +14,13 @@ export default {
             _button_action_set_supplier: {
               _attr: {
                 name: 'action_set_supplier',
+                type: 'object',
                 string: 'Set as Supplier',
                 invisible: [['show_set_supplier_button', '=', false]],
                 context: {
                   todo_ctx: "{'orderpoint_id': parent.orderpoint_id, 'stock_replenishment_info_id': parent.id}"
                 },
-                class: 'btn btn-link',
-                type: 'object'
+                class: 'btn btn-link'
               }
             }
           }
@@ -43,7 +43,7 @@ export default {
         company_id: {
           __todo__optional: 'hide'
         },
-        _field_delay_976: {
+        _field_delay_482: {
           delay: {
             __todo__optional: 'show'
           }

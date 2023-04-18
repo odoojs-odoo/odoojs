@@ -10,7 +10,7 @@ export default {
             name: {},
             implementation: {}
           },
-          _group_898: {
+          _group_444: {
             code: {},
             active: {
               widget: 'boolean_toggle'
@@ -32,7 +32,7 @@ export default {
                 suffix: {},
                 use_date_range: {}
               },
-              _group_449: {
+              _group_174: {
                 padding: {},
                 number_increment: {},
                 number_next_actual: {
@@ -60,29 +60,29 @@ export default {
                 }
               }
             },
-            _group_904: {
+            _group_817: {
               _attr: {
                 string: 'Legend (for prefix, suffix)'
               },
               _group: {
                 _span: 'Current Year with Century: %%(year)s',
-                _span_674: 'Current Year without Century: %%(y)s',
-                _span_806: 'Month: %%(month)s',
-                _span_517: 'Day: %%(day)s'
+                _span_546: 'Current Year without Century: %%(y)s',
+                _span_908: 'Month: %%(month)s',
+                _span_710: 'Day: %%(day)s'
               },
-              _group_923: {
+              _group_290: {
                 _span: 'Day of the Year: %%(doy)s',
-                _span_565: 'Week of the Year: %%(woy)s',
-                _span_363: 'Day of the Week (0:Monday): %%(weekday)s'
+                _span_335: 'Week of the Year: %%(woy)s',
+                _span_742: 'Day of the Week (0:Monday): %%(weekday)s'
               },
-              _group_849: {
+              _group_843: {
                 _span: 'Hour 00->24: %%(h24)s',
-                _span_220: 'Hour 00->12: %%(h12)s',
-                _span_615: 'Minute: %%(min)s',
-                _span_660: 'Second: %%(sec)s'
+                _span_932: 'Hour 00->12: %%(h12)s',
+                _span_428: 'Minute: %%(min)s',
+                _span_298: 'Second: %%(sec)s'
               }
             },
-            _group_656: {
+            _group_293: {
               _attr: {
                 invisible: [['use_date_range', '=', false]]
               },

@@ -1,6 +1,9 @@
 const ModelFields = {
   activity_category: {},
-  activity_type_id: {},
+  activity_type_id: {
+    required: '1'
+  },
+
   chaining_type: {},
   date_deadline: {},
   has_recommended_activities: {},

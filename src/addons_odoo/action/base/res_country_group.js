@@ -16,22 +16,6 @@ export default {
     type: 'form',
 
     arch: {
-      header: {
-        buttons: {
-          action_open_label_layout: {
-            string: 'Print Labels',
-            name: 'action_open_label_layout',
-            type: 'object',
-            invisible({ record }) {
-              // 'invisible': [('detailed_type', '==', 'service')]
-              const { detailed_type } = record
-              return detailed_type === 'service'
-            }
-          }
-        },
-
-        fields: {}
-      },
       sheet: {
         _div_title: {
           _label: { for: 'name', string: 'Group Name' },
@@ -47,7 +31,7 @@ export default {
 
   action_country_group: {
     _odoo_model: 'ir.actions',
-    name: '国家组',
+    name: 'Country Group',
     type: 'ir.actions.act_window',
     res_model: 'res.country.group',
 

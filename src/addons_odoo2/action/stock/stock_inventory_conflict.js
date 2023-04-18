@@ -8,7 +8,7 @@ export default {
         _div: {
           _strong: 'Due to some stock moves done between your initial update of the quantity and now, the difference of quantity is not consistent anymore.'
         },
-        _div_593: {
+        _div_364: {
           _attr: {
             text: 'You can either :'
           },
@@ -19,21 +19,22 @@ export default {
               },
               _strong: 'Counted Quantity'
             },
-            _li_843: {
+            _li_741: {
               _attr: {
                 text: 'Keep the'
               },
               _strong: 'Difference'
             },
-            _li_380: 'Discard and manually resolve the conflict'
+            _li_814: 'Discard and manually resolve the conflict'
           }
         },
-        _div_827: {
+        _div_478: {
           _br: {},
           quant_ids: {
             invisible: '1'
           },
           quant_to_fix_ids: {
+            readonly: '1',
             views: {
               tree: {
                 arch: {
@@ -49,7 +50,7 @@ export default {
                     },
                     product_id: {
                       invisible: "context.get['single_product', False]",
-                      readonly: [['id', '!=', false]],
+                      readonly: "context.get['single_product', False]",
                       force_save: '1',
                       no_create: true
                     },
@@ -80,7 +81,8 @@ export default {
                       string: 'Quantity'
                     },
                     inventory_quantity: {
-                      string: 'Counted Quantity'
+                      string: 'Counted Quantity',
+                      readonly: '0'
                     },
                     inventory_diff_quantity: {
                       string: 'Difference'
@@ -88,9 +90,10 @@ export default {
                     product_uom_id: {
                       groups: 'uom.group_uom'
                     },
-                    _field_company_id_562: {
+                    _field_company_id_731: {
                       company_id: {
-                        groups: 'base.group_multi_company'
+                        groups: 'base.group_multi_company',
+                        optional: 'show'
                       }
                     }
                   }
@@ -103,17 +106,17 @@ export default {
           _button_action_keep_counted_quantity: {
             _attr: {
               name: 'action_keep_counted_quantity',
+              type: 'object',
               string: 'Keep Counted Quantity',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button_action_keep_difference: {
             _attr: {
               name: 'action_keep_difference',
+              type: 'object',
               string: 'Keep Difference',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button_cancel_button: {

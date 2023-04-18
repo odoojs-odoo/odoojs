@@ -8,6 +8,7 @@ export default {
         _div: {
           _strong: {
             first_lang_id: {
+              readonly: 'True',
               no_open: true
             }
           }
@@ -16,19 +17,20 @@ export default {
           _button_reload: {
             _attr: {
               name: 'reload',
+              type: 'object',
               string: 'Close',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button_switch_lang: {
             _attr: {
               name: 'switch_lang',
-              class: 'btn-primary ms-1',
               type: 'object',
+              class: 'btn-primary ms-1',
               text: 'Switch to'
             },
             first_lang_id: {
+              readonly: 'True',
               no_open: true
             }
           }
@@ -60,9 +62,9 @@ export default {
           _button_lang_install: {
             _attr: {
               name: 'lang_install',
+              type: 'object',
               string: 'Add',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

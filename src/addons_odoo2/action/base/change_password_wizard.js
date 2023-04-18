@@ -10,9 +10,9 @@ export default {
           _button_change_password_button: {
             _attr: {
               name: 'change_password_button',
+              type: 'object',
               string: 'Change Password',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

@@ -2,7 +2,9 @@ const ModelFields = {
   move_id: {},
   next_serial_count: {},
   next_serial_number: {},
-  product_id: {}
+  product_id: {
+    readonly: '1'
+  }
 }
 
 const AddonsFields = {

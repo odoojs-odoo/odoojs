@@ -5,7 +5,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Group'
+        string: 'Group',
+        filter_domain: {
+          todo_ctx: "['|', ('name','ilike',self), ('category_id','ilike',self)]"
+        }
       },
       _separator: {},
       share: {},

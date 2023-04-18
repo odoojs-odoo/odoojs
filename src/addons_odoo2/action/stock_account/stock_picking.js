@@ -13,12 +13,12 @@ export default {
           _button_action_view_stock_valuation_layers: {
             _attr: {
               name: 'action_view_stock_valuation_layers',
+              type: 'object',
               string: 'Valuation',
+              icon: 'fa-dollar',
               groups: 'base.group_no_one',
               invisible: [['state', 'not in', ['done']]],
-              class: 'oe_stat_button',
-              type: 'object',
-              icon: 'fa-dollar'
+              class: 'oe_stat_button'
             }
           }
         }

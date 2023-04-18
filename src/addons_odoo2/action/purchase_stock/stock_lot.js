@@ -13,10 +13,10 @@ export default {
           _button_action_view_po: {
             _attr: {
               name: 'action_view_po',
-              invisible: ['|', ['purchase_order_count', '=', 0], ['display_complete', '=', false]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-credit-card'
+              icon: 'fa-credit-card',
+              invisible: ['|', ['purchase_order_count', '=', 0], ['display_complete', '=', false]],
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -31,7 +31,7 @@ export default {
                   class: 'mr4'
                 }
               },
-              _span_766: {
+              _span_780: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Purchases'
@@ -40,7 +40,7 @@ export default {
             }
           }
         },
-        _xpath_634: {
+        _xpath_849: {
           _attr: {
             expr: "//group[@name='main_group']",
             position: 'after'
@@ -49,6 +49,7 @@ export default {
             purchase_order_ids: {
               widget: 'many2many',
               invisible: ['|', ['purchase_order_ids', '=', []], ['display_complete', '=', true]],
+              readonly: 'True',
               views: {
                 tree: {
                   arch: {

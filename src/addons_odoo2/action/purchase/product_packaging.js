@@ -27,7 +27,9 @@ export default {
             expr: "//field[@name='product_uom_id']",
             position: 'after'
           },
-          purchase: {}
+          purchase: {
+            optional: 'show'
+          }
         }
       }
     }

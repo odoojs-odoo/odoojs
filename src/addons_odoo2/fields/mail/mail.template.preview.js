@@ -9,12 +9,21 @@ const ModelFields = {
     placeholder: 'Select a language'
   },
 
-  mail_template_id: {},
-  model_id: {},
+  mail_template_id: {
+    readonly: '1'
+  },
+
+  model_id: {
+    readonly: '1'
+  },
+
   no_record: {},
   partner_ids: {},
   reply_to: {},
-  resource_ref: {},
+  resource_ref: {
+    readonly: 'False'
+  },
+
   scheduled_date: {},
   subject: {}
 }

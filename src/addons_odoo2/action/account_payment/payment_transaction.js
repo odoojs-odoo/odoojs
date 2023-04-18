@@ -12,10 +12,10 @@ export default {
           _button_action_view_invoices: {
             _attr: {
               name: 'action_view_invoices',
-              invisible: [['invoices_count', '=', 0]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-money'
+              icon: 'fa-money',
+              invisible: [['invoices_count', '=', 0]],
+              class: 'oe_stat_button'
             },
             invoices_count: {
               string: 'Invoice(s)',

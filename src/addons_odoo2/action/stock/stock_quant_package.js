@@ -47,8 +47,8 @@ export default {
           _button_unpack: {
             _attr: {
               name: 'unpack',
-              string: 'Unpack',
-              type: 'object'
+              type: 'object',
+              string: 'Unpack'
             }
           }
         },
@@ -60,10 +60,10 @@ export default {
           _button_action_view_picking: {
             _attr: {
               name: 'action_view_picking',
-              string: 'Package Transfers',
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-arrows-v'
+              string: 'Package Transfers',
+              icon: 'fa-arrows-v',
+              class: 'oe_stat_button'
             }
           }
         },
@@ -95,7 +95,7 @@ export default {
               no_create: true
             }
           },
-          _group_226: {
+          _group_292: {
             pack_date: {}
           }
         },

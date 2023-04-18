@@ -1,5 +1,8 @@
 const ModelFields = {
-  auth_signup_uninvited: {},
+  auth_signup_uninvited: {
+    required: 'True'
+  },
+
   automatic_invoice: {},
   default_invoice_policy: {},
   deposit_default_product_id: {

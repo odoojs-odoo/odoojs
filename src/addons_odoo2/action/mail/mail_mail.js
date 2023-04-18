@@ -9,23 +9,23 @@ export default {
           _button_send: {
             _attr: {
               name: 'send',
+              type: 'object',
               string: 'Send Now',
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button_mark_outgoing: {
             _attr: {
               name: 'mark_outgoing',
-              string: 'Retry',
-              type: 'object'
+              type: 'object',
+              string: 'Retry'
             }
           },
           _button_cancel: {
             _attr: {
               name: 'cancel',
-              string: 'Cancel',
-              type: 'object'
+              type: 'object',
+              string: 'Cancel'
             }
           },
           state: {
@@ -46,16 +46,17 @@ export default {
           _button_action_open_document: {
             _attr: {
               name: 'action_open_document',
-              string: 'Open Document',
-              invisible: ['|', ['model', '=', false], ['res_id', '=', 0]],
-              class: 'oe_link',
               type: 'object',
-              icon: 'fa-file-text-o'
+              string: 'Open Document',
+              icon: 'fa-file-text-o',
+              invisible: ['|', ['model', '=', false], ['res_id', '=', 0]],
+              class: 'oe_link'
             }
           }
         },
         mail_message_id_int: {
-          invisible: '1'
+          invisible: '1',
+          required: '0'
         },
         _label_subject: {
           for: 'subject',
@@ -73,17 +74,18 @@ export default {
             class: 'oe_inline'
           },
           date: {
-            class: 'oe_inline'
+            class: 'oe_inline',
+            readonly: '1'
           },
           _button_action_email_compose_message_wizard: {
             _attr: {
               name: 'action_email_compose_message_wizard',
+              type: 'action',
               string: 'Reply',
+              icon: 'fa-reply text-warning',
               context: {
                 todo_ctx: "{'default_composition_mode':'comment', 'default_parent_id': mail_message_id_int}"
-              },
-              type: 'action',
-              icon: 'fa-reply text-warning'
+              }
             }
           }
         },
@@ -134,7 +136,7 @@ export default {
                 model: {},
                 res_id: {}
               },
-              _group_441: {
+              _group_208: {
                 _attr: {
                   string: 'Headers'
                 },
@@ -185,8 +187,8 @@ export default {
           _button_action_retry: {
             _attr: {
               name: 'action_retry',
-              string: 'Retry',
-              type: 'object'
+              type: 'object',
+              string: 'Retry'
             }
           }
         },
@@ -220,24 +222,24 @@ export default {
         _button_send: {
           _attr: {
             name: 'send',
-            string: 'Send Now',
             type: 'object',
+            string: 'Send Now',
             icon: 'fa-paper-plane'
           }
         },
         _button_mark_outgoing: {
           _attr: {
             name: 'mark_outgoing',
-            string: 'Retry',
             type: 'object',
+            string: 'Retry',
             icon: 'fa-repeat'
           }
         },
         _button_cancel: {
           _attr: {
             name: 'cancel',
-            string: 'Cancel Email',
             type: 'object',
+            string: 'Cancel Email',
             icon: 'fa-times-circle'
           }
         }
@@ -251,7 +253,10 @@ export default {
     type: 'search',
     arch: {
       email_from: {
-        string: 'Email'
+        string: 'Email',
+        filter_domain: {
+          todo_ctx: "['|', '|',('email_from','ilike',self), ('email_to','ilike',self), ('subject','ilike',self)]"
+        }
       },
       date: {},
       _filter_received: {
@@ -313,7 +318,7 @@ export default {
         model: {},
         res_id: {}
       },
-      _group_356: {
+      _group_674: {
         _attr: {
           string: 'Group By'
         },

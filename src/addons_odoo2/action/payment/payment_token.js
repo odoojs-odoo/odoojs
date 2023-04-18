@@ -16,18 +16,19 @@ export default {
           _button_action_payment_transaction_linked_to_token: {
             _attr: {
               name: 'action_payment_transaction_linked_to_token',
-              string: 'Payments',
-              class: 'oe_stat_button',
               type: 'action',
-              icon: 'fa-money'
+              string: 'Payments',
+              icon: 'fa-money',
+              class: 'oe_stat_button'
             }
           }
         },
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _group: {
@@ -61,10 +62,15 @@ export default {
       sheet: {
         payment_details: {},
         partner_id: {},
-        provider_id: {},
-        provider_ref: {},
+        provider_id: {
+          readonly: '1'
+        },
+        provider_ref: {
+          readonly: '1'
+        },
         company_id: {
-          groups: 'base.group_multi_company'
+          groups: 'base.group_multi_company',
+          optional: 'show'
         }
       }
     }

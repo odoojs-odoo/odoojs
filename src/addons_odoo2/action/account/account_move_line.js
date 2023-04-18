@@ -14,7 +14,8 @@ export default {
         _group: {
           name: {},
           partner_id: {
-            domain: ['|', ['parent_id', '=', false], ['is_company', '=', true]]
+            domain: ['|', ['parent_id', '=', false], ['is_company', '=', true]],
+            readonly: '1'
           }
         },
         _notebook: {
@@ -32,23 +33,35 @@ export default {
                   domain: {
                     todo_ctx: "[('company_id', '=', company_id)]"
                   },
+                  readonly: '1',
                   no_create: true
                 },
-                debit: {},
-                credit: {},
-                balance: {},
-                quantity: {}
+                debit: {
+                  readonly: '1'
+                },
+                credit: {
+                  readonly: '1'
+                },
+                balance: {
+                  readonly: '1'
+                },
+                quantity: {
+                  readonly: '1'
+                }
               },
-              _group_130: {
+              _group_458: {
                 _attr: {
                   string: 'Accounting Documents'
                 },
-                move_id: {},
+                move_id: {
+                  readonly: '1'
+                },
                 statement_line_id: {
-                  invisible: [['statement_line_id', '=', false]]
+                  invisible: [['statement_line_id', '=', false]],
+                  readonly: 'True'
                 }
               },
-              _group_580: {
+              _group_234: {
                 _attr: {
                   string: 'Dates'
                 },
@@ -57,24 +70,27 @@ export default {
                 },
                 date_maturity: {}
               },
-              _group_692: {
+              _group_870: {
                 _attr: {
                   string: 'Taxes',
                   invisible: [['tax_line_id', '=', false], ['tax_ids', '=', []]]
                 },
                 tax_line_id: {
-                  invisible: [['tax_line_id', '=', false]]
+                  invisible: [['tax_line_id', '=', false]],
+                  readonly: '1'
                 },
                 tax_ids: {
                   widget: 'many2many_tags',
-                  invisible: [['tax_ids', '=', []]]
+                  invisible: [['tax_ids', '=', []]],
+                  readonly: '1'
                 },
                 tax_tag_invert: {
-                  groups: 'base.group_no_one'
+                  groups: 'base.group_no_one',
+                  readonly: '1'
                 },
                 tax_audit: {}
               },
-              _group_157: {
+              _group_511: {
                 _attr: {
                   string: 'Matching',
                   invisible: [['matched_debit_ids', '=', []], ['matched_credit_ids', '=', []]]
@@ -95,15 +111,15 @@ export default {
                   _button_open_reconcile_view: {
                     _attr: {
                       name: 'open_reconcile_view',
+                      type: 'object',
                       string: '-> View partially reconciled entries',
                       invisible: ['|', ['full_reconcile_id', '!=', false], '&', ['matched_debit_ids', '=', []], ['matched_credit_ids', '=', []]],
-                      class: 'oe_link',
-                      type: 'object'
+                      class: 'oe_link'
                     }
                   }
                 }
               },
-              _group_837: {
+              _group_367: {
                 _attr: {
                   string: 'Currency',
                   groups: 'base.group_multi_currency'
@@ -113,27 +129,30 @@ export default {
                 },
                 amount_currency: {}
               },
-              _group_665: {
+              _group_919: {
                 _attr: {
                   string: 'Product',
                   invisible: [['product_id', '=', false]]
                 },
-                product_id: {}
+                product_id: {
+                  readonly: '1'
+                }
               },
-              _group_682: {
+              _group_531: {
                 _attr: {
                   string: 'States'
                 },
                 blocked: {}
               },
-              _group_293: {
+              _group_685: {
                 _attr: {
                   string: 'Analytic',
                   groups: 'analytic.group_analytic_accounting'
                 },
                 analytic_distribution: {
                   widget: 'analytic_distribution',
-                  groups: 'analytic.group_analytic_accounting'
+                  groups: 'analytic.group_analytic_accounting',
+                  readonly: '1'
                 }
               }
             }
@@ -203,16 +222,22 @@ export default {
         move_id: {
           invisible: '1'
         },
-        date: {},
+        date: {
+          readonly: '1'
+        },
         company_id: {
           invisible: '1'
         },
-        _field_company_id_790: {
+        _field_company_id_768: {
           company_id: {
-            groups: 'base.group_multi_company'
+            groups: 'base.group_multi_company',
+            readonly: '1',
+            optional: 'hide'
           }
         },
         journal_id: {
+          readonly: '1',
+          optional: 'hide',
           no_open: true
         },
         move_name: {
@@ -228,52 +253,90 @@ export default {
           no_create: true
         },
         partner_id: {
-          readonly: [['move_type', '!=', 'entry']]
+          readonly: [['move_type', '!=', 'entry']],
+          optional: 'show'
         },
-        ref: {},
-        product_id: {},
-        name: {},
+        ref: {
+          readonly: 'False',
+          optional: 'hide'
+        },
+        product_id: {
+          readonly: '1',
+          optional: 'hide'
+        },
+        name: {
+          optional: 'show'
+        },
         tax_ids: {
-          widget: 'many2many_tags'
+          widget: 'many2many_tags',
+          readonly: '1',
+          optional: 'hide'
         },
         amount_currency: {
           groups: 'base.group_multi_currency',
-          invisible: [['is_same_currency', '=', true]]
+          invisible: [['is_same_currency', '=', true]],
+          readonly: '1',
+          optional: 'show'
         },
         currency_id: {
           string: 'Currency',
           groups: 'base.group_multi_currency',
-          invisible: [['is_same_currency', '=', true]]
+          invisible: [['is_same_currency', '=', true]],
+          readonly: '1',
+          optional: 'hide'
         },
-        debit: {},
-        credit: {},
+        debit: {
+          readonly: '1'
+        },
+        credit: {
+          readonly: '1'
+        },
         tax_tag_ids: {
           string: 'Tax Grids',
-          widget: 'many2many_tags'
+          widget: 'many2many_tags',
+          optional: 'hide'
         },
         discount_date: {
-          string: 'Discount Date'
+          string: 'Discount Date',
+          optional: 'hide'
         },
         discount_amount_currency: {
-          string: 'Discount Amount'
+          string: 'Discount Amount',
+          optional: 'hide'
         },
         tax_line_id: {
-          string: 'Originator Tax'
+          string: 'Originator Tax',
+          readonly: '1',
+          optional: 'hide'
         },
-        date_maturity: {},
-        balance: {},
-        matching_number: {},
+        date_maturity: {
+          readonly: '1',
+          optional: 'hide'
+        },
+        balance: {
+          readonly: '1',
+          optional: 'hide'
+        },
+        matching_number: {
+          readonly: '1',
+          optional: 'show'
+        },
         amount_residual: {
           string: 'Residual',
-          invisible: [['is_account_reconcile', '=', false]]
+          invisible: [['is_account_reconcile', '=', false]],
+          readonly: '1',
+          optional: 'hide'
         },
         amount_residual_currency: {
           string: 'Residual in Currency',
-          invisible: ['|', ['is_same_currency', '=', true], ['is_account_reconcile', '=', false]]
+          invisible: ['|', ['is_same_currency', '=', true], ['is_account_reconcile', '=', false]],
+          readonly: '1',
+          optional: 'hide'
         },
         analytic_distribution: {
           widget: 'analytic_distribution',
           groups: 'analytic.group_analytic_accounting',
+          optional: 'show',
           product_field: 'product_id',
           account_field: 'account_id',
           force_applicability: 'optional'
@@ -309,8 +372,8 @@ export default {
           _button_edit: {
             _attr: {
               name: 'edit',
-              title: 'Edit',
               type: 'edit',
+              title: 'Edit',
               icon: 'fa-edit'
             }
           }
@@ -440,9 +503,12 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Journal Item'
+        string: 'Journal Item',
+        filter_domain: {
+          todo_ctx: "[                         '|', '|', '|',                         ('name', 'ilike', self), ('ref', 'ilike', self), ('account_id', 'ilike', self), ('partner_id', 'ilike', self)]"
+        }
       },
-      _field_name_615: {
+      _field_name_524: {
         name: {}
       },
       ref: {},
@@ -453,7 +519,10 @@ export default {
       partner_id: {},
       journal_id: {},
       move_id: {
-        string: 'Journal Entry'
+        string: 'Journal Entry',
+        filter_domain: {
+          todo_ctx: "[                         '|', '|', ('move_id.name', 'ilike', self), ('move_id.ref', 'ilike', self), ('move_id.partner_id', 'ilike', self)]"
+        }
       },
       tax_ids: {},
       tax_line_id: {
@@ -475,7 +544,7 @@ export default {
           domain: [['parent_state', '=', 'posted']]
         }
       },
-      _separator_430: {},
+      _separator_411: {},
       _filter_to_check: {
         _attr: {
           name: 'to_check',
@@ -483,7 +552,7 @@ export default {
           domain: [['move_id.to_check', '=', true]]
         }
       },
-      _separator_123: {},
+      _separator_305: {},
       _filter_unreconciled: {
         _attr: {
           name: 'unreconciled',
@@ -491,7 +560,7 @@ export default {
           domain: [['amount_residual', '!=', 0], ['account_id.reconcile', '=', true]]
         }
       },
-      _separator_939: {},
+      _separator_467: {},
       _filter_sales: {
         _attr: {
           name: 'sales',
@@ -542,7 +611,7 @@ export default {
           }
         }
       },
-      _separator_487: {},
+      _separator_670: {},
       _filter_trade_payable: {
         _attr: {
           name: 'trade_payable',
@@ -580,14 +649,14 @@ export default {
           domain: [['account_id.internal_group', 'in', ('income', 'expense')]]
         }
       },
-      _separator_808: {},
+      _separator_936: {},
       _filter_date: {
         _attr: {
           name: 'date',
           string: 'Date'
         }
       },
-      _separator_816: {},
+      _separator_750: {},
       _filter_date_between: {
         _attr: {
           name: 'date_between',
@@ -608,7 +677,7 @@ export default {
           }
         }
       },
-      _separator_194: {},
+      _separator_780: {},
       _group: {
         _attr: {
           string: 'Group By'

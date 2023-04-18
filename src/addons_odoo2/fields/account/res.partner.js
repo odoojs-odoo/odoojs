@@ -9,7 +9,10 @@ const ModelFields = {
   credit_limit: {},
   currency_id: {},
   duplicated_bank_account_partners_count: {},
-  invoice_warn: {},
+  invoice_warn: {
+    required: '1'
+  },
+
   invoice_warn_msg: {
     required: [['invoice_warn', '!=', false], ['invoice_warn', '!=', 'no-message']],
     placeholder: 'Type a message...'

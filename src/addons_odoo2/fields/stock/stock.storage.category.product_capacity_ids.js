@@ -3,7 +3,8 @@ const ModelFields = {
   product_id: {
     context: {
       default_detailed_type: 'product'
-    }
+    },
+    required: '1'
   },
 
   product_uom_id: {

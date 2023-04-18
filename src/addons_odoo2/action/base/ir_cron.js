@@ -13,26 +13,26 @@ export default {
           _button_method_direct_trigger: {
             _attr: {
               name: 'method_direct_trigger',
+              type: 'object',
               string: 'Run Manually',
               invisible: [['state', '!=', 'code']],
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           }
         },
-        _xpath_620: {
+        _xpath_618: {
           _attr: {
             expr: "//button[@name='unlink_action']",
             position: 'replace'
           }
         },
-        _xpath_779: {
+        _xpath_817: {
           _attr: {
             expr: "//button[@name='run']",
             position: 'replace'
           }
         },
-        _xpath_139: {
+        _xpath_533: {
           _attr: {
             expr: "//group[@name='action_content']",
             position: 'inside'
@@ -113,7 +113,7 @@ export default {
           domain: ['|', ['active', '=', false], ['active', '=', true]]
         }
       },
-      _separator_659: {},
+      _separator_639: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',

@@ -9,7 +9,9 @@ export default {
           invisible: '1'
         },
         user_login: {},
-        new_passwd: {}
+        new_passwd: {
+          required: 'True'
+        }
       }
     }
   }

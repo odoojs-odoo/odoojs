@@ -59,8 +59,9 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _div_title: {
@@ -109,7 +110,8 @@ export default {
                         groups: '!product.group_sale_pricelist'
                       },
                       product_tmpl_id: {
-                        string: 'Products'
+                        string: 'Products',
+                        required: '1'
                       },
                       product_id: {
                         string: 'Variants',
@@ -143,7 +145,7 @@ export default {
                     }
                   }
                 },
-                todoview___tree_215: {
+                todoview___tree_578: {
                   arch: {
                     sheet: {
                       _attr: {

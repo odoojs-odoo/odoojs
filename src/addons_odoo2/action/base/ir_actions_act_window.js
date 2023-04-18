@@ -38,7 +38,9 @@ export default {
               name: 'action_details'
             },
             usage: {},
-            type: {},
+            type: {
+              readonly: '1'
+            },
             target: {}
           }
         },
@@ -139,7 +141,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Action'
+        string: 'Action',
+        filter_domain: {
+          todo_ctx: "['|', ('name','ilike',self), ('res_model','ilike',self)]"
+        }
       }
     }
   },

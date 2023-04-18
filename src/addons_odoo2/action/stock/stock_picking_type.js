@@ -98,8 +98,9 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _label_name: {
@@ -154,12 +155,12 @@ export default {
               _span: {
                 reservation_days_before: {}
               },
-              _span_611: {
+              _span_495: {
                 reservation_days_before_priority: {}
               }
             }
           },
-          _group_916: {
+          _group_646: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true

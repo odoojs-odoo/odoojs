@@ -25,9 +25,9 @@ export default {
           _button_submit: {
             _attr: {
               name: 'submit',
+              type: 'object',
               string: 'Enable profiling',
-              class: 'btn btn-primary',
-              type: 'object'
+              class: 'btn btn-primary'
             }
           }
         }

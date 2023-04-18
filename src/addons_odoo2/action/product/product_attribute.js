@@ -32,10 +32,10 @@ export default {
           _button_action_open_related_products: {
             _attr: {
               name: 'action_open_related_products',
-              invisible: [['number_related_products', '=', []]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-bars'
+              icon: 'fa-bars',
+              invisible: [['number_related_products', '=', []]],
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -47,7 +47,7 @@ export default {
                 },
                 number_related_products: {}
               },
-              _span_312: {
+              _span_248: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Related Products'

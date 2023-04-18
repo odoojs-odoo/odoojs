@@ -21,7 +21,8 @@ export default {
         _group: {
           _group: {
             color: {
-              widget: 'color_picker'
+              widget: 'color_picker',
+              required: 'True'
             }
           }
         }

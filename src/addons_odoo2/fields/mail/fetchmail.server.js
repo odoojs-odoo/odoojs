@@ -12,7 +12,7 @@ const ModelFields = {
   },
 
   port: {
-    required: [['server_type', '!=', 'local']]
+    required: '1'
   },
 
   priority: {},

@@ -9,9 +9,9 @@ export default {
           _button_apply: {
             _attr: {
               name: 'apply',
+              type: 'object',
               string: 'Continue',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {
@@ -29,7 +29,7 @@ export default {
               widget: 'radio'
             }
           },
-          _group_432: {
+          _group_458: {
             _attr: {
               invisible: [['selection', '!=', 'sample']]
             },
@@ -37,7 +37,7 @@ export default {
               widget: 'html'
             }
           },
-          _group_968: {
+          _group_630: {
             _attr: {
               invisible: [['selection', '!=', 'upload']]
             },

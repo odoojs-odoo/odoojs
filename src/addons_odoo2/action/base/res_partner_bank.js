@@ -8,8 +8,9 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _group: {
@@ -28,7 +29,7 @@ export default {
             partner_id: {},
             acc_holder_name: {}
           },
-          _group_392: {
+          _group_294: {
             bank_id: {},
             currency_id: {
               groups: 'base.group_multi_currency',
@@ -77,7 +78,10 @@ export default {
     type: 'search',
     arch: {
       bank_name: {
-        string: 'Bank Name'
+        string: 'Bank Name',
+        filter_domain: {
+          todo_ctx: "['|', ('bank_name','ilike',self), ('acc_number','ilike',self)]"
+        }
       },
       company_id: {
         invisible: "context.get['company_hide', True]"

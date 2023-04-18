@@ -13,10 +13,10 @@ export default {
           _button_action_open_related_taxes: {
             _attr: {
               name: 'action_open_related_taxes',
-              invisible: [['related_taxes_amount', '=', 0]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-bars'
+              icon: 'fa-bars',
+              invisible: [['related_taxes_amount', '=', 0]],
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -28,7 +28,7 @@ export default {
                 },
                 related_taxes_amount: {}
               },
-              _span_981: {
+              _span_406: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Taxes'
@@ -39,9 +39,9 @@ export default {
           _button_count__action_move_line_sele: {
             _attr: {
               name: 'count.action_move_line_sele',
-              class: 'oe_stat_button',
               type: 'action',
-              icon: 'fa-bars'
+              icon: 'fa-bars',
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -53,7 +53,7 @@ export default {
                 },
                 current_balance: {}
               },
-              _span_627: {
+              _span_594: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Balance'
@@ -86,7 +86,7 @@ export default {
                   }
                 }
               },
-              _div_657: {
+              _div_144: {
                 _attr: {
                   class: 'col col-md-8'
                 },
@@ -142,9 +142,10 @@ export default {
                   no_create_edit: true
                 }
               },
-              _group_990: {
+              _group_825: {
                 internal_group: {
-                  invisible: '1'
+                  invisible: '1',
+                  readonly: '1'
                 },
                 currency_id: {
                   groups: 'base.group_multi_currency',
@@ -178,7 +179,9 @@ export default {
         account_type: {
           widget: 'account_type_selection'
         },
-        group_id: {},
+        group_id: {
+          optional: 'hide'
+        },
         internal_group: {
           invisible: '1'
         },
@@ -188,22 +191,26 @@ export default {
         },
         non_trade: {
           widget: 'boolean_toggle',
-          invisible: [['account_type', 'not in', ('liability_payable', 'asset_receivable')]]
+          invisible: [['account_type', 'not in', ('liability_payable', 'asset_receivable')]],
+          optional: 'hide'
         },
         tax_ids: {
-          widget: 'many2many_tags'
+          widget: 'many2many_tags',
+          optional: 'hide'
         },
         tag_ids: {
-          widget: 'many2many_tags'
+          widget: 'many2many_tags',
+          optional: 'hide'
         },
         allowed_journal_ids: {
-          widget: 'many2many_tags'
+          widget: 'many2many_tags',
+          optional: 'hide'
         },
         currency_id: {
           groups: 'base.group_multi_currency',
           no_create: true
         },
-        _field_company_id_687: {
+        _field_company_id_646: {
           company_id: {
             groups: 'base.group_multi_company',
             no_create: true
@@ -212,9 +219,9 @@ export default {
         _button_action_read_account: {
           _attr: {
             name: 'action_read_account',
+            type: 'object',
             string: 'Setup',
-            class: 'float-end btn-secondary',
-            type: 'object'
+            class: 'float-end btn-secondary'
           }
         }
       }
@@ -234,7 +241,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Account'
+        string: 'Account',
+        filter_domain: {
+          todo_ctx: "['|', ('name','ilike',self), ('code','ilike',self)]"
+        }
       },
       _filter_receivableacc: {
         _attr: {
@@ -300,7 +310,7 @@ export default {
           domain: [['deprecated', '=', false]]
         }
       },
-      _separator_760: {},
+      _separator_390: {},
       account_type: {},
       _group: {
         _attr: {
@@ -364,22 +374,27 @@ export default {
         },
         opening_debit: {},
         opening_credit: {},
-        opening_balance: {},
+        opening_balance: {
+          optional: 'hide'
+        },
         tax_ids: {
-          widget: 'many2many_tags'
+          widget: 'many2many_tags',
+          optional: 'hide'
         },
         tag_ids: {
-          widget: 'many2many_tags'
+          widget: 'many2many_tags',
+          optional: 'hide'
         },
         allowed_journal_ids: {
-          widget: 'many2many_tags'
+          widget: 'many2many_tags',
+          optional: 'hide'
         },
         _button_action_read_account: {
           _attr: {
             name: 'action_read_account',
+            type: 'object',
             string: 'Setup',
-            class: 'float-end btn-secondary',
-            type: 'object'
+            class: 'float-end btn-secondary'
           }
         }
       }

@@ -1,5 +1,8 @@
 const ModelFields = {
-  color: {},
+  color: {
+    required: 'True'
+  },
+
   name: {
     placeholder: 'e.g. Services'
   }

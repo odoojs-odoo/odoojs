@@ -26,7 +26,7 @@ export default {
               invisible: '1'
             }
           },
-          _group_563: {
+          _group_960: {
             date: {},
             reversal_date: {}
           }
@@ -39,9 +39,9 @@ export default {
           _button_create_entries: {
             _attr: {
               name: 'create_entries',
+              type: 'object',
               string: 'Create Entry',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

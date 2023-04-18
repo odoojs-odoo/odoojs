@@ -36,6 +36,7 @@ const ModelFields = {
   picking_type_id: {},
   product_id: {
     readonly: ['|', '&', ['state', '!=', 'draft'], ['additional', '=', false], ['move_lines_count', '>', 0]],
+    required: '1',
     context: {
       default_detailed_type: 'product'
     }
@@ -45,7 +46,10 @@ const ModelFields = {
     groups: 'product.group_stock_packaging'
   },
 
-  product_qty: {},
+  product_qty: {
+    readonly: '1'
+  },
+
   product_type: {},
   product_uom: {
     string: 'Unit of Measure',
@@ -94,9 +98,14 @@ const ModelFields = {
 
   scrapped: {},
   show_details_visible: {},
-  show_operations: {},
+  show_operations: {
+    readonly: '1'
+  },
+
   show_reserved_availability: {},
-  state: {}
+  state: {
+    readonly: '0'
+  }
 }
 
 const AddonsFields = {

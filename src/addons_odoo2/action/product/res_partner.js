@@ -26,9 +26,9 @@ export default {
               _button_open_commercial_entity: {
                 _attr: {
                   name: 'open_commercial_entity',
+                  type: 'object',
                   string: 'the parent company',
-                  class: 'oe_link',
-                  type: 'object'
+                  class: 'oe_link'
                 }
               }
             }

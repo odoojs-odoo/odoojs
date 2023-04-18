@@ -77,13 +77,5 @@ export default {
     res_model: 'stock.warehouse',
     domain: [],
     context: {}
-  },
-
-  menu_action_warehouse_form: {
-    _odoo_model: 'ir.ui.menu',
-    parent: 'menu_warehouse_config',
-    name: '仓库',
-    action: 'action_warehouse_form',
-    sequence: 1
   }
 }

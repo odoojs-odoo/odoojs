@@ -31,7 +31,9 @@ const ModelFields = {
 
   partner_id: {
     string: 'Contact',
-    groups: 'base.group_no_one'
+    groups: 'base.group_no_one',
+    required: '0',
+    readonly: '1'
   },
 
   phone: {},

@@ -1,7 +1,9 @@
 const ModelFields = {
   action_id: {},
   sequence: {},
-  state: {}
+  state: {
+    readonly: '1'
+  }
 }
 
 const AddonsFields = {

@@ -1,7 +1,15 @@
 const ModelFields = {
-  location_id: {},
-  product_uom_name: {},
-  quantity: {}
+  location_id: {
+    readonly: 'True'
+  },
+
+  product_uom_name: {
+    readonly: 'True'
+  },
+
+  quantity: {
+    readonly: 'True'
+  }
 }
 
 const AddonsFields = {

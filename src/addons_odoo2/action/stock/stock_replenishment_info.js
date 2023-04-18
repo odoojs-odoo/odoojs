@@ -17,7 +17,7 @@ export default {
               widget: 'lead_days_widget'
             }
           },
-          _group_479: {
+          _group_190: {
             json_replenishment_history: {
               widget: 'replenishment_history_widget'
             }

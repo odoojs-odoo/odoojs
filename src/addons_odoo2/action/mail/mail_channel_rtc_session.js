@@ -28,8 +28,8 @@ export default {
           _button_action_disconnect: {
             _attr: {
               name: 'action_disconnect',
-              string: 'Disconnect',
-              type: 'object'
+              type: 'object',
+              string: 'Disconnect'
             }
           }
         },
@@ -64,7 +64,7 @@ export default {
             partner_id: {},
             guest_id: {}
           },
-          _group_815: {
+          _group_217: {
             _attr: {
               string: 'State'
             },

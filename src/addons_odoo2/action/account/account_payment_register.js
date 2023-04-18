@@ -88,10 +88,12 @@ export default {
               name: 'group1'
             },
             journal_id: {
+              required: '1',
               no_open: true,
               no_create: true
             },
             payment_method_line_id: {
+              required: '1',
               no_create: true,
               no_open: true
             },
@@ -124,6 +126,7 @@ export default {
               amount: {},
               currency_id: {
                 groups: 'base.group_multi_currency',
+                required: '1',
                 no_create: true,
                 no_open: true
               }
@@ -176,9 +179,9 @@ export default {
           _button_action_create_payments: {
             _attr: {
               name: 'action_create_payments',
+              type: 'object',
               string: 'Create Payment',
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button: {

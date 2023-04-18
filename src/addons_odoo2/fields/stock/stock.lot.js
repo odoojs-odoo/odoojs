@@ -19,7 +19,16 @@ const ModelFields = {
     context: {
       default_detailed_type: 'product',
       default_tracking: 'lot'
-    }
+    },
+    readonly: '===todo=='
+  },
+
+  product_id_$_form: {
+    readonly: "context.get['set_product_readonly', False]"
+  },
+
+  product_id_$_tree: {
+    readonly: '1'
   },
 
   product_qty: {},

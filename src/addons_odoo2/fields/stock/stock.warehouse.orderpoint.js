@@ -2,7 +2,8 @@ const ModelFields = {
   active: {},
   allowed_location_ids: {},
   company_id: {
-    groups: 'base.group_multi_company'
+    groups: 'base.group_multi_company',
+    readonly: '1'
   },
 
   group_id: {

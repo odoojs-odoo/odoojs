@@ -10,13 +10,17 @@ const ModelFields = {
   company_id: {},
   country_code: {},
   currency_id: {
-    groups: 'base.group_multi_currency'
+    groups: 'base.group_multi_currency',
+    required: '1'
   },
 
   early_payment_discount_mode: {},
   group_payment: {},
   hide_writeoff_section: {},
-  journal_id: {},
+  journal_id: {
+    required: '1'
+  },
+
   line_ids: {},
   partner_bank_id: {
     required: [['require_partner_bank_account', '=', true], ['can_edit_wizard', '=', true], '|', ['can_group_payments', '=', false], ['group_payment', '=', false]],
@@ -31,7 +35,10 @@ const ModelFields = {
   payment_date: {},
   payment_difference: {},
   payment_difference_handling: {},
-  payment_method_line_id: {},
+  payment_method_line_id: {
+    required: '1'
+  },
+
   payment_type: {},
   require_partner_bank_account: {},
   show_partner_bank_account: {},

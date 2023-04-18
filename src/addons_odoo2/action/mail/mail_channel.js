@@ -41,6 +41,7 @@ export default {
             },
             name: {
               class: 'oe_inline',
+              readonly: '0',
               placeholder: 'e.g. support'
             }
           }
@@ -97,9 +98,12 @@ export default {
                         string: 'Members'
                       },
                       partner_id: {
-                        readonly: [['id', '!=', false]]
+                        readonly: [['id', '!=', false]],
+                        required: '1'
                       },
-                      partner_email: {}
+                      partner_email: {
+                        readonly: '1'
+                      }
                     }
                   }
                 }

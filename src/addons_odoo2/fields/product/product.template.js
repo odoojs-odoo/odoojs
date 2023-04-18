@@ -30,7 +30,10 @@ const ModelFields = {
     placeholder: 'This note is added to sales orders and invoices.'
   },
 
-  detailed_type: {},
+  detailed_type: {
+    readonly: '1'
+  },
+
   id: {},
   image_1920: {},
   is_product_variant: {},
@@ -60,10 +63,14 @@ const ModelFields = {
   product_variant_id: {},
   purchase_ok: {},
   sale_ok: {},
-  standard_price: {},
+  standard_price: {
+    readonly: '1'
+  },
+
   type: {},
   uom_id: {
-    groups: 'uom.group_uom'
+    groups: 'uom.group_uom',
+    readonly: '1'
   },
 
   uom_name: {},

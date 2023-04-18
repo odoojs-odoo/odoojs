@@ -25,9 +25,9 @@ export default {
           _button_import_lang: {
             _attr: {
               name: 'import_lang',
+              type: 'object',
               string: 'Import',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

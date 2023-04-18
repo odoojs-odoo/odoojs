@@ -16,39 +16,41 @@ export default {
             avg_cost: {
               string: 'Unit Cost',
               widget: 'monetary',
+              optional: 'show',
               currency_field: 'company_currency_id'
             },
             total_value: {
               string: 'Total Value',
               widget: 'monetary',
+              optional: 'show',
               currency_field: 'company_currency_id'
             },
             _button_stock_valuation_layer_action: {
               _attr: {
                 name: 'stock_valuation_layer_action',
+                type: 'action',
+                title: 'Valuation Report',
+                icon: 'fa-bar-chart',
                 invisible: [['cost_method', '!=', 'average']],
                 context: {
                   search_default_product_id: 'todo===id',
                   default_product_id: 'todo===id'
                 },
-                class: 'btn-link',
-                title: 'Valuation Report',
-                type: 'action',
-                icon: 'fa-bar-chart'
+                class: 'btn-link'
               }
             },
             _button_stock_valuation_layer_report_action: {
               _attr: {
                 name: 'stock_valuation_layer_report_action',
+                type: 'action',
+                title: 'Valuation Report',
+                icon: 'fa-bar-chart',
                 invisible: [['cost_method', '!=', 'fifo']],
                 context: {
                   search_default_product_id: 'todo===id',
                   default_product_id: 'todo===id'
                 },
-                class: 'btn-link',
-                title: 'Valuation Report',
-                type: 'action',
-                icon: 'fa-bar-chart'
+                class: 'btn-link'
               }
             }
           }

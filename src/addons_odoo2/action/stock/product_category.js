@@ -12,11 +12,11 @@ export default {
           _button_category_open_putaway: {
             _attr: {
               name: 'category_open_putaway',
-              string: 'Putaway Rules',
-              groups: 'stock.group_stock_multi_locations',
-              class: 'oe_stat_button',
               type: 'action',
-              icon: 'fa-random'
+              string: 'Putaway Rules',
+              icon: 'fa-random',
+              groups: 'stock.group_stock_multi_locations',
+              class: 'oe_stat_button'
             }
           }
         },

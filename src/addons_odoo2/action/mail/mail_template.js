@@ -12,10 +12,10 @@ export default {
           _button_mail_template_reset_action: {
             _attr: {
               name: 'mail_template_reset_action',
+              type: 'action',
               string: 'Reset Template',
               groups: 'mail.group_mail_template_editor',
-              invisible: [['template_fs', '=', false]],
-              type: 'action'
+              invisible: [['template_fs', '=', false]]
             }
           }
         },
@@ -30,11 +30,11 @@ export default {
           _button_create_action: {
             _attr: {
               name: 'create_action',
+              type: 'object',
+              icon: 'fa-plus',
               groups: 'base.group_no_one',
               invisible: [['ref_ir_act_window', '!=', false]],
-              class: 'oe_stat_button',
-              type: 'object',
-              icon: 'fa-plus'
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -46,7 +46,7 @@ export default {
                   text: 'Add'
                 }
               },
-              _span_409: {
+              _span_984: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Context Action'
@@ -57,11 +57,11 @@ export default {
           _button_unlink_action: {
             _attr: {
               name: 'unlink_action',
+              type: 'object',
+              icon: 'fa-minus',
               groups: 'base.group_no_one',
               invisible: [['ref_ir_act_window', '=', false]],
-              class: 'oe_stat_button',
-              type: 'object',
-              icon: 'fa-minus'
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -73,7 +73,7 @@ export default {
                   text: 'Remove'
                 }
               },
-              _span_681: {
+              _span_891: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Context Action'
@@ -84,10 +84,10 @@ export default {
           _button_mail_template_preview_action: {
             _attr: {
               name: 'mail_template_preview_action',
-              string: 'Preview',
-              class: 'oe_stat_button',
               type: 'action',
-              icon: 'fa-search-plus'
+              string: 'Preview',
+              icon: 'fa-search-plus',
+              class: 'oe_stat_button'
             }
           }
         },
@@ -101,11 +101,13 @@ export default {
           _h1: {
             name: {
               class: 'w-100',
+              required: '1',
               placeholder: 'e.g. "Welcome email"'
             }
           },
           _group: {
             model_id: {
+              required: '1',
               placeholder: 'e.g. Contact',
               no_create: true
             },
@@ -207,11 +209,21 @@ export default {
           groups: 'base.group_no_one'
         },
         description: {},
-        subject: {},
-        email_from: {},
-        email_to: {},
-        partner_to: {},
-        report_name: {}
+        subject: {
+          optional: 'hidden'
+        },
+        email_from: {
+          optional: 'hidden'
+        },
+        email_to: {
+          optional: 'hidden'
+        },
+        partner_to: {
+          optional: 'hidden'
+        },
+        report_name: {
+          optional: 'hidden'
+        }
       }
     }
   },
@@ -222,7 +234,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Templates'
+        string: 'Templates',
+        filter_domain: {
+          todo_ctx: "['|', '|', '|',('name','ilike',self), ('report_name','ilike',self), ('subject','ilike',self), ('email_to','ilike',self)]"
+        }
       },
       lang: {},
       model_id: {},

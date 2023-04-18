@@ -68,8 +68,8 @@ export default {
               },
               _i: {
                 _attr: {
-                  class: 'fa fa-fw fa-credit-card',
-                  title: 'Purchases'
+                  title: 'Purchases',
+                  class: 'fa fa-fw fa-credit-card'
                 }
               },
               _t: {}
@@ -93,10 +93,10 @@ export default {
           _button_purchase__act_res_partner_2_purchase_order: {
             _attr: {
               name: 'purchase.act_res_partner_2_purchase_order',
-              groups: 'purchase.group_purchase_user',
-              class: 'oe_stat_button',
               type: 'action',
-              icon: 'fa-credit-card'
+              icon: 'fa-credit-card',
+              groups: 'purchase.group_purchase_user',
+              class: 'oe_stat_button'
             },
             purchase_order_count: {
               string: 'Purchases',
@@ -121,7 +121,9 @@ export default {
                   string: 'Warning on the Purchase Order'
                 }
               },
-              purchase_warn: {},
+              purchase_warn: {
+                required: '1'
+              },
               purchase_warn_msg: {
                 required: [['purchase_warn', '!=', false], ['purchase_warn', '!=', 'no-message']],
                 invisible: [['purchase_warn', 'in', (false, 'no-message')]],
@@ -147,10 +149,10 @@ export default {
           _button_purchase__act_res_partner_2_supplier_invoices: {
             _attr: {
               name: 'purchase.act_res_partner_2_supplier_invoices',
-              groups: 'account.group_account_invoice',
-              class: 'oe_stat_button',
               type: 'action',
-              icon: 'fa-pencil-square-o'
+              icon: 'fa-pencil-square-o',
+              groups: 'account.group_account_invoice',
+              class: 'oe_stat_button'
             },
             supplier_invoice_count: {
               string: 'Vendor Bills',

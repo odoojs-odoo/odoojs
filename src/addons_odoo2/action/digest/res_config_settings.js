@@ -19,8 +19,8 @@ export default {
               _div_digest_email_setting_container: {
                 _attr: {
                   name: 'digest_email_setting_container',
-                  class: 'col-12 col-lg-6 o_setting_box',
-                  title: 'New users are automatically added as recipient of the following digest email.'
+                  title: 'New users are automatically added as recipient of the following digest email.',
+                  class: 'col-12 col-lg-6 o_setting_box'
                 },
                 _div: {
                   _attr: {
@@ -28,7 +28,7 @@ export default {
                   },
                   digest_emails: {}
                 },
-                _div_768: {
+                _div_752: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -38,8 +38,8 @@ export default {
                   },
                   _a: {
                     _attr: {
-                      class: 'ms-1 o_doc_link',
-                      title: 'Documentation'
+                      title: 'Documentation',
+                      class: 'ms-1 o_doc_link'
                     }
                   },
                   _div: {
@@ -48,7 +48,7 @@ export default {
                       text: 'Add new users as recipient of a periodic email with key metrics'
                     }
                   },
-                  _div_251: {
+                  _div_335: {
                     _attr: {
                       invisible: [['digest_emails', '=', false]],
                       class: 'content-group'
@@ -65,17 +65,17 @@ export default {
                         class: 'oe_inline'
                       }
                     },
-                    _div_668: {
+                    _div_554: {
                       _attr: {
                         class: 'mt8'
                       },
                       _button_digest__digest_digest_action: {
                         _attr: {
                           name: 'digest.digest_digest_action',
-                          string: 'Configure Digest Emails',
-                          class: 'btn-link',
                           type: 'action',
-                          icon: 'fa-arrow-right'
+                          string: 'Configure Digest Emails',
+                          icon: 'fa-arrow-right',
+                          class: 'btn-link'
                         }
                       }
                     }

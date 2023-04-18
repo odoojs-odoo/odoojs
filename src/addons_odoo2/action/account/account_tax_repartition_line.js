@@ -24,7 +24,8 @@ export default {
           no_create: true
         },
         use_in_tax_closing: {
-          invisible: [['repartition_type', '=', 'base']]
+          invisible: [['repartition_type', '=', 'base']],
+          optional: 'hidden'
         },
         company_id: {
           invisible: '1'

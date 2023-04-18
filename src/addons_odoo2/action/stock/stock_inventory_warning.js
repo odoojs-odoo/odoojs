@@ -10,9 +10,9 @@ export default {
           _button_action_reset: {
             _attr: {
               name: 'action_reset',
+              type: 'object',
               string: 'Continue',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button_cancel_button: {
@@ -38,9 +38,9 @@ export default {
           _button_action_set: {
             _attr: {
               name: 'action_set',
+              type: 'object',
               string: 'Continue',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button_cancel_button: {

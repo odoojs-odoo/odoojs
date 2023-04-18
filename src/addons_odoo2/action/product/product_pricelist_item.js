@@ -84,10 +84,15 @@ export default {
         },
         price: {},
         min_quantity: {},
-        date_start: {},
-        date_end: {},
+        date_start: {
+          optional: 'hide'
+        },
+        date_end: {
+          optional: 'hide'
+        },
         company_id: {
-          groups: 'base.group_multi_company'
+          groups: 'base.group_multi_company',
+          optional: 'show'
         }
       }
     }
@@ -129,6 +134,7 @@ export default {
             todo_ctx: "['|', '|',                     ('id', '=', context.get('default_product_id', 0)),                     ('product_tmpl_id', '=', context.get('default_product_tmpl_id', 0)),                     ('categ_id', '=', context.get('default_categ_id', 0)), '|', ('company_id', '=', company_id), ('company_id', '=', False)                   ]"
           },
           required: [['applied_on', '=', '0_product_variant']],
+          readonly: "context.get['active_model']=='product.product'",
           no_create_edit: 1,
           no_open: 1
         },
@@ -137,16 +143,22 @@ export default {
           invisible: '1'
         },
         fixed_price: {
-          string: 'Price'
+          string: 'Price',
+          required: '1'
         },
-        date_start: {},
-        date_end: {},
+        date_start: {
+          optional: 'show'
+        },
+        date_end: {
+          optional: 'show'
+        },
         applied_on: {
           invisible: '1'
         },
-        _field_company_id_540: {
+        _field_company_id_394: {
           company_id: {
             groups: 'base.group_multi_company',
+            optional: 'show',
             no_create: 1,
             no_open: 1
           }
@@ -231,7 +243,7 @@ export default {
               string: 'Discount',
               invisible: [['compute_price', '!=', 'formula']]
             },
-            _div_840: {
+            _div_110: {
               _attr: {
                 invisible: [['compute_price', '!=', 'formula']],
                 class: 'o_row'
@@ -253,7 +265,7 @@ export default {
               string: 'Margins',
               invisible: [['compute_price', '!=', 'formula']]
             },
-            _div_697: {
+            _div_903: {
               _attr: {
                 invisible: [['compute_price', '!=', 'formula']],
                 class: 'o_row'
@@ -265,8 +277,8 @@ export default {
               },
               _i: {
                 _attr: {
-                  class: 'fa fa-long-arrow-right mx-2 oe_edit_only',
-                  title: 'Arrow'
+                  title: 'Arrow',
+                  class: 'fa fa-long-arrow-right mx-2 oe_edit_only'
                 }
               },
               price_max_margin: {
@@ -330,8 +342,8 @@ export default {
               },
               _i: {
                 _attr: {
-                  class: 'fa fa-long-arrow-right mx-2 oe_edit_only',
-                  title: 'Arrow'
+                  title: 'Arrow',
+                  class: 'fa fa-long-arrow-right mx-2 oe_edit_only'
                 }
               },
               date_end: {

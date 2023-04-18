@@ -32,6 +32,7 @@ export default {
           },
           _h1: {
             name: {
+              required: '1',
               placeholder: 'e.g. John Doe'
             }
           },
@@ -75,6 +76,7 @@ export default {
             },
             groups_id: {
               widget: 'many2many_tags',
+              readonly: '1',
               color_field: 'color'
             }
           },
@@ -109,10 +111,10 @@ export default {
           _button_action_show_groups: {
             _attr: {
               name: 'action_show_groups',
-              groups: 'base.group_no_one',
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-users'
+              icon: 'fa-users',
+              groups: 'base.group_no_one',
+              class: 'oe_stat_button'
             },
             groups_count: {
               string: 'Groups',
@@ -122,10 +124,10 @@ export default {
           _button_action_show_accesses: {
             _attr: {
               name: 'action_show_accesses',
-              groups: 'base.group_no_one',
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-list'
+              icon: 'fa-list',
+              groups: 'base.group_no_one',
+              class: 'oe_stat_button'
             },
             accesses_count: {
               string: 'Access Rights',
@@ -135,10 +137,10 @@ export default {
           _button_action_show_rules: {
             _attr: {
               name: 'action_show_rules',
-              groups: 'base.group_no_one',
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-list-ul'
+              icon: 'fa-list-ul',
+              groups: 'base.group_no_one',
+              class: 'oe_stat_button'
             },
             rules_count: {
               string: 'Record Rules',
@@ -149,12 +151,15 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         active_partner: {
-          invisible: '1'
+          invisible: '1',
+          required: '0',
+          readonly: '1'
         },
         _div: {
           _attr: {
@@ -170,11 +175,14 @@ export default {
           _div: {
             _strong: 'The contact linked to this user is still active'
           },
-          _div_445: {
+          _div_278: {
             _attr: {
               text: 'You can archive the contact'
             },
-            partner_id: {}
+            partner_id: {
+              required: '0',
+              readonly: '1'
+            }
           }
         },
         avatar_128: {
@@ -194,6 +202,7 @@ export default {
           },
           _h1: {
             name: {
+              required: '1',
               placeholder: 'e.g. John Doe'
             }
           },
@@ -212,7 +221,9 @@ export default {
           _group: {
             partner_id: {
               groups: 'base.group_no_one',
-              invisible: [['id', '=', false]]
+              invisible: [['id', '=', false]],
+              required: '0',
+              readonly: '1'
             },
             share: {
               invisible: '1'
@@ -269,13 +280,15 @@ export default {
                   _attr: {
                     class: 'o_row'
                   },
-                  lang: {},
+                  lang: {
+                    required: '1'
+                  },
                   _button_base__action_view_base_language_install: {
                     _attr: {
                       name: 'base.action_view_base_language_install',
-                      class: 'oe_edit_only btn-sm btn-link mb4 fa fa-globe',
+                      type: 'action',
                       title: 'Add a language',
-                      type: 'action'
+                      class: 'oe_edit_only btn-sm btn-link mb4 fa fa-globe'
                     }
                   }
                 },
@@ -340,7 +353,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'User'
+        string: 'User',
+        filter_domain: {
+          todo_ctx: "['|', '|', ('name','ilike',self), ('login','ilike',self), ('email','ilike',self)]"
+        }
       },
       company_ids: {
         string: 'Company',
@@ -427,11 +443,13 @@ export default {
         image_1920: {
           widget: 'image',
           class: 'oe_right oe_avatar',
+          readonly: '0',
           preview_image: 'avatar_128'
         },
         _h1: {
           name: {
-            class: 'oe_inline'
+            class: 'oe_inline',
+            readonly: '1'
           }
         },
         _notebook: {
@@ -446,10 +464,11 @@ export default {
               },
               _group: {
                 email: {
-                  widget: 'email'
+                  widget: 'email',
+                  readonly: '0'
                 }
               },
-              _group_107: {
+              _group_866: {
                 _label_lang: {
                   for: 'lang'
                 },
@@ -457,19 +476,23 @@ export default {
                   _attr: {
                     class: 'o_row'
                   },
-                  lang: {},
+                  lang: {
+                    required: '1',
+                    readonly: '0'
+                  },
                   _button_base__action_view_base_language_install: {
                     _attr: {
                       name: 'base.action_view_base_language_install',
-                      groups: 'base.group_system',
-                      class: 'oe_edit_only btn-sm btn-link mb4 fa fa-globe',
+                      type: 'action',
                       title: 'Add a language',
-                      type: 'action'
+                      groups: 'base.group_system',
+                      class: 'oe_edit_only btn-sm btn-link mb4 fa fa-globe'
                     }
                   }
                 },
                 tz: {
                   widget: 'timezone_mismatch',
+                  readonly: '0',
                   tz_offset_field: 'tz_offset'
                 },
                 tz_offset: {
@@ -485,6 +508,7 @@ export default {
                 name: 'signature'
               },
               signature: {
+                readonly: '0',
                 options: "{'style-inline': true, 'codeview': true}"
               }
             },
@@ -496,6 +520,7 @@ export default {
               },
               company_id: {
                 groups: 'base.group_multi_company',
+                readonly: '0',
                 no_create: true
               }
             },
@@ -518,9 +543,9 @@ export default {
                 _button_preference_change_password: {
                   _attr: {
                     name: 'preference_change_password',
+                    type: 'object',
                     string: 'Change password',
-                    class: 'btn btn-secondary',
-                    type: 'object'
+                    class: 'btn btn-secondary'
                   }
                 }
               }
@@ -537,17 +562,18 @@ export default {
                 _a: {
                   _i: {
                     _attr: {
-                      class: 'fa fa-fw o_button_icon fa-info-circle',
-                      title: 'Documentation'
+                      title: 'Documentation',
+                      class: 'fa fa-fw o_button_icon fa-info-circle'
                     }
                   }
                 }
               },
-              _div_691: {
+              _div_351: {
                 _attr: {
                   invisible: [['api_key_ids', '=', []]]
                 },
                 api_key_ids: {
+                  readonly: '0',
                   views: {
                     tree: {
                       arch: {
@@ -558,8 +584,8 @@ export default {
                           _button_remove: {
                             _attr: {
                               name: 'remove',
-                              string: 'Delete API key.',
                               type: 'object',
+                              string: 'Delete API key.',
                               icon: 'fa-trash'
                             }
                           }
@@ -569,13 +595,13 @@ export default {
                   }
                 }
               },
-              _div_830: {
+              _div_297: {
                 _button_api_key_wizard: {
                   _attr: {
                     name: 'api_key_wizard',
+                    type: 'object',
                     string: 'New API Key',
-                    class: 'btn btn-secondary',
-                    type: 'object'
+                    class: 'btn btn-secondary'
                   }
                 }
               }
@@ -586,9 +612,9 @@ export default {
           _button_preference_save: {
             _attr: {
               name: 'preference_save',
+              type: 'object',
               string: 'Save',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button_preference_cancel: {

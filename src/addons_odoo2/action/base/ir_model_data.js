@@ -16,7 +16,7 @@ export default {
             write_date: {},
             create_date: {}
           },
-          _group_363: {
+          _group_561: {
             display_name: {},
             model: {},
             res_id: {},
@@ -55,7 +55,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'External Identifier'
+        string: 'External Identifier',
+        filter_domain: {
+          todo_ctx: "[('name','ilike',self)]"
+        }
       },
       _filter_updatable: {
         _attr: {

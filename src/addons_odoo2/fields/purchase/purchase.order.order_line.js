@@ -67,11 +67,11 @@ const ModelFields = {
     groups: 'uom.group_uom'
   },
 
-  product_uom_$_tree_$$_489: {
+  product_uom_$_tree_$$_232: {
     groups: 'uom.group_uom'
   },
 
-  product_uom_$_tree_$$_530: {
+  product_uom_$_tree_$$_317: {
     groups: '!uom.group_uom'
   },
 

@@ -49,7 +49,9 @@ export default {
                   string: 'Warning on the Picking'
                 }
               },
-              picking_warn: {},
+              picking_warn: {
+                required: '1'
+              },
               picking_warn_msg: {
                 required: [['picking_warn', '!=', false], ['picking_warn', '!=', 'no-message']],
                 invisible: [['picking_warn', 'in', (false, 'no-message')]],

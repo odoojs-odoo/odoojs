@@ -1,18 +1,4 @@
 export default {
-  view_partner_category_list: {
-    _odoo_model: 'ir.ui.view',
-    model: 'res.partner.category',
-    type: 'tree',
-    arch: {
-      sheet: {
-        display_name: {},
-        name: {},
-        parent_id: {},
-        active: { widget: 'boolean_toggle' }
-        // color: {}
-      }
-    }
-  },
   view_partner_category_form: {
     _odoo_model: 'ir.ui.view',
     model: 'res.partner.category',
@@ -24,6 +10,23 @@ export default {
           color: { widget: 'color_picker' },
           parent_id: {},
           active: { widget: 'boolean_toggle' }
+        }
+      }
+    }
+  },
+
+  view_partner_category_list: {
+    _odoo_model: 'ir.ui.view',
+    model: 'res.partner.category',
+    type: 'tree',
+    arch: {
+      sheet: {
+        display_name: {},
+        name: {},
+        parent_id: {},
+        active: { widget: 'boolean_toggle' },
+        color: {
+          widget: 'color_picker'
         }
       }
     }
@@ -42,7 +45,8 @@ export default {
       filters: {
         group_active: {
           inactive: {
-            string: '已归档',
+            name: 'inactive',
+            string: 'Archived',
             domain: [['active', '=', false]]
           }
         }
@@ -52,7 +56,7 @@ export default {
 
   action_partner_category_form: {
     _odoo_model: 'ir.actions',
-    name: '联系人标签',
+    name: 'Contact Tags',
     type: 'ir.actions.act_window',
     res_model: 'res.partner.category',
     search_view_id: 'res_partner_category_view_search',

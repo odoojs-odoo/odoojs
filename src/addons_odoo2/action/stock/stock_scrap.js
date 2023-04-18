@@ -69,12 +69,12 @@ export default {
           _button_action_validate: {
             _attr: {
               name: 'action_validate',
+              type: 'object',
               string: 'Validate',
               context: {
                 not_unlink_on_discard: true
               },
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           state: {
@@ -89,11 +89,11 @@ export default {
           _button_action_get_stock_picking: {
             _attr: {
               name: 'action_get_stock_picking',
-              string: 'Stock Operation',
-              invisible: [['picking_id', '=', false]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-cogs'
+              string: 'Stock Operation',
+              icon: 'fa-cogs',
+              invisible: [['picking_id', '=', false]],
+              class: 'oe_stat_button'
             }
           },
           picking_id: {
@@ -102,11 +102,11 @@ export default {
           _button_action_get_stock_move_lines: {
             _attr: {
               name: 'action_get_stock_move_lines',
-              string: 'Product Moves',
-              invisible: [['move_id', '=', false]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-exchange'
+              string: 'Product Moves',
+              icon: 'fa-exchange',
+              invisible: [['move_id', '=', false]],
+              class: 'oe_stat_button'
             }
           },
           move_id: {
@@ -145,7 +145,7 @@ export default {
               }
             }
           },
-          _group_774: {
+          _group_676: {
             company_id: {
               invisible: '1'
             },
@@ -185,7 +185,7 @@ export default {
             picking_id: {
               invisible: [['picking_id', '=', false]]
             },
-            _field_company_id_964: {
+            _field_company_id_372: {
               company_id: {
                 groups: 'base.group_multi_company'
               }
@@ -217,7 +217,9 @@ export default {
         },
         name: {},
         date_done: {},
-        product_id: {},
+        product_id: {
+          readonly: '1'
+        },
         scrap_qty: {},
         product_uom_id: {
           groups: 'uom.group_uom'
@@ -230,9 +232,10 @@ export default {
           groups: 'stock.group_stock_multi_locations',
           no_create: true
         },
-        _field_company_id_462: {
+        _field_company_id_590: {
           company_id: {
-            groups: 'base.group_multi_company'
+            groups: 'base.group_multi_company',
+            readonly: '1'
           }
         },
         state: {
@@ -288,7 +291,7 @@ export default {
               }
             }
           },
-          _group_623: {
+          _group_740: {
             picking_id: {
               invisible: '1'
             },
@@ -328,9 +331,9 @@ export default {
           _button_action_validate: {
             _attr: {
               name: 'action_validate',
+              type: 'object',
               string: 'Done',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

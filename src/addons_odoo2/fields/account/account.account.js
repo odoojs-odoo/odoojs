@@ -21,7 +21,10 @@ const ModelFields = {
   current_balance: {},
   deprecated: {},
   group_id: {},
-  internal_group: {},
+  internal_group: {
+    readonly: '1'
+  },
+
   name: {
     placeholder: 'e.g. Current Assets'
   },

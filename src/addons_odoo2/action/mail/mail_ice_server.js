@@ -47,7 +47,7 @@ export default {
             }
           }
         },
-        _group_945: {
+        _group_691: {
           username: {},
           credential: {}
         }

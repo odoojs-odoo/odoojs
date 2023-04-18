@@ -13,7 +13,7 @@ export default {
             }
           }
         },
-        _group_276: {
+        _group_738: {
           product_ids: {
             widget: 'many2many_tags'
           }

@@ -76,7 +76,7 @@ export default {
           _label_address_format: {
             for: 'address_format'
           },
-          _div_222: {
+          _div_660: {
             _attr: {
               class: 'o_row'
             },

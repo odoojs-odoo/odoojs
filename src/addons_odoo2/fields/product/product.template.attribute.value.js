@@ -6,7 +6,9 @@ const ModelFields = {
   html_color: {},
   name: {},
   price_extra: {},
-  ptav_active: {}
+  ptav_active: {
+    readonly: '1'
+  }
 }
 
 const AddonsFields = {

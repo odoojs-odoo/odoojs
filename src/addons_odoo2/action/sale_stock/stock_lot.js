@@ -13,10 +13,10 @@ export default {
           _button_action_view_so: {
             _attr: {
               name: 'action_view_so',
-              invisible: ['|', ['sale_order_count', '=', 0], ['display_complete', '=', false]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-pencil-square-o'
+              icon: 'fa-pencil-square-o',
+              invisible: ['|', ['sale_order_count', '=', 0], ['display_complete', '=', false]],
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -31,7 +31,7 @@ export default {
                   class: 'mr4'
                 }
               },
-              _span_609: {
+              _span_592: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Sales'
@@ -40,7 +40,7 @@ export default {
             }
           }
         },
-        _xpath_970: {
+        _xpath_901: {
           _attr: {
             expr: "//group[@name='main_group']",
             position: 'after'
@@ -49,6 +49,7 @@ export default {
             sale_order_ids: {
               widget: 'many2many',
               invisible: ['|', ['sale_order_ids', '=', []], ['display_complete', '=', true]],
+              readonly: 'True',
               views: {
                 tree: {
                   arch: {

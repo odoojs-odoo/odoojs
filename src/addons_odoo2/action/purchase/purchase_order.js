@@ -43,144 +43,145 @@ export default {
           _button_action_rfq_send: {
             _attr: {
               name: 'action_rfq_send',
+              type: 'object',
               string: 'Send by Email',
               context: {
                 send_rfq: true
               },
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button_print_quotation: {
             _attr: {
               name: 'print_quotation',
+              type: 'object',
               string: 'Print RFQ',
               groups: 'base.group_user',
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button_button_confirm: {
             _attr: {
               name: 'button_confirm',
+              type: 'object',
               string: 'Confirm Order',
               context: {
                 validate_analytic: true
               },
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button_button_approve: {
             _attr: {
               name: 'button_approve',
+              type: 'object',
               string: 'Approve Order',
               groups: 'purchase.group_purchase_manager',
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button_action_create_invoice: {
             _attr: {
               name: 'action_create_invoice',
+              type: 'object',
               string: 'Create Bill',
               invisible: ['|', ['state', 'not in', ('purchase', 'done')], ['invoice_status', 'in', ('no', 'invoiced')]],
               context: {
                 create_bill: true
               },
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
-          _button_action_rfq_send_341: {
+          _button_action_rfq_send_507: {
             _attr: {
               name: 'action_rfq_send',
+              type: 'object',
               string: 'Re-Send by Email',
               context: {
                 send_rfq: true
-              },
-              type: 'object'
+              }
             }
           },
-          _button_print_quotation_155: {
+          _button_print_quotation_865: {
             _attr: {
               name: 'print_quotation',
+              type: 'object',
               string: 'Print RFQ',
-              groups: 'base.group_user',
-              type: 'object'
+              groups: 'base.group_user'
             }
           },
-          _button_button_confirm_924: {
+          _button_button_confirm_864: {
             _attr: {
               name: 'button_confirm',
+              type: 'object',
               string: 'Confirm Order',
               context: {
                 validate_analytic: true
-              },
-              type: 'object'
+              }
             }
           },
-          _button_action_rfq_send_756: {
+          _button_action_rfq_send_531: {
             _attr: {
               name: 'action_rfq_send',
+              type: 'object',
               string: 'Send PO by Email',
               context: {
                 send_rfq: false
-              },
-              type: 'object'
+              }
             }
           },
           _button_confirm_reminder_mail: {
             _attr: {
               name: 'confirm_reminder_mail',
+              type: 'object',
               string: 'Confirm Receipt Date',
               groups: 'base.group_no_one',
-              invisible: ['|', '|', ['state', 'not in', ('purchase', 'done')], ['mail_reminder_confirmed', '=', true], ['date_planned', '=', false]],
-              type: 'object'
+              invisible: ['|', '|', ['state', 'not in', ('purchase', 'done')], ['mail_reminder_confirmed', '=', true], ['date_planned', '=', false]]
             }
           },
-          _button_action_create_invoice_806: {
+          _button_action_create_invoice_371: {
             _attr: {
               name: 'action_create_invoice',
+              type: 'object',
               string: 'Create Bill',
               invisible: ['|', '|', ['state', 'not in', ('purchase', 'done')], ['invoice_status', 'not in', ('no', 'invoiced')], ['order_line', '=', []]],
               context: {
                 create_bill: true
-              },
-              type: 'object'
+              }
             }
           },
           _button_button_draft: {
             _attr: {
               name: 'button_draft',
-              string: 'Set to Draft',
-              type: 'object'
+              type: 'object',
+              string: 'Set to Draft'
             }
           },
           _button_button_cancel: {
             _attr: {
               name: 'button_cancel',
-              string: 'Cancel',
-              type: 'object'
+              type: 'object',
+              string: 'Cancel'
             }
           },
           _button_button_done: {
             _attr: {
               name: 'button_done',
-              string: 'Lock',
-              type: 'object'
+              type: 'object',
+              string: 'Lock'
             }
           },
           _button_button_unlock: {
             _attr: {
               name: 'button_unlock',
+              type: 'object',
               string: 'Unlock',
-              groups: 'purchase.group_purchase_manager',
-              type: 'object'
+              groups: 'purchase.group_purchase_manager'
             }
           },
           state: {
-            widget: 'statusbar'
+            widget: 'statusbar',
+            readonly: '1'
           }
         },
         _div_button_box: {
@@ -191,10 +192,10 @@ export default {
           _button_action_view_invoice: {
             _attr: {
               name: 'action_view_invoice',
-              invisible: ['|', ['invoice_count', '=', 0], ['state', 'in', ('draft', 'sent', 'to approve')]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-pencil-square-o'
+              icon: 'fa-pencil-square-o',
+              invisible: ['|', ['invoice_count', '=', 0], ['state', 'in', ('draft', 'sent', 'to approve')]],
+              class: 'oe_stat_button'
             },
             invoice_count: {
               string: 'Vendor Bills',
@@ -216,7 +217,7 @@ export default {
               text: 'Request for Quotation'
             }
           },
-          _span_866: {
+          _span_529: {
             _attr: {
               invisible: [['state', 'in', ('draft', 'sent')]],
               class: 'o_form_label',
@@ -231,7 +232,9 @@ export default {
               widget: 'priority',
               class: 'me-3'
             },
-            name: {}
+            name: {
+              readonly: '1'
+            }
           }
         },
         _group: {
@@ -255,14 +258,14 @@ export default {
             company_id: {
               invisible: '1'
             },
-            _field_currency_id_314: {
+            _field_currency_id_786: {
               currency_id: {
                 groups: '!base.group_multi_currency',
                 invisible: '1'
               }
             }
           },
-          _group_719: {
+          _group_854: {
             date_order: {
               invisible: [['state', 'in', ('purchase', 'done')]]
             },
@@ -318,9 +321,9 @@ export default {
             _div_reminder: {
               _attr: {
                 name: 'reminder',
+                title: 'Automatically send a confirmation email to the vendor X days before the expected receipt date, asking him to confirm the exact date.',
                 groups: 'purchase.group_send_reminder',
-                class: 'o_row',
-                title: 'Automatically send a confirmation email to the vendor X days before the expected receipt date, asking him to confirm the exact date.'
+                class: 'o_row'
               },
               receipt_reminder_email: {},
               _span: 'Ask confirmation',
@@ -333,8 +336,8 @@ export default {
                 _widget_toaster_button: {
                   _attr: {
                     name: 'toaster_button',
-                    invisible: [['id', '=', false]],
-                    title: 'Preview the reminder email by sending it to yourself.'
+                    title: 'Preview the reminder email by sending it to yourself.',
+                    invisible: [['id', '=', false]]
                   }
                 }
               }
@@ -430,11 +433,13 @@ export default {
                       },
                       date_planned: {
                         required: [['display_type', '=', false]],
+                        optional: 'hide',
                         force_save: '1'
                       },
                       analytic_distribution: {
                         widget: 'analytic_distribution',
                         groups: 'analytic.group_analytic_accounting',
+                        optional: 'hide',
                         product_field: 'product_id',
                         business_domain: 'purchase_order'
                       },
@@ -448,31 +453,36 @@ export default {
                       qty_received: {
                         string: 'Received',
                         column_invisible: [['parent.state', 'not in', ('purchase', 'done')]],
-                        readonly: [['qty_received_method', '!=', 'manual']]
+                        readonly: [['qty_received_method', '!=', 'manual']],
+                        optional: 'show'
                       },
                       qty_invoiced: {
                         string: 'Billed',
-                        column_invisible: [['parent.state', 'not in', ('purchase', 'done')]]
+                        column_invisible: [['parent.state', 'not in', ('purchase', 'done')]],
+                        optional: 'show'
                       },
-                      _field_product_uom_383: {
+                      _field_product_uom_182: {
                         product_uom: {
                           string: 'UoM',
                           groups: 'uom.group_uom',
                           readonly: [['state', 'in', ('purchase', 'done', 'cancel')]],
                           required: [['display_type', '=', false]],
+                          optional: 'show',
                           force_save: '1'
                         }
                       },
                       product_packaging_qty: {
                         groups: 'product.group_stock_packaging',
-                        invisible: ['|', ['product_id', '=', false], ['product_packaging_id', '=', false]]
+                        invisible: ['|', ['product_id', '=', false], ['product_packaging_id', '=', false]],
+                        optional: 'show'
                       },
                       product_packaging_id: {
                         groups: 'product.group_stock_packaging',
                         invisible: [['product_id', '=', false]],
                         context: {
                           todo_ctx: "{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}"
-                        }
+                        },
+                        optional: 'show'
                       },
                       price_unit: {
                         readonly: [['qty_invoiced', '!=', 0]]
@@ -480,10 +490,10 @@ export default {
                       _button_action_purchase_history: {
                         _attr: {
                           name: 'action_purchase_history',
-                          invisible: [['id', '=', false]],
-                          title: 'Purchase History',
                           type: 'object',
-                          icon: 'fa-history'
+                          title: 'Purchase History',
+                          icon: 'fa-history',
+                          invisible: [['id', '=', false]]
                         }
                       },
                       taxes_id: {
@@ -495,6 +505,7 @@ export default {
                           default_type_tax_use: 'purchase',
                           search_view_ref: 'account.account_tax_view_search'
                         },
+                        optional: 'show',
                         no_create: true
                       },
                       price_subtotal: {
@@ -579,7 +590,7 @@ export default {
                             no_create: true
                           }
                         },
-                        _group_600: {
+                        _group_832: {
                           date_planned: {
                             widget: 'date',
                             required: [['display_type', '=', false]]
@@ -591,7 +602,7 @@ export default {
                             business_domain: 'purchase_order'
                           }
                         },
-                        _group_919: {
+                        _group_942: {
                           _notebook: {
                             _page_notes: {
                               _attr: {
@@ -615,7 +626,7 @@ export default {
                         string: 'Section Name (eg. Products, Services)',
                         invisible: [['display_type', '!=', 'line_section']]
                       },
-                      _label_name_597: {
+                      _label_name_428: {
                         for: 'name',
                         string: 'Note',
                         invisible: [['display_type', '!=', 'line_note']]
@@ -666,7 +677,7 @@ export default {
                                     _span: {}
                                   }
                                 },
-                                _div_321: {
+                                _div_549: {
                                   _attr: {
                                     class: 'col-4'
                                   },
@@ -679,7 +690,7 @@ export default {
                                   }
                                 }
                               },
-                              _div_888: {
+                              _div_924: {
                                 _attr: {
                                   class: 'row'
                                 },
@@ -692,7 +703,7 @@ export default {
                                       text: 'Quantity:'
                                     },
                                     _t: {},
-                                    _t_777: {
+                                    _t_566: {
                                       _attr: {
                                         groups: 'uom.group_uom'
                                       }
@@ -700,7 +711,7 @@ export default {
                                   }
                                 }
                               },
-                              _div_752: {
+                              _div_968: {
                                 _attr: {
                                   class: 'row'
                                 },
@@ -742,12 +753,13 @@ export default {
                   placeholder: 'Define your terms and conditions ...'
                 }
               },
-              _group_509: {
+              _group_729: {
                 _attr: {
                   class: 'oe_subtotal_footer oe_right'
                 },
                 tax_totals: {
-                  widget: 'account-tax-totals-field'
+                  widget: 'account-tax-totals-field',
+                  readonly: '1'
                 }
               }
             },
@@ -806,9 +818,14 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Order'
+        string: 'Order',
+        filter_domain: {
+          todo_ctx: "['|', '|', ('name', 'ilike', self), ('partner_ref', 'ilike', self), ('partner_id', 'child_of', self)]"
+        }
       },
-      partner_id: {},
+      partner_id: {
+        operator: 'child_of'
+      },
       user_id: {},
       product_id: {},
       origin: {},
@@ -836,7 +853,7 @@ export default {
           domain: [['state', 'in', ('draft', 'sent', 'to approve')]]
         }
       },
-      _separator_286: {},
+      _separator_354: {},
       _filter_approved: {
         _attr: {
           name: 'approved',
@@ -851,7 +868,7 @@ export default {
           domain: [['state', '=', 'to approve']]
         }
       },
-      _separator_744: {},
+      _separator_917: {},
       _filter_order_date: {
         _attr: {
           name: 'order_date',
@@ -883,7 +900,7 @@ export default {
           }
         }
       },
-      _separator_568: {},
+      _separator_690: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
@@ -914,7 +931,7 @@ export default {
           }
         }
       },
-      _separator_354: {},
+      _separator_319: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',
@@ -966,9 +983,14 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Order'
+        string: 'Order',
+        filter_domain: {
+          todo_ctx: "['|', '|', ('name', 'ilike', self), ('partner_ref', 'ilike', self), ('partner_id', 'child_of', self)]"
+        }
       },
-      partner_id: {},
+      partner_id: {
+        operator: 'child_of'
+      },
       user_id: {},
       product_id: {},
       _filter_my_Orders: {
@@ -1009,14 +1031,14 @@ export default {
           domain: [['invoice_status', '=', 'invoiced']]
         }
       },
-      _separator_730: {},
+      _separator_399: {},
       _filter_order_date: {
         _attr: {
           name: 'order_date',
           string: 'Order Date'
         }
       },
-      _separator_465: {},
+      _separator_620: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
@@ -1047,7 +1069,7 @@ export default {
           }
         }
       },
-      _separator_906: {},
+      _separator_909: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',
@@ -1128,41 +1150,61 @@ export default {
     arch: {
       sheet: {
         priority: {
-          widget: 'priority'
+          widget: 'priority',
+          optional: 'show'
         },
-        partner_ref: {},
+        partner_ref: {
+          optional: 'hide'
+        },
         name: {
-          string: 'Reference'
+          string: 'Reference',
+          readonly: '1'
         },
         date_order: {
-          invisible: "not context.get['quotation_only', False]"
+          invisible: "not context.get['quotation_only', False]",
+          optional: 'show'
         },
         date_approve: {
-          invisible: "context.get['quotation_only', False]"
+          invisible: "context.get['quotation_only', False]",
+          optional: 'show'
         },
-        partner_id: {},
+        partner_id: {
+          readonly: '1'
+        },
         company_id: {
           groups: 'base.group_multi_company',
+          readonly: '1',
+          optional: 'show',
           no_create: true
         },
-        user_id: {},
-        origin: {},
+        user_id: {
+          optional: 'show'
+        },
+        origin: {
+          optional: 'show'
+        },
         amount_untaxed: {
           string: 'Untaxed',
-          widget: 'monetary'
+          widget: 'monetary',
+          optional: 'hide'
         },
         amount_total: {
-          widget: 'monetary'
+          widget: 'monetary',
+          optional: 'show'
         },
         currency_id: {
           invisible: '1'
         },
-        state: {},
+        state: {
+          optional: 'show'
+        },
         date_planned: {
-          invisible: "context.get['quotation_only', False]"
+          invisible: "context.get['quotation_only', False]",
+          optional: 'show'
         },
         invoice_status: {
-          invisible: "context.get['quotation_only', False]"
+          invisible: "context.get['quotation_only', False]",
+          optional: 'hide'
         },
         activity_exception_decoration: {
           widget: 'activity_exception'
@@ -1181,54 +1223,74 @@ export default {
           _button_action_create_invoice: {
             _attr: {
               name: 'action_create_invoice',
-              string: 'Create Bills',
-              type: 'object'
+              type: 'object',
+              string: 'Create Bills'
             }
           }
         },
         priority: {
-          widget: 'priority'
+          widget: 'priority',
+          optional: 'show'
         },
-        partner_ref: {},
+        partner_ref: {
+          optional: 'hide'
+        },
         name: {
-          string: 'Reference'
+          string: 'Reference',
+          readonly: '1'
         },
         date_approve: {
-          invisible: "context.get['quotation_only', False]"
+          invisible: "context.get['quotation_only', False]",
+          optional: 'show'
         },
-        partner_id: {},
+        partner_id: {
+          readonly: '1'
+        },
         company_id: {
           groups: 'base.group_multi_company',
+          readonly: '1',
+          optional: 'show',
           no_create: true
         },
         date_planned: {
-          invisible: "context.get['quotation_only', False]"
+          invisible: "context.get['quotation_only', False]",
+          optional: 'show'
         },
         user_id: {
-          widget: 'many2one_avatar_user'
+          widget: 'many2one_avatar_user',
+          optional: 'show'
         },
         date_order: {
           widget: 'remaining_days',
-          invisible: ['|', '|', ['state', '=', 'purchase'], ['state', '=', 'done'], ['state', '=', 'cancel']]
+          invisible: ['|', '|', ['state', '=', 'purchase'], ['state', '=', 'done'], ['state', '=', 'cancel']],
+          optional: 'show'
         },
         activity_ids: {
-          widget: 'list_activity'
+          widget: 'list_activity',
+          optional: 'show'
         },
-        origin: {},
+        origin: {
+          optional: 'show'
+        },
         amount_untaxed: {
           string: 'Untaxed',
-          widget: 'monetary'
+          widget: 'monetary',
+          optional: 'hide'
         },
         amount_total: {
-          widget: 'monetary'
+          widget: 'monetary',
+          optional: 'show'
         },
         currency_id: {
           invisible: '1'
         },
         state: {
-          widget: 'badge'
+          widget: 'badge',
+          optional: 'show'
         },
-        invoice_status: {}
+        invoice_status: {
+          optional: 'hide'
+        }
       }
     }
   },
@@ -1243,43 +1305,56 @@ export default {
           _button_action_create_invoice: {
             _attr: {
               name: 'action_create_invoice',
-              string: 'Create Bills',
-              type: 'object'
+              type: 'object',
+              string: 'Create Bills'
             }
           }
         },
         priority: {
-          widget: 'priority'
+          widget: 'priority',
+          optional: 'show'
         },
-        partner_ref: {},
+        partner_ref: {
+          optional: 'hide'
+        },
         name: {
-          string: 'Reference'
+          string: 'Reference',
+          readonly: '1'
         },
         date_approve: {
           widget: 'date',
-          invisible: "context.get['quotation_only', False]"
+          invisible: "context.get['quotation_only', False]",
+          optional: 'show'
         },
         partner_id: {},
         company_id: {
           groups: 'base.group_multi_company',
+          optional: 'show',
           no_create: true
         },
         user_id: {
-          widget: 'many2one_avatar_user'
+          widget: 'many2one_avatar_user',
+          optional: 'show'
         },
         date_order: {
-          invisible: "not context.get['quotation_only', False]"
+          invisible: "not context.get['quotation_only', False]",
+          optional: 'show'
         },
         activity_ids: {
-          widget: 'list_activity'
+          widget: 'list_activity',
+          optional: 'show'
         },
-        origin: {},
+        origin: {
+          optional: 'show'
+        },
         amount_untaxed: {
           string: 'Untaxed',
-          widget: 'monetary'
+          widget: 'monetary',
+          optional: 'hide'
         },
         amount_total: {
-          widget: 'monetary'
+          widget: 'monetary',
+          optional: 'show'
         },
         currency_id: {
           invisible: '1'
@@ -1288,10 +1363,12 @@ export default {
           invisible: '1'
         },
         invoice_status: {
-          widget: 'badge'
+          widget: 'badge',
+          optional: 'show'
         },
         date_planned: {
-          invisible: "context.get['quotation_only', False]"
+          invisible: "context.get['quotation_only', False]",
+          optional: 'show'
         }
       }
     }

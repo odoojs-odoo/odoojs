@@ -48,7 +48,7 @@ export default {
               required: [['account_type', '=', 'income'], ['action', '=', 'change_period']]
             }
           },
-          _group_898: {
+          _group_545: {
             _attr: {
               invisible: [['action', '!=', 'change_account']]
             },
@@ -62,7 +62,7 @@ export default {
               required: [['action', '=', 'change_account']]
             }
           },
-          _group_845: {
+          _group_910: {
             _label_total_amount: {
               for: 'total_amount',
               string: 'Adjusting Amount',
@@ -85,7 +85,8 @@ export default {
               }
             },
             total_amount: {
-              invisible: [['action', '=', 'change_period']]
+              invisible: [['action', '=', 'change_period']],
+              readonly: '1'
             },
             journal_id: {}
           }
@@ -102,9 +103,9 @@ export default {
           _button_do_action: {
             _attr: {
               name: 'do_action',
+              type: 'object',
               string: 'Create Journal Entries',
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button: {

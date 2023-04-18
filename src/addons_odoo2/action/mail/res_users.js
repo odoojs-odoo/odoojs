@@ -9,7 +9,8 @@ export default {
           email: {
             __todo__before: {
               notification_type: {
-                widget: 'radio'
+                widget: 'radio',
+                readonly: '0'
               }
             }
           },

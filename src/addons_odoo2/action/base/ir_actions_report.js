@@ -26,31 +26,31 @@ export default {
           _button_create_action: {
             _attr: {
               name: 'create_action',
-              string: "Add in the 'Print' menu",
-              invisible: [['binding_model_id', '!=', false]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-plus-square'
+              string: "Add in the 'Print' menu",
+              icon: 'fa-plus-square',
+              invisible: [['binding_model_id', '!=', false]],
+              class: 'oe_stat_button'
             }
           },
           _button_unlink_action: {
             _attr: {
               name: 'unlink_action',
-              string: "Remove from the 'Print' menu",
-              invisible: [['binding_model_id', '=', false]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-minus-square'
+              string: "Remove from the 'Print' menu",
+              icon: 'fa-minus-square',
+              invisible: [['binding_model_id', '=', false]],
+              class: 'oe_stat_button'
             }
           },
           _button_associated_view: {
             _attr: {
               name: 'associated_view',
-              string: 'QWeb views',
-              invisible: [['report_type', 'not in', ['qweb-pdf', 'qweb-html', 'qweb-text']]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-code'
+              string: 'QWeb views',
+              icon: 'fa-code',
+              invisible: [['report_type', 'not in', ['qweb-pdf', 'qweb-html', 'qweb-text']]],
+              class: 'oe_stat_button'
             }
           }
         },
@@ -62,7 +62,7 @@ export default {
               invisible: [['report_type', 'not in', ['qweb-pdf']]]
             }
           },
-          _group_434: {
+          _group_320: {
             model: {},
             report_name: {},
             print_report_name: {}
@@ -113,10 +113,16 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Report'
+        string: 'Report',
+        filter_domain: {
+          todo_ctx: "['|', '|', '|', '|', ('name','ilike',self), ('model','ilike',self), ('type','ilike',self), ('report_name','ilike',self), ('report_type','ilike',self)]"
+        }
       },
       model: {
-        string: 'Model'
+        string: 'Model',
+        filter_domain: {
+          todo_ctx: "[('model','=', self)]"
+        }
       },
       _group: {
         _attr: {

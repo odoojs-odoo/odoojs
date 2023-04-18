@@ -19,7 +19,7 @@ export default {
         module_id: {
           invisible: '1'
         },
-        _div_563: {
+        _div_984: {
           _attr: {
             class: 'd-flex bd-highlight'
           },
@@ -29,7 +29,7 @@ export default {
             },
             _h3: 'Apps to Uninstall'
           },
-          _div_756: {
+          _div_103: {
             _attr: {
               class: 'p-2 bd-highlight'
             },
@@ -116,9 +116,9 @@ export default {
           _button_action_uninstall: {
             _attr: {
               name: 'action_uninstall',
+              type: 'object',
               string: 'Uninstall',
-              class: 'btn-secondary',
-              type: 'object'
+              class: 'btn-secondary'
             }
           },
           _button: {

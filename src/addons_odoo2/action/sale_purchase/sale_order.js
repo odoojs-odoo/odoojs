@@ -13,11 +13,11 @@ export default {
           _button_action_view_purchase_orders: {
             _attr: {
               name: 'action_view_purchase_orders',
+              type: 'object',
+              icon: 'fa-credit-card',
               groups: 'purchase.group_purchase_user',
               invisible: [['purchase_order_count', '=', 0]],
-              class: 'oe_stat_button',
-              type: 'object',
-              icon: 'fa-credit-card'
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -29,7 +29,7 @@ export default {
                 },
                 purchase_order_count: {}
               },
-              _span_910: {
+              _span_755: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Purchase'

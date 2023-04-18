@@ -9,7 +9,8 @@ const ModelFields = {
   },
 
   inventory_quantity: {
-    string: 'Counted Quantity'
+    string: 'Counted Quantity',
+    readonly: '0'
   },
 
   location_id: {
@@ -36,7 +37,7 @@ const ModelFields = {
   },
 
   product_id: {
-    readonly: [['id', '!=', false]]
+    readonly: "context.get['single_product', False]"
   },
 
   product_uom_id: {

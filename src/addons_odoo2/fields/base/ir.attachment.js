@@ -3,8 +3,14 @@ const ModelFields = {
     groups: 'base.group_multi_company'
   },
 
-  create_date: {},
-  create_uid: {},
+  create_date: {
+    readonly: '1'
+  },
+
+  create_uid: {
+    readonly: '1'
+  },
+
   datas: {},
   description: {},
   file_size: {},

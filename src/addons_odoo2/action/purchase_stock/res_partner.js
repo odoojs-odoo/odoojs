@@ -13,13 +13,13 @@ export default {
           _button_action_purchase_vendor_delay_report: {
             _attr: {
               name: 'action_purchase_vendor_delay_report',
+              type: 'action',
+              icon: 'fa-truck',
               groups: 'purchase.group_purchase_user',
               context: {
                 search_default_partner_id: 'todo===id'
               },
-              class: 'oe_stat_button',
-              type: 'action',
-              icon: 'fa-truck'
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -39,14 +39,14 @@ export default {
                     widget: 'integer'
                   }
                 },
-                _span_167: {
+                _span_262: {
                   _attr: {
                     class: 'o_stat_value',
                     text: '%'
                   }
                 }
               },
-              _div_192: {
+              _div_398: {
                 _attr: {
                   invisible: [['on_time_rate', '>=', 0]],
                   class: 'o_stat_value',

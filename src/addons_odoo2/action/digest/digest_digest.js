@@ -36,30 +36,30 @@ export default {
           _button_action_send_manual: {
             _attr: {
               name: 'action_send_manual',
+              type: 'object',
               string: 'Send Now',
               groups: 'base.group_system',
               invisible: [['state', '=', 'deactivated']],
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button_action_deactivate: {
             _attr: {
               name: 'action_deactivate',
+              type: 'object',
               string: 'Deactivate',
               groups: 'base.group_system',
-              invisible: [['state', '=', 'deactivated']],
-              type: 'object'
+              invisible: [['state', '=', 'deactivated']]
             }
           },
           _button_action_activate: {
             _attr: {
               name: 'action_activate',
+              type: 'object',
               string: 'Activate',
               groups: 'base.group_system',
               invisible: [['state', '=', 'activated']],
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           state: {
@@ -91,7 +91,7 @@ export default {
               no_create: true
             }
           },
-          _group_266: {
+          _group_403: {
             next_run_date: {
               groups: 'base.group_system'
             }

@@ -1,5 +1,56 @@
-// ok
 export default {
+  view_module_filter: {
+    _odoo_model: 'ir.ui.view',
+    model: 'ir.module.module',
+    type: 'search',
+    arch: {
+      fields: {
+        name: {
+          string: 'Module',
+          filter_domain: self => {
+            return [
+              '|',
+              '|',
+              ['summary', 'ilike', self],
+              ['shortdesc', 'ilike', self],
+              ['name', 'ilike', self]
+            ]
+          }
+        },
+        category_id: {}
+      },
+
+      filters: {
+        group_app: {
+          app: {
+            name: 'app',
+            string: 'Apps',
+            domain: [['application', '=', true]]
+          },
+          extra: {
+            name: 'extra',
+            string: 'Extra',
+            domain: [['application', '=', false]]
+          }
+        },
+        group_state: {
+          installed: {
+            name: 'installed',
+            string: 'Installed',
+            domain: [['state', 'in', ['installed', 'to upgrade', 'to remove']]]
+          },
+          not_installed: {
+            name: 'not_installed',
+            string: 'Not Installed',
+            domain: [
+              ['state', 'in', ['uninstalled', 'uninstallable', 'to install']]
+            ]
+          }
+        }
+      }
+    }
+  },
+
   module_form: {
     _odoo_model: 'ir.ui.view',
     model: 'ir.module.module',
@@ -13,10 +64,14 @@ export default {
         fields: {}
       },
       sheet: {
-        // icon_image: { widget: 'image' },
+        icon_image: { widget: 'image' },
 
         _div_title: {
-          _h1: { shortdesc: { placeholder: 'Module Name' } },
+          _h1: {
+            shortdesc: {
+              placeholder: 'Module Name'
+            }
+          },
           _h3: {
             _attr: { text: 'By' },
             author: { placeholder: 'Author Name' }
@@ -25,16 +80,17 @@ export default {
           _div: {
             state: { invisible: '1' },
             to_buy: { invisible: '1' },
-            has_iap: { invisible: '1' }
-            // _button: {
-            //   _attr: {
-            //     name: 'button_immediate_install',
-            //     string: 'Activate',
-            //     type: 'object',
-            //     groups: 'base.group_system'
-            //     // {'invisible': ['|', ('to_buy','=',True), ('state','!=', 'uninstalled')]}"
-            //   }
-            // }
+            has_iap: { invisible: '1' },
+            _button: {
+              _attr: {
+                name: 'button_immediate_install',
+                type: 'object',
+                string: 'Activate',
+                groups: 'base.group_system'
+
+                // {'invisible': ['|', ('to_buy','=',True), ('state','!=', 'uninstalled')]}"
+              }
+            }
           },
 
           _h6: {
@@ -57,12 +113,15 @@ export default {
             groups: 'base.group_no_one'
           },
           _page_information: {
-            _attr: { string: 'Information' },
+            _attr: {
+              name: 'information',
+              string: 'Information'
+            },
             _group: {
               _group: {
                 website: {
                   widget: 'url'
-                  // 'invisible':[('website','=',False)]
+                  // invisible: [['website', '=', false]]
                 },
                 category_id: {},
                 summary: {}
@@ -75,7 +134,10 @@ export default {
             }
           },
           _page_technical_data: {
-            _attr: { string: 'Technical Data' },
+            _attr: {
+              name: 'technical_data',
+              string: 'Technical Data'
+            },
             _group: {
               _attr: { col: 24 },
               demo: {},
@@ -101,6 +163,20 @@ export default {
               }
             },
             views_by_module: {},
+            _group_164: {
+              _attr: {
+                string: 'Dependencies'
+              }
+            },
+
+            _p_935: {
+              _attr: {
+                // invisible: [['dependencies_id', 'not in', [None, false]]],
+                class: 'oe_grey',
+                text: '-This module does not depends on any other module.'
+              }
+            },
+
             dependencies_id: {
               widget: 'x2many_tree',
               views: {
@@ -140,48 +216,11 @@ export default {
         author: {},
         website: {},
         installed_version: {},
-        state: {},
-        category_id: {}
-      }
-    }
-  },
-
-  view_module_filter: {
-    _odoo_model: 'ir.ui.view',
-    model: 'ir.module.module',
-    type: 'search',
-    arch: {
-      fields: {
-        name: {
-          filter_domain: self => {
-            return [
-              '|',
-              '|',
-              ['summary', 'ilike', self],
-              ['shortdesc', 'ilike', self],
-              ['name', 'ilike', self]
-            ]
-          }
+        state: {
+          widget: 'badge'
         },
-        category_id: {}
-      },
-
-      filters: {
-        group_app: {
-          app: { string: '应用', domain: [['application', '=', true]] },
-          extra: { string: '额外', domain: [['application', '=', false]] }
-        },
-        group_state: {
-          installed: {
-            string: '已安装',
-            domain: [['state', 'in', ['installed', 'to upgrade', 'to remove']]]
-          },
-          not_installed: {
-            string: '未安装',
-            domain: [
-              ['state', 'in', ['uninstalled', 'uninstallable', 'to install']]
-            ]
-          }
+        category_id: {
+          invisible: '1'
         }
       }
     }
@@ -199,20 +238,6 @@ export default {
     views: {
       tree: 'module_tree',
       form: 'module_form'
-    }
-  },
-
-  menu_apps: {
-    _odoo_model: 'ir.ui.menu',
-    parent: 'menu_management',
-    name: '模块',
-    sequence: 5,
-    children: {
-      menu_module_tree: {
-        action: 'open_module_tree',
-        name: '主要模块',
-        sequence: 5
-      }
     }
   }
 }

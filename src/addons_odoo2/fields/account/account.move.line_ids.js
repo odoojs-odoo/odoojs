@@ -37,7 +37,10 @@ const ModelFields = {
     groups: 'base.group_multi_currency'
   },
 
-  date_maturity: {},
+  date_maturity: {
+    required: '0'
+  },
+
   debit: {
     readonly: [['parent.move_type', 'in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')], ['display_type', 'in', ('line_section', 'line_note', 'product')]]
   },
@@ -78,7 +81,8 @@ const ModelFields = {
   },
 
   tax_tag_invert: {
-    groups: 'base.group_no_one'
+    groups: 'base.group_no_one',
+    readonly: '1'
   }
 }
 

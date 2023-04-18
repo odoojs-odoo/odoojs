@@ -66,9 +66,9 @@ export default {
               _button_stock__action_prod_inv_location_form: {
                 _attr: {
                   name: 'stock.action_prod_inv_location_form',
+                  type: 'action',
                   string: 'locations',
-                  class: 'btn-link',
-                  type: 'action'
+                  class: 'btn-link'
                 }
               }
             }

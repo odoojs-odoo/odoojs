@@ -20,6 +20,7 @@ const ModelFields = {
   group_public_id: {},
   image_128: {},
   name: {
+    readonly: '0',
     placeholder: 'e.g. support'
   }
 }

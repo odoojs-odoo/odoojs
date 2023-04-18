@@ -26,11 +26,13 @@ const ModelFields = {
   mail_server_id: {},
   model: {},
   model_id: {
+    required: '1',
     placeholder: 'e.g. Contact',
     groups: 'base.group_no_one'
   },
 
   name: {
+    required: '1',
     placeholder: 'e.g. "Welcome email"'
   },
 

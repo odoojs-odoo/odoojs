@@ -25,8 +25,8 @@ export default {
               service_to_purchase: {},
               _span: {
                 _attr: {
-                  class: 'fa fa-lg fa-building-o fa-fw',
-                  title: 'Service to Purchase'
+                  title: 'Service to Purchase',
+                  class: 'fa fa-lg fa-building-o fa-fw'
                 }
               }
             }

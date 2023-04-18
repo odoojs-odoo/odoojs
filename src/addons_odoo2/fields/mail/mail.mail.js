@@ -5,7 +5,10 @@ const ModelFields = {
 
   auto_delete: {},
   body_html: {},
-  date: {},
+  date: {
+    readonly: '1'
+  },
+
   email_cc: {},
   email_from: {},
   email_to: {},
@@ -13,7 +16,10 @@ const ModelFields = {
   fetchmail_server_id: {},
   headers: {},
   is_notification: {},
-  mail_message_id_int: {},
+  mail_message_id_int: {
+    required: '0'
+  },
+
   mail_server_id: {},
   message_id: {},
   message_type: {},

@@ -78,7 +78,7 @@ export default {
             domain: [['priority', '=', 1]]
           }
         },
-        _separator_467: {},
+        _separator_457: {},
         _filter_negative: {
           _attr: {
             name: 'negative',
@@ -93,13 +93,13 @@ export default {
             domain: [['reserved_quantity', '>', 0.0]]
           }
         },
-        _separator_452: {},
+        _separator_854: {},
         _filter_filter_in_date: {
           _attr: {
             name: 'filter_in_date'
           }
         },
-        _separator_450: {},
+        _separator_778: {},
         _filter_my_count: {
           _attr: {
             name: 'my_count',
@@ -110,7 +110,7 @@ export default {
           }
         }
       },
-      _group_127: {
+      _group_746: {
         _attr: {
           string: 'Group by...'
         },
@@ -204,9 +204,11 @@ export default {
               invisible: '1'
             },
             product_id: {
+              readonly: '0',
               no_create: true
             },
             location_id: {
+              readonly: '0',
               no_create: true
             },
             lot_id: {
@@ -218,19 +220,21 @@ export default {
               }
             },
             package_id: {
-              groups: 'stock.group_tracking_lot'
+              groups: 'stock.group_tracking_lot',
+              readonly: '0'
             },
             owner_id: {
               groups: 'stock.group_tracking_owner',
+              readonly: '0',
               no_create: true
             },
-            _field_company_id_286: {
+            _field_company_id_613: {
               company_id: {
                 groups: 'base.group_multi_company'
               }
             }
           },
-          _group_530: {
+          _group_210: {
             _label_quantity: {
               for: 'quantity',
               string: 'Quantity On Hand'
@@ -248,7 +252,7 @@ export default {
               for: 'available_quantity',
               string: 'Available Quantity'
             },
-            _div_613: {
+            _div_346: {
               _attr: {
                 class: 'o_row'
               },
@@ -261,7 +265,7 @@ export default {
               for: 'reserved_quantity',
               string: 'Quantity Reserved'
             },
-            _div_127: {
+            _div_977: {
               _attr: {
                 class: 'o_row'
               },
@@ -302,17 +306,22 @@ export default {
           readonly: [['id', '!=', false]],
           no_create: true
         },
-        storage_category_id: {},
+        storage_category_id: {
+          optional: 'hide'
+        },
         product_id: {
           widget: 'many2one',
-          readonly: [['id', '!=', false]],
+          readonly: "context.get['single_product', False]",
           force_save: '1',
           no_create: true
         },
-        product_categ_id: {},
-        _field_company_id_330: {
+        product_categ_id: {
+          optional: 'hide'
+        },
+        _field_company_id_711: {
           company_id: {
-            groups: 'base.group_multi_company'
+            groups: 'base.group_multi_company',
+            optional: 'hidden'
           }
         },
         package_id: {
@@ -334,21 +343,24 @@ export default {
           no_create: true
         },
         inventory_quantity_auto_apply: {
-          string: 'On Hand Quantity'
+          string: 'On Hand Quantity',
+          readonly: '0'
         },
         _button_action_view_inventory_tree: {
           _attr: {
             name: 'action_view_inventory_tree',
+            type: 'action',
+            title: 'Inventory Adjustment',
+            icon: 'fa-pencil',
             context: {
               todo_ctx: "{'search_default_product_id': product_id, 'default_product_id': product_id}"
             },
-            class: 'btn-link',
-            title: 'Inventory Adjustment',
-            type: 'action',
-            icon: 'fa-pencil'
+            class: 'btn-link'
           }
         },
-        reserved_quantity: {},
+        reserved_quantity: {
+          optional: 'show'
+        },
         product_uom_id: {
           string: 'Unit',
           groups: 'uom.group_uom'
@@ -356,22 +368,22 @@ export default {
         _button_action_view_stock_moves: {
           _attr: {
             name: 'action_view_stock_moves',
-            string: 'History',
-            class: 'btn-link',
             type: 'object',
-            icon: 'fa-history'
+            string: 'History',
+            icon: 'fa-history',
+            class: 'btn-link'
           }
         },
         _button_action_view_orderpoints: {
           _attr: {
             name: 'action_view_orderpoints',
+            type: 'object',
             string: 'Replenishment',
+            icon: 'fa-refresh',
             context: {
               todo_ctx: "{'default_product_id': product_id, 'search_default_location_id': location_id}"
             },
-            class: 'btn-link',
-            type: 'object',
-            icon: 'fa-refresh'
+            class: 'btn-link'
           }
         }
       }
@@ -492,24 +504,24 @@ export default {
           _button_ock__action_stock_inventory_adjustement_na: {
             _attr: {
               name: 'ock.action_stock_inventory_adjustement_na',
+              type: 'action',
               string: 'Apply',
-              groups: 'stock.group_stock_manager',
-              type: 'action'
+              groups: 'stock.group_stock_manager'
             }
           },
           _button_action_reset: {
             _attr: {
               name: 'action_reset',
-              string: 'Clear',
-              type: 'object'
+              type: 'object',
+              string: 'Clear'
             }
           },
           _button_ock__action_stock_request_cou: {
             _attr: {
               name: 'ock.action_stock_request_cou',
+              type: 'action',
               string: 'Request a Count',
-              groups: 'stock.group_stock_manager',
-              type: 'action'
+              groups: 'stock.group_stock_manager'
             }
           }
         },
@@ -546,29 +558,34 @@ export default {
         storage_category_id: {
           groups: 'stock.group_stock_storage_categories',
           invisible: "context.get['hide_location', False]",
+          optional: 'hidden',
           no_create: true
         },
         cyclic_inventory_frequency: {
           invisible: "context.get['hide_location', False]",
+          optional: 'hidden',
           no_create: true
         },
         priority: {
-          widget: 'priority'
+          widget: 'priority',
+          optional: 'hidden'
         },
         product_id: {
-          readonly: [['id', '!=', false]],
+          readonly: "context.get['single_product', False]",
           force_save: '1',
           no_create: true
         },
-        product_categ_id: {},
+        product_categ_id: {
+          optional: 'hide'
+        },
         _button_action_warning_duplicated_sn: {
           _attr: {
             name: 'action_warning_duplicated_sn',
-            invisible: [['sn_duplicated', '=', false]],
-            class: 'btn btn-secondary text-warning float-end',
-            title: 'This lot/serial number is already in another location',
             type: 'object',
-            icon: 'fa-warning'
+            title: 'This lot/serial number is already in another location',
+            icon: 'fa-warning',
+            invisible: [['sn_duplicated', '=', false]],
+            class: 'btn btn-secondary text-warning float-end'
           }
         },
         lot_id: {
@@ -589,12 +606,17 @@ export default {
           readonly: [['id', '!=', false]],
           no_create: true
         },
-        last_count_date: {},
+        last_count_date: {
+          readonly: '1',
+          optional: 'hidden'
+        },
         available_quantity: {
-          string: 'Available Quantity'
+          string: 'Available Quantity',
+          optional: 'hidden'
         },
         quantity: {
-          string: 'On Hand Quantity'
+          string: 'On Hand Quantity',
+          optional: 'show'
         },
         product_uom_id: {
           string: 'UoM',
@@ -607,53 +629,57 @@ export default {
           string: 'Difference',
           invisible: [['inventory_quantity_set', '=', false]]
         },
-        inventory_date: {},
-        user_id: {
-          string: 'User'
+        inventory_date: {
+          optional: 'show'
         },
-        _field_company_id_755: {
+        user_id: {
+          string: 'User',
+          optional: 'show'
+        },
+        _field_company_id_416: {
           company_id: {
-            groups: 'base.group_multi_company'
+            groups: 'base.group_multi_company',
+            optional: 'hide'
           }
         },
         _button_action_inventory_history: {
           _attr: {
             name: 'action_inventory_history',
-            string: 'History',
-            class: 'btn btn-link text-info',
             type: 'object',
-            icon: 'fa-history'
+            string: 'History',
+            icon: 'fa-history',
+            class: 'btn btn-link text-info'
           }
         },
         _button_action_apply_inventory: {
           _attr: {
             name: 'action_apply_inventory',
+            type: 'object',
             string: 'Apply',
+            icon: 'fa-save',
             groups: 'stock.group_stock_manager',
             invisible: [['inventory_quantity_set', '=', false]],
-            class: 'btn btn-link',
-            type: 'object',
-            icon: 'fa-save'
+            class: 'btn btn-link'
           }
         },
         _button_action_set_inventory_quantity: {
           _attr: {
             name: 'action_set_inventory_quantity',
-            string: 'Set',
-            invisible: [['inventory_quantity_set', '=', true]],
-            class: 'btn btn-link',
             type: 'object',
-            icon: 'fa-bullseye'
+            string: 'Set',
+            icon: 'fa-bullseye',
+            invisible: [['inventory_quantity_set', '=', true]],
+            class: 'btn btn-link'
           }
         },
         _button_action_set_inventory_quantity_to_zero: {
           _attr: {
             name: 'action_set_inventory_quantity_to_zero',
-            string: 'Clear',
-            invisible: [['inventory_quantity_set', '=', false]],
-            class: 'btn text-warning',
             type: 'object',
-            icon: 'fa-times'
+            string: 'Clear',
+            icon: 'fa-times',
+            invisible: [['inventory_quantity_set', '=', false]],
+            class: 'btn text-warning'
           }
         }
       }

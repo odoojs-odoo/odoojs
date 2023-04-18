@@ -1,6 +1,8 @@
 const ModelFields = {
   sale_order_count: {},
-  sale_order_ids: {}
+  sale_order_ids: {
+    readonly: 'True'
+  }
 }
 
 const AddonsFields = {

@@ -13,11 +13,11 @@ export default {
           _button_action_view_delivery: {
             _attr: {
               name: 'action_view_delivery',
+              type: 'object',
+              icon: 'fa-truck',
               groups: 'stock.group_stock_user',
               invisible: [['delivery_count', '=', 0]],
-              class: 'oe_stat_button',
-              type: 'object',
-              icon: 'fa-truck'
+              class: 'oe_stat_button'
             },
             delivery_count: {
               string: 'Delivery',
@@ -25,7 +25,7 @@ export default {
             }
           }
         },
-        _xpath_401: {
+        _xpath_706: {
           _attr: {
             expr: "//group[@name='sale_shipping']",
             position: 'attributes'
@@ -42,7 +42,7 @@ export default {
             }
           }
         },
-        _xpath_220: {
+        _xpath_829: {
           _attr: {
             expr: "//label[@for='commitment_date']",
             position: 'before'
@@ -50,7 +50,7 @@ export default {
           warehouse_id: {
             invisible: '1'
           },
-          _field_warehouse_id_887: {
+          _field_warehouse_id_354: {
             warehouse_id: {
               groups: 'stock.group_stock_multi_warehouses',
               force_save: '1',
@@ -65,9 +65,11 @@ export default {
           incoterm_location: {
             groups: 'sale_stock.group_display_incoterm'
           },
-          picking_policy: {}
+          picking_policy: {
+            required: 'True'
+          }
         },
-        _xpath_458: {
+        _xpath_252: {
           _attr: {
             expr: "//span[@name='expected_date_span']",
             position: 'attributes'
@@ -79,7 +81,7 @@ export default {
             }
           }
         },
-        _xpath_214: {
+        _xpath_131: {
           _attr: {
             expr: "//div[@name='commitment_date_div']",
             position: 'replace'
@@ -112,7 +114,7 @@ export default {
             }
           }
         },
-        _xpath_854: {
+        _xpath_307: {
           _attr: {
             expr: "//page[@name='other_information']//field[@name='expected_date']",
             position: 'after'
@@ -126,7 +128,7 @@ export default {
             invisible: [['show_json_popover', '=', false]]
           }
         },
-        _xpath_776: {
+        _xpath_541: {
           _attr: {
             expr: "//field[@name='order_line']/form/group/group/field[@name='analytic_distribution']",
             position: 'before'
@@ -136,13 +138,14 @@ export default {
             no_create: true
           }
         },
-        _xpath_676: {
+        _xpath_977: {
           _attr: {
             expr: "//field[@name='order_line']/tree/field[@name='analytic_distribution']",
             position: 'after'
           },
           route_id: {
             groups: 'stock.group_adv_location',
+            optional: 'hide',
             no_create: true
           }
         }
@@ -163,6 +166,7 @@ export default {
           },
           warehouse_id: {
             groups: 'stock.group_stock_multi_warehouses',
+            optional: 'hide',
             no_create: true
           }
         }
@@ -183,6 +187,7 @@ export default {
           },
           warehouse_id: {
             groups: 'stock.group_stock_multi_warehouses',
+            optional: 'hide',
             no_create: true
           }
         },
@@ -192,7 +197,8 @@ export default {
               invisible: '1'
             },
             delivery_status: {
-              widget: 'badge'
+              widget: 'badge',
+              optional: 'hide'
             }
           }
         }
@@ -247,7 +253,7 @@ export default {
             }
           }
         },
-        _xpath_234: {
+        _xpath_298: {
           _attr: {
             expr: "//page/field[@name='order_line']/tree/field[@name='qty_delivered']",
             position: 'after'

@@ -28,11 +28,11 @@ export default {
           _button_action_open_document: {
             _attr: {
               name: 'action_open_document',
-              string: 'Open Document',
-              invisible: ['|', ['model', '=', false], ['res_id', '=', 0]],
-              class: 'oe_link',
               type: 'object',
-              icon: 'fa-file-text-o'
+              string: 'Open Document',
+              icon: 'fa-file-text-o',
+              invisible: ['|', ['model', '=', false], ['res_id', '=', 0]],
+              class: 'oe_link'
             }
           }
         },
@@ -46,7 +46,7 @@ export default {
             subtype_id: {},
             is_internal: {}
           },
-          _group_754: {
+          _group_328: {
             model: {},
             res_id: {},
             record_name: {},
@@ -73,7 +73,7 @@ export default {
                 reply_to: {},
                 reply_to_force_new: {}
               },
-              _group_709: {
+              _group_628: {
                 message_id: {},
                 mail_server_id: {}
               }
@@ -90,7 +90,7 @@ export default {
                   widget: 'many2many_tags'
                 }
               },
-              _group_339: {
+              _group_567: {
                 notified_partner_ids: {
                   widget: 'many2many_tags'
                 },
@@ -99,7 +99,7 @@ export default {
                 }
               }
             },
-            _group_525: {
+            _group_951: {
               notification_ids: {
                 views: {
                   tree: {
@@ -134,7 +134,10 @@ export default {
     type: 'search',
     arch: {
       body: {
-        string: 'Content'
+        string: 'Content',
+        filter_domain: {
+          todo_ctx: "['|', ('subject', 'ilike', self), ('body', 'ilike', self)]"
+        }
       },
       subject: {},
       message_type: {},
@@ -160,7 +163,7 @@ export default {
           domain: [['needaction', '=', true]]
         }
       },
-      _separator_542: {}
+      _separator_649: {}
     }
   },
 

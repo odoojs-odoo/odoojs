@@ -15,7 +15,8 @@ export default {
           },
           route_ids: {
             widget: 'many2many_tags',
-            groups: 'stock.group_adv_location'
+            groups: 'stock.group_adv_location',
+            optional: 'hide'
           }
         }
       }
@@ -37,7 +38,7 @@ export default {
             groups: 'stock.group_tracking_lot'
           }
         },
-        _xpath_559: {
+        _xpath_476: {
           _attr: {
             expr: "//group[@name='qty']",
             position: 'after'

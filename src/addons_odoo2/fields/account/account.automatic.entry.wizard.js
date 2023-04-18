@@ -6,12 +6,12 @@ const ModelFields = {
     string: '===todo=='
   },
 
-  date_$_form_$$_638: {
-    string: 'Recognition Date'
+  date_$_form_$$_695: {
+    string: 'Transfer Date'
   },
 
-  date_$_form_$$_879: {
-    string: 'Transfer Date'
+  date_$_form_$$_716: {
+    string: 'Recognition Date'
   },
 
   destination_account_id: {
@@ -39,7 +39,9 @@ const ModelFields = {
     required: [['account_type', '=', 'income'], ['action', '=', 'change_period']]
   },
 
-  total_amount: {}
+  total_amount: {
+    readonly: '1'
+  }
 }
 
 const AddonsFields = {

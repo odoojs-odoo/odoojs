@@ -37,7 +37,7 @@ export default {
           }
         },
         _label_: {},
-        _field_invoice_vendor_bill_id_188: {
+        _field_invoice_vendor_bill_id_288: {
           invoice_vendor_bill_id: {
             __todo__groups: '!purchase.group_purchase_user'
           }
@@ -53,10 +53,11 @@ export default {
           },
           purchase_order_id: {
             groups: 'purchase.group_purchase_user',
-            column_invisible: [['parent.move_type', '!=', 'in_invoice']]
+            column_invisible: [['parent.move_type', '!=', 'in_invoice']],
+            optional: 'hide'
           }
         },
-        _xpath_302: {
+        _xpath_138: {
           _attr: {
             expr: "//field[@name='line_ids']/tree/field[@name='company_id']",
             position: 'after'
@@ -66,7 +67,7 @@ export default {
             invisible: '1'
           }
         },
-        _xpath_955: {
+        _xpath_503: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'
@@ -74,11 +75,11 @@ export default {
           _button_action_view_source_purchase_orders: {
             _attr: {
               name: 'action_view_source_purchase_orders',
+              type: 'object',
+              icon: 'fa-pencil-square-o',
               groups: 'purchase.group_purchase_user',
               invisible: ['|', ['purchase_order_count', '=', 0], ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]],
-              class: 'oe_stat_button',
-              type: 'object',
-              icon: 'fa-pencil-square-o'
+              class: 'oe_stat_button'
             },
             purchase_order_count: {
               string: 'Purchases',

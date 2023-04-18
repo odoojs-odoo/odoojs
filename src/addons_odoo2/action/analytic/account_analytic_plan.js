@@ -16,9 +16,9 @@ export default {
           _button_action_view_children_plans: {
             _attr: {
               name: 'action_view_children_plans',
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-bars'
+              icon: 'fa-bars',
+              class: 'oe_stat_button'
             },
             children_count: {
               string: 'Subplans',
@@ -28,9 +28,9 @@ export default {
           _button_action_view_analytical_accounts: {
             _attr: {
               name: 'action_view_analytical_accounts',
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-bars'
+              icon: 'fa-bars',
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -42,7 +42,7 @@ export default {
                 },
                 all_account_count: {}
               },
-              _span_332: {
+              _span_439: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Analytic Accounts'
@@ -69,7 +69,7 @@ export default {
               widget: 'color_picker'
             }
           },
-          _group_343: {
+          _group_919: {
             company_id: {
               groups: 'base.group_multi_company'
             }

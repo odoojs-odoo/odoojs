@@ -5,7 +5,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Currency'
+        string: 'Currency',
+        filter_domain: {
+          todo_ctx: "('|','|','|','|',                                                                         ('name', 'ilike', self),                                                                         ('full_name', 'ilike', self),                                                                         ('symbol', 'ilike', self),                                                                         ('currency_unit_label', 'ilike', self),                                                                         ('currency_subunit_label', 'ilike', self),                                                                         )"
+        }
       },
       _filter_active: {
         _attr: {
@@ -33,7 +36,8 @@ export default {
         name: {},
         symbol: {},
         full_name: {
-          string: 'Name'
+          string: 'Name',
+          optional: 'show'
         },
         date: {
           string: 'Last Update'
@@ -42,6 +46,7 @@ export default {
           digits: '[12,6]'
         },
         inverse_rate: {
+          optional: 'hide',
           digits: '[12,6]'
         },
         active: {
@@ -74,7 +79,7 @@ export default {
             text: 'You cannot reduce the number of decimal places of a currency already used on an accounting entry.'
           }
         },
-        _div_344: {
+        _div_551: {
           _attr: {
             invisible: [['is_current_company_currency', '=', false]],
             class: 'alert alert-info text-center',
@@ -91,12 +96,12 @@ export default {
               widget: 'boolean_toggle'
             }
           },
-          _group_418: {
+          _group_475: {
             currency_unit_label: {},
             currency_subunit_label: {}
           }
         },
-        _group_868: {
+        _group_428: {
           _attr: {
             groups: 'base.group_no_one'
           },
@@ -107,7 +112,7 @@ export default {
             rounding: {},
             decimal_places: {}
           },
-          _group_303: {
+          _group_237: {
             _attr: {
               string: 'Display'
             },
@@ -145,9 +150,12 @@ export default {
                         digits: '[12,12]'
                       },
                       rate: {
+                        optional: 'hide',
                         digits: '[12,12]'
                       },
-                      write_date: {}
+                      write_date: {
+                        optional: 'hide'
+                      }
                     }
                   }
                 }

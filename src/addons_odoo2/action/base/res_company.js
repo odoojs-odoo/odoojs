@@ -32,7 +32,9 @@ export default {
               _group: {
                 partner_id: {
                   string: 'Contact',
-                  groups: 'base.group_no_one'
+                  groups: 'base.group_no_one',
+                  required: '0',
+                  readonly: '1'
                 },
                 _label_street: {
                   for: 'street',
@@ -80,7 +82,7 @@ export default {
                   no_open: true
                 }
               },
-              _group_588: {
+              _group_600: {
                 phone: {
                   class: 'o_force_ltr'
                 },
@@ -167,9 +169,9 @@ export default {
             _button_action_save_onboarding_company_step: {
               _attr: {
                 name: 'action_save_onboarding_company_step',
+                type: 'object',
                 string: 'Apply',
-                class: 'btn btn-primary',
-                type: 'object'
+                class: 'btn btn-primary'
               }
             },
             _button: {

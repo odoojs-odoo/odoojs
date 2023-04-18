@@ -15,7 +15,7 @@ export default {
               widget: 'boolean_toggle'
             }
           },
-          _group_289: {
+          _group_373: {
             _attr: {
               groups: 'base.group_no_one'
             },
@@ -47,6 +47,7 @@ export default {
             arch_base: {
               string: 'View Architecture',
               widget: 'ace',
+              required: '1',
               mode: 'xml'
             }
           },
@@ -115,7 +116,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'View'
+        string: 'View',
+        filter_domain: {
+          todo_ctx: "['|', '|', ('name','ilike',self), ('model','ilike',self), ('model_data_id','ilike',self)]"
+        }
       },
       key: {},
       model: {},
@@ -167,7 +171,7 @@ export default {
           domain: [['arch_updated', '=', true]]
         }
       },
-      _separator_906: {},
+      _separator_145: {},
       _filter_active: {
         _attr: {
           name: 'active',

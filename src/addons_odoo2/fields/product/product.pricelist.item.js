@@ -25,7 +25,8 @@ const ModelFields = {
   date_end: {},
   date_start: {},
   fixed_price: {
-    string: 'Price'
+    string: 'Price',
+    required: '1'
   },
 
   min_quantity: {},
@@ -61,7 +62,8 @@ const ModelFields = {
     groups: 'product.group_product_variant',
     domain: {
       todo_ctx: "['|', '|',                     ('id', '=', context.get('default_product_id', 0)),                     ('product_tmpl_id', '=', context.get('default_product_tmpl_id', 0)),                     ('categ_id', '=', context.get('default_categ_id', 0)), '|', ('company_id', '=', company_id), ('company_id', '=', False)                   ]"
-    }
+    },
+    readonly: "context.get['active_model']=='product.product'"
   },
 
   product_tmpl_id: {

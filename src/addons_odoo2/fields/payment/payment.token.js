@@ -6,8 +6,13 @@ const ModelFields = {
 
   partner_id: {},
   payment_details: {},
-  provider_id: {},
-  provider_ref: {}
+  provider_id: {
+    readonly: '1'
+  },
+
+  provider_ref: {
+    readonly: '1'
+  }
 }
 
 const AddonsFields = {

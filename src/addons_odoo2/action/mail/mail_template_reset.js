@@ -10,9 +10,9 @@ export default {
           _button_reset_template: {
             _attr: {
               name: 'reset_template',
+              type: 'object',
               string: 'Proceed',
-              class: 'btn btn-primary',
-              type: 'object'
+              class: 'btn btn-primary'
             }
           },
           _button: {

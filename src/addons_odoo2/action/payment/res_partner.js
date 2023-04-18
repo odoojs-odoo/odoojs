@@ -12,13 +12,13 @@ export default {
           _button_payment__action_payment_token: {
             _attr: {
               name: 'payment.action_payment_token',
+              type: 'action',
+              icon: 'fa-credit-card-alt',
               invisible: [['payment_token_count', '=', 0]],
               context: {
                 todo_ctx: "{'search_default_partner_id': active_id, 'create': False, 'edit': False}"
               },
-              class: 'oe_stat_button',
-              type: 'action',
-              icon: 'fa-credit-card-alt'
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -32,7 +32,7 @@ export default {
                   widget: 'statinfo'
                 }
               },
-              _span_128: {
+              _span_931: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Saved Payment Methods'

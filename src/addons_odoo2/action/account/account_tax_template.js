@@ -12,7 +12,7 @@ export default {
           _group: {
             name: {}
           },
-          _group_655: {
+          _group_183: {
             type_tax_use: {}
           }
         },
@@ -146,7 +146,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Tax Template'
+        string: 'Tax Template',
+        filter_domain: {
+          todo_ctx: "['|', ('name', 'ilike', self), ('description', 'ilike', self)]"
+        }
       },
       chart_template_id: {},
       _filter_sale: {

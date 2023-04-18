@@ -20,7 +20,7 @@ export default {
                   class: 'o_setting_left_pane'
                 }
               },
-              _div_270: {
+              _div_624: {
                 _attr: {
                   class: 'o_setting_right_pane'
                 },
@@ -36,7 +36,7 @@ export default {
                     text: 'Configure your activity types'
                   }
                 },
-                _div_158: {
+                _div_673: {
                   _attr: {
                     class: 'content-group'
                   },
@@ -47,20 +47,20 @@ export default {
                     _button_mail__mail_activity_type_action: {
                       _attr: {
                         name: 'mail.mail_activity_type_action',
-                        string: 'Activity Types',
-                        class: 'oe_link',
                         type: 'action',
-                        icon: 'fa-arrow-right'
+                        string: 'Activity Types',
+                        icon: 'fa-arrow-right',
+                        class: 'oe_link'
                       }
                     }
                   }
                 }
               }
             },
-            _div_978: {
+            _div_863: {
               _attr: {
-                class: 'col-12 col-lg-6 o_setting_box',
-                title: 'Using your own email server is required to send/receive emails in Community and Enterprise versions. Online users already benefit from a ready-to-use email server (@mycompany.odoo.com).'
+                title: 'Using your own email server is required to send/receive emails in Community and Enterprise versions. Online users already benefit from a ready-to-use email server (@mycompany.odoo.com).',
+                class: 'col-12 col-lg-6 o_setting_box'
               },
               _div: {
                 _attr: {
@@ -68,7 +68,7 @@ export default {
                 },
                 external_email_server_default: {}
               },
-              _div_935: {
+              _div_518: {
                 _attr: {
                   class: 'o_setting_right_pane'
                 },
@@ -77,8 +77,8 @@ export default {
                 },
                 _a: {
                   _attr: {
-                    class: 'o_doc_link',
-                    title: 'Documentation'
+                    title: 'Documentation',
+                    class: 'o_doc_link'
                   }
                 },
                 _div: {
@@ -87,7 +87,7 @@ export default {
                     text: 'Configure your own email servers'
                   }
                 },
-                _div_638: {
+                _div_323: {
                   _attr: {
                     invisible: [['external_email_server_default', '=', false]],
                     class: 'content-group mb-3'
@@ -105,36 +105,36 @@ export default {
                       placeholder: 'e.g. "mycompany.com"'
                     }
                   },
-                  _div_488: {
+                  _div_205: {
                     _attr: {
                       class: 'mt8'
                     },
                     _button_action_email_server_tree: {
                       _attr: {
                         name: 'action_email_server_tree',
-                        string: 'Incoming Email Servers',
-                        class: 'btn-link',
                         type: 'action',
-                        icon: 'fa-arrow-right'
+                        string: 'Incoming Email Servers',
+                        icon: 'fa-arrow-right',
+                        class: 'btn-link'
                       }
                     }
                   },
-                  _div_352: {
+                  _div_909: {
                     _attr: {
                       class: 'mt8'
                     },
                     _button_base__action_ir_mail_server_list: {
                       _attr: {
                         name: 'base.action_ir_mail_server_list',
-                        string: 'Outgoing Email Servers',
-                        class: 'btn-link',
                         type: 'action',
-                        icon: 'fa-arrow-right'
+                        string: 'Outgoing Email Servers',
+                        icon: 'fa-arrow-right',
+                        class: 'btn-link'
                       }
                     }
                   }
                 },
-                _div_356: {
+                _div_929: {
                   _attr: {
                     invisible: [['external_email_server_default', '=', false]],
                     class: 'mt-3 d-flex'
@@ -147,8 +147,8 @@ export default {
                     },
                     _a: {
                       _attr: {
-                        class: 'o_doc_link',
-                        title: 'Get Gmail API credentials'
+                        title: 'Get Gmail API credentials',
+                        class: 'o_doc_link'
                       }
                     },
                     _div: {
@@ -157,7 +157,7 @@ export default {
                         text: 'Send and receive emails through your Gmail account.'
                       }
                     },
-                    _div_335: {
+                    _div_561: {
                       _attr: {
                         invisible: [['module_google_gmail', '=', false]],
                         class: 'content-group'
@@ -171,7 +171,7 @@ export default {
                     }
                   }
                 },
-                _div_586: {
+                _div_834: {
                   _attr: {
                     invisible: [['external_email_server_default', '=', false]],
                     class: 'mt-3 d-flex'
@@ -184,8 +184,8 @@ export default {
                     },
                     _a: {
                       _attr: {
-                        class: 'o_doc_link',
-                        title: 'Get Outlook API credentials'
+                        title: 'Get Outlook API credentials',
+                        class: 'o_doc_link'
                       }
                     },
                     _div: {
@@ -194,7 +194,7 @@ export default {
                         text: 'Send and receive emails through your Outlook account.'
                       }
                     },
-                    _div_766: {
+                    _div_853: {
                       _attr: {
                         invisible: [['module_microsoft_outlook', '=', false]],
                         class: 'content-group'
@@ -210,7 +210,7 @@ export default {
                 }
               }
             },
-            _div_826: {
+            _div_845: {
               _attr: {
                 class: 'col-12 col-lg-6 o_setting_box'
               },
@@ -220,7 +220,7 @@ export default {
                 },
                 use_twilio_rtc_servers: {}
               },
-              _div_681: {
+              _div_928: {
                 _attr: {
                   class: 'o_setting_right_pane'
                 },
@@ -233,7 +233,7 @@ export default {
                     text: 'Add your twilio credentials for ICE servers'
                   }
                 },
-                _div_368: {
+                _div_828: {
                   _attr: {
                     invisible: [['use_twilio_rtc_servers', '=', false]],
                     class: 'content-group'
@@ -250,7 +250,7 @@ export default {
                       placeholder: 'e.g. ACd5543a0b450ar4c7t95f1b6e8a39t543'
                     }
                   },
-                  _div_706: {
+                  _div_734: {
                     _attr: {
                       class: 'row mt16'
                     },
@@ -265,7 +265,7 @@ export default {
                 }
               }
             },
-            _div_373: {
+            _div_420: {
               _attr: {
                 class: 'col-12 col-lg-6 o_setting_box'
               },
@@ -290,7 +290,7 @@ export default {
                     }
                   }
                 },
-                _div_947: {
+                _div_461: {
                   _attr: {
                     class: 'content-group'
                   },
@@ -301,17 +301,17 @@ export default {
                     _button_mail__action_ice_servers: {
                       _attr: {
                         name: 'mail.action_ice_servers',
-                        string: 'ICE Servers',
-                        class: 'btn-link',
                         type: 'action',
-                        icon: 'fa-arrow-right'
+                        string: 'ICE Servers',
+                        icon: 'fa-arrow-right',
+                        class: 'btn-link'
                       }
                     }
                   }
                 }
               }
             },
-            _div_203: {
+            _div_696: {
               _attr: {
                 class: 'col-12 col-lg-6 o_setting_box'
               },
@@ -321,7 +321,7 @@ export default {
                 },
                 restrict_template_rendering: {}
               },
-              _div_361: {
+              _div_356: {
                 _attr: {
                   class: 'o_setting_right_pane'
                 },
@@ -338,7 +338,7 @@ export default {
             }
           }
         },
-        _div_473: {
+        _div_293: {
           _br: {},
           _div: {
             _attr: {
@@ -357,7 +357,7 @@ export default {
                 text: 'Customize the look and feel of automated emails'
               }
             },
-            _div_466: {
+            _div_891: {
               _attr: {
                 class: 'w-50 row'
               },
@@ -372,7 +372,7 @@ export default {
                 class: 'd-block w-25 p-0 m-0'
               }
             },
-            _div_182: {
+            _div_677: {
               _attr: {
                 class: 'w-50 row mt-1'
               },
@@ -390,11 +390,11 @@ export default {
             _button_open_email_layout: {
               _attr: {
                 name: 'open_email_layout',
-                string: 'Update Mail Layout',
-                groups: 'base.group_no_one',
-                class: 'btn-link',
                 type: 'object',
-                icon: 'fa-arrow-right'
+                string: 'Update Mail Layout',
+                icon: 'fa-arrow-right',
+                groups: 'base.group_no_one',
+                class: 'btn-link'
               }
             },
             _br: {
@@ -405,10 +405,10 @@ export default {
             _button_open_mail_templates: {
               _attr: {
                 name: 'open_mail_templates',
-                string: 'Review All Templates',
-                class: 'btn-link',
                 type: 'object',
-                icon: 'fa-arrow-right'
+                string: 'Review All Templates',
+                icon: 'fa-arrow-right',
+                class: 'btn-link'
               }
             }
           }

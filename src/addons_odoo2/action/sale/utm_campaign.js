@@ -12,9 +12,9 @@ export default {
           },
           _div: {
             _attr: {
+              title: 'Revenues',
               groups: 'sales_team.group_sale_salesman',
-              class: 'me-3',
-              title: 'Revenues'
+              class: 'me-3'
             },
             currency_id: {
               invisible: 'True'
@@ -29,11 +29,11 @@ export default {
               }
             }
           },
-          _div_393: {
+          _div_700: {
             _attr: {
+              title: 'Quotations',
               groups: 'sales_team.group_sale_salesman',
-              class: 'me-3',
-              title: 'Quotations'
+              class: 'me-3'
             },
             _i: {
               _attr: {
@@ -66,10 +66,10 @@ export default {
           _button_action_redirect_to_invoiced: {
             _attr: {
               name: 'action_redirect_to_invoiced',
-              groups: 'sales_team.group_sale_salesman',
-              class: 'oe_stat_button order-1',
               type: 'object',
-              icon: 'fa-usd'
+              icon: 'fa-usd',
+              groups: 'sales_team.group_sale_salesman',
+              class: 'oe_stat_button order-1'
             },
             invoiced_amount: {
               string: 'Revenues',
@@ -79,10 +79,10 @@ export default {
           _button_action_redirect_to_quotations: {
             _attr: {
               name: 'action_redirect_to_quotations',
-              groups: 'sales_team.group_sale_salesman',
-              class: 'oe_stat_button order-2',
               type: 'object',
-              icon: 'fa-money'
+              icon: 'fa-money',
+              groups: 'sales_team.group_sale_salesman',
+              class: 'oe_stat_button order-2'
             },
             quotation_count: {
               string: 'Quotations',

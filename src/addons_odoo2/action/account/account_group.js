@@ -37,7 +37,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Account group'
+        string: 'Account group',
+        filter_domain: {
+          todo_ctx: "['|', ('code_prefix_start', '=like', self + '%'), ('name', 'ilike', self)]"
+        }
       }
     }
   },

@@ -1,5 +1,8 @@
 const ModelFields = {
-  active: {},
+  active: {
+    readonly: '1'
+  },
+
   create_date: {
     string: 'Blacklist Date'
   },

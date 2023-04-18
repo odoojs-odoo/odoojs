@@ -15,7 +15,8 @@ const ModelFields = {
   order: {},
   rule_ids: {},
   state: {
-    groups: 'base.group_no_one'
+    groups: 'base.group_no_one',
+    readonly: '1'
   },
 
   transient: {

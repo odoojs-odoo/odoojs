@@ -12,27 +12,27 @@ export default {
           _button_create_action: {
             _attr: {
               name: 'create_action',
+              type: 'object',
               string: 'Create Contextual Action',
               invisible: [['binding_model_id', '!=', false]],
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button_unlink_action: {
             _attr: {
               name: 'unlink_action',
+              type: 'object',
               string: 'Remove Contextual Action',
-              invisible: [['binding_model_id', '=', false]],
-              type: 'object'
+              invisible: [['binding_model_id', '=', false]]
             }
           },
           _button_run: {
             _attr: {
               name: 'run',
+              type: 'object',
               string: 'Run',
               todo_ctx: "{'invisible':['|', ('model_id', '!=', %(base.model_ir_actions_server)s), ('state', '!=', 'code')]}",
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           }
         },
@@ -183,33 +183,33 @@ export default {
                 _li: {
                   _code: 'env'
                 },
-                _li_608: {
+                _li_948: {
                   _code: 'model'
                 },
-                _li_864: {
+                _li_322: {
                   _code: 'record'
                 },
-                _li_435: {
+                _li_783: {
                   _code: 'records'
                 },
-                _li_492: {
+                _li_319: {
                   _code: 'time',
-                  _code_578: 'datetime',
-                  _code_255: 'dateutil',
-                  _code_354: 'timezone'
+                  _code_913: 'datetime',
+                  _code_428: 'dateutil',
+                  _code_479: 'timezone'
                 },
-                _li_105: {
+                _li_264: {
                   _code: "log(message, level='info')",
-                  _code_388: 'ir.logging'
+                  _code_998: 'ir.logging'
                 },
-                _li_722: {
+                _li_567: {
                   _code: 'UserError',
-                  _code_117: 'raise'
+                  _code_462: 'raise'
                 },
-                _li_870: {
+                _li_461: {
                   _code: 'Command'
                 },
-                _li_861: {
+                _li_110: {
                   _attr: {
                     text: 'To return an action, assign:'
                   },

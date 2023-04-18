@@ -12,8 +12,8 @@ export default {
         _button_remove: {
           _attr: {
             name: 'remove',
-            title: 'Delete API key.',
             type: 'object',
+            title: 'Delete API key.',
             icon: 'fa-trash'
           }
         }

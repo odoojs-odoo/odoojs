@@ -8,8 +8,9 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _group: {
@@ -19,7 +20,8 @@ export default {
           name: {},
           applicability: {},
           tax_negate: {
-            invisible: [['applicability', '!=', 'taxes']]
+            invisible: [['applicability', '!=', 'taxes']],
+            readonly: '1'
           },
           country_id: {
             invisible: [['applicability', '!=', 'taxes']],

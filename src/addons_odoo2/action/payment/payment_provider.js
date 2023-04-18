@@ -74,10 +74,10 @@ export default {
           _button_action_toggle_is_published: {
             _attr: {
               name: 'action_toggle_is_published',
-              invisible: [['is_published', '=', false]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-globe'
+              icon: 'fa-globe',
+              invisible: [['is_published', '=', false]],
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -91,13 +91,13 @@ export default {
               }
             }
           },
-          _button_action_toggle_is_published_756: {
+          _button_action_toggle_is_published_500: {
             _attr: {
               name: 'action_toggle_is_published',
-              invisible: [['is_published', '=', true]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-eye-slash'
+              icon: 'fa-eye-slash',
+              invisible: [['is_published', '=', true]],
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -120,15 +120,17 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: ['|', ['module_state', '!=', 'installed'], ['state', '!=', 'disabled']],
-            title: 'Disabled'
+            title: 'Disabled',
+            bg_color: 'bg-danger',
+            invisible: ['|', ['module_state', '!=', 'installed'], ['state', '!=', 'disabled']]
           }
         },
-        _widget_web_ribbon_947: {
+        _widget_web_ribbon_628: {
           _attr: {
             name: 'web_ribbon',
-            invisible: ['|', ['module_state', '!=', 'installed'], ['state', '!=', 'test']],
-            title: 'Test Mode'
+            title: 'Test Mode',
+            bg_color: 'bg-warning',
+            invisible: ['|', ['module_state', '!=', 'installed'], ['state', '!=', 'test']]
           }
         },
         _div_title: {
@@ -154,10 +156,10 @@ export default {
             _button_button_immediate_install: {
               _attr: {
                 name: 'button_immediate_install',
+                type: 'object',
                 string: 'Install',
                 invisible: [['module_to_buy', '=', true]],
-                class: 'btn btn-primary',
-                type: 'object'
+                class: 'btn btn-primary'
               }
             }
           }
@@ -169,7 +171,7 @@ export default {
           },
           _strong: 'Warning',
           _em: 'CREATE',
-          _em_450: 'Duplicate'
+          _em_970: 'Duplicate'
         },
         _group: {
           _group_payment_state: {
@@ -326,10 +328,12 @@ export default {
         code: {},
         state: {},
         available_country_ids: {
-          widget: 'many2many_tags'
+          widget: 'many2many_tags',
+          optional: 'hide'
         },
         company_id: {
-          groups: 'base.group_multi_company'
+          groups: 'base.group_multi_company',
+          optional: 'show'
         }
       }
     }
@@ -348,7 +352,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'provider'
+        string: 'provider',
+        filter_domain: {
+          todo_ctx: "[('name', 'ilike', self)]"
+        }
       },
       code: {},
       _filter_provider_installed: {

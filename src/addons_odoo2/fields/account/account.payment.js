@@ -21,6 +21,7 @@ const ModelFields = {
   currency_id: {
     groups: 'base.group_multi_currency',
     readonly: [['state', '!=', 'draft']],
+    required: '1',
     string: 'Payment Currency'
   },
 
@@ -51,7 +52,10 @@ const ModelFields = {
     readonly: [['state', '!=', 'draft']]
   },
 
-  name: {},
+  name: {
+    readonly: '1'
+  },
+
   paired_internal_transfer_payment_id: {},
   partner_bank_id: {
     string: '===todo==',
@@ -61,16 +65,16 @@ const ModelFields = {
     }
   },
 
-  partner_bank_id_$_form_$$_332: {
-    string: 'Company Bank Account'
-  },
-
-  partner_bank_id_$_form_$$_667: {
+  partner_bank_id_$_form_$$_323: {
     string: 'Vendor Bank Account'
   },
 
-  partner_bank_id_$_form_$$_754: {
+  partner_bank_id_$_form_$$_653: {
     string: 'Customer Bank Account'
+  },
+
+  partner_bank_id_$_form_$$_825: {
+    string: 'Company Bank Account'
   },
 
   partner_id: {
@@ -81,22 +85,23 @@ const ModelFields = {
     }
   },
 
-  partner_id_$_form_$$_536: {
+  partner_id_$_form_$$_517: {
     string: 'Vendor'
   },
 
-  partner_id_$_form_$$_598: {
+  partner_id_$_form_$$_942: {
     string: 'Customer'
   },
 
-  partner_id_$_tree_$$_953: {
+  partner_id_$_tree_$$_963: {
     string: 'Customer'
   },
 
   partner_type: {},
   payment_method_code: {},
   payment_method_line_id: {
-    readonly: [['state', '!=', 'draft']]
+    readonly: [['state', '!=', 'draft']],
+    required: '1'
   },
 
   payment_type: {

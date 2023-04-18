@@ -5,8 +5,15 @@ const ModelFields = {
 
   action_id: {},
   active: {},
-  active_partner: {},
-  api_key_ids: {},
+  active_partner: {
+    required: '0',
+    readonly: '1'
+  },
+
+  api_key_ids: {
+    readonly: '0'
+  },
+
   avatar_128: {},
   companies_count: {
     string: 'Companies count'
@@ -17,22 +24,36 @@ const ModelFields = {
     context: {
       user_preference: 0
     },
-    string: 'Default Company'
+    string: 'Default Company',
+    readonly: '0'
   },
 
   company_ids: {
     string: 'Allowed Companies'
   },
 
-  email: {},
+  email: {
+    readonly: '0'
+  },
+
   groups_count: {
     string: 'Groups'
   },
 
-  groups_id: {},
+  groups_id: {
+    readonly: '1'
+  },
+
   id: {},
-  image_1920: {},
-  lang: {},
+  image_1920: {
+    readonly: '0'
+  },
+
+  lang: {
+    required: '1',
+    readonly: '0'
+  },
+
   login: {
     placeholder: 'e.g. email@yourcompany.com'
   },
@@ -40,10 +61,14 @@ const ModelFields = {
   login_date: {},
   mobile: {},
   name: {
-    placeholder: 'e.g. John Doe'
+    required: '1',
+    placeholder: 'e.g. John Doe',
+    readonly: '1'
   },
 
   partner_id: {
+    required: '0',
+    readonly: '1',
     groups: 'base.group_no_one'
   },
 
@@ -53,8 +78,14 @@ const ModelFields = {
   },
 
   share: {},
-  signature: {},
-  tz: {},
+  signature: {
+    readonly: '0'
+  },
+
+  tz: {
+    readonly: '0'
+  },
+
   tz_offset: {}
 }
 

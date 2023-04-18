@@ -3,8 +3,14 @@ const ModelFields = {
     readonly: [['parent.partner_readonly', '=', true]]
   },
 
-  message: {},
-  name: {},
+  message: {
+    readonly: '1'
+  },
+
+  name: {
+    readonly: '1'
+  },
+
   partner_id: {},
   resend: {}
 }

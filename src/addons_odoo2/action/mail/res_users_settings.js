@@ -37,7 +37,7 @@ export default {
             is_discuss_sidebar_category_channel_open: {},
             is_discuss_sidebar_category_chat_open: {}
           },
-          _group_634: {
+          _group_221: {
             _attr: {
               string: 'Voice'
             },

@@ -11,7 +11,7 @@ export default {
           module: {},
           model: {}
         },
-        _group_398: {
+        _group_314: {
           message: {}
         }
       }

@@ -60,7 +60,7 @@ export default {
           use_quotations: {},
           invoiced_target: {}
         },
-        _xpath_316: {
+        _xpath_962: {
           _attr: {
             expr: "//t[@name='second_options']",
             position: 'after'
@@ -76,20 +76,20 @@ export default {
               _a_action_quotations_salesteams: {
                 _attr: {
                   name: '%(action_quotations_salesteams)d',
+                  type: 'action',
                   context: {
                     search_default_draft: true,
                     search_default_sent: true
-                  },
-                  type: 'action'
+                  }
                 },
                 quotations_count: {
                   class: 'me-1'
                 },
                 _t: 'Quotation',
-                _t_857: 'Quotations'
+                _t_921: 'Quotations'
               }
             },
-            _div_268: {
+            _div_487: {
               _attr: {
                 class: 'col-auto text-truncate'
               },
@@ -116,12 +116,12 @@ export default {
                   class: 'me-1'
                 },
                 _t: 'Order to Invoice',
-                _t_245: 'Orders to Invoice'
+                _t_504: 'Orders to Invoice'
               }
             }
           }
         },
-        _xpath_793: {
+        _xpath_415: {
           _attr: {
             expr: "//div[hasclass('o_kanban_primary_bottom')]",
             position: 'after'
@@ -141,7 +141,7 @@ export default {
             }
           }
         },
-        _xpath_303: {
+        _xpath_104: {
           _attr: {
             expr: "//div[hasclass('o_kanban_manage_view')]",
             position: 'inside'
@@ -150,13 +150,13 @@ export default {
             _a_action_quotations_salesteams: {
               _attr: {
                 name: '%(action_quotations_salesteams)d',
-                class: 'o_quotation_view_button',
                 type: 'action',
+                class: 'o_quotation_view_button',
                 text: 'Quotations'
               }
             }
           },
-          _div_784: {
+          _div_822: {
             _a_action_orders_salesteams: {
               _attr: {
                 name: '%(action_orders_salesteams)d',
@@ -165,7 +165,7 @@ export default {
               }
             }
           },
-          _div_164: {
+          _div_101: {
             _attr: {
               groups: 'account.group_account_invoice'
             },
@@ -178,7 +178,7 @@ export default {
             }
           }
         },
-        _xpath_269: {
+        _xpath_828: {
           _attr: {
             expr: "//div[hasclass('o_kanban_manage_new')]",
             position: 'inside'

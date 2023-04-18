@@ -25,7 +25,7 @@ export default {
         name: {
           placeholder: "What's this key for?"
         },
-        _p_957: {
+        _p_501: {
           _attr: {
             text: 'It is very important that this description be clear\n                        and complete,'
           },
@@ -35,9 +35,9 @@ export default {
           _button_make_key: {
             _attr: {
               name: 'make_key',
+              type: 'object',
               string: 'Generate key',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

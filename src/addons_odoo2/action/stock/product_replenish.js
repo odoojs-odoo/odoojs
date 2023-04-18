@@ -53,9 +53,9 @@ export default {
           _button_launch_replenishment: {
             _attr: {
               name: 'launch_replenishment',
+              type: 'object',
               string: 'Confirm',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

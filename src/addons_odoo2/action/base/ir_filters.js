@@ -17,7 +17,7 @@ export default {
             widget: 'boolean_toggle'
           }
         },
-        _group_330: {
+        _group_837: {
           domain: {
             widget: 'domain',
             model: 'model_id'

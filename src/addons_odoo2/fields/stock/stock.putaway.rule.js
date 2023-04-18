@@ -1,16 +1,18 @@
 const ModelFields = {
   category_id: {
     string: 'Product Category',
-    readonly: [['product_id', '!=', false]],
+    readonly: "context.get['fixed_category', False]",
     required: [['product_id', '=', false], ['package_type_ids', '=', false]]
   },
 
   company_id: {
-    groups: 'stock.group_stock_multi_locations'
+    groups: 'stock.group_stock_multi_locations',
+    readonly: "context.get['fixed_location', False]"
   },
 
   location_in_id: {
-    string: 'When product arrives in'
+    string: 'When product arrives in',
+    readonly: "context.get['fixed_location', False]"
   },
 
   location_out_id: {
@@ -24,7 +26,7 @@ const ModelFields = {
 
   product_id: {
     string: 'Product',
-    readonly: [['category_id', '!=', false]],
+    readonly: "context.get['single_product', False]",
     required: [['category_id', '=', false], ['package_type_ids', '=', false]]
   },
 

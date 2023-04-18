@@ -38,9 +38,9 @@ export default {
           _button_action_reconcile_stat: {
             _attr: {
               name: 'action_reconcile_stat',
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-book'
+              icon: 'fa-book',
+              class: 'oe_stat_button'
             },
             number_entries: {
               string: 'Journal Entries',
@@ -67,7 +67,7 @@ export default {
               widget: 'radio'
             }
           },
-          _group_846: {
+          _group_961: {
             auto_reconcile: {
               invisible: [['rule_type', '=', 'writeoff_button']]
             },
@@ -108,7 +108,7 @@ export default {
                   for: 'match_amount',
                   invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_805: {
+                _div_171: {
                   _attr: {
                     invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-2'
@@ -134,7 +134,7 @@ export default {
                   for: 'allow_payment_tolerance',
                   invisible: [['rule_type', '!=', 'invoice_matching']]
                 },
-                _div_447: {
+                _div_157: {
                   _attr: {
                     invisible: [['rule_type', '!=', 'invoice_matching']],
                     class: 'd-flex gap-2'
@@ -153,7 +153,7 @@ export default {
                   invisible: [['rule_type', '!=', 'invoice_matching']]
                 }
               },
-              _group_850: {
+              _group_293: {
                 _attr: {
                   class: 'col-6'
                 },
@@ -189,7 +189,7 @@ export default {
                   for: 'match_label',
                   invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_421: {
+                _div_368: {
                   _attr: {
                     invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-3'
@@ -204,7 +204,7 @@ export default {
                   for: 'match_note',
                   invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_193: {
+                _div_404: {
                   _attr: {
                     invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-3'
@@ -219,7 +219,7 @@ export default {
                   for: 'match_transaction_type',
                   invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_377: {
+                _div_961: {
                   _attr: {
                     invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-3'
@@ -254,7 +254,7 @@ export default {
                 }
               }
             },
-            _group_920: {
+            _group_268: {
               _attr: {
                 string: 'Counterpart Entries',
                 invisible: [['rule_type', '=', 'invoice_matching'], '|', ['allow_payment_tolerance', '=', false], '&', ['allow_payment_tolerance', '=', true], ['payment_tolerance_param', '=', 0.0]],
@@ -286,11 +286,13 @@ export default {
                         account_id: {},
                         amount_type: {},
                         journal_id: {
-                          column_invisible: [['parent.rule_type', '!=', 'writeoff_button']]
+                          column_invisible: [['parent.rule_type', '!=', 'writeoff_button']],
+                          optional: 'hide'
                         },
                         amount_string: {},
                         tax_ids: {
-                          widget: 'many2many_tags'
+                          widget: 'many2many_tags',
+                          optional: 'hide'
                         },
                         analytic_distribution: {
                           widget: 'analytic_distribution',
@@ -300,7 +302,8 @@ export default {
                         },
                         force_tax_included: {
                           widget: 'boolean_toggle',
-                          invisible: [['show_force_tax_included', '=', false]]
+                          invisible: [['show_force_tax_included', '=', false]],
+                          optional: 'hide'
                         },
                         label: {}
                       }
@@ -310,7 +313,7 @@ export default {
               }
             }
           },
-          _page_985: {
+          _page_843: {
             _attr: {
               string: 'Partner Mapping',
               invisible: [['rule_type', 'not in', ('invoice_matching', 'writeoff_suggestion')]]

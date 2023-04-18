@@ -3,7 +3,9 @@ const ModelFields = {
   applicability: {},
   country_id: {},
   name: {},
-  tax_negate: {}
+  tax_negate: {
+    readonly: '1'
+  }
 }
 
 const AddonsFields = {

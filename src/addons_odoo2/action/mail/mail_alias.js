@@ -13,20 +13,20 @@ export default {
           _button_open_document: {
             _attr: {
               name: 'open_document',
+              type: 'object',
               string: 'Open Document',
               invisible: ['|', ['alias_model_id', '=', false], ['alias_force_thread_id', '=', 0]],
-              class: 'oe_link',
-              type: 'object'
+              class: 'oe_link'
             }
           },
           _button_open_parent_document: {
             _attr: {
               name: 'open_parent_document',
-              string: 'Open Parent Document',
-              invisible: ['|', ['alias_parent_model_id', '=', false], ['alias_parent_thread_id', '=', 0]],
-              class: 'oe_link',
               type: 'object',
-              icon: 'fa-sitemap'
+              string: 'Open Parent Document',
+              icon: 'fa-sitemap',
+              invisible: ['|', ['alias_parent_model_id', '=', false], ['alias_parent_thread_id', '=', 0]],
+              class: 'oe_link'
             }
           }
         },

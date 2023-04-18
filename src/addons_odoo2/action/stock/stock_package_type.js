@@ -38,11 +38,11 @@ export default {
               width: {
                 placeholder: 'Width'
               },
-              _span_699: '×',
+              _span_236: '×',
               height: {
                 placeholder: 'Height'
               },
-              _span_222: {
+              _span_409: {
                 length_uom_name: {}
               }
             },
@@ -119,7 +119,9 @@ export default {
         width: {},
         packaging_length: {},
         max_weight: {},
-        barcode: {}
+        barcode: {
+          optional: 'hide'
+        }
       }
     }
   },

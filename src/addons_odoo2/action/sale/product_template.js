@@ -29,7 +29,9 @@ export default {
         },
         detailed_type: {
           __todo__after: {
-            invoice_policy: {},
+            invoice_policy: {
+              required: '1'
+            },
             expense_policy: {
               widget: 'radio',
               invisible: [['visible_expense_policy', '=', false]]
@@ -49,11 +51,11 @@ export default {
                 text: 'You can invoice them before they are delivered.'
               }
             },
-            _label_product_tooltip_310: {
+            _label_product_tooltip_934: {
               for: 'product_tooltip',
               invisible: ['|', ['type', 'not in', ('product', 'consu')], ['invoice_policy', '!=', 'delivery']]
             },
-            _div_258: {
+            _div_812: {
               _attr: {
                 invisible: ['|', ['type', 'not in', ('product', 'consu')], ['invoice_policy', '!=', 'delivery']],
                 class: 'fst-italic text-muted',
@@ -79,11 +81,11 @@ export default {
           _button_action_view_sales: {
             _attr: {
               name: 'action_view_sales',
+              type: 'object',
+              icon: 'fa-signal',
               groups: 'sales_team.group_sale_salesman',
               invisible: [['sale_ok', '=', false]],
-              class: 'oe_stat_button',
-              type: 'object',
-              icon: 'fa-signal'
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -99,7 +101,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_411: {
+              _span_959: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Sold'

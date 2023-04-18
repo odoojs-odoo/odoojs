@@ -19,6 +19,7 @@ export default {
         },
         _strong: 'Tracked product(s):',
         tracking_line_ids: {
+          readonly: '1',
           views: {
             tree: {
               arch: {
@@ -34,9 +35,9 @@ export default {
           _button_action_confirm: {
             _attr: {
               name: 'action_confirm',
+              type: 'object',
               string: 'Apply',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

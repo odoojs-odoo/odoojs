@@ -25,12 +25,15 @@ export default {
                   _attr: {
                     string: 'Recipient'
                   },
-                  name: {},
+                  name: {
+                    readonly: '1'
+                  },
                   email: {
                     readonly: [['parent.partner_readonly', '=', true]]
                   },
                   message: {
-                    class: 'text-wrap'
+                    class: 'text-wrap',
+                    readonly: '1'
                   },
                   partner_id: {
                     invisible: '1'
@@ -47,28 +50,28 @@ export default {
           _button_resend_mail_action: {
             _attr: {
               name: 'resend_mail_action',
+              type: 'object',
               string: 'Send & close',
               invisible: [['can_resend', '=', false]],
-              class: 'btn-primary o_mail_send',
-              type: 'object'
+              class: 'btn-primary o_mail_send'
             }
           },
           _button_cancel_mail_action: {
             _attr: {
               name: 'cancel_mail_action',
+              type: 'object',
               string: 'Ignore all',
               invisible: [['can_resend', '=', true]],
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
-          _button_cancel_mail_action_386: {
+          _button_cancel_mail_action_112: {
             _attr: {
               name: 'cancel_mail_action',
+              type: 'object',
               string: 'Ignore all',
               invisible: [['can_resend', '=', false]],
-              class: 'btn-secondary',
-              type: 'object'
+              class: 'btn-secondary'
             }
           },
           _button: {

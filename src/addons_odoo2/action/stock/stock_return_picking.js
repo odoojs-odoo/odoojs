@@ -68,6 +68,7 @@ export default {
         _group: {
           location_id: {
             groups: 'stock.group_stock_multi_locations',
+            required: '1',
             no_create: true,
             no_open: true
           }
@@ -76,9 +77,9 @@ export default {
           _button_create_returns: {
             _attr: {
               name: 'create_returns',
+              type: 'object',
               string: 'Return',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

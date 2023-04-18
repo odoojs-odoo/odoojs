@@ -1,7 +1,8 @@
 const ModelFields = {
   active: {},
   arch_base: {
-    string: 'View Architecture'
+    string: 'View Architecture',
+    required: '1'
   },
 
   arch_db: {},

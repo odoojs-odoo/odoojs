@@ -54,16 +54,26 @@ export default {
         name: {},
         type: {},
         journal_group_ids: {
-          widget: 'many2many_tags'
+          widget: 'many2many_tags',
+          readonly: '1',
+          optional: 'show'
         },
         currency_id: {
-          groups: 'base.group_multi_currency'
+          groups: 'base.group_multi_currency',
+          optional: 'hide'
         },
-        code: {},
-        default_account_id: {},
-        active: {},
+        code: {
+          optional: 'show'
+        },
+        default_account_id: {
+          optional: 'show'
+        },
+        active: {
+          optional: 'hide'
+        },
         company_id: {
-          groups: 'base.group_multi_company'
+          groups: 'base.group_multi_company',
+          optional: 'hide'
         }
       }
     }
@@ -89,21 +99,22 @@ export default {
           _button_action_account_moves_all_a: {
             _attr: {
               name: 'action_account_moves_all_a',
+              type: 'action',
               string: 'Journal Entries',
+              icon: 'fa-book',
               context: {
                 todo_ctx: "{'search_default_journal_id':active_id}"
               },
-              class: 'oe_stat_button',
-              type: 'action',
-              icon: 'fa-book'
+              class: 'oe_stat_button'
             }
           }
         },
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _div_title: {
@@ -126,7 +137,7 @@ export default {
             },
             type: {}
           },
-          _group_706: {
+          _group_778: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
@@ -156,25 +167,25 @@ export default {
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'bank']]
                 },
-                _label_default_account_id_944: {
+                _label_default_account_id_277: {
                   for: 'default_account_id',
                   string: 'Cash Account',
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'cash']]
                 },
-                _label_default_account_id_915: {
+                _label_default_account_id_583: {
                   for: 'default_account_id',
                   string: 'Default Income Account',
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'sale']]
                 },
-                _label_default_account_id_396: {
+                _label_default_account_id_690: {
                   for: 'default_account_id',
                   string: 'Default Expense Account',
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'purchase']]
                 },
-                _label_default_account_id_788: {
+                _label_default_account_id_668: {
                   for: 'default_account_id',
                   string: 'Default Account',
                   groups: 'account.group_account_readonly',
@@ -278,6 +289,7 @@ export default {
                         string: 'Outstanding Receipts accounts',
                         groups: 'account.group_account_readonly',
                         placeholder: 'Leave empty to use the default outstanding account',
+                        optional: 'hide',
                         no_quick_create: true
                       }
                     }
@@ -286,7 +298,7 @@ export default {
               }
             }
           },
-          _page_490: {
+          _page_605: {
             _attr: {
               string: 'Outgoing Payments',
               invisible: [['type', 'not in', ['cash', 'bank']]]
@@ -323,6 +335,7 @@ export default {
                         string: 'Outstanding Payments accounts',
                         groups: 'account.group_account_readonly',
                         placeholder: 'Leave empty to use the default outstanding account',
+                        optional: 'hide',
                         no_quick_create: true
                       }
                     }
@@ -387,8 +400,8 @@ export default {
                   _a_action_open_settings: {
                     _attr: {
                       name: '%(action_open_settings)d',
-                      class: 'btn btn-link',
-                      type: 'action'
+                      type: 'action',
+                      class: 'btn btn-link'
                     },
                     _i: {
                       _attr: {
@@ -418,11 +431,12 @@ export default {
                     class: 'oe_inline'
                   },
                   alias_domain: {
-                    class: 'oe_inline'
+                    class: 'oe_inline',
+                    readonly: '1'
                   }
                 }
               },
-              _group_874: {
+              _group_784: {
                 _attr: {
                   string: 'Payment Communications',
                   invisible: [['type', '!=', 'sale']]
@@ -432,7 +446,7 @@ export default {
                   invisible: [['invoice_reference_type', '=', 'none']]
                 }
               },
-              _group_320: {
+              _group_785: {
                 _attr: {
                   string: 'Follow Customer Payments',
                   invisible: [['type', '!=', 'sale']]
@@ -469,7 +483,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Journal'
+        string: 'Journal',
+        filter_domain: {
+          todo_ctx: "['|', ('name', 'ilike', self), ('code', 'ilike', self)]"
+        }
       },
       _filter_dashboard: {
         _attr: {
@@ -507,7 +524,7 @@ export default {
           domain: [['type', 'not in', ['sale', 'purchase', 'cash', 'bank']]]
         }
       },
-      _separator_517: {},
+      _separator_474: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',

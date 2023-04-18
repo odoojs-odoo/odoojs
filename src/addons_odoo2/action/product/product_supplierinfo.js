@@ -58,7 +58,7 @@ export default {
               for: 'price',
               string: 'Unit Price'
             },
-            _div_270: {
+            _div_650: {
               _attr: {
                 class: 'o_row'
               },
@@ -73,7 +73,7 @@ export default {
               for: 'date_start',
               string: 'Validity'
             },
-            _div_108: {
+            _div_118: {
               _attr: {
                 class: 'o_row'
               },
@@ -170,25 +170,42 @@ export default {
         sequence: {
           widget: 'handle'
         },
-        partner_id: {},
+        partner_id: {
+          readonly: '1'
+        },
         product_id: {
           groups: 'product.group_product_variant',
-          invisible: "context.get['product_template_invisible_variant', False]"
+          invisible: "context.get['product_template_invisible_variant', False]",
+          readonly: '1',
+          optional: 'hide'
         },
         product_tmpl_id: {
           string: 'Product',
-          invisible: "context.get['visible_product_tmpl_id', True]"
+          invisible: "context.get['visible_product_tmpl_id', True]",
+          readonly: '1'
         },
-        product_name: {},
-        product_code: {},
-        date_start: {},
-        date_end: {},
+        product_name: {
+          optional: 'hide'
+        },
+        product_code: {
+          optional: 'hide'
+        },
+        date_start: {
+          optional: 'hide'
+        },
+        date_end: {
+          optional: 'hide'
+        },
         company_id: {
-          groups: 'base.group_multi_company'
+          groups: 'base.group_multi_company',
+          readonly: '1'
         },
-        min_qty: {},
+        min_qty: {
+          optional: 'hide'
+        },
         product_uom: {
-          groups: 'uom.group_uom'
+          groups: 'uom.group_uom',
+          optional: 'hide'
         },
         price: {
           string: 'Price'
@@ -196,7 +213,9 @@ export default {
         currency_id: {
           groups: 'base.group_multi_currency'
         },
-        delay: {}
+        delay: {
+          optional: 'hide'
+        }
       }
     }
   },

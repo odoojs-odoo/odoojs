@@ -1,5 +1,6 @@
 const ModelFields = {
   password: {
+    required: 'True',
     placeholder: '************'
   }
 }

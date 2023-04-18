@@ -1,7 +1,8 @@
 const ModelFields = {
   company_id: {},
   location_id: {
-    groups: 'stock.group_stock_multi_locations'
+    groups: 'stock.group_stock_multi_locations',
+    required: '1'
   },
 
   move_dest_exists: {},

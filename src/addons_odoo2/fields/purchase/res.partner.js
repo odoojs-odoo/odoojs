@@ -7,7 +7,10 @@ const ModelFields = {
     string: 'Purchases'
   },
 
-  purchase_warn: {},
+  purchase_warn: {
+    required: '1'
+  },
+
   purchase_warn_msg: {
     required: [['purchase_warn', '!=', false], ['purchase_warn', '!=', 'no-message']],
     placeholder: 'Type a message...'

@@ -120,42 +120,61 @@ export default {
           invisible: '1'
         },
         name: {
-          string: 'Number'
+          string: 'Number',
+          readonly: '1'
         },
         date_order: {
           string: 'Order Date',
-          widget: 'date'
+          widget: 'date',
+          optional: 'show'
         },
-        commitment_date: {},
-        expected_date: {},
-        partner_id: {},
+        commitment_date: {
+          optional: 'hide'
+        },
+        expected_date: {
+          optional: 'hide'
+        },
+        partner_id: {
+          readonly: '1'
+        },
         user_id: {
-          widget: 'many2one_avatar_user'
+          widget: 'many2one_avatar_user',
+          optional: 'show'
         },
         activity_ids: {
-          widget: 'list_activity'
+          widget: 'list_activity',
+          optional: 'show'
         },
-        team_id: {},
+        team_id: {
+          optional: 'hide'
+        },
         company_id: {
-          groups: 'base.group_multi_company'
+          groups: 'base.group_multi_company',
+          readonly: '1',
+          optional: 'show'
         },
         amount_untaxed: {
-          widget: 'monetary'
+          widget: 'monetary',
+          optional: 'hide'
         },
         amount_tax: {
-          widget: 'monetary'
+          widget: 'monetary',
+          optional: 'hide'
         },
         amount_total: {
-          widget: 'monetary'
+          widget: 'monetary',
+          optional: 'show'
         },
         currency_id: {
           invisible: '1'
         },
         invoice_status: {
-          widget: 'badge'
+          widget: 'badge',
+          optional: 'show'
         },
         tag_ids: {
           widget: 'many2many_tags',
+          optional: 'hide',
           color_field: 'color'
         },
         state: {
@@ -172,46 +191,65 @@ export default {
     arch: {
       sheet: {
         name: {
-          string: 'Number'
+          string: 'Number',
+          readonly: '1'
         },
         create_date: {
           string: 'Creation Date',
-          widget: 'date'
+          widget: 'date',
+          optional: 'show'
         },
         commitment_date: {
-          widget: 'date'
+          widget: 'date',
+          optional: 'hide'
         },
         expected_date: {
-          widget: 'date'
+          widget: 'date',
+          optional: 'hide'
         },
-        partner_id: {},
+        partner_id: {
+          readonly: '1'
+        },
         user_id: {
-          widget: 'many2one_avatar_user'
+          widget: 'many2one_avatar_user',
+          optional: 'show'
         },
         activity_ids: {
-          widget: 'list_activity'
+          widget: 'list_activity',
+          optional: 'show'
         },
-        team_id: {},
+        team_id: {
+          optional: 'hide'
+        },
         tag_ids: {
           widget: 'many2many_tags',
+          optional: 'hide',
           color_field: 'color'
         },
         company_id: {
-          groups: 'base.group_multi_company'
+          groups: 'base.group_multi_company',
+          readonly: '1',
+          optional: 'show'
         },
         amount_untaxed: {
-          widget: 'monetary'
+          widget: 'monetary',
+          optional: 'hide'
         },
         amount_tax: {
-          widget: 'monetary'
+          widget: 'monetary',
+          optional: 'hide'
         },
         amount_total: {
-          widget: 'monetary'
+          widget: 'monetary',
+          optional: 'show'
         },
         state: {
-          widget: 'badge'
+          widget: 'badge',
+          optional: 'show'
         },
-        invoice_status: {},
+        invoice_status: {
+          optional: 'hide'
+        },
         message_needaction: {
           invisible: '1'
         },
@@ -257,54 +295,55 @@ export default {
           _button_payment_action_capture: {
             _attr: {
               name: 'payment_action_capture',
+              type: 'object',
               string: 'Capture Transaction',
               invisible: [['authorized_transaction_ids', '=', []]],
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button_payment_action_void: {
             _attr: {
               name: 'payment_action_void',
+              type: 'object',
               string: 'Void Transaction',
-              invisible: [['authorized_transaction_ids', '=', []]],
-              type: 'object'
+              invisible: [['authorized_transaction_ids', '=', []]]
             }
           },
           _button_sale__action_view_sale_advance_payment_inv: {
             _attr: {
               name: 'sale.action_view_sale_advance_payment_inv',
+              type: 'action',
               string: 'Create Invoice',
               invisible: [['invoice_status', '!=', 'to invoice']],
-              class: 'btn-primary',
-              type: 'action'
+              class: 'btn-primary'
             }
           },
-          _button_sale__action_view_sale_advance_payment_inv_468: {
+          _button_sale__action_view_sale_advance_payment_inv_572: {
             _attr: {
               name: 'sale.action_view_sale_advance_payment_inv',
+              type: 'action',
               string: 'Create Invoice',
               invisible: ['|', ['invoice_status', '!=', 'no'], ['state', '!=', 'sale']],
               context: {
                 default_advance_payment_method: 'percentage'
-              },
-              type: 'action'
+              }
             }
           },
           _button_action_quotation_send: {
             _attr: {
               name: 'action_quotation_send',
+              type: 'object',
               string: 'Send by Email',
               context: {
                 validate_analytic: true
               },
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
-          _button_action_quotation_send_399: {
+          _button_action_quotation_send_261: {
             _attr: {
               name: 'action_quotation_send',
+              type: 'object',
               string: 'Send PRO-FORMA Invoice',
               groups: 'sale.group_proforma_sales',
               invisible: ['|', ['state', '!=', 'draft'], ['invoice_count', '>=', 1]],
@@ -312,69 +351,68 @@ export default {
                 proforma: true,
                 validate_analytic: true
               },
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button_action_confirm: {
             _attr: {
               name: 'action_confirm',
+              type: 'object',
               string: 'Confirm',
               invisible: [['state', 'not in', ['sent']]],
               context: {
                 validate_analytic: true
               },
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
-          _button_action_confirm_487: {
+          _button_action_confirm_693: {
             _attr: {
               name: 'action_confirm',
+              type: 'object',
               string: 'Confirm',
               invisible: [['state', 'not in', ['draft']]],
               context: {
                 validate_analytic: true
-              },
-              type: 'object'
+              }
             }
           },
-          _button_action_quotation_send_232: {
+          _button_action_quotation_send_191: {
             _attr: {
               name: 'action_quotation_send',
+              type: 'object',
               string: 'Send PRO-FORMA Invoice',
               groups: 'sale.group_proforma_sales',
               invisible: ['|', ['state', '=', 'draft'], ['invoice_count', '>=', 1]],
               context: {
                 proforma: true,
                 validate_analytic: true
-              },
-              type: 'object'
+              }
             }
           },
-          _button_action_quotation_send_822: {
+          _button_action_quotation_send_488: {
             _attr: {
               name: 'action_quotation_send',
+              type: 'object',
               string: 'Send by Email',
               context: {
                 validate_analytic: true
-              },
-              type: 'object'
+              }
             }
           },
           _button_action_cancel: {
             _attr: {
               name: 'action_cancel',
+              type: 'object',
               string: 'Cancel',
-              invisible: ['|', ['state', 'not in', ['draft', 'sent', 'sale']], ['id', '=', false]],
-              type: 'object'
+              invisible: ['|', ['state', 'not in', ['draft', 'sent', 'sale']], ['id', '=', false]]
             }
           },
           _button_action_draft: {
             _attr: {
               name: 'action_draft',
-              string: 'Set to Quotation',
-              type: 'object'
+              type: 'object',
+              string: 'Set to Quotation'
             }
           },
           state: {
@@ -397,10 +435,10 @@ export default {
           _button_action_view_invoice: {
             _attr: {
               name: 'action_view_invoice',
-              invisible: [['invoice_count', '=', 0]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-pencil-square-o'
+              icon: 'fa-pencil-square-o',
+              invisible: [['invoice_count', '=', 0]],
+              class: 'oe_stat_button'
             },
             invoice_count: {
               string: 'Invoices',
@@ -410,9 +448,9 @@ export default {
           _button_action_preview_sale_order: {
             _attr: {
               name: 'action_preview_sale_order',
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-globe icon'
+              icon: 'fa-globe icon',
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -424,7 +462,7 @@ export default {
                   text: 'Customer'
                 }
               },
-              _span_733: {
+              _span_202: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Preview'
@@ -438,7 +476,9 @@ export default {
             class: 'oe_title'
           },
           _h1: {
-            name: {}
+            name: {
+              readonly: '1'
+            }
           }
         },
         _group_sale_header: {
@@ -495,7 +535,7 @@ export default {
               groups: 'base.group_no_one',
               invisible: [['state', 'in', ['sale', 'done', 'cancel']]]
             },
-            _div_504: {
+            _div_739: {
               _attr: {
                 invisible: [['state', 'in', ['draft', 'sent']]],
                 class: 'o_td_label'
@@ -505,7 +545,7 @@ export default {
                 string: 'Order Date'
               }
             },
-            _field_date_order_572: {
+            _field_date_order_935: {
               date_order: {
                 invisible: [['state', 'in', ['draft', 'sent']]]
               }
@@ -517,7 +557,7 @@ export default {
               for: 'pricelist_id',
               groups: 'product.group_product_pricelist'
             },
-            _div_132: {
+            _div_717: {
               _attr: {
                 groups: 'product.group_product_pricelist',
                 class: 'o_row'
@@ -529,11 +569,11 @@ export default {
               _button_action_update_prices: {
                 _attr: {
                   name: 'action_update_prices',
-                  string: ' Update Prices',
-                  invisible: ['|', ['show_update_pricelist', '=', false], ['state', 'in', ['sale', 'done', 'cancel']]],
-                  class: 'btn-link mb-1 px-0',
                   type: 'object',
-                  icon: 'fa-refresh'
+                  string: ' Update Prices',
+                  icon: 'fa-refresh',
+                  invisible: ['|', ['show_update_pricelist', '=', false], ['state', 'in', ['sale', 'done', 'cancel']]],
+                  class: 'btn-link mb-1 px-0'
                 }
               }
             },
@@ -639,7 +679,7 @@ export default {
                               groups: '!uom.group_uom',
                               invisible: '1'
                             },
-                            _field_product_uom_885: {
+                            _field_product_uom_121: {
                               product_uom: {
                                 groups: 'uom.group_uom',
                                 readonly: [['product_uom_readonly', '=', true]],
@@ -713,7 +753,7 @@ export default {
                             invisible: '1'
                           }
                         },
-                        _group_839: {
+                        _group_311: {
                           _attr: {
                             invisible: [['display_type', '!=', false]]
                           },
@@ -741,12 +781,12 @@ export default {
                         string: 'Description',
                         invisible: [['display_type', '!=', false]]
                       },
-                      _label_name_303: {
+                      _label_name_221: {
                         for: 'name',
                         string: 'Section Name (eg. Products, Services)',
                         invisible: [['display_type', '!=', 'line_section']]
                       },
-                      _label_name_602: {
+                      _label_name_411: {
                         for: 'name',
                         string: 'Note',
                         invisible: [['display_type', '!=', 'line_note']]
@@ -847,11 +887,13 @@ export default {
                         no_open: true
                       },
                       name: {
-                        widget: 'section_and_note_text'
+                        widget: 'section_and_note_text',
+                        optional: 'show'
                       },
                       analytic_distribution: {
                         widget: 'analytic_distribution',
                         groups: 'analytic.group_analytic_accounting',
+                        optional: 'hide',
                         product_field: 'product_id',
                         business_domain: 'sale_order'
                       },
@@ -863,14 +905,16 @@ export default {
                       qty_delivered: {
                         string: 'Delivered',
                         column_invisible: [['parent.state', 'not in', ['sale', 'done']]],
-                        readonly: [['qty_delivered_method', '!=', 'manual']]
+                        readonly: [['qty_delivered_method', '!=', 'manual']],
+                        optional: 'show'
                       },
                       qty_delivered_method: {
                         invisible: '1'
                       },
                       qty_invoiced: {
                         string: 'Invoiced',
-                        column_invisible: [['parent.state', 'not in', ['sale', 'done']]]
+                        column_invisible: [['parent.state', 'not in', ['sale', 'done']]],
+                        optional: 'show'
                       },
                       qty_to_invoice: {
                         invisible: '1'
@@ -882,7 +926,7 @@ export default {
                         groups: '!uom.group_uom',
                         invisible: '1'
                       },
-                      _field_product_uom_250: {
+                      _field_product_uom_773: {
                         product_uom: {
                           string: 'UoM',
                           groups: 'uom.group_uom',
@@ -891,23 +935,27 @@ export default {
                           context: {
                             todo_ctx: "{'company_id': parent.company_id}"
                           },
+                          optional: 'show',
                           force_save: '1',
                           no_open: true
                         }
                       },
                       customer_lead: {
-                        readonly: [['parent.state', 'not in', ['draft', 'sent', 'sale']]]
+                        readonly: [['parent.state', 'not in', ['draft', 'sent', 'sale']]],
+                        optional: 'hide'
                       },
                       product_packaging_qty: {
                         groups: 'product.group_stock_packaging',
-                        invisible: ['|', ['product_id', '=', false], ['product_packaging_id', '=', false]]
+                        invisible: ['|', ['product_id', '=', false], ['product_packaging_id', '=', false]],
+                        optional: 'show'
                       },
                       product_packaging_id: {
                         groups: 'product.group_stock_packaging',
                         invisible: [['product_id', '=', false]],
                         context: {
                           todo_ctx: "{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}"
-                        }
+                        },
+                        optional: 'show'
                       },
                       price_unit: {
                         readonly: [['qty_invoiced', '>', 0]]
@@ -921,12 +969,14 @@ export default {
                         context: {
                           active_test: true
                         },
+                        optional: 'show',
                         no_create: true
                       },
                       discount: {
                         string: 'Disc.%',
                         widget: 'sol_discount',
-                        groups: 'product.group_discount_per_so_line'
+                        groups: 'product.group_discount_per_so_line',
+                        optional: 'show'
                       },
                       is_downpayment: {
                         invisible: '1'
@@ -974,7 +1024,7 @@ export default {
                       price_tax: {
                         invisible: '1'
                       },
-                      _field_price_total_988: {
+                      _field_price_total_113: {
                         price_total: {
                           invisible: '1'
                         }
@@ -1001,7 +1051,7 @@ export default {
                                   },
                                   _img: {}
                                 },
-                                _div_977: {
+                                _div_631: {
                                   _attr: {
                                     class: 'col-10'
                                   },
@@ -1015,7 +1065,7 @@ export default {
                                       },
                                       _strong: {}
                                     },
-                                    _div_108: {
+                                    _div_450: {
                                       _attr: {
                                         class: 'col-auto'
                                       },
@@ -1024,7 +1074,7 @@ export default {
                                           groups: 'account.group_show_line_subtotals_tax_excluded'
                                         }
                                       },
-                                      _t_822: {
+                                      _t_596: {
                                         _attr: {
                                           groups: 'account.group_show_line_subtotals_tax_included'
                                         }
@@ -1036,7 +1086,7 @@ export default {
                                       }
                                     }
                                   },
-                                  _div_727: {
+                                  _div_602: {
                                     _attr: {
                                       class: 'row'
                                     },
@@ -1046,10 +1096,10 @@ export default {
                                         text: 'Quantity:'
                                       },
                                       _t: {},
-                                      _t_872: {}
+                                      _t_243: {}
                                     }
                                   },
-                                  _div_681: {
+                                  _div_192: {
                                     _attr: {
                                       class: 'row'
                                     },
@@ -1064,7 +1114,7 @@ export default {
                                 }
                               }
                             },
-                            _t_762: {
+                            _t_877: {
                               _div: {
                                 _attr: {
                                   class: 'row'
@@ -1101,7 +1151,8 @@ export default {
                   class: 'oe_subtotal_footer oe_right'
                 },
                 tax_totals: {
-                  widget: 'account-tax-totals-field'
+                  widget: 'account-tax-totals-field',
+                  readonly: '1'
                 }
               },
               _div: {
@@ -1144,10 +1195,11 @@ export default {
                   require_payment: {
                     class: 'oe_inline ms-3'
                   },
-                  _span_111: 'Payment'
+                  _span_468: 'Payment'
                 },
                 reference: {
-                  invisible: [['reference', '=', false]]
+                  invisible: [['reference', '=', false]],
+                  readonly: '1'
                 },
                 client_order_ref: {},
                 tag_ids: {
@@ -1177,11 +1229,11 @@ export default {
                   _button_action_update_taxes: {
                     _attr: {
                       name: 'action_update_taxes',
-                      string: ' Update Taxes',
-                      invisible: ['|', ['show_update_fpos', '=', false], ['state', 'in', ['sale', 'done', 'cancel']]],
-                      class: 'btn-link mb-1 px-0',
                       type: 'object',
-                      icon: 'fa-refresh'
+                      string: ' Update Taxes',
+                      icon: 'fa-refresh',
+                      invisible: ['|', ['show_update_fpos', '=', false], ['state', 'in', ['sale', 'done', 'cancel']]],
+                      class: 'btn-link mb-1 px-0'
                     }
                   }
                 },
@@ -1199,7 +1251,7 @@ export default {
                 invoice_status: {
                   groups: 'base.group_no_one'
                 },
-                _field_invoice_status_638: {
+                _field_invoice_status_824: {
                   invoice_status: {
                     groups: '!base.group_no_one',
                     invisible: '1'
@@ -1207,7 +1259,7 @@ export default {
                 }
               }
             },
-            _group_866: {
+            _group_116: {
               _group_sale_shipping: {
                 _attr: {
                   name: 'sale_shipping'
@@ -1299,17 +1351,17 @@ export default {
             _button_action_done: {
               _attr: {
                 name: 'action_done',
+                type: 'object',
                 string: 'Lock',
-                groups: 'sales_team.group_sale_manager',
-                type: 'object'
+                groups: 'sales_team.group_sale_manager'
               }
             },
             _button_action_unlock: {
               _attr: {
                 name: 'action_unlock',
+                type: 'object',
                 string: 'Unlock',
-                groups: 'sales_team.group_sale_manager',
-                type: 'object'
+                groups: 'sales_team.group_sale_manager'
               }
             }
           }
@@ -1324,15 +1376,23 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Order'
+        string: 'Order',
+        filter_domain: {
+          todo_ctx: "['|', '|', ('name', 'ilike', self), ('client_order_ref', 'ilike', self), ('partner_id', 'child_of', self)]"
+        }
       },
-      partner_id: {},
+      partner_id: {
+        operator: 'child_of'
+      },
       user_id: {},
       team_id: {
         string: 'Sales Team'
       },
       order_line: {
-        string: 'Product'
+        string: 'Product',
+        filter_domain: {
+          todo_ctx: "[('order_line.product_id', 'ilike', self)]"
+        }
       },
       analytic_account_id: {
         groups: 'analytic.group_analytic_accounting'
@@ -1435,7 +1495,7 @@ export default {
               }
             }
           },
-          _separator_610: {},
+          _separator_701: {},
           _filter_draft: {
             _attr: {
               name: 'draft',
@@ -1450,7 +1510,7 @@ export default {
               domain: [['state', 'in', ('sale', 'done')]]
             }
           },
-          _separator_912: {},
+          _separator_195: {},
           _filter_filter_create_date: {
             _attr: {
               name: 'filter_create_date',
@@ -1487,7 +1547,7 @@ export default {
               domain: [['invoice_status', '=', 'upselling']]
             }
           },
-          _separator_845: {},
+          _separator_198: {},
           _filter_order_date: {
             _attr: {
               name: 'order_date',

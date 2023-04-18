@@ -16,7 +16,9 @@ export default {
           groups: 'base.group_multi_company',
           no_create: true
         },
-        country_id: {},
+        country_id: {
+          optional: 'hide'
+        },
         active: {
           widget: 'boolean_toggle'
         }
@@ -107,7 +109,7 @@ export default {
           domain: [['tax_scope', '=', 'consu']]
         }
       },
-      _separator_363: {},
+      _separator_630: {},
       _filter_active: {
         _attr: {
           name: 'active',
@@ -147,7 +149,7 @@ export default {
             }
           }
         },
-        _filter_taxapp_597: {
+        _filter_taxapp_913: {
           _attr: {
             name: 'taxapp',
             string: 'Tax Scope',
@@ -167,7 +169,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Tax'
+        string: 'Tax',
+        filter_domain: {
+          todo_ctx: "['|', ('name','ilike',self), ('description','ilike',self)]"
+        }
       },
       company_id: {
         groups: 'base.group_multi_company'
@@ -192,7 +197,7 @@ export default {
               widget: 'boolean_toggle'
             }
           },
-          _group_502: {
+          _group_690: {
             type_tax_use: {},
             tax_scope: {},
             _label_amount: {
@@ -235,7 +240,7 @@ export default {
                 },
                 invoice_repartition_line_ids: {}
               },
-              _group_683: {
+              _group_491: {
                 _attr: {
                   string: 'Distribution for Refunds'
                 },
@@ -288,7 +293,9 @@ export default {
                   groups: 'base.group_multi_company',
                   no_create: true
                 },
-                country_id: {}
+                country_id: {
+                  required: 'True'
+                }
               },
               _group_advanced_booleans: {
                 _attr: {

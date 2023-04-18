@@ -55,7 +55,7 @@ export default {
             }
           }
         },
-        _div_229: {
+        _div_837: {
           _attr: {
             invisible: ['|', ['is_email', '=', false], ['invoice_without_email', '=', false]],
             class: 'text-start d-inline-block mr8'
@@ -90,7 +90,7 @@ export default {
                   _strong: 'Email mass mailing',
                   _span: 'the selected records'
                 },
-                _span_864: 'Followers of the document and',
+                _span_112: 'Followers of the document and',
                 partner_ids: {
                   widget: 'many2many_tags_email',
                   invisible: [['composition_mode', '=', 'mass_mail']],
@@ -122,7 +122,7 @@ export default {
                 invisible: [['composition_mode', '=', 'mass_mail']]
               }
             },
-            _group_497: {
+            _group_150: {
               template_id: {
                 context: {
                   default_model: 'account.move'
@@ -137,28 +137,28 @@ export default {
           _button_send_and_print_action: {
             _attr: {
               name: 'send_and_print_action',
+              type: 'object',
               string: 'Send & Print',
               invisible: ['|', ['is_email', '=', false], ['is_print', '=', false]],
-              class: 'send_and_print btn-primary o_mail_send',
-              type: 'object'
+              class: 'send_and_print btn-primary o_mail_send'
             }
           },
-          _button_send_and_print_action_308: {
+          _button_send_and_print_action_775: {
             _attr: {
               name: 'send_and_print_action',
+              type: 'object',
               string: 'Send',
               invisible: ['|', ['is_print', '=', true], ['is_email', '=', false]],
-              class: 'send btn-primary o_mail_send',
-              type: 'object'
+              class: 'send btn-primary o_mail_send'
             }
           },
-          _button_send_and_print_action_781: {
+          _button_send_and_print_action_967: {
             _attr: {
               name: 'send_and_print_action',
+              type: 'object',
               string: 'Print',
               invisible: ['|', ['is_print', '=', false], ['is_email', '=', true]],
-              class: 'print btn-primary o_mail_send',
-              type: 'object'
+              class: 'print btn-primary o_mail_send'
             }
           },
           _button: {
@@ -170,11 +170,11 @@ export default {
           _button_save_as_template: {
             _attr: {
               name: 'save_as_template',
-              string: 'Save as new template',
-              invisible: ['|', ['composition_mode', '=', 'mass_mail'], ['is_email', '=', false]],
-              class: 'float-end btn-secondary',
               type: 'object',
-              icon: 'fa-lg fa-save'
+              string: 'Save as new template',
+              icon: 'fa-lg fa-save',
+              invisible: ['|', ['composition_mode', '=', 'mass_mail'], ['is_email', '=', false]],
+              class: 'float-end btn-secondary'
             }
           }
         }

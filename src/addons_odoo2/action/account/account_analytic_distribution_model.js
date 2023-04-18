@@ -11,15 +11,21 @@ export default {
               expr: "//field[@name='partner_id']",
               position: 'before'
             },
-            account_prefix: {}
+            account_prefix: {
+              optional: 'show'
+            }
           },
-          _xpath_860: {
+          _xpath_855: {
             _attr: {
               expr: "//field[@name='company_id']",
               position: 'before'
             },
-            product_id: {},
-            product_categ_id: {}
+            product_id: {
+              optional: 'show'
+            },
+            product_categ_id: {
+              optional: 'hide'
+            }
           }
         }
       }
@@ -40,7 +46,7 @@ export default {
             },
             account_prefix: {}
           },
-          _xpath_480: {
+          _xpath_943: {
             _attr: {
               expr: "//field[@name='company_id']",
               position: 'before'

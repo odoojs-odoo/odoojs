@@ -21,9 +21,9 @@ export default {
           _button_action_snooze: {
             _attr: {
               name: 'action_snooze',
+              type: 'object',
               string: 'Snooze',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button_cancel_button: {

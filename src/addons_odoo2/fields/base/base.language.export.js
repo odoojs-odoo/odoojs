@@ -1,5 +1,8 @@
 const ModelFields = {
-  data: {},
+  data: {
+    readonly: '1'
+  },
+
   format: {},
   lang: {},
   modules: {},

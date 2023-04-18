@@ -8,7 +8,7 @@ export default {
         inventory_datetime: {
           invisible: "context.get['active_model'] != 'stock.quant'"
         },
-        _field_inventory_datetime_550: {
+        _field_inventory_datetime_962: {
           inventory_datetime: {
             __todo__after: {
               inventory_datetime: {

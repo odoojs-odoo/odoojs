@@ -9,9 +9,17 @@ const ModelFields = {
   },
 
   delivery_steps: {},
-  in_type_id: {},
-  int_type_id: {},
+  in_type_id: {
+    readonly: '1'
+  },
+
+  int_type_id: {
+    readonly: '1'
+  },
+
   lot_stock_id: {
+    required: '0',
+    readonly: '1',
     groups: 'stock.group_stock_multi_locations'
   },
 
@@ -19,10 +27,19 @@ const ModelFields = {
     placeholder: 'e.g. Central Warehouse'
   },
 
-  out_type_id: {},
-  pack_type_id: {},
+  out_type_id: {
+    readonly: '1'
+  },
+
+  pack_type_id: {
+    readonly: '1'
+  },
+
   partner_id: {},
-  pick_type_id: {},
+  pick_type_id: {
+    readonly: '1'
+  },
+
   reception_steps: {},
   resupply_wh_ids: {
     groups: 'stock.group_stock_multi_warehouses',
@@ -31,13 +48,26 @@ const ModelFields = {
 
   sequence: {},
   view_location_id: {
-    string: 'Warehouse view location'
+    string: 'Warehouse view location',
+    required: '0',
+    readonly: '1'
   },
 
-  wh_input_stock_loc_id: {},
-  wh_output_stock_loc_id: {},
-  wh_pack_stock_loc_id: {},
-  wh_qc_stock_loc_id: {}
+  wh_input_stock_loc_id: {
+    readonly: '1'
+  },
+
+  wh_output_stock_loc_id: {
+    readonly: '1'
+  },
+
+  wh_pack_stock_loc_id: {
+    readonly: '1'
+  },
+
+  wh_qc_stock_loc_id: {
+    readonly: '1'
+  }
 }
 
 const AddonsFields = {

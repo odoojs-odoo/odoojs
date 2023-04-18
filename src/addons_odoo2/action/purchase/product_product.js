@@ -26,11 +26,11 @@ export default {
           _button_action_view_po: {
             _attr: {
               name: 'action_view_po',
+              type: 'object',
+              icon: 'fa-credit-card',
               groups: 'purchase.group_purchase_user',
               invisible: [['purchase_ok', '=', false]],
-              class: 'oe_stat_button',
-              type: 'object',
-              icon: 'fa-credit-card'
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -46,7 +46,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_642: {
+              _span_977: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Purchased'

@@ -16,31 +16,32 @@ export default {
           _button_location_open_putaway: {
             _attr: {
               name: 'location_open_putaway',
+              type: 'action',
               string: 'Putaway Rules',
+              icon: 'fa-random',
               groups: 'stock.group_stock_multi_locations',
               context: {
                 todo_ctx: "{'default_company_id': company_id}"
               },
-              class: 'oe_stat_button',
-              type: 'action',
-              icon: 'fa-random'
+              class: 'oe_stat_button'
             }
           },
           _button_location_open_quants: {
             _attr: {
               name: 'location_open_quants',
-              string: 'Current Stock',
-              class: 'oe_stat_button',
               type: 'action',
-              icon: 'fa-cubes'
+              string: 'Current Stock',
+              icon: 'fa-cubes',
+              class: 'oe_stat_button'
             }
           }
         },
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _label_name: {
@@ -97,7 +98,7 @@ export default {
               invisible: [['active', '=', false]]
             }
           },
-          _group_415: {
+          _group_978: {
             _attr: {
               string: 'Logistics',
               groups: 'stock.group_adv_location'
@@ -206,7 +207,7 @@ export default {
           groups: 'stock.group_stock_storage_categories',
           readonly: [['usage', '!=', 'internal']]
         },
-        _field_company_id_637: {
+        _field_company_id_782: {
           company_id: {
             groups: 'base.group_multi_company'
           }

@@ -83,6 +83,7 @@ export default {
             }
           },
           subject: {
+            required: 'True',
             placeholder: 'Welcome to MyCompany!'
           },
           notify: {
@@ -148,7 +149,7 @@ export default {
               }
             }
           },
-          _page_439: {
+          _page_191: {
             _attr: {
               string: 'Settings'
             },
@@ -173,19 +174,19 @@ export default {
           _button_action_send_mail: {
             _attr: {
               name: 'action_send_mail',
+              type: 'object',
               string: 'Send',
               invisible: [['is_log', '=', true]],
-              class: 'btn-primary o_mail_send',
-              type: 'object'
+              class: 'btn-primary o_mail_send'
             }
           },
-          _button_action_send_mail_739: {
+          _button_action_send_mail_821: {
             _attr: {
               name: 'action_send_mail',
+              type: 'object',
               string: 'Log',
               invisible: [['is_log', '=', false]],
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {
@@ -197,11 +198,11 @@ export default {
           _button_action_save_as_template: {
             _attr: {
               name: 'action_save_as_template',
-              string: 'Save as new template',
-              invisible: [['can_edit_body', '=', false]],
-              class: 'float-end btn-secondary',
               type: 'object',
-              icon: 'fa-lg fa-save'
+              string: 'Save as new template',
+              icon: 'fa-lg fa-save',
+              invisible: [['can_edit_body', '=', false]],
+              class: 'float-end btn-secondary'
             }
           }
         }

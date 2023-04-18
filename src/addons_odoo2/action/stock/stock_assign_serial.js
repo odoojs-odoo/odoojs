@@ -9,7 +9,9 @@ export default {
           move_id: {
             invisible: '1'
           },
-          product_id: {},
+          product_id: {
+            readonly: '1'
+          },
           next_serial_number: {},
           next_serial_count: {}
         },
@@ -17,9 +19,9 @@ export default {
           _button_generate_serial_numbers: {
             _attr: {
               name: 'generate_serial_numbers',
+              type: 'object',
               string: 'Assign Serial Numbers',
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button: {

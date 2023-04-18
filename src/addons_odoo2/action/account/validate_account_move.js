@@ -18,9 +18,9 @@ export default {
           _button_validate_move: {
             _attr: {
               name: 'validate_move',
+              type: 'object',
               string: 'Post Journal Entries',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

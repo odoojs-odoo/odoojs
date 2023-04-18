@@ -12,11 +12,11 @@ export default {
           _button_action_view_sales: {
             _attr: {
               name: 'action_view_sales',
+              type: 'object',
+              icon: 'fa-signal',
               groups: 'sales_team.group_sale_salesman',
               invisible: [['sale_ok', '=', false]],
-              class: 'oe_stat_button',
-              type: 'object',
-              icon: 'fa-signal'
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -32,7 +32,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_330: {
+              _span_224: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Sold'

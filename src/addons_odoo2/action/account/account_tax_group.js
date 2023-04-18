@@ -53,7 +53,9 @@ export default {
             todo_ctx: "[('company_id', '=', context['force_account_company'])] if context.get('force_account_company') else []"
           }
         },
-        preceding_subtotal: {}
+        preceding_subtotal: {
+          optional: 'hide'
+        }
       }
     }
   },
@@ -70,7 +72,7 @@ export default {
             country_id: {},
             sequence: {}
           },
-          _group_770: {
+          _group_680: {
             property_tax_payable_account_id: {},
             property_tax_receivable_account_id: {},
             property_advance_tax_payment_account_id: {},

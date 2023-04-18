@@ -16,10 +16,10 @@ export default {
           _button_action_storage_category_locations: {
             _attr: {
               name: 'action_storage_category_locations',
-              string: 'Locations',
-              class: 'oe_stat_button',
               type: 'action',
-              icon: 'fa-arrows-v'
+              string: 'Locations',
+              icon: 'fa-arrows-v',
+              class: 'oe_stat_button'
             }
           }
         },
@@ -28,7 +28,7 @@ export default {
             name: {},
             allow_new_product: {}
           },
-          _group_777: {
+          _group_344: {
             _label_max_weight: {
               for: 'max_weight'
             },
@@ -59,7 +59,9 @@ export default {
                 tree: {
                   arch: {
                     sheet: {
-                      package_type_id: {},
+                      package_type_id: {
+                        required: '1'
+                      },
                       quantity: {},
                       company_id: {
                         invisible: '1'
@@ -86,7 +88,8 @@ export default {
                       product_id: {
                         context: {
                           default_detailed_type: 'product'
-                        }
+                        },
+                        required: '1'
                       },
                       quantity: {},
                       product_uom_id: {

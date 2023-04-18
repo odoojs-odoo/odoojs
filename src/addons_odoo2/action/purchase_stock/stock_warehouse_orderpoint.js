@@ -16,6 +16,7 @@ export default {
           supplier_id: {
             string: 'Vendor',
             invisible: [['show_supplier', '=', false]],
+            optional: 'show',
             no_create: true
           }
         }

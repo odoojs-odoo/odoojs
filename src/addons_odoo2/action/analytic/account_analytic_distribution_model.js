@@ -5,20 +5,26 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        partner_id: {},
-        partner_category_id: {},
+        partner_id: {
+          optional: 'show'
+        },
+        partner_category_id: {
+          optional: 'hide'
+        },
         company_id: {
-          groups: 'base.group_multi_company'
+          groups: 'base.group_multi_company',
+          optional: 'show'
         },
         analytic_distribution: {
-          widget: 'analytic_distribution'
+          widget: 'analytic_distribution',
+          optional: 'show'
         },
         _button_action_read_distribution_model: {
           _attr: {
             name: 'action_read_distribution_model',
+            type: 'object',
             string: 'View',
-            class: 'float-end btn-secondary',
-            type: 'object'
+            class: 'float-end btn-secondary'
           }
         }
       }
@@ -40,13 +46,13 @@ export default {
               partner_id: {},
               partner_category_id: {}
             },
-            _group_624: {
+            _group_182: {
               company_id: {
                 groups: 'base.group_multi_company'
               }
             }
           },
-          _group_571: {
+          _group_120: {
             _attr: {
               string: 'Analytic distribution to apply'
             },

@@ -21,9 +21,9 @@ export default {
           _button_validate: {
             _attr: {
               name: 'validate',
+              type: 'object',
               string: 'Create',
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button: {
@@ -46,7 +46,7 @@ export default {
             }
           }
         },
-        _group_756: {
+        _group_734: {
           _attr: {
             invisible: [['num_journals_without_account', '=', 0]]
           },
@@ -55,7 +55,7 @@ export default {
               no_create: true
             }
           },
-          _group_130: {
+          _group_768: {
             _span: {
               _attr: {
                 class: 'text-muted',

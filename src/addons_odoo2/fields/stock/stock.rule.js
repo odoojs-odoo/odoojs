@@ -27,7 +27,10 @@ const ModelFields = {
   propagate_warehouse_id: {},
   route_company_id: {},
   route_id: {},
-  rule_message: {},
+  rule_message: {
+    readonly: '1'
+  },
+
   sequence: {
     string: 'Sequence',
     groups: 'base.group_no_one'

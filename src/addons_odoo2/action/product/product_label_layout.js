@@ -18,7 +18,7 @@ export default {
               widget: 'radio'
             }
           },
-          _group_188: {
+          _group_620: {
             extra_html: {
               widget: 'html',
               invisible: [['print_format', 'not in', ('dymo', '2x7xprice')]]
@@ -29,9 +29,9 @@ export default {
           _button_process: {
             _attr: {
               name: 'process',
+              type: 'object',
               string: 'Confirm',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

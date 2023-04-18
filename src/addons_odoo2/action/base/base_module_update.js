@@ -21,7 +21,7 @@ export default {
             }
           }
         },
-        _group_404: {
+        _group_581: {
           updated: {},
           added: {}
         },
@@ -30,9 +30,9 @@ export default {
             _button_update_module: {
               _attr: {
                 name: 'update_module',
+                type: 'object',
                 string: 'Update',
-                class: 'btn-primary',
-                type: 'object'
+                class: 'btn-primary'
               }
             },
             _button: {
@@ -42,13 +42,13 @@ export default {
               }
             }
           },
-          _div_693: {
+          _div_857: {
             _button_action_module_open: {
               _attr: {
                 name: 'action_module_open',
+                type: 'object',
                 string: 'Open Apps',
-                class: 'btn-primary',
-                type: 'object'
+                class: 'btn-primary'
               }
             },
             _button: {

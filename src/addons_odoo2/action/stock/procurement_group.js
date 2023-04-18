@@ -13,10 +13,10 @@ export default {
           _button_do_view_pickings: {
             _attr: {
               name: 'do_view_pickings',
-              string: 'Transfers',
-              class: 'oe_stat_button',
               type: 'action',
-              icon: 'fa-truck'
+              string: 'Transfers',
+              icon: 'fa-truck',
+              class: 'oe_stat_button'
             }
           }
         },

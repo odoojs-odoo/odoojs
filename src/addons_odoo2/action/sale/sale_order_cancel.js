@@ -28,7 +28,7 @@ export default {
               },
               _br: {}
             },
-            _span_721: {
+            _span_362: {
               _attr: {
                 invisible: [['display_invoice_alert', '=', false]],
                 text: 'Draft invoices for this order will be cancelled.'
@@ -46,7 +46,7 @@ export default {
               }
             }
           },
-          _group_654: {
+          _group_552: {
             subject: {
               placeholder: 'Subject'
             }
@@ -60,17 +60,17 @@ export default {
           _button_action_send_mail_and_cancel: {
             _attr: {
               name: 'action_send_mail_and_cancel',
+              type: 'object',
               string: 'Send and cancel',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button_action_cancel: {
             _attr: {
               name: 'action_cancel',
+              type: 'object',
               string: 'Cancel',
-              class: 'btn-primary mx-1',
-              type: 'object'
+              class: 'btn-primary mx-1'
             }
           },
           _button: {

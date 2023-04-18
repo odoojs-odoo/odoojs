@@ -16,11 +16,13 @@ export default {
               text: 'in'
             },
             _strong: {
-              location_id: {}
+              location_id: {
+                readonly: 'True'
+              }
             }
           }
         },
-        _div_234: {
+        _div_427: {
           _attr: {
             invisible: [['quant_ids', '=', []]]
           },
@@ -60,9 +62,9 @@ export default {
           _button_action_done: {
             _attr: {
               name: 'action_done',
+              type: 'object',
               string: 'Confirm',
-              class: 'btn-secondary',
-              type: 'object'
+              class: 'btn-secondary'
             }
           }
         }

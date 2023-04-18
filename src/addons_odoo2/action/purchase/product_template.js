@@ -63,7 +63,7 @@ export default {
             }
           }
         },
-        _group_bill_920: {
+        _group_bill_888: {
           _attr: {
             name: 'bill'
           },
@@ -71,7 +71,7 @@ export default {
             widget: 'radio'
           }
         },
-        _group_purchase_278: {
+        _group_purchase_111: {
           _attr: {
             name: 'purchase'
           },
@@ -84,7 +84,7 @@ export default {
                 placeholder: 'This note is added to purchase orders.'
               }
             },
-            _group_476: {
+            _group_612: {
               _attr: {
                 string: 'Warning when Purchasing this Product',
                 groups: 'purchase.group_warning_purchase'
@@ -140,11 +140,11 @@ export default {
           _button_action_view_po: {
             _attr: {
               name: 'action_view_po',
+              type: 'object',
+              icon: 'fa-credit-card',
               groups: 'purchase.group_purchase_user',
               invisible: [['purchase_ok', '=', false]],
-              class: 'oe_stat_button',
-              type: 'object',
-              icon: 'fa-credit-card'
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -160,7 +160,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_495: {
+              _span_602: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Purchased'

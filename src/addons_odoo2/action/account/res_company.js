@@ -17,7 +17,7 @@ export default {
             invisible: '1'
           }
         },
-        _xpath_230: {
+        _xpath_701: {
           _attr: {
             expr: '//sheet',
             position: 'after'
@@ -52,7 +52,7 @@ export default {
               class: 'btn-primary'
             }
           },
-          _button_469: {
+          _button_473: {
             _attr: {
               string: 'Discard',
               class: 'btn-secondary'
@@ -91,9 +91,9 @@ export default {
           _button_action_save_onboarding_sale_tax: {
             _attr: {
               name: 'action_save_onboarding_sale_tax',
+              type: 'object',
               string: 'Apply',
-              class: 'btn btn-primary',
-              type: 'object'
+              class: 'btn btn-primary'
             }
           },
           _button: {

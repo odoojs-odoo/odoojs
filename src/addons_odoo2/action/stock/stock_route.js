@@ -31,8 +31,9 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _div_title: {
@@ -89,7 +90,7 @@ export default {
               groups: 'product.group_stock_packaging'
             }
           },
-          _group_752: {
+          _group_531: {
             _label_warehouse_selectable: {
               for: 'warehouse_selectable',
               string: 'Warehouses'
@@ -111,7 +112,7 @@ export default {
             }
           }
         },
-        _group_351: {
+        _group_342: {
           _attr: {
             string: 'Rules'
           },

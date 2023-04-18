@@ -12,10 +12,10 @@ export default {
           _button_action_view_invoice: {
             _attr: {
               name: 'action_view_invoice',
-              invisible: [['invoice_count', '=', 0]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-pencil-square-o'
+              icon: 'fa-pencil-square-o',
+              invisible: [['invoice_count', '=', 0]],
+              class: 'oe_stat_button'
             },
             invoice_count: {
               string: 'Customer Invoices',
@@ -25,10 +25,10 @@ export default {
           _button_action_view_vendor_bill: {
             _attr: {
               name: 'action_view_vendor_bill',
-              invisible: [['vendor_bill_count', '=', 0]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-file-text-o'
+              icon: 'fa-file-text-o',
+              invisible: [['vendor_bill_count', '=', 0]],
+              class: 'oe_stat_button'
             },
             vendor_bill_count: {
               string: 'Vendor Bills',

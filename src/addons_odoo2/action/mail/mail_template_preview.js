@@ -10,6 +10,7 @@ export default {
             text: 'Preview of'
           },
           mail_template_id: {
+            readonly: '1',
             no_open: true
           }
         },
@@ -23,7 +24,7 @@ export default {
         no_record: {
           invisible: '1'
         },
-        _div_889: {
+        _div_898: {
           _attr: {
             class: 'container'
           },
@@ -36,7 +37,9 @@ export default {
                 class: 'col-md-5 col-lg-4 col-sm-12 ps-0',
                 text: 'Choose an example'
               },
-              model_id: {}
+              model_id: {
+                readonly: '1'
+              }
             },
             _div: {
               _attr: {
@@ -45,6 +48,7 @@ export default {
               resource_ref: {
                 invisible: [['no_record', '=', true]],
                 class: 'w-100',
+                readonly: 'False',
                 hide_model: true,
                 no_create: true,
                 no_open: true
@@ -58,7 +62,7 @@ export default {
               }
             }
           },
-          _div_886: {
+          _div_759: {
             _attr: {
               class: 'row'
             },

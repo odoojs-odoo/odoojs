@@ -7,19 +7,20 @@ const ModelFields = {
   },
 
   company_id: {
-    groups: 'base.group_multi_company'
+    groups: 'base.group_multi_company',
+    readonly: '1'
   },
 
   currency_id: {
     groups: '===todo=='
   },
 
-  currency_id_$_form_$$_542: {
-    groups: '!base.group_multi_currency'
+  currency_id_$_form_$$_382: {
+    groups: 'base.group_multi_currency'
   },
 
-  currency_id_$_form_$$_852: {
-    groups: 'base.group_multi_currency'
+  currency_id_$_form_$$_925: {
+    groups: '!base.group_multi_currency'
   },
 
   date_approve: {},
@@ -42,6 +43,7 @@ const ModelFields = {
   mail_reception_confirmed: {},
   mail_reminder_confirmed: {},
   name: {
+    readonly: '1',
     string: 'Reference'
   },
 
@@ -62,7 +64,8 @@ const ModelFields = {
       res_partner_search_mode: 'supplier',
       show_vat: true
     },
-    placeholder: 'Name, TIN, Email, or Reference'
+    placeholder: 'Name, TIN, Email, or Reference',
+    readonly: '1'
   },
 
   partner_ref: {},
@@ -73,9 +76,15 @@ const ModelFields = {
   priority: {},
   receipt_reminder_email: {},
   reminder_date_before_receipt: {},
-  state: {},
+  state: {
+    readonly: '1'
+  },
+
   tax_country_id: {},
-  tax_totals: {},
+  tax_totals: {
+    readonly: '1'
+  },
+
   user_id: {
     domain: [['share', '=', false]]
   }

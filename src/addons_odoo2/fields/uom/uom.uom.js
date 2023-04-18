@@ -11,7 +11,9 @@ const ModelFields = {
 
   name: {},
   rounding: {},
-  uom_type: {}
+  uom_type: {
+    readonly: '1'
+  }
 }
 
 const AddonsFields = {

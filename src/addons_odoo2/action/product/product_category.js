@@ -13,12 +13,12 @@ export default {
           _button_product_template_action_all: {
             _attr: {
               name: 'product_template_action_all',
+              type: 'action',
+              icon: 'fa-th-list',
               context: {
                 todo_ctx: "{'search_default_categ_id': active_id, 'default_categ_id': active_id, 'group_expand': True}"
               },
-              class: 'oe_stat_button',
-              type: 'action',
-              icon: 'fa-th-list'
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -30,7 +30,7 @@ export default {
                 },
                 product_count: {}
               },
-              _span_391: {
+              _span_606: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Products'

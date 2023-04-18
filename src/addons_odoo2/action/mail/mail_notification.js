@@ -35,7 +35,7 @@ export default {
             mail_mail_id: {},
             res_partner_id: {}
           },
-          _group_646: {
+          _group_671: {
             _attr: {
               string: 'Status'
             },

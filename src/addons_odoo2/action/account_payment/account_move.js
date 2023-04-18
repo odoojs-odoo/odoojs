@@ -17,7 +17,7 @@ export default {
             }
           }
         },
-        _xpath_118: {
+        _xpath_747: {
           _attr: {
             expr: "//button[@id='account_invoice_payment_btn']",
             position: 'after'
@@ -28,24 +28,24 @@ export default {
           _button_payment_action_capture: {
             _attr: {
               name: 'payment_action_capture',
+              type: 'object',
               string: 'Capture Transaction',
               groups: 'account.group_account_invoice',
               invisible: ['|', '|', ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')], ['state', '!=', 'posted'], ['authorized_transaction_ids', '=', []]],
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button_payment_action_void: {
             _attr: {
               name: 'payment_action_void',
+              type: 'object',
               string: 'Void Transaction',
               groups: 'account.group_account_invoice',
-              invisible: ['|', '|', ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')], ['state', '!=', 'posted'], ['authorized_transaction_ids', '=', []]],
-              type: 'object'
+              invisible: ['|', '|', ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')], ['state', '!=', 'posted'], ['authorized_transaction_ids', '=', []]]
             }
           }
         },
-        _xpath_878: {
+        _xpath_309: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'
@@ -56,11 +56,11 @@ export default {
           _button_action_view_payment_transactions: {
             _attr: {
               name: 'action_view_payment_transactions',
-              string: 'Payment Transaction',
-              invisible: [['transaction_ids', '=', []]],
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-money'
+              string: 'Payment Transaction',
+              icon: 'fa-money',
+              invisible: [['transaction_ids', '=', []]],
+              class: 'oe_stat_button'
             }
           }
         }

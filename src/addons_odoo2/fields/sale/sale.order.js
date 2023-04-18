@@ -16,7 +16,8 @@ const ModelFields = {
   client_order_ref: {},
   commitment_date: {},
   company_id: {
-    groups: 'base.group_multi_company'
+    groups: 'base.group_multi_company',
+    readonly: '1'
   },
 
   create_date: {
@@ -39,17 +40,18 @@ const ModelFields = {
     groups: '===todo=='
   },
 
-  invoice_status_$_form_$$_434: {
+  invoice_status_$_form_$$_784: {
     groups: 'base.group_no_one'
   },
 
-  invoice_status_$_form_$$_665: {
+  invoice_status_$_form_$$_843: {
     groups: '!base.group_no_one'
   },
 
   medium_id: {},
   message_needaction: {},
   name: {
+    readonly: '1',
     string: 'Number'
   },
 
@@ -68,7 +70,8 @@ const ModelFields = {
       res_partner_search_mode: 'customer',
       show_address: 1,
       show_vat: true
-    }
+    },
+    readonly: '1'
   },
 
   partner_invoice_id: {
@@ -90,7 +93,10 @@ const ModelFields = {
     groups: '!product.group_product_pricelist'
   },
 
-  reference: {},
+  reference: {
+    readonly: '1'
+  },
+
   require_payment: {},
   require_signature: {},
   show_update_fpos: {},
@@ -102,7 +108,10 @@ const ModelFields = {
   state: {},
   tag_ids: {},
   tax_country_id: {},
-  tax_totals: {},
+  tax_totals: {
+    readonly: '1'
+  },
+
   team_id: {},
   user_id: {},
   validity_date: {}

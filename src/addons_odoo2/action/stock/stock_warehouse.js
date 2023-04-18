@@ -13,18 +13,19 @@ export default {
           _button_action_view_all_routes: {
             _attr: {
               name: 'action_view_all_routes',
-              string: 'Routes',
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-refresh'
+              string: 'Routes',
+              icon: 'fa-refresh',
+              class: 'oe_stat_button'
             }
           }
         },
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _label_name: {
@@ -47,7 +48,7 @@ export default {
               placeholder: 'e.g. CW'
             }
           },
-          _group_693: {
+          _group_169: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
@@ -103,23 +104,46 @@ export default {
                   string: 'Locations'
                 },
                 view_location_id: {
-                  string: 'Warehouse view location'
+                  string: 'Warehouse view location',
+                  required: '0',
+                  readonly: '1'
                 },
-                lot_stock_id: {},
-                wh_input_stock_loc_id: {},
-                wh_qc_stock_loc_id: {},
-                wh_pack_stock_loc_id: {},
-                wh_output_stock_loc_id: {}
+                lot_stock_id: {
+                  required: '0',
+                  readonly: '1'
+                },
+                wh_input_stock_loc_id: {
+                  readonly: '1'
+                },
+                wh_qc_stock_loc_id: {
+                  readonly: '1'
+                },
+                wh_pack_stock_loc_id: {
+                  readonly: '1'
+                },
+                wh_output_stock_loc_id: {
+                  readonly: '1'
+                }
               },
-              _group_272: {
+              _group_280: {
                 _attr: {
                   string: 'Operation Types'
                 },
-                in_type_id: {},
-                int_type_id: {},
-                pick_type_id: {},
-                pack_type_id: {},
-                out_type_id: {}
+                in_type_id: {
+                  readonly: '1'
+                },
+                int_type_id: {
+                  readonly: '1'
+                },
+                pick_type_id: {
+                  readonly: '1'
+                },
+                pack_type_id: {
+                  readonly: '1'
+                },
+                out_type_id: {
+                  readonly: '1'
+                }
               }
             }
           }

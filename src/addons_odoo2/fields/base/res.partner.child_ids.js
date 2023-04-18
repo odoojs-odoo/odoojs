@@ -51,7 +51,10 @@ const ModelFields = {
     placeholder: 'e.g. Mr.'
   },
 
-  type: {},
+  type: {
+    required: '1'
+  },
+
   user_id: {},
   zip: {
     placeholder: 'ZIP'

@@ -6,10 +6,10 @@ export default {
     arch: {
       sheet: {
         _p: 'This module will trigger the uninstallation of below modules.',
-        _p_759: {
+        _p_710: {
           _strong: 'This operation will permanently erase all data currently stored by the modules!'
         },
-        _p_214: 'If you wish to cancel the process, press the cancel button below',
+        _p_370: 'If you wish to cancel the process, press the cancel button below',
         _separator: {
           _attr: {
             string: 'Impacted Apps'
@@ -20,17 +20,17 @@ export default {
           _button_upgrade_module: {
             _attr: {
               name: 'upgrade_module',
+              type: 'object',
               string: 'Confirm',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button_upgrade_module_cancel: {
             _attr: {
               name: 'upgrade_module_cancel',
+              type: 'object',
               string: 'Cancel',
-              class: 'btn-secondary',
-              type: 'object'
+              class: 'btn-secondary'
             }
           }
         }
@@ -63,7 +63,7 @@ export default {
             }
           }
         },
-        _div_970: {
+        _div_624: {
           _span: {
             _attr: {
               class: 'o_form_label',
@@ -75,9 +75,9 @@ export default {
           _button_config: {
             _attr: {
               name: 'config',
+              type: 'object',
               string: 'Start configuration',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

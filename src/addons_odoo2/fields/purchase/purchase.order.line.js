@@ -10,7 +10,10 @@ const ModelFields = {
   currency_id: {},
   date_approve: {},
   date_order: {},
-  date_planned: {},
+  date_planned: {
+    readonly: '1'
+  },
+
   invoice_lines: {},
   name: {},
   order_id: {},
@@ -20,10 +23,17 @@ const ModelFields = {
 
   price_subtotal: {},
   price_unit: {},
-  product_id: {},
-  product_qty: {},
+  product_id: {
+    readonly: '1'
+  },
+
+  product_qty: {
+    readonly: '1'
+  },
+
   product_uom: {
-    groups: 'uom.group_uom'
+    groups: 'uom.group_uom',
+    readonly: '1'
   },
 
   product_uom_qty: {},

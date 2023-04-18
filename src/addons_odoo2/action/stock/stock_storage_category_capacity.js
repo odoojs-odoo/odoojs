@@ -26,7 +26,7 @@ export default {
         company_id: {
           invisible: '1'
         },
-        _field_package_type_id_486: {
+        _field_package_type_id_351: {
           package_type_id: {
             invisible: '1'
           }

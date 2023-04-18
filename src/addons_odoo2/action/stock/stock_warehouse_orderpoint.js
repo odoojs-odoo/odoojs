@@ -34,6 +34,7 @@ export default {
         },
         warehouse_id: {
           groups: 'stock.group_stock_multi_warehouses',
+          optional: 'hide',
           no_create: true
         },
         qty_on_hand: {
@@ -45,13 +46,15 @@ export default {
         _button_action_product_forecast_report: {
           _attr: {
             name: 'action_product_forecast_report',
-            invisible: [['id', '=', false]],
-            title: 'Forecast Report',
             type: 'object',
-            icon: 'fa-area-chart'
+            title: 'Forecast Report',
+            icon: 'fa-area-chart',
+            invisible: [['id', '=', false]]
           }
         },
-        visibility_days: {},
+        visibility_days: {
+          optional: 'hidden'
+        },
         route_id: {
           no_create: true,
           no_open: true
@@ -59,60 +62,71 @@ export default {
         _button_action_stock_replenishment_info: {
           _attr: {
             name: 'action_stock_replenishment_info',
-            invisible: [['id', '=', false]],
-            title: 'Replenishment Information',
             type: 'object',
-            icon: 'fa-info-circle'
+            title: 'Replenishment Information',
+            icon: 'fa-info-circle',
+            invisible: [['id', '=', false]]
           }
         },
-        trigger: {},
-        group_id: {
-          groups: 'stock.group_adv_location'
+        trigger: {
+          optional: 'hide'
         },
-        product_min_qty: {},
-        product_max_qty: {},
-        qty_multiple: {},
+        group_id: {
+          groups: 'stock.group_adv_location',
+          optional: 'hide'
+        },
+        product_min_qty: {
+          optional: 'show'
+        },
+        product_max_qty: {
+          optional: 'show'
+        },
+        qty_multiple: {
+          optional: 'hide'
+        },
         qty_to_order: {},
         product_uom_name: {
           string: 'UoM',
           groups: 'uom.group_uom'
         },
-        _field_company_id_906: {
+        _field_company_id_956: {
           company_id: {
-            groups: 'base.group_multi_company'
+            groups: 'base.group_multi_company',
+            readonly: '1',
+            optional: 'hide'
           }
         },
         _button_action_replenish: {
           _attr: {
             name: 'action_replenish',
-            string: 'Order Once',
-            invisible: [['qty_to_order', '<=', 0.0]],
-            class: 'o_replenish_buttons',
             type: 'object',
-            icon: 'fa-truck'
+            string: 'Order Once',
+            icon: 'fa-truck',
+            invisible: [['qty_to_order', '<=', 0.0]],
+            class: 'o_replenish_buttons'
           }
         },
         _button_action_replenish_auto: {
           _attr: {
             name: 'action_replenish_auto',
-            string: 'Automate Orders',
-            invisible: ['|', ['qty_to_order', '<=', 0.0], ['trigger', '=', 'auto']],
-            class: 'o_replenish_buttons',
             type: 'object',
-            icon: 'fa-refresh'
+            string: 'Automate Orders',
+            icon: 'fa-refresh',
+            invisible: ['|', ['qty_to_order', '<=', 0.0], ['trigger', '=', 'auto']],
+            class: 'o_replenish_buttons'
           }
         },
         _button_action_orderpoint_snooze: {
           _attr: {
             name: 'action_orderpoint_snooze',
+            type: 'action',
             string: 'Snooze',
+            icon: 'fa-bell-slash',
             invisible: [['trigger', '!=', 'manual']],
             context: {
               default_orderpoint_ids: [<built-in function id>]
             },
-            class: 'text-warning',
-            type: 'action',
-            icon: 'fa-bell-slash'
+            class: 'text-warning'
           }
         }
       }
@@ -154,7 +168,7 @@ export default {
           domain: [['qty_to_order', '>', 0.0]]
         }
       },
-      _separator_826: {},
+      _separator_937: {},
       _filter_filter_not_snoozed: {
         _attr: {
           name: 'filter_not_snoozed',
@@ -302,8 +316,8 @@ export default {
           _a_action_procurement_compute: {
             _attr: {
               name: '%(action_procurement_compute)d',
-              class: 'alert-link o_form_uri',
               type: 'action',
+              class: 'alert-link o_form_uri',
               text: 'Run the scheduler'
             }
           }
@@ -311,8 +325,9 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _div_title: {
@@ -347,17 +362,17 @@ export default {
               _button_ock__action_stock_replenishment_in: {
                 _attr: {
                   name: 'ock.action_stock_replenishment_in',
-                  string: 'Forecast Description',
-                  invisible: [['id', '=', false]],
                   type: 'action',
-                  icon: 'fa-area-chart'
+                  string: 'Forecast Description',
+                  icon: 'fa-area-chart',
+                  invisible: [['id', '=', false]]
                 }
               }
             },
             _label_product_max_qty: {
               for: 'product_max_qty'
             },
-            _div_285: {
+            _div_139: {
               _attr: {
                 class: 'o_row'
               },
@@ -368,7 +383,7 @@ export default {
               string: 'Quantity Multiple'
             }
           },
-          _group_950: {
+          _group_198: {
             allowed_location_ids: {
               invisible: '1'
             },

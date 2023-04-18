@@ -22,60 +22,60 @@ export default {
           _button_action_merge: {
             _attr: {
               name: 'action_merge',
+              type: 'object',
               string: 'Merge Contacts',
               invisible: [['state', 'in', ('option', 'finished')]],
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button_action_skip: {
             _attr: {
               name: 'action_skip',
+              type: 'object',
               string: 'Skip these contacts',
-              invisible: [['state', '!=', 'selection']],
-              type: 'object'
+              invisible: [['state', '!=', 'selection']]
             }
           },
           _button_action_start_manual_process: {
             _attr: {
               name: 'action_start_manual_process',
+              type: 'object',
               string: 'Merge with Manual Check',
               invisible: [['state', '!=', 'option']],
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button_action_start_automatic_process: {
             _attr: {
               name: 'action_start_automatic_process',
+              type: 'object',
               string: 'Merge Automatically',
               invisible: [['state', '!=', 'option']],
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button_action_update_all_process: {
             _attr: {
               name: 'action_update_all_process',
+              type: 'object',
               string: 'Merge Automatically all process',
-              invisible: [['state', '!=', 'option']],
-              type: 'object'
+              invisible: [['state', '!=', 'option']]
             }
           },
           _button: {
             _attr: {
+              type: 'object',
               string: 'Cancel',
               invisible: [['state', '=', 'finished']],
-              class: 'btn btn-secondary oe_inline',
-              type: 'object'
+              class: 'btn btn-secondary oe_inline'
             }
           },
-          _button_247: {
+          _button_868: {
             _attr: {
+              type: 'object',
               string: 'Close',
               invisible: [['state', '!=', 'finished']],
-              class: 'btn btn-secondary oe_inline',
-              type: 'object'
+              class: 'btn btn-secondary oe_inline'
             }
           }
         },
@@ -87,9 +87,9 @@ export default {
           _button_action_partner_deduplicate: {
             _attr: {
               name: 'action_partner_deduplicate',
+              type: 'action',
               string: 'Deduplicate the other Contacts',
-              class: 'oe_highlight',
-              type: 'action'
+              class: 'oe_highlight'
             }
           }
         },
@@ -100,7 +100,7 @@ export default {
             text: 'Select the list of fields used to search for\n                            duplicated records. If you select several fields,\n                            Odoo will propose you to merge only those having\n                            all these fields in common. (not one of the fields).'
           }
         },
-        _group_594: {
+        _group_150: {
           _attr: {
             invisible: ['|', ['state', 'not in', ('selection', 'finished')], ['number_group', '=', 0]]
           },
@@ -109,7 +109,7 @@ export default {
           },
           number_group: {}
         },
-        _group_359: {
+        _group_843: {
           _attr: {
             string: 'Search duplicates based on duplicated data in',
             invisible: [['state', 'not in', ('option',)]]
@@ -120,7 +120,7 @@ export default {
           group_by_vat: {},
           group_by_parent_id: {}
         },
-        _group_710: {
+        _group_127: {
           _attr: {
             string: 'Exclude contacts having',
             invisible: [['state', 'not in', ('option',)]]
@@ -134,7 +134,7 @@ export default {
             invisible: [['state', 'not in', ('option',)]]
           }
         },
-        _group_888: {
+        _group_583: {
           _attr: {
             invisible: [['state', 'not in', ('option', 'finished')]]
           },
@@ -142,13 +142,13 @@ export default {
             readonly: [['state', 'in', 'finished']]
           }
         },
-        _separator_749: {
+        _separator_906: {
           _attr: {
             string: 'Merge the following contacts',
             invisible: [['state', 'in', ('option', 'finished')]]
           }
         },
-        _group_731: {
+        _group_730: {
           _attr: {
             invisible: [['state', 'in', ('option', 'finished')]]
           },

@@ -24,7 +24,10 @@ const ModelFields = {
   },
 
   move_ids: {},
-  picking_policy: {},
+  picking_policy: {
+    required: 'True'
+  },
+
   qty_available_today: {},
   qty_to_deliver: {},
   route_id: {

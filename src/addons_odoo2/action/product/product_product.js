@@ -8,7 +8,10 @@ export default {
         name: {
           __todo__replace: {
             name: {
-              string: 'Product'
+              string: 'Product',
+              filter_domain: {
+                todo_ctx: "['|', '|', ('default_code', 'ilike', self), ('name', 'ilike', self), ('barcode', 'ilike', self)]"
+              }
             }
           }
         },
@@ -48,8 +51,8 @@ export default {
           _button_action_open_label_layout: {
             _attr: {
               name: 'action_open_label_layout',
-              string: 'Print Labels',
-              type: 'object'
+              type: 'object',
+              string: 'Print Labels'
             }
           }
         },
@@ -62,8 +65,9 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         active: {
@@ -90,20 +94,22 @@ export default {
           },
           _h1: {
             name: {
+              readonly: '1',
               placeholder: 'e.g. Odoo Enterprise Subscription'
             }
           },
           product_template_attribute_value_ids: {
-            widget: 'many2many_tags'
+            widget: 'many2many_tags',
+            readonly: '1'
           },
           _p: {
             _span: 'All general settings about this product are managed on',
             _button_open_product_template: {
               _attr: {
                 name: 'open_product_template',
+                type: 'object',
                 string: 'the product template.',
-                class: 'oe_link oe_link_product ps-0 ms-1 mb-1',
-                type: 'object'
+                class: 'oe_link oe_link_product ps-0 ms-1 mb-1'
               }
             }
           }
@@ -147,7 +153,7 @@ export default {
             _label_standard_price: {
               for: 'standard_price'
             },
-            _div_172: {
+            _div_517: {
               _attr: {
                 class: 'o_row'
               },
@@ -165,7 +171,7 @@ export default {
             }
           }
         },
-        _group_666: {
+        _group_874: {
           _group_weight: {
             _attr: {
               name: 'weight',
@@ -189,7 +195,7 @@ export default {
             _label_weight: {
               for: 'weight'
             },
-            _div_891: {
+            _div_686: {
               _attr: {
                 class: 'o_row'
               },
@@ -209,6 +215,7 @@ export default {
             product_tag_ids: {
               string: 'Product Template Tags',
               widget: 'many2many_tags',
+              readonly: '1',
               no_open: true,
               color_field: 'color'
             },
@@ -219,7 +226,7 @@ export default {
             }
           }
         },
-        _group_431: {
+        _group_357: {
           _group_packaging: {
             _attr: {
               name: 'packaging',
@@ -262,42 +269,66 @@ export default {
           _button_action_open_label_layout: {
             _attr: {
               name: 'action_open_label_layout',
-              string: 'Print Labels',
-              type: 'object'
+              type: 'object',
+              string: 'Print Labels'
             }
           }
         },
         priority: {
-          widget: 'priority'
+          widget: 'priority',
+          readonly: '1'
         },
-        default_code: {},
-        barcode: {},
-        name: {},
+        default_code: {
+          readonly: '1',
+          optional: 'show'
+        },
+        barcode: {
+          readonly: '1',
+          optional: 'hide'
+        },
+        name: {
+          readonly: '1'
+        },
         product_template_variant_value_ids: {
           widget: 'many2many_tags',
-          groups: 'product.group_product_variant'
+          groups: 'product.group_product_variant',
+          readonly: '1'
         },
         company_id: {
-          groups: 'base.group_multi_company'
+          groups: 'base.group_multi_company',
+          readonly: '1',
+          optional: 'hide'
         },
         lst_price: {
-          string: 'Sales Price'
+          string: 'Sales Price',
+          optional: 'show'
         },
-        standard_price: {},
-        categ_id: {},
+        standard_price: {
+          optional: 'show'
+        },
+        categ_id: {
+          optional: 'hide'
+        },
         product_tag_ids: {
           widget: 'many2many_tags',
+          optional: 'hide',
           color_field: 'color',
           no_edit_color: 1
         },
-        type: {},
+        type: {
+          readonly: '1',
+          optional: 'hide'
+        },
         uom_id: {
           groups: 'uom.group_uom',
+          readonly: '1',
+          optional: 'show',
           no_open: true,
           no_create: true
         },
         product_tmpl_id: {
-          invisible: '1'
+          invisible: '1',
+          readonly: '1'
         },
         active: {
           invisible: '1'
@@ -334,7 +365,7 @@ export default {
           default_code: {},
           barcode: {}
         },
-        _xpath_456: {
+        _xpath_620: {
           _attr: {
             expr: "//field[@name='priority']",
             position: 'attributes'
@@ -350,7 +381,7 @@ export default {
           readonly: [['product_variant_count', '>', 1]],
           invisible: '1'
         },
-        _xpath_327: {
+        _xpath_908: {
           _attr: {
             expr: "//label[@for='list_price']",
             position: 'replace'
@@ -359,7 +390,7 @@ export default {
             for: 'lst_price'
           }
         },
-        _field_list_price_327: {
+        _field_list_price_464: {
           list_price: {
             __todo__after: {
               lst_price: {
@@ -387,24 +418,26 @@ export default {
             product_tmpl_id: {
               invisible: '1',
               required: [['id', '!=', false]],
-              class: 'oe_inline'
+              class: 'oe_inline',
+              readonly: '1'
             }
           }
         },
-        _xpath_530: {
+        _xpath_607: {
           _attr: {
             expr: "//div[hasclass('oe_title')]",
             position: 'inside'
           },
           product_template_variant_value_ids: {
             widget: 'many2many_tags',
-            groups: 'product.group_product_variant'
+            groups: 'product.group_product_variant',
+            readonly: '1'
           }
         },
         product_tag_ids: {
           __todo__options: "{'no_open': true}"
         },
-        _field_product_tag_ids_864: {
+        _field_product_tag_ids_434: {
           product_tag_ids: {
             __todo__after: {
               additional_product_tag_ids: {

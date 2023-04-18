@@ -1,7 +1,10 @@
 const ModelFields = {
   account_control_ids: {},
   active: {},
-  alias_domain: {},
+  alias_domain: {
+    readonly: '1'
+  },
+
   alias_id: {},
   alias_name: {},
   available_payment_method_ids: {},
@@ -46,7 +49,10 @@ const ModelFields = {
 
   invoice_reference_model: {},
   invoice_reference_type: {},
-  journal_group_ids: {},
+  journal_group_ids: {
+    readonly: '1'
+  },
+
   loss_account_id: {},
   name: {
     placeholder: 'e.g. Customer Invoices'

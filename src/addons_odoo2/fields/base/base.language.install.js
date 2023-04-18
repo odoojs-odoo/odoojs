@@ -1,5 +1,8 @@
 const ModelFields = {
-  first_lang_id: {},
+  first_lang_id: {
+    readonly: 'True'
+  },
+
   lang_ids: {
     context: {
       active_test: false

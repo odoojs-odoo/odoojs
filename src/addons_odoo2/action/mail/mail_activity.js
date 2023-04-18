@@ -24,11 +24,11 @@ export default {
           _button_action_open_document: {
             _attr: {
               name: 'action_open_document',
-              string: 'Open Document',
-              invisible: ['|', ['res_model', '=', false], ['res_id', '=', 0]],
-              class: 'oe_link',
               type: 'object',
-              icon: 'fa-file-text-o'
+              string: 'Open Document',
+              icon: 'fa-file-text-o',
+              invisible: ['|', ['res_model', '=', false], ['res_id', '=', 0]],
+              class: 'oe_link'
             }
           }
         },
@@ -54,7 +54,7 @@ export default {
           previous_activity_type_id: {},
           has_recommended_activities: {}
         },
-        _group_802: {
+        _group_837: {
           _attr: {
             invisible: [['has_recommended_activities', '=', false]]
           },
@@ -66,9 +66,10 @@ export default {
             }
           }
         },
-        _group_655: {
+        _group_100: {
           _group: {
             activity_type_id: {
+              required: '1',
               no_create: true,
               no_open: true
             },
@@ -76,7 +77,7 @@ export default {
               placeholder: 'e.g. Discuss proposal'
             }
           },
-          _group_169: {
+          _group_434: {
             date_deadline: {},
             user_id: {}
           }
@@ -92,55 +93,55 @@ export default {
           _button_action_close_dialog: {
             _attr: {
               name: 'action_close_dialog',
+              type: 'object',
               string: 'Schedule',
               invisible: [['id', '!=', false]],
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
-          _button_action_close_dialog_496: {
+          _button_action_close_dialog_941: {
             _attr: {
               name: 'action_close_dialog',
+              type: 'object',
               string: 'Save',
               invisible: [['id', '=', false]],
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button_action_done: {
             _attr: {
               name: 'action_done',
+              type: 'object',
               string: 'Mark as Done',
               invisible: [['chaining_type', '=', 'trigger']],
               context: {
                 mail_activity_quick_update: true
               },
-              class: 'btn-secondary',
-              type: 'object'
+              class: 'btn-secondary'
             }
           },
           _button_action_done_schedule_next: {
             _attr: {
               name: 'action_done_schedule_next',
+              type: 'object',
               string: 'Done & Schedule Next',
               invisible: [['chaining_type', '=', 'trigger']],
               context: {
                 mail_activity_quick_update: true
               },
-              class: 'btn-secondary',
-              type: 'object'
+              class: 'btn-secondary'
             }
           },
-          _button_action_done_schedule_next_240: {
+          _button_action_done_schedule_next_713: {
             _attr: {
               name: 'action_done_schedule_next',
+              type: 'object',
               string: 'Done & Launch Next',
               invisible: [['chaining_type', '=', 'suggest']],
               context: {
                 mail_activity_quick_update: true
               },
-              class: 'btn-secondary',
-              type: 'object'
+              class: 'btn-secondary'
             }
           },
           _button: {
@@ -163,7 +164,8 @@ export default {
         activity_type_id: {
           __todo__before: {
             res_name: {
-              string: 'Document'
+              string: 'Document',
+              readonly: '1'
             }
           }
         },

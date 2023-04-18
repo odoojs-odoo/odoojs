@@ -28,8 +28,8 @@ export default {
               },
               _i: {
                 _attr: {
-                  class: 'fa fa-fw fa-usd',
-                  title: 'Sales orders'
+                  title: 'Sales orders',
+                  class: 'fa fa-fw fa-usd'
                 }
               },
               _t: {}
@@ -53,10 +53,10 @@ export default {
           _button_action_view_sale_order: {
             _attr: {
               name: 'action_view_sale_order',
-              groups: 'sales_team.group_sale_salesman',
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-usd'
+              icon: 'fa-usd',
+              groups: 'sales_team.group_sale_salesman',
+              class: 'oe_stat_button'
             },
             sale_order_count: {
               string: 'Sales',
@@ -82,7 +82,9 @@ export default {
                   string: 'Warning on the Sales Order'
                 }
               },
-              sale_warn: {},
+              sale_warn: {
+                required: '1'
+              },
               sale_warn_msg: {
                 string: 'Message',
                 required: [['sale_warn', '!=', false], ['sale_warn', '!=', 'no-message']],

@@ -12,13 +12,13 @@ export default {
           _button_action_view_partner_invoices: {
             _attr: {
               name: 'action_view_partner_invoices',
+              type: 'object',
+              icon: 'fa-pencil-square-o',
               groups: 'account.group_account_invoice,account.group_account_readonly',
               context: {
                 todo_ctx: "{'default_partner_id': active_id}"
               },
-              class: 'oe_stat_button',
-              type: 'object',
-              icon: 'fa-pencil-square-o'
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -36,7 +36,7 @@ export default {
                   currency_field: 'currency_id'
                 }
               },
-              _span_488: {
+              _span_956: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Invoiced'
@@ -62,7 +62,9 @@ export default {
                   string: 'Warning on the Invoice'
                 }
               },
-              invoice_warn: {},
+              invoice_warn: {
+                required: '1'
+              },
               invoice_warn_msg: {
                 required: [['invoice_warn', '!=', false], ['invoice_warn', '!=', 'no-message']],
                 invisible: [['invoice_warn', 'in', (false, 'no-message')]],
@@ -97,9 +99,9 @@ export default {
               _button_action_view_partner_with_same_bank: {
                 _attr: {
                   name: 'action_view_partner_with_same_bank',
+                  type: 'object',
                   string: 'Partners',
-                  class: 'alert-link',
-                  type: 'object'
+                  class: 'alert-link'
                 }
               }
             }
@@ -156,12 +158,12 @@ export default {
                 _button_base__action_res_partner_bank_account_form: {
                   _attr: {
                     name: 'base.action_res_partner_bank_account_form',
+                    type: 'action',
                     string: 'View accounts detail',
                     context: {
                       todo_ctx: "{'search_default_partner_id': active_id, 'default_partner_id': active_id}"
                     },
-                    class: 'btn-link',
-                    type: 'action'
+                    class: 'btn-link'
                   }
                 }
               },
@@ -216,16 +218,16 @@ export default {
                 _button_open_commercial_entity: {
                   _attr: {
                     name: 'open_commercial_entity',
+                    type: 'object',
                     string: 'the parent company',
-                    class: 'oe_link',
-                    type: 'object'
+                    class: 'oe_link'
                   }
                 }
               }
             }
           }
         },
-        _xpath_562: {
+        _xpath_136: {
           _attr: {
             expr: "//group[@name='misc']",
             position: 'before'

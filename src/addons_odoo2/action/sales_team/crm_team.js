@@ -54,8 +54,9 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _div_title: {
@@ -147,7 +148,7 @@ export default {
                                   }
                                 }
                               },
-                              _div_962: {
+                              _div_893: {
                                 _attr: {
                                   class: 'oe_kanban_details d-flex flex-column ms-3'
                                 },
@@ -163,8 +164,8 @@ export default {
                                   },
                                   _i: {
                                     _attr: {
-                                      class: 'fa fa-envelope me-1',
-                                      title: 'Email'
+                                      title: 'Email',
+                                      class: 'fa fa-envelope me-1'
                                     }
                                   },
                                   email: {}
@@ -201,7 +202,9 @@ export default {
         sequence: {
           widget: 'handle'
         },
-        name: {},
+        name: {
+          readonly: '1'
+        },
         active: {
           invisible: '1'
         },

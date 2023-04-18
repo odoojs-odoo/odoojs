@@ -11,22 +11,33 @@ export default {
         product_uom_category_id: {
           invisible: '1'
         },
-        date: {},
+        date: {
+          optional: 'show'
+        },
         name: {},
         account_id: {},
         plan_id: {},
         currency_id: {
           invisible: '1'
         },
-        unit_amount: {},
-        product_uom_id: {},
-        partner_id: {},
-        _field_company_id_933: {
+        unit_amount: {
+          optional: 'hide'
+        },
+        product_uom_id: {
+          optional: 'hide'
+        },
+        partner_id: {
+          optional: 'hide'
+        },
+        _field_company_id_508: {
           company_id: {
-            groups: 'base.group_multi_company'
+            groups: 'base.group_multi_company',
+            optional: 'show'
           }
         },
-        amount: {}
+        amount: {
+          optional: 'show'
+        }
       }
     }
   },

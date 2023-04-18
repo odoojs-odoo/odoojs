@@ -32,12 +32,12 @@ const ModelFields = {
     string: 'To'
   },
 
-  location_dest_id_$_form_$$_602: {
-    groups: '!stock.group_stock_multi_locations'
+  location_dest_id_$_form_$$_205: {
+    groups: 'stock.group_stock_multi_locations'
   },
 
-  location_dest_id_$_form_$$_862: {
-    groups: 'stock.group_stock_multi_locations'
+  location_dest_id_$_form_$$_636: {
+    groups: '!stock.group_stock_multi_locations'
   },
 
   location_dest_id_$_tree: {
@@ -49,12 +49,12 @@ const ModelFields = {
     string: 'From'
   },
 
-  location_id_$_form_$$_130: {
-    groups: '!stock.group_stock_multi_locations'
+  location_id_$_form_$$_657: {
+    groups: 'stock.group_stock_multi_locations'
   },
 
-  location_id_$_form_$$_727: {
-    groups: 'stock.group_stock_multi_locations'
+  location_id_$_form_$$_668: {
+    groups: '!stock.group_stock_multi_locations'
   },
 
   location_id_$_tree: {
@@ -131,8 +131,14 @@ const ModelFields = {
   show_clear_qty_button: {},
   show_lots_text: {},
   show_mark_as_todo: {},
-  show_operations: {},
-  show_reserved: {},
+  show_operations: {
+    readonly: '1'
+  },
+
+  show_reserved: {
+    readonly: '1'
+  },
+
   show_set_qty_button: {},
   show_validate: {},
   state: {},

@@ -16,7 +16,7 @@ export default {
               }
             }
           },
-          _group_366: {
+          _group_557: {
             _div: {
               _attr: {
                 class: 'text-muted',
@@ -50,18 +50,18 @@ export default {
           _button_process: {
             _attr: {
               name: 'process',
+              type: 'object',
               string: 'Create Backorder',
-              class: 'oe_highlight',
-              type: 'object'
+              class: 'oe_highlight'
             }
           },
           _button_process_cancel_backorder: {
             _attr: {
               name: 'process_cancel_backorder',
+              type: 'object',
               string: 'No Backorder',
               invisible: [['show_transfers', '=', true]],
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

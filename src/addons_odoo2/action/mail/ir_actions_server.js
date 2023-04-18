@@ -27,7 +27,7 @@ export default {
                   placeholder: 'e.g. Discuss proposal'
                 }
               },
-              _group_300: {
+              _group_414: {
                 _label_activity_date_deadline_range: {
                   for: 'activity_date_deadline_range'
                 },
@@ -59,7 +59,7 @@ export default {
             }
           }
         },
-        _xpath_516: {
+        _xpath_375: {
           _attr: {
             expr: "//field[@name='link_field_id']",
             position: 'after'

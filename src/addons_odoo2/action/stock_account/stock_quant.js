@@ -10,7 +10,9 @@ export default {
             expr: "//field[@name='product_uom_id']",
             position: 'after'
           },
-          accounting_date: {}
+          accounting_date: {
+            optional: 'hide'
+          }
         }
       }
     }
@@ -30,7 +32,9 @@ export default {
           currency_id: {
             invisible: '1'
           },
-          value: {}
+          value: {
+            optional: 'hidden'
+          }
         }
       }
     }
@@ -53,9 +57,11 @@ export default {
           cost_method: {
             invisible: '1'
           },
-          value: {}
+          value: {
+            optional: 'hidden'
+          }
         },
-        _xpath_756: {
+        _xpath_638: {
           _attr: {
             expr: "//button[@name='action_view_orderpoints']",
             position: 'after'
@@ -63,15 +69,15 @@ export default {
           _button_stock_valuation_layer_report_action: {
             _attr: {
               name: 'stock_valuation_layer_report_action',
+              type: 'action',
               string: 'Valuation',
+              title: 'Stock Valuation',
+              icon: 'fa-bar-chart',
               invisible: [['cost_method', '!=', 'fifo']],
               context: {
                 todo_ctx: "{'search_default_product_id': product_id}"
               },
-              class: 'btn-link',
-              title: 'Stock Valuation',
-              type: 'action',
-              icon: 'fa-bar-chart'
+              class: 'btn-link'
             }
           }
         }

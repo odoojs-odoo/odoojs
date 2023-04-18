@@ -1,6 +1,7 @@
 const ModelFields = {
   company_id: {
-    groups: 'base.group_multi_company'
+    groups: 'base.group_multi_company',
+    readonly: '1'
   },
 
   currency_id: {
@@ -14,7 +15,8 @@ const ModelFields = {
   partner_id: {
     context: {
       res_partner_search_mode: 'supplier'
-    }
+    },
+    readonly: '1'
   },
 
   price: {
@@ -23,12 +25,14 @@ const ModelFields = {
 
   product_code: {},
   product_id: {
-    groups: 'product.group_product_variant'
+    groups: 'product.group_product_variant',
+    readonly: '1'
   },
 
   product_name: {},
   product_tmpl_id: {
-    string: 'Product'
+    string: 'Product',
+    readonly: '1'
   },
 
   product_uom: {

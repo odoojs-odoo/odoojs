@@ -25,9 +25,9 @@ export default {
           _button_action_apply: {
             _attr: {
               name: 'action_apply',
+              type: 'object',
               string: 'Apply',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button_cancel_button: {

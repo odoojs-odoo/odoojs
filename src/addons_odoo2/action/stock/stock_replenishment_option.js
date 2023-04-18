@@ -25,9 +25,9 @@ export default {
         _button_select_route: {
           _attr: {
             name: 'select_route',
+            type: 'object',
             string: 'Select Route',
-            class: 'btn btn-link',
-            type: 'object'
+            class: 'btn btn-link'
           }
         }
       }
@@ -47,9 +47,9 @@ export default {
           _button_order_avbl: {
             _attr: {
               name: 'order_avbl',
+              type: 'object',
               invisible: [['free_qty', '<=', 0.0]],
               class: 'btn-primary',
-              type: 'object',
               text: 'Order'
             },
             free_qty: {}

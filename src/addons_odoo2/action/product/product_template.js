@@ -9,8 +9,8 @@ export default {
           _button_action_open_label_layout: {
             _attr: {
               name: 'action_open_label_layout',
-              string: 'Print Labels',
-              type: 'object'
+              type: 'object',
+              string: 'Print Labels'
             }
           }
         },
@@ -27,39 +27,55 @@ export default {
           invisible: '1'
         },
         priority: {
-          widget: 'priority'
+          widget: 'priority',
+          optional: 'show'
         },
         name: {
           string: 'Product Name'
         },
-        default_code: {},
+        default_code: {
+          optional: 'show'
+        },
         product_tag_ids: {
           widget: 'many2many_tags',
+          optional: 'show',
           color_field: 'color'
         },
         barcode: {
-          readonly: [['product_variant_count', '>', 1]]
+          readonly: [['product_variant_count', '>', 1]],
+          optional: 'hide'
         },
         company_id: {
           groups: 'base.group_multi_company',
+          optional: 'hide',
           no_create: true
         },
         list_price: {
           string: 'Sales Price',
           widget: 'monetary',
+          optional: 'show',
           currency_field: 'currency_id'
         },
         standard_price: {
           widget: 'monetary',
+          readonly: '1',
+          optional: 'show',
           currency_field: 'cost_currency_id'
         },
-        categ_id: {},
-        detailed_type: {},
+        categ_id: {
+          optional: 'hide'
+        },
+        detailed_type: {
+          readonly: '1',
+          optional: 'hide'
+        },
         type: {
           invisible: '1'
         },
         uom_id: {
-          groups: 'uom.group_uom'
+          groups: 'uom.group_uom',
+          readonly: '1',
+          optional: 'show'
         },
         active: {
           invisible: '1'
@@ -106,11 +122,11 @@ export default {
           _button_product__product_variant_action: {
             _attr: {
               name: 'product.product_variant_action',
+              type: 'action',
+              icon: 'fa-sitemap',
               groups: 'product.group_product_variant',
               invisible: [['product_variant_count', '<=', 1]],
-              class: 'oe_stat_button',
-              type: 'action',
-              icon: 'fa-sitemap'
+              class: 'oe_stat_button'
             },
             product_variant_count: {
               string: 'Variants',
@@ -118,7 +134,7 @@ export default {
             }
           }
         },
-        _xpath_946: {
+        _xpath_136: {
           _attr: {
             expr: "//page[@name='general_information']",
             position: 'after'
@@ -158,10 +174,10 @@ export default {
                       _button_action_open_attribute_values: {
                         _attr: {
                           name: 'action_open_attribute_values',
+                          type: 'object',
                           string: 'Configure',
                           groups: 'product.group_product_variant',
-                          class: 'float-end btn-secondary',
-                          type: 'object'
+                          class: 'float-end btn-secondary'
                         }
                       }
                     }
@@ -226,9 +242,9 @@ export default {
           _button_action_open_label_layout: {
             _attr: {
               name: 'action_open_label_layout',
+              type: 'object',
               string: 'Print Labels',
-              invisible: [['detailed_type', '==', 'service']],
-              type: 'object'
+              invisible: [['detailed_type', '==', 'service']]
             }
           }
         },
@@ -255,10 +271,10 @@ export default {
           _button_open_pricelist_rules: {
             _attr: {
               name: 'open_pricelist_rules',
-              groups: 'product.group_product_pricelist',
-              class: 'oe_stat_button',
               type: 'object',
-              icon: 'fa-list-ul'
+              icon: 'fa-list-ul',
+              groups: 'product.group_product_pricelist',
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -270,13 +286,13 @@ export default {
                 },
                 pricelist_item_count: {}
               },
-              _span_588: {
+              _span_263: {
                 _attr: {
                   invisible: [['pricelist_item_count', '=', 1]],
                   text: 'Extra Prices'
                 }
               },
-              _span_182: {
+              _span_456: {
                 _attr: {
                   invisible: [['pricelist_item_count', '!=', 1]],
                   text: 'Extra Price'
@@ -288,8 +304,9 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         id: {
@@ -338,7 +355,7 @@ export default {
               for: 'sale_ok'
             }
           },
-          _span_632: {
+          _span_313: {
             _attr: {
               class: 'd-inline-block'
             },
@@ -440,7 +457,7 @@ export default {
                 }
               }
             },
-            _group_687: {
+            _group_475: {
               _attr: {
                 string: 'Internal Notes'
               },
@@ -572,9 +589,16 @@ export default {
     type: 'search',
     arch: {
       name: {
-        string: 'Product'
+        string: 'Product',
+        filter_domain: {
+          todo_ctx: "['|', '|', '|', ('default_code', 'ilike', self), ('product_variant_ids.default_code', 'ilike', self),('name', 'ilike', self), ('barcode', 'ilike', self)]"
+        }
       },
-      categ_id: {},
+      categ_id: {
+        filter_domain: {
+          todo_ctx: "[('categ_id', 'child_of', raw_value)]"
+        }
+      },
       _separator: {},
       _filter_services: {
         _attr: {
@@ -590,7 +614,7 @@ export default {
           domain: [['type', 'in', ['consu', 'product']]]
         }
       },
-      _separator_553: {},
+      _separator_971: {},
       _filter_filter_to_sell: {
         _attr: {
           name: 'filter_to_sell',
@@ -605,7 +629,7 @@ export default {
           domain: [['purchase_ok', '=', true]]
         }
       },
-      _separator_477: {},
+      _separator_452: {},
       attribute_line_ids: {
         string: 'Attributes',
         groups: 'product.group_product_variant'
@@ -640,7 +664,7 @@ export default {
           }
         }
       },
-      _separator_429: {},
+      _separator_252: {},
       _filter_favorites: {
         _attr: {
           name: 'favorites',
@@ -648,7 +672,7 @@ export default {
           domain: [['priority', '=', '1']]
         }
       },
-      _separator_136: {},
+      _separator_820: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',
@@ -656,7 +680,7 @@ export default {
           domain: [['activity_exception_decoration', '!=', false]]
         }
       },
-      _separator_847: {},
+      _separator_722: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',

@@ -90,19 +90,19 @@ export default {
           _button_create_invoices: {
             _attr: {
               name: 'create_invoices',
+              type: 'object',
               string: 'Create and View Invoice',
               context: {
                 open_invoices: true
               },
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
-          _button_create_invoices_206: {
+          _button_create_invoices_971: {
             _attr: {
               name: 'create_invoices',
-              string: 'Create Invoice',
-              type: 'object'
+              type: 'object',
+              string: 'Create Invoice'
             }
           },
           _button: {

@@ -28,9 +28,9 @@ export default {
           _button_print_report: {
             _attr: {
               name: 'print_report',
+              type: 'object',
               string: 'Overview',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

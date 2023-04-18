@@ -17,9 +17,9 @@ export default {
           _button_process: {
             _attr: {
               name: 'process',
+              type: 'object',
               string: 'Confirm',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

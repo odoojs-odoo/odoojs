@@ -19,9 +19,9 @@ export default {
           _button_action_request_count: {
             _attr: {
               name: 'action_request_count',
+              type: 'object',
               string: 'Confirm',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {

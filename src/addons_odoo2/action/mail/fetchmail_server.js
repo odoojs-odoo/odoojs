@@ -29,22 +29,22 @@ export default {
           _button_button_confirm_login: {
             _attr: {
               name: 'button_confirm_login',
-              string: 'Test & Confirm',
-              type: 'object'
+              type: 'object',
+              string: 'Test & Confirm'
             }
           },
           _button_fetch_mail: {
             _attr: {
               name: 'fetch_mail',
-              string: 'Fetch Now',
-              type: 'object'
+              type: 'object',
+              string: 'Fetch Now'
             }
           },
           _button_set_draft: {
             _attr: {
               name: 'set_draft',
-              string: 'Reset Confirmation',
-              type: 'object'
+              type: 'object',
+              string: 'Reset Confirmation'
             }
           },
           state: {
@@ -57,8 +57,9 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: [['active', '=', true]],
-            title: 'Archived'
+            title: 'Archived',
+            bg_color: 'bg-danger',
+            invisible: [['active', '=', true]]
           }
         },
         _group: {
@@ -69,7 +70,7 @@ export default {
               readonly: [['state', '=', 'done']]
             }
           },
-          _group_203: {
+          _group_858: {
             date: {
               invisible: [['date', '=', false]]
             },
@@ -98,12 +99,12 @@ export default {
                   required: [['server_type', '!=', 'local']]
                 },
                 port: {
-                  required: [['server_type', '!=', 'local']],
+                  required: '1',
                   options: "{'format': false}"
                 },
                 is_ssl: {}
               },
-              _group_518: {
+              _group_131: {
                 _attr: {
                   string: 'Login Information',
                   invisible: [['server_type', '=', 'local']]
@@ -116,13 +117,13 @@ export default {
                   invisible: [['server_type', 'not in', ('imap', 'pop')]]
                 }
               },
-              _group_573: {
+              _group_485: {
                 _attr: {
                   string: 'Actions to Perform on Incoming Mails'
                 },
                 object_id: {}
               },
-              _group_600: {
+              _group_699: {
                 _attr: {
                   string: 'Configuration',
                   invisible: [['server_type', '!=', 'local']]
@@ -187,7 +188,7 @@ export default {
           domain: [['is_ssl', '=', true]]
         }
       },
-      _separator_825: {},
+      _separator_403: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',

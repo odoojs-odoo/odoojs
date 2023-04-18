@@ -13,11 +13,11 @@ export default {
           _button_action_view_sale_orders: {
             _attr: {
               name: 'action_view_sale_orders',
+              type: 'object',
+              icon: 'fa-dollar',
               groups: 'sales_team.group_sale_salesman',
               invisible: [['sale_order_count', '=', 0]],
-              class: 'oe_stat_button',
-              type: 'object',
-              icon: 'fa-dollar'
+              class: 'oe_stat_button'
             },
             _div: {
               _attr: {
@@ -29,7 +29,7 @@ export default {
                 },
                 sale_order_count: {}
               },
-              _span_284: {
+              _span_484: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Sale'

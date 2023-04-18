@@ -39,6 +39,7 @@ const ModelFields = {
   reply_to_mode: {},
   res_id: {},
   subject: {
+    required: 'True',
     placeholder: 'Welcome to MyCompany!'
   },
 

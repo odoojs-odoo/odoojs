@@ -9,9 +9,9 @@ export default {
           _button_action_validate_revaluation: {
             _attr: {
               name: 'action_validate_revaluation',
+              type: 'object',
               string: 'Revalue',
-              class: 'btn-primary',
-              type: 'object'
+              class: 'btn-primary'
             }
           },
           _button: {
@@ -47,7 +47,7 @@ export default {
             for: 'added_value',
             string: 'Added Value'
           },
-          _div_715: {
+          _div_322: {
             _attr: {
               class: 'o_row'
             },
@@ -82,7 +82,7 @@ export default {
             invisible: '1'
           }
         },
-        _group_189: {
+        _group_398: {
           property_valuation: {
             invisible: '1'
           },
@@ -93,7 +93,7 @@ export default {
               required: [['property_valuation', '=', 'real_time']]
             }
           },
-          _group_317: {
+          _group_700: {
             account_id: {
               invisible: [['property_valuation', '!=', 'real_time']],
               required: [['property_valuation', '=', 'real_time']]

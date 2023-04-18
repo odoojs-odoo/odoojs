@@ -14,7 +14,7 @@ export default {
         image_1920: { widget: 'image', preview_image: 'avatar_128' },
         _div_title: {
           _h1: {
-            name: { nolabel: 0, required: '1' }
+            name: { nolabel: 0, required: '1', placeholder: 'e.g. John Doe' }
           },
           email: { invisible: '1' },
           _h2: {
@@ -128,6 +128,7 @@ export default {
     arch: {
       fields: {
         name: {
+          string: 'User',
           filter_domain: self => {
             return [
               '|',
@@ -139,16 +140,27 @@ export default {
           }
         },
 
-        company_ids: {}
+        company_ids: { string: 'Company' }
       },
 
       filters: {
         group_share: {
-          no_share: { string: '内部用户', domain: [['share', '=', false]] }
+          filter_no_share: {
+            name: 'filter_no_share',
+            string: 'Internal Users',
+            domain: [['share', '=', false]]
+          },
+          filter_share: {
+            name: 'filter_share',
+            string: 'Portal Users',
+            domain: [['share', '=', true]]
+          }
         },
+
         group_active: {
           inactive: {
-            string: '已归档',
+            name: 'Inactive',
+            string: 'Inactive Users',
             domain: [['active', '=', false]]
           }
         }
@@ -158,23 +170,18 @@ export default {
 
   action_res_users: {
     _odoo_model: 'ir.actions',
-    name: '用户',
+    name: 'Users',
     type: 'ir.actions.act_window',
     res_model: 'res.users',
     search_view_id: 'view_users_search',
     domain: [],
-    context: { search_default_no_share: 1 },
+    context: {
+      search_default_no_share: 1,
+      show_user_group_warning: true
+    },
     views: {
       tree: 'view_users_tree',
       form: 'view_users_form'
     }
-  },
-
-  menu_action_res_users: {
-    _odoo_model: 'ir.ui.menu',
-    action: 'action_res_users',
-    parent: 'menu_users',
-    name: '用户',
-    sequence: 0
   }
 }

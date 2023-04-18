@@ -18,9 +18,12 @@ export default {
           no_open: true,
           no_create: true
         },
-        barcode: {},
+        barcode: {
+          optional: 'hide'
+        },
         company_id: {
-          groups: 'base.group_multi_company'
+          groups: 'base.group_multi_company',
+          optional: 'hide'
         }
       }
     }
@@ -38,7 +41,7 @@ export default {
             position: 'replace'
           }
         },
-        _xpath_533: {
+        _xpath_229: {
           _attr: {
             expr: "//tree[@name='packaging']",
             position: 'attributes'
@@ -79,7 +82,8 @@ export default {
               name: 'group_product'
             },
             product_id: {
-              readonly: [['id', '!=', false]]
+              readonly: [['id', '!=', false]],
+              required: 'True'
             }
           },
           _group_qty: {
@@ -123,7 +127,7 @@ export default {
             position: 'replace'
           }
         },
-        _xpath_778: {
+        _xpath_120: {
           _attr: {
             expr: "//field[@name='id']",
             position: 'replace'
