@@ -31,9 +31,7 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            attrs: {
-              invisible: "[('active', '=', True)]"
-            },
+            invisible: [['active', '=', true]],
             title: 'Archived'
           }
         },
@@ -91,7 +89,7 @@ export default {
               groups: 'product.group_stock_packaging'
             }
           },
-          _group_995: {
+          _group_752: {
             _label_warehouse_selectable: {
               for: 'warehouse_selectable',
               string: 'Warehouses'
@@ -108,14 +106,12 @@ export default {
               },
               warehouse_ids: {
                 widget: 'many2many_tags',
-                attrs: {
-                  invisible: "[('warehouse_selectable', '=', False)]"
-                }
+                invisible: [['warehouse_selectable', '=', false]]
               }
             }
           }
         },
-        _group_202: {
+        _group_351: {
           _attr: {
             string: 'Rules'
           },
@@ -157,7 +153,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       }
     }

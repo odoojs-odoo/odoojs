@@ -8,9 +8,7 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            attrs: {
-              invisible: "[('active', '=', True)]"
-            },
+            invisible: [['active', '=', true]],
             title: 'Archived'
           }
         },
@@ -21,14 +19,10 @@ export default {
           name: {},
           applicability: {},
           tax_negate: {
-            attrs: {
-              invisible: "[('applicability', '!=', 'taxes')]"
-            }
+            invisible: [['applicability', '!=', 'taxes']]
           },
           country_id: {
-            attrs: {
-              invisible: "[('applicability', '!=', 'taxes')]"
-            },
+            invisible: [['applicability', '!=', 'taxes']],
             no_open: true,
             no_create: true
           }
@@ -60,7 +54,7 @@ export default {
         _attr: {
           name: 'archived',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       }
     }

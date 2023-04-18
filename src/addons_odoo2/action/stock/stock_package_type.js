@@ -38,11 +38,11 @@ export default {
               width: {
                 placeholder: 'Width'
               },
-              _span_629: '×',
+              _span_699: '×',
               height: {
                 placeholder: 'Height'
               },
-              _span_533: {
+              _span_222: {
                 length_uom_name: {}
               }
             },

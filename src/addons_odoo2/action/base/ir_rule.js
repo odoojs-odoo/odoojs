@@ -16,7 +16,7 @@ export default {
               widget: 'boolean_toggle'
             }
           },
-          _group_477: {
+          _group_219: {
             _attr: {
               string: 'Access Rights'
             },
@@ -24,7 +24,7 @@ export default {
               perm_read: {},
               perm_create: {}
             },
-            _group_881: {
+            _group_952: {
               perm_write: {},
               perm_unlink: {}
             }
@@ -36,7 +36,7 @@ export default {
           }
         },
         domain_force: {},
-        _group_848: {
+        _group_151: {
           _attr: {
             string: 'Groups (no group = global)'
           },
@@ -52,17 +52,17 @@ export default {
         _h3: 'Interaction between rules',
         _div: {
           _p: 'Global rules (non group-specific) are restrictions, and cannot be bypassed.\n                         Group-specific rules grant additional permissions, but are constrained within the bounds of global ones.\n                         The first group rules restrict further the global rules, but can be relaxed by additional group rules.',
-          _p_440: {
+          _p_397: {
             _attr: {
               text: 'Detailed algorithm:'
             },
             _ol: {
               _li: 'Global rules are combined together with a logical AND operator, and with the result of the following steps',
-              _li_492: 'Group-specific rules are combined together with a logical OR operator',
-              _li_588: 'If user belongs to several groups, the results from step 2 are combined with logical OR operator'
+              _li_175: 'Group-specific rules are combined together with a logical OR operator',
+              _li_432: 'If user belongs to several groups, the results from step 2 are combined with logical OR operator'
             }
           },
-          _p_405: 'Example: GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 OR GROUP_A_RULE_2) OR (GROUP_B_RULE_1 OR GROUP_B_RULE_2) )'
+          _p_733: 'Example: GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 OR GROUP_A_RULE_2) OR (GROUP_B_RULE_1 OR GROUP_B_RULE_2) )'
         }
       }
     }
@@ -103,7 +103,7 @@ export default {
         _attr: {
           name: 'global',
           string: 'Global',
-          domain: "[('global', '=', True)]"
+          domain: [['global', '=', true]]
         }
       },
       _separator: {},
@@ -111,43 +111,43 @@ export default {
         _attr: {
           name: 'full_access_right',
           string: 'Full Access Right',
-          domain: "[('perm_read', '=', True), ('perm_write', '=', True), ('perm_create', '=', True), ('perm_unlink', '=', True)]"
+          domain: [['perm_read', '=', true], ['perm_write', '=', true], ['perm_create', '=', true], ['perm_unlink', '=', true]]
         }
       },
       _filter_read_access_right: {
         _attr: {
           name: 'read_access_right',
           string: 'Read Access Right',
-          domain: "[('perm_read', '=', True)]"
+          domain: [['perm_read', '=', true]]
         }
       },
       _filter_write_access_right: {
         _attr: {
           name: 'write_access_right',
           string: 'Write Access Right',
-          domain: "[('perm_write', '=', True)]"
+          domain: [['perm_write', '=', true]]
         }
       },
       _filter_create_access_right: {
         _attr: {
           name: 'create_access_right',
           string: 'Create Access Right',
-          domain: "[('perm_create', '=', True)]"
+          domain: [['perm_create', '=', true]]
         }
       },
       _filter_delete_access_right: {
         _attr: {
           name: 'delete_access_right',
           string: 'Delete Access Right',
-          domain: "[('perm_unlink', '=', True)]"
+          domain: [['perm_unlink', '=', true]]
         }
       },
-      _separator_269: {},
+      _separator_306: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       },
       _group: {
@@ -158,7 +158,7 @@ export default {
           _attr: {
             name: 'group_by_object',
             string: 'Model',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'model_id'
             }

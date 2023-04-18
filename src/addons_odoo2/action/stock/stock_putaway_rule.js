@@ -13,7 +13,7 @@ export default {
         },
         sequence: {
           widget: 'handle',
-          invisible: "context.get('invisible_handle', False)"
+          invisible: "context.get['invisible_handle', False]"
         },
         location_in_id: {
           string: 'When product arrives in',
@@ -21,25 +21,21 @@ export default {
         },
         product_id: {
           string: 'Product',
-          attrs: {
-            readonly: "[('category_id', '!=', False)]",
-            required: "[('category_id', '=', False), ('package_type_ids', '=', False)]"
-          },
+          readonly: [['category_id', '!=', false]],
+          required: [['category_id', '=', false], ['package_type_ids', '=', false]],
           force_save: '1',
           no_create: true,
           no_open: true
         },
         category_id: {
           string: 'Product Category',
-          attrs: {
-            readonly: "[('product_id', '!=', False)]",
-            required: "[('product_id', '=', False), ('package_type_ids', '=', False)]"
-          },
+          readonly: [['product_id', '!=', false]],
+          required: [['product_id', '=', false], ['package_type_ids', '=', false]],
           force_save: '1',
           no_create: true,
           no_open: true
         },
-        _field_package_type_ids_541: {
+        _field_package_type_ids_379: {
           package_type_ids: {
             string: 'Package type',
             widget: 'many2many_tags',
@@ -49,9 +45,7 @@ export default {
           }
         },
         location_out_id: {
-          attrs: {
-            readonly: "[('location_in_id', '=', False)]"
-          },
+          readonly: [['location_in_id', '=', false]],
           no_create: true
         },
         storage_category_id: {
@@ -59,7 +53,7 @@ export default {
           groups: 'stock.group_stock_storage_categories',
           no_create: true
         },
-        _field_company_id_245: {
+        _field_company_id_155: {
           company_id: {
             groups: 'stock.group_stock_multi_locations',
             force_save: '1',
@@ -98,18 +92,18 @@ export default {
           _attr: {
             name: 'filter_to_rules_on_product',
             string: 'Rules on Products',
-            domain: "[('product_id', '!=', False)]"
+            domain: [['product_id', '!=', false]]
           }
         },
         _filter_filter_to_rules_on_category: {
           _attr: {
             name: 'filter_to_rules_on_category',
             string: 'Rules on Categories',
-            domain: "[('category_id', '!=', False)]"
+            domain: [['category_id', '!=', false]]
           }
         }
       },
-      _group_915: {
+      _group_822: {
         _attr: {
           string: 'Group By'
         },
@@ -152,7 +146,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Putaway Rules',
     res_model: 'stock.putaway.rule',
-    domain: "['|', ('location_out_id', '=', active_id), ('location_in_id', '=', active_id)]",
+    domain: "['|', ['location_out_id', '=', active_id], ['location_in_id', '=', active_id]]",
     context: {
       fixed_location: true
     },

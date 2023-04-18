@@ -12,7 +12,7 @@ export default {
           _group: {
             name: {}
           },
-          _group_219: {
+          _group_655: {
             type_tax_use: {}
           }
         },
@@ -30,24 +30,18 @@ export default {
                 amount_type: {},
                 _label_amount: {
                   for: 'amount',
-                  attrs: {
-                    invisible: "[('amount_type', '=', 'group')]"
-                  }
+                  invisible: [['amount_type', '=', 'group']]
                 },
                 _div: {
                   _attr: {
-                    attrs: {
-                      invisible: "[('amount_type', '=', 'group')]"
-                    }
+                    invisible: [['amount_type', '=', 'group']]
                   },
                   amount: {
                     class: 'oe_inline'
                   },
                   _span: {
                     _attr: {
-                      attrs: {
-                        invisible: "[('amount_type', '=', 'fixed')]"
-                      },
+                      invisible: [['amount_type', '=', 'fixed']],
                       class: 'o_form_label oe_inline',
                       text: '%'
                     }
@@ -59,9 +53,7 @@ export default {
               domain: {
                 todo_ctx: "[('type_tax_use','in',('none',type_tax_use)), ('amount_type','!=','group')]"
               },
-              attrs: {
-                invisible: "['|', ('amount_type', '!=', 'group'), ('type_tax_use', '=', 'none')]"
-              },
+              invisible: ['|', ['amount_type', '!=', 'group'], ['type_tax_use', '=', 'none']],
               views: {
                 tree: {
                   arch: {
@@ -92,15 +84,11 @@ export default {
               },
               _group: {
                 description: {
-                  attrs: {
-                    invisible: "[('amount_type', '=', 'group')]"
-                  }
+                  invisible: [['amount_type', '=', 'group']]
                 },
                 analytic: {
                   groups: 'analytic.group_analytic_accounting',
-                  attrs: {
-                    invisible: "[('amount_type', '=', 'group')]"
-                  }
+                  invisible: [['amount_type', '=', 'group']]
                 }
               },
               _group_price_definitions: {
@@ -108,19 +96,13 @@ export default {
                   name: 'price_definitions'
                 },
                 price_include: {
-                  attrs: {
-                    invisible: "[('amount_type', '=', 'group')]"
-                  }
+                  invisible: [['amount_type', '=', 'group']]
                 },
                 include_base_amount: {
-                  attrs: {
-                    invisible: "[('amount_type', '=', 'group')]"
-                  }
+                  invisible: [['amount_type', '=', 'group']]
                 },
                 is_base_affected: {
-                  attrs: {
-                    invisible: "['|', ('amount_type', '=', 'group'), ('price_include', '=', True)]"
-                  }
+                  invisible: ['|', ['amount_type', '=', 'group'], ['price_include', '=', true]]
                 }
               },
               _group_tax_configuration: {
@@ -132,15 +114,11 @@ export default {
                 },
                 tax_exigibility: {
                   widget: 'radio',
-                  attrs: {
-                    invisible: "[('amount_type', '=', 'group')]"
-                  }
+                  invisible: [['amount_type', '=', 'group']]
                 },
                 cash_basis_transition_account_id: {
-                  attrs: {
-                    invisible: "[('tax_exigibility', '=', 'on_invoice')]",
-                    required: "[('tax_exigibility', '=', 'on_payment')]"
-                  }
+                  invisible: [['tax_exigibility', '=', 'on_invoice']],
+                  required: [['tax_exigibility', '=', 'on_payment']]
                 }
               }
             }
@@ -175,14 +153,14 @@ export default {
         _attr: {
           name: 'sale',
           string: 'Sale',
-          domain: "[('type_tax_use', '=', 'sale')]"
+          domain: [['type_tax_use', '=', 'sale']]
         }
       },
       _filter_purchase: {
         _attr: {
           name: 'purchase',
           string: 'Purchase',
-          domain: "[('type_tax_use', '=', 'purchase')]"
+          domain: [['type_tax_use', '=', 'purchase']]
         }
       },
       _separator: {},
@@ -190,7 +168,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       }
     }

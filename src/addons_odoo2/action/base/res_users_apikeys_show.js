@@ -12,12 +12,12 @@ export default {
           }
         },
         _p: 'Here is your new API key, use it instead of a password for RPC access.\n                            Your login is still necessary for interactive usage.',
-        _p_611: {
+        _p_708: {
           _code: {
             key: {}
           }
         },
-        _p_201: {
+        _p_800: {
           _attr: {
             class: 'alert alert-warning'
           },

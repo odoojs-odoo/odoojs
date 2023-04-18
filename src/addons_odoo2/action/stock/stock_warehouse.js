@@ -23,9 +23,7 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            attrs: {
-              invisible: "[('active', '=', True)]"
-            },
+            invisible: [['active', '=', true]],
             title: 'Archived'
           }
         },
@@ -49,7 +47,7 @@ export default {
               placeholder: 'e.g. CW'
             }
           },
-          _group_119: {
+          _group_693: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
@@ -88,7 +86,7 @@ export default {
                 resupply_wh_ids: {
                   widget: 'many2many_checkboxes',
                   groups: 'stock.group_stock_multi_warehouses',
-                  domain: "[('id', '!=', <built-in function id>)]"
+                  domain: [['id', '!=', <built-in function id>]]
                 }
               }
             }
@@ -113,7 +111,7 @@ export default {
                 wh_pack_stock_loc_id: {},
                 wh_output_stock_loc_id: {}
               },
-              _group_801: {
+              _group_272: {
                 _attr: {
                   string: 'Operation Types'
                 },
@@ -164,7 +162,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       }
     }

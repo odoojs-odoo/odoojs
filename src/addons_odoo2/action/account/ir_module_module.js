@@ -1,4 +1,20 @@
 export default {
+  view_module_filter_inherit_account: {
+    _odoo_model: 'ir.ui.view',
+    model: 'ir.module.module',
+    inherit_id: 'base.view_module_filter',
+    arch: {
+      sheet: {
+        _xpath: {
+          _attr: {
+            expr: '//searchpanel',
+            position: 'replace'
+          }
+        }
+      }
+    }
+  },
+
   open_account_charts_modules: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Chart Templates',

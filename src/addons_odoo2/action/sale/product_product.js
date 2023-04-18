@@ -13,9 +13,7 @@ export default {
             _attr: {
               name: 'action_view_sales',
               groups: 'sales_team.group_sale_salesman',
-              attrs: {
-                invisible: "[('sale_ok', '=', False)]"
-              },
+              invisible: [['sale_ok', '=', false]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-signal'
@@ -34,7 +32,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_339: {
+              _span_330: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Sold'
@@ -58,10 +56,8 @@ export default {
               },
               sale_line_warn: {},
               sale_line_warn_msg: {
-                attrs: {
-                  required: "[('sale_line_warn', '!=', 'no-message')]",
-                  readonly: "[('sale_line_warn', '=', 'no-message')]"
-                },
+                required: [['sale_line_warn', '!=', 'no-message']],
+                readonly: [['sale_line_warn', '=', 'no-message']],
                 placeholder: 'Type a message...'
               }
             }

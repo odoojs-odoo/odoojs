@@ -33,20 +33,16 @@ export default {
           _attr: {
             name: 'base.action_view_base_language_install',
             string: 'Activate',
-            attrs: {
-              invisible: "[('active', '=', True)]"
-            },
+            invisible: [['active', '=', true]],
             type: 'action',
             icon: 'fa-check'
           }
         },
-        _button_base__action_view_base_language_install_877: {
+        _button_base__action_view_base_language_install_843: {
           _attr: {
             name: 'base.action_view_base_language_install',
             string: 'Update',
-            attrs: {
-              invisible: "[('active', '!=', True)]"
-            },
+            invisible: [['active', '!=', true]],
             type: 'action',
             icon: 'fa-refresh'
           }
@@ -55,9 +51,7 @@ export default {
           _attr: {
             name: 'action_archive',
             string: 'Disable',
-            attrs: {
-              invisible: "[('active', '!=', True)]"
-            },
+            invisible: [['active', '!=', true]],
             type: 'object',
             icon: 'fa-times'
           }
@@ -115,7 +109,7 @@ export default {
               widget: 'boolean_toggle'
             }
           },
-          _group_373: {
+          _group_839: {
             direction: {},
             grouping: {},
             decimal_point: {},
@@ -144,33 +138,33 @@ export default {
                 }
               }
             },
-            _div_531: {
+            _div_609: {
               _attr: {
                 class: 'col-sm'
               },
               _div: '%a - Abbreviated day of the week.',
-              _div_381: '%A - Full day of the week.',
-              _div_544: '%b - Abbreviated month name.',
-              _div_233: '%B - Full month name."',
-              _div_847: '%d - Day of the month [01,31]."',
-              _div_327: '%j - Day of the year [001,366]."',
-              _div_177: '%H - Hour (24-hour clock) [00,23]."',
-              _div_179: '%I - Hour (12-hour clock) [01,12]."'
+              _div_481: '%A - Full day of the week.',
+              _div_410: '%b - Abbreviated month name.',
+              _div_817: '%B - Full month name."',
+              _div_456: '%d - Day of the month [01,31]."',
+              _div_436: '%j - Day of the year [001,366]."',
+              _div_188: '%H - Hour (24-hour clock) [00,23]."',
+              _div_976: '%I - Hour (12-hour clock) [01,12]."'
             },
-            _div_626: {
+            _div_679: {
               _attr: {
                 class: 'col-sm'
               },
               _div: '%M - Minute [00,59]."',
-              _div_747: '%p - Equivalent of either AM or PM."',
-              _div_472: '%S - Seconds [00,61]."',
-              _div_477: '%w - Day of the week number [0(Sunday),6]."',
-              _div_541: '%y - Year without century [00,99]."',
-              _div_979: '%Y - Year with century."',
-              _div_819: '%m - Month number [01,12]."'
+              _div_185: '%p - Equivalent of either AM or PM."',
+              _div_521: '%S - Seconds [00,61]."',
+              _div_356: '%w - Day of the week number [0(Sunday),6]."',
+              _div_794: '%y - Year without century [00,99]."',
+              _div_575: '%Y - Year with century."',
+              _div_449: '%m - Month number [01,12]."'
             }
           },
-          _div_299: {
+          _div_814: {
             _attr: {
               class: 'col-md-4 text-info'
             },
@@ -180,15 +174,15 @@ export default {
                 text: 'Examples'
               }
             },
-            _div_321: '1. %b, %B         ==> Dec, December',
-            _div_776: '2. %a ,%A         ==> Fri, Friday',
-            _div_194: '3. %y, %Y         ==> 08, 2008',
-            _div_222: '4. %d, %m         ==> 05, 12',
-            _div_804: '5. %H:%M:%S      ==> 18:25:20',
-            _div_206: '6. %I:%M:%S %p  ==> 06:25:20 PM',
-            _div_576: '7. %j              ==> 340',
-            _div_906: '8. %S              ==> 20',
-            _div_176: '9. %w              ==> 5 ( Friday is the 6th day)'
+            _div_389: '1. %b, %B         ==> Dec, December',
+            _div_687: '2. %a ,%A         ==> Fri, Friday',
+            _div_887: '3. %y, %Y         ==> 08, 2008',
+            _div_266: '4. %d, %m         ==> 05, 12',
+            _div_251: '5. %H:%M:%S      ==> 18:25:20',
+            _div_281: '6. %I:%M:%S %p  ==> 06:25:20 PM',
+            _div_533: '7. %j              ==> 340',
+            _div_665: '8. %S              ==> 20',
+            _div_367: '9. %w              ==> 5 ( Friday is the 6th day)'
           }
         }
       }
@@ -209,7 +203,7 @@ export default {
         _attr: {
           name: 'active',
           string: 'Active',
-          domain: "[('active', '=', True)]"
+          domain: [['active', '=', true]]
         }
       }
     }

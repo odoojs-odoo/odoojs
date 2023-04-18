@@ -1,4 +1,10 @@
 export default {
+  action_open_routes: {
+    _odoo_model: 'ir.actions.server',
+    model_id: 'product.model_product_template',
+    model: 'product_template'
+  },
+
   view_stock_product_template_tree: {
     _odoo_model: 'ir.ui.view',
     model: 'product.template',
@@ -11,14 +17,10 @@ export default {
               invisible: '1'
             },
             qty_available: {
-              attrs: {
-                invisible: "[('show_on_hand_qty_status_button', '=', False)]"
-              }
+              invisible: [['show_on_hand_qty_status_button', '=', false]]
             },
             virtual_available: {
-              attrs: {
-                invisible: "[('show_on_hand_qty_status_button', '=', False)]"
-              }
+              invisible: [['show_on_hand_qty_status_button', '=', false]]
             }
           }
         },
@@ -55,19 +57,19 @@ export default {
               todo_ctx: "{'warehouse': self}"
             }
           },
-          _separator_982: {},
+          _separator_543: {},
           _filter_real_stock_available: {
             _attr: {
               name: 'real_stock_available',
               string: 'Available Products',
-              domain: "[('qty_available', '>', 0)]"
+              domain: [['qty_available', '>', 0]]
             }
           },
           _filter_real_stock_negative: {
             _attr: {
               name: 'real_stock_negative',
               string: 'Negative Forecasted Quantity',
-              domain: "[('virtual_available', '<', 0)]"
+              domain: [['virtual_available', '<', 0]]
             }
           }
         }
@@ -88,22 +90,18 @@ export default {
           },
           _label_sale_delay: {
             for: 'sale_delay',
-            attrs: {
-              invisible: "[('sale_ok', '=', False)]"
-            }
+            invisible: [['sale_ok', '=', false]]
           },
           _div: {
             _attr: {
-              attrs: {
-                invisible: "[('sale_ok', '=', False)]"
-              }
+              invisible: [['sale_ok', '=', false]]
             },
             sale_delay: {
               class: 'oe_inline'
             }
           }
         },
-        _xpath_255: {
+        _xpath_669: {
           _attr: {
             expr: "//group[@name='group_lots_and_weight']",
             position: 'before'
@@ -118,25 +116,19 @@ export default {
             },
             _label_route_ids: {
               for: 'route_ids',
-              attrs: {
-                invisible: "[('type', '=', 'service')]"
-              }
+              invisible: [['type', '=', 'service']]
             },
             _div: {
               route_ids: {
                 widget: 'many2many_checkboxes',
-                attrs: {
-                  invisible: "['|', ('has_available_route_ids', '=', False), ('type', '=', 'service')]"
-                },
+                invisible: ['|', ['has_available_route_ids', '=', false], ['type', '=', 'service']],
                 class: 'mb-0'
               },
               _button_action_open_routes: {
                 _attr: {
                   name: 'action_open_routes',
                   string: 'View Diagram',
-                  attrs: {
-                    invisible: "[('type', 'not in', ['product', 'consu'])]"
-                  },
+                  invisible: [['type', 'not in', ['product', 'consu']]],
                   context: {
                     default_product_tmpl_id: 'todo===id'
                   },
@@ -148,13 +140,11 @@ export default {
             },
             route_from_categ_ids: {
               widget: 'many2many_tags',
-              attrs: {
-                invisible: "[('route_from_categ_ids', '=', [])]"
-              }
+              invisible: [['route_from_categ_ids', '=', []]]
             }
           }
         },
-        _xpath_336: {
+        _xpath_946: {
           _attr: {
             expr: "//group[@name='group_lots_and_weight']",
             position: 'after'
@@ -164,15 +154,11 @@ export default {
               name: 'traceability',
               string: 'Traceability',
               groups: 'stock.group_production_lot',
-              attrs: {
-                invisible: "[('type', '=', 'consu')]"
-              }
+              invisible: [['type', '=', 'consu']]
             },
             tracking: {
               widget: 'radio',
-              attrs: {
-                invisible: "[('type', '=', 'service')]"
-              }
+              invisible: [['type', '=', 'service']]
             }
           },
           _group_stock_property: {
@@ -198,7 +184,7 @@ export default {
                 placeholder: 'This note is added to receipt orders (e.g. where to store the product in the warehouse).'
               }
             },
-            _group_313: {
+            _group_556: {
               _attr: {
                 string: 'Description for Delivery Orders'
               },
@@ -206,7 +192,7 @@ export default {
                 placeholder: 'This note is added to delivery orders.'
               }
             },
-            _group_461: {
+            _group_922: {
               _attr: {
                 string: 'Description for Internal Transfers',
                 groups: 'stock.group_stock_multi_locations'
@@ -217,7 +203,7 @@ export default {
             }
           }
         },
-        _page_inventory_460: {
+        _page_inventory_631: {
           _attr: {
             name: 'inventory'
           },
@@ -246,7 +232,7 @@ export default {
           type: {},
           show_on_hand_qty_status_button: {}
         },
-        _xpath_390: {
+        _xpath_689: {
           _attr: {
             expr: "//div[@name='product_lst_price']",
             position: 'after'
@@ -276,9 +262,7 @@ export default {
                 name: 'action_update_quantity_on_hand',
                 string: 'Update Quantity',
                 groups: 'stock.group_stock_manager',
-                attrs: {
-                  invisible: "[('type', '!=', 'product')]"
-                },
+                invisible: [['type', '!=', 'product']],
                 type: 'object'
               }
             },
@@ -287,9 +271,7 @@ export default {
                 name: 'action_product_replenish',
                 string: 'Replenish',
                 groups: 'stock.group_stock_user',
-                attrs: {
-                  invisible: "[('type', 'not in', ['consu', 'product'])]"
-                },
+                invisible: [['type', 'not in', ['consu', 'product']]],
                 context: {
                   default_product_tmpl_id: 'todo===id'
                 },
@@ -317,9 +299,7 @@ export default {
               _button_action_open_quants: {
                 _attr: {
                   name: 'action_open_quants',
-                  attrs: {
-                    invisible: "[('show_on_hand_qty_status_button', '=', False)]"
-                  },
+                  invisible: [['show_on_hand_qty_status_button', '=', false]],
                   class: 'oe_stat_button',
                   type: 'object',
                   icon: 'fa-cubes'
@@ -338,7 +318,7 @@ export default {
                     },
                     uom_name: {}
                   },
-                  _span_422: {
+                  _span_810: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'On Hand'
@@ -349,9 +329,7 @@ export default {
               _button_action_product_tmpl_forecast_report: {
                 _attr: {
                   name: 'action_product_tmpl_forecast_report',
-                  attrs: {
-                    invisible: "[('show_forecasted_qty_status_button', '=', False)]"
-                  },
+                  invisible: [['show_forecasted_qty_status_button', '=', false]],
                   context: {
                     default_product_tmpl_id: 'todo===id'
                   },
@@ -373,7 +351,7 @@ export default {
                     },
                     uom_name: {}
                   },
-                  _span_565: {
+                  _span_767: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'Forecasted'
@@ -385,9 +363,7 @@ export default {
                 _attr: {
                   name: 'action_view_stock_move_lines',
                   groups: 'stock.group_stock_user',
-                  attrs: {
-                    invisible: "[('type', 'not in', ['product', 'consu'])]"
-                  },
+                  invisible: [['type', 'not in', ['product', 'consu']]],
                   class: 'oe_stat_button',
                   type: 'object',
                   icon: 'fa-exchange'
@@ -402,14 +378,14 @@ export default {
                       text: 'In:'
                     }
                   },
-                  _span_625: {
+                  _span_238: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'Out:'
                     }
                   }
                 },
-                _div_342: {
+                _div_906: {
                   _attr: {
                     class: 'o_field_widget o_stat_info'
                   },
@@ -419,7 +395,7 @@ export default {
                     },
                     nbr_moves_in: {}
                   },
-                  _span_571: {
+                  _span_521: {
                     _attr: {
                       class: 'o_stat_value'
                     },
@@ -430,9 +406,7 @@ export default {
               _button_action_view_orderpoints: {
                 _attr: {
                   name: 'action_view_orderpoints',
-                  attrs: {
-                    invisible: "['|', ('type', '!=', 'product'), ('nbr_reordering_rules', '!=', 1)]"
-                  },
+                  invisible: ['|', ['type', '!=', 'product'], ['nbr_reordering_rules', '!=', 1]],
                   class: 'oe_stat_button',
                   type: 'object',
                   icon: 'fa-refresh'
@@ -447,14 +421,14 @@ export default {
                       text: 'Min:'
                     }
                   },
-                  _span_201: {
+                  _span_226: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'Max:'
                     }
                   }
                 },
-                _div_497: {
+                _div_790: {
                   _attr: {
                     class: 'o_field_widget o_stat_info'
                   },
@@ -464,7 +438,7 @@ export default {
                     },
                     reordering_min_qty: {}
                   },
-                  _span_261: {
+                  _span_507: {
                     _attr: {
                       class: 'o_stat_value'
                     },
@@ -472,12 +446,10 @@ export default {
                   }
                 }
               },
-              _button_action_view_orderpoints_580: {
+              _button_action_view_orderpoints_973: {
                 _attr: {
                   name: 'action_view_orderpoints',
-                  attrs: {
-                    invisible: "['|', ('type', '!=', 'product'), ('nbr_reordering_rules', '==', 1)]"
-                  },
+                  invisible: ['|', ['type', '!=', 'product'], ['nbr_reordering_rules', '==', 1]],
                   class: 'oe_stat_button',
                   type: 'object',
                   icon: 'fa-refresh'
@@ -491,9 +463,7 @@ export default {
                   name: 'action_open_product_lot',
                   string: 'Lot/Serial Numbers',
                   groups: 'stock.group_production_lot',
-                  attrs: {
-                    invisible: "[('tracking', '=', 'none')]"
-                  },
+                  invisible: [['tracking', '=', 'none']],
                   class: 'oe_stat_button',
                   type: 'object',
                   icon: 'fa-bars'
@@ -504,9 +474,7 @@ export default {
                   name: 'action_view_related_putaway_rules',
                   string: 'Putaway Rules',
                   groups: 'stock.group_stock_multi_locations',
-                  attrs: {
-                    invisible: "[('type', '=', 'service')]"
-                  },
+                  invisible: [['type', '=', 'service']],
                   context: {
                     todo_ctx: "{                                     'invisible_handle': True,                                     'single_product': product_variant_count == 1,                                 }"
                   },
@@ -520,9 +488,7 @@ export default {
                   name: 'action_view_storage_category_capacity',
                   string: 'Storage Capacities',
                   groups: 'stock.group_stock_storage_categories',
-                  attrs: {
-                    invisible: "[('type', '=', 'service')]"
-                  },
+                  invisible: [['type', '=', 'service']],
                   class: 'oe_stat_button',
                   type: 'object',
                   icon: 'fa-cubes'
@@ -538,7 +504,7 @@ export default {
             responsible_id: {
               widget: 'many2one_avatar_user',
               groups: 'stock.group_stock_user',
-              domain: "[('share', '=', False)]"
+              domain: [['share', '=', false]]
             }
           }
         }

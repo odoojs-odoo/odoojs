@@ -54,7 +54,7 @@ export default {
               digits: '[12,12]'
             }
           },
-          _group_877: {
+          _group_984: {
             currency_id: {},
             company_id: {
               groups: 'base.group_multi_company'
@@ -69,9 +69,9 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Show Currency Rates',
     res_model: 'res.currency.rate',
-    domain: "[('currency_id','=', active_id)]",
+    domain: "[['currency_id','=', active_id]]",
     context: {
-      todo: "{'default_currency_id': active_id}"
+      todo_ctx: "{'default_currency_id': active_id}"
     },
     views: {
       tree: 'view_currency_rate_tree',

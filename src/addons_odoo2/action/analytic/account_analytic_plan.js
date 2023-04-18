@@ -42,7 +42,7 @@ export default {
                 },
                 all_account_count: {}
               },
-              _span_448: {
+              _span_332: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Analytic Accounts'
@@ -63,13 +63,13 @@ export default {
           _group: {
             parent_id: {},
             default_applicability: {
-              invisible: "[('parent_id', '!=', False)]"
+              invisible: [['parent_id', '!=', false]]
             },
             color: {
               widget: 'color_picker'
             }
           },
-          _group_733: {
+          _group_343: {
             company_id: {
               groups: 'base.group_multi_company'
             }
@@ -80,7 +80,7 @@ export default {
             _attr: {
               name: 'applicability',
               string: 'Applicability',
-              invisible: "[('parent_id', '!=', False)]"
+              invisible: [['parent_id', '!=', false]]
             },
             applicability_ids: {
               views: {
@@ -119,10 +119,10 @@ export default {
   },
 
   account_analytic_plan_action: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Analytic Plans',
     res_model: 'account.analytic.plan',
-    domain: "[('parent_id', '=', False)]",
+    domain: "[['parent_id', '=', False]]",
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

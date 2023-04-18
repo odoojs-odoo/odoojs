@@ -121,9 +121,7 @@ export default {
           invisible: '1'
         },
         product_id: {
-          attrs: {
-            readonly: "['|', '&', ('state', '!=', 'draft'), ('additional', '=', False), ('move_lines_count', '>', 0)]"
-          }
+          readonly: ['|', '&', ['state', '!=', 'draft'], ['additional', '=', false], ['move_lines_count', '>', 0]]
         },
         is_initial_demand_editable: {
           invisible: '1'
@@ -133,25 +131,19 @@ export default {
         },
         product_uom_qty: {
           string: 'Demand',
-          attrs: {
-            readonly: "[('is_initial_demand_editable', '=', False)]"
-          }
+          readonly: [['is_initial_demand_editable', '=', false]]
         },
         reserved_availability: {
           string: 'Reserved'
         },
         quantity_done: {
           string: 'Done',
-          attrs: {
-            readonly: "[('is_quantity_done_editable', '=', False)]"
-          }
+          readonly: [['is_quantity_done_editable', '=', false]]
         },
         product_uom: {
           string: 'Unit of Measure',
           groups: 'uom.group_uom',
-          attrs: {
-            readonly: "[('state', '!=', 'draft'), ('id', '!=', False)]"
-          },
+          readonly: [['state', '!=', 'draft'], ['id', '!=', false]],
           no_open: true,
           no_create: true
         }
@@ -216,73 +208,57 @@ export default {
             product_id: {},
             _label_product_uom_qty: {
               for: 'product_uom_qty',
-              attrs: {
-                invisible: "[('from_immediate_transfer', '=', True)]"
-              }
+              invisible: [['from_immediate_transfer', '=', true]]
             },
             _div: {
               _attr: {
-                attrs: {
-                  invisible: "[('from_immediate_transfer', '=', True)]"
-                },
+                invisible: [['from_immediate_transfer', '=', true]],
                 class: 'o_row'
               },
               _span: {
                 product_uom_qty: {}
               },
-              _span_949: {
+              _span_356: {
                 product_uom: {}
               }
             },
             _label_quantity_done: {
               for: 'quantity_done'
             },
-            _div_765: {
+            _div_160: {
               _attr: {
                 class: 'o_row'
               },
               _span: {
                 quantity_done: {}
               },
-              _span_862: {
+              _span_501: {
                 _attr: {
-                  attrs: {
-                    invisible: "['|', ('state', '=', 'done'), ('from_immediate_transfer', '=', True)]"
-                  },
+                  invisible: ['|', ['state', '=', 'done'], ['from_immediate_transfer', '=', true]],
                   text: '/'
                 }
               },
-              _span_553: {
+              _span_981: {
                 reserved_availability: {
-                  attrs: {
-                    invisible: "['|', ('state', '=', 'done'), ('from_immediate_transfer', '=', True)]"
-                  }
+                  invisible: ['|', ['state', '=', 'done'], ['from_immediate_transfer', '=', true]]
                 }
               },
-              _span_784: {
+              _span_404: {
                 product_uom: {
-                  attrs: {
-                    invisible: "[('from_immediate_transfer', '=', True)]"
-                  }
+                  invisible: [['from_immediate_transfer', '=', true]]
                 }
               }
             },
             next_serial: {
-              attrs: {
-                invisible: "[('display_assign_serial', '=', False)]"
-              }
+              invisible: [['display_assign_serial', '=', false]]
             },
             _label_next_serial_count: {
               for: 'next_serial_count',
-              attrs: {
-                invisible: "[('display_assign_serial', '=', False)]"
-              }
+              invisible: [['display_assign_serial', '=', false]]
             },
-            _div_683: {
+            _div_419: {
               _attr: {
-                attrs: {
-                  invisible: "[('display_assign_serial', '=', False)]"
-                },
+                invisible: [['display_assign_serial', '=', false]],
                 class: 'o_row'
               },
               _span: {
@@ -300,9 +276,7 @@ export default {
               _button_action_clear_lines_show_details: {
                 _attr: {
                   name: 'action_clear_lines_show_details',
-                  attrs: {
-                    invisible: "[('display_clear_serial', '=', False)]"
-                  },
+                  invisible: [['display_clear_serial', '=', false]],
                   class: 'btn-link',
                   title: 'Clear Lines',
                   type: 'object'
@@ -313,18 +287,14 @@ export default {
           }
         },
         move_line_ids: {
-          attrs: {
-            readonly: "['|', ('state', '=', 'cancel'), '&', ('state', '=', 'done'), ('is_locked', '=', True)]"
-          },
+          readonly: ['|', ['state', '=', 'cancel'], '&', ['state', '=', 'done'], ['is_locked', '=', true]],
           context: {
             todo_ctx: "{'tree_view_ref': 'stock.view_stock_move_line_operation_tree', 'default_product_uom_id': product_uom, 'default_picking_id': picking_id, 'default_move_id': id, 'default_product_id': product_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'default_company_id': company_id}"
           }
         },
         _footer: {
           _attr: {
-            attrs: {
-              invisible: "['|', ('state', '=', 'cancel'), '&', ('state', '=', 'done'), ('is_locked', '=', True)]"
-            },
+            invisible: ['|', ['state', '=', 'cancel'], '&', ['state', '=', 'done'], ['is_locked', '=', true]],
             class: 'oe_edit_only'
           },
           _button: {
@@ -333,17 +303,15 @@ export default {
               class: 'oe_highlight'
             }
           },
-          _button_917: {
+          _button_710: {
             _attr: {
               string: 'Discard'
             }
           }
         },
-        _footer_394: {
+        _footer_447: {
           _attr: {
-            attrs: {
-              invisible: "['|', '&', ('state', '!=', 'cancel'), ('state', '!=', 'done'), '&', ('state', '=', 'done'), ('is_locked', '!=', True)]"
-            },
+            invisible: ['|', '&', ['state', '!=', 'cancel'], ['state', '!=', 'done'], '&', ['state', '=', 'done'], ['is_locked', '!=', true]],
             class: 'oe_edit_only'
           },
           _button: {
@@ -365,9 +333,7 @@ export default {
         move_line_ids: {
           __todo__replace: {
             move_line_nosuggest_ids: {
-              attrs: {
-                readonly: "['|', ('state', '=', 'cancel'), '&', ('state', '=', 'done'), ('is_locked', '=', True)]"
-              },
+              readonly: ['|', ['state', '=', 'cancel'], '&', ['state', '=', 'done'], ['is_locked', '=', true]],
               context: {
                 todo_ctx: "{'tree_view_ref': 'stock.view_stock_move_line_operation_tree','default_picking_id': picking_id, 'default_move_id': id, 'default_product_id': product_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'default_company_id': company_id}"
               }
@@ -443,23 +409,19 @@ export default {
               name: {
                 invisible: '1'
               },
-              _div_649: {
+              _div_702: {
                 _attr: {
                   class: 'o_td_label'
                 },
                 _label_date: {
                   for: 'date',
                   string: 'Date Scheduled',
-                  attrs: {
-                    invisible: "[('state', '=', 'done')]"
-                  }
+                  invisible: [['state', '=', 'done']]
                 },
-                _label_date_878: {
+                _label_date_662: {
                   for: 'date',
                   string: 'Date Processing',
-                  attrs: {
-                    invisible: "[('state', '!=', 'done')]"
-                  }
+                  invisible: [['state', '!=', 'done']]
                 }
               },
               date: {},
@@ -478,9 +440,7 @@ export default {
             group_id: {},
             procure_method: {
               groups: 'stock.group_adv_location',
-              attrs: {
-                readonly: "[('state', '!=', 'draft')]"
-              }
+              readonly: [['state', '!=', 'draft']]
             }
           },
           _group_linked_group: {
@@ -555,21 +515,21 @@ export default {
         _attr: {
           name: 'ready',
           string: 'Ready',
-          domain: "[('state', '=', 'assigned')]"
+          domain: [['state', '=', 'assigned']]
         }
       },
       _filter_future: {
         _attr: {
           name: 'future',
           string: 'To Do',
-          domain: "[('state', 'in', ('assigned', 'confirmed', 'waiting'))]"
+          domain: [['state', 'in', ('assigned', 'confirmed', 'waiting')]]
         }
       },
       _filter_done: {
         _attr: {
           name: 'done',
           string: 'Done',
-          domain: "[('state', '=', 'done')]"
+          domain: [['state', '=', 'done']]
         }
       },
       _separator: {},
@@ -577,24 +537,24 @@ export default {
         _attr: {
           name: 'incoming',
           string: 'Incoming',
-          domain: "[('location_id.usage', 'not in', ('internal', 'transit')), ('location_dest_id.usage', 'in', ('internal', 'transit'))]"
+          domain: [['location_id.usage', 'not in', ('internal', 'transit')], ['location_dest_id.usage', 'in', ('internal', 'transit')]]
         }
       },
       _filter_outgoing: {
         _attr: {
           name: 'outgoing',
           string: 'Outgoing',
-          domain: "[('location_id.usage', 'in', ('internal', 'transit')), ('location_dest_id.usage', 'not in', ('internal', 'transit'))]"
+          domain: [['location_id.usage', 'in', ('internal', 'transit')], ['location_dest_id.usage', 'not in', ('internal', 'transit')]]
         }
       },
       _filter_inventory: {
         _attr: {
           name: 'inventory',
           string: 'Inventory',
-          domain: "[('is_inventory', '=', True)]"
+          domain: [['is_inventory', '=', true]]
         }
       },
-      _separator_940: {},
+      _separator_992: {},
       _filter_today: {
         _attr: {
           name: 'today',

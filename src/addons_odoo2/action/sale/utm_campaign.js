@@ -29,7 +29,7 @@ export default {
               }
             }
           },
-          _div_607: {
+          _div_393: {
             _attr: {
               groups: 'sales_team.group_sale_salesman',
               class: 'me-3',

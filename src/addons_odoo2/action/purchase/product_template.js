@@ -1,4 +1,20 @@
 export default {
+  product_normal_action_puchased: {
+    _odoo_model: 'ir.actions.act_window',
+    name: 'Products',
+    type: 'ir.actions.act_window',
+    search_view_id: 'product.product_template_search_view',
+    res_model: 'product.template',
+    context: {
+      search_default_filter_to_purchase: 1,
+      purchase_product_template: 1
+    },
+    views: {
+      tree: '=======todo==========',
+      form: '=======todo=========='
+    }
+  },
+
   view_product_supplier_inherit: {
     _odoo_model: 'ir.ui.view',
     model: 'product.template',
@@ -22,19 +38,15 @@ export default {
             name: 'purchase'
           },
           seller_ids: {
-            attrs: {
-              invisible: "[('product_variant_count', '>', 1)]",
-              readonly: "[('product_variant_count', '>', 1)]"
-            },
+            invisible: [['product_variant_count', '>', 1]],
+            readonly: [['product_variant_count', '>', 1]],
             context: {
               todo_ctx: "{'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 'product_template_invisible_variant': True, 'tree_view_ref':'purchase.product_supplierinfo_tree_view2'}"
             }
           },
           variant_seller_ids: {
-            attrs: {
-              invisible: "[('product_variant_count', '<=', 1)]",
-              readonly: "[('product_variant_count', '<=', 1)]"
-            },
+            invisible: [['product_variant_count', '<=', 1]],
+            readonly: [['product_variant_count', '<=', 1]],
             context: {
               todo_ctx: "{'model': active_model, 'active_id': active_id, 'tree_view_ref':'purchase.product_supplierinfo_tree_view2'}"
             }
@@ -51,7 +63,7 @@ export default {
             }
           }
         },
-        _group_bill_354: {
+        _group_bill_920: {
           _attr: {
             name: 'bill'
           },
@@ -59,7 +71,7 @@ export default {
             widget: 'radio'
           }
         },
-        _group_purchase_142: {
+        _group_purchase_278: {
           _attr: {
             name: 'purchase'
           },
@@ -72,18 +84,16 @@ export default {
                 placeholder: 'This note is added to purchase orders.'
               }
             },
-            _group_607: {
+            _group_476: {
               _attr: {
                 string: 'Warning when Purchasing this Product',
                 groups: 'purchase.group_warning_purchase'
               },
               purchase_line_warn: {},
               purchase_line_warn_msg: {
-                attrs: {
-                  required: "[('purchase_line_warn', '!=', 'no-message')]",
-                  readonly: "[('purchase_line_warn', '=', 'no-message')]",
-                  invisible: "[('purchase_line_warn', '=', 'no-message')]"
-                },
+                required: [['purchase_line_warn', '!=', 'no-message']],
+                readonly: [['purchase_line_warn', '=', 'no-message']],
+                invisible: [['purchase_line_warn', '=', 'no-message']],
                 placeholder: 'Type a message...'
               }
             }
@@ -100,15 +110,13 @@ export default {
     arch: {
       sheet: {
         property_account_expense_id: {
-          readonly: "[('purchase_ok', '=', 0)]"
+          readonly: [['purchase_ok', '=', 0]]
         },
         supplier_taxes_id: {
           __todo__replace: {
             supplier_taxes_id: {
               widget: 'many2many_tags',
-              attrs: {
-                readonly: "[('purchase_ok', '=', 0)]"
-              },
+              readonly: [['purchase_ok', '=', 0]],
               context: {
                 default_type_tax_use: 'purchase'
               }
@@ -133,9 +141,7 @@ export default {
             _attr: {
               name: 'action_view_po',
               groups: 'purchase.group_purchase_user',
-              attrs: {
-                invisible: "[('purchase_ok', '=', False)]"
-              },
+              invisible: [['purchase_ok', '=', false]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-credit-card'
@@ -154,7 +160,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_722: {
+              _span_495: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Purchased'

@@ -39,7 +39,7 @@ export default {
         invoice_user_id: {
           __todo__after: {
             team_id: {
-              invisible: "context.get('default_move_type') not in ('out_invoice', 'out_refund','out_receipt')"
+              invisible: "context.get['default_move_type'] not in ['out_invoice', 'out_refund','out_receipt']"
             }
           }
         }
@@ -60,7 +60,7 @@ export default {
           },
           team_id: {}
         },
-        _xpath_892: {
+        _xpath_387: {
           _attr: {
             expr: "//group[@id='other_tab_group']",
             position: 'inside'
@@ -70,9 +70,7 @@ export default {
               name: 'utm_link',
               string: 'Marketing',
               groups: 'base.group_no_one',
-              attrs: {
-                invisible: "[('move_type', 'not in', ('out_invoice', 'out_refund'))]"
-              }
+              invisible: [['move_type', 'not in', ('out_invoice', 'out_refund')]]
             },
             campaign_id: {
               create_name_field: 'title',
@@ -82,7 +80,7 @@ export default {
             source_id: {}
           }
         },
-        _xpath_519: {
+        _xpath_241: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'
@@ -90,9 +88,7 @@ export default {
           _button_action_view_source_sale_orders: {
             _attr: {
               name: 'action_view_source_sale_orders',
-              attrs: {
-                invisible: "['|', ('sale_order_count', '=', 0), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]"
-              },
+              invisible: ['|', ['sale_order_count', '=', 0], ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-pencil-square-o'
@@ -112,7 +108,7 @@ export default {
     name: 'Invoices',
     search_view_id: 'account.view_account_invoice_filter',
     res_model: 'account.move',
-    domain: "[\n            ('state', '=', 'posted'),\n            ('move_type', 'in', ['out_invoice', 'out_refund'])]",
+    domain: "[\n            ['state', '=', 'posted'],\n            ['move_type', 'in', ['out_invoice', 'out_refund']]]",
     context: {
       todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n                'default_move_type':'out_invoice',\n                'move_type':'out_invoice',\n                'journal_type': 'sale',\n            }\n        "
     },

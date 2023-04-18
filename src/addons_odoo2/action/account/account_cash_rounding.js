@@ -34,20 +34,16 @@ export default {
             strategy: {},
             profit_account_id: {
               groups: 'account.group_account_invoice,account.group_account_readonly',
-              domain: "[('account_type', 'not in', ('asset_receivable', 'liability_payable'))]",
-              attrs: {
-                invisible: "[('strategy', '!=', 'add_invoice_line')]",
-                required: "[('strategy', '=', 'add_invoice_line')]"
-              },
+              domain: [['account_type', 'not in', ('asset_receivable', 'liability_payable')]],
+              invisible: [['strategy', '!=', 'add_invoice_line']],
+              required: [['strategy', '=', 'add_invoice_line']],
               no_create: true
             },
             loss_account_id: {
               groups: 'account.group_account_invoice,account.group_account_readonly',
-              domain: "[('account_type', 'not in', ('asset_receivable', 'liability_payable'))]",
-              attrs: {
-                invisible: "[('strategy', '!=', 'add_invoice_line')]",
-                required: "[('strategy', '=', 'add_invoice_line')]"
-              },
+              domain: [['account_type', 'not in', ('asset_receivable', 'liability_payable')]],
+              invisible: [['strategy', '!=', 'add_invoice_line']],
+              required: [['strategy', '=', 'add_invoice_line']],
               no_create: true
             },
             rounding_method: {}

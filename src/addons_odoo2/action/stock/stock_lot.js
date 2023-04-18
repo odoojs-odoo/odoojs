@@ -14,17 +14,13 @@ export default {
         _div_button_box: {
           _attr: {
             name: 'button_box',
-            attrs: {
-              invisible: "[('display_complete', '=', False)]"
-            },
+            invisible: [['display_complete', '=', false]],
             class: 'oe_button_box'
           },
           _button_action_lot_open_transfers: {
             _attr: {
               name: 'action_lot_open_transfers',
-              attrs: {
-                invisible: "[('delivery_count', '=', 0)]"
-              },
+              invisible: [['delivery_count', '=', 0]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-truck'
@@ -42,7 +38,7 @@ export default {
                   class: 'mr4'
                 }
               },
-              _span_633: {
+              _span_452: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Transfers'
@@ -96,15 +92,11 @@ export default {
             },
             _label_product_qty: {
               for: 'product_qty',
-              attrs: {
-                invisible: "[('display_complete', '=', False)]"
-              }
+              invisible: [['display_complete', '=', false]]
             },
             _div: {
               _attr: {
-                attrs: {
-                  invisible: "[('display_complete', '=', False)]"
-                },
+                invisible: [['display_complete', '=', false]],
                 class: 'o_row'
               },
               product_qty: {},
@@ -117,13 +109,11 @@ export default {
               groups: 'base.group_multi_company'
             }
           },
-          _group_830: {}
+          _group_579: {}
         },
         _notebook: {
           _attr: {
-            attrs: {
-              invisible: "[('display_complete', '=', False)]"
-            }
+            invisible: [['display_complete', '=', false]]
           },
           _page_description: {
             _attr: {

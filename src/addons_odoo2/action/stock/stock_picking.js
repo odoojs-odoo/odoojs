@@ -62,9 +62,7 @@ export default {
         },
         scheduled_date: {
           widget: 'remaining_days',
-          attrs: {
-            invisible: "[('state', 'in', ('done', 'cancel'))]"
-          }
+          invisible: [['state', 'in', ('done', 'cancel')]]
         },
         picking_type_code: {
           invisible: '1'
@@ -74,16 +72,12 @@ export default {
           options: '{"lazy": true}'
         },
         products_availability: {
-          attrs: {
-            invisible: "['|', ('picking_type_code', '!=', 'outgoing'), ('state', 'not in', ['confirmed', 'waiting', 'assigned'])]"
-          },
+          invisible: ['|', ['picking_type_code', '!=', 'outgoing'], ['state', 'not in', ['confirmed', 'waiting', 'assigned']]],
           options: '{"lazy": true}'
         },
         date_deadline: {
           widget: 'remaining_days',
-          attrs: {
-            invisible: "[('state', 'in', ('done', 'cancel'))]"
-          }
+          invisible: [['state', 'in', ('done', 'cancel')]]
         },
         date_done: {
           string: 'Effective Date'
@@ -91,7 +85,7 @@ export default {
         origin: {},
         backorder_id: {},
         picking_type_id: {},
-        _field_company_id_318: {
+        _field_company_id_654: {
           company_id: {
             groups: 'base.group_multi_company'
           }
@@ -104,9 +98,7 @@ export default {
         },
         json_popover: {
           widget: 'stock_rescheduling_popover',
-          attrs: {
-            invisible: "[('json_popover', '=', False)]"
-          }
+          invisible: [['json_popover', '=', false]]
         }
       }
     }
@@ -178,9 +170,7 @@ export default {
               name: 'action_confirm',
               string: 'Mark as Todo',
               groups: 'base.group_user',
-              attrs: {
-                invisible: "[('show_mark_as_todo', '=', False)]"
-              },
+              invisible: [['show_mark_as_todo', '=', false]],
               class: 'oe_highlight',
               type: 'object'
             }
@@ -190,9 +180,7 @@ export default {
               name: 'action_assign',
               string: 'Check Availability',
               groups: 'base.group_user',
-              attrs: {
-                invisible: "[('show_check_availability', '=', False)]"
-              },
+              invisible: [['show_check_availability', '=', false]],
               class: 'oe_highlight',
               type: 'object'
             }
@@ -202,21 +190,17 @@ export default {
               name: 'button_validate',
               string: 'Validate',
               groups: 'stock.group_stock_user',
-              attrs: {
-                invisible: "['|', ('state', 'in', ('waiting', 'confirmed')), ('show_validate', '=', False)]"
-              },
+              invisible: ['|', ['state', 'in', ('waiting', 'confirmed')], ['show_validate', '=', false]],
               class: 'oe_highlight',
               type: 'object'
             }
           },
-          _button_button_validate_966: {
+          _button_button_validate_496: {
             _attr: {
               name: 'button_validate',
               string: 'Validate',
               groups: 'stock.group_stock_user',
-              attrs: {
-                invisible: "['|', ('state', 'not in', ('waiting', 'confirmed')), ('show_validate', '=', False)]"
-              },
+              invisible: ['|', ['state', 'not in', ('waiting', 'confirmed')], ['show_validate', '=', false]],
               class: 'o_btn_validate',
               type: 'object'
             }
@@ -226,9 +210,7 @@ export default {
               name: 'action_set_quantities_to_reservation',
               string: 'Set quantities',
               groups: 'stock.group_stock_user',
-              attrs: {
-                invisible: "[('show_set_qty_button', '=', False)]"
-              },
+              invisible: [['show_set_qty_button', '=', false]],
               class: 'o_btn_validate',
               type: 'object'
             }
@@ -238,9 +220,7 @@ export default {
               name: 'action_clear_quantities_to_zero',
               string: 'Clear quantities',
               groups: 'stock.group_stock_user',
-              attrs: {
-                invisible: "[('show_clear_qty_button', '=', False)]"
-              },
+              invisible: [['show_clear_qty_button', '=', false]],
               class: 'o_btn_validate',
               type: 'object'
             }
@@ -250,19 +230,15 @@ export default {
               name: 'signature',
               string: 'Sign',
               groups: 'stock.group_stock_sign_delivery',
-              attrs: {
-                invisible: "['|', '|', ('id', '=', False), ('picking_type_code', '!=', 'outgoing'), ('state', '!=', 'done')]"
-              }
+              invisible: ['|', '|', ['id', '=', false], ['picking_type_code', '!=', 'outgoing'], ['state', '!=', 'done']]
             }
           },
-          _widget_signature_970: {
+          _widget_signature_891: {
             _attr: {
               name: 'signature',
               string: 'Sign',
               groups: 'stock.group_stock_sign_delivery',
-              attrs: {
-                invisible: "['|', '|', ('id', '=', False), ('picking_type_code', '!=', 'outgoing'), ('state', '=', 'done')]"
-              }
+              invisible: ['|', '|', ['id', '=', false], ['picking_type_code', '!=', 'outgoing'], ['state', '=', 'done']]
             }
           },
           _button_do_print_picking: {
@@ -270,9 +246,7 @@ export default {
               name: 'do_print_picking',
               string: 'Print',
               groups: 'stock.group_stock_user',
-              attrs: {
-                invisible: "[('state', '!=', 'assigned')]"
-              },
+              invisible: [['state', '!=', 'assigned']],
               type: 'object'
             }
           },
@@ -288,9 +262,7 @@ export default {
               name: 'action_report_delivery',
               string: 'Print',
               groups: 'base.group_user',
-              attrs: {
-                invisible: "[('state', '!=', 'done')]"
-              },
+              invisible: [['state', '!=', 'done']],
               type: 'action'
             }
           },
@@ -299,9 +271,7 @@ export default {
               name: 'act_stock_return_picking',
               string: 'Return',
               groups: 'base.group_user',
-              attrs: {
-                invisible: "[('state', '!=', 'done')]"
-              },
+              invisible: [['state', '!=', 'done']],
               type: 'action'
             }
           },
@@ -310,9 +280,7 @@ export default {
               name: 'do_unreserve',
               string: 'Unreserve',
               groups: 'base.group_user',
-              attrs: {
-                invisible: "['|', '|', '|', ('picking_type_code', '=', 'incoming'), ('immediate_transfer', '=', True), '&', ('state', '!=', 'assigned'), ('move_type', '!=', 'one'), '&', ('state', 'not in', ('assigned', 'confirmed')), ('move_type', '=', 'one')]"
-              },
+              invisible: ['|', '|', '|', ['picking_type_code', '=', 'incoming'], ['immediate_transfer', '=', true], '&', ['state', '!=', 'assigned'], ['move_type', '!=', 'one'], '&', ['state', 'not in', ('assigned', 'confirmed')], ['move_type', '=', 'one']],
               type: 'object'
             }
           },
@@ -320,9 +288,7 @@ export default {
             _attr: {
               name: 'button_scrap',
               string: 'Scrap',
-              attrs: {
-                invisible: "['|', '&', ('picking_type_code', '=', 'incoming'), ('state', '!=', 'done'), '&', ('picking_type_code', '=', 'outgoing'), ('state', '=', 'done')]"
-              },
+              invisible: ['|', '&', ['picking_type_code', '=', 'incoming'], ['state', '!=', 'done'], '&', ['picking_type_code', '=', 'outgoing'], ['state', '=', 'done']],
               type: 'object'
             }
           },
@@ -331,20 +297,16 @@ export default {
               name: 'action_toggle_is_locked',
               string: 'Unlock',
               groups: 'stock.group_stock_manager',
-              attrs: {
-                invisible: "['|', ('state', 'in', ('draft', 'cancel')), ('is_locked', '=', False)]"
-              },
+              invisible: ['|', ['state', 'in', ('draft', 'cancel')], ['is_locked', '=', false]],
               type: 'object'
             }
           },
-          _button_action_toggle_is_locked_219: {
+          _button_action_toggle_is_locked_498: {
             _attr: {
               name: 'action_toggle_is_locked',
               string: 'Lock',
               groups: 'stock.group_stock_manager',
-              attrs: {
-                invisible: "[('is_locked', '=', True)]"
-              },
+              invisible: [['is_locked', '=', true]],
               type: 'object'
             }
           },
@@ -356,9 +318,7 @@ export default {
               name: 'action_cancel',
               string: 'Cancel',
               groups: 'base.group_user',
-              attrs: {
-                invisible: "[('state', 'not in', ('assigned', 'confirmed', 'draft', 'waiting'))]"
-              },
+              invisible: [['state', 'not in', ('assigned', 'confirmed', 'draft', 'waiting')]],
               type: 'object'
             }
           }
@@ -378,9 +338,7 @@ export default {
             _attr: {
               name: 'action_see_move_scrap',
               string: 'Scraps',
-              attrs: {
-                invisible: "[('has_scrap_move', '=', False)]"
-              },
+              invisible: [['has_scrap_move', '=', false]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-arrows-v'
@@ -390,9 +348,7 @@ export default {
             _attr: {
               name: 'action_see_packages',
               string: 'Packages',
-              attrs: {
-                invisible: "[('has_packages', '=', False)]"
-              },
+              invisible: [['has_packages', '=', false]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-cubes'
@@ -403,9 +359,7 @@ export default {
               name: 'action_stock_report',
               string: 'Traceability',
               groups: 'stock.group_production_lot',
-              attrs: {
-                invisible: "['|', ('state', '!=', 'done'), ('has_tracking', '=', False)]"
-              },
+              invisible: ['|', ['state', '!=', 'done'], ['has_tracking', '=', false]],
               class: 'oe_stat_button',
               type: 'action',
               icon: 'fa-arrow-up'
@@ -416,11 +370,9 @@ export default {
               name: 'action_view_reception_report',
               string: 'Allocation',
               groups: 'stock.group_reception_report',
-              attrs: {
-                invisible: "[('show_allocation', '=', False)]"
-              },
+              invisible: [['show_allocation', '=', false]],
               context: {
-                default_picking_ids: "[<built-in function id>]"
+                default_picking_ids: [<built-in function id>]
               },
               class: 'oe_stat_button',
               type: 'object',
@@ -431,9 +383,7 @@ export default {
             _attr: {
               name: 'action_picking_move_tree',
               groups: 'base.group_no_one',
-              attrs: {
-                invisible: "['|', '&', ('show_operations', '=', True), '|', ('is_locked', '=', True), ('state', '=', 'done'), '&', ('state', '=', 'done'), ('is_locked', '=', True)]"
-              },
+              invisible: ['|', '&', ['show_operations', '=', true], '|', ['is_locked', '=', true], ['state', '=', 'done'], '&', ['state', '=', 'done'], ['is_locked', '=', true]],
               context: {
                 todo_ctx: "{'picking_type_code': picking_type_code, 'default_picking_id': id, 'form_view_ref':'stock.view_move_form', 'address_in_id': partner_id, 'default_picking_type_id': picking_type_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}"
               },
@@ -464,15 +414,11 @@ export default {
             },
             priority: {
               widget: 'priority',
-              attrs: {
-                invisible: "[('name', '=', '/')]"
-              },
+              invisible: [['name', '=', '/']],
               class: 'me-3'
             },
             name: {
-              attrs: {
-                invisible: "[('name', '=', '/')]"
-              }
+              invisible: [['name', '=', '/']]
             }
           }
         },
@@ -485,31 +431,23 @@ export default {
               _label_partner_id: {
                 for: 'partner_id',
                 string: 'Delivery Address',
-                attrs: {
-                  invisible: "[('picking_type_code', '!=', 'outgoing')]"
-                }
+                invisible: [['picking_type_code', '!=', 'outgoing']]
               },
-              _label_partner_id_355: {
+              _label_partner_id_244: {
                 for: 'partner_id',
                 string: 'Receive From',
-                attrs: {
-                  invisible: "[('picking_type_code', '!=', 'incoming')]"
-                }
+                invisible: [['picking_type_code', '!=', 'incoming']]
               },
-              _label_partner_id_592: {
+              _label_partner_id_353: {
                 for: 'partner_id',
                 string: 'Contact',
-                attrs: {
-                  invisible: "[('picking_type_code', 'in', ['incoming', 'outgoing'])]"
-                }
+                invisible: [['picking_type_code', 'in', ['incoming', 'outgoing']]]
               }
             },
             partner_id: {},
             picking_type_id: {
-              attrs: {
-                invisible: "[('hide_picking_type', '=', True)]",
-                readonly: "[('state', '!=', 'draft')]"
-              }
+              invisible: [['hide_picking_type', '=', true]],
+              readonly: [['state', '!=', 'draft']]
             },
             location_id: {
               groups: '!stock.group_stock_multi_locations',
@@ -519,31 +457,25 @@ export default {
               groups: '!stock.group_stock_multi_locations',
               invisible: '1'
             },
-            _field_location_id_475: {
+            _field_location_id_488: {
               location_id: {
                 groups: 'stock.group_stock_multi_locations',
-                attrs: {
-                  invisible: "[('picking_type_code', '=', 'incoming')]"
-                },
+                invisible: [['picking_type_code', '=', 'incoming']],
                 no_create: true
               }
             },
-            _field_location_dest_id_288: {
+            _field_location_dest_id_904: {
               location_dest_id: {
                 groups: 'stock.group_stock_multi_locations',
-                attrs: {
-                  invisible: "[('picking_type_code', '=', 'outgoing')]"
-                },
+                invisible: [['picking_type_code', '=', 'outgoing']],
                 no_create: true
               }
             },
             backorder_id: {
-              attrs: {
-                invisible: "[('backorder_id', '=', False)]"
-              }
+              invisible: [['backorder_id', '=', false]]
             }
           },
-          _group_280: {
+          _group_372: {
             _label_scheduled_date: {
               for: 'scheduled_date'
             },
@@ -552,44 +484,32 @@ export default {
                 class: 'o_row'
               },
               scheduled_date: {
-                attrs: {
-                  required: "[('id', '!=', False)]"
-                }
+                required: [['id', '!=', false]]
               },
               json_popover: {
                 widget: 'stock_rescheduling_popover',
-                attrs: {
-                  invisible: "[('json_popover', '=', False)]"
-                }
+                invisible: [['json_popover', '=', false]]
               }
             },
             date_deadline: {
-              attrs: {
-                invisible: "['|', ('state', 'in', ('done', 'cancel')), ('date_deadline', '=', False)]"
-              }
+              invisible: ['|', ['state', 'in', ('done', 'cancel')], ['date_deadline', '=', false]]
             },
             products_availability_state: {
               invisible: '1'
             },
             products_availability: {
-              attrs: {
-                invisible: "['|', ('picking_type_code', '!=', 'outgoing'), ('state', 'not in', ['confirmed', 'waiting', 'assigned'])]"
-              }
+              invisible: ['|', ['picking_type_code', '!=', 'outgoing'], ['state', 'not in', ['confirmed', 'waiting', 'assigned']]]
             },
             date_done: {
               string: 'Effective Date',
-              attrs: {
-                invisible: "[('state', '!=', 'done')]"
-              }
+              invisible: [['state', '!=', 'done']]
             },
             origin: {
               placeholder: 'e.g. PO0032'
             },
             owner_id: {
               groups: 'stock.group_tracking_owner',
-              attrs: {
-                invisible: "[('picking_type_code', '!=', 'incoming')]"
-              }
+              invisible: [['picking_type_code', '!=', 'incoming']]
             }
           }
         },
@@ -598,33 +518,25 @@ export default {
             _attr: {
               name: 'detailed_operations',
               string: 'Detailed Operations',
-              attrs: {
-                invisible: "[('show_operations', '=', False)]"
-              }
+              invisible: [['show_operations', '=', false]]
             },
             move_line_nosuggest_ids: {
-              attrs: {
-                readonly: "['|', '|', ('show_operations', '=', False), ('state', '=', 'cancel'), '&', ('state', '=', 'done'), ('is_locked', '=', True)]",
-                invisible: "[('show_reserved', '=', True)]"
-              },
+              readonly: ['|', '|', ['show_operations', '=', false], ['state', '=', 'cancel'], '&', ['state', '=', 'done'], ['is_locked', '=', true]],
+              invisible: [['show_reserved', '=', true]],
               context: {
                 todo_ctx: "{'tree_view_ref': 'stock.view_stock_move_line_detailed_operation_tree', 'default_picking_id': id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'default_company_id': company_id}"
               }
             },
             move_line_ids_without_package: {
-              attrs: {
-                readonly: "['|', '|', ('show_operations', '=', False), ('state', '=', 'cancel'), '&', ('state', '=', 'done'), ('is_locked', '=', True)]",
-                invisible: "[('show_reserved', '=', False)]"
-              },
+              readonly: ['|', '|', ['show_operations', '=', false], ['state', '=', 'cancel'], '&', ['state', '=', 'done'], ['is_locked', '=', true]],
+              invisible: [['show_reserved', '=', false]],
               context: {
                 todo_ctx: "{'tree_view_ref': 'stock.view_stock_move_line_detailed_operation_tree', 'default_picking_id': id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'default_company_id': company_id}"
               }
             },
             package_level_ids_details: {
-              attrs: {
-                readonly: "[('state', '=', 'done')]",
-                invisible: "['|', ('picking_type_entire_packs', '=', False), ('show_operations', '=', False)]"
-              },
+              readonly: [['state', '=', 'done']],
+              invisible: ['|', ['picking_type_entire_packs', '=', false], ['show_operations', '=', false]],
               context: {
                 todo_ctx: "{'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'default_company_id': company_id}"
               }
@@ -634,9 +546,7 @@ export default {
                 name: 'action_put_in_pack',
                 string: 'Put in Pack',
                 groups: 'stock.group_tracking_lot',
-                attrs: {
-                  invisible: "[('state', 'in', ('draft', 'done', 'cancel'))]"
-                },
+                invisible: [['state', 'in', ('draft', 'done', 'cancel')]],
                 class: 'oe_highlight',
                 type: 'object'
               }
@@ -649,9 +559,7 @@ export default {
             },
             move_ids_without_package: {
               widget: 'stock_move_one2many',
-              attrs: {
-                readonly: "['&', ('state', '=', 'done'), ('is_locked', '=', True)]"
-              },
+              readonly: ['&', ['state', '=', 'done'], ['is_locked', '=', true]],
               context: {
                 todo_ctx: "{'default_company_id': company_id, 'default_date': scheduled_date, 'default_date_deadline': date_deadline, 'picking_type_code': picking_type_code, 'default_picking_id': id, 'form_view_ref':'stock.view_move_form', 'address_in_id': partner_id, 'default_picking_type_id': picking_type_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'default_partner_id': partner_id}"
               },
@@ -720,9 +628,7 @@ export default {
                         invisible: '1'
                       },
                       product_id: {
-                        attrs: {
-                          readonly: "['|', '&', ('state', '!=', 'draft'), ('additional', '=', False), ('move_lines_count', '>', 0)]"
-                        },
+                        readonly: ['|', '&', ['state', '!=', 'draft'], ['additional', '=', false], ['move_lines_count', '>', 0]],
                         context: {
                           default_detailed_type: 'product'
                         }
@@ -743,28 +649,22 @@ export default {
                       },
                       product_uom_qty: {
                         string: 'Demand',
-                        attrs: {
-                          column_invisible: "[('parent.immediate_transfer', '=', True)]",
-                          readonly: "['|', ('is_initial_demand_editable', '=', False), '&', '&', ('show_operations', '=', True), ('is_locked', '=', True), ('is_initial_demand_editable', '=', False)]"
-                        }
+                        column_invisible: [['parent.immediate_transfer', '=', true]],
+                        readonly: ['|', ['is_initial_demand_editable', '=', false], '&', '&', ['show_operations', '=', true], ['is_locked', '=', true], ['is_initial_demand_editable', '=', false]]
                       },
                       _button_action_product_forecast_report: {
                         _attr: {
                           name: 'action_product_forecast_report',
-                          attrs: {
-                            invisible: "['|', ('forecast_availability', '<', 0), '|', ('parent.immediate_transfer', '=', True), '&', ('parent.picking_type_code', '=', 'outgoing'), ('state', '!=', 'draft')]"
-                          },
+                          invisible: ['|', ['forecast_availability', '<', 0], '|', ['parent.immediate_transfer', '=', true], '&', ['parent.picking_type_code', '=', 'outgoing'], ['state', '!=', 'draft']],
                           title: 'Forecast Report',
                           type: 'object',
                           icon: 'fa-area-chart'
                         }
                       },
-                      _button_action_product_forecast_report_754: {
+                      _button_action_product_forecast_report_519: {
                         _attr: {
                           name: 'action_product_forecast_report',
-                          attrs: {
-                            invisible: "['|', ('forecast_availability', '>=', 0), '|', ('parent.immediate_transfer', '=', True), '&', ('parent.picking_type_code', '=', 'outgoing'), ('state', '!=', 'draft')]"
-                          },
+                          invisible: ['|', ['forecast_availability', '>=', 0], '|', ['parent.immediate_transfer', '=', true], '&', ['parent.picking_type_code', '=', 'outgoing'], ['state', '!=', 'draft']],
                           title: 'Forecast Report',
                           type: 'object',
                           icon: 'fa-area-chart text-danger'
@@ -776,32 +676,24 @@ export default {
                       forecast_availability: {
                         string: 'Reserved',
                         widget: 'forecast_widget',
-                        attrs: {
-                          column_invisible: "['|', '|', ('parent.state', 'in', ['draft', 'done']), ('parent.picking_type_code', '!=', 'outgoing'), ('parent.immediate_transfer', '=', True)]"
-                        }
+                        column_invisible: ['|', '|', ['parent.state', 'in', ['draft', 'done']], ['parent.picking_type_code', '!=', 'outgoing'], ['parent.immediate_transfer', '=', true]]
                       },
                       reserved_availability: {
                         string: 'Reserved',
-                        attrs: {
-                          column_invisible: "['|', '|', ('parent.state', 'in', ['draft', 'done']), ('parent.picking_type_code', 'in', ['incoming', 'outgoing']), ('parent.immediate_transfer', '=', True)]"
-                        }
+                        column_invisible: ['|', '|', ['parent.state', 'in', ['draft', 'done']], ['parent.picking_type_code', 'in', ['incoming', 'outgoing']], ['parent.immediate_transfer', '=', true]]
                       },
                       product_qty: {
                         invisible: '1'
                       },
                       quantity_done: {
                         string: 'Done',
-                        attrs: {
-                          readonly: "[('product_id', '=', False)]",
-                          column_invisible: "[('parent.state', '=', 'draft'), ('parent.immediate_transfer', '=', False)]"
-                        }
+                        readonly: [['product_id', '=', false]],
+                        column_invisible: [['parent.state', '=', 'draft'], ['parent.immediate_transfer', '=', false]]
                       },
                       product_uom: {
                         string: 'Unit of Measure',
                         groups: 'uom.group_uom',
-                        attrs: {
-                          readonly: "[('state', '!=', 'draft'), ('additional', '=', False)]"
-                        },
+                        readonly: [['state', '!=', 'draft'], ['additional', '=', false]],
                         no_open: true,
                         no_create: true
                       },
@@ -811,20 +703,16 @@ export default {
                         domain: {
                           todo_ctx: "[('product_id','=',product_id)]"
                         },
-                        attrs: {
-                          invisible: "['|', ('show_details_visible', '=', False), ('has_tracking', '!=', 'serial')]"
-                        },
+                        invisible: ['|', ['show_details_visible', '=', false], ['has_tracking', '!=', 'serial']],
                         context: {
                           todo_ctx: "{'default_company_id': company_id, 'default_product_id': product_id, 'active_picking_id': parent.id}"
                         },
-                        create: "[('parent.use_create_lots', '=', True)]"
+                        create: [['parent.use_create_lots', '=', true]]
                       },
                       _button_action_show_details: {
                         _attr: {
                           name: 'action_show_details',
-                          attrs: {
-                            invisible: "[('show_details_visible', '=', False)]"
-                          },
+                          invisible: [['show_details_visible', '=', false]],
                           title: 'Details',
                           type: 'object',
                           icon: 'fa-list'
@@ -833,9 +721,7 @@ export default {
                       _button_action_assign_serial: {
                         _attr: {
                           name: 'action_assign_serial',
-                          attrs: {
-                            invisible: "['|', ('display_assign_serial', '=', False), ('show_operations', '=', False)]"
-                          },
+                          invisible: ['|', ['display_assign_serial', '=', false], ['show_operations', '=', false]],
                           title: 'Assign Serial Numbers',
                           type: 'object',
                           icon: 'fa-plus-square'
@@ -869,9 +755,7 @@ export default {
                           invisible: '1'
                         },
                         product_id: {
-                          attrs: {
-                            readonly: "['|', '&', ('state', '!=', 'draft'), ('additional', '=', False), ('move_lines_count', '>', 0)]"
-                          }
+                          readonly: ['|', '&', ['state', '!=', 'draft'], ['additional', '=', false], ['move_lines_count', '>', 0]]
                         },
                         is_initial_demand_editable: {
                           invisible: '1'
@@ -880,16 +764,12 @@ export default {
                           invisible: '1'
                         },
                         product_uom_qty: {
-                          attrs: {
-                            invisible: "[('parent.immediate_transfer', '=', True)]",
-                            readonly: "[('is_initial_demand_editable', '=', False)]"
-                          }
+                          invisible: [['parent.immediate_transfer', '=', true]],
+                          readonly: [['is_initial_demand_editable', '=', false]]
                         },
                         reserved_availability: {
                           string: 'Reserved',
-                          attrs: {
-                            invisible: "['|', '|', ('parent.state', '=', 'done'), ('parent.picking_type_code', 'in', ['outgoing', 'incoming']), ('parent.immediate_transfer', '=', True)]"
-                          }
+                          invisible: ['|', '|', ['parent.state', '=', 'done'], ['parent.picking_type_code', 'in', ['outgoing', 'incoming']], ['parent.immediate_transfer', '=', true]]
                         },
                         product_qty: {
                           invisible: '1'
@@ -900,22 +780,16 @@ export default {
                         forecast_availability: {
                           string: 'Reserved',
                           widget: 'forecast_widget',
-                          attrs: {
-                            invisible: "['|', ('parent.picking_type_code', '!=', 'outgoing'), ('parent.state', '=', 'done')]"
-                          }
+                          invisible: ['|', ['parent.picking_type_code', '!=', 'outgoing'], ['parent.state', '=', 'done']]
                         },
                         quantity_done: {
                           string: 'Done',
-                          attrs: {
-                            readonly: "[('is_quantity_done_editable', '=', False)]"
-                          }
+                          readonly: [['is_quantity_done_editable', '=', false]]
                         },
                         product_uom: {
                           string: 'Unit of Measure',
                           groups: 'uom.group_uom',
-                          attrs: {
-                            readonly: "[('state', '!=', 'draft'), ('id', '!=', False)]"
-                          },
+                          readonly: [['state', '!=', 'draft'], ['id', '!=', false]],
                           no_open: true,
                           no_create: true
                         },
@@ -932,10 +806,8 @@ export default {
               invisible: '1'
             },
             package_level_ids: {
-              attrs: {
-                readonly: "[('state', '=', 'done')]",
-                invisible: "['|', ('picking_type_entire_packs', '=', False), ('show_operations', '=', True)]"
-              },
+              readonly: [['state', '=', 'done']],
+              invisible: ['|', ['picking_type_entire_packs', '=', false], ['show_operations', '=', true]],
               context: {
                 todo_ctx: "{'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'default_company_id': company_id}"
               }
@@ -945,9 +817,7 @@ export default {
                 name: 'action_put_in_pack',
                 string: 'Put in Pack',
                 groups: 'stock.group_tracking_lot',
-                attrs: {
-                  invisible: "[('state', 'in', ('draft', 'done', 'cancel'))]"
-                },
+                invisible: [['state', 'in', ('draft', 'done', 'cancel')]],
                 class: 'oe_highlight',
                 type: 'object'
               }
@@ -968,12 +838,10 @@ export default {
                   invisible: '1'
                 },
                 move_type: {
-                  attrs: {
-                    invisible: "[('picking_type_code', '=', 'incoming')]"
-                  }
+                  invisible: [['picking_type_code', '=', 'incoming']]
                 },
                 user_id: {
-                  domain: "[('share', '=', False)]"
+                  domain: [['share', '=', false]]
                 },
                 group_id: {
                   groups: 'base.group_no_one'
@@ -1039,7 +907,7 @@ export default {
         _attr: {
           name: 'starred',
           string: 'Starred',
-          domain: "[('priority', '=', '1')]"
+          domain: [['priority', '=', '1']]
         }
       },
       _separator: {},
@@ -1047,38 +915,38 @@ export default {
         _attr: {
           name: 'draft',
           string: 'Draft',
-          domain: "[('state', '=', 'draft')]"
+          domain: [['state', '=', 'draft']]
         }
       },
       _filter_waiting: {
         _attr: {
           name: 'waiting',
           string: 'Waiting',
-          domain: "[('state', 'in', ('confirmed', 'waiting'))]"
+          domain: [['state', 'in', ('confirmed', 'waiting')]]
         }
       },
       _filter_available: {
         _attr: {
           name: 'available',
           string: 'Ready',
-          domain: "[('state', '=', 'assigned')]"
+          domain: [['state', '=', 'assigned']]
         }
       },
       _filter_done: {
         _attr: {
           name: 'done',
           string: 'Done',
-          domain: "[('state', '=', 'done')]"
+          domain: [['state', '=', 'done']]
         }
       },
       _filter_cancel: {
         _attr: {
           name: 'cancel',
           string: 'Cancelled',
-          domain: "[('state', '=', 'cancel')]"
+          domain: [['state', '=', 'cancel']]
         }
       },
-      _separator_341: {},
+      _separator_278: {},
       _filter_late: {
         _attr: {
           name: 'late',
@@ -1097,15 +965,15 @@ export default {
           }
         }
       },
-      _separator_374: {},
+      _separator_342: {},
       _filter_backorder: {
         _attr: {
           name: 'backorder',
           string: 'Backorders',
-          domain: "[('backorder_id', '!=', False), ('state', 'in', ('assigned', 'waiting', 'confirmed'))]"
+          domain: [['backorder_id', '!=', false], ['state', 'in', ('assigned', 'waiting', 'confirmed')]]
         }
       },
-      _separator_559: {},
+      _separator_667: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
@@ -1136,12 +1004,12 @@ export default {
           }
         }
       },
-      _separator_262: {},
+      _separator_372: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',
           string: 'Warnings',
-          domain: "[('activity_exception_decoration', '!=', False)]"
+          domain: [['activity_exception_decoration', '!=', false]]
         }
       },
       _group: {
@@ -1206,6 +1074,18 @@ export default {
       tree: '=======todo==========',
       form: '=======todo=========='
     }
+  },
+
+  action_validate_picking: {
+    _odoo_model: 'ir.actions.server',
+    model_id: 'stock.model_stock_picking',
+    model: 'stock_picking'
+  },
+
+  action_unreserve_picking: {
+    _odoo_model: 'ir.actions.server',
+    model_id: 'stock.model_stock_picking',
+    model: 'stock_picking'
   },
 
   stock_picking_action_picking_type: {
@@ -1312,7 +1192,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Transfers for Groups',
     res_model: 'stock.picking',
-    domain: "[('group_id','=',active_id)]",
+    domain: "[['group_id','=',active_id]]",
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

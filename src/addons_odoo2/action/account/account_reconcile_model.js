@@ -67,26 +67,18 @@ export default {
               widget: 'radio'
             }
           },
-          _group_859: {
+          _group_846: {
             auto_reconcile: {
-              attrs: {
-                invisible: "[('rule_type', '=', 'writeoff_button')]"
-              }
+              invisible: [['rule_type', '=', 'writeoff_button']]
             },
             to_check: {
-              attrs: {
-                invisible: "[('rule_type', '!=', 'writeoff_button')]"
-              }
+              invisible: [['rule_type', '!=', 'writeoff_button']]
             },
             past_months_limit: {
-              attrs: {
-                invisible: "[('rule_type', '!=', 'invoice_matching')]"
-              }
+              invisible: [['rule_type', '!=', 'invoice_matching']]
             },
             matching_order: {
-              attrs: {
-                invisible: "[('rule_type', '!=', 'invoice_matching')]"
-              }
+              invisible: [['rule_type', '!=', 'invoice_matching']]
             }
           }
         },
@@ -110,65 +102,47 @@ export default {
                   }
                 },
                 match_nature: {
-                  attrs: {
-                    invisible: "[('rule_type', '=', 'writeoff_button')]"
-                  }
+                  invisible: [['rule_type', '=', 'writeoff_button']]
                 },
                 _label_match_amount: {
                   for: 'match_amount',
-                  attrs: {
-                    invisible: "[('rule_type', '=', 'writeoff_button')]"
-                  }
+                  invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_650: {
+                _div_805: {
                   _attr: {
-                    attrs: {
-                      invisible: "[('rule_type', '=', 'writeoff_button')]"
-                    },
+                    invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-2'
                   },
                   match_amount: {},
                   match_amount_min: {
-                    attrs: {
-                      invisible: "[('match_amount', 'in', (False, 'lower'))]",
-                      required: "[('match_amount', '!=', False)]"
-                    }
+                    invisible: [['match_amount', 'in', (false, 'lower')]],
+                    required: [['match_amount', '!=', false]]
                   },
                   _span: {
                     _attr: {
-                      attrs: {
-                        invisible: "[('match_amount', '!=', 'between')]"
-                      },
+                      invisible: [['match_amount', '!=', 'between']],
                       class: 'o_form_label',
                       text: 'and'
                     }
                   },
                   match_amount_max: {
-                    attrs: {
-                      invisible: "[('match_amount', 'in', (False, 'greater'))]",
-                      required: "[('match_amount', '=', 'between')]"
-                    }
+                    invisible: [['match_amount', 'in', (false, 'greater')]],
+                    required: [['match_amount', '=', 'between']]
                   }
                 },
                 _label_allow_payment_tolerance: {
                   for: 'allow_payment_tolerance',
-                  attrs: {
-                    invisible: "[('rule_type', '!=', 'invoice_matching')]"
-                  }
+                  invisible: [['rule_type', '!=', 'invoice_matching']]
                 },
-                _div_165: {
+                _div_447: {
                   _attr: {
-                    attrs: {
-                      invisible: "[('rule_type', '!=', 'invoice_matching')]"
-                    },
+                    invisible: [['rule_type', '!=', 'invoice_matching']],
                     class: 'd-flex gap-2'
                   },
                   allow_payment_tolerance: {},
                   _span: {
                     _attr: {
-                      attrs: {
-                        invisible: "[('allow_payment_tolerance', '=', False)]"
-                      },
+                      invisible: [['allow_payment_tolerance', '=', false]],
                       class: 'd-flex gap-2 w-100'
                     },
                     payment_tolerance_param: {},
@@ -176,29 +150,23 @@ export default {
                   }
                 },
                 match_same_currency: {
-                  attrs: {
-                    invisible: "[('rule_type', '!=', 'invoice_matching')]"
-                  }
+                  invisible: [['rule_type', '!=', 'invoice_matching']]
                 }
               },
-              _group_430: {
+              _group_850: {
                 _attr: {
                   class: 'col-6'
                 },
                 _span: {
                   _attr: {
-                    attrs: {
-                      invisible: "[('rule_type', '!=', 'invoice_matching')]"
-                    },
+                    invisible: [['rule_type', '!=', 'invoice_matching']],
                     class: 'o_form_label o_td_label',
                     text: 'Match Invoice/bill with'
                   }
                 },
                 _div: {
                   _attr: {
-                    attrs: {
-                      invisible: "[('rule_type', '!=', 'invoice_matching')]"
-                    },
+                    invisible: [['rule_type', '!=', 'invoice_matching']],
                     class: 'd-flex gap-3'
                   },
                   _label_match_text_location_label: {
@@ -219,107 +187,77 @@ export default {
                 },
                 _label_match_label: {
                   for: 'match_label',
-                  attrs: {
-                    invisible: "[('rule_type', '=', 'writeoff_button')]"
-                  }
+                  invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_797: {
+                _div_421: {
                   _attr: {
-                    attrs: {
-                      invisible: "[('rule_type', '=', 'writeoff_button')]"
-                    },
+                    invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-3'
                   },
                   match_label: {},
                   match_label_param: {
-                    attrs: {
-                      invisible: "[('match_label', '=', False)]",
-                      required: "[('match_label', '!=', False)]"
-                    }
+                    invisible: [['match_label', '=', false]],
+                    required: [['match_label', '!=', false]]
                   }
                 },
                 _label_match_note: {
                   for: 'match_note',
-                  attrs: {
-                    invisible: "[('rule_type', '=', 'writeoff_button')]"
-                  }
+                  invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_595: {
+                _div_193: {
                   _attr: {
-                    attrs: {
-                      invisible: "[('rule_type', '=', 'writeoff_button')]"
-                    },
+                    invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-3'
                   },
                   match_note: {},
                   match_note_param: {
-                    attrs: {
-                      invisible: "[('match_note', '=', False)]",
-                      required: "[('match_note', '!=', False)]"
-                    }
+                    invisible: [['match_note', '=', false]],
+                    required: [['match_note', '!=', false]]
                   }
                 },
                 _label_match_transaction_type: {
                   for: 'match_transaction_type',
-                  attrs: {
-                    invisible: "[('rule_type', '=', 'writeoff_button')]"
-                  }
+                  invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_698: {
+                _div_377: {
                   _attr: {
-                    attrs: {
-                      invisible: "[('rule_type', '=', 'writeoff_button')]"
-                    },
+                    invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-3'
                   },
                   match_transaction_type: {},
                   match_transaction_type_param: {
-                    attrs: {
-                      invisible: "[('match_transaction_type', '=', False)]",
-                      required: "[('match_transaction_type', '!=', False)]"
-                    }
+                    invisible: [['match_transaction_type', '=', false]],
+                    required: [['match_transaction_type', '!=', false]]
                   }
                 },
                 match_partner: {
-                  attrs: {
-                    invisible: "[('rule_type', '=', 'writeoff_button')]"
-                  }
+                  invisible: [['rule_type', '=', 'writeoff_button']]
                 },
                 _label_match_partner_ids: {
                   for: 'match_partner_ids',
-                  attrs: {
-                    invisible: "['|', ('match_partner', '=', False), ('rule_type', '=', 'writeoff_button')]"
-                  },
+                  invisible: ['|', ['match_partner', '=', false], ['rule_type', '=', 'writeoff_button']],
                   class: 'ml16'
                 },
                 match_partner_ids: {
                   widget: 'many2many_tags',
-                  attrs: {
-                    invisible: "['|', ('match_partner', '=', False), ('rule_type', '=', 'writeoff_button')]"
-                  },
+                  invisible: ['|', ['match_partner', '=', false], ['rule_type', '=', 'writeoff_button']],
                   no_quick_create: true
                 },
                 _label_match_partner_category_ids: {
                   for: 'match_partner_category_ids',
-                  attrs: {
-                    invisible: "['|', ('match_partner', '=', False), ('rule_type', '=', 'writeoff_button')]"
-                  },
+                  invisible: ['|', ['match_partner', '=', false], ['rule_type', '=', 'writeoff_button']],
                   class: 'ml16'
                 },
                 match_partner_category_ids: {
                   widget: 'many2many_tags',
-                  attrs: {
-                    invisible: "['|', ('match_partner', '=', False), ('rule_type', '=', 'writeoff_button')]"
-                  }
+                  invisible: ['|', ['match_partner', '=', false], ['rule_type', '=', 'writeoff_button']]
                 }
               }
             },
-            _group_905: {
+            _group_920: {
               _attr: {
                 string: 'Counterpart Entries',
-                attrs: {
-                  invisible: "[('rule_type', '=', 'invoice_matching'), '|', ('allow_payment_tolerance', '=', False), '&', ('allow_payment_tolerance', '=', True), ('payment_tolerance_param', '=', 0.0)]"
-                },
+                invisible: [['rule_type', '=', 'invoice_matching'], '|', ['allow_payment_tolerance', '=', false], '&', ['allow_payment_tolerance', '=', true], ['payment_tolerance_param', '=', 0.0]],
                 class: 'oe_inline'
               },
               _group: {
@@ -328,9 +266,7 @@ export default {
                 },
                 decimal_separator: {
                   groups: 'base.group_no_one',
-                  attrs: {
-                    invisible: "[('show_decimal_separator', '=', False)]"
-                  }
+                  invisible: [['show_decimal_separator', '=', false]]
                 }
               },
               line_ids: {
@@ -350,9 +286,7 @@ export default {
                         account_id: {},
                         amount_type: {},
                         journal_id: {
-                          attrs: {
-                            column_invisible: "[('parent.rule_type', '!=', 'writeoff_button')]"
-                          }
+                          column_invisible: [['parent.rule_type', '!=', 'writeoff_button']]
                         },
                         amount_string: {},
                         tax_ids: {
@@ -366,9 +300,7 @@ export default {
                         },
                         force_tax_included: {
                           widget: 'boolean_toggle',
-                          attrs: {
-                            invisible: "[('show_force_tax_included', '=', False)]"
-                          }
+                          invisible: [['show_force_tax_included', '=', false]]
                         },
                         label: {}
                       }
@@ -378,12 +310,10 @@ export default {
               }
             }
           },
-          _page_404: {
+          _page_985: {
             _attr: {
               string: 'Partner Mapping',
-              attrs: {
-                invisible: "[('rule_type', 'not in', ('invoice_matching', 'writeoff_suggestion'))]"
-              }
+              invisible: [['rule_type', 'not in', ('invoice_matching', 'writeoff_suggestion')]]
             },
             partner_mapping_line_ids: {
               views: {
@@ -391,14 +321,10 @@ export default {
                   arch: {
                     sheet: {
                       payment_ref_regex: {
-                        attrs: {
-                          required: "[('narration_regex', '=', False)]"
-                        }
+                        required: [['narration_regex', '=', false]]
                       },
                       narration_regex: {
-                        attrs: {
-                          required: "[('payment_ref_regex', '=', False)]"
-                        }
+                        required: [['payment_ref_regex', '=', false]]
                       },
                       partner_id: {}
                     }
@@ -421,14 +347,14 @@ export default {
         _attr: {
           name: 'withtax',
           string: 'With tax',
-          domain: "[('line_ids.tax_ids', '!=', False)]"
+          domain: [['line_ids.tax_ids', '!=', false]]
         }
       },
       _filter_auto_reconcile: {
         _attr: {
           name: 'auto_reconcile',
           string: 'Auto Reconcile',
-          domain: "[('auto_reconcile', '=', True)]"
+          domain: [['auto_reconcile', '=', true]]
         }
       },
       rule_type: {},
@@ -437,7 +363,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       }
     }

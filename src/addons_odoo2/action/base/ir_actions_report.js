@@ -1,4 +1,14 @@
 export default {
+  reports_action: {
+    _odoo_model: 'ir.actions.act_window',
+    name: 'Reports',
+    res_model: 'ir.actions.report',
+    views: {
+      tree: '=======todo==========',
+      form: '=======todo=========='
+    }
+  },
+
   act_report_xml_view: {
     _odoo_model: 'ir.ui.view',
     model: 'ir.actions.report',
@@ -17,9 +27,7 @@ export default {
             _attr: {
               name: 'create_action',
               string: "Add in the 'Print' menu",
-              attrs: {
-                invisible: "[('binding_model_id', '!=', False)]"
-              },
+              invisible: [['binding_model_id', '!=', false]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-plus-square'
@@ -29,9 +37,7 @@ export default {
             _attr: {
               name: 'unlink_action',
               string: "Remove from the 'Print' menu",
-              attrs: {
-                invisible: "[('binding_model_id', '=', False)]"
-              },
+              invisible: [['binding_model_id', '=', false]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-minus-square'
@@ -41,9 +47,7 @@ export default {
             _attr: {
               name: 'associated_view',
               string: 'QWeb views',
-              attrs: {
-                invisible: "[('report_type', 'not in', ['qweb-pdf', 'qweb-html', 'qweb-text'])]"
-              },
+              invisible: [['report_type', 'not in', ['qweb-pdf', 'qweb-html', 'qweb-text']]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-code'
@@ -55,12 +59,10 @@ export default {
             name: {},
             report_type: {},
             paperformat_id: {
-              attrs: {
-                invisible: "[('report_type', 'not in', ['qweb-pdf'])]"
-              }
+              invisible: [['report_type', 'not in', ['qweb-pdf']]]
             }
           },
-          _group_419: {
+          _group_434: {
             model: {},
             report_name: {},
             print_report_name: {}
@@ -124,7 +126,7 @@ export default {
           _attr: {
             name: 'report_type',
             string: 'Report Type',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'report_type'
             }
@@ -134,7 +136,7 @@ export default {
           _attr: {
             name: 'report_model',
             string: 'Report Model',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'model'
             }

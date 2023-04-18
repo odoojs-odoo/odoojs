@@ -1,4 +1,80 @@
 export default {
+  act_res_partner_2_sale_order: {
+    _odoo_model: 'ir.actions.act_window',
+    name: 'Quotations and Sales',
+    res_model: 'sale.order',
+    context: {
+      todo_ctx: "{'default_partner_id': active_id}"
+    },
+    views: {
+      tree: '=======todo==========',
+      form: '=======todo=========='
+    }
+  },
+
+  action_quotations_salesteams: {
+    _odoo_model: 'ir.actions.act_window',
+    name: 'Quotations',
+    type: 'ir.actions.act_window',
+    search_view_id: 'sale.sale_order_view_search_inherit_quotation',
+    res_model: 'sale.order',
+    domain: '[]',
+    context: {
+      todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n                'show_address': 1,\n            }\n        "
+    },
+    views: {
+      tree: 'sale.view_quotation_tree',
+      form: '=======todo=========='
+    }
+  },
+
+  action_quotation_form: {
+    _odoo_model: 'ir.actions.act_window',
+    name: 'New Quotation',
+    type: 'ir.actions.act_window',
+    search_view_id: 'sale_order_view_search_inherit_quotation',
+    res_model: 'sale.order',
+    context: {
+      todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n                'default_user_id': uid,\n        }\n        "
+    },
+    views: {
+      tree: '=======todo==========',
+      form: '=======todo=========='
+    }
+  },
+
+  action_orders_salesteams: {
+    _odoo_model: 'ir.actions.act_window',
+    name: 'Sales Orders',
+    type: 'ir.actions.act_window',
+    search_view_id: 'sale.sale_order_view_search_inherit_sale',
+    res_model: 'sale.order',
+    domain: "[['state','not in',['draft','sent','cancel']]]",
+    context: {
+      todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n            }\n        "
+    },
+    views: {
+      tree: '=======todo==========',
+      form: '=======todo=========='
+    }
+  },
+
+  action_orders_to_invoice_salesteams: {
+    _odoo_model: 'ir.actions.act_window',
+    name: 'Sales Orders',
+    type: 'ir.actions.act_window',
+    search_view_id: 'sale.sale_order_view_search_inherit_sale',
+    res_model: 'sale.order',
+    domain: "[['invoice_status','=','to invoice']]",
+    context: {
+      todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n            }\n        "
+    },
+    views: {
+      tree: '=======todo==========',
+      form: '=======todo=========='
+    }
+  },
+
   sale_order_view_activity: {
     _odoo_model: 'ir.ui.view',
     model: 'sale.order',
@@ -182,9 +258,7 @@ export default {
             _attr: {
               name: 'payment_action_capture',
               string: 'Capture Transaction',
-              attrs: {
-                invisible: "[('authorized_transaction_ids', '=', [])]"
-              },
+              invisible: [['authorized_transaction_ids', '=', []]],
               class: 'oe_highlight',
               type: 'object'
             }
@@ -193,9 +267,7 @@ export default {
             _attr: {
               name: 'payment_action_void',
               string: 'Void Transaction',
-              attrs: {
-                invisible: "[('authorized_transaction_ids', '=', [])]"
-              },
+              invisible: [['authorized_transaction_ids', '=', []]],
               type: 'object'
             }
           },
@@ -203,20 +275,16 @@ export default {
             _attr: {
               name: 'sale.action_view_sale_advance_payment_inv',
               string: 'Create Invoice',
-              attrs: {
-                invisible: "[('invoice_status', '!=', 'to invoice')]"
-              },
+              invisible: [['invoice_status', '!=', 'to invoice']],
               class: 'btn-primary',
               type: 'action'
             }
           },
-          _button_sale__action_view_sale_advance_payment_inv_786: {
+          _button_sale__action_view_sale_advance_payment_inv_468: {
             _attr: {
               name: 'sale.action_view_sale_advance_payment_inv',
               string: 'Create Invoice',
-              attrs: {
-                invisible: "['|', ('invoice_status', '!=', 'no'), ('state', '!=', 'sale')]"
-              },
+              invisible: ['|', ['invoice_status', '!=', 'no'], ['state', '!=', 'sale']],
               context: {
                 default_advance_payment_method: 'percentage'
               },
@@ -234,14 +302,12 @@ export default {
               type: 'object'
             }
           },
-          _button_action_quotation_send_598: {
+          _button_action_quotation_send_399: {
             _attr: {
               name: 'action_quotation_send',
               string: 'Send PRO-FORMA Invoice',
               groups: 'sale.group_proforma_sales',
-              attrs: {
-                invisible: "['|', ('state', '!=', 'draft'), ('invoice_count', '>=', 1)]"
-              },
+              invisible: ['|', ['state', '!=', 'draft'], ['invoice_count', '>=', 1]],
               context: {
                 proforma: true,
                 validate_analytic: true
@@ -254,9 +320,7 @@ export default {
             _attr: {
               name: 'action_confirm',
               string: 'Confirm',
-              attrs: {
-                invisible: "[('state', 'not in', ['sent'])]"
-              },
+              invisible: [['state', 'not in', ['sent']]],
               context: {
                 validate_analytic: true
               },
@@ -264,27 +328,23 @@ export default {
               type: 'object'
             }
           },
-          _button_action_confirm_404: {
+          _button_action_confirm_487: {
             _attr: {
               name: 'action_confirm',
               string: 'Confirm',
-              attrs: {
-                invisible: "[('state', 'not in', ['draft'])]"
-              },
+              invisible: [['state', 'not in', ['draft']]],
               context: {
                 validate_analytic: true
               },
               type: 'object'
             }
           },
-          _button_action_quotation_send_115: {
+          _button_action_quotation_send_232: {
             _attr: {
               name: 'action_quotation_send',
               string: 'Send PRO-FORMA Invoice',
               groups: 'sale.group_proforma_sales',
-              attrs: {
-                invisible: "['|', ('state', '=', 'draft'), ('invoice_count', '>=', 1)]"
-              },
+              invisible: ['|', ['state', '=', 'draft'], ['invoice_count', '>=', 1]],
               context: {
                 proforma: true,
                 validate_analytic: true
@@ -292,7 +352,7 @@ export default {
               type: 'object'
             }
           },
-          _button_action_quotation_send_842: {
+          _button_action_quotation_send_822: {
             _attr: {
               name: 'action_quotation_send',
               string: 'Send by Email',
@@ -306,9 +366,7 @@ export default {
             _attr: {
               name: 'action_cancel',
               string: 'Cancel',
-              attrs: {
-                invisible: "['|', ('state', 'not in', ['draft', 'sent', 'sale']), ('id', '=', False)]"
-              },
+              invisible: ['|', ['state', 'not in', ['draft', 'sent', 'sale']], ['id', '=', false]],
               type: 'object'
             }
           },
@@ -326,9 +384,7 @@ export default {
         _div: {
           _attr: {
             groups: 'account.group_account_invoice,account.group_account_readonly',
-            attrs: {
-              invisible: "[('partner_credit_warning', '=', '')]"
-            },
+            invisible: [['partner_credit_warning', '=', '']],
             class: 'alert alert-warning mb-0'
           },
           partner_credit_warning: {}
@@ -341,9 +397,7 @@ export default {
           _button_action_view_invoice: {
             _attr: {
               name: 'action_view_invoice',
-              attrs: {
-                invisible: "[('invoice_count', '=', 0)]"
-              },
+              invisible: [['invoice_count', '=', 0]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-pencil-square-o'
@@ -370,7 +424,7 @@ export default {
                   text: 'Customer'
                 }
               },
-              _span_856: {
+              _span_733: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Preview'
@@ -424,16 +478,12 @@ export default {
               name: 'order_details'
             },
             validity_date: {
-              attrs: {
-                invisible: "[('state', 'in', ['sale', 'done'])]"
-              }
+              invisible: [['state', 'in', ['sale', 'done']]]
             },
             _div: {
               _attr: {
                 groups: 'base.group_no_one',
-                attrs: {
-                  invisible: "[('state', 'in', ['sale', 'done', 'cancel'])]"
-                },
+                invisible: [['state', 'in', ['sale', 'done', 'cancel']]],
                 class: 'o_td_label'
               },
               _label_date_order: {
@@ -443,15 +493,11 @@ export default {
             },
             date_order: {
               groups: 'base.group_no_one',
-              attrs: {
-                invisible: "[('state', 'in', ['sale', 'done', 'cancel'])]"
-              }
+              invisible: [['state', 'in', ['sale', 'done', 'cancel']]]
             },
-            _div_986: {
+            _div_504: {
               _attr: {
-                attrs: {
-                  invisible: "[('state', 'in', ['draft', 'sent'])]"
-                },
+                invisible: [['state', 'in', ['draft', 'sent']]],
                 class: 'o_td_label'
               },
               _label_date_order: {
@@ -459,11 +505,9 @@ export default {
                 string: 'Order Date'
               }
             },
-            _field_date_order_840: {
+            _field_date_order_572: {
               date_order: {
-                attrs: {
-                  invisible: "[('state', 'in', ['draft', 'sent'])]"
-                }
+                invisible: [['state', 'in', ['draft', 'sent']]]
               }
             },
             show_update_pricelist: {
@@ -473,7 +517,7 @@ export default {
               for: 'pricelist_id',
               groups: 'product.group_product_pricelist'
             },
-            _div_396: {
+            _div_132: {
               _attr: {
                 groups: 'product.group_product_pricelist',
                 class: 'o_row'
@@ -486,9 +530,7 @@ export default {
                 _attr: {
                   name: 'action_update_prices',
                   string: ' Update Prices',
-                  attrs: {
-                    invisible: "['|', ('show_update_pricelist', '=', False), ('state', 'in', ['sale', 'done', 'cancel'])]"
-                  },
+                  invisible: ['|', ['show_update_pricelist', '=', false], ['state', 'in', ['sale', 'done', 'cancel']]],
                   class: 'btn-link mb-1 px-0',
                   type: 'object',
                   icon: 'fa-refresh'
@@ -522,9 +564,7 @@ export default {
             },
             order_line: {
               widget: 'section_and_note_one2many',
-              attrs: {
-                readonly: "[('state', 'in', ('done', 'cancel'))]"
-              },
+              readonly: [['state', 'in', ('done', 'cancel')]],
               views: {
                 form: {
                   arch: {
@@ -541,9 +581,7 @@ export default {
                       _group: {
                         _group: {
                           _attr: {
-                            attrs: {
-                              invisible: "[('display_type', '!=', False)]"
-                            }
+                            invisible: [['display_type', '!=', false]]
                           },
                           product_updatable: {
                             invisible: '1'
@@ -553,10 +591,8 @@ export default {
                             domain: {
                               todo_ctx: "[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
                             },
-                            attrs: {
-                              readonly: "[('product_updatable', '=', False)]",
-                              required: "[('display_type', '=', False)]"
-                            },
+                            readonly: [['product_updatable', '=', false]],
+                            required: [['display_type', '=', false]],
                             context: {
                               todo_ctx: "{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
                             },
@@ -603,13 +639,11 @@ export default {
                               groups: '!uom.group_uom',
                               invisible: '1'
                             },
-                            _field_product_uom_669: {
+                            _field_product_uom_885: {
                               product_uom: {
                                 groups: 'uom.group_uom',
-                                attrs: {
-                                  readonly: "[('product_uom_readonly', '=', True)]",
-                                  required: "[('display_type', '=', False)]"
-                                },
+                                readonly: [['product_uom_readonly', '=', true]],
+                                required: [['display_type', '=', false]],
                                 class: 'oe_no_button',
                                 force_save: '1'
                               }
@@ -618,48 +652,34 @@ export default {
                           _label_qty_delivered: {
                             for: 'qty_delivered',
                             string: 'Delivered',
-                            attrs: {
-                              invisible: "[('parent.state', 'not in', ['sale', 'done'])]"
-                            }
+                            invisible: [['parent.state', 'not in', ['sale', 'done']]]
                           },
                           _div_delivered_qty: {
                             _attr: {
                               name: 'delivered_qty',
-                              attrs: {
-                                invisible: "[('parent.state', 'not in', ['sale', 'done'])]"
-                              }
+                              invisible: [['parent.state', 'not in', ['sale', 'done']]]
                             },
                             qty_delivered: {
-                              attrs: {
-                                readonly: "[('qty_delivered_method', '!=', 'manual')]"
-                              }
+                              readonly: [['qty_delivered_method', '!=', 'manual']]
                             }
                           },
                           _label_qty_invoiced: {
                             for: 'qty_invoiced',
                             string: 'Invoiced',
-                            attrs: {
-                              invisible: "[('parent.state', 'not in', ['sale', 'done'])]"
-                            }
+                            invisible: [['parent.state', 'not in', ['sale', 'done']]]
                           },
                           _div_invoiced_qty: {
                             _attr: {
                               name: 'invoiced_qty',
-                              attrs: {
-                                invisible: "[('parent.state', 'not in', ['sale', 'done'])]"
-                              }
+                              invisible: [['parent.state', 'not in', ['sale', 'done']]]
                             },
                             qty_invoiced: {
-                              attrs: {
-                                invisible: "[('parent.state', 'not in', ['sale', 'done'])]"
-                              }
+                              invisible: [['parent.state', 'not in', ['sale', 'done']]]
                             }
                           },
                           product_packaging_id: {
                             groups: 'product.group_stock_packaging',
-                            attrs: {
-                              invisible: "[('product_id', '=', False)]"
-                            },
+                            invisible: [['product_id', '=', false]],
                             context: {
                               todo_ctx: "{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}"
                             }
@@ -670,9 +690,7 @@ export default {
                             domain: {
                               todo_ctx: "[('type_tax_use','=','sale'), ('company_id','=',parent.company_id), ('country_id', '=', parent.tax_country_id)]"
                             },
-                            attrs: {
-                              readonly: "[('qty_invoiced', '>', 0)]"
-                            },
+                            readonly: [['qty_invoiced', '>', 0]],
                             context: {
                               search_view_ref: 'account.account_tax_view_search'
                             },
@@ -695,11 +713,9 @@ export default {
                             invisible: '1'
                           }
                         },
-                        _group_766: {
+                        _group_839: {
                           _attr: {
-                            attrs: {
-                              invisible: "[('display_type', '!=', False)]"
-                            }
+                            invisible: [['display_type', '!=', false]]
                           },
                           _label_customer_lead: {
                             for: 'customer_lead'
@@ -723,32 +739,24 @@ export default {
                       _label_name: {
                         for: 'name',
                         string: 'Description',
-                        attrs: {
-                          invisible: "[('display_type', '!=', False)]"
-                        }
+                        invisible: [['display_type', '!=', false]]
                       },
-                      _label_name_594: {
+                      _label_name_303: {
                         for: 'name',
                         string: 'Section Name (eg. Products, Services)',
-                        attrs: {
-                          invisible: "[('display_type', '!=', 'line_section')]"
-                        }
+                        invisible: [['display_type', '!=', 'line_section']]
                       },
-                      _label_name_706: {
+                      _label_name_602: {
                         for: 'name',
                         string: 'Note',
-                        attrs: {
-                          invisible: "[('display_type', '!=', 'line_note')]"
-                        }
+                        invisible: [['display_type', '!=', 'line_note']]
                       },
                       name: {},
                       _div_invoice_lines: {
                         _attr: {
                           name: 'invoice_lines',
                           groups: 'base.group_no_one',
-                          attrs: {
-                            invisible: "[('display_type', '!=', False)]"
-                          }
+                          invisible: [['display_type', '!=', false]]
                         },
                         _label_invoice_lines: {
                           for: 'invoice_lines'
@@ -816,10 +824,8 @@ export default {
                         domain: {
                           todo_ctx: "[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
                         },
-                        attrs: {
-                          readonly: "[('product_updatable', '=', False)]",
-                          required: "[('display_type', '=', False)]"
-                        },
+                        readonly: [['product_updatable', '=', false]],
+                        required: [['display_type', '=', false]],
                         context: {
                           todo_ctx: "{                                         'partner_id': parent.partner_id,                                         'quantity': product_uom_qty,                                         'pricelist': parent.pricelist_id,                                         'uom':product_uom,                                         'company_id': parent.company_id,                                         'default_lst_price': price_unit,                                         'default_description_sale': name                                     }"
                         },
@@ -833,10 +839,8 @@ export default {
                         domain: {
                           todo_ctx: "[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
                         },
-                        attrs: {
-                          readonly: "[('product_updatable', '=', False)]",
-                          required: "[('display_type', '=', False)]"
-                        },
+                        readonly: [['product_updatable', '=', false]],
+                        required: [['display_type', '=', false]],
                         context: {
                           todo_ctx: "{                                         'partner_id': parent.partner_id,                                         'quantity': product_uom_qty,                                         'pricelist': parent.pricelist_id,                                         'uom':product_uom,                                         'company_id': parent.company_id,                                         'default_list_price': price_unit,                                         'default_description_sale': name                                     }"
                         },
@@ -858,19 +862,15 @@ export default {
                       },
                       qty_delivered: {
                         string: 'Delivered',
-                        attrs: {
-                          column_invisible: "[('parent.state', 'not in', ['sale', 'done'])]",
-                          readonly: "[('qty_delivered_method', '!=', 'manual')]"
-                        }
+                        column_invisible: [['parent.state', 'not in', ['sale', 'done']]],
+                        readonly: [['qty_delivered_method', '!=', 'manual']]
                       },
                       qty_delivered_method: {
                         invisible: '1'
                       },
                       qty_invoiced: {
                         string: 'Invoiced',
-                        attrs: {
-                          column_invisible: "[('parent.state', 'not in', ['sale', 'done'])]"
-                        }
+                        column_invisible: [['parent.state', 'not in', ['sale', 'done']]]
                       },
                       qty_to_invoice: {
                         invisible: '1'
@@ -882,14 +882,12 @@ export default {
                         groups: '!uom.group_uom',
                         invisible: '1'
                       },
-                      _field_product_uom_192: {
+                      _field_product_uom_250: {
                         product_uom: {
                           string: 'UoM',
                           groups: 'uom.group_uom',
-                          attrs: {
-                            readonly: "[('product_uom_readonly', '=', True)]",
-                            required: "[('display_type', '=', False)]"
-                          },
+                          readonly: [['product_uom_readonly', '=', true]],
+                          required: [['display_type', '=', false]],
                           context: {
                             todo_ctx: "{'company_id': parent.company_id}"
                           },
@@ -898,38 +896,28 @@ export default {
                         }
                       },
                       customer_lead: {
-                        attrs: {
-                          readonly: "[('parent.state', 'not in', ['draft', 'sent', 'sale'])]"
-                        }
+                        readonly: [['parent.state', 'not in', ['draft', 'sent', 'sale']]]
                       },
                       product_packaging_qty: {
                         groups: 'product.group_stock_packaging',
-                        attrs: {
-                          invisible: "['|', ('product_id', '=', False), ('product_packaging_id', '=', False)]"
-                        }
+                        invisible: ['|', ['product_id', '=', false], ['product_packaging_id', '=', false]]
                       },
                       product_packaging_id: {
                         groups: 'product.group_stock_packaging',
-                        attrs: {
-                          invisible: "[('product_id', '=', False)]"
-                        },
+                        invisible: [['product_id', '=', false]],
                         context: {
                           todo_ctx: "{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}"
                         }
                       },
                       price_unit: {
-                        attrs: {
-                          readonly: "[('qty_invoiced', '>', 0)]"
-                        }
+                        readonly: [['qty_invoiced', '>', 0]]
                       },
                       tax_id: {
                         widget: 'many2many_tags',
                         domain: {
                           todo_ctx: "[('type_tax_use','=','sale'),('company_id','=',parent.company_id), ('country_id', '=', parent.tax_country_id)]"
                         },
-                        attrs: {
-                          readonly: "[('qty_invoiced', '>', 0)]"
-                        },
+                        readonly: [['qty_invoiced', '>', 0]],
                         context: {
                           active_test: true
                         },
@@ -946,16 +934,12 @@ export default {
                       price_subtotal: {
                         widget: 'monetary',
                         groups: 'account.group_show_line_subtotals_tax_excluded',
-                        attrs: {
-                          invisible: "[('is_downpayment', '=', True)]"
-                        }
+                        invisible: [['is_downpayment', '=', true]]
                       },
                       price_total: {
                         widget: 'monetary',
                         groups: 'account.group_show_line_subtotals_tax_included',
-                        attrs: {
-                          invisible: "[('is_downpayment', '=', True)]"
-                        }
+                        invisible: [['is_downpayment', '=', true]]
                       },
                       state: {
                         invisible: '1'
@@ -990,7 +974,7 @@ export default {
                       price_tax: {
                         invisible: '1'
                       },
-                      _field_price_total_669: {
+                      _field_price_total_988: {
                         price_total: {
                           invisible: '1'
                         }
@@ -1017,7 +1001,7 @@ export default {
                                   },
                                   _img: {}
                                 },
-                                _div_386: {
+                                _div_977: {
                                   _attr: {
                                     class: 'col-10'
                                   },
@@ -1031,7 +1015,7 @@ export default {
                                       },
                                       _strong: {}
                                     },
-                                    _div_773: {
+                                    _div_108: {
                                       _attr: {
                                         class: 'col-auto'
                                       },
@@ -1040,7 +1024,7 @@ export default {
                                           groups: 'account.group_show_line_subtotals_tax_excluded'
                                         }
                                       },
-                                      _t_426: {
+                                      _t_822: {
                                         _attr: {
                                           groups: 'account.group_show_line_subtotals_tax_included'
                                         }
@@ -1052,7 +1036,7 @@ export default {
                                       }
                                     }
                                   },
-                                  _div_278: {
+                                  _div_727: {
                                     _attr: {
                                       class: 'row'
                                     },
@@ -1062,10 +1046,10 @@ export default {
                                         text: 'Quantity:'
                                       },
                                       _t: {},
-                                      _t_856: {}
+                                      _t_872: {}
                                     }
                                   },
-                                  _div_721: {
+                                  _div_681: {
                                     _attr: {
                                       class: 'row'
                                     },
@@ -1080,7 +1064,7 @@ export default {
                                 }
                               }
                             },
-                            _t_798: {
+                            _t_762: {
                               _div: {
                                 _attr: {
                                   class: 'row'
@@ -1160,12 +1144,10 @@ export default {
                   require_payment: {
                     class: 'oe_inline ms-3'
                   },
-                  _span_153: 'Payment'
+                  _span_111: 'Payment'
                 },
                 reference: {
-                  attrs: {
-                    invisible: "[('reference', '=', False)]"
-                  }
+                  invisible: [['reference', '=', false]]
                 },
                 client_order_ref: {},
                 tag_ids: {
@@ -1196,9 +1178,7 @@ export default {
                     _attr: {
                       name: 'action_update_taxes',
                       string: ' Update Taxes',
-                      attrs: {
-                        invisible: "['|', ('show_update_fpos', '=', False), ('state', 'in', ['sale', 'done', 'cancel'])]"
-                      },
+                      invisible: ['|', ['show_update_fpos', '=', false], ['state', 'in', ['sale', 'done', 'cancel']]],
                       class: 'btn-link mb-1 px-0',
                       type: 'object',
                       icon: 'fa-refresh'
@@ -1210,9 +1190,7 @@ export default {
                 },
                 analytic_account_id: {
                   groups: 'analytic.group_analytic_accounting',
-                  attrs: {
-                    readonly: "[('invoice_count', '!=', 0), ('state', '=', 'sale')]"
-                  },
+                  readonly: [['invoice_count', '!=', 0], ['state', '=', 'sale']],
                   context: {
                     todo_ctx: "{'default_partner_id':partner_invoice_id, 'default_name':name}"
                   },
@@ -1221,7 +1199,7 @@ export default {
                 invoice_status: {
                   groups: 'base.group_no_one'
                 },
-                _field_invoice_status_855: {
+                _field_invoice_status_638: {
                   invoice_status: {
                     groups: '!base.group_no_one',
                     invisible: '1'
@@ -1229,7 +1207,7 @@ export default {
                 }
               }
             },
-            _group_393: {
+            _group_866: {
               _group_sale_shipping: {
                 _attr: {
                   name: 'sale_shipping'
@@ -1289,9 +1267,7 @@ export default {
               name: 'customer_signature',
               string: 'Customer Signature',
               groups: 'base.group_no_one',
-              attrs: {
-                invisible: "[('require_signature', '=', False), ('signed_by', '=', False), ('signature', '=', False), ('signed_on', '=', False)]"
-              }
+              invisible: [['require_signature', '=', false], ['signed_by', '=', false], ['signature', '=', false], ['signed_on', '=', false]]
             },
             _group: {
               signed_by: {},
@@ -1459,22 +1435,22 @@ export default {
               }
             }
           },
-          _separator_625: {},
+          _separator_610: {},
           _filter_draft: {
             _attr: {
               name: 'draft',
               string: 'Quotations',
-              domain: "[('state', 'in', ('draft', 'sent'))]"
+              domain: [['state', 'in', ('draft', 'sent')]]
             }
           },
           _filter_sales: {
             _attr: {
               name: 'sales',
               string: 'Sales Orders',
-              domain: "[('state', 'in', ('sale', 'done'))]"
+              domain: [['state', 'in', ('sale', 'done')]]
             }
           },
-          _separator_539: {},
+          _separator_912: {},
           _filter_filter_create_date: {
             _attr: {
               name: 'filter_create_date',
@@ -1501,17 +1477,17 @@ export default {
             _attr: {
               name: 'to_invoice',
               string: 'To Invoice',
-              domain: "[('invoice_status', '=', 'to invoice')]"
+              domain: [['invoice_status', '=', 'to invoice']]
             }
           },
           _filter_upselling: {
             _attr: {
               name: 'upselling',
               string: 'To Upsell',
-              domain: "[('invoice_status', '=', 'upselling')]"
+              domain: [['invoice_status', '=', 'upselling']]
             }
           },
-          _separator_429: {},
+          _separator_845: {},
           _filter_order_date: {
             _attr: {
               name: 'order_date',
@@ -1529,7 +1505,7 @@ export default {
     type: 'ir.actions.act_window',
     search_view_id: 'sale_order_view_search_inherit_sale',
     res_model: 'sale.order',
-    domain: "[('state', 'not in', ('draft', 'sent', 'cancel'))]",
+    domain: "[['state', 'not in', ['draft', 'sent', 'cancel']]]",
     context: {},
     views: {
       tree: '=======todo==========',
@@ -1657,7 +1633,7 @@ export default {
     type: 'ir.actions.act_window',
     search_view_id: 'view_sales_order_filter',
     res_model: 'sale.order',
-    domain: "[('invoice_status','=','to invoice')]",
+    domain: "[['invoice_status','=','to invoice']]",
     context: {
       create: false
     },
@@ -1673,7 +1649,7 @@ export default {
     type: 'ir.actions.act_window',
     search_view_id: 'view_sales_order_filter',
     res_model: 'sale.order',
-    domain: "[('invoice_status','=','upselling')]",
+    domain: "[['invoice_status','=','upselling']]",
     context: {
       create: false
     },
@@ -1681,5 +1657,17 @@ export default {
       tree: '=======todo==========',
       form: '=======todo=========='
     }
+  },
+
+  model_sale_order_action_quotation_sent: {
+    _odoo_model: 'ir.actions.server',
+    model_id: 'sale.model_sale_order',
+    model: 'sale_order'
+  },
+
+  model_sale_order_action_share: {
+    _odoo_model: 'ir.actions.server',
+    model_id: 'sale.model_sale_order',
+    model: 'sale_order'
   }
 }

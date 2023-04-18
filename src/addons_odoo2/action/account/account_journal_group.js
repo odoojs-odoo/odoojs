@@ -16,7 +16,7 @@ export default {
           widget: 'many2many_tags',
           no_create: true
         },
-        _field_company_id_903: {
+        _field_company_id_363: {
           company_id: {
             groups: 'base.group_multi_company'
           }
@@ -45,7 +45,7 @@ export default {
           sequence: {
             groups: 'base.group_no_one'
           },
-          _field_company_id_998: {
+          _field_company_id_452: {
             company_id: {
               groups: 'base.group_multi_company'
             }

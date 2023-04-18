@@ -10,9 +10,7 @@ export default {
         },
         _div: {
           _attr: {
-            attrs: {
-              invisible: "[('id', '>', 0)]"
-            },
+            invisible: [['id', '>', 0]],
             class: 'alert alert-info text-center mb-3',
             text: 'You are inviting a new user.'
           }
@@ -68,16 +66,12 @@ export default {
             for: 'groups_id',
             string: 'Access Rights',
             groups: 'base.group_no_one',
-            attrs: {
-              invisible: "[('id', '>', 0)]"
-            }
+            invisible: [['id', '>', 0]]
           },
           _div: {
             _attr: {
               groups: 'base.group_no_one',
-              attrs: {
-                invisible: "[('id', '>', 0)]"
-              }
+              invisible: [['id', '>', 0]]
             },
             groups_id: {
               widget: 'many2many_tags',
@@ -155,9 +149,7 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            attrs: {
-              invisible: "[('active', '=', True)]"
-            },
+            invisible: [['active', '=', true]],
             title: 'Archived'
           }
         },
@@ -166,9 +158,7 @@ export default {
         },
         _div: {
           _attr: {
-            attrs: {
-              invisible: "['|', '|', '&', ('active', '=', True), ('active_partner', '=', True), '&', ('active', '=', False), ('active_partner', '=', False), '&', ('active', '=', True), ('active_partner', '=', False)]"
-            },
+            invisible: ['|', '|', '&', ['active', '=', true], ['active_partner', '=', true], '&', ['active', '=', false], ['active_partner', '=', false], '&', ['active', '=', true], ['active_partner', '=', false]],
             class: 'alert alert-info text-center o_form_header'
           },
           _a: {
@@ -180,7 +170,7 @@ export default {
           _div: {
             _strong: 'The contact linked to this user is still active'
           },
-          _div_112: {
+          _div_445: {
             _attr: {
               text: 'You can archive the contact'
             },
@@ -222,9 +212,7 @@ export default {
           _group: {
             partner_id: {
               groups: 'base.group_no_one',
-              attrs: {
-                invisible: "[('id', '=', False)]"
-              }
+              invisible: [['id', '=', false]]
             },
             share: {
               invisible: '1'
@@ -240,9 +228,7 @@ export default {
             _group: {
               _attr: {
                 string: 'Multi Companies',
-                attrs: {
-                  invisible: "[('companies_count', '<=', 1)]"
-                }
+                invisible: [['companies_count', '<=', 1]]
               },
               company_ids: {
                 string: 'Allowed Companies',
@@ -305,9 +291,7 @@ export default {
                 _attr: {
                   string: 'Menus Customization',
                   groups: 'base.group_no_one',
-                  attrs: {
-                    invisible: "[('share', '=', True)]"
-                  }
+                  invisible: [['share', '=', true]]
                 },
                 action_id: {}
               }
@@ -367,14 +351,14 @@ export default {
         _attr: {
           name: 'filter_no_share',
           string: 'Internal Users',
-          domain: "[('share', '=', False)]"
+          domain: [['share', '=', false]]
         }
       },
       _filter_filter_share: {
         _attr: {
           name: 'filter_share',
           string: 'Portal Users',
-          domain: "[('share', '=', True)]"
+          domain: [['share', '=', true]]
         }
       },
       _separator: {},
@@ -382,7 +366,7 @@ export default {
         _attr: {
           name: 'Inactive',
           string: 'Inactive Users',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       }
     }
@@ -465,7 +449,7 @@ export default {
                   widget: 'email'
                 }
               },
-              _group_615: {
+              _group_107: {
                 _label_lang: {
                   for: 'lang'
                 },
@@ -559,11 +543,9 @@ export default {
                   }
                 }
               },
-              _div_899: {
+              _div_691: {
                 _attr: {
-                  attrs: {
-                    invisible: "[('api_key_ids', '=', [])]"
-                  }
+                  invisible: [['api_key_ids', '=', []]]
                 },
                 api_key_ids: {
                   views: {
@@ -587,7 +569,7 @@ export default {
                   }
                 }
               },
-              _div_267: {
+              _div_830: {
                 _button_api_key_wizard: {
                   _attr: {
                     name: 'api_key_wizard',

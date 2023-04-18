@@ -21,9 +21,7 @@ export default {
             receipt_reminder_email: {},
             _div: {
               _attr: {
-                attrs: {
-                  invisible: "[('receipt_reminder_email', '=', False)]"
-                }
+                invisible: [['receipt_reminder_email', '=', false]]
               },
               reminder_date_before_receipt: {
                 class: 'oe_inline'
@@ -125,10 +123,8 @@ export default {
               },
               purchase_warn: {},
               purchase_warn_msg: {
-                attrs: {
-                  required: "[('purchase_warn', '!=', False), ('purchase_warn', '!=', 'no-message')]",
-                  invisible: "[('purchase_warn', 'in', (False, 'no-message'))]"
-                },
+                required: [['purchase_warn', '!=', false], ['purchase_warn', '!=', 'no-message']],
+                invisible: [['purchase_warn', 'in', (false, 'no-message')]],
                 placeholder: 'Type a message...'
               }
             }

@@ -28,14 +28,14 @@ export default {
             uom_type: {},
             _label_factor: {
               for: 'factor',
-              invisible: "[('uom_type', '!=', 'smaller')]"
+              invisible: [['uom_type', '!=', 'smaller']]
             },
             _div: {
               _attr: {
-                invisible: "[('uom_type', '!=', 'smaller')]"
+                invisible: [['uom_type', '!=', 'smaller']]
               },
               factor: {
-                readonly: "[('uom_type', '=', 'bigger')]",
+                readonly: [['uom_type', '=', 'bigger']],
                 digits: '[42,5]'
               },
               _span: {
@@ -47,14 +47,14 @@ export default {
             },
             _label_factor_inv: {
               for: 'factor_inv',
-              invisible: "[('uom_type', '!=', 'bigger')]"
+              invisible: [['uom_type', '!=', 'bigger']]
             },
-            _div_493: {
+            _div_190: {
               _attr: {
-                invisible: "[('uom_type', '!=', 'bigger')]"
+                invisible: [['uom_type', '!=', 'bigger']]
               },
               factor_inv: {
-                readonly: "[('uom_type', '!=', 'bigger')]",
+                readonly: [['uom_type', '!=', 'bigger']],
                 digits: '[42,5]'
               },
               _span: {
@@ -92,7 +92,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       },
       _group: {
@@ -113,7 +113,7 @@ export default {
   },
 
   product_uom_form_action: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Units of Measure',
     type: 'ir.actions.act_window',
     search_view_id: 'uom_uom_view_search',

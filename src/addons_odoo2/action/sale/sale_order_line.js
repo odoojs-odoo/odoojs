@@ -66,7 +66,7 @@ export default {
               invisible: '1'
             }
           },
-          _group_106: {
+          _group_813: {
             price_unit: {},
             discount: {
               groups: 'product.group_discount_per_so_line'
@@ -101,7 +101,7 @@ export default {
         _attr: {
           name: 'to_invoice',
           string: 'To Invoice',
-          domain: "[('qty_to_invoice', '!=', 0)]"
+          domain: [['qty_to_invoice', '!=', 0]]
         }
       },
       _separator: {},

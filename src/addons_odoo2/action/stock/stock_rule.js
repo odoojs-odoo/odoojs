@@ -9,7 +9,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       },
       _group: {
@@ -69,9 +69,7 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            attrs: {
-              invisible: "[('active', '=', True)]"
-            },
+            invisible: [['active', '=', true]],
             title: 'Archived'
           }
         },
@@ -100,26 +98,20 @@ export default {
             action: {},
             picking_type_id: {},
             location_src_id: {
-              attrs: {
-                required: "[('action', 'in', ['pull', 'push', 'pull_push'])]"
-              },
+              required: [['action', 'in', ['pull', 'push', 'pull_push']]],
               no_create: true
             },
             location_dest_id: {
               no_create: true
             },
             auto: {
-              attrs: {
-                invisible: "[('action', 'not in', ['push', 'pull_push'])]"
-              }
+              invisible: [['action', 'not in', ['push', 'pull_push']]]
             },
             procure_method: {
-              attrs: {
-                invisible: "[('action', 'not in', ['pull', 'pull_push'])]"
-              }
+              invisible: [['action', 'not in', ['pull', 'pull_push']]]
             }
           },
-          _group_605: {
+          _group_343: {
             _div: {
               _label_rule_message: {
                 for: 'rule_message',
@@ -131,7 +123,7 @@ export default {
             }
           }
         },
-        _group_429: {
+        _group_551: {
           _group_apply_on: {
             _attr: {
               name: 'apply_on',
@@ -140,18 +132,14 @@ export default {
             route_id: {},
             warehouse_id: {
               groups: 'base.group_no_one',
-              attrs: {
-                invisible: "[('action', '=', 'push')]"
-              }
+              invisible: [['action', '=', 'push']]
             },
             route_company_id: {
               invisible: '1'
             },
             company_id: {
               groups: 'base.group_multi_company',
-              attrs: {
-                required: "[('action', '=', 'push')]"
-              },
+              required: [['action', '=', 'push']],
               no_create: true
             },
             sequence: {
@@ -164,16 +152,12 @@ export default {
               name: 'propagation_group',
               string: 'Propagation',
               groups: 'base.group_no_one',
-              attrs: {
-                invisible: "[('action', '=', 'push')]"
-              }
+              invisible: [['action', '=', 'push']]
             },
             group_propagation_option: {},
             group_id: {
-              attrs: {
-                invisible: "[('group_propagation_option', '!=', 'fixed')]",
-                required: "[('group_propagation_option', '=', 'fixed')]"
-              }
+              invisible: [['group_propagation_option', '!=', 'fixed']],
+              required: [['group_propagation_option', '=', 'fixed']]
             },
             propagate_cancel: {},
             propagate_warehouse_id: {}
@@ -181,14 +165,10 @@ export default {
           _group: {
             _attr: {
               string: 'Options',
-              attrs: {
-                invisible: "[('action', 'not in', ['pull', 'push', 'pull_push'])]"
-              }
+              invisible: [['action', 'not in', ['pull', 'push', 'pull_push']]]
             },
             partner_address_id: {
-              attrs: {
-                invisible: "[('action', '=', 'push')]"
-              }
+              invisible: [['action', '=', 'push']]
             },
             _label_delay: {
               for: 'delay'
@@ -216,7 +196,7 @@ export default {
             position: 'replace'
           }
         },
-        _xpath_935: {
+        _xpath_819: {
           _attr: {
             expr: "//group[@name='apply_on']",
             position: 'attributes'
@@ -228,7 +208,7 @@ export default {
             }
           }
         },
-        _xpath_297: {
+        _xpath_451: {
           _attr: {
             expr: '//form',
             position: 'inside'

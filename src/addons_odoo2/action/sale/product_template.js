@@ -32,9 +32,7 @@ export default {
             invoice_policy: {},
             expense_policy: {
               widget: 'radio',
-              attrs: {
-                invisible: "[('visible_expense_policy', '=', False)]"
-              }
+              invisible: [['visible_expense_policy', '=', false]]
             }
           }
         },
@@ -42,30 +40,22 @@ export default {
           __todo__after: {
             _label_product_tooltip: {
               for: 'product_tooltip',
-              attrs: {
-                invisible: "['|', ('type', 'not in', ('product', 'consu')), ('invoice_policy', '!=', 'order')]"
-              }
+              invisible: ['|', ['type', 'not in', ('product', 'consu')], ['invoice_policy', '!=', 'order']]
             },
             _div: {
               _attr: {
-                attrs: {
-                  invisible: "['|', ('type', 'not in', ('product', 'consu')), ('invoice_policy', '!=', 'order')]"
-                },
+                invisible: ['|', ['type', 'not in', ('product', 'consu')], ['invoice_policy', '!=', 'order']],
                 class: 'fst-italic text-muted',
                 text: 'You can invoice them before they are delivered.'
               }
             },
-            _label_product_tooltip_211: {
+            _label_product_tooltip_310: {
               for: 'product_tooltip',
-              attrs: {
-                invisible: "['|', ('type', 'not in', ('product', 'consu')), ('invoice_policy', '!=', 'delivery')]"
-              }
+              invisible: ['|', ['type', 'not in', ('product', 'consu')], ['invoice_policy', '!=', 'delivery']]
             },
-            _div_459: {
+            _div_258: {
               _attr: {
-                attrs: {
-                  invisible: "['|', ('type', 'not in', ('product', 'consu')), ('invoice_policy', '!=', 'delivery')]"
-                },
+                invisible: ['|', ['type', 'not in', ('product', 'consu')], ['invoice_policy', '!=', 'delivery']],
                 class: 'fst-italic text-muted',
                 text: 'Invoice after delivery, based on quantities delivered, not ordered.'
               }
@@ -90,9 +80,7 @@ export default {
             _attr: {
               name: 'action_view_sales',
               groups: 'sales_team.group_sale_salesman',
-              attrs: {
-                invisible: "[('sale_ok', '=', False)]"
-              },
+              invisible: [['sale_ok', '=', false]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-signal'
@@ -111,7 +99,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_967: {
+              _span_411: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Sold'
@@ -138,11 +126,9 @@ export default {
               },
               sale_line_warn_msg: {
                 string: 'Message',
-                attrs: {
-                  required: "[('sale_line_warn', '!=', 'no-message')]",
-                  readonly: "[('sale_line_warn', '=', 'no-message')]",
-                  invisible: "[('sale_line_warn', '=', 'no-message')]"
-                },
+                required: [['sale_line_warn', '!=', 'no-message']],
+                readonly: [['sale_line_warn', '=', 'no-message']],
+                invisible: [['sale_line_warn', '=', 'no-message']],
                 placeholder: 'Type a message...'
               }
             }

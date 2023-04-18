@@ -96,7 +96,7 @@ export default {
                           view_mode: {},
                           view_id: {
                             domain: {
-                              todo: "[('type', '=', view_mode)]"
+                              todo_ctx: "[('type', '=', view_mode)]"
                             }
                           }
                         }

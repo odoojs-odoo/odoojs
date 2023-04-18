@@ -85,10 +85,8 @@ export default {
               sale_warn: {},
               sale_warn_msg: {
                 string: 'Message',
-                attrs: {
-                  required: "[('sale_warn', '!=', False), ('sale_warn', '!=', 'no-message')]",
-                  invisible: "[('sale_warn', 'in', (False, 'no-message'))]"
-                },
+                required: [['sale_warn', '!=', false], ['sale_warn', '!=', 'no-message']],
+                invisible: [['sale_warn', 'in', (false, 'no-message')]],
                 placeholder: 'Type a message...'
               }
             }
@@ -137,10 +135,10 @@ export default {
           }
         },
         property_payment_term_id: {
-          ======todo__groups: 'account.group_account_invoice, sales_team.group_sale_salesman'
+          __todo__groups: 'account.group_account_invoice, sales_team.group_sale_salesman'
         },
         property_supplier_payment_term_id: {
-          ======todo__groups: 'account.group_account_invoice, sales_team.group_sale_salesman'
+          __todo__groups: 'account.group_account_invoice, sales_team.group_sale_salesman'
         }
       }
     }

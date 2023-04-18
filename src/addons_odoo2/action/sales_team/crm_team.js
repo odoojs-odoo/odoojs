@@ -8,7 +8,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       },
       name: {},
@@ -40,9 +40,7 @@ export default {
       sheet: {
         _div: {
           _attr: {
-            attrs: {
-              invisible: "['|', ('is_membership_multi', '=', True), ('member_warning', '=', False)]"
-            },
+            invisible: ['|', ['is_membership_multi', '=', true], ['member_warning', '=', false]],
             class: 'alert alert-info text-center'
           },
           member_warning: {}
@@ -56,9 +54,7 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            attrs: {
-              invisible: "[('active', '=', True)]"
-            },
+            invisible: [['active', '=', true]],
             title: 'Archived'
           }
         },
@@ -99,7 +95,7 @@ export default {
             },
             user_id: {
               widget: 'many2one_avatar_user',
-              domain: "[('share', '=', False)]"
+              domain: [['share', '=', false]]
             },
             company_id: {
               groups: 'base.group_multi_company',
@@ -151,7 +147,7 @@ export default {
                                   }
                                 }
                               },
-                              _div_358: {
+                              _div_962: {
                                 _attr: {
                                   class: 'oe_kanban_details d-flex flex-column ms-3'
                                 },
@@ -184,9 +180,7 @@ export default {
               }
             },
             crm_team_member_ids: {
-              attrs: {
-                invisible: "['|', ('is_membership_multi', '=', True), ('is_membership_multi', '=', False)]"
-              },
+              invisible: ['|', ['is_membership_multi', '=', true], ['is_membership_multi', '=', false]],
               context: {
                 todo_ctx: "{                                     'kanban_view_ref': 'sales_team.crm_team_member_view_kanban_from_team',                                     'form_view_ref': 'sales_team.crm_team_member_view_form_from_team',                                     'tree_view_ref': 'sales_team.crm_team_member_view_tree_from_team',                                     'default_crm_team_id': active_id,                                 }"
               },
@@ -213,7 +207,7 @@ export default {
         },
         user_id: {
           widget: 'many2one_avatar_user',
-          domain: "[('share', '=', False)]"
+          domain: [['share', '=', false]]
         },
         company_id: {
           groups: 'base.group_multi_company'

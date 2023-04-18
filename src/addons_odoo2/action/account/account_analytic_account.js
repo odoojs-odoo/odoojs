@@ -12,9 +12,7 @@ export default {
           _button_action_view_invoice: {
             _attr: {
               name: 'action_view_invoice',
-              attrs: {
-                invisible: "[('invoice_count', '=', 0)]"
-              },
+              invisible: [['invoice_count', '=', 0]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-pencil-square-o'
@@ -27,9 +25,7 @@ export default {
           _button_action_view_vendor_bill: {
             _attr: {
               name: 'action_view_vendor_bill',
-              attrs: {
-                invisible: "[('vendor_bill_count', '=', 0)]"
-              },
+              invisible: [['vendor_bill_count', '=', 0]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-file-text-o'

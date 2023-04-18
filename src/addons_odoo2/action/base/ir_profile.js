@@ -52,19 +52,15 @@ export default {
           session: {},
           entry_count: {},
           sql_count: {
-            attrs: {
-              invisible: "[('sql_count', '=', 0)]"
-            }
+            invisible: [['sql_count', '=', 0]]
           },
           speedscope_url: {
             widget: 'url'
           }
         },
-        _group_274: {
+        _group_842: {
           _attr: {
-            attrs: {
-              invisible: "[('qweb', '=', False)]"
-            }
+            invisible: [['qweb', '=', false]]
           },
           qweb: {
             widget: 'profiling_qweb_view'

@@ -70,7 +70,7 @@ export default {
             country_id: {},
             sequence: {}
           },
-          _group_524: {
+          _group_770: {
             property_tax_payable_account_id: {},
             property_tax_receivable_account_id: {},
             property_advance_tax_payment_account_id: {},

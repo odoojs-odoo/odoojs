@@ -9,15 +9,11 @@ export default {
           widget: 'handle'
         },
         factor_percent: {
-          attrs: {
-            invisible: "[('repartition_type', '=', 'base')]"
-          }
+          invisible: [['repartition_type', '=', 'base']]
         },
         repartition_type: {},
         account_id: {
-          attrs: {
-            invisible: "[('repartition_type', '=', 'base')]"
-          },
+          invisible: [['repartition_type', '=', 'base']],
           no_create: true
         },
         tag_ids: {
@@ -28,9 +24,7 @@ export default {
           no_create: true
         },
         use_in_tax_closing: {
-          attrs: {
-            invisible: "[('repartition_type', '=', 'base')]"
-          }
+          invisible: [['repartition_type', '=', 'base']]
         },
         company_id: {
           invisible: '1'

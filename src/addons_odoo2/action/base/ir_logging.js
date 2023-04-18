@@ -68,7 +68,7 @@ export default {
           _attr: {
             name: 'database',
             string: 'Database',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'dbname'
             }
@@ -78,7 +78,7 @@ export default {
           _attr: {
             name: 'group_by_level',
             string: 'Level',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'level'
             }
@@ -88,7 +88,7 @@ export default {
           _attr: {
             name: 'group_by_type',
             string: 'Type',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'type'
             }
@@ -98,7 +98,7 @@ export default {
           _attr: {
             name: 'group_by_month',
             string: 'Creation Date',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'create_date'
             }

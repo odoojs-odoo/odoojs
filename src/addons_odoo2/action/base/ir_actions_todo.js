@@ -76,7 +76,7 @@ export default {
         _attr: {
           name: 'todo',
           string: 'To Do',
-          domain: "[('state', '=', 'open')]"
+          domain: [['state', '=', 'open']]
         }
       },
       action_id: {},

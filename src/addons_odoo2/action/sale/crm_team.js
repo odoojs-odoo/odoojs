@@ -60,7 +60,7 @@ export default {
           use_quotations: {},
           invoiced_target: {}
         },
-        _xpath_470: {
+        _xpath_316: {
           _attr: {
             expr: "//t[@name='second_options']",
             position: 'after'
@@ -86,10 +86,10 @@ export default {
                   class: 'me-1'
                 },
                 _t: 'Quotation',
-                _t_716: 'Quotations'
+                _t_857: 'Quotations'
               }
             },
-            _div_705: {
+            _div_268: {
               _attr: {
                 class: 'col-auto text-truncate'
               },
@@ -116,12 +116,12 @@ export default {
                   class: 'me-1'
                 },
                 _t: 'Order to Invoice',
-                _t_231: 'Orders to Invoice'
+                _t_245: 'Orders to Invoice'
               }
             }
           }
         },
-        _xpath_148: {
+        _xpath_793: {
           _attr: {
             expr: "//div[hasclass('o_kanban_primary_bottom')]",
             position: 'after'
@@ -141,7 +141,7 @@ export default {
             }
           }
         },
-        _xpath_197: {
+        _xpath_303: {
           _attr: {
             expr: "//div[hasclass('o_kanban_manage_view')]",
             position: 'inside'
@@ -156,7 +156,7 @@ export default {
               }
             }
           },
-          _div_170: {
+          _div_784: {
             _a_action_orders_salesteams: {
               _attr: {
                 name: '%(action_orders_salesteams)d',
@@ -165,7 +165,7 @@ export default {
               }
             }
           },
-          _div_787: {
+          _div_164: {
             _attr: {
               groups: 'account.group_account_invoice'
             },
@@ -178,7 +178,7 @@ export default {
             }
           }
         },
-        _xpath_835: {
+        _xpath_269: {
           _attr: {
             expr: "//div[hasclass('o_kanban_manage_new')]",
             position: 'inside'

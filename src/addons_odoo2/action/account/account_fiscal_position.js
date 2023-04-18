@@ -8,16 +8,12 @@ export default {
         _div: {
           _attr: {
             groups: 'account.group_account_manager',
-            attrs: {
-              invisible: "[('foreign_vat_header_mode', '=', False)]"
-            },
+            invisible: [['foreign_vat_header_mode', '=', false]],
             class: 'alert alert-info mb-0'
           },
           _div: {
             _attr: {
-              attrs: {
-                invisible: "[('foreign_vat_header_mode', '!=', 'templates_found')]"
-              },
+              invisible: [['foreign_vat_header_mode', '!=', 'templates_found']],
               text: 'Click'
             },
             _button_action_create_foreign_taxes: {
@@ -31,9 +27,7 @@ export default {
           },
           _span: {
             _attr: {
-              attrs: {
-                invisible: "[('foreign_vat_header_mode', '!=', 'no_template')]"
-              },
+              invisible: [['foreign_vat_header_mode', '!=', 'no_template']],
               text: 'No tax template found for this country. Please install the corresponding localization module.'
             },
             _button_count__open_account_charts_modul: {
@@ -56,9 +50,7 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            attrs: {
-              invisible: "[('active', '=', True)]"
-            },
+            invisible: [['active', '=', true]],
             title: 'Archived'
           }
         },
@@ -80,30 +72,24 @@ export default {
               invisible: '1'
             },
             name: {},
-            _field_company_id_283: {
+            _field_company_id_976: {
               company_id: {
                 groups: 'base.group_multi_company',
                 no_create: true
               }
             }
           },
-          _group_545: {
+          _group_984: {
             auto_apply: {},
             vat_required: {
-              attrs: {
-                invisible: "[('auto_apply', '!=', True)]"
-              }
+              invisible: [['auto_apply', '!=', true]]
             },
             foreign_vat: {},
             country_group_id: {
-              attrs: {
-                invisible: "[('auto_apply', '!=', True)]"
-              }
+              invisible: [['auto_apply', '!=', true]]
             },
             country_id: {
-              attrs: {
-                required: "[('foreign_vat', '!=', False)]"
-              },
+              required: [['foreign_vat', '!=', false]],
               no_open: true,
               no_create: true
             },
@@ -112,22 +98,16 @@ export default {
               domain: {
                 todo_ctx: "[('country_id', '=', country_id)]"
               },
-              attrs: {
-                invisible: "['|', '|', '&', ('auto_apply', '!=', True), ('foreign_vat', '=', False), ('country_id', '=', False), ('states_count', '=', 0)]"
-              }
+              invisible: ['|', '|', '&', ['auto_apply', '!=', true], ['foreign_vat', '=', false], ['country_id', '=', false], ['states_count', '=', 0]]
             },
             _label_zip_from: {
               for: 'zip_from',
               string: 'Zip Range',
-              attrs: {
-                invisible: "['|', ('auto_apply', '!=', True), ('country_id', '=', False)]"
-              }
+              invisible: ['|', ['auto_apply', '!=', true], ['country_id', '=', false]]
             },
             _div: {
               _attr: {
-                attrs: {
-                  invisible: "['|', ('auto_apply', '!=', True), ('country_id', '=', False)]"
-                }
+                invisible: ['|', ['auto_apply', '!=', true], ['country_id', '=', false]]
               },
               _span: 'From',
               zip_from: {
@@ -138,7 +118,7 @@ export default {
                   class: 'oe_edit_only'
                 }
               },
-              _span_273: 'To',
+              _span_260: 'To',
               zip_to: {
                 class: 'oe_inline'
               }
@@ -192,13 +172,13 @@ export default {
                       },
                       _group: {
                         tax_src_id: {
-                          domain: "[('type_tax_use', '!=', 'none')]",
+                          domain: [['type_tax_use', '!=', 'none']],
                           context: {
                             append_type_to_tax_name: true
                           }
                         },
                         tax_dest_id: {
-                          domain: "[('type_tax_use', '!=', 'none')]",
+                          domain: [['type_tax_use', '!=', 'none']],
                           context: {
                             append_type_to_tax_name: true
                           }
@@ -281,7 +261,7 @@ export default {
         _attr: {
           name: 'active',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       }
     }

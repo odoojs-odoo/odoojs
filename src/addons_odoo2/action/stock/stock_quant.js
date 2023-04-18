@@ -1,4 +1,10 @@
 export default {
+  action_view_inventory_tree: {
+    _odoo_model: 'ir.actions.server',
+    model_id: 'model_stock_quant',
+    model: 'stock_quant'
+  },
+
   quant_search_view: {
     _odoo_model: 'ir.ui.view',
     model: 'stock.quant',
@@ -31,14 +37,14 @@ export default {
           _attr: {
             name: 'internal_loc',
             string: 'Internal Locations',
-            domain: "[('location_id.usage', '=', 'internal')]"
+            domain: [['location_id.usage', '=', 'internal']]
           }
         },
         _filter_transit_loc: {
           _attr: {
             name: 'transit_loc',
             string: 'Transit Locations',
-            domain: "[('location_id.usage', '=', 'transit')]"
+            domain: [['location_id.usage', '=', 'transit']]
           }
         },
         _separator: {},
@@ -46,7 +52,7 @@ export default {
           _attr: {
             name: 'on_hand',
             string: 'On Hand',
-            domain: "[('on_hand', '=', True)]"
+            domain: [['on_hand', '=', true]]
           }
         },
         _filter_to_count: {
@@ -62,38 +68,38 @@ export default {
           _attr: {
             name: 'to_apply',
             string: 'To Apply',
-            domain: "[('inventory_quantity_set', '=', True)]"
+            domain: [['inventory_quantity_set', '=', true]]
           }
         },
         _filter_priority_products: {
           _attr: {
             name: 'priority_products',
             string: 'Starred Products',
-            domain: "[('priority', '=', 1)]"
+            domain: [['priority', '=', 1]]
           }
         },
-        _separator_181: {},
+        _separator_467: {},
         _filter_negative: {
           _attr: {
             name: 'negative',
             string: 'Negative Stock',
-            domain: "[('quantity', '<', 0.0)]"
+            domain: [['quantity', '<', 0.0]]
           }
         },
         _filter_reserved: {
           _attr: {
             name: 'reserved',
             string: 'Reservations',
-            domain: "[('reserved_quantity', '>', 0.0)]"
+            domain: [['reserved_quantity', '>', 0.0]]
           }
         },
-        _separator_907: {},
+        _separator_452: {},
         _filter_filter_in_date: {
           _attr: {
             name: 'filter_in_date'
           }
         },
-        _separator_579: {},
+        _separator_450: {},
         _filter_my_count: {
           _attr: {
             name: 'my_count',
@@ -104,7 +110,7 @@ export default {
           }
         }
       },
-      _group_937: {
+      _group_127: {
         _attr: {
           string: 'Group by...'
         },
@@ -205,10 +211,8 @@ export default {
             },
             lot_id: {
               groups: 'stock.group_production_lot',
-              attrs: {
-                readonly: "[('tracking', 'not in', ['serial', 'lot'])]",
-                required: "[('tracking', '!=', 'none')]"
-              },
+              readonly: [['tracking', 'not in', ['serial', 'lot']]],
+              required: [['tracking', '!=', 'none']],
               context: {
                 todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}"
               }
@@ -220,13 +224,13 @@ export default {
               groups: 'stock.group_tracking_owner',
               no_create: true
             },
-            _field_company_id_411: {
+            _field_company_id_286: {
               company_id: {
                 groups: 'base.group_multi_company'
               }
             }
           },
-          _group_405: {
+          _group_530: {
             _label_quantity: {
               for: 'quantity',
               string: 'Quantity On Hand'
@@ -244,7 +248,7 @@ export default {
               for: 'available_quantity',
               string: 'Available Quantity'
             },
-            _div_824: {
+            _div_613: {
               _attr: {
                 class: 'o_row'
               },
@@ -257,7 +261,7 @@ export default {
               for: 'reserved_quantity',
               string: 'Quantity Reserved'
             },
-            _div_376: {
+            _div_127: {
               _attr: {
                 class: 'o_row'
               },
@@ -294,49 +298,39 @@ export default {
           invisible: '1'
         },
         location_id: {
-          invisible: "context.get('hide_location', False)",
-          attrs: {
-            readonly: "[('id', '!=', False)]"
-          },
+          invisible: "context.get['hide_location', False]",
+          readonly: [['id', '!=', false]],
           no_create: true
         },
         storage_category_id: {},
         product_id: {
           widget: 'many2one',
-          attrs: {
-            readonly: "[('id', '!=', False)]"
-          },
+          readonly: [['id', '!=', false]],
           force_save: '1',
           no_create: true
         },
         product_categ_id: {},
-        _field_company_id_806: {
+        _field_company_id_330: {
           company_id: {
             groups: 'base.group_multi_company'
           }
         },
         package_id: {
           groups: 'stock.group_tracking_lot',
-          attrs: {
-            readonly: "[('id', '!=', False)]"
-          }
+          readonly: [['id', '!=', false]]
         },
         lot_id: {
           groups: 'stock.group_production_lot',
-          invisible: "context.get('hide_lot', False)",
-          attrs: {
-            readonly: "['|', ('id', '!=', False), ('tracking', 'not in', ['serial', 'lot'])]",
-            required: "[('tracking', '!=', 'none')]"
-          },
+          invisible: "context.get['hide_lot', False]",
+          readonly: ['|', ['id', '!=', false], ['tracking', 'not in', ['serial', 'lot']]],
+          required: [['tracking', '!=', 'none']],
           context: {
             todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}"
           }
         },
         owner_id: {
           groups: 'stock.group_tracking_owner',
-          attrs: {
-            readonly: "[('id', '!=', False)]"
-          },
+          readonly: [['id', '!=', false]],
           no_create: true
         },
         inventory_quantity_auto_apply: {
@@ -391,14 +385,14 @@ export default {
     arch: {
       sheet: {
         product_id: {
-          invisible: "context.get('single_product', False)"
+          invisible: "context.get['single_product', False]"
         },
         location_id: {
-          invisible: "context.get('hide_location', False)"
+          invisible: "context.get['hide_location', False]"
         },
         lot_id: {
           groups: 'stock.group_production_lot',
-          invisible: "context.get('hide_lot', False)"
+          invisible: "context.get['hide_lot', False]"
         },
         package_id: {
           groups: 'stock.group_tracking_lot'
@@ -434,6 +428,12 @@ export default {
     arch: {}
   },
 
+  action_view_quants: {
+    _odoo_model: 'ir.actions.server',
+    model_id: 'model_stock_quant',
+    model: 'stock_quant'
+  },
+
   dashboard_open_quants: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Locations',
@@ -454,7 +454,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Current Stock',
     res_model: 'stock.quant',
-    domain: "[('location_id', 'child_of', active_ids)]",
+    domain: "[['location_id', 'child_of', active_ids]]",
     context: {
       search_default_productgroup: 1
     },
@@ -538,29 +538,25 @@ export default {
           invisible: '1'
         },
         location_id: {
-          invisible: "context.get('hide_location', False)",
-          domain: "[('usage', 'in', ['internal', 'transit'])]",
-          attrs: {
-            readonly: "[('id', '!=', False)]"
-          },
+          invisible: "context.get['hide_location', False]",
+          domain: [['usage', 'in', ['internal', 'transit']]],
+          readonly: [['id', '!=', false]],
           no_create: true
         },
         storage_category_id: {
           groups: 'stock.group_stock_storage_categories',
-          invisible: "context.get('hide_location', False)",
+          invisible: "context.get['hide_location', False]",
           no_create: true
         },
         cyclic_inventory_frequency: {
-          invisible: "context.get('hide_location', False)",
+          invisible: "context.get['hide_location', False]",
           no_create: true
         },
         priority: {
           widget: 'priority'
         },
         product_id: {
-          attrs: {
-            readonly: "[('id', '!=', False)]"
-          },
+          readonly: [['id', '!=', false]],
           force_save: '1',
           no_create: true
         },
@@ -568,9 +564,7 @@ export default {
         _button_action_warning_duplicated_sn: {
           _attr: {
             name: 'action_warning_duplicated_sn',
-            attrs: {
-              invisible: "[('sn_duplicated', '=', False)]"
-            },
+            invisible: [['sn_duplicated', '=', false]],
             class: 'btn btn-secondary text-warning float-end',
             title: 'This lot/serial number is already in another location',
             type: 'object',
@@ -579,10 +573,8 @@ export default {
         },
         lot_id: {
           groups: 'stock.group_production_lot',
-          invisible: "context.get('hide_lot', False)",
-          attrs: {
-            readonly: "['|', ('tracking', 'not in', ['serial', 'lot']), '&', ('id', '!=', False), '|', ('lot_id', '!=', False), ('quantity', '!=', 0)]"
-          },
+          invisible: "context.get['hide_lot', False]",
+          readonly: ['|', ['tracking', 'not in', ['serial', 'lot']], '&', ['id', '!=', false], '|', ['lot_id', '!=', false], ['quantity', '!=', 0]],
           context: {
             todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}"
           },
@@ -590,15 +582,11 @@ export default {
         },
         package_id: {
           groups: 'stock.group_tracking_lot',
-          attrs: {
-            readonly: "[('id', '!=', False)]"
-          }
+          readonly: [['id', '!=', false]]
         },
         owner_id: {
           groups: 'stock.group_tracking_owner',
-          attrs: {
-            readonly: "[('id', '!=', False)]"
-          },
+          readonly: [['id', '!=', false]],
           no_create: true
         },
         last_count_date: {},
@@ -617,15 +605,13 @@ export default {
         },
         inventory_diff_quantity: {
           string: 'Difference',
-          attrs: {
-            invisible: "[('inventory_quantity_set', '=', False)]"
-          }
+          invisible: [['inventory_quantity_set', '=', false]]
         },
         inventory_date: {},
         user_id: {
           string: 'User'
         },
-        _field_company_id_555: {
+        _field_company_id_755: {
           company_id: {
             groups: 'base.group_multi_company'
           }
@@ -644,9 +630,7 @@ export default {
             name: 'action_apply_inventory',
             string: 'Apply',
             groups: 'stock.group_stock_manager',
-            attrs: {
-              invisible: "[('inventory_quantity_set', '=', False)]"
-            },
+            invisible: [['inventory_quantity_set', '=', false]],
             class: 'btn btn-link',
             type: 'object',
             icon: 'fa-save'
@@ -656,9 +640,7 @@ export default {
           _attr: {
             name: 'action_set_inventory_quantity',
             string: 'Set',
-            attrs: {
-              invisible: "[('inventory_quantity_set', '=', True)]"
-            },
+            invisible: [['inventory_quantity_set', '=', true]],
             class: 'btn btn-link',
             type: 'object',
             icon: 'fa-bullseye'
@@ -668,9 +650,7 @@ export default {
           _attr: {
             name: 'action_set_inventory_quantity_to_zero',
             string: 'Clear',
-            attrs: {
-              invisible: "[('inventory_quantity_set', '=', False)]"
-            },
+            invisible: [['inventory_quantity_set', '=', false]],
             class: 'btn text-warning',
             type: 'object',
             icon: 'fa-times'
@@ -678,5 +658,11 @@ export default {
         }
       }
     }
+  },
+
+  action_view_set_quants_tree: {
+    _odoo_model: 'ir.actions.server',
+    model_id: 'model_stock_quant',
+    model: 'stock_quant'
   }
 }

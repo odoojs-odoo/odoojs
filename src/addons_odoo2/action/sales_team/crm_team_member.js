@@ -11,7 +11,7 @@ export default {
         _attr: {
           name: 'archived',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       },
       _group: {
@@ -108,9 +108,7 @@ export default {
         },
         _div: {
           _attr: {
-            attrs: {
-              invisible: "[('member_warning', '=', False)]"
-            },
+            invisible: [['member_warning', '=', false]],
             class: 'alert alert-info text-center'
           },
           member_warning: {}
@@ -118,17 +116,13 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            attrs: {
-              invisible: "[('active', '=', True)]"
-            },
+            invisible: [['active', '=', true]],
             title: 'Archived'
           }
         },
         image_1920: {
           widget: 'image',
-          attrs: {
-            invisible: "[('user_id', '=', False)]"
-          },
+          invisible: [['user_id', '=', false]],
           class: 'oe_avatar',
           preview_image: 'image_128'
         },
@@ -166,24 +160,16 @@ export default {
             },
             company_id: {
               groups: 'base.group_multi_company',
-              attrs: {
-                invisible: "[('user_id', '=', False)]"
-              }
+              invisible: [['user_id', '=', false]]
             },
             email: {
-              attrs: {
-                invisible: "[('user_id', '=', False)]"
-              }
+              invisible: [['user_id', '=', false]]
             },
             mobile: {
-              attrs: {
-                invisible: "[('user_id', '=', False)]"
-              }
+              invisible: [['user_id', '=', false]]
             },
             phone: {
-              attrs: {
-                invisible: "[('user_id', '=', False)]"
-              }
+              invisible: [['user_id', '=', false]]
             }
           }
         }

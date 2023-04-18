@@ -30,7 +30,7 @@ export default {
                   text: 'Gross Margin'
                 }
               },
-              _span_883: {
+              _span_650: {
                 _attr: {
                   class: 'o_stat_value'
                 },
@@ -44,7 +44,7 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            invisible: "[('active', '=', True)]",
+            invisible: [['active', '=', true]],
             title: 'Archived'
           }
         },
@@ -78,7 +78,7 @@ export default {
             partner_id: {},
             code: {}
           },
-          _group_461: {
+          _group_168: {
             plan_id: {
               no_quick_create: true
             },
@@ -114,7 +114,7 @@ export default {
         active: {
           invisible: '1'
         },
-        _field_company_id_399: {
+        _field_company_id_998: {
           company_id: {
             groups: 'base.group_multi_company'
           }
@@ -147,7 +147,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       },
       _group: {
@@ -158,7 +158,7 @@ export default {
           _attr: {
             name: 'associatedpartner',
             string: 'Associated Partner',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'partner_id'
             }
@@ -169,7 +169,7 @@ export default {
   },
 
   action_analytic_account_form: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Chart of Analytic Accounts',
     search_view_id: 'view_account_analytic_account_search',
     res_model: 'account.analytic.account',
@@ -183,7 +183,7 @@ export default {
   },
 
   action_account_analytic_account_form: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Analytic Accounts',
     type: 'ir.actions.act_window',
     search_view_id: 'view_account_analytic_account_search',

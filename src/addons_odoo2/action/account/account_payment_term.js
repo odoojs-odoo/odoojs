@@ -13,7 +13,7 @@ export default {
         _attr: {
           name: 'archived',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       }
     }
@@ -48,9 +48,7 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            attrs: {
-              invisible: "[('active', '=', True)]"
-            },
+            invisible: [['active', '=', true]],
             title: 'Archived'
           }
         },
@@ -58,14 +56,14 @@ export default {
           _group: {
             name: {}
           },
-          _group_474: {
+          _group_826: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
             }
           }
         },
-        _group_667: {
+        _group_493: {
           note: {
             placeholder: 'Payment term explanation for the customer...'
           }
@@ -97,9 +95,7 @@ export default {
                     string: 'Due Type'
                   },
                   value_amount: {
-                    attrs: {
-                      invisible: "[('value', '=', 'balance')]"
-                    },
+                    invisible: [['value', '=', 'balance']],
                     digits: '[2, 2]'
                   },
                   months: {},
@@ -108,9 +104,7 @@ export default {
                     widget: 'boolean_toggle'
                   },
                   days_after: {
-                    attrs: {
-                      invisible: "[('end_month', '=', False)]"
-                    }
+                    invisible: [['end_month', '=', false]]
                   },
                   discount_percentage: {},
                   discount_days: {}
@@ -133,17 +127,13 @@ export default {
           },
           _div: {
             _attr: {
-              attrs: {
-                invisible: "[('example_invalid', '=', False)]"
-              },
+              invisible: [['example_invalid', '=', false]],
               text: 'The Payment Term must have one Balance line.'
             }
           },
-          _div_394: {
+          _div_599: {
             _attr: {
-              attrs: {
-                invisible: "[('example_invalid', '=', True)]"
-              },
+              invisible: [['example_invalid', '=', true]],
               class: 'd-flex',
               text: 'For any invoice of'
             },
@@ -153,12 +143,12 @@ export default {
               }
             },
             example_amount: {},
-            _span_638: {
+            _span_417: {
               _attr: {
                 class: 'mx-1'
               }
             },
-            _span_977: {
+            _span_596: {
               _attr: {
                 class: 'mx-1'
               }
@@ -168,9 +158,7 @@ export default {
             }
           },
           example_preview: {
-            attrs: {
-              invisible: "[('example_invalid', '=', True)]"
-            }
+            invisible: [['example_invalid', '=', true]]
           }
         }
       }

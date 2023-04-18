@@ -32,7 +32,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       },
       _group: {
@@ -98,9 +98,7 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            attrs: {
-              invisible: "[('active', '=', True)]"
-            },
+            invisible: [['active', '=', true]],
             title: 'Archived'
           }
         },
@@ -137,55 +135,43 @@ export default {
             },
             reservation_method: {
               widget: 'radio',
-              attrs: {
-                invisible: "[('hide_reservation_method', '=', True)]"
-              }
+              invisible: [['hide_reservation_method', '=', true]]
             },
             auto_show_reception_report: {
               groups: 'stock.group_reception_report',
-              attrs: {
-                invisible: "[('code', 'not in', ['incoming', 'internal'])]"
-              }
+              invisible: [['code', 'not in', ['incoming', 'internal']]]
             },
             _label_reservation_days_before: {
               for: 'reservation_days_before',
               string: 'Reserve before scheduled date',
-              attrs: {
-                invisible: "['|', ('code', '=', 'incoming'), ('reservation_method', '!=', 'by_date')]"
-              }
+              invisible: ['|', ['code', '=', 'incoming'], ['reservation_method', '!=', 'by_date']]
             },
             _div: {
               _attr: {
-                attrs: {
-                  invisible: "['|', ('code', '=', 'incoming'), ('reservation_method', '!=', 'by_date')]"
-                },
+                invisible: ['|', ['code', '=', 'incoming'], ['reservation_method', '!=', 'by_date']],
                 class: 'o_row'
               },
               _span: {
                 reservation_days_before: {}
               },
-              _span_997: {
+              _span_611: {
                 reservation_days_before_priority: {}
               }
             }
           },
-          _group_364: {
+          _group_916: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
             },
             return_picking_type_id: {
               string: 'Returns Type',
-              attrs: {
-                invisible: "[('code', 'not in', ['incoming', 'outgoing', 'internal'])]"
-              }
+              invisible: [['code', 'not in', ['incoming', 'outgoing', 'internal']]]
             },
             create_backorder: {},
             show_operations: {},
             show_reserved: {
-              attrs: {
-                invisible: "[('code', '!=', 'incoming')]"
-              }
+              invisible: [['code', '!=', 'incoming']]
             }
           }
         },
@@ -198,9 +184,7 @@ export default {
               name: 'stock_picking_type_lot',
               string: 'Lots/Serial Numbers',
               groups: 'stock.group_production_lot',
-              attrs: {
-                invisible: "[('code', 'not in', ['incoming', 'outgoing', 'internal'])]"
-              }
+              invisible: [['code', 'not in', ['incoming', 'outgoing', 'internal']]]
             },
             use_create_lots: {
               string: 'Create New'
@@ -213,9 +197,7 @@ export default {
             _attr: {
               string: 'Packages',
               groups: 'stock.group_tracking_lot',
-              attrs: {
-                invisible: "[('code', 'not in', ['incoming', 'outgoing', 'internal'])]"
-              }
+              invisible: [['code', 'not in', ['incoming', 'outgoing', 'internal']]]
             },
             show_entire_packs: {}
           },
@@ -226,15 +208,11 @@ export default {
               groups: 'stock.group_stock_multi_locations'
             },
             default_location_src_id: {
-              attrs: {
-                required: "[('code', 'in', ('internal', 'outgoing'))]"
-              },
+              required: [['code', 'in', ('internal', 'outgoing')]],
               no_create: true
             },
             default_location_dest_id: {
-              attrs: {
-                required: "[('code', 'in', ('internal', 'incoming'))]"
-              },
+              required: [['code', 'in', ('internal', 'incoming')]],
               no_create: true
             }
           }

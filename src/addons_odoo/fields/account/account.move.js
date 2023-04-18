@@ -136,14 +136,14 @@ const ModelFields = {
       // [('company_id', '=', company_id)]
       const { company_id } = record
       return [['company_id', '=', company_id]]
-    },
+    }
+  },
 
-    quick_edit_total_amount: {
-      readonly({ record }) {
-        // 'readonly': [('state', '!=', 'draft')]
-        const { state } = record
-        return state !== 'draft'
-      }
+  quick_edit_total_amount: {
+    readonly({ record }) {
+      // 'readonly': [('state', '!=', 'draft')]
+      const { state } = record
+      return state !== 'draft'
     }
   },
 

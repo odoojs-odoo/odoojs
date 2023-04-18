@@ -29,10 +29,10 @@ export default {
                     string: 'Taxes Mapping'
                   },
                   tax_src_id: {
-                    domain: "[('type_tax_use', '!=', None)]"
+                    domain: [['type_tax_use', '!=', None]]
                   },
                   tax_dest_id: {
-                    domain: "[('type_tax_use', '!=', None)]"
+                    domain: [['type_tax_use', '!=', None]]
                   }
                 }
               }
@@ -44,10 +44,10 @@ export default {
                     string: 'Taxes Mapping'
                   },
                   tax_src_id: {
-                    domain: "[('type_tax_use', '!=', None)]"
+                    domain: [['type_tax_use', '!=', None]]
                   },
                   tax_dest_id: {
-                    domain: "[('type_tax_use', '!=', None)]"
+                    domain: [['type_tax_use', '!=', None]]
                   }
                 }
               }

@@ -61,7 +61,7 @@ export default {
           _attr: {
             name: 'groupby_user',
             string: 'User',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'user_id'
             }
@@ -71,7 +71,7 @@ export default {
           _attr: {
             name: 'groupby_company',
             string: 'Company',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'company_id'
             }

@@ -39,9 +39,7 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            attrs: {
-              invisible: "[('active', '=', True)]"
-            },
+            invisible: [['active', '=', true]],
             title: 'Archived'
           }
         },
@@ -74,42 +72,32 @@ export default {
             usage: {},
             storage_category_id: {
               groups: 'stock.group_stock_storage_categories',
-              attrs: {
-                invisible: "[('usage', '!=', 'internal')]"
-              }
+              invisible: [['usage', '!=', 'internal']]
             },
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
             },
             scrap_location: {
-              attrs: {
-                invisible: "[('usage', 'not in', ('inventory', 'internal'))]"
-              }
+              invisible: [['usage', 'not in', ('inventory', 'internal')]]
             },
             return_location: {},
             replenish_location: {
-              attrs: {
-                invisible: "[('usage', '!=', 'internal')]"
-              }
+              invisible: [['usage', '!=', 'internal']]
             }
           },
           _group: {
             _attr: {
               string: 'Cyclic Counting',
-              attrs: {
-                invisible: "['|', ('usage', 'not in', ('internal', 'transit')), ('company_id', '=', False)]"
-              }
+              invisible: ['|', ['usage', 'not in', ('internal', 'transit')], ['company_id', '=', false]]
             },
             cyclic_inventory_frequency: {},
             last_inventory_date: {},
             next_inventory_date: {
-              attrs: {
-                invisible: "[('active', '=', False)]"
-              }
+              invisible: [['active', '=', false]]
             }
           },
-          _group_761: {
+          _group_415: {
             _attr: {
               string: 'Logistics',
               groups: 'stock.group_adv_location'
@@ -160,28 +148,28 @@ export default {
         _attr: {
           name: 'in_location',
           string: 'Internal',
-          domain: "[('usage', '=', 'internal')]"
+          domain: [['usage', '=', 'internal']]
         }
       },
       _filter_customer: {
         _attr: {
           name: 'customer',
           string: 'Customer',
-          domain: "[('usage', '=', 'customer')]"
+          domain: [['usage', '=', 'customer']]
         }
       },
       _filter_prod_inv_location: {
         _attr: {
           name: 'prod_inv_location',
           string: 'Production',
-          domain: "[('usage', 'in', ['inventory', 'production'])]"
+          domain: [['usage', 'in', ['inventory', 'production']]]
         }
       },
       _filter_supplier: {
         _attr: {
           name: 'supplier',
           string: 'Vendor',
-          domain: "[('usage', '=', 'supplier')]"
+          domain: [['usage', '=', 'supplier']]
         }
       },
       location_id: {
@@ -192,7 +180,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       }
     }
@@ -216,11 +204,9 @@ export default {
         usage: {},
         storage_category_id: {
           groups: 'stock.group_stock_storage_categories',
-          attrs: {
-            readonly: "[('usage', '!=', 'internal')]"
-          }
+          readonly: [['usage', '!=', 'internal']]
         },
-        _field_company_id_735: {
+        _field_company_id_637: {
           company_id: {
             groups: 'base.group_multi_company'
           }
@@ -256,7 +242,7 @@ export default {
     name: 'Locations',
     type: 'ir.actions.act_window',
     res_model: 'stock.location',
-    domain: "[('storage_category_id', '=', active_id)]",
+    domain: "[['storage_category_id', '=', active_id]]",
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

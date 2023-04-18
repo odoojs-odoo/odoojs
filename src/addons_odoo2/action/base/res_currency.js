@@ -11,14 +11,14 @@ export default {
         _attr: {
           name: 'active',
           string: 'Active',
-          domain: "[('active', '=', True)]"
+          domain: [['active', '=', true]]
         }
       },
       _filter_inactive: {
         _attr: {
           name: 'inactive',
           string: 'Inactive',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       }
     }
@@ -74,11 +74,9 @@ export default {
             text: 'You cannot reduce the number of decimal places of a currency already used on an accounting entry.'
           }
         },
-        _div_760: {
+        _div_344: {
           _attr: {
-            attrs: {
-              invisible: "[('is_current_company_currency', '=', False)]"
-            },
+            invisible: [['is_current_company_currency', '=', false]],
             class: 'alert alert-info text-center',
             text: "This is your company's currency."
           }
@@ -93,12 +91,12 @@ export default {
               widget: 'boolean_toggle'
             }
           },
-          _group_270: {
+          _group_418: {
             currency_unit_label: {},
             currency_subunit_label: {}
           }
         },
-        _group_530: {
+        _group_868: {
           _attr: {
             groups: 'base.group_no_one'
           },
@@ -109,7 +107,7 @@ export default {
             rounding: {},
             decimal_places: {}
           },
-          _group_259: {
+          _group_303: {
             _attr: {
               string: 'Display'
             },
@@ -119,9 +117,7 @@ export default {
         },
         _notebook: {
           _attr: {
-            attrs: {
-              invisible: "[('is_current_company_currency', '=', True)]"
-            },
+            invisible: [['is_current_company_currency', '=', true]],
             class: 'o_currency_rate_list'
           },
           _page_rates: {

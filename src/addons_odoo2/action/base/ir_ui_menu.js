@@ -18,7 +18,7 @@ export default {
               groups: 'base.group_no_one'
             }
           },
-          _group_364: {
+          _group_540: {
             _attr: {
               groups: 'base.group_no_one'
             },
@@ -44,7 +44,7 @@ export default {
             },
             child_id: {
               context: {
-                todo: "{'default_parent_id': active_id}"
+                todo_ctx: "{'default_parent_id': active_id}"
               },
               views: {
                 tree: {
@@ -98,7 +98,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       }
     }

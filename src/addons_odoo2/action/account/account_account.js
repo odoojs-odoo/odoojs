@@ -13,9 +13,7 @@ export default {
           _button_action_open_related_taxes: {
             _attr: {
               name: 'action_open_related_taxes',
-              attrs: {
-                invisible: "[('related_taxes_amount', '=', 0)]"
-              },
+              invisible: [['related_taxes_amount', '=', 0]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-bars'
@@ -30,7 +28,7 @@ export default {
                 },
                 related_taxes_amount: {}
               },
-              _span_822: {
+              _span_981: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Taxes'
@@ -55,7 +53,7 @@ export default {
                 },
                 current_balance: {}
               },
-              _span_387: {
+              _span_627: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Balance'
@@ -88,7 +86,7 @@ export default {
                   }
                 }
               },
-              _div_992: {
+              _div_657: {
                 _attr: {
                   class: 'col col-md-8'
                 },
@@ -125,14 +123,12 @@ export default {
                   domain: {
                     todo_ctx: "[('company_id','=',company_id)]"
                   },
-                  attrs: {
-                    invisible: "[('internal_group', '=', 'off_balance')]"
-                  },
+                  invisible: [['internal_group', '=', 'off_balance']],
                   no_quick_create: true
                 },
                 tag_ids: {
                   widget: 'many2many_tags',
-                  domain: "[('applicability', '=', 'accounts')]",
+                  domain: [['applicability', '=', 'accounts']],
                   context: {
                     default_applicability: 'accounts'
                   },
@@ -146,7 +142,7 @@ export default {
                   no_create_edit: true
                 }
               },
-              _group_807: {
+              _group_990: {
                 internal_group: {
                   invisible: '1'
                 },
@@ -188,15 +184,11 @@ export default {
         },
         reconcile: {
           widget: 'boolean_toggle',
-          attrs: {
-            invisible: "['|', ('account_type', 'in', ('asset_cash', 'liability_credit_card')), ('internal_group', '=', 'off_balance')]"
-          }
+          invisible: ['|', ['account_type', 'in', ('asset_cash', 'liability_credit_card')], ['internal_group', '=', 'off_balance']]
         },
         non_trade: {
           widget: 'boolean_toggle',
-          attrs: {
-            invisible: "[('account_type', 'not in', ('liability_payable', 'asset_receivable'))]"
-          }
+          invisible: [['account_type', 'not in', ('liability_payable', 'asset_receivable')]]
         },
         tax_ids: {
           widget: 'many2many_tags'
@@ -211,7 +203,7 @@ export default {
           groups: 'base.group_multi_currency',
           no_create: true
         },
-        _field_company_id_304: {
+        _field_company_id_687: {
           company_id: {
             groups: 'base.group_multi_company',
             no_create: true
@@ -248,49 +240,49 @@ export default {
         _attr: {
           name: 'receivableacc',
           string: 'Receivable',
-          domain: "[('account_type', '=', 'asset_receivable')]"
+          domain: [['account_type', '=', 'asset_receivable']]
         }
       },
       _filter_payableacc: {
         _attr: {
           name: 'payableacc',
           string: 'Payable',
-          domain: "[('account_type', '=', 'liability_payable')]"
+          domain: [['account_type', '=', 'liability_payable']]
         }
       },
       _filter_equityacc: {
         _attr: {
           name: 'equityacc',
           string: 'Equity',
-          domain: "[('internal_group', '=', 'equity')]"
+          domain: [['internal_group', '=', 'equity']]
         }
       },
       _filter_assetsacc: {
         _attr: {
           name: 'assetsacc',
           string: 'Assets',
-          domain: "[('internal_group', '=', 'asset')]"
+          domain: [['internal_group', '=', 'asset']]
         }
       },
       _filter_liabilityacc: {
         _attr: {
           name: 'liabilityacc',
           string: 'Liability',
-          domain: "[('internal_group', '=', 'liability')]"
+          domain: [['internal_group', '=', 'liability']]
         }
       },
       _filter_incomeacc: {
         _attr: {
           name: 'incomeacc',
           string: 'Income',
-          domain: "[('internal_group', '=', 'income')]"
+          domain: [['internal_group', '=', 'income']]
         }
       },
       _filter_expensesacc: {
         _attr: {
           name: 'expensesacc',
           string: 'Expenses',
-          domain: "[('internal_group', '=', 'expense')]"
+          domain: [['internal_group', '=', 'expense']]
         }
       },
       _separator: {},
@@ -298,17 +290,17 @@ export default {
         _attr: {
           name: 'used',
           string: 'Account with Entries',
-          domain: "[('used', '=', True)]"
+          domain: [['used', '=', true]]
         }
       },
       _filter_activeacc: {
         _attr: {
           name: 'activeacc',
           string: 'Active Account',
-          domain: "[('deprecated', '=', False)]"
+          domain: [['deprecated', '=', false]]
         }
       },
-      _separator_603: {},
+      _separator_760: {},
       account_type: {},
       _group: {
         _attr: {
@@ -344,6 +336,53 @@ export default {
     views: {
       tree: 'view_account_list',
       form: '=======todo=========='
+    }
+  },
+
+  action_duplicate_account: {
+    _odoo_model: 'ir.actions.server',
+    model_id: 'model_account_account',
+    model: 'account_account'
+  },
+
+  init_accounts_tree: {
+    _odoo_model: 'ir.ui.view',
+    model: 'account.account',
+    type: 'tree',
+    arch: {
+      sheet: {
+        code: {},
+        name: {},
+        company_id: {
+          invisible: '1'
+        },
+        account_type: {
+          widget: 'account_type_selection'
+        },
+        reconcile: {
+          widget: 'boolean_toggle'
+        },
+        opening_debit: {},
+        opening_credit: {},
+        opening_balance: {},
+        tax_ids: {
+          widget: 'many2many_tags'
+        },
+        tag_ids: {
+          widget: 'many2many_tags'
+        },
+        allowed_journal_ids: {
+          widget: 'many2many_tags'
+        },
+        _button_action_read_account: {
+          _attr: {
+            name: 'action_read_account',
+            string: 'Setup',
+            class: 'float-end btn-secondary',
+            type: 'object'
+          }
+        }
+      }
     }
   }
 }

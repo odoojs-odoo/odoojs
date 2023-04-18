@@ -51,10 +51,8 @@ export default {
               },
               picking_warn: {},
               picking_warn_msg: {
-                attrs: {
-                  required: "[('picking_warn', '!=', False), ('picking_warn', '!=', 'no-message')]",
-                  invisible: "[('picking_warn', 'in', (False, 'no-message'))]"
-                },
+                required: [['picking_warn', '!=', false], ['picking_warn', '!=', 'no-message']],
+                invisible: [['picking_warn', 'in', (false, 'no-message')]],
                 placeholder: 'Type a message...'
               }
             }

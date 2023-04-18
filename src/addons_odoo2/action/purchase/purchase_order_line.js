@@ -45,9 +45,7 @@ export default {
           _label_date_order: {
             for: 'date_order',
             string: ',',
-            attrs: {
-              invisible: "[('date_order', '=', False)]"
-            }
+            invisible: [['date_order', '=', false]]
           },
           date_order: {
             class: 'oe_inline'
@@ -76,10 +74,10 @@ export default {
             },
             price_unit: {}
           },
-          _group_818: {
+          _group_871: {
             taxes_id: {
               widget: 'many2many_tags',
-              domain: "[('type_tax_use', '=', 'purchase')]"
+              domain: [['type_tax_use', '=', 'purchase']]
             },
             date_planned: {
               widget: 'date'
@@ -121,7 +119,7 @@ export default {
         _attr: {
           name: 'hide_cancelled',
           string: 'Hide cancelled lines',
-          domain: "[('state', '!=', 'cancel')]"
+          domain: [['state', '!=', 'cancel']]
         }
       },
       _group: {

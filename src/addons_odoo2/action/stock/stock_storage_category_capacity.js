@@ -7,19 +7,15 @@ export default {
       sheet: {
         storage_category_id: {},
         product_id: {
-          invisible: "context.get('default_product_id')",
-          attrs: {
-            required: "[('package_type_id', '=', False)]",
-            readonly: "[('package_type_id', '!=', False)]"
-          }
+          invisible: "context.get['default_product_id']",
+          required: [['package_type_id', '=', false]],
+          readonly: [['package_type_id', '!=', false]]
         },
         package_type_id: {
           groups: 'stock.group_tracking_lot',
-          invisible: "context.get('hide_package_type', False)",
-          attrs: {
-            required: "[('product_id', '=', False)]",
-            readonly: "[('product_id', '!=', False)]"
-          }
+          invisible: "context.get['hide_package_type', False]",
+          required: [['product_id', '=', false]],
+          readonly: [['product_id', '!=', false]]
         },
         quantity: {},
         product_uom_id: {
@@ -30,7 +26,7 @@ export default {
         company_id: {
           invisible: '1'
         },
-        _field_package_type_id_506: {
+        _field_package_type_id_486: {
           package_type_id: {
             invisible: '1'
           }

@@ -23,9 +23,7 @@ export default {
               domain: {
                 todo_ctx: "[('company_id', '=', company_id)]"
               },
-              attrs: {
-                required: "['|', ('rule_type', '!=', 'invoice_matching'), '&', '&', ('rule_type', '=', 'invoice_matching'), ('allow_payment_tolerance', '=', True), ('payment_tolerance_param', '!=', 0.0)]"
-              },
+              required: ['|', ['rule_type', '!=', 'invoice_matching'], '&', '&', ['rule_type', '=', 'invoice_matching'], ['allow_payment_tolerance', '=', true], ['payment_tolerance_param', '!=', 0.0]],
               no_create: true
             },
             amount_type: {},
@@ -43,9 +41,7 @@ export default {
               invisible: '1'
             },
             force_tax_included: {
-              attrs: {
-                invisible: "[('show_force_tax_included', '=', False)]"
-              },
+              invisible: [['show_force_tax_included', '=', false]],
               force_save: '1'
             },
             analytic_distribution: {
@@ -58,7 +54,7 @@ export default {
               invisible: '1'
             }
           },
-          _group_915: {
+          _group_660: {
             label: {},
             _label_amount_string: {
               for: 'amount_string'
@@ -69,9 +65,7 @@ export default {
               },
               _span: {
                 _attr: {
-                  attrs: {
-                    invisible: "[('amount_type', '!=', 'percentage')]"
-                  },
+                  invisible: [['amount_type', '!=', 'percentage']],
                   class: 'o_form_label oe_inline',
                   text: '%'
                 }

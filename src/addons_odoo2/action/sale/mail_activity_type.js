@@ -3,7 +3,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Activity Types',
     res_model: 'mail.activity.type',
-    domain: "['|', ('res_model', '=', False), ('res_model', '=', 'sale.order')]",
+    domain: "['|', ['res_model', '=', False], ['res_model', '=', 'sale.order']]",
     context: {
       default_res_model: 'sale.order'
     },

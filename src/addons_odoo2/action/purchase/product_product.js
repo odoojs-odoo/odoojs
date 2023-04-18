@@ -1,4 +1,18 @@
 export default {
+  product_product_action: {
+    _odoo_model: 'ir.actions.act_window',
+    name: 'Product Variants',
+    search_view_id: 'product.product_search_form_view',
+    res_model: 'product.product',
+    context: {
+      search_default_filter_to_purchase: 1
+    },
+    views: {
+      tree: '=======todo==========',
+      form: '=======todo=========='
+    }
+  },
+
   product_normal_form_view_inherit_purchase: {
     _odoo_model: 'ir.ui.view',
     model: 'product.product',
@@ -13,9 +27,7 @@ export default {
             _attr: {
               name: 'action_view_po',
               groups: 'purchase.group_purchase_user',
-              attrs: {
-                invisible: "[('purchase_ok', '=', False)]"
-              },
+              invisible: [['purchase_ok', '=', false]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-credit-card'
@@ -34,7 +46,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_390: {
+              _span_642: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Purchased'

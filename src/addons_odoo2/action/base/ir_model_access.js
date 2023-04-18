@@ -53,7 +53,7 @@ export default {
             widget: 'boolean_toggle'
           }
         },
-        _group_807: {
+        _group_192: {
           _attr: {
             string: 'Access'
           },
@@ -78,7 +78,7 @@ export default {
         _attr: {
           name: 'global',
           string: 'Global',
-          domain: "[('group_id', '=', False)]"
+          domain: [['group_id', '=', false]]
         }
       },
       _separator: {},
@@ -86,29 +86,29 @@ export default {
         _attr: {
           name: 'full_access',
           string: 'Full Access',
-          domain: "[('perm_read', '=', True), ('perm_write', '=', True), ('perm_create', '=', True), ('perm_unlink', '=', True)]"
+          domain: [['perm_read', '=', true], ['perm_write', '=', true], ['perm_create', '=', true], ['perm_unlink', '=', true]]
         }
       },
       _filter_read_access: {
         _attr: {
           name: 'read_access',
           string: 'Read Access',
-          domain: "[('perm_read', '=', True)]"
+          domain: [['perm_read', '=', true]]
         }
       },
       _filter_write_access: {
         _attr: {
           name: 'write_access',
           string: 'Write Access',
-          domain: "[('perm_write', '=', True)]"
+          domain: [['perm_write', '=', true]]
         }
       },
-      _separator_499: {},
+      _separator_832: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       },
       model_id: {},
@@ -122,7 +122,7 @@ export default {
           _attr: {
             name: 'group',
             string: 'Group',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'group_id'
             }
@@ -132,7 +132,7 @@ export default {
           _attr: {
             name: 'group_by_object',
             string: 'Model',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'model_id'
             }

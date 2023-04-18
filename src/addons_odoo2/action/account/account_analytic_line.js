@@ -14,7 +14,7 @@ export default {
             ref: {},
             partner_id: {}
           },
-          _xpath_185: {
+          _xpath_335: {
             _attr: {
               expr: "//field[@name='product_uom_id']",
               position: 'before'
@@ -36,9 +36,7 @@ export default {
                 no_create: true
               },
               general_account_id: {
-                attrs: {
-                  readonly: "[('move_line_id', '!=', False)]"
-                }
+                readonly: [['move_line_id', '!=', false]]
               }
             }
           }
@@ -60,7 +58,7 @@ export default {
               position: 'after'
             },
             ref: {
-              invisible: "context.get('to_invoice', False)"
+              invisible: "context.get['to_invoice', False]"
             },
             general_account_id: {},
             move_line_id: {
@@ -88,7 +86,7 @@ export default {
             product_id: {},
             partner_id: {}
           },
-          _xpath_304: {
+          _xpath_125: {
             _attr: {
               expr: "//group[@name='groupby']",
               position: 'after'

@@ -32,7 +32,7 @@ export default {
                   },
                   group_product_variant: {}
                 },
-                _div_472: {
+                _div_667: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -51,11 +51,9 @@ export default {
                       text: 'Sell variants of a product using attributes (size, color, etc.)'
                     }
                   },
-                  _div_539: {
+                  _div_617: {
                     _attr: {
-                      attrs: {
-                        invisible: "[('group_product_variant', '=', False)]"
-                      },
+                      invisible: [['group_product_variant', '=', false]],
                       class: 'content-group'
                     },
                     _div: {
@@ -75,7 +73,7 @@ export default {
                   }
                 }
               },
-              _div_879: {
+              _div_232: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -85,7 +83,7 @@ export default {
                   },
                   module_sale_product_matrix: {}
                 },
-                _div_284: {
+                _div_103: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -101,7 +99,7 @@ export default {
                   }
                 }
               },
-              _div_376: {
+              _div_128: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -111,7 +109,7 @@ export default {
                   },
                   group_uom: {}
                 },
-                _div_288: {
+                _div_959: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -124,11 +122,9 @@ export default {
                       text: 'Sell and purchase products in different units of measure'
                     }
                   },
-                  _div_247: {
+                  _div_968: {
                     _attr: {
-                      attrs: {
-                        invisible: "[('group_uom', '=', False)]"
-                      },
+                      invisible: [['group_uom', '=', false]],
                       class: 'content-group'
                     },
                     _div: {
@@ -148,7 +144,7 @@ export default {
                   }
                 }
               },
-              _div_522: {
+              _div_507: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box',
                   title: 'Sending an email is useful if you need to share specific information or content about a product (instructions, rules, links, media, etc.). Create and set the email template from the product detail form (in Sales tab).'
@@ -159,7 +155,7 @@ export default {
                   },
                   module_product_email_template: {}
                 },
-                _div_608: {
+                _div_577: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -175,7 +171,7 @@ export default {
                   }
                 }
               },
-              _div_651: {
+              _div_429: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box',
                   title: 'Ability to select a package type in sales orders and to force a quantity that is a multiple of the number of units per package.'
@@ -186,7 +182,7 @@ export default {
                   },
                   group_stock_packaging: {}
                 },
-                _div_550: {
+                _div_972: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -202,7 +198,7 @@ export default {
                 }
               }
             },
-            _h2_861: 'Pricing',
+            _h2_897: 'Pricing',
             _div: {
               _attr: {
                 class: 'row mt16 o_settings_container'
@@ -218,7 +214,7 @@ export default {
                   },
                   group_discount_per_so_line: {}
                 },
-                _div_907: {
+                _div_392: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -233,7 +229,7 @@ export default {
                   }
                 }
               },
-              _div_928: {
+              _div_420: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box',
                   title: 'Boost your sales with multiple kinds of programs: Coupons, Promotions, Gift Card, Loyalty. Specific conditions can be set (products, customers, minimum purchase amount, period). Rewards can be discounts (% or amount) or free products.'
@@ -244,7 +240,7 @@ export default {
                   },
                   module_loyalty: {}
                 },
-                _div_869: {
+                _div_227: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -260,7 +256,7 @@ export default {
                   }
                 }
               },
-              _div_870: {
+              _div_425: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -270,7 +266,7 @@ export default {
                   },
                   group_product_pricelist: {}
                 },
-                _div_159: {
+                _div_422: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -289,11 +285,9 @@ export default {
                       text: 'Set multiple prices per product, automated discounts, etc.'
                     }
                   },
-                  _div_224: {
+                  _div_146: {
                     _attr: {
-                      attrs: {
-                        invisible: "[('group_product_pricelist', '=', False)]"
-                      },
+                      invisible: [['group_product_pricelist', '=', false]],
                       class: 'content-group'
                     },
                     _div: {
@@ -308,7 +302,7 @@ export default {
                         class: 'o_light_label'
                       }
                     },
-                    _div_485: {
+                    _div_589: {
                       _attr: {
                         class: 'mt8'
                       },
@@ -326,7 +320,7 @@ export default {
                   }
                 }
               },
-              _div_746: {
+              _div_484: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box',
                   title: " To send invitations in B2B mode, open a contact or select several ones in list view and click on 'Portal Access Management' option in the dropdown menu *Action*."
@@ -336,7 +330,7 @@ export default {
                     class: 'o_setting_left_pane'
                   }
                 },
-                _div_138: {
+                _div_471: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -349,7 +343,7 @@ export default {
                       text: 'Let your customers log in to see their documents'
                     }
                   },
-                  _div_333: {
+                  _div_817: {
                     _attr: {
                       class: 'mt8'
                     },
@@ -361,7 +355,7 @@ export default {
                   }
                 }
               },
-              _div_477: {
+              _div_197: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box',
                   title: 'The margin is computed as the sum of product sales prices minus the cost set in their detail form.'
@@ -372,7 +366,7 @@ export default {
                   },
                   module_sale_margin: {}
                 },
-                _div_950: {
+                _div_150: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -388,7 +382,7 @@ export default {
                 }
               }
             },
-            _h2_130: 'Quotations & Orders',
+            _h2_505: 'Quotations & Orders',
             _div_quotation_order_setting_container: {
               _attr: {
                 name: 'quotation_order_setting_container',
@@ -404,7 +398,7 @@ export default {
                   },
                   portal_confirmation_sign: {}
                 },
-                _div_203: {
+                _div_644: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -432,7 +426,7 @@ export default {
                   }
                 }
               },
-              _div_858: {
+              _div_163: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -442,7 +436,7 @@ export default {
                   },
                   portal_confirmation_pay: {}
                 },
-                _div_658: {
+                _div_240: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -468,11 +462,9 @@ export default {
                       text: 'Request an online payment to confirm orders'
                     }
                   },
-                  _div_535: {
+                  _div_558: {
                     _attr: {
-                      attrs: {
-                        invisible: "[('portal_confirmation_pay', '=', False)]"
-                      },
+                      invisible: [['portal_confirmation_pay', '=', false]],
                       class: 'mt8'
                     },
                     _button_payment__action_payment_provider: {
@@ -487,7 +479,7 @@ export default {
                   }
                 }
               },
-              _div_491: {
+              _div_140: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -497,7 +489,7 @@ export default {
                   },
                   use_quotation_validity_days: {}
                 },
-                _div_185: {
+                _div_634: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -517,11 +509,9 @@ export default {
                       text: 'Set a default validity on your quotations'
                     }
                   },
-                  _div_468: {
+                  _div_965: {
                     _attr: {
-                      attrs: {
-                        invisible: "[('use_quotation_validity_days', '=', False)]"
-                      },
+                      invisible: [['use_quotation_validity_days', '=', false]],
                       class: 'content-group'
                     },
                     _div: {
@@ -534,16 +524,14 @@ export default {
                           text: 'Default Limit:'
                         },
                         quotation_validity_days: {
-                          attrs: {
-                            required: "[('use_quotation_validity_days', '=', True)]"
-                          }
+                          required: [['use_quotation_validity_days', '=', true]]
                         }
                       }
                     }
                   }
                 }
               },
-              _div_701: {
+              _div_892: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -553,7 +541,7 @@ export default {
                   },
                   group_warning_sale: {}
                 },
-                _div_998: {
+                _div_824: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -569,7 +557,7 @@ export default {
                   }
                 }
               },
-              _div_206: {
+              _div_522: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -579,7 +567,7 @@ export default {
                   },
                   group_auto_done_setting: {}
                 },
-                _div_839: {
+                _div_118: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -594,7 +582,7 @@ export default {
                   }
                 }
               },
-              _div_300: {
+              _div_849: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -604,7 +592,7 @@ export default {
                   },
                   group_proforma_sales: {}
                 },
-                _div_309: {
+                _div_508: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -620,7 +608,7 @@ export default {
                 }
               }
             },
-            _h2_378: {
+            _h2_327: {
               _attr: {
                 class: 'mt32',
                 text: 'Shipping'
@@ -641,7 +629,7 @@ export default {
                   },
                   module_delivery: {}
                 },
-                _div_445: {
+                _div_503: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -656,7 +644,7 @@ export default {
                   }
                 }
               },
-              _div_482: {
+              _div_157: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -668,7 +656,7 @@ export default {
                     widget: 'upgrade_boolean'
                   }
                 },
-                _div_304: {
+                _div_926: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -681,7 +669,7 @@ export default {
                       text: 'Compute shipping costs and ship with UPS'
                     }
                   },
-                  _div_859: {
+                  _div_362: {
                     _attr: {
                       class: 'content-group'
                     },
@@ -689,7 +677,7 @@ export default {
                   }
                 }
               },
-              _div_532: {
+              _div_918: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -701,7 +689,7 @@ export default {
                     widget: 'upgrade_boolean'
                   }
                 },
-                _div_293: {
+                _div_157: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -714,7 +702,7 @@ export default {
                       text: 'Compute shipping costs and ship with DHL'
                     }
                   },
-                  _div_336: {
+                  _div_861: {
                     _attr: {
                       class: 'content-group'
                     },
@@ -722,7 +710,7 @@ export default {
                   }
                 }
               },
-              _div_795: {
+              _div_520: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -734,7 +722,7 @@ export default {
                     widget: 'upgrade_boolean'
                   }
                 },
-                _div_325: {
+                _div_477: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -747,7 +735,7 @@ export default {
                       text: 'Compute shipping costs and ship with FedEx'
                     }
                   },
-                  _div_943: {
+                  _div_696: {
                     _attr: {
                       class: 'content-group'
                     },
@@ -755,7 +743,7 @@ export default {
                   }
                 }
               },
-              _div_515: {
+              _div_518: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -767,7 +755,7 @@ export default {
                     widget: 'upgrade_boolean'
                   }
                 },
-                _div_932: {
+                _div_704: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -780,7 +768,7 @@ export default {
                       text: 'Compute shipping costs and ship with USPS'
                     }
                   },
-                  _div_339: {
+                  _div_345: {
                     _attr: {
                       class: 'content-group'
                     },
@@ -788,7 +776,7 @@ export default {
                   }
                 }
               },
-              _div_725: {
+              _div_301: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -800,7 +788,7 @@ export default {
                     widget: 'upgrade_boolean'
                   }
                 },
-                _div_940: {
+                _div_992: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -813,7 +801,7 @@ export default {
                       text: 'Compute shipping costs and ship with bpost'
                     }
                   },
-                  _div_485: {
+                  _div_884: {
                     _attr: {
                       class: 'content-group'
                     },
@@ -821,7 +809,7 @@ export default {
                   }
                 }
               },
-              _div_612: {
+              _div_686: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -833,7 +821,7 @@ export default {
                     widget: 'upgrade_boolean'
                   }
                 },
-                _div_532: {
+                _div_268: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -846,7 +834,7 @@ export default {
                       text: 'Compute shipping costs and ship with Easypost'
                     }
                   },
-                  _div_303: {
+                  _div_258: {
                     _attr: {
                       class: 'content-group'
                     },
@@ -854,7 +842,7 @@ export default {
                   }
                 }
               },
-              _div_204: {
+              _div_127: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -866,7 +854,7 @@ export default {
                     widget: 'upgrade_boolean'
                   }
                 },
-                _div_757: {
+                _div_825: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -879,7 +867,7 @@ export default {
                       text: 'Compute shipping costs and ship with Sendcloud'
                     }
                   },
-                  _div_714: {
+                  _div_599: {
                     _attr: {
                       class: 'content-group'
                     },
@@ -888,7 +876,7 @@ export default {
                 }
               }
             },
-            _h2_626: 'Invoicing',
+            _h2_695: 'Invoicing',
             _div_invoicing_setting_container: {
               _attr: {
                 name: 'invoicing_setting_container',
@@ -918,7 +906,7 @@ export default {
                       text: 'Quantities to invoice from sales orders'
                     }
                   },
-                  _div_922: {
+                  _div_618: {
                     _attr: {
                       class: 'content-group'
                     },
@@ -934,11 +922,9 @@ export default {
                   }
                 }
               },
-              _div_633: {
+              _div_229: {
                 _attr: {
-                  attrs: {
-                    invisible: "['|', ('default_invoice_policy', '!=', 'order'), ('portal_confirmation_pay', '=', False)]"
-                  },
+                  invisible: ['|', ['default_invoice_policy', '!=', 'order'], ['portal_confirmation_pay', '=', false]],
                   class: 'col-xs-12 col-md-6 o_setting_box'
                 },
                 _div: {
@@ -947,7 +933,7 @@ export default {
                   },
                   automatic_invoice: {}
                 },
-                _div_694: {
+                _div_286: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -960,12 +946,10 @@ export default {
                       text: 'Generate the invoice automatically when the online payment is confirmed'
                     }
                   },
-                  _div_334: {
+                  _div_507: {
                     _attr: {
                       groups: 'base.group_no_one',
-                      attrs: {
-                        invisible: "[('automatic_invoice', '=', False)]"
-                      }
+                      invisible: [['automatic_invoice', '=', false]]
                     },
                     _label_invoice_mail_template_id: {
                       for: 'invoice_mail_template_id',
@@ -978,7 +962,7 @@ export default {
                   }
                 }
               },
-              _div_829: {
+              _div_790: {
                 _attr: {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -987,7 +971,7 @@ export default {
                     class: 'o_setting_left_pane'
                   }
                 },
-                _div_398: {
+                _div_116: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -1009,7 +993,7 @@ export default {
                       text: 'Product used for down payments'
                     }
                   },
-                  _div_602: {
+                  _div_221: {
                     _attr: {
                       class: 'text-muted'
                     },
@@ -1022,13 +1006,13 @@ export default {
                 }
               }
             },
-            _h2_708: {
+            _h2_401: {
               _attr: {
                 class: 'mt32',
                 text: 'Connectors'
               }
             },
-            _div_169: {
+            _div_140: {
               _attr: {
                 class: 'row mt16 o_settings_container'
               },
@@ -1044,7 +1028,7 @@ export default {
                     widget: 'upgrade_boolean'
                   }
                 },
-                _div_144: {
+                _div_181: {
                   _attr: {
                     class: 'o_setting_right_pane'
                   },
@@ -1066,16 +1050,14 @@ export default {
                   _div_amazon_connector: {
                     _attr: {
                       name: 'amazon_connector',
-                      attrs: {
-                        invisible: "[('module_sale_amazon', '=', False)]"
-                      },
+                      invisible: [['module_sale_amazon', '=', false]],
                       class: 'content-group'
                     }
                   }
                 }
               }
             },
-            _div_744: {}
+            _div_982: {}
           }
         }
       }

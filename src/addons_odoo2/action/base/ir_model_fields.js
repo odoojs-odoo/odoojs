@@ -13,12 +13,10 @@ export default {
             name: {},
             field_description: {},
             model_id: {
-              attrs: {
-                readonly: "[('state', '!=', 'manual')]"
-              }
+              readonly: [['state', '!=', 'manual']]
             }
           },
-          _group_402: {
+          _group_647: {
             ttype: {},
             help: {}
           }
@@ -46,84 +44,62 @@ export default {
                   groups: 'base.group_no_one'
                 }
               },
-              _group_672: {
+              _group_146: {
                 translate: {
-                  attrs: {
-                    readonly: "[('ttype', 'not in', ['char', 'text', 'html'])]",
-                    invisible: "[('ttype', 'not in', ['char', 'text', 'html'])]"
-                  }
+                  readonly: [['ttype', 'not in', ['char', 'text', 'html']]],
+                  invisible: [['ttype', 'not in', ['char', 'text', 'html']]]
                 },
                 size: {
                   groups: 'base.group_no_one',
-                  attrs: {
-                    readonly: "[('ttype', 'not in', ['char', 'reference'])]",
-                    invisible: "[('ttype', 'not in', ['char', 'reference'])]"
-                  }
+                  readonly: [['ttype', 'not in', ['char', 'reference']]],
+                  invisible: [['ttype', 'not in', ['char', 'reference']]]
                 },
                 relation: {
-                  attrs: {
-                    required: "[('ttype', 'in', ['many2one', 'one2many', 'many2many'])]",
-                    readonly: "[('ttype', 'not in', ['many2one', 'one2many', 'many2many'])]",
-                    invisible: "[('ttype', 'not in', ['many2one', 'one2many', 'many2many'])]"
-                  }
+                  required: [['ttype', 'in', ['many2one', 'one2many', 'many2many']]],
+                  readonly: [['ttype', 'not in', ['many2one', 'one2many', 'many2many']]],
+                  invisible: [['ttype', 'not in', ['many2one', 'one2many', 'many2many']]]
                 },
                 group_expand: {
                   groups: 'base.group_no_one',
-                  attrs: {
-                    readonly: "[('ttype', 'not in', ['many2one', 'selection'])]",
-                    invisible: "[('ttype', 'not in', ['many2one', 'selection'])]"
-                  }
+                  readonly: [['ttype', 'not in', ['many2one', 'selection']]],
+                  invisible: [['ttype', 'not in', ['many2one', 'selection']]]
                 },
                 on_delete: {
                   groups: 'base.group_no_one',
-                  attrs: {
-                    readonly: "[('ttype', '!=', 'many2one')]",
-                    invisible: "[('ttype', '!=', 'many2one')]"
-                  }
+                  readonly: [['ttype', '!=', 'many2one']],
+                  invisible: [['ttype', '!=', 'many2one']]
                 },
                 relation_field: {
-                  attrs: {
-                    required: "[('ttype', '=', 'one2many')]",
-                    readonly: "[('ttype', '!=', 'one2many')]",
-                    invisible: "[('ttype', '!=', 'one2many')]"
-                  }
+                  required: [['ttype', '=', 'one2many']],
+                  readonly: [['ttype', '!=', 'one2many']],
+                  invisible: [['ttype', '!=', 'one2many']]
                 },
                 relation_table: {
                   groups: 'base.group_no_one',
-                  attrs: {
-                    readonly: "['|', ('ttype', '!=', 'many2many'), ('state', '!=', 'manual')]",
-                    invisible: "['|', ('ttype', '!=', 'many2many'), ('state', '!=', 'manual')]"
-                  }
+                  readonly: ['|', ['ttype', '!=', 'many2many'], ['state', '!=', 'manual']],
+                  invisible: ['|', ['ttype', '!=', 'many2many'], ['state', '!=', 'manual']]
                 },
                 column1: {
                   groups: 'base.group_no_one',
-                  attrs: {
-                    readonly: "['|', ('ttype', '!=', 'many2many'), ('state', '!=', 'manual')]",
-                    invisible: "['|', ('ttype', '!=', 'many2many'), ('state', '!=', 'manual')]"
-                  }
+                  readonly: ['|', ['ttype', '!=', 'many2many'], ['state', '!=', 'manual']],
+                  invisible: ['|', ['ttype', '!=', 'many2many'], ['state', '!=', 'manual']]
                 },
                 column2: {
                   groups: 'base.group_no_one',
-                  attrs: {
-                    readonly: "['|', ('ttype', '!=', 'many2many'), ('state', '!=', 'manual')]",
-                    invisible: "['|', ('ttype', '!=', 'many2many'), ('state', '!=', 'manual')]"
-                  }
+                  readonly: ['|', ['ttype', '!=', 'many2many'], ['state', '!=', 'manual']],
+                  invisible: ['|', ['ttype', '!=', 'many2many'], ['state', '!=', 'manual']]
                 },
                 domain: {
                   groups: 'base.group_no_one',
-                  attrs: {
-                    readonly: "[('ttype', 'not in', ['many2one', 'one2many', 'many2many'])]",
-                    invisible: "[('ttype', 'not in', ['many2one', 'one2many', 'many2many'])]"
-                  }
+                  readonly: [['ttype', 'not in', ['many2one', 'one2many', 'many2many']]],
+                  invisible: [['ttype', 'not in', ['many2one', 'one2many', 'many2many']]]
                 }
               }
             },
-            _group_615: {
+            _group_736: {
               _attr: {
-                attrs: {
-                  readonly: "[('ttype', 'not in', ['selection', 'reference'])]",
-                  invisible: "[('ttype', 'not in', ['selection', 'reference'])]"
-                }
+                readonly: [['ttype', 'not in', ['selection', 'reference']]],
+                invisible: [['ttype', 'not in', ['selection', 'reference']]]
               },
               selection_ids: {
                 views: {
@@ -141,16 +117,14 @@ export default {
                 }
               }
             },
-            _group_796: {
+            _group_903: {
               _attr: {
                 string: 'Advanced Properties',
                 groups: 'base.group_no_one'
               },
               related: {},
               depends: {
-                attrs: {
-                  required: "[('compute', 'not in', [False, ''])]"
-                }
+                required: [['compute', 'not in', [false, '']]]
               },
               compute: {
                 widget: 'ace',
@@ -167,44 +141,44 @@ export default {
                   text: 'Computed fields are defined with the fields'
                 },
                 _strong: 'Dependencies',
-                _strong_849: 'Compute'
+                _strong_199: 'Compute'
               },
-              _p_307: {
+              _p_345: {
                 _attr: {
                   text: 'The field'
                 },
                 _strong: 'Dependencies',
                 _code: 'name, size',
-                _code_913: 'partner_id.company_id.name'
+                _code_349: 'partner_id.company_id.name'
               },
-              _p_423: {
+              _p_456: {
                 _attr: {
                   text: 'The field'
                 },
                 _strong: 'Compute'
               },
               _pre: "for record in self:\n        record['size'] = len(record.name)",
-              _p_744: 'The only predefined variables are',
+              _p_589: 'The only predefined variables are',
               _ul: {
                 _li: {
                   _code: 'self'
                 },
-                _li_219: {
+                _li_922: {
                   _code: 'datetime'
                 },
-                _li_138: {
+                _li_599: {
                   _code: 'dateutil'
                 },
-                _li_311: {
+                _li_984: {
                   _code: 'time'
                 }
               },
-              _p_507: {
+              _p_454: {
                 _attr: {
                   text: 'Other features are accessible through'
                 },
                 _code: 'self',
-                _code_363: 'self.env'
+                _code_697: 'self.env'
               }
             }
           },
@@ -262,7 +236,7 @@ export default {
         _attr: {
           name: 'required',
           string: 'Required',
-          domain: "[('required', '=', True)]"
+          domain: [['required', '=', true]]
         }
       },
       _separator: {},
@@ -270,30 +244,30 @@ export default {
         _attr: {
           name: 'readonly',
           string: 'Readonly',
-          domain: "[('readonly', '=', True)]"
+          domain: [['readonly', '=', true]]
         }
       },
-      _separator_953: {},
+      _separator_192: {},
       _filter_custom: {
         _attr: {
           name: 'custom',
           string: 'Custom',
-          domain: "[('state', '=', 'manual')]"
+          domain: [['state', '=', 'manual']]
         }
       },
       _filter_base: {
         _attr: {
           name: 'base',
           string: 'Base',
-          domain: "[('state', '=', 'base')]"
+          domain: [['state', '=', 'base']]
         }
       },
-      _separator_306: {},
+      _separator_670: {},
       _filter_translate: {
         _attr: {
           name: 'translate',
           string: 'Translate',
-          domain: "[('translate', '=', True)]"
+          domain: [['translate', '=', true]]
         }
       },
       model_id: {},
@@ -309,7 +283,7 @@ export default {
           _attr: {
             name: 'group_by_object',
             string: 'Model',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'model_id'
             }
@@ -319,7 +293,7 @@ export default {
           _attr: {
             name: 'group_by_ttype',
             string: 'Field Type',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'ttype'
             }

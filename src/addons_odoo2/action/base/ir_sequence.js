@@ -10,7 +10,7 @@ export default {
             name: {},
             implementation: {}
           },
-          _group_398: {
+          _group_898: {
             code: {},
             active: {
               widget: 'boolean_toggle'
@@ -32,21 +32,17 @@ export default {
                 suffix: {},
                 use_date_range: {}
               },
-              _group_740: {
+              _group_449: {
                 padding: {},
                 number_increment: {},
                 number_next_actual: {
                   string: 'Next Number',
-                  attrs: {
-                    invisible: "[('use_date_range', '=', True)]"
-                  }
+                  invisible: [['use_date_range', '=', true]]
                 }
               }
             },
             date_range_ids: {
-              attrs: {
-                invisible: "[('use_date_range', '=', False)]"
-              },
+              invisible: [['use_date_range', '=', false]],
               views: {
                 tree: {
                   arch: {
@@ -64,33 +60,31 @@ export default {
                 }
               }
             },
-            _group_500: {
+            _group_904: {
               _attr: {
                 string: 'Legend (for prefix, suffix)'
               },
               _group: {
                 _span: 'Current Year with Century: %%(year)s',
-                _span_236: 'Current Year without Century: %%(y)s',
-                _span_681: 'Month: %%(month)s',
-                _span_685: 'Day: %%(day)s'
+                _span_674: 'Current Year without Century: %%(y)s',
+                _span_806: 'Month: %%(month)s',
+                _span_517: 'Day: %%(day)s'
               },
-              _group_751: {
+              _group_923: {
                 _span: 'Day of the Year: %%(doy)s',
-                _span_180: 'Week of the Year: %%(woy)s',
-                _span_599: 'Day of the Week (0:Monday): %%(weekday)s'
+                _span_565: 'Week of the Year: %%(woy)s',
+                _span_363: 'Day of the Week (0:Monday): %%(weekday)s'
               },
-              _group_918: {
+              _group_849: {
                 _span: 'Hour 00->24: %%(h24)s',
-                _span_882: 'Hour 00->12: %%(h12)s',
-                _span_843: 'Minute: %%(min)s',
-                _span_459: 'Second: %%(sec)s'
+                _span_220: 'Hour 00->12: %%(h12)s',
+                _span_615: 'Minute: %%(min)s',
+                _span_660: 'Second: %%(sec)s'
               }
             },
-            _group_252: {
+            _group_656: {
               _attr: {
-                attrs: {
-                  invisible: "[('use_date_range', '=', False)]"
-                }
+                invisible: [['use_date_range', '=', false]]
               },
               _div: "When subsequences per date range are used, you can prefix variables with 'range_'\n                                to use the beginning of the range instead of the current date, e.g. %%(range_year)s instead of %%(year)s."
             }
@@ -139,7 +133,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       }
     }

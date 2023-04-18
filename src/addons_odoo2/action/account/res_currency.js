@@ -15,9 +15,7 @@ export default {
           },
           _div: {
             _attr: {
-              attrs: {
-                invisible: "[('display_rounding_warning', '=', False)]"
-              },
+              invisible: [['display_rounding_warning', '=', false]],
               class: 'alert alert-warning'
             },
             _strong: 'This currency has already been used to generate accounting entries.',

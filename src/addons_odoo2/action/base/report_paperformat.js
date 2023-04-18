@@ -20,14 +20,10 @@ export default {
           name: {},
           format: {},
           page_height: {
-            attrs: {
-              invisible: "[('format', '!=', 'custom')]"
-            }
+            invisible: [['format', '!=', 'custom']]
           },
           page_width: {
-            attrs: {
-              invisible: "[('format', '!=', 'custom')]"
-            }
+            invisible: [['format', '!=', 'custom']]
           },
           orientation: {},
           margin_top: {},

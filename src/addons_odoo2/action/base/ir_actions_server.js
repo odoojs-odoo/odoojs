@@ -13,9 +13,7 @@ export default {
             _attr: {
               name: 'create_action',
               string: 'Create Contextual Action',
-              attrs: {
-                invisible: "[('binding_model_id', '!=', False)]"
-              },
+              invisible: [['binding_model_id', '!=', false]],
               class: 'btn-primary',
               type: 'object'
             }
@@ -24,9 +22,7 @@ export default {
             _attr: {
               name: 'unlink_action',
               string: 'Remove Contextual Action',
-              attrs: {
-                invisible: "[('binding_model_id', '=', False)]"
-              },
+              invisible: [['binding_model_id', '=', false]],
               type: 'object'
             }
           },
@@ -34,9 +30,7 @@ export default {
             _attr: {
               name: 'run',
               string: 'Run',
-              attrs: {
-                todo: "{'invisible':['|', ('model_id', '!=', %(base.model_ir_actions_server)s), ('state', '!=', 'code')]}"
-              },
+              todo_ctx: "{'invisible':['|', ('model_id', '!=', %(base.model_ir_actions_server)s), ('state', '!=', 'code')]}",
               class: 'btn-primary',
               type: 'object'
             }
@@ -76,10 +70,8 @@ export default {
               invisible: '1'
             },
             crud_model_id: {
-              attrs: {
-                invisible: "[('state', '!=', 'object_create')]",
-                required: "[('state', '=', 'object_create')]"
-              },
+              invisible: [['state', '!=', 'object_create']],
+              required: [['state', '=', 'object_create']],
               no_create: true
             },
             crud_model_name: {
@@ -87,13 +79,11 @@ export default {
             },
             link_field_id: {
               domain: {
-                todo: "[('model_id', '=', model_id), ('relation', '=', crud_model_name),                                     ('ttype', 'in', ['many2one', 'one2many', 'many2many'])]"
+                todo_ctx: "[('model_id', '=', model_id), ('relation', '=', crud_model_name),                                     ('ttype', 'in', ['many2one', 'one2many', 'many2many'])]"
               },
-              attrs: {
-                invisible: "[('state', '!=', 'object_create')]"
-              },
+              invisible: [['state', '!=', 'object_create']],
               context: {
-                todo: "{'default_model_id': model_id, 'default_relation': crud_model_name}"
+                todo_ctx: "{'default_model_id': model_id, 'default_relation': crud_model_name}"
               },
               no_create: true
             }
@@ -104,9 +94,7 @@ export default {
             _attr: {
               name: 'code',
               string: 'Python Code',
-              attrs: {
-                invisible: "[('state', '!=', 'code')]"
-              }
+              invisible: [['state', '!=', 'code']]
             },
             code: {
               widget: 'ace',
@@ -118,15 +106,11 @@ export default {
             _attr: {
               name: 'page_object',
               string: 'Data to Write',
-              attrs: {
-                invisible: "[('state', 'not in', ['object_create', 'object_write'])]"
-              }
+              invisible: [['state', 'not in', ['object_create', 'object_write']]]
             },
             _p: {
               _attr: {
-                attrs: {
-                  invisible: "[('model_id', '!=', False)]"
-                },
+                invisible: [['model_id', '!=', false]],
                 text: 'Please set the Model to Create before choosing values'
               }
             },
@@ -140,22 +124,18 @@ export default {
                       },
                       col1: {
                         domain: {
-                          todo: "['|', ('model_id', '=', parent.crud_model_id), ('model_id', '=', parent.model_id)]"
+                          todo_ctx: "['|', ('model_id', '=', parent.crud_model_id), ('model_id', '=', parent.model_id)]"
                         },
                         no_create: true
                       },
                       evaluation_type: {},
                       resource_ref: {
-                        attrs: {
-                          readonly: "[('evaluation_type', '!=', 'reference')]"
-                        },
+                        readonly: [['evaluation_type', '!=', 'reference']],
                         hide_model: true,
                         no_create: true
                       },
                       value: {
-                        attrs: {
-                          readonly: "[('evaluation_type', '=', 'reference')]"
-                        },
+                        readonly: [['evaluation_type', '=', 'reference']],
                         force_save: '1',
                         no_create: true
                       }
@@ -176,9 +156,7 @@ export default {
             _attr: {
               name: 'actions',
               string: 'Actions',
-              attrs: {
-                invisible: "[('state', '!=', 'multi')]"
-              }
+              invisible: [['state', '!=', 'multi']]
             },
             _p: {
               _attr: {
@@ -188,7 +166,7 @@ export default {
             },
             child_ids: {
               domain: {
-                todo: "[('model_id', '=', model_id)]"
+                todo_ctx: "[('model_id', '=', model_id)]"
               }
             }
           },
@@ -196,9 +174,7 @@ export default {
             _attr: {
               name: 'help_info',
               string: 'Help',
-              attrs: {
-                invisible: "[('state', '!=', 'code')]"
-              }
+              invisible: [['state', '!=', 'code']]
             },
             _div: {
               _h3: 'Help with Python expressions',
@@ -207,33 +183,33 @@ export default {
                 _li: {
                   _code: 'env'
                 },
-                _li_496: {
+                _li_608: {
                   _code: 'model'
                 },
-                _li_796: {
+                _li_864: {
                   _code: 'record'
                 },
-                _li_412: {
+                _li_435: {
                   _code: 'records'
                 },
-                _li_388: {
+                _li_492: {
                   _code: 'time',
-                  _code_487: 'datetime',
-                  _code_751: 'dateutil',
-                  _code_721: 'timezone'
+                  _code_578: 'datetime',
+                  _code_255: 'dateutil',
+                  _code_354: 'timezone'
                 },
-                _li_865: {
+                _li_105: {
                   _code: "log(message, level='info')",
-                  _code_593: 'ir.logging'
+                  _code_388: 'ir.logging'
                 },
-                _li_216: {
+                _li_722: {
                   _code: 'UserError',
-                  _code_708: 'raise'
+                  _code_117: 'raise'
                 },
-                _li_439: {
+                _li_870: {
                   _code: 'Command'
                 },
-                _li_420: {
+                _li_861: {
                   _attr: {
                     text: 'To return an action, assign:'
                   },
@@ -242,9 +218,7 @@ export default {
               },
               _div: {
                 _attr: {
-                  attrs: {
-                    invisible: "[('state', '!=', 'code')]"
-                  }
+                  invisible: [['state', '!=', 'code']]
                 },
                 _p: 'Example of Python code',
                 _code: "partner_name = record.name + '_code' \n\nenv['res.partner'].create({'name': partner_name})"
@@ -291,7 +265,7 @@ export default {
           _attr: {
             name: 'action_type',
             string: 'Action Type',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'state'
             }
@@ -301,7 +275,7 @@ export default {
           _attr: {
             name: 'model',
             string: 'Model',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'model_id'
             }
@@ -311,7 +285,7 @@ export default {
           _attr: {
             name: 'usage',
             string: 'Usage',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'usage'
             }

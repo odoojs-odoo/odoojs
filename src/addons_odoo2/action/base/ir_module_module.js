@@ -11,14 +11,14 @@ export default {
         _attr: {
           name: 'app',
           string: 'Apps',
-          domain: "[('application', '=', True)]"
+          domain: [['application', '=', true]]
         }
       },
       _filter_extra: {
         _attr: {
           name: 'extra',
           string: 'Extra',
-          domain: "[('application', '=', False)]"
+          domain: [['application', '=', false]]
         }
       },
       _separator: {},
@@ -26,14 +26,14 @@ export default {
         _attr: {
           name: 'installed',
           string: 'Installed',
-          domain: "[('state', 'in', ['installed', 'to upgrade', 'to remove'])]"
+          domain: [['state', 'in', ['installed', 'to upgrade', 'to remove']]]
         }
       },
       _filter_not_installed: {
         _attr: {
           name: 'not_installed',
           string: 'Not Installed',
-          domain: "[('state', 'in', ['uninstalled', 'uninstallable', 'to install'])]"
+          domain: [['state', 'in', ['uninstalled', 'uninstallable', 'to install']]]
         }
       },
       category_id: {},
@@ -45,7 +45,7 @@ export default {
           _attr: {
             name: 'author',
             string: 'Author',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'author'
             }
@@ -55,7 +55,7 @@ export default {
           _attr: {
             name: 'category',
             string: 'Category',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'category_id'
             }
@@ -65,7 +65,7 @@ export default {
           _attr: {
             name: 'state',
             string: 'State',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'state'
             }
@@ -125,18 +125,14 @@ export default {
                 name: 'button_immediate_install',
                 string: 'Activate',
                 groups: 'base.group_system',
-                attrs: {
-                  invisible: "['|', ('to_buy', '=', True), ('state', '!=', 'uninstalled')]"
-                },
+                invisible: ['|', ['to_buy', '=', true], ['state', '!=', 'uninstalled']],
                 class: 'btn btn-primary me-1',
                 type: 'object'
               }
             },
             _a: {
               _attr: {
-                attrs: {
-                  invisible: "['|', ('to_buy', '=', False), ('state', 'not in', ('uninstalled', 'uninstallable'))]"
-                },
+                invisible: ['|', ['to_buy', '=', false], ['state', 'not in', ('uninstalled', 'uninstallable')]],
                 class: 'btn btn-primary me-1',
                 text: 'Upgrade'
               }
@@ -189,15 +185,13 @@ export default {
           },
           _h6: {
             _attr: {
-              attrs: {
-                invisible: "[('has_iap', '=', False)]"
-              },
+              invisible: [['has_iap', '=', false]],
               class: 'text-muted mt-2',
               text: 'Contains In-App Purchases'
             }
           }
         },
-        _div_706: {
+        _div_188: {
           _attr: {
             class: 'clearfix'
           }
@@ -215,9 +209,7 @@ export default {
               _group: {
                 website: {
                   widget: 'url',
-                  attrs: {
-                    invisible: "[('website', '=', False)]"
-                  }
+                  invisible: [['website', '=', false]]
                 },
                 category_id: {
                   no_open: true,
@@ -225,7 +217,7 @@ export default {
                 },
                 summary: {}
               },
-              _group_283: {
+              _group_119: {
                 name: {},
                 license: {},
                 installed_version: {}
@@ -242,34 +234,28 @@ export default {
               application: {},
               state: {}
             },
-            _group_723: {
+            _group_579: {
               _attr: {
                 string: 'Created Views',
-                attrs: {
-                  invisible: "[('state', '!=', 'installed')]"
-                }
+                invisible: [['state', '!=', 'installed']]
               }
             },
             _p: {
               _attr: {
-                attrs: {
-                  invisible: "['|', ('views_by_module', 'not in', [None, False]), ('state', '!=', 'installed')]"
-                },
+                invisible: ['|', ['views_by_module', 'not in', [None, false]], ['state', '!=', 'installed']],
                 class: 'oe_grey',
                 text: '-This module does not create views.'
               }
             },
             views_by_module: {},
-            _group_789: {
+            _group_766: {
               _attr: {
                 string: 'Dependencies'
               }
             },
-            _p_674: {
+            _p_533: {
               _attr: {
-                attrs: {
-                  invisible: "[('dependencies_id', 'not in', [None, False])]"
-                },
+                invisible: [['dependencies_id', 'not in', [None, false]]],
                 class: 'oe_grey',
                 text: '-This module does not depends on any other module.'
               }
@@ -289,16 +275,14 @@ export default {
                 }
               }
             },
-            _group_757: {
+            _group_385: {
               _attr: {
                 string: 'Exclusions'
               }
             },
-            _p_796: {
+            _p_468: {
               _attr: {
-                attrs: {
-                  invisible: "[('exclusion_ids', 'not in', [None, False])]"
-                },
+                invisible: [['exclusion_ids', 'not in', [None, false]]],
                 class: 'oe_grey',
                 text: '-This module does not exclude any other module.'
               }
@@ -323,9 +307,7 @@ export default {
             _attr: {
               name: 'installed_features',
               string: 'Installed Features',
-              attrs: {
-                invisible: "[('state', '!=', 'installed')]"
-              }
+              invisible: [['state', '!=', 'installed']]
             },
             _group: {
               _attr: {
@@ -334,24 +316,20 @@ export default {
             },
             _p: {
               _attr: {
-                attrs: {
-                  invisible: "[('menus_by_module', 'not in', [None, False])]"
-                },
+                invisible: [['menus_by_module', 'not in', [None, false]]],
                 class: 'oe_grey',
                 text: '-This module does not create menu.'
               }
             },
             menus_by_module: {},
-            _group_862: {
+            _group_291: {
               _attr: {
                 string: 'Defined Reports'
               }
             },
-            _p_887: {
+            _p_378: {
               _attr: {
-                attrs: {
-                  invisible: "[('reports_by_module', 'not in', [None, False])]"
-                },
+                invisible: [['reports_by_module', 'not in', [None, false]]],
                 class: 'oe_grey',
                 text: '-This module does not create report.'
               }

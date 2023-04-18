@@ -50,7 +50,7 @@ export default {
     arch: {
       sheet: {
         partner_id: {
-          ===todo===string: 'Vendor'
+          __todo__string: 'Vendor'
         }
       }
     }
@@ -63,7 +63,7 @@ export default {
     arch: {
       sheet: {
         partner_id: {
-          ===todo===string: 'Partner'
+          __todo__string: 'Partner'
         }
       }
     }
@@ -94,68 +94,68 @@ export default {
         _attr: {
           name: 'inbound_filter',
           string: 'Customer Payments',
-          domain: "[('partner_type', '=', 'customer'), ('is_internal_transfer', '=', False)]"
+          domain: [['partner_type', '=', 'customer'], ['is_internal_transfer', '=', false]]
         }
       },
       _filter_outbound_filter: {
         _attr: {
           name: 'outbound_filter',
           string: 'Vendor Payments',
-          domain: "[('partner_type', '=', 'supplier'), ('is_internal_transfer', '=', False)]"
+          domain: [['partner_type', '=', 'supplier'], ['is_internal_transfer', '=', false]]
         }
       },
       _filter_transfers_filter: {
         _attr: {
           name: 'transfers_filter',
           string: 'Internal Transfers',
-          domain: "[('is_internal_transfer', '=', True)]"
+          domain: [['is_internal_transfer', '=', true]]
         }
       },
-      _separator_190: {},
+      _separator_968: {},
       _filter_state_draft: {
         _attr: {
           name: 'state_draft',
           string: 'Draft',
-          domain: "[('state', '=', 'draft')]"
+          domain: [['state', '=', 'draft']]
         }
       },
       _filter_state_posted: {
         _attr: {
           name: 'state_posted',
           string: 'Posted',
-          domain: "[('state', '=', 'posted')]"
+          domain: [['state', '=', 'posted']]
         }
       },
-      _separator_206: {},
+      _separator_668: {},
       _filter_state_sent: {
         _attr: {
           name: 'state_sent',
           string: 'Sent',
-          domain: "[('is_move_sent', '=', True)]"
+          domain: [['is_move_sent', '=', true]]
         }
       },
       _filter_matched: {
         _attr: {
           name: 'matched',
           string: 'Bank Matched',
-          domain: "[('is_matched', '=', True)]"
+          domain: [['is_matched', '=', true]]
         }
       },
       _filter_reconciled: {
         _attr: {
           name: 'reconciled',
           string: 'Reconciled',
-          domain: "[('is_reconciled', '=', True)]"
+          domain: [['is_reconciled', '=', true]]
         }
       },
-      _separator_980: {},
+      _separator_820: {},
       _filter_date: {
         _attr: {
           name: 'date',
           string: 'Payment Date'
         }
       },
-      _separator_118: {},
+      _separator_361: {},
       company_id: {
         groups: 'base.group_multi_company'
       },
@@ -231,7 +231,7 @@ export default {
           }
         }
       },
-      _separator_628: {},
+      _separator_322: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
@@ -276,9 +276,7 @@ export default {
             _attr: {
               name: 'action_post',
               string: 'Confirm',
-              attrs: {
-                invisible: "[('state', '!=', 'draft')]"
-              },
+              invisible: [['state', '!=', 'draft']],
               class: 'oe_highlight',
               type: 'object'
             }
@@ -288,9 +286,7 @@ export default {
               name: 'action_draft',
               string: 'Reset To Draft',
               groups: 'account.group_account_invoice',
-              attrs: {
-                invisible: "[('state', 'not in', ('posted', 'cancel'))]"
-              },
+              invisible: [['state', 'not in', ('posted', 'cancel')]],
               class: 'btn btn-secondary',
               type: 'object'
             }
@@ -299,9 +295,7 @@ export default {
             _attr: {
               name: 'action_cancel',
               string: 'Cancel',
-              attrs: {
-                invisible: "[('state', '!=', 'draft')]"
-              },
+              invisible: [['state', '!=', 'draft']],
               type: 'object'
             }
           },
@@ -309,9 +303,7 @@ export default {
             _attr: {
               name: 'mark_as_sent',
               string: 'Mark as Sent',
-              attrs: {
-                invisible: "['|', '|', ('state', '!=', 'posted'), ('is_move_sent', '=', True), ('payment_method_code', '!=', 'manual')]"
-              },
+              invisible: ['|', '|', ['state', '!=', 'posted'], ['is_move_sent', '=', true], ['payment_method_code', '!=', 'manual']],
               type: 'object'
             }
           },
@@ -319,9 +311,7 @@ export default {
             _attr: {
               name: 'unmark_as_sent',
               string: 'Unmark as Sent',
-              attrs: {
-                invisible: "['|', '|', ('state', '!=', 'posted'), ('is_move_sent', '=', False), ('payment_method_code', '!=', 'manual')]"
-              },
+              invisible: ['|', '|', ['state', '!=', 'posted'], ['is_move_sent', '=', false], ['payment_method_code', '!=', 'manual']],
               type: 'object'
             }
           },
@@ -331,18 +321,14 @@ export default {
         },
         _div: {
           _attr: {
-            attrs: {
-              invisible: "['|', '|', ('paired_internal_transfer_payment_id', '!=', False), ('is_internal_transfer', '=', False), ('state', '!=', 'draft')]"
-            },
+            invisible: ['|', '|', ['paired_internal_transfer_payment_id', '!=', false], ['is_internal_transfer', '=', false], ['state', '!=', 'draft']],
             class: 'alert alert-info text-center',
             text: 'A second payment will be created automatically in the destination journal.'
           }
         },
-        _div_550: {
+        _div_126: {
           _attr: {
-            attrs: {
-              invisible: "['|', '|', ('is_internal_transfer', '=', False), ('require_partner_bank_account', '=', False), ('partner_bank_id', '!=', False)]"
-            },
+            invisible: ['|', '|', ['is_internal_transfer', '=', false], ['require_partner_bank_account', '=', false], ['partner_bank_id', '!=', false]],
             class: 'alert alert-warning text-center',
             text: 'The selected payment method requires a bank account but none is set on'
           },
@@ -355,7 +341,7 @@ export default {
             }
           }
         },
-        _div_997: {
+        _div_327: {
           _attr: {
             class: 'o_attachment_preview'
           }
@@ -419,9 +405,7 @@ export default {
           _button_button_open_invoices: {
             _attr: {
               name: 'button_open_invoices',
-              attrs: {
-                invisible: "[('reconciled_invoices_count', '=', 0)]"
-              },
+              invisible: [['reconciled_invoices_count', '=', 0]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-bars'
@@ -437,17 +421,13 @@ export default {
                 reconciled_invoices_count: {},
                 _span: {
                   _attr: {
-                    attrs: {
-                      invisible: "[('reconciled_invoices_type', '!=', 'invoice')]"
-                    },
+                    invisible: [['reconciled_invoices_type', '!=', 'invoice']],
                     text: 'Invoice'
                   }
                 },
-                _span_375: {
+                _span_269: {
                   _attr: {
-                    attrs: {
-                      invisible: "[('reconciled_invoices_type', '=', 'invoice')]"
-                    },
+                    invisible: [['reconciled_invoices_type', '=', 'invoice']],
                     text: 'Credit Note'
                   }
                 }
@@ -457,9 +437,7 @@ export default {
           _button_button_open_bills: {
             _attr: {
               name: 'button_open_bills',
-              attrs: {
-                invisible: "[('reconciled_bills_count', '=', 0)]"
-              },
+              invisible: [['reconciled_bills_count', '=', 0]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-bars'
@@ -480,9 +458,7 @@ export default {
           _button_button_open_statement_lines: {
             _attr: {
               name: 'button_open_statement_lines',
-              attrs: {
-                invisible: "[('reconciled_statement_lines_count', '=', 0)]"
-              },
+              invisible: [['reconciled_statement_lines_count', '=', 0]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-bars'
@@ -518,9 +494,7 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            attrs: {
-              invisible: "[('state', '!=', 'invoicing_legacy')]"
-            }
+            invisible: [['state', '!=', 'invoicing_legacy']]
           }
         },
         _div_title: {
@@ -529,17 +503,13 @@ export default {
           },
           _h1: {
             _attr: {
-              attrs: {
-                invisible: "[('state', '!=', 'draft')]"
-              }
+              invisible: [['state', '!=', 'draft']]
             },
             _span: 'Draft'
           },
-          _h1_720: {
+          _h1_223: {
             _attr: {
-              attrs: {
-                invisible: "[('state', '=', 'draft')]"
-              }
+              invisible: [['state', '=', 'draft']]
             },
             name: {}
           }
@@ -550,35 +520,27 @@ export default {
               name: 'group1'
             },
             is_internal_transfer: {
-              attrs: {
-                readonly: "[('state', '!=', 'draft')]"
-              }
+              readonly: [['state', '!=', 'draft']]
             },
             payment_type: {
               widget: 'radio',
-              attrs: {
-                readonly: "[('state', '!=', 'draft')]"
-              },
+              readonly: [['state', '!=', 'draft']],
               horizontal: true
             },
             partner_id: {
               string: 'Customer',
-              attrs: {
-                readonly: "[('state', '!=', 'draft')]",
-                invisible: "['|', ('partner_type', '!=', 'customer'), ('is_internal_transfer', '=', True)]"
-              },
+              readonly: [['state', '!=', 'draft']],
+              invisible: ['|', ['partner_type', '!=', 'customer'], ['is_internal_transfer', '=', true]],
               context: {
                 default_is_company: true
               },
               no_quick_create: true
             },
-            _field_partner_id_796: {
+            _field_partner_id_159: {
               partner_id: {
                 string: 'Vendor',
-                attrs: {
-                  readonly: "[('state', '!=', 'draft')]",
-                  invisible: "['|', ('partner_type', '!=', 'supplier'), ('is_internal_transfer', '=', True)]"
-                },
+                readonly: [['state', '!=', 'draft']],
+                invisible: ['|', ['partner_type', '!=', 'supplier'], ['is_internal_transfer', '=', true]],
                 context: {
                   default_is_company: true
                 },
@@ -594,23 +556,17 @@ export default {
                 class: 'o_row'
               },
               amount: {
-                attrs: {
-                  readonly: "[('state', '!=', 'draft')]"
-                }
+                readonly: [['state', '!=', 'draft']]
               },
               currency_id: {
                 groups: 'base.group_multi_currency',
-                attrs: {
-                  readonly: "[('state', '!=', 'draft')]"
-                },
+                readonly: [['state', '!=', 'draft']],
                 no_create: true,
                 no_open: true
               }
             },
             date: {
-              attrs: {
-                readonly: "[('state', '!=', 'draft')]"
-              }
+              readonly: [['state', '!=', 'draft']]
             },
             ref: {
               string: 'Memo'
@@ -624,57 +580,45 @@ export default {
               domain: {
                 todo_ctx: "[('id', 'in', available_journal_ids)]"
               },
-              attrs: {
-                readonly: "[('state', '!=', 'draft')]"
-              }
+              readonly: [['state', '!=', 'draft']]
             },
             payment_method_line_id: {
-              attrs: {
-                readonly: "[('state', '!=', 'draft')]"
-              },
+              readonly: [['state', '!=', 'draft']],
               no_create: true,
               no_open: true
             },
             partner_bank_id: {
               string: 'Customer Bank Account',
-              attrs: {
-                invisible: "['|', '|', '|', ('show_partner_bank_account', '=', False), ('partner_type', '!=', 'customer'), ('is_internal_transfer', '=', True), ('payment_type', '=', 'inbound')]",
-                required: "[('require_partner_bank_account', '=', True), ('is_internal_transfer', '=', False)]"
-              },
+              invisible: ['|', '|', '|', ['show_partner_bank_account', '=', false], ['partner_type', '!=', 'customer'], ['is_internal_transfer', '=', true], ['payment_type', '=', 'inbound']],
+              required: [['require_partner_bank_account', '=', true], ['is_internal_transfer', '=', false]],
               context: {
                 todo_ctx: "{'default_partner_id': partner_id, 'default_allow_out_payment': True}"
               }
             },
-            _field_partner_bank_id_549: {
+            _field_partner_bank_id_101: {
               partner_bank_id: {
                 string: 'Vendor Bank Account',
-                attrs: {
-                  invisible: "['|', '|', '|', ('show_partner_bank_account', '=', False), ('partner_type', '!=', 'supplier'), ('is_internal_transfer', '=', True), ('payment_type', '=', 'inbound')]",
-                  required: "[('require_partner_bank_account', '=', True), ('is_internal_transfer', '=', False)]"
-                },
+                invisible: ['|', '|', '|', ['show_partner_bank_account', '=', false], ['partner_type', '!=', 'supplier'], ['is_internal_transfer', '=', true], ['payment_type', '=', 'inbound']],
+                required: [['require_partner_bank_account', '=', true], ['is_internal_transfer', '=', false]],
                 context: {
                   todo_ctx: "{'default_partner_id': partner_id, 'default_allow_out_payment': True}"
                 }
               }
             },
-            _field_partner_bank_id_873: {
+            _field_partner_bank_id_662: {
               partner_bank_id: {
                 string: 'Company Bank Account',
-                attrs: {
-                  invisible: "['|', '|', ('show_partner_bank_account', '=', False), ('is_internal_transfer', '=', True), ('payment_type', '=', 'outbound')]",
-                  required: "[('require_partner_bank_account', '=', True), ('is_internal_transfer', '=', False)]"
-                },
+                invisible: ['|', '|', ['show_partner_bank_account', '=', false], ['is_internal_transfer', '=', true], ['payment_type', '=', 'outbound']],
+                required: [['require_partner_bank_account', '=', true], ['is_internal_transfer', '=', false]],
                 context: {
                   todo_ctx: "{'default_partner_id': partner_id, 'default_allow_out_payment': True}"
                 }
               }
             },
             destination_journal_id: {
-              attrs: {
-                invisible: "[('is_internal_transfer', '=', False)]",
-                readonly: "[('state', '!=', 'draft')]",
-                required: "[('is_internal_transfer', '=', True), ('state', '=', 'draft')]"
-              },
+              invisible: [['is_internal_transfer', '=', false]],
+              readonly: [['state', '!=', 'draft']],
+              required: [['is_internal_transfer', '=', true], ['state', '=', 'draft']],
               context: {
                 todo_ctx: "{'default_partner_id': partner_id}"
               }
@@ -686,9 +630,7 @@ export default {
             },
             _div: {
               _attr: {
-                attrs: {
-                  invisible: "[('qr_code', '=', False)]"
-                },
+                invisible: [['qr_code', '=', false]],
                 class: 'text-center'
               },
               qr_code: {
@@ -753,5 +695,12 @@ export default {
       tree: 'view_account_supplier_payment_tree',
       form: '=======todo=========='
     }
+  },
+
+  action_account_confirm_payments: {
+    _odoo_model: 'ir.actions.server',
+    type: 'ir.actions.server',
+    model_id: 'account.model_account_payment',
+    model: 'account_payment'
   }
 }

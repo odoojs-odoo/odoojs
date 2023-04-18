@@ -26,7 +26,7 @@ export default {
         image_url: {
           widget: 'image_url',
           class: 'oe_avatar',
-          size: "[128, 128]"
+          size: [128, 128]
         },
         _group_main_group: {
           _attr: {
@@ -76,7 +76,7 @@ export default {
           _label_address_format: {
             for: 'address_format'
           },
-          _div_361: {
+          _div_222: {
             _attr: {
               class: 'o_row'
             },

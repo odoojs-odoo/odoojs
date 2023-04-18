@@ -37,7 +37,7 @@ export default {
                       },
                       ratio: {
                         string: 'Ratio',
-                        readonly: "[('uom_type', '=', 'reference')]",
+                        readonly: [['uom_type', '=', 'reference']],
                         digits: '[42,5]'
                       },
                       active: {},
@@ -81,7 +81,7 @@ export default {
   },
 
   product_uom_categ_form_action: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Units of Measure Categories',
     type: 'ir.actions.act_window',
     res_model: 'uom.category',

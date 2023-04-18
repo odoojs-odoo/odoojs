@@ -17,7 +17,7 @@ export default {
             widget: 'boolean_toggle'
           }
         },
-        _group_402: {
+        _group_330: {
           domain: {
             widget: 'domain',
             model: 'model_id'
@@ -65,14 +65,14 @@ export default {
         _attr: {
           name: 'user',
           string: 'User',
-          domain: "[('user_id', '!=', False)]"
+          domain: [['user_id', '!=', false]]
         }
       },
       _filter_shared: {
         _attr: {
           name: 'shared',
           string: 'Shared',
-          domain: "[('user_id', '=', False)]"
+          domain: [['user_id', '=', false]]
         }
       },
       _filter_my_filters: {
@@ -80,7 +80,7 @@ export default {
           name: 'my_filters',
           string: 'My filters',
           domain: {
-            todo: "[('user_id','=',uid)]"
+            todo_ctx: "[('user_id','=',uid)]"
           }
         }
       },
@@ -89,7 +89,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       },
       _group: {
@@ -100,7 +100,7 @@ export default {
           _attr: {
             name: 'user',
             string: 'User',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'user_id'
             }
@@ -110,7 +110,7 @@ export default {
           _attr: {
             name: 'model',
             string: 'Model',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'model_id'
             }

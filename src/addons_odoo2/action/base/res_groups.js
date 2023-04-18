@@ -13,7 +13,7 @@ export default {
         _attr: {
           name: 'filter_no_share',
           string: 'Internal Groups',
-          domain: "[('share', '=', False)]"
+          domain: [['share', '=', false]]
         }
       }
     }

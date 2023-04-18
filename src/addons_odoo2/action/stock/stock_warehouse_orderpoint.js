@@ -25,9 +25,7 @@ export default {
           invisible: '1'
         },
         product_id: {
-          attrs: {
-            readonly: "[('product_id', '!=', False)]"
-          },
+          readonly: [['product_id', '!=', false]],
           force_save: '1'
         },
         location_id: {
@@ -47,9 +45,7 @@ export default {
         _button_action_product_forecast_report: {
           _attr: {
             name: 'action_product_forecast_report',
-            attrs: {
-              invisible: "[('id', '=', False)]"
-            },
+            invisible: [['id', '=', false]],
             title: 'Forecast Report',
             type: 'object',
             icon: 'fa-area-chart'
@@ -63,9 +59,7 @@ export default {
         _button_action_stock_replenishment_info: {
           _attr: {
             name: 'action_stock_replenishment_info',
-            attrs: {
-              invisible: "[('id', '=', False)]"
-            },
+            invisible: [['id', '=', false]],
             title: 'Replenishment Information',
             type: 'object',
             icon: 'fa-info-circle'
@@ -83,7 +77,7 @@ export default {
           string: 'UoM',
           groups: 'uom.group_uom'
         },
-        _field_company_id_567: {
+        _field_company_id_906: {
           company_id: {
             groups: 'base.group_multi_company'
           }
@@ -92,9 +86,7 @@ export default {
           _attr: {
             name: 'action_replenish',
             string: 'Order Once',
-            attrs: {
-              invisible: "[('qty_to_order', '<=', 0.0)]"
-            },
+            invisible: [['qty_to_order', '<=', 0.0]],
             class: 'o_replenish_buttons',
             type: 'object',
             icon: 'fa-truck'
@@ -104,9 +96,7 @@ export default {
           _attr: {
             name: 'action_replenish_auto',
             string: 'Automate Orders',
-            attrs: {
-              invisible: "['|', ('qty_to_order', '<=', 0.0), ('trigger', '=', 'auto')]"
-            },
+            invisible: ['|', ['qty_to_order', '<=', 0.0], ['trigger', '=', 'auto']],
             class: 'o_replenish_buttons',
             type: 'object',
             icon: 'fa-refresh'
@@ -116,11 +106,9 @@ export default {
           _attr: {
             name: 'action_orderpoint_snooze',
             string: 'Snooze',
-            attrs: {
-              invisible: "[('trigger', '!=', 'manual')]"
-            },
+            invisible: [['trigger', '!=', 'manual']],
             context: {
-              default_orderpoint_ids: "[<built-in function id>]"
+              default_orderpoint_ids: [<built-in function id>]
             },
             class: 'text-warning',
             type: 'action',
@@ -155,7 +143,7 @@ export default {
         _attr: {
           name: 'filter_creation_trigger',
           string: 'Trigger Manual',
-          domain: "[('trigger', '=', 'manual')]"
+          domain: [['trigger', '=', 'manual']]
         }
       },
       _separator: {},
@@ -163,10 +151,10 @@ export default {
         _attr: {
           name: 'filter_to_reorder',
           string: 'To Reorder',
-          domain: "[('qty_to_order', '>', 0.0)]"
+          domain: [['qty_to_order', '>', 0.0]]
         }
       },
-      _separator_691: {},
+      _separator_826: {},
       _filter_filter_not_snoozed: {
         _attr: {
           name: 'filter_not_snoozed',
@@ -258,7 +246,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       },
       _group: {
@@ -323,9 +311,7 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            attrs: {
-              invisible: "[('active', '=', True)]"
-            },
+            invisible: [['active', '=', true]],
             title: 'Archived'
           }
         },
@@ -362,9 +348,7 @@ export default {
                 _attr: {
                   name: 'ock.action_stock_replenishment_in',
                   string: 'Forecast Description',
-                  attrs: {
-                    invisible: "[('id', '=', False)]"
-                  },
+                  invisible: [['id', '=', false]],
                   type: 'action',
                   icon: 'fa-area-chart'
                 }
@@ -373,7 +357,7 @@ export default {
             _label_product_max_qty: {
               for: 'product_max_qty'
             },
-            _div_129: {
+            _div_285: {
               _attr: {
                 class: 'o_row'
               },
@@ -384,7 +368,7 @@ export default {
               string: 'Quantity Multiple'
             }
           },
-          _group_532: {
+          _group_950: {
             allowed_location_ids: {
               invisible: '1'
             },
@@ -448,5 +432,11 @@ export default {
       tree: 'view_warehouse_orderpoint_tree_editable',
       form: '=======todo=========='
     }
+  },
+
+  action_replenishment: {
+    _odoo_model: 'ir.actions.server',
+    model_id: 'model_stock_warehouse_orderpoint',
+    model: 'stock_warehouse_orderpoint'
   }
 }

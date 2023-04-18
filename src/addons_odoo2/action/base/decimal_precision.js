@@ -7,9 +7,7 @@ export default {
       sheet: {
         _group: {
           name: {
-            attrs: {
-              readonly: "[('id', '!=', False)]"
-            }
+            readonly: [['id', '!=', false]]
           },
           digits: {}
         }

@@ -21,7 +21,7 @@ export default {
         unit_amount: {},
         product_uom_id: {},
         partner_id: {},
-        _field_company_id_864: {
+        _field_company_id_933: {
           company_id: {
             groups: 'base.group_multi_company'
           }
@@ -83,13 +83,13 @@ export default {
   },
 
   account_analytic_line_action: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Gross Margin',
     search_view_id: 'view_account_analytic_line_filter',
     res_model: 'account.analytic.line',
-    domain: "[('account_id','=', active_id)]",
+    domain: "[['account_id','=', active_id]]",
     context: {
-      todo: "{'search_default_group_date': 1, 'default_account_id': active_id}"
+      todo_ctx: "{'search_default_group_date': 1, 'default_account_id': active_id}"
     },
     views: {
       tree: 'view_account_analytic_line_tree',
@@ -163,7 +163,7 @@ export default {
   },
 
   account_analytic_line_action_entries: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Analytic Items',
     search_view_id: 'analytic.view_account_analytic_line_filter',
     res_model: 'account.analytic.line',

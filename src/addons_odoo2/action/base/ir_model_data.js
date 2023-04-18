@@ -16,7 +16,7 @@ export default {
             write_date: {},
             create_date: {}
           },
-          _group_490: {
+          _group_363: {
             display_name: {},
             model: {},
             res_id: {},
@@ -61,7 +61,7 @@ export default {
         _attr: {
           name: 'updatable',
           string: 'Updatable',
-          domain: "[('noupdate', '=', False)]"
+          domain: [['noupdate', '=', false]]
         }
       },
       module: {},
@@ -76,7 +76,7 @@ export default {
           _attr: {
             name: 'group_by_module',
             string: 'Module',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'module'
             }
@@ -86,7 +86,7 @@ export default {
           _attr: {
             name: 'group_by_object',
             string: 'Model',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'model'
             }

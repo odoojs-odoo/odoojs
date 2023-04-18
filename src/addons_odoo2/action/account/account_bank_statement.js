@@ -42,14 +42,14 @@ export default {
         _attr: {
           name: 'empty',
           string: 'Empty',
-          domain: "[('line_ids', '=', [])]"
+          domain: [['line_ids', '=', []]]
         }
       },
       _filter_invalid: {
         _attr: {
           name: 'invalid',
           string: 'Invalid',
-          domain: "['|', ('is_valid', '=', False), ('is_complete', '=', False)]"
+          domain: ['|', ['is_valid', '=', false], ['is_complete', '=', false]]
         }
       },
       _separator: {},
@@ -59,7 +59,7 @@ export default {
         }
       },
       journal_id: {
-        domain: "[('type', 'in', ('bank', 'cash'))]"
+        domain: [['type', 'in', ('bank', 'cash')]]
       },
       _group: {
         _attr: {
@@ -92,7 +92,7 @@ export default {
     name: 'Bank Statements',
     search_view_id: 'view_bank_statement_search',
     res_model: 'account.bank.statement',
-    domain: "['|', ('journal_id', '=', False), ('journal_id.type', '=', 'bank')]",
+    domain: "['|', ['journal_id', '=', False], ['journal_id.type', '=', 'bank']]",
     context: {
       journal_type: 'bank'
     },
@@ -129,7 +129,7 @@ export default {
     type: 'ir.actions.act_window',
     search_view_id: 'view_bank_statement_search',
     res_model: 'account.bank.statement',
-    domain: "['|', ('journal_id', '=', False), ('journal_id.type', '=', 'cash')]",
+    domain: "['|', ['journal_id', '=', False], ['journal_id.type', '=', 'cash']]",
     context: {
       journal_type: 'cash'
     },

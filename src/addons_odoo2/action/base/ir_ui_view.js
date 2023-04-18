@@ -15,7 +15,7 @@ export default {
               widget: 'boolean_toggle'
             }
           },
-          _group_106: {
+          _group_289: {
             _attr: {
               groups: 'base.group_no_one'
             },
@@ -64,7 +64,7 @@ export default {
             },
             inherit_children_ids: {
               context: {
-                todo: "{'default_model':model,'default_type':type,'default_inherit_id':active_id,'default_mode':'extension', 'active_test': False}"
+                todo_ctx: "{'default_model':model,'default_type':type,'default_inherit_id':active_id,'default_mode':'extension', 'active_test': False}"
               },
               views: {
                 tree: {
@@ -128,35 +128,35 @@ export default {
         _attr: {
           name: 'form',
           string: 'Form',
-          domain: "[('type', '=', 'form')]"
+          domain: [['type', '=', 'form']]
         }
       },
       _filter_tree: {
         _attr: {
           name: 'tree',
           string: 'Tree',
-          domain: "[('type', '=', 'tree')]"
+          domain: [['type', '=', 'tree']]
         }
       },
       _filter_kanban: {
         _attr: {
           name: 'kanban',
           string: 'Kanban',
-          domain: "[('type', '=', 'kanban')]"
+          domain: [['type', '=', 'kanban']]
         }
       },
       _filter_search: {
         _attr: {
           name: 'search',
           string: 'Search',
-          domain: "[('type', '=', 'search')]"
+          domain: [['type', '=', 'search']]
         }
       },
       _filter_qweb: {
         _attr: {
           name: 'qweb',
           string: 'QWeb',
-          domain: "[('type', '=', 'qweb')]"
+          domain: [['type', '=', 'qweb']]
         }
       },
       _separator: {},
@@ -164,22 +164,22 @@ export default {
         _attr: {
           name: 'arch_updated',
           string: 'Modified Architecture',
-          domain: "[('arch_updated', '=', True)]"
+          domain: [['arch_updated', '=', true]]
         }
       },
-      _separator_501: {},
+      _separator_906: {},
       _filter_active: {
         _attr: {
           name: 'active',
           string: 'Active',
-          domain: "[('active', '=', True)]"
+          domain: [['active', '=', true]]
         }
       },
       _filter_inactive: {
         _attr: {
           name: 'inactive',
           string: 'Inactive',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       },
       _group: {
@@ -190,7 +190,7 @@ export default {
           _attr: {
             name: 'object',
             string: 'Model',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'model'
             }
@@ -200,7 +200,7 @@ export default {
           _attr: {
             name: 'type',
             string: 'Type',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'type'
             }
@@ -210,7 +210,7 @@ export default {
           _attr: {
             name: 'inherit',
             string: 'Inherit',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'inherit_id'
             }

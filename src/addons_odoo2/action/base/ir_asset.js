@@ -15,11 +15,9 @@ export default {
               widget: 'boolean_toggle'
             }
           },
-          _group_154: {
+          _group_616: {
             target: {
-              attrs: {
-                invisible: "[('directive', '!=', 'replace')]"
-              }
+              invisible: [['directive', '!=', 'replace']]
             },
             path: {}
           }
@@ -56,7 +54,7 @@ export default {
         _attr: {
           name: 'active',
           string: 'Active',
-          domain: "[('active', '=', True)]"
+          domain: [['active', '=', true]]
         }
       }
     }

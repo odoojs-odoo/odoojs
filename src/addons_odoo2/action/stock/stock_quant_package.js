@@ -95,7 +95,7 @@ export default {
               no_create: true
             }
           },
-          _group_302: {
+          _group_226: {
             pack_date: {}
           }
         },

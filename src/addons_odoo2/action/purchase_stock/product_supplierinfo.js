@@ -1,0 +1,54 @@
+export default {
+  product_supplierinfo_replenishment_tree_view: {
+    _odoo_model: 'ir.ui.view',
+    model: 'product.supplierinfo',
+    inherit_id: 'product.product_supplierinfo_tree_view',
+    arch: {
+      sheet: {
+        delay: {
+          __todo__after: {
+            show_set_supplier_button: {
+              invisible: '1'
+            },
+            last_purchase_date: {},
+            _button_action_set_supplier: {
+              _attr: {
+                name: 'action_set_supplier',
+                string: 'Set as Supplier',
+                invisible: [['show_set_supplier_button', '=', false]],
+                context: {
+                  todo_ctx: "{'orderpoint_id': parent.orderpoint_id, 'stock_replenishment_info_id': parent.id}"
+                },
+                class: 'btn btn-link',
+                type: 'object'
+              }
+            }
+          }
+        },
+        _xpath: {
+          _attr: {
+            expr: '//tree',
+            position: 'attributes'
+          },
+          _attribute_decoration$dash$bf: {
+            _attr: {
+              name: 'decoration-bf',
+              text: 'parent.supplierinfo_id == id'
+            }
+          }
+        },
+        min_qty: {
+          __todo__decoration-danger: 'min_qty > parent.qty_to_order'
+        },
+        company_id: {
+          __todo__optional: 'hide'
+        },
+        _field_delay_976: {
+          delay: {
+            __todo__optional: 'show'
+          }
+        }
+      }
+    }
+  }
+}

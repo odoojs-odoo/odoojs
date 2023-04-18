@@ -8,9 +8,7 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            attrs: {
-              invisible: "[('active', '=', True)]"
-            },
+            invisible: [['active', '=', true]],
             title: 'Archived'
           }
         },
@@ -30,7 +28,7 @@ export default {
             partner_id: {},
             acc_holder_name: {}
           },
-          _group_584: {
+          _group_392: {
             bank_id: {},
             currency_id: {
               groups: 'base.group_multi_currency',
@@ -82,7 +80,7 @@ export default {
         string: 'Bank Name'
       },
       company_id: {
-        invisible: "context.get('company_hide', True)"
+        invisible: "context.get['company_hide', True]"
       },
       partner_id: {}
     }

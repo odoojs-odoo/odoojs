@@ -11,7 +11,7 @@ export default {
         _attr: {
           name: 'generic',
           string: 'Generic',
-          domain: "[('res_id', '=', False)]"
+          domain: [['res_id', '=', false]]
         }
       },
       fields_id: {},
@@ -37,42 +37,30 @@ export default {
           type: {},
           res_id: {}
         },
-        _group_509: {
+        _group_799: {
           value_integer: {
             string: 'Value',
-            attrs: {
-              invisible: "[('type', 'not in', ('integer', 'boolean'))]"
-            }
+            invisible: [['type', 'not in', ('integer', 'boolean')]]
           },
           value_float: {
             string: 'Value',
-            attrs: {
-              invisible: "[('type', '!=', 'float')]"
-            }
+            invisible: [['type', '!=', 'float']]
           },
           value_datetime: {
             string: 'Value',
-            attrs: {
-              invisible: "[('type', 'not in', ('date', 'datetime'))]"
-            }
+            invisible: [['type', 'not in', ('date', 'datetime')]]
           },
           value_text: {
             string: 'Value',
-            attrs: {
-              invisible: "[('type', 'not in', ('char', 'text', 'selection'))]"
-            }
+            invisible: [['type', 'not in', ('char', 'text', 'selection')]]
           },
           value_reference: {
             string: 'Value',
-            attrs: {
-              invisible: "[('type', '!=', 'many2one')]"
-            }
+            invisible: [['type', '!=', 'many2one']]
           },
           value_binary: {
             string: 'Value',
-            attrs: {
-              invisible: "[('type', '!=', 'binary')]"
-            }
+            invisible: [['type', '!=', 'binary']]
           }
         }
       }

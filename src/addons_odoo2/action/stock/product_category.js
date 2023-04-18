@@ -37,9 +37,7 @@ export default {
               total_route_ids: {
                 widget: 'many2many_tags',
                 groups: 'stock.group_adv_location',
-                attrs: {
-                  invisible: "[('parent_id', '=', False)]"
-                }
+                invisible: [['parent_id', '=', false]]
               },
               removal_strategy_id: {
                 no_create: true

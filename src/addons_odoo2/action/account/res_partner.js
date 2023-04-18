@@ -36,7 +36,7 @@ export default {
                   currency_field: 'currency_id'
                 }
               },
-              _span_825: {
+              _span_488: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Invoiced'
@@ -64,10 +64,8 @@ export default {
               },
               invoice_warn: {},
               invoice_warn_msg: {
-                attrs: {
-                  required: "[('invoice_warn', '!=', False), ('invoice_warn', '!=', 'no-message')]",
-                  invisible: "[('invoice_warn', 'in', (False, 'no-message'))]"
-                },
+                required: [['invoice_warn', '!=', false], ['invoice_warn', '!=', 'no-message']],
+                invisible: [['invoice_warn', 'in', (false, 'no-message')]],
                 placeholder: 'Type a message...'
               }
             }
@@ -91,9 +89,7 @@ export default {
           _div: {
             _attr: {
               groups: 'account.group_account_invoice,account.group_account_readonly',
-              attrs: {
-                invisible: "[('duplicated_bank_account_partners_count', '=', 0)]"
-              },
+              invisible: [['duplicated_bank_account_partners_count', '=', 0]],
               class: 'alert alert-warning',
               text: 'One or more Bank Accounts set on this partner are also used by other'
             },
@@ -118,9 +114,7 @@ export default {
               name: 'accounting',
               string: 'Invoicing',
               groups: 'account.group_account_invoice,account.group_account_readonly',
-              attrs: {
-                invisible: "[('is_company', '=', False), ('parent_id', '!=', False)]"
-              }
+              invisible: [['is_company', '=', false], ['parent_id', '!=', false]]
             },
             duplicated_bank_account_partners_count: {
               invisible: '1'
@@ -188,9 +182,7 @@ export default {
                   name: 'credit_limits',
                   string: 'Credit Limits',
                   groups: 'account.group_account_invoice,account.group_account_readonly',
-                  attrs: {
-                    invisible: "[('show_credit_limit', '=', False)]"
-                  }
+                  invisible: [['show_credit_limit', '=', false]]
                 },
                 credit: {},
                 _label_use_partner_credit_limit: {
@@ -202,9 +194,7 @@ export default {
                   },
                   use_partner_credit_limit: {},
                   credit_limit: {
-                    attrs: {
-                      invisible: "[('use_partner_credit_limit', '=', False)]"
-                    },
+                    invisible: [['use_partner_credit_limit', '=', false]],
                     class: 'oe_inline'
                   }
                 }
@@ -216,9 +206,7 @@ export default {
               name: 'accounting_disabled',
               string: 'Invoicing',
               groups: 'account.group_account_invoice,account.group_account_readonly',
-              attrs: {
-                invisible: "['|', ('is_company', '=', True), ('parent_id', '=', False)]"
-              }
+              invisible: ['|', ['is_company', '=', true], ['parent_id', '=', false]]
             },
             _div: {
               _p: {
@@ -237,7 +225,7 @@ export default {
             }
           }
         },
-        _xpath_622: {
+        _xpath_562: {
           _attr: {
             expr: "//group[@name='misc']",
             position: 'before'
@@ -295,14 +283,14 @@ export default {
             _attr: {
               name: 'customer',
               string: 'Customer Invoices',
-              domain: "[('customer_rank', '>', 0)]"
+              domain: [['customer_rank', '>', 0]]
             }
           },
           _filter_supplier: {
             _attr: {
               name: 'supplier',
               string: 'Vendor Bills',
-              domain: "[('supplier_rank', '>', 0)]"
+              domain: [['supplier_rank', '>', 0]]
             }
           },
           _separator: {}

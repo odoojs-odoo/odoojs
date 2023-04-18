@@ -82,14 +82,14 @@ export default {
         _attr: {
           name: 'sale',
           string: 'Sale',
-          domain: "[('type_tax_use', '=', 'sale')]"
+          domain: [['type_tax_use', '=', 'sale']]
         }
       },
       _filter_purchase: {
         _attr: {
           name: 'purchase',
           string: 'Purchase',
-          domain: "[('type_tax_use', '=', 'purchase')]"
+          domain: [['type_tax_use', '=', 'purchase']]
         }
       },
       _separator: {},
@@ -97,29 +97,29 @@ export default {
         _attr: {
           name: 'service',
           string: 'Services',
-          domain: "[('tax_scope', '=', 'service')]"
+          domain: [['tax_scope', '=', 'service']]
         }
       },
       _filter_goods: {
         _attr: {
           name: 'goods',
           string: 'Goods',
-          domain: "[('tax_scope', '=', 'consu')]"
+          domain: [['tax_scope', '=', 'consu']]
         }
       },
-      _separator_783: {},
+      _separator_363: {},
       _filter_active: {
         _attr: {
           name: 'active',
           string: 'Active',
-          domain: "[('active', '=', True)]"
+          domain: [['active', '=', true]]
         }
       },
       _filter_inactive: {
         _attr: {
           name: 'inactive',
           string: 'Inactive',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       },
       _group: {
@@ -147,7 +147,7 @@ export default {
             }
           }
         },
-        _filter_taxapp_834: {
+        _filter_taxapp_597: {
           _attr: {
             name: 'taxapp',
             string: 'Tax Scope',
@@ -192,29 +192,23 @@ export default {
               widget: 'boolean_toggle'
             }
           },
-          _group_522: {
+          _group_502: {
             type_tax_use: {},
             tax_scope: {},
             _label_amount: {
               for: 'amount',
-              attrs: {
-                invisible: "[('amount_type', 'not in', ('fixed', 'percent', 'division'))]"
-              }
+              invisible: [['amount_type', 'not in', ('fixed', 'percent', 'division')]]
             },
             _div: {
               _attr: {
-                attrs: {
-                  invisible: "[('amount_type', 'not in', ('fixed', 'percent', 'division'))]"
-                }
+                invisible: [['amount_type', 'not in', ('fixed', 'percent', 'division')]]
               },
               amount: {
                 class: 'oe_inline'
               },
               _span: {
                 _attr: {
-                  attrs: {
-                    invisible: "[('amount_type', '=', 'fixed')]"
-                  },
+                  invisible: [['amount_type', '=', 'fixed']],
                   class: 'o_form_label oe_inline',
                   text: '%'
                 }
@@ -230,9 +224,7 @@ export default {
             },
             _div: {
               _attr: {
-                attrs: {
-                  invisible: "[('amount_type', '=', 'group')]"
-                }
+                invisible: [['amount_type', '=', 'group']]
               },
               country_code: {
                 invisible: '1'
@@ -243,7 +235,7 @@ export default {
                 },
                 invoice_repartition_line_ids: {}
               },
-              _group_704: {
+              _group_683: {
                 _attr: {
                   string: 'Distribution for Refunds'
                 },
@@ -254,9 +246,7 @@ export default {
               domain: {
                 todo_ctx: "[('type_tax_use','in',('none',type_tax_use)), ('amount_type','!=','group')]"
               },
-              attrs: {
-                invisible: "['|', ('amount_type', '!=', 'group'), ('type_tax_use', '=', 'none')]"
-              },
+              invisible: ['|', ['amount_type', '!=', 'group'], ['type_tax_use', '=', 'none']],
               views: {
                 tree: {
                   arch: {
@@ -284,21 +274,15 @@ export default {
             _group: {
               _group: {
                 description: {
-                  attrs: {
-                    invisible: "[('amount_type', '=', 'group')]"
-                  }
+                  invisible: [['amount_type', '=', 'group']]
                 },
                 tax_group_id: {
-                  attrs: {
-                    invisible: "[('amount_type', '=', 'group')]",
-                    required: "[('amount_type', '!=', 'group')]"
-                  }
+                  invisible: [['amount_type', '=', 'group']],
+                  required: [['amount_type', '!=', 'group']]
                 },
                 analytic: {
                   groups: 'analytic.group_analytic_accounting',
-                  attrs: {
-                    invisible: "[('amount_type', '=', 'group')]"
-                  }
+                  invisible: [['amount_type', '=', 'group']]
                 },
                 company_id: {
                   groups: 'base.group_multi_company',
@@ -311,20 +295,14 @@ export default {
                   name: 'advanced_booleans'
                 },
                 price_include: {
-                  attrs: {
-                    invisible: "[('amount_type', '=', 'group')]"
-                  }
+                  invisible: [['amount_type', '=', 'group']]
                 },
                 include_base_amount: {
-                  attrs: {
-                    invisible: "[('amount_type', '=', 'group')]"
-                  }
+                  invisible: [['amount_type', '=', 'group']]
                 },
                 is_base_affected: {
                   groups: 'base.group_no_one',
-                  attrs: {
-                    invisible: "['|', ('amount_type', '=', 'group'), ('price_include', '=', True)]"
-                  }
+                  invisible: ['|', ['amount_type', '=', 'group'], ['price_include', '=', true]]
                 },
                 hide_tax_exigibility: {
                   invisible: '1'
@@ -332,16 +310,12 @@ export default {
                 tax_exigibility: {
                   widget: 'radio',
                   groups: 'account.group_account_readonly',
-                  attrs: {
-                    invisible: "['|', ('amount_type', '=', 'group'), ('hide_tax_exigibility', '=', False)]"
-                  }
+                  invisible: ['|', ['amount_type', '=', 'group'], ['hide_tax_exigibility', '=', false]]
                 },
                 cash_basis_transition_account_id: {
                   groups: 'account.group_account_readonly',
-                  attrs: {
-                    invisible: "[('tax_exigibility', '=', 'on_invoice')]",
-                    required: "[('tax_exigibility', '=', 'on_payment')]"
-                  },
+                  invisible: [['tax_exigibility', '=', 'on_invoice']],
+                  required: [['tax_exigibility', '=', 'on_payment']],
                   no_create: true
                 }
               }

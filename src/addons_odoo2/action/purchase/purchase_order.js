@@ -1,4 +1,17 @@
 export default {
+  act_res_partner_2_purchase_order: {
+    _odoo_model: 'ir.actions.act_window',
+    name: 'RFQs and Purchases',
+    res_model: 'purchase.order',
+    context: {
+      todo_ctx: "{'search_default_partner_id': active_id, 'default_partner_id': active_id}"
+    },
+    views: {
+      tree: '=======todo==========',
+      form: '=======todo=========='
+    }
+  },
+
   purchase_order_calendar: {
     _odoo_model: 'ir.ui.view',
     model: 'purchase.order',
@@ -71,9 +84,7 @@ export default {
             _attr: {
               name: 'action_create_invoice',
               string: 'Create Bill',
-              attrs: {
-                invisible: "['|', ('state', 'not in', ('purchase', 'done')), ('invoice_status', 'in', ('no', 'invoiced'))]"
-              },
+              invisible: ['|', ['state', 'not in', ('purchase', 'done')], ['invoice_status', 'in', ('no', 'invoiced')]],
               context: {
                 create_bill: true
               },
@@ -81,7 +92,7 @@ export default {
               type: 'object'
             }
           },
-          _button_action_rfq_send_517: {
+          _button_action_rfq_send_341: {
             _attr: {
               name: 'action_rfq_send',
               string: 'Re-Send by Email',
@@ -91,7 +102,7 @@ export default {
               type: 'object'
             }
           },
-          _button_print_quotation_645: {
+          _button_print_quotation_155: {
             _attr: {
               name: 'print_quotation',
               string: 'Print RFQ',
@@ -99,7 +110,7 @@ export default {
               type: 'object'
             }
           },
-          _button_button_confirm_336: {
+          _button_button_confirm_924: {
             _attr: {
               name: 'button_confirm',
               string: 'Confirm Order',
@@ -109,7 +120,7 @@ export default {
               type: 'object'
             }
           },
-          _button_action_rfq_send_404: {
+          _button_action_rfq_send_756: {
             _attr: {
               name: 'action_rfq_send',
               string: 'Send PO by Email',
@@ -124,19 +135,15 @@ export default {
               name: 'confirm_reminder_mail',
               string: 'Confirm Receipt Date',
               groups: 'base.group_no_one',
-              attrs: {
-                invisible: "['|', '|', ('state', 'not in', ('purchase', 'done')), ('mail_reminder_confirmed', '=', True), ('date_planned', '=', False)]"
-              },
+              invisible: ['|', '|', ['state', 'not in', ('purchase', 'done')], ['mail_reminder_confirmed', '=', true], ['date_planned', '=', false]],
               type: 'object'
             }
           },
-          _button_action_create_invoice_457: {
+          _button_action_create_invoice_806: {
             _attr: {
               name: 'action_create_invoice',
               string: 'Create Bill',
-              attrs: {
-                invisible: "['|', '|', ('state', 'not in', ('purchase', 'done')), ('invoice_status', 'not in', ('no', 'invoiced')), ('order_line', '=', [])]"
-              },
+              invisible: ['|', '|', ['state', 'not in', ('purchase', 'done')], ['invoice_status', 'not in', ('no', 'invoiced')], ['order_line', '=', []]],
               context: {
                 create_bill: true
               },
@@ -184,9 +191,7 @@ export default {
           _button_action_view_invoice: {
             _attr: {
               name: 'action_view_invoice',
-              attrs: {
-                invisible: "['|', ('invoice_count', '=', 0), ('state', 'in', ('draft', 'sent', 'to approve'))]"
-              },
+              invisible: ['|', ['invoice_count', '=', 0], ['state', 'in', ('draft', 'sent', 'to approve')]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-pencil-square-o'
@@ -206,18 +211,14 @@ export default {
           },
           _span: {
             _attr: {
-              attrs: {
-                invisible: "[('state', 'not in', ('draft', 'sent'))]"
-              },
+              invisible: [['state', 'not in', ('draft', 'sent')]],
               class: 'o_form_label',
               text: 'Request for Quotation'
             }
           },
-          _span_158: {
+          _span_866: {
             _attr: {
-              attrs: {
-                invisible: "[('state', 'in', ('draft', 'sent'))]"
-              },
+              invisible: [['state', 'in', ('draft', 'sent')]],
               class: 'o_form_label',
               text: 'Purchase Order'
             }
@@ -254,31 +255,25 @@ export default {
             company_id: {
               invisible: '1'
             },
-            _field_currency_id_877: {
+            _field_currency_id_314: {
               currency_id: {
                 groups: '!base.group_multi_currency',
                 invisible: '1'
               }
             }
           },
-          _group_566: {
+          _group_719: {
             date_order: {
-              attrs: {
-                invisible: "[('state', 'in', ('purchase', 'done'))]"
-              }
+              invisible: [['state', 'in', ('purchase', 'done')]]
             },
             _label_date_approve: {
               for: 'date_approve',
-              attrs: {
-                invisible: "[('state', 'not in', ('purchase', 'done'))]"
-              }
+              invisible: [['state', 'not in', ('purchase', 'done')]]
             },
             _div_date_approve: {
               _attr: {
                 name: 'date_approve',
-                attrs: {
-                  invisible: "[('state', 'not in', ('purchase', 'done'))]"
-                },
+                invisible: [['state', 'not in', ('purchase', 'done')]],
                 class: 'o_row'
               },
               date_approve: {},
@@ -287,9 +282,7 @@ export default {
               },
               _span: {
                 _attr: {
-                  attrs: {
-                    invisible: "[('mail_reception_confirmed', '=', False)]"
-                  },
+                  invisible: [['mail_reception_confirmed', '=', false]],
                   class: 'text-muted',
                   text: '(confirmed by vendor)'
                 }
@@ -304,18 +297,14 @@ export default {
                 class: 'o_row'
               },
               date_planned: {
-                attrs: {
-                  readonly: "[('state', 'not in', ('draft', 'sent', 'to approve', 'purchase'))]"
-                }
+                readonly: [['state', 'not in', ('draft', 'sent', 'to approve', 'purchase')]]
               },
               mail_reminder_confirmed: {
                 invisible: '1'
               },
               _span: {
                 _attr: {
-                  attrs: {
-                    invisible: "[('mail_reminder_confirmed', '=', False)]"
-                  },
+                  invisible: [['mail_reminder_confirmed', '=', false]],
                   class: 'text-muted',
                   text: '(confirmed by vendor)'
                 }
@@ -337,18 +326,14 @@ export default {
               _span: 'Ask confirmation',
               _div: {
                 _attr: {
-                  attrs: {
-                    invisible: "[('receipt_reminder_email', '=', False)]"
-                  },
+                  invisible: [['receipt_reminder_email', '=', false]],
                   class: 'o_row oe_inline'
                 },
                 reminder_date_before_receipt: {},
                 _widget_toaster_button: {
                   _attr: {
                     name: 'toaster_button',
-                    attrs: {
-                      invisible: "[('id', '=', False)]"
-                    },
+                    invisible: [['id', '=', false]],
                     title: 'Preview the reminder email by sending it to yourself.'
                   }
                 }
@@ -367,9 +352,7 @@ export default {
             },
             order_line: {
               widget: 'section_and_note_one2many',
-              attrs: {
-                readonly: "[('state', 'in', ('done', 'cancel'))]"
-              },
+              readonly: [['state', 'in', ('done', 'cancel')]],
               context: {
                 default_state: 'draft'
               },
@@ -435,10 +418,8 @@ export default {
                         domain: {
                           todo_ctx: "[('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
                         },
-                        attrs: {
-                          readonly: "[('state', 'in', ('purchase', 'to approve', 'done', 'cancel'))]",
-                          required: "[('display_type', '=', False)]"
-                        },
+                        readonly: [['state', 'in', ('purchase', 'to approve', 'done', 'cancel')]],
+                        required: [['display_type', '=', false]],
                         context: {
                           todo_ctx: "{'partner_id':parent.partner_id, 'quantity':product_qty,'uom':product_uom, 'company_id': parent.company_id}"
                         },
@@ -448,9 +429,7 @@ export default {
                         widget: 'section_and_note_text'
                       },
                       date_planned: {
-                        attrs: {
-                          required: "[('display_type', '=', False)]"
-                        },
+                        required: [['display_type', '=', false]],
                         force_save: '1'
                       },
                       analytic_distribution: {
@@ -468,54 +447,40 @@ export default {
                       },
                       qty_received: {
                         string: 'Received',
-                        attrs: {
-                          column_invisible: "[('parent.state', 'not in', ('purchase', 'done'))]",
-                          readonly: "[('qty_received_method', '!=', 'manual')]"
-                        }
+                        column_invisible: [['parent.state', 'not in', ('purchase', 'done')]],
+                        readonly: [['qty_received_method', '!=', 'manual']]
                       },
                       qty_invoiced: {
                         string: 'Billed',
-                        attrs: {
-                          column_invisible: "[('parent.state', 'not in', ('purchase', 'done'))]"
-                        }
+                        column_invisible: [['parent.state', 'not in', ('purchase', 'done')]]
                       },
-                      _field_product_uom_385: {
+                      _field_product_uom_383: {
                         product_uom: {
                           string: 'UoM',
                           groups: 'uom.group_uom',
-                          attrs: {
-                            readonly: "[('state', 'in', ('purchase', 'done', 'cancel'))]",
-                            required: "[('display_type', '=', False)]"
-                          },
+                          readonly: [['state', 'in', ('purchase', 'done', 'cancel')]],
+                          required: [['display_type', '=', false]],
                           force_save: '1'
                         }
                       },
                       product_packaging_qty: {
                         groups: 'product.group_stock_packaging',
-                        attrs: {
-                          invisible: "['|', ('product_id', '=', False), ('product_packaging_id', '=', False)]"
-                        }
+                        invisible: ['|', ['product_id', '=', false], ['product_packaging_id', '=', false]]
                       },
                       product_packaging_id: {
                         groups: 'product.group_stock_packaging',
-                        attrs: {
-                          invisible: "[('product_id', '=', False)]"
-                        },
+                        invisible: [['product_id', '=', false]],
                         context: {
                           todo_ctx: "{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}"
                         }
                       },
                       price_unit: {
-                        attrs: {
-                          readonly: "[('qty_invoiced', '!=', 0)]"
-                        }
+                        readonly: [['qty_invoiced', '!=', 0]]
                       },
                       _button_action_purchase_history: {
                         _attr: {
                           name: 'action_purchase_history',
-                          attrs: {
-                            invisible: "[('id', '=', False)]"
-                          },
+                          invisible: [['id', '=', false]],
                           title: 'Purchase History',
                           type: 'object',
                           icon: 'fa-history'
@@ -558,9 +523,7 @@ export default {
                       },
                       _group: {
                         _attr: {
-                          attrs: {
-                            invisible: "[('display_type', '!=', False)]"
-                          }
+                          invisible: [['display_type', '!=', false]]
                         },
                         _group: {
                           product_uom_category_id: {
@@ -585,9 +548,7 @@ export default {
                             product_qty: {},
                             product_uom: {
                               groups: 'uom.group_uom',
-                              attrs: {
-                                required: "[('display_type', '=', False)]"
-                              }
+                              required: [['display_type', '=', false]]
                             }
                           },
                           qty_received_method: {
@@ -595,22 +556,16 @@ export default {
                           },
                           qty_received: {
                             string: 'Received Quantity',
-                            attrs: {
-                              invisible: "[('parent.state', 'not in', ('purchase', 'done'))]",
-                              readonly: "[('qty_received_method', '!=', 'manual')]"
-                            }
+                            invisible: [['parent.state', 'not in', ('purchase', 'done')]],
+                            readonly: [['qty_received_method', '!=', 'manual']]
                           },
                           qty_invoiced: {
                             string: 'Billed Quantity',
-                            attrs: {
-                              invisible: "[('parent.state', 'not in', ('purchase', 'done'))]"
-                            }
+                            invisible: [['parent.state', 'not in', ('purchase', 'done')]]
                           },
                           product_packaging_id: {
                             groups: 'product.group_stock_packaging',
-                            attrs: {
-                              invisible: "[('product_id', '=', False)]"
-                            },
+                            invisible: [['product_id', '=', false]],
                             context: {
                               todo_ctx: "{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}"
                             }
@@ -624,12 +579,10 @@ export default {
                             no_create: true
                           }
                         },
-                        _group_613: {
+                        _group_600: {
                           date_planned: {
                             widget: 'date',
-                            attrs: {
-                              required: "[('display_type', '=', False)]"
-                            }
+                            required: [['display_type', '=', false]]
                           },
                           analytic_distribution: {
                             widget: 'analytic_distribution',
@@ -638,7 +591,7 @@ export default {
                             business_domain: 'purchase_order'
                           }
                         },
-                        _group_405: {
+                        _group_919: {
                           _notebook: {
                             _page_notes: {
                               _attr: {
@@ -660,21 +613,15 @@ export default {
                       _label_name: {
                         for: 'name',
                         string: 'Section Name (eg. Products, Services)',
-                        attrs: {
-                          invisible: "[('display_type', '!=', 'line_section')]"
-                        }
+                        invisible: [['display_type', '!=', 'line_section']]
                       },
-                      _label_name_839: {
+                      _label_name_597: {
                         for: 'name',
                         string: 'Note',
-                        attrs: {
-                          invisible: "[('display_type', '!=', 'line_note')]"
-                        }
+                        invisible: [['display_type', '!=', 'line_note']]
                       },
                       name: {
-                        attrs: {
-                          invisible: "[('display_type', '=', False)]"
-                        }
+                        invisible: [['display_type', '=', false]]
                       }
                     }
                   }
@@ -719,7 +666,7 @@ export default {
                                     _span: {}
                                   }
                                 },
-                                _div_354: {
+                                _div_321: {
                                   _attr: {
                                     class: 'col-4'
                                   },
@@ -732,7 +679,7 @@ export default {
                                   }
                                 }
                               },
-                              _div_513: {
+                              _div_888: {
                                 _attr: {
                                   class: 'row'
                                 },
@@ -745,7 +692,7 @@ export default {
                                       text: 'Quantity:'
                                     },
                                     _t: {},
-                                    _t_492: {
+                                    _t_777: {
                                       _attr: {
                                         groups: 'uom.group_uom'
                                       }
@@ -753,7 +700,7 @@ export default {
                                   }
                                 }
                               },
-                              _div_996: {
+                              _div_752: {
                                 _attr: {
                                   class: 'row'
                                 },
@@ -795,7 +742,7 @@ export default {
                   placeholder: 'Define your terms and conditions ...'
                 }
               },
-              _group_716: {
+              _group_509: {
                 _attr: {
                   class: 'oe_subtotal_footer oe_right'
                 },
@@ -822,7 +769,7 @@ export default {
                 },
                 user_id: {
                   widget: 'many2one_avatar_user',
-                  domain: "[('share', '=', False)]"
+                  domain: [['share', '=', false]]
                 },
                 company_id: {
                   groups: 'base.group_multi_company',
@@ -835,20 +782,14 @@ export default {
                   name: 'invoice_info'
                 },
                 invoice_status: {
-                  attrs: {
-                    invisible: "[('state', 'in', ('draft', 'sent', 'to approve', 'cancel'))]"
-                  }
+                  invisible: [['state', 'in', ('draft', 'sent', 'to approve', 'cancel')]]
                 },
                 payment_term_id: {
-                  attrs: {
-                    readonly: "['|', ('invoice_status', '=', 'invoiced'), ('state', '=', 'done')]"
-                  },
+                  readonly: ['|', ['invoice_status', '=', 'invoiced'], ['state', '=', 'done']],
                   no_create: true
                 },
                 fiscal_position_id: {
-                  attrs: {
-                    readonly: "['|', ('invoice_status', '=', 'invoiced'), ('state', '=', 'done')]"
-                  },
+                  readonly: ['|', ['invoice_status', '=', 'invoiced'], ['state', '=', 'done']],
                   no_create: true
                 }
               }
@@ -884,7 +825,7 @@ export default {
         _attr: {
           name: 'starred',
           string: 'Starred',
-          domain: "[('priority', '=', '1')]"
+          domain: [['priority', '=', '1']]
         }
       },
       _separator: {},
@@ -892,25 +833,25 @@ export default {
         _attr: {
           name: 'draft',
           string: 'RFQs',
-          domain: "[('state', 'in', ('draft', 'sent', 'to approve'))]"
+          domain: [['state', 'in', ('draft', 'sent', 'to approve')]]
         }
       },
-      _separator_869: {},
+      _separator_286: {},
       _filter_approved: {
         _attr: {
           name: 'approved',
           string: 'Purchase Orders',
-          domain: "[('state', 'in', ('purchase', 'done'))]"
+          domain: [['state', 'in', ('purchase', 'done')]]
         }
       },
       _filter_to_approve: {
         _attr: {
           name: 'to_approve',
           string: 'To Approve',
-          domain: "[('state', '=', 'to approve')]"
+          domain: [['state', '=', 'to approve']]
         }
       },
-      _separator_172: {},
+      _separator_744: {},
       _filter_order_date: {
         _attr: {
           name: 'order_date',
@@ -921,7 +862,7 @@ export default {
         _attr: {
           name: 'draft_rfqs',
           string: 'Draft RFQs',
-          domain: "[('state', '=', 'draft')]"
+          domain: [['state', '=', 'draft']]
         }
       },
       _filter_waiting_rfqs: {
@@ -942,7 +883,7 @@ export default {
           }
         }
       },
-      _separator_237: {},
+      _separator_568: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
@@ -973,12 +914,12 @@ export default {
           }
         }
       },
-      _separator_365: {},
+      _separator_354: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',
           string: 'Warnings',
-          domain: "[('activity_exception_decoration', '!=', False)]"
+          domain: [['activity_exception_decoration', '!=', false]]
         }
       },
       _group: {
@@ -1043,7 +984,7 @@ export default {
         _attr: {
           name: 'starred',
           string: 'Starred',
-          domain: "[('priority', '=', '1')]"
+          domain: [['priority', '=', '1']]
         }
       },
       _separator: {},
@@ -1051,31 +992,31 @@ export default {
         _attr: {
           name: 'unconfirmed',
           string: 'Not Acknowledged',
-          domain: "[('mail_reception_confirmed', '=', False), ('state', '=', 'purchase')]"
+          domain: [['mail_reception_confirmed', '=', false], ['state', '=', 'purchase']]
         }
       },
       _filter_not_invoiced: {
         _attr: {
           name: 'not_invoiced',
           string: 'Waiting Bills',
-          domain: "[('invoice_status', '=', 'to invoice')]"
+          domain: [['invoice_status', '=', 'to invoice']]
         }
       },
       _filter_invoiced: {
         _attr: {
           name: 'invoiced',
           string: 'Bills Received',
-          domain: "[('invoice_status', '=', 'invoiced')]"
+          domain: [['invoice_status', '=', 'invoiced']]
         }
       },
-      _separator_151: {},
+      _separator_730: {},
       _filter_order_date: {
         _attr: {
           name: 'order_date',
           string: 'Order Date'
         }
       },
-      _separator_225: {},
+      _separator_465: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
@@ -1106,12 +1047,12 @@ export default {
           }
         }
       },
-      _separator_635: {},
+      _separator_906: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',
           string: 'Warnings',
-          domain: "[('activity_exception_decoration', '!=', False)]"
+          domain: [['activity_exception_decoration', '!=', false]]
         }
       },
       _group: {
@@ -1194,10 +1135,10 @@ export default {
           string: 'Reference'
         },
         date_order: {
-          invisible: "not context.get('quotation_only', False)"
+          invisible: "not context.get['quotation_only', False]"
         },
         date_approve: {
-          invisible: "context.get('quotation_only', False)"
+          invisible: "context.get['quotation_only', False]"
         },
         partner_id: {},
         company_id: {
@@ -1218,10 +1159,10 @@ export default {
         },
         state: {},
         date_planned: {
-          invisible: "context.get('quotation_only', False)"
+          invisible: "context.get['quotation_only', False]"
         },
         invoice_status: {
-          invisible: "context.get('quotation_only', False)"
+          invisible: "context.get['quotation_only', False]"
         },
         activity_exception_decoration: {
           widget: 'activity_exception'
@@ -1253,7 +1194,7 @@ export default {
           string: 'Reference'
         },
         date_approve: {
-          invisible: "context.get('quotation_only', False)"
+          invisible: "context.get['quotation_only', False]"
         },
         partner_id: {},
         company_id: {
@@ -1261,17 +1202,14 @@ export default {
           no_create: true
         },
         date_planned: {
-          invisible: "context.get('quotation_only', False)"
+          invisible: "context.get['quotation_only', False]"
         },
         user_id: {
           widget: 'many2one_avatar_user'
         },
         date_order: {
           widget: 'remaining_days',
-          invisible: "not context.get('quotation_only', False)",
-          attrs: {
-            invisible: "['|', '|', ('state', '=', 'purchase'), ('state', '=', 'done'), ('state', '=', 'cancel')]"
-          }
+          invisible: ['|', '|', ['state', '=', 'purchase'], ['state', '=', 'done'], ['state', '=', 'cancel']]
         },
         activity_ids: {
           widget: 'list_activity'
@@ -1319,7 +1257,7 @@ export default {
         },
         date_approve: {
           widget: 'date',
-          invisible: "context.get('quotation_only', False)"
+          invisible: "context.get['quotation_only', False]"
         },
         partner_id: {},
         company_id: {
@@ -1330,7 +1268,7 @@ export default {
           widget: 'many2one_avatar_user'
         },
         date_order: {
-          invisible: "not context.get('quotation_only', False)"
+          invisible: "not context.get['quotation_only', False]"
         },
         activity_ids: {
           widget: 'list_activity'
@@ -1353,7 +1291,7 @@ export default {
           widget: 'badge'
         },
         date_planned: {
-          invisible: "context.get('quotation_only', False)"
+          invisible: "context.get['quotation_only', False]"
         }
       }
     }
@@ -1388,12 +1326,24 @@ export default {
     type: 'ir.actions.act_window',
     search_view_id: 'purchase_order_view_search',
     res_model: 'purchase.order',
-    domain: "[('state','in',('purchase', 'done'))]",
+    domain: "[['state','in',['purchase', 'done']]]",
     context: {},
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
     }
+  },
+
+  action_purchase_batch_bills: {
+    _odoo_model: 'ir.actions.server',
+    model_id: 'purchase.model_purchase_order',
+    model: 'purchase_order'
+  },
+
+  action_purchase_send_reminder: {
+    _odoo_model: 'ir.actions.server',
+    model_id: 'purchase.model_purchase_order',
+    model: 'purchase_order'
   },
 
   action_rfq_form: {

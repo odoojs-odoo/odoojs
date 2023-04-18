@@ -18,9 +18,7 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            attrs: {
-              invisible: "[('active', '=', True)]"
-            },
+            invisible: [['active', '=', true]],
             title: 'Archived'
           }
         },
@@ -31,25 +29,23 @@ export default {
             },
             from_filter: {}
           },
-          _group_282: {
+          _group_247: {
             sequence: {},
             active: {
               invisible: '1'
             }
           }
         },
-        _group_200: {
+        _group_334: {
           _group: {
             smtp_authentication: {
               widget: 'radio'
             }
           },
-          _group_676: {
+          _group_448: {
             _div: {
               _attr: {
-                attrs: {
-                  invisible: "[('smtp_authentication_info', '=', False)]"
-                },
+                invisible: [['smtp_authentication_info', '=', false]],
                 class: 'text-muted fst-italic'
               },
               smtp_authentication_info: {}
@@ -75,29 +71,21 @@ export default {
                   groups: 'base.group_no_one'
                 }
               },
-              _group_890: {
+              _group_904: {
                 smtp_user: {
-                  attrs: {
-                    invisible: "[('smtp_authentication', '=', 'certificate')]"
-                  },
+                  invisible: [['smtp_authentication', '=', 'certificate']],
                   force_save: '1'
                 },
                 smtp_pass: {
-                  attrs: {
-                    invisible: "[('smtp_authentication', '!=', 'login')]"
-                  },
+                  invisible: [['smtp_authentication', '!=', 'login']],
                   force_save: '1'
                 },
                 smtp_ssl_certificate: {
-                  attrs: {
-                    invisible: "[('smtp_authentication', '!=', 'certificate')]"
-                  },
+                  invisible: [['smtp_authentication', '!=', 'certificate']],
                   force_save: '1'
                 },
                 smtp_ssl_private_key: {
-                  attrs: {
-                    invisible: "[('smtp_authentication', '!=', 'certificate')]"
-                  },
+                  invisible: [['smtp_authentication', '!=', 'certificate']],
                   force_save: '1'
                 }
               }
@@ -139,7 +127,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       }
     }

@@ -10,9 +10,7 @@ export default {
             name: 'payment_form'
           },
           so_reference_type: {
-            attrs: {
-              invisible: "[('code', '!=', 'custom')]"
-            }
+            invisible: [['code', '!=', 'custom']]
           }
         }
       }

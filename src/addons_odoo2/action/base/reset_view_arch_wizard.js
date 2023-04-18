@@ -15,52 +15,40 @@ export default {
             },
             view_name: {},
             compare_view_id: {
-              attrs: {
-                invisible: "[('reset_mode', '!=', 'other_view')]"
-              },
+              invisible: [['reset_mode', '!=', 'other_view']],
               no_create: true,
               no_open: true
             }
           },
-          _group_118: {
+          _group_328: {
             reset_mode: {
               widget: 'radio'
             }
           }
         },
         arch_diff: {
-          attrs: {
-            invisible: "[('arch_diff', '=', False)]"
-          }
+          invisible: [['arch_diff', '=', false]]
         },
         _div: {
           _attr: {
-            attrs: {
-              invisible: "[('arch_diff', '!=', False)]"
-            },
+            invisible: [['arch_diff', '!=', false]],
             class: 'alert alert-warning my-2'
           },
           _span: {
             _attr: {
-              attrs: {
-                invisible: "[('reset_mode', '!=', 'soft')]"
-              },
+              invisible: [['reset_mode', '!=', 'soft']],
               text: 'This view has no previous version.'
             }
           },
-          _span_977: {
+          _span_528: {
             _attr: {
-              attrs: {
-                invisible: "[('reset_mode', '!=', 'hard')]"
-              },
+              invisible: [['reset_mode', '!=', 'hard']],
               text: 'This view is not coming from a file.'
             }
           },
-          _span_838: {
+          _span_795: {
             _attr: {
-              attrs: {
-                invisible: "[('reset_mode', '!=', 'other_view')]"
-              },
+              invisible: [['reset_mode', '!=', 'other_view']],
               text: 'You need two views to compare.'
             }
           }
@@ -70,9 +58,7 @@ export default {
             _attr: {
               name: 'reset_view_button',
               string: 'Reset View',
-              attrs: {
-                invisible: "[('has_diff', '=', False)]"
-              },
+              invisible: [['has_diff', '=', false]],
               class: 'btn-primary',
               type: 'object'
             }

@@ -90,9 +90,7 @@ export default {
             _attr: {
               name: 'action_get_stock_picking',
               string: 'Stock Operation',
-              attrs: {
-                invisible: "[('picking_id', '=', False)]"
-              },
+              invisible: [['picking_id', '=', false]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-cogs'
@@ -105,9 +103,7 @@ export default {
             _attr: {
               name: 'action_get_stock_move_lines',
               string: 'Product Moves',
-              attrs: {
-                invisible: "[('move_id', '=', False)]"
-              },
+              invisible: [['move_id', '=', false]],
               class: 'oe_stat_button',
               type: 'object',
               icon: 'fa-exchange'
@@ -149,16 +145,14 @@ export default {
               }
             }
           },
-          _group_400: {
+          _group_774: {
             company_id: {
               invisible: '1'
             },
             lot_id: {
               groups: 'stock.group_production_lot',
-              attrs: {
-                invisible: "['|', ('product_id', '=', False), ('tracking', '=', 'none')]",
-                required: "[('tracking', '!=', 'none')]"
-              },
+              invisible: ['|', ['product_id', '=', false], ['tracking', '=', 'none']],
+              required: [['tracking', '!=', 'none']],
               context: {
                 todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}"
               }
@@ -186,16 +180,12 @@ export default {
             },
             origin: {},
             date_done: {
-              attrs: {
-                invisible: "[('state', '=', 'draft')]"
-              }
+              invisible: [['state', '=', 'draft']]
             },
             picking_id: {
-              attrs: {
-                invisible: "[('picking_id', '=', False)]"
-              }
+              invisible: [['picking_id', '=', false]]
             },
-            _field_company_id_570: {
+            _field_company_id_964: {
               company_id: {
                 groups: 'base.group_multi_company'
               }
@@ -240,7 +230,7 @@ export default {
           groups: 'stock.group_stock_multi_locations',
           no_create: true
         },
-        _field_company_id_739: {
+        _field_company_id_462: {
           company_id: {
             groups: 'base.group_multi_company'
           }
@@ -288,9 +278,7 @@ export default {
                 class: 'o_row'
               },
               scrap_qty: {
-                attrs: {
-                  readonly: "[('tracking', '=', 'serial')]"
-                }
+                readonly: [['tracking', '=', 'serial']]
               },
               product_uom_category_id: {
                 invisible: '1'
@@ -300,7 +288,7 @@ export default {
               }
             }
           },
-          _group_569: {
+          _group_623: {
             picking_id: {
               invisible: '1'
             },
@@ -309,10 +297,8 @@ export default {
             },
             lot_id: {
               groups: 'stock.group_production_lot',
-              attrs: {
-                invisible: "['|', ('product_id', '=', False), ('tracking', '=', 'none')]",
-                required: "[('tracking', '!=', 'none')]"
-              },
+              invisible: ['|', ['product_id', '=', false], ['tracking', '=', 'none']],
+              required: [['tracking', '!=', 'none']],
               context: {
                 todo_ctx: "{'default_company_id': company_id, 'default_product_id': product_id}"
               }

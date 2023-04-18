@@ -40,19 +40,19 @@ export default {
               partner_id: {},
               partner_category_id: {}
             },
-            _group_761: {
+            _group_624: {
               company_id: {
                 groups: 'base.group_multi_company'
               }
             }
           },
-          _group_745: {
+          _group_571: {
             _attr: {
               string: 'Analytic distribution to apply'
             },
             analytic_distribution: {
               widget: 'analytic_distribution',
-              todo: "{'force_applicability': 'optional', 'disable_save': true}"
+              options: "{'force_applicability': 'optional', 'disable_save': true}"
             }
           }
         }
@@ -61,7 +61,7 @@ export default {
   },
 
   action_analytic_distribution_model: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Analytic Distribution Models',
     res_model: 'account.analytic.distribution.model',
     views: {

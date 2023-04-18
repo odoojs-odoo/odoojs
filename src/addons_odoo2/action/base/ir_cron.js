@@ -14,27 +14,25 @@ export default {
             _attr: {
               name: 'method_direct_trigger',
               string: 'Run Manually',
-              attrs: {
-                invisible: "[('state', '!=', 'code')]"
-              },
+              invisible: [['state', '!=', 'code']],
               class: 'oe_highlight',
               type: 'object'
             }
           }
         },
-        _xpath_160: {
+        _xpath_620: {
           _attr: {
             expr: "//button[@name='unlink_action']",
             position: 'replace'
           }
         },
-        _xpath_630: {
+        _xpath_779: {
           _attr: {
             expr: "//button[@name='run']",
             position: 'replace'
           }
         },
-        _xpath_222: {
+        _xpath_139: {
           _attr: {
             expr: "//group[@name='action_content']",
             position: 'inside'
@@ -112,15 +110,15 @@ export default {
         _attr: {
           name: 'all',
           string: 'All',
-          domain: "['|', ('active', '=', False), ('active', '=', True)]"
+          domain: ['|', ['active', '=', false], ['active', '=', true]]
         }
       },
-      _separator_357: {},
+      _separator_659: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       },
       _group: {
@@ -131,7 +129,7 @@ export default {
           _attr: {
             name: 'user',
             string: 'User',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'user_id'
             }
@@ -141,7 +139,7 @@ export default {
           _attr: {
             name: 'execution',
             string: 'Execution',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'nextcall'
             }
@@ -151,7 +149,7 @@ export default {
           _attr: {
             name: 'groupby_model_id',
             string: 'Model',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'model_id'
             }

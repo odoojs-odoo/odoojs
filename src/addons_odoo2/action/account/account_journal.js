@@ -1,4 +1,47 @@
 export default {
+  account_journal_dashboard_kanban_view: {
+    _odoo_model: 'ir.ui.view',
+    model: 'account.journal',
+    type: 'otherview',
+    arch: {}
+  },
+
+  open_account_journal_dashboard_kanban: {
+    _odoo_model: 'ir.actions.act_window',
+    name: 'Accounting Dashboard',
+    res_model: 'account.journal',
+    domain: '[]',
+    context: {
+      search_default_dashboard: 1
+    },
+    views: {
+      tree: 'account_journal_dashboard_kanban_view',
+      form: '=======todo=========='
+    }
+  },
+
+  account_journal_dashboard_kanban_view_js: {
+    _odoo_model: 'ir.ui.view',
+    model: 'account.journal',
+    inherit_id: 'account.account_journal_dashboard_kanban_view',
+    arch: {
+      sheet: {
+        _xpath: {
+          _attr: {
+            expr: '//kanban',
+            position: 'attributes'
+          },
+          _attribute_js_class: {
+            _attr: {
+              name: 'js_class',
+              text: 'account_setup_bar'
+            }
+          }
+        }
+      }
+    }
+  },
+
   view_account_journal_tree: {
     _odoo_model: 'ir.ui.view',
     model: 'account.journal',
@@ -59,9 +102,7 @@ export default {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
-            attrs: {
-              invisible: "[('active', '=', True)]"
-            },
+            invisible: [['active', '=', true]],
             title: 'Archived'
           }
         },
@@ -85,7 +126,7 @@ export default {
             },
             type: {}
           },
-          _group_649: {
+          _group_706: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
@@ -113,77 +154,55 @@ export default {
                   for: 'default_account_id',
                   string: 'Bank Account',
                   groups: 'account.group_account_readonly',
-                  attrs: {
-                    invisible: "[('type', '!=', 'bank')]"
-                  }
+                  invisible: [['type', '!=', 'bank']]
                 },
-                _label_default_account_id_673: {
+                _label_default_account_id_944: {
                   for: 'default_account_id',
                   string: 'Cash Account',
                   groups: 'account.group_account_readonly',
-                  attrs: {
-                    invisible: "[('type', '!=', 'cash')]"
-                  }
+                  invisible: [['type', '!=', 'cash']]
                 },
-                _label_default_account_id_108: {
+                _label_default_account_id_915: {
                   for: 'default_account_id',
                   string: 'Default Income Account',
                   groups: 'account.group_account_readonly',
-                  attrs: {
-                    invisible: "[('type', '!=', 'sale')]"
-                  }
+                  invisible: [['type', '!=', 'sale']]
                 },
-                _label_default_account_id_538: {
+                _label_default_account_id_396: {
                   for: 'default_account_id',
                   string: 'Default Expense Account',
                   groups: 'account.group_account_readonly',
-                  attrs: {
-                    invisible: "[('type', '!=', 'purchase')]"
-                  }
+                  invisible: [['type', '!=', 'purchase']]
                 },
-                _label_default_account_id_132: {
+                _label_default_account_id_788: {
                   for: 'default_account_id',
                   string: 'Default Account',
                   groups: 'account.group_account_readonly',
-                  attrs: {
-                    invisible: "[('type', '!=', 'general')]"
-                  }
+                  invisible: [['type', '!=', 'general']]
                 },
                 default_account_id: {
                   groups: 'account.group_account_readonly',
-                  attrs: {
-                    required: "['|', '&', ('id', '!=', False), ('type', 'in', ('bank', 'cash')), ('type', 'in', ('sale', 'purchase'))]",
-                    invisible: "[('type', '=', False)]"
-                  },
+                  required: ['|', '&', ['id', '!=', false], ['type', 'in', ('bank', 'cash')], ['type', 'in', ('sale', 'purchase')]],
+                  invisible: [['type', '=', false]],
                   no_quick_create: true
                 },
                 suspense_account_id: {
                   groups: 'account.group_account_readonly',
-                  attrs: {
-                    required: "[('type', 'in', ('bank', 'cash'))]",
-                    invisible: "[('type', 'not in', ('bank', 'cash'))]"
-                  },
+                  required: [['type', 'in', ('bank', 'cash')]],
+                  invisible: [['type', 'not in', ('bank', 'cash')]],
                   no_quick_create: true
                 },
                 profit_account_id: {
-                  attrs: {
-                    invisible: "['!', ('type', 'in', ('cash', 'bank'))]"
-                  }
+                  invisible: ['!', ['type', 'in', ('cash', 'bank')]]
                 },
                 loss_account_id: {
-                  attrs: {
-                    invisible: "['!', ('type', 'in', ('cash', 'bank'))]"
-                  }
+                  invisible: ['!', ['type', 'in', ('cash', 'bank')]]
                 },
                 refund_sequence: {
-                  attrs: {
-                    invisible: "[('type', 'not in', ['sale', 'purchase'])]"
-                  }
+                  invisible: [['type', 'not in', ['sale', 'purchase']]]
                 },
                 payment_sequence: {
-                  attrs: {
-                    invisible: "[('type', 'not in', ('bank', 'cash'))]"
-                  }
+                  invisible: [['type', 'not in', ('bank', 'cash')]]
                 },
                 code: {
                   placeholder: 'e.g. INV'
@@ -197,9 +216,7 @@ export default {
                 _attr: {
                   name: 'bank_account_number',
                   string: 'Bank Account Number',
-                  attrs: {
-                    invisible: "[('type', '!=', 'bank')]"
-                  }
+                  invisible: [['type', '!=', 'bank']]
                 },
                 company_partner_id: {
                   invisible: '1'
@@ -211,16 +228,12 @@ export default {
                   }
                 },
                 bank_id: {
-                  attrs: {
-                    invisible: "[('bank_account_id', '=', False)]"
-                  }
+                  invisible: [['bank_account_id', '=', false]]
                 },
                 bank_statements_source: {
                   widget: 'radio',
                   groups: 'account.group_account_readonly',
-                  attrs: {
-                    required: "[('type', '=', 'bank')]"
-                  }
+                  required: [['type', '=', 'bank']]
                 }
               }
             }
@@ -228,9 +241,7 @@ export default {
           _page: {
             _attr: {
               string: 'Incoming Payments',
-              attrs: {
-                invisible: "[('type', 'not in', ['cash', 'bank'])]"
-              }
+              invisible: [['type', 'not in', ['cash', 'bank']]]
             },
             available_payment_method_ids: {
               invisible: '1'
@@ -275,12 +286,10 @@ export default {
               }
             }
           },
-          _page_701: {
+          _page_490: {
             _attr: {
               string: 'Outgoing Payments',
-              attrs: {
-                invisible: "[('type', 'not in', ['cash', 'bank'])]"
-              }
+              invisible: [['type', 'not in', ['cash', 'bank']]]
             },
             outbound_payment_method_line_ids: {
               context: {
@@ -353,18 +362,14 @@ export default {
                 },
                 restrict_mode_hash_table: {
                   groups: 'account.group_account_readonly',
-                  attrs: {
-                    invisible: "[('type', 'in', ['bank', 'cash'])]"
-                  }
+                  invisible: [['type', 'in', ['bank', 'cash']]]
                 }
               },
               _group_group_alias_ro: {
                 _attr: {
                   name: 'group_alias_ro',
                   string: 'Create Invoices upon Emails',
-                  attrs: {
-                    invisible: "['|', ('type', 'not in', ('sale', 'purchase')), ('alias_domain', '=', False)]"
-                  },
+                  invisible: ['|', ['type', 'not in', ('sale', 'purchase')], ['alias_domain', '=', false]],
                   class: 'oe_read_only'
                 },
                 alias_id: {}
@@ -373,15 +378,13 @@ export default {
                 _attr: {
                   name: 'group_alias_no_domain',
                   string: 'Create Invoices upon Emails',
-                  attrs: {
-                    invisible: "['|', ('type', 'not in', ('sale', 'purchase')), ('alias_domain', '!=', False)]"
-                  }
+                  invisible: ['|', ['type', 'not in', ('sale', 'purchase')], ['alias_domain', '!=', false]]
                 },
                 _div: {
                   _attr: {
                     class: 'content-group'
                   },
-                  _a_%(action_open_settings)d: {
+                  _a_action_open_settings: {
                     _attr: {
                       name: '%(action_open_settings)d',
                       class: 'btn btn-link',
@@ -399,9 +402,7 @@ export default {
                 _attr: {
                   name: 'group_alias_edit',
                   string: 'Create Invoices upon Emails',
-                  attrs: {
-                    invisible: "['|', ('type', 'not in', ('sale', 'purchase')), ('alias_domain', '=', False)]"
-                  },
+                  invisible: ['|', ['type', 'not in', ('sale', 'purchase')], ['alias_domain', '=', false]],
                   class: 'oe_edit_only'
                 },
                 _label_alias_name: {
@@ -421,40 +422,30 @@ export default {
                   }
                 }
               },
-              _group_774: {
+              _group_874: {
                 _attr: {
                   string: 'Payment Communications',
-                  attrs: {
-                    invisible: "[('type', '!=', 'sale')]"
-                  }
+                  invisible: [['type', '!=', 'sale']]
                 },
                 invoice_reference_type: {},
                 invoice_reference_model: {
-                  attrs: {
-                    invisible: "[('invoice_reference_type', '=', 'none')]"
-                  }
+                  invisible: [['invoice_reference_type', '=', 'none']]
                 }
               },
-              _group_796: {
+              _group_320: {
                 _attr: {
                   string: 'Follow Customer Payments',
-                  attrs: {
-                    invisible: "[('type', '!=', 'sale')]"
-                  }
+                  invisible: [['type', '!=', 'sale']]
                 },
                 sale_activity_type_id: {
                   no_quick_create: true
                 },
                 sale_activity_user_id: {
-                  attrs: {
-                    invisible: "[('sale_activity_type_id', '=', False)]"
-                  },
+                  invisible: [['sale_activity_type_id', '=', false]],
                   no_quick_create: true
                 },
                 sale_activity_note: {
-                  attrs: {
-                    invisible: "[('sale_activity_type_id', '=', False)]"
-                  },
+                  invisible: [['sale_activity_type_id', '=', false]],
                   placeholder: 'e.g. Give a phone call, check with others , ...'
                 }
               }
@@ -484,7 +475,7 @@ export default {
         _attr: {
           name: 'dashboard',
           string: 'Favorites',
-          domain: "[('show_on_dashboard', '=', True)]"
+          domain: [['show_on_dashboard', '=', true]]
         }
       },
       _separator: {},
@@ -492,36 +483,36 @@ export default {
         _attr: {
           name: 'sales',
           string: 'Sales',
-          domain: "[('type', '=', 'sale')]"
+          domain: [['type', '=', 'sale']]
         }
       },
       _filter_purchases: {
         _attr: {
           name: 'purchases',
           string: 'Purchases',
-          domain: "[('type', '=', 'purchase')]"
+          domain: [['type', '=', 'purchase']]
         }
       },
       _filter_liquidity: {
         _attr: {
           name: 'liquidity',
           string: 'Liquidity',
-          domain: "['|', ('type', '=', 'cash'), ('type', '=', 'bank')]"
+          domain: ['|', ['type', '=', 'cash'], ['type', '=', 'bank']]
         }
       },
       _filter_miscellaneous: {
         _attr: {
           name: 'miscellaneous',
           string: 'Miscellaneous',
-          domain: "[('type', 'not in', ['sale', 'purchase', 'cash', 'bank'])]"
+          domain: [['type', 'not in', ['sale', 'purchase', 'cash', 'bank']]]
         }
       },
-      _separator_162: {},
+      _separator_517: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
           string: 'Archived',
-          domain: "[('active', '=', False)]"
+          domain: [['active', '=', false]]
         }
       }
     }

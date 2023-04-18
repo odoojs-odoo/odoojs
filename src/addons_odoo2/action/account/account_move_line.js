@@ -14,7 +14,7 @@ export default {
         _group: {
           name: {},
           partner_id: {
-            domain: "['|', ('parent_id', '=', False), ('is_company', '=', True)]"
+            domain: ['|', ['parent_id', '=', false], ['is_company', '=', true]]
           }
         },
         _notebook: {
@@ -39,13 +39,16 @@ export default {
                 balance: {},
                 quantity: {}
               },
-              _group_476: {
+              _group_130: {
                 _attr: {
-                  string: 'States'
+                  string: 'Accounting Documents'
                 },
-                blocked: {}
+                move_id: {},
+                statement_line_id: {
+                  invisible: [['statement_line_id', '=', false]]
+                }
               },
-              _group_389: {
+              _group_580: {
                 _attr: {
                   string: 'Dates'
                 },
@@ -54,44 +57,34 @@ export default {
                 },
                 date_maturity: {}
               },
-              _group_909: {
+              _group_692: {
                 _attr: {
                   string: 'Taxes',
-                  attrs: {
-                    invisible: "[('tax_line_id', '=', False), ('tax_ids', '=', [])]"
-                  }
+                  invisible: [['tax_line_id', '=', false], ['tax_ids', '=', []]]
                 },
                 tax_line_id: {
-                  attrs: {
-                    invisible: "[('tax_line_id', '=', False)]"
-                  }
+                  invisible: [['tax_line_id', '=', false]]
                 },
                 tax_ids: {
                   widget: 'many2many_tags',
-                  attrs: {
-                    invisible: "[('tax_ids', '=', [])]"
-                  }
+                  invisible: [['tax_ids', '=', []]]
                 },
                 tax_tag_invert: {
                   groups: 'base.group_no_one'
                 },
                 tax_audit: {}
               },
-              _group_221: {
+              _group_157: {
                 _attr: {
                   string: 'Matching',
-                  attrs: {
-                    invisible: "[('matched_debit_ids', '=', []), ('matched_credit_ids', '=', [])]"
-                  }
+                  invisible: [['matched_debit_ids', '=', []], ['matched_credit_ids', '=', []]]
                 },
                 _label_full_reconcile_id: {
                   for: 'full_reconcile_id'
                 },
                 _div: {
                   full_reconcile_id: {
-                    attrs: {
-                      invisible: "[('full_reconcile_id', '=', False)]"
-                    }
+                    invisible: [['full_reconcile_id', '=', false]]
                   },
                   matched_debit_ids: {
                     invisible: '1'
@@ -103,16 +96,14 @@ export default {
                     _attr: {
                       name: 'open_reconcile_view',
                       string: '-> View partially reconciled entries',
-                      attrs: {
-                        invisible: "['|', ('full_reconcile_id', '!=', False), '&', ('matched_debit_ids', '=', []), ('matched_credit_ids', '=', [])]"
-                      },
+                      invisible: ['|', ['full_reconcile_id', '!=', false], '&', ['matched_debit_ids', '=', []], ['matched_credit_ids', '=', []]],
                       class: 'oe_link',
                       type: 'object'
                     }
                   }
                 }
               },
-              _group_411: {
+              _group_837: {
                 _attr: {
                   string: 'Currency',
                   groups: 'base.group_multi_currency'
@@ -122,16 +113,20 @@ export default {
                 },
                 amount_currency: {}
               },
-              _group_507: {
+              _group_665: {
                 _attr: {
                   string: 'Product',
-                  attrs: {
-                    invisible: "[('product_id', '=', False)]"
-                  }
+                  invisible: [['product_id', '=', false]]
                 },
                 product_id: {}
               },
-              _group_525: {
+              _group_682: {
+                _attr: {
+                  string: 'States'
+                },
+                blocked: {}
+              },
+              _group_293: {
                 _attr: {
                   string: 'Analytic',
                   groups: 'analytic.group_analytic_accounting'
@@ -212,7 +207,7 @@ export default {
         company_id: {
           invisible: '1'
         },
-        _field_company_id_305: {
+        _field_company_id_790: {
           company_id: {
             groups: 'base.group_multi_company'
           }
@@ -233,9 +228,7 @@ export default {
           no_create: true
         },
         partner_id: {
-          attrs: {
-            readonly: "[('move_type', '!=', 'entry')]"
-          }
+          readonly: [['move_type', '!=', 'entry']]
         },
         ref: {},
         product_id: {},
@@ -245,16 +238,12 @@ export default {
         },
         amount_currency: {
           groups: 'base.group_multi_currency',
-          attrs: {
-            invisible: "[('is_same_currency', '=', True)]"
-          }
+          invisible: [['is_same_currency', '=', true]]
         },
         currency_id: {
           string: 'Currency',
           groups: 'base.group_multi_currency',
-          attrs: {
-            invisible: "[('is_same_currency', '=', True)]"
-          }
+          invisible: [['is_same_currency', '=', true]]
         },
         debit: {},
         credit: {},
@@ -276,15 +265,11 @@ export default {
         matching_number: {},
         amount_residual: {
           string: 'Residual',
-          attrs: {
-            invisible: "[('is_account_reconcile', '=', False)]"
-          }
+          invisible: [['is_account_reconcile', '=', false]]
         },
         amount_residual_currency: {
           string: 'Residual in Currency',
-          attrs: {
-            invisible: "['|', ('is_same_currency', '=', True), ('is_account_reconcile', '=', False)]"
-          }
+          invisible: ['|', ['is_same_currency', '=', true], ['is_account_reconcile', '=', false]]
         },
         analytic_distribution: {
           widget: 'analytic_distribution',
@@ -341,10 +326,10 @@ export default {
     arch: {
       sheet: {
         date: {
-          ===todo===optional: 'hide'
+          __todo__optional: 'hide'
         },
         tax_tag_ids: {
-          ===todo===optional: 'show'
+          __todo__optional: 'show'
         }
       }
     }
@@ -357,7 +342,7 @@ export default {
     arch: {
       sheet: {
         date: {
-          ===todo===optional: 'hide'
+          __todo__optional: 'hide'
         }
       }
     }
@@ -370,7 +355,7 @@ export default {
     arch: {
       sheet: {
         date: {
-          ===todo===optional: 'hide'
+          __todo__optional: 'hide'
         }
       }
     }
@@ -383,10 +368,10 @@ export default {
     arch: {
       sheet: {
         account_id: {
-          ===todo===optional: 'hide'
+          __todo__optional: 'hide'
         },
         balance: {
-          ===todo===optional: 'show'
+          __todo__optional: 'show'
         }
       }
     }
@@ -399,13 +384,13 @@ export default {
     arch: {
       sheet: {
         partner_id: {
-          ===todo===optional: 'hide'
+          __todo__optional: 'hide'
         },
         date_maturity: {
-          ===todo===optional: 'show'
+          __todo__optional: 'show'
         },
         balance: {
-          ===todo===optional: 'show'
+          __todo__optional: 'show'
         }
       }
     }
@@ -427,16 +412,16 @@ export default {
           }
         },
         analytic_distribution: {
-          ===todo===optional: 'hide'
+          __todo__optional: 'hide'
         },
         debit: {
-          ===todo===optional: 'show'
+          __todo__optional: 'show'
         },
         credit: {
-          ===todo===optional: 'show'
+          __todo__optional: 'show'
         },
         journal_id: {
-          ===todo===optional: 'show'
+          __todo__optional: 'show'
         }
       }
     }
@@ -457,7 +442,7 @@ export default {
       name: {
         string: 'Journal Item'
       },
-      _field_name_358: {
+      _field_name_615: {
         name: {}
       },
       ref: {},
@@ -480,38 +465,38 @@ export default {
         _attr: {
           name: 'unposted',
           string: 'Unposted',
-          domain: "[('parent_state', '=', 'draft')]"
+          domain: [['parent_state', '=', 'draft']]
         }
       },
       _filter_posted: {
         _attr: {
           name: 'posted',
           string: 'Posted',
-          domain: "[('parent_state', '=', 'posted')]"
+          domain: [['parent_state', '=', 'posted']]
         }
       },
-      _separator_817: {},
+      _separator_430: {},
       _filter_to_check: {
         _attr: {
           name: 'to_check',
           string: 'To Check',
-          domain: "[('move_id.to_check', '=', True)]"
+          domain: [['move_id.to_check', '=', true]]
         }
       },
-      _separator_177: {},
+      _separator_123: {},
       _filter_unreconciled: {
         _attr: {
           name: 'unreconciled',
           string: 'Unreconciled',
-          domain: "[('amount_residual', '!=', 0), ('account_id.reconcile', '=', True)]"
+          domain: [['amount_residual', '!=', 0], ['account_id.reconcile', '=', true]]
         }
       },
-      _separator_919: {},
+      _separator_939: {},
       _filter_sales: {
         _attr: {
           name: 'sales',
           string: 'Sales',
-          domain: "[('journal_id.type', '=', 'sale')]",
+          domain: [['journal_id.type', '=', 'sale']],
           context: {
             default_journal_type: 'sale'
           }
@@ -521,7 +506,7 @@ export default {
         _attr: {
           name: 'purchases',
           string: 'Purchases',
-          domain: "[('journal_id.type', '=', 'purchase')]",
+          domain: [['journal_id.type', '=', 'purchase']],
           context: {
             default_journal_type: 'purchase'
           }
@@ -531,7 +516,7 @@ export default {
         _attr: {
           name: 'bank',
           string: 'Bank',
-          domain: "[('journal_id.type', '=', 'bank')]",
+          domain: [['journal_id.type', '=', 'bank']],
           context: {
             default_journal_type: 'bank'
           }
@@ -541,7 +526,7 @@ export default {
         _attr: {
           name: 'cash',
           string: 'Cash',
-          domain: "[('journal_id.type', '=', 'cash')]",
+          domain: [['journal_id.type', '=', 'cash']],
           context: {
             default_journal_type: 'cash'
           }
@@ -551,25 +536,25 @@ export default {
         _attr: {
           name: 'misc_filter',
           string: 'Miscellaneous',
-          domain: "[('journal_id.type', '=', 'general')]",
+          domain: [['journal_id.type', '=', 'general']],
           context: {
             default_journal_type: 'general'
           }
         }
       },
-      _separator_677: {},
+      _separator_487: {},
       _filter_trade_payable: {
         _attr: {
           name: 'trade_payable',
           string: 'Payable',
-          domain: "[('account_id.account_type', '=', 'liability_payable'), ('account_id.non_trade', '=', False)]"
+          domain: [['account_id.account_type', '=', 'liability_payable'], ['account_id.non_trade', '=', false]]
         }
       },
       _filter_trade_receivable: {
         _attr: {
           name: 'trade_receivable',
           string: 'Receivable',
-          domain: "[('account_id.account_type', '=', 'asset_receivable'), ('account_id.non_trade', '=', False)]"
+          domain: [['account_id.account_type', '=', 'asset_receivable'], ['account_id.non_trade', '=', false]]
         }
       },
       _filter_non_trade_payable: {
@@ -577,7 +562,7 @@ export default {
           name: 'non_trade_payable',
           string: 'Non Trade Payable',
           invisible: '1',
-          domain: "[('account_id.account_type', '=', 'liability_payable'), ('account_id.non_trade', '=', True)]"
+          domain: [['account_id.account_type', '=', 'liability_payable'], ['account_id.non_trade', '=', true]]
         }
       },
       _filter_non_trade_receivable: {
@@ -585,24 +570,24 @@ export default {
           name: 'non_trade_receivable',
           string: 'Non Trade Receivable',
           invisible: '1',
-          domain: "[('account_id.account_type', '=', 'asset_receivable'), ('account_id.non_trade', '=', True)]"
+          domain: [['account_id.account_type', '=', 'asset_receivable'], ['account_id.non_trade', '=', true]]
         }
       },
       _filter_pl_accounts: {
         _attr: {
           name: 'pl_accounts',
           string: 'P&L Accounts',
-          domain: "[('account_id.internal_group', 'in', ('income', 'expense'))]"
+          domain: [['account_id.internal_group', 'in', ('income', 'expense')]]
         }
       },
-      _separator_227: {},
+      _separator_808: {},
       _filter_date: {
         _attr: {
           name: 'date',
           string: 'Date'
         }
       },
-      _separator_998: {},
+      _separator_816: {},
       _filter_date_between: {
         _attr: {
           name: 'date_between',
@@ -623,7 +608,7 @@ export default {
           }
         }
       },
-      _separator_997: {},
+      _separator_194: {},
       _group: {
         _attr: {
           string: 'Group By'
@@ -731,11 +716,17 @@ export default {
     }
   },
 
+  action_automatic_entry: {
+    _odoo_model: 'ir.actions.server',
+    model_id: 'account.model_account_move_line',
+    model: 'account_move_line'
+  },
+
   action_account_moves_all_a: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Journal Items',
     res_model: 'account.move.line',
-    domain: "[('display_type', 'not in', ('line_section', 'line_note'))]",
+    domain: "[['display_type', 'not in', ['line_section', 'line_note']]]",
     context: {
       journal_type: 'general',
       search_default_group_by_move: 1,
@@ -752,7 +743,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Journal Items',
     res_model: 'account.move.line',
-    domain: "[('display_type', 'not in', ('line_section', 'line_note'))]",
+    domain: "[['display_type', 'not in', ['line_section', 'line_note']]]",
     context: {
       journal_type: 'general',
       search_default_posted: 1,
@@ -768,7 +759,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Sales',
     res_model: 'account.move.line',
-    domain: "[('display_type', 'not in', ('line_section', 'line_note'))]",
+    domain: "[['display_type', 'not in', ['line_section', 'line_note']]]",
     context: {
       journal_type: 'sales',
       search_default_group_by_move: 1,
@@ -786,7 +777,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Purchases',
     res_model: 'account.move.line',
-    domain: "[('display_type', 'not in', ('line_section', 'line_note'))]",
+    domain: "[['display_type', 'not in', ['line_section', 'line_note']]]",
     context: {
       journal_type: 'purchase',
       search_default_group_by_move: 1,
@@ -804,7 +795,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Bank and Cash',
     res_model: 'account.move.line',
-    domain: "[('display_type', 'not in', ('line_section', 'line_note'))]",
+    domain: "[['display_type', 'not in', ['line_section', 'line_note']]]",
     context: {
       journal_type: 'bank',
       search_default_group_by_move: 1,
@@ -823,7 +814,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Miscellaneous',
     res_model: 'account.move.line',
-    domain: "[('display_type', 'not in', ('line_section', 'line_note'))]",
+    domain: "[['display_type', 'not in', ['line_section', 'line_note']]]",
     context: {
       journal_type: 'general',
       search_default_group_by_move: 1,
@@ -842,7 +833,7 @@ export default {
     name: 'Partner Ledger',
     search_view_id: 'view_account_move_line_filter',
     res_model: 'account.move.line',
-    domain: "[('display_type', 'not in', ('line_section', 'line_note'))]",
+    domain: "[['display_type', 'not in', ['line_section', 'line_note']]]",
     context: {
       journal_type: 'general',
       search_default_group_by_partner: 1,
@@ -861,7 +852,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Journal Items',
     res_model: 'account.move.line',
-    domain: "[('display_type', 'not in', ('line_section', 'line_note'))]",
+    domain: "[['display_type', 'not in', ['line_section', 'line_note']]]",
     context: {
       todo_ctx: "{'search_default_partner_id': [active_id], 'default_partner_id': active_id, 'search_default_posted':1}"
     },
@@ -875,7 +866,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Journal Items',
     res_model: 'account.move.line',
-    domain: "[('display_type', 'not in', ('line_section', 'line_note')), ('parent_state', '!=', 'cancel')]",
+    domain: "[['display_type', 'not in', ['line_section', 'line_note']], ['parent_state', '!=', 'cancel']]",
     context: {
       journal_type: 'general',
       search_default_posted: 1

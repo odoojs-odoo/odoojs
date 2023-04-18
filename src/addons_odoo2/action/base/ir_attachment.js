@@ -15,21 +15,17 @@ export default {
           _group: {
             type: {},
             datas: {
-              attrs: {
-                invisible: "[('type', '=', 'url')]"
-              }
+              invisible: [['type', '=', 'url']]
             },
             url: {
               widget: 'url',
-              attrs: {
-                invisible: "[('type', '=', 'binary')]"
-              }
+              invisible: [['type', '=', 'binary']]
             },
             mimetype: {
               groups: 'base.group_no_one'
             }
           },
-          _group_927: {
+          _group_294: {
             _attr: {
               string: 'Attached To',
               groups: 'base.group_no_one'
@@ -44,13 +40,11 @@ export default {
             },
             public: {}
           },
-          _group_761: {
+          _group_564: {
             _attr: {
               string: 'History',
               groups: 'base.group_no_one',
-              attrs: {
-                invisible: "[('create_date', '=', False)]"
-              }
+              invisible: [['create_date', '=', false]]
             },
             _label_create_uid: {
               for: 'create_uid',
@@ -76,7 +70,7 @@ export default {
             },
             description: {}
           },
-          _group_708: {
+          _group_654: {
             _attr: {
               string: 'Indexed Content',
               groups: 'base.group_no_one'
@@ -123,7 +117,7 @@ export default {
           name: 'my_documents_filter',
           string: 'My Document(s)',
           domain: {
-            todo: "[('create_uid','=',uid)]"
+            todo_ctx: "[('create_uid','=',uid)]"
           }
         }
       },
@@ -131,14 +125,14 @@ export default {
         _attr: {
           name: 'url_filter',
           string: 'URL',
-          domain: "[('type', '=', 'url')]"
+          domain: [['type', '=', 'url']]
         }
       },
       _filter_binary_filter: {
         _attr: {
           name: 'binary_filter',
           string: 'Stored',
-          domain: "[('type', '=', 'binary')]"
+          domain: [['type', '=', 'binary']]
         }
       },
       _separator: {},
@@ -154,7 +148,7 @@ export default {
           _attr: {
             name: 'owner',
             string: 'Owner',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'create_uid'
             }
@@ -165,7 +159,7 @@ export default {
             name: 'type',
             string: 'Type',
             groups: 'base.group_no_one',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'type'
             }
@@ -176,7 +170,7 @@ export default {
             name: 'company',
             string: 'Company',
             groups: 'base.group_multi_company',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'company_id'
             }
@@ -186,7 +180,7 @@ export default {
           _attr: {
             name: 'creation_month',
             string: 'Creation Date',
-            domain: "[]",
+            domain: [],
             context: {
               group_by: 'create_date'
             }
