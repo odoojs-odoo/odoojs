@@ -13,7 +13,17 @@ const fapiao_addons = require.context('@/addons_fapiao', true, /\.js$/)
 const global_addons = require.context('@/addons_global', true, /\.js$/)
 
 export const modules_installed = [
-  'uom'
+  'base',
+  'uom',
+  'product',
+  'analytic',
+  'contacts',
+  'account',
+  'sales_team',
+  'sale',
+  'purchase',
+  'stock'
+
   //
 ]
 

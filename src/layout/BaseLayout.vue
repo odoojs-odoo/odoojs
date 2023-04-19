@@ -30,10 +30,10 @@
         @openChange="onOpenChange"
         mode="inline"
       >
-        <!-- <a-menu-item key="home">
+        <a-menu-item key="home">
           <HomeTwoTone />
           <span>首页</span>
-        </a-menu-item> -->
+        </a-menu-item>
         <!-- <a-menu-item key="error">
           <span>error</span>
         </a-menu-item> -->
@@ -103,8 +103,8 @@
           v-model:activeKey="activeKey"
           type="editable-card"
           hideAdd
-          @edit="onEdit"
-          @change="onChangeTabs"
+          @edit="onTabsEdit"
+          @change="onTabsChange"
           size="small"
         >
           <a-tab-pane
@@ -125,265 +125,100 @@
   </a-layout>
 </template>
 
-<script>
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  HomeTwoTone,
-  DownOutlined
-} from '@ant-design/icons-vue'
-
-import { defineComponent, ref, reactive, toRefs, onMounted, toRaw } from 'vue'
+<script setup>
+import { ref, onMounted, toRaw } from 'vue'
 import { useRouter } from 'vue-router'
 import Lang from '@/components/LangMenu.vue'
 import SubMenu from './SubMenu'
 import api from '@/odoorpc'
 
 import { useGlobalConfig } from '@/components/useApi/useGlobalConfig'
+import { useMenuController } from '@/components/useApi/useMenuController'
 
-function useMenuController() {
-  const collapsed = ref(false)
-  function onMenuCollaosed() {
-    collapsed.value = !collapsed.value
+function usePanesController() {
+  const panes = ref([{ title: '首页', key: 'home', closable: false }])
+  const activeKey = ref(panes.value[0].key)
+
+  // call by menu click
+  function setPanesByMenu(name, menu) {
+    const rawPanes = toRaw(panes.value)
+    const old = rawPanes.find(item => item.key === name)
+    if (old == undefined) {
+      const newItem = { title: menu.name, key: name }
+      panes.value.push(newItem)
+    }
+    activeKey.value = name
   }
 
-  return { collapsed, onMenuCollaosed }
+  function removePane(targetKey) {
+    const index = panes.value.findIndex(item => item.key === targetKey)
+    if (index > 0) {
+      const last = index - 1
+      const lastkey = panes.value[last].key
+      panes.value = panes.value.filter(item => item.key != targetKey)
+      if (activeKey.value === targetKey) {
+        activeKey.value = lastkey
+        return lastkey
+      }
+    }
+  }
+
+  return { panes, activeKey, setPanesByMenu, removePane }
 }
 
-export default defineComponent({
-  name: 'BaseLayout',
-  components: {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    // HomeTwoTone,
-    DownOutlined,
-    SubMenu,
-    Lang
-  },
-  setup() {
-    const router = useRouter()
-    const useDataConfig = useGlobalConfig()
-    const { mainTitle, menus_tree, menus_data, session_info } = useDataConfig
-    const { collapsed, onMenuCollaosed } = useMenuController()
-    const panes = ref([{ title: '首页', key: 'home', closable: false }])
-    const state = reactive({
-      selectedKeys: [''],
-      openKeys: ['']
-    })
+const router = useRouter()
 
-    onMounted(() => {
-      //
-      const currentK = sessionStorage.getItem('currentMenuK')
-      state.selectedKeys = [currentK]
-      // console.log('===== sessionStorage currentMenuK =====',[currentK], state.selectedKeys);
-      // console.log('===== openKeys =====',state.openKeys);
-      const openK = sessionStorage.getItem('menuOpenKey')
-      state.openKeys = [openK]
-      //
-      const name = router.currentRoute.value.query.menu
-      console.log(
-        '------=  currentRoute  =------',
-        router.currentRoute.value,
-        name
-      )
+// global config
+const useDataConfig = useGlobalConfig()
+const { mainTitle, menus_tree, session_info } = useDataConfig
 
-      if (name) {
-        const menu = menus_data.value[name]
-        const rawPanes = toRaw(panes.value)
-        // console.log('------=  panes.value  =------',rawPanes)
+// menu collaosed controle
+const collapsed = ref(false)
+function onMenuCollaosed() {
+  collapsed.value = !collapsed.value
+}
 
-        const old = rawPanes.find(item => item.key === name)
-        // console.log('------=  old panes  =------',old);
-        if (old == undefined) {
-          // console.log('-=-==-=-=---- old == undefined');
-          // panes.value = [...panes, { title: menu.name, key: name }]
-          const newItem = { title: menu.name, key: name }
-          panes.value.push(newItem)
-          // console.log('------= new panes.value  =------',panes.value);
-        }
-        activeKey.value = name
-      }
-    })
-    function onMenuClick(e) {
-      // console.log('----- click -----', e)
-      handleMenuClick({ state, router }, e.key)
+const useDataMenu = useMenuController({ router })
+const { selectedKeys, openKeys } = useDataMenu
+const { onMenuSelect, onOpenChange, setMenuByInit } = useDataMenu
+
+const useDataPanes = usePanesController()
+const { panes, activeKey, setPanesByMenu, removePane } = useDataPanes
+
+function onMenuClick(e) {
+  const menu = onMenuSelect(e.key)
+  if (menu) {
+    setPanesByMenu(e.key, menu)
+  }
+}
+
+function onTabsEdit(targetKey, action) {
+  if (action === 'remove') {
+    const lastkey = removePane(targetKey)
+    if (lastkey) {
+      onMenuSelect(lastkey)
     }
-    //左侧菜单只显示一个打开的
-    function onOpenChange(openKeys) {
-      // const menus = menus_data.value || {}
-      // console.log('==== menus =====', menus)
-      //
-      // console.log('==== openKeys =====', openKeys)
-      // if (openKeys.length !== 0) {
-      //   state.openKeys = [openKeys[1]]
-      //   // console.log('==== openKeys !=0 =====', toRaw(state.openKeys))
-      // } else {
-      //   state.openKeys = ['']
-      //   // console.log('==== openKeys =0 =====', toRaw(state.openKeys))
-      // }
-      // sessionStorage.setItem('menuOpenKey', state.openKeys)
-    }
+  }
+}
 
-    function onUserMenuClick(e) {
-      console.log('==== onMenuClick =====', e)
-    }
-    async function onLogout() {
-      // console.log('xxxxx, logout')
-      await api.web.logout()
-      this.$router.replace({ path: '/user/login' })
-    }
-    //
-    const activeKey = ref(panes.value[0].key)
+const onTabsChange = targetKey => {
+  onMenuSelect(targetKey)
+}
 
-    const onEdit = (targetKey, action) => {
-      console.log('===== edit ------', targetKey, action)
+function onUserMenuClick(e) {
+  console.log('==== onUserMenuClick =====', e)
+}
 
-      if (action === 'remove') {
-        const index = panes.value.findIndex(item => item.key === targetKey)
-        if (index > 0) {
-          const last = index - 1
-          const lastkey = panes.value[last].key
-          console.log('==== panes.value ====', panes.value)
-          panes.value = panes.value.filter(item => item.key != targetKey)
-          console.log('----- panes.value remove-----', panes.value)
-          if (activeKey.value === targetKey) {
-            handleMenuClick({ state, router }, lastkey)
-          }
-        }
-      }
-    }
-    //.
+async function onLogout() {
+  await api.web.logout()
+  this.$router.replace({ path: '/user/login' })
+}
 
-    const onChangeTabs = targetKey => {
-      console.log('------ changet tabs ----', targetKey)
-
-      handleMenuClick({ state, router }, targetKey)
-    }
-    //
-
-    const HOME_PATH = '/'
-
-    function handleMenuClick({ state, router }, name) {
-      // console.log(menus_tree_get(), menus_data_get())
-      // console.log('------ router ----', router)
-
-      const currentRoute = router.currentRoute
-
-      const no_web_menus = ['home', 'error']
-
-      if (no_web_menus.includes(name)) {
-        if (currentRoute.value.name === name) {
-          return
-        }
-        const path = `${HOME_PATH}${name}`
-        router.push({ path, query: { menu: name } })
-        return
-      }
-
-      const menu = menus_data.value[name] || {}
-      // console.log('---- layout menu ---', menu, [menu.id])
-      state.selectedKeys = [menu.id]
-      sessionStorage.setItem('currentMenuK', state.selectedKeys)
-      // console.log(
-      //   '===== sessionStorage setItem currentMenuK =====',
-      //   state.selectedKeys,
-      //   '=-=-=',
-      //   sessionStorage.getItem('currentMenuK')
-      // )
-      //
-      const menu_type = menu.type
-
-      if (menu_type === 'no-action') {
-        console.log('click no-action', name)
-        // const action = menu.action
-        // const path = ['', ...action.split('.')].join('/')
-        // const query = { menu: name }
-        // this.$router.push({ path, query })
-
-        return
-      }
-
-      const action_id = menu.action || name
-      // console.log('----- layout index action_id =====', action_id)
-
-      const action = api.env.action_info_get(action_id)
-      // console.log('-------- action ---------', action)
-
-      if (!action) {
-        // console.log('-------no- action ---------', action_id)
-        return
-      }
-
-      const is_action_new =
-        action.type === 'ir.actions.act_window' && action.target === 'new'
-
-      if (is_action_new) {
-        // console.log('----click window new ------', action_id)
-        return
-      }
-
-      const xml_id = action.xml_id
-      // console.log('-------- xml_id -------', xml_id)
-      const path = ['', 'web', ...xml_id.split('.')].join('/')
-      // console.log('-------- path ---------', path)
-
-      const query = { view_type: 'tree', menu: name }
-
-      const routeVal = currentRoute.value
-      // console.log('----routeVal ------', routeVal)
-
-      const is_me =
-        routeVal.path === path &&
-        routeVal.query.view_type === query.view_type &&
-        routeVal.query.menu === query.menu &&
-        Object.keys(routeVal.query).sort().toString() ==
-          Object.keys(query).sort().toString()
-
-      if (is_me) {
-        // console.log('----click me------', action_id)
-        return
-      }
-
-      // console.log('----goto ------', path, query)
-      router.push({ path, query })
-      // console.log('=========== path =========', path, '====', query)
-
-      // ====== tabs panes ======
-      // const name = router.currentRoute.value.query.menu
-      // console.log('------=  currentRoute  =------', name)
-
-      const rawPanes = toRaw(panes.value)
-      // console.log('------=  panes.value  =------', rawPanes)
-
-      const old = rawPanes.find(item => item.key === name)
-      // console.log('------=  old panes  =------', old);
-      if (old == undefined) {
-        // console.log('-=-==-=-=---- old == undefined');
-        // panes.value = [...panes, { title: menu.name, key: name }]
-        const newItem = { title: menu.name, key: name }
-        panes.value.push(newItem)
-        // console.log('------= new panes.value  =------', panes.value);
-      }
-      activeKey.value = name
-    }
-    return {
-      mainTitle,
-      menus_tree,
-      session_info,
-      collapsed,
-      onMenuCollaosed,
-
-      state,
-      ...toRefs(state),
-      panes,
-      activeKey,
-      onChangeTabs,
-      onEdit,
-      onMenuClick,
-      onOpenChange,
-      onUserMenuClick,
-      onLogout
-    }
+onMounted(() => {
+  const name = router.currentRoute.value.query.menu
+  if (name) {
+    const menu = setMenuByInit(name)
+    setPanesByMenu(name, menu)
   }
 })
 </script>
