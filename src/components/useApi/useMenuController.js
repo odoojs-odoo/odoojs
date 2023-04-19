@@ -1,4 +1,4 @@
-import { inject, ref, computed } from 'vue'
+import { inject, ref, computed, toRaw } from 'vue'
 import api from '@/odoorpc'
 
 import { menus_tree_get, menus_data_get } from '@/config/menu'
@@ -109,4 +109,35 @@ export function useMenuController({ router }) {
     onMenuSelect,
     onOpenChange
   }
+}
+
+export function usePanesController() {
+  const panes = ref([{ title: '首页', key: 'home', closable: false }])
+  const activeKey = ref(panes.value[0].key)
+
+  // call by menu click
+  function setPanesByMenu(name, menu) {
+    const rawPanes = toRaw(panes.value)
+    const old = rawPanes.find(item => item.key === name)
+    if (old == undefined) {
+      const newItem = { title: menu.name, key: name }
+      panes.value.push(newItem)
+    }
+    activeKey.value = name
+  }
+
+  function removePane(targetKey) {
+    const index = panes.value.findIndex(item => item.key === targetKey)
+    if (index > 0) {
+      const last = index - 1
+      const lastkey = panes.value[last].key
+      panes.value = panes.value.filter(item => item.key != targetKey)
+      if (activeKey.value === targetKey) {
+        activeKey.value = lastkey
+        return lastkey
+      }
+    }
+  }
+
+  return { panes, activeKey, setPanesByMenu, removePane }
 }

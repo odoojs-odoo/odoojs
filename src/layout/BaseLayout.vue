@@ -126,45 +126,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted, toRaw } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import Lang from '@/components/LangMenu.vue'
 import SubMenu from './SubMenu'
-import api from '@/odoorpc'
 
 import { useGlobalConfig } from '@/components/useApi/useGlobalConfig'
 import { useMenuController } from '@/components/useApi/useMenuController'
+import { usePanesController } from '@/components/useApi/useMenuController'
 
-function usePanesController() {
-  const panes = ref([{ title: '首页', key: 'home', closable: false }])
-  const activeKey = ref(panes.value[0].key)
-
-  // call by menu click
-  function setPanesByMenu(name, menu) {
-    const rawPanes = toRaw(panes.value)
-    const old = rawPanes.find(item => item.key === name)
-    if (old == undefined) {
-      const newItem = { title: menu.name, key: name }
-      panes.value.push(newItem)
-    }
-    activeKey.value = name
-  }
-
-  function removePane(targetKey) {
-    const index = panes.value.findIndex(item => item.key === targetKey)
-    if (index > 0) {
-      const last = index - 1
-      const lastkey = panes.value[last].key
-      panes.value = panes.value.filter(item => item.key != targetKey)
-      if (activeKey.value === targetKey) {
-        activeKey.value = lastkey
-        return lastkey
-      }
-    }
-  }
-
-  return { panes, activeKey, setPanesByMenu, removePane }
-}
+import api from '@/odoorpc'
 
 const router = useRouter()
 
@@ -172,19 +143,31 @@ const router = useRouter()
 const useDataConfig = useGlobalConfig()
 const { mainTitle, menus_tree, session_info } = useDataConfig
 
-// menu collaosed controle
+// menu collaosed controlle
 const collapsed = ref(false)
 function onMenuCollaosed() {
   collapsed.value = !collapsed.value
 }
 
+// menu controlle
 const useDataMenu = useMenuController({ router })
 const { selectedKeys, openKeys } = useDataMenu
 const { onMenuSelect, onOpenChange, setMenuByInit } = useDataMenu
 
+// panes controlle
 const useDataPanes = usePanesController()
 const { panes, activeKey, setPanesByMenu, removePane } = useDataPanes
 
+// reload page. init menu and panes
+onMounted(() => {
+  const name = router.currentRoute.value.query.menu
+  if (name) {
+    const menu = setMenuByInit(name)
+    setPanesByMenu(name, menu)
+  }
+})
+
+// menu click
 function onMenuClick(e) {
   const menu = onMenuSelect(e.key)
   if (menu) {
@@ -192,6 +175,7 @@ function onMenuClick(e) {
   }
 }
 
+// panes change
 function onTabsEdit(targetKey, action) {
   if (action === 'remove') {
     const lastkey = removePane(targetKey)
@@ -205,6 +189,8 @@ const onTabsChange = targetKey => {
   onMenuSelect(targetKey)
 }
 
+// user info downdrop
+
 function onUserMenuClick(e) {
   console.log('==== onUserMenuClick =====', e)
 }
@@ -213,14 +199,6 @@ async function onLogout() {
   await api.web.logout()
   this.$router.replace({ path: '/user/login' })
 }
-
-onMounted(() => {
-  const name = router.currentRoute.value.query.menu
-  if (name) {
-    const menu = setMenuByInit(name)
-    setPanesByMenu(name, menu)
-  }
-})
 </script>
 
 <style scoped>

@@ -422,6 +422,7 @@ class Export extends FileRequest {
 
   static async xlsx(data) {
     const url = '/web/export/xlsx'
+    // const url = '/web/export/vwxlsx'
     return await this._base(url, data)
   }
 
