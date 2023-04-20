@@ -5,6 +5,21 @@ export default {
     name: 'Sale',
     sequence: 50,
     children: {
+      menu_sale_setting: {
+        name: 'Config',
+        sequence: 1,
+        children: {
+          menu_sales_team_crm_tag_action: {
+            name: 'Tags',
+            action: 'sales_team.sales_team_crm_tag_action'
+          },
+          menu_crm_team_action_config: {
+            name: 'Sales Teams',
+            action: 'sales_team.crm_team_action_config'
+          }
+        }
+      },
+
       menu_sale_master: {
         name: 'Master',
         children: {

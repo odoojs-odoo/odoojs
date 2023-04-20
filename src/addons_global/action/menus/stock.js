@@ -5,6 +5,15 @@ export default {
     name: 'Inventory',
     sequence: 60,
     children: {
+      menu_stock_setting: {
+        name: 'Config',
+        children: {
+          menu_action_picking_type_list: {
+            name: 'Operations Types',
+            action: 'stock.action_picking_type_list'
+          }
+        }
+      },
       menu_stock_master: {
         name: 'Master',
         children: {

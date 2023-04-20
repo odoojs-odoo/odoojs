@@ -2,6 +2,13 @@ export default {
   menu_sale: {
     name: '销售管理',
     children: {
+      menu_sale_setting: {
+        name: '销售配置',
+        children: {
+          menu_sales_team_crm_tag_action: { name: '销售标签' },
+          menu_crm_team_action_config: { name: '销售团队' }
+        }
+      },
       menu_sale_master: {
         name: '主数据',
         children: {

@@ -3,6 +3,10 @@ export default {
     name: '采购管理',
     sequence: 50,
     children: {
+      menu_purchase_setting: {
+        name: '采购配置',
+        children: {}
+      },
       menu_sale_master: {
         name: 'Master',
         children: {}

@@ -1,8 +1,6 @@
 import { inject, computed } from 'vue'
 import api from '@/odoorpc'
 
-import { menus_tree_get, menus_data_get } from '@/config/menu'
-
 export function useGlobalConfig() {
   const lang = inject('lang')
 
@@ -27,11 +25,6 @@ export function useGlobalConfig() {
     return global_config.value.view.actions
   })
 
-  // 将语言 用在计算函数中, 使语言变化 重新读取菜单
-  // 实际上 接口函数中 会自行获取语言
-  const menus_tree = computed(() => menus_tree_get(lang.value))
-  const menus_data = computed(() => menus_data_get(lang.value))
-
   const session_info = computed(() => {
     return api.web.session.session_info || {}
   })
@@ -41,8 +34,6 @@ export function useGlobalConfig() {
     global_config,
     viewActions,
     mainTitle,
-    menus_tree,
-    menus_data,
     session_info
   }
 }

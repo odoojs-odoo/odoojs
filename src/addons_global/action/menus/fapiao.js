@@ -6,7 +6,7 @@ export default {
     sequence: 100,
     children: {
       menu_fapiao_setting: {
-        name: 'Fapaio Setting',
+        name: 'Setting',
         children: {
           menu_action_tax: {
             action: 'fapiao_base.action_tax',
@@ -43,7 +43,7 @@ export default {
         }
       },
       menu_fapiao_master: {
-        name: 'Fapaio Master',
+        name: 'Master',
         children: {
           menu_action_partner: {
             action: 'fapiao_base.action_partner',

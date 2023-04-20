@@ -132,8 +132,8 @@ import Lang from '@/components/LangMenu.vue'
 import SubMenu from './SubMenu'
 
 import { useGlobalConfig } from '@/components/useApi/useGlobalConfig'
-import { useMenuController } from '@/components/useApi/useMenuController'
-import { usePanesController } from '@/components/useApi/useMenuController'
+import { useMenuController } from '@/layout/useMenuController'
+import { usePanesController } from '@/layout/useMenuController'
 
 import api from '@/odoorpc'
 
@@ -141,7 +141,7 @@ const router = useRouter()
 
 // global config
 const useDataConfig = useGlobalConfig()
-const { mainTitle, menus_tree, session_info } = useDataConfig
+const { mainTitle, session_info } = useDataConfig
 
 // menu collaosed controlle
 const collapsed = ref(false)
@@ -151,7 +151,7 @@ function onMenuCollaosed() {
 
 // menu controlle
 const useDataMenu = useMenuController({ router })
-const { selectedKeys, openKeys } = useDataMenu
+const { selectedKeys, openKeys, menus_tree } = useDataMenu
 const { onMenuSelect, onOpenChange, setMenuByInit } = useDataMenu
 
 // panes controlle
@@ -197,7 +197,7 @@ function onUserMenuClick(e) {
 
 async function onLogout() {
   await api.web.logout()
-  this.$router.replace({ path: '/user/login' })
+  router.replace({ path: '/user/login' })
 }
 </script>
 

@@ -5,6 +5,20 @@ export default {
     name: 'Purchase',
     sequence: 50,
     children: {
+      menu_purchase_setting: {
+        name: 'Config'
+
+        // children: {
+        //   //   sales_team_crm_tag_action: {
+        //   //     name: 'Tags',
+        //   //     action: 'sales_team.sales_team_crm_tag_action'
+        //   //   },
+        //   //   crm_team_action_config: {
+        //   //     name: 'Sales Teams',
+        //   //     action: 'sales_team.crm_team_action_config'
+        //   //   }
+        // }
+      },
       menu_sale_master: {
         name: 'Master'
         // children: {

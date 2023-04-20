@@ -11,7 +11,7 @@ export function useMenuController({ router }) {
 
   // 将语言 用在计算函数中, 使语言变化 重新读取菜单
   // 实际上 接口函数中 会自行获取语言
-  //   const menus_tree = computed(() => menus_tree_get(lang.value))
+  const menus_tree = computed(() => menus_tree_get(lang.value))
   const menus_data = computed(() => menus_data_get(lang.value))
 
   const HOME_PATH = '/'
@@ -105,6 +105,7 @@ export function useMenuController({ router }) {
   return {
     selectedKeys,
     openKeys,
+    menus_tree,
     setMenuByInit,
     onMenuSelect,
     onOpenChange
