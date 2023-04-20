@@ -7,7 +7,8 @@ export default {
       sheet: {
         _group_logistics: {
           _attr: {
-            name: 'logistics'
+            name: 'logistics',
+            position: 'after'
           },
           _group: {
             _attr: {
@@ -31,7 +32,8 @@ export default {
       sheet: {
         _group_account_property: {
           _attr: {
-            name: 'account_property'
+            name: 'account_property',
+            position: 'inside'
           },
           _group_account_stock_property: {
             _attr: {

@@ -13,7 +13,8 @@ export default {
         },
         _group: {
           _attr: {
-            string: 'Export Settings'
+            string: 'Export Settings',
+            states: 'choose'
           },
           lang: {},
           format: {},
@@ -23,6 +24,9 @@ export default {
           }
         },
         _div: {
+          _attr: {
+            states: 'get'
+          },
           _h2: 'Export Complete',
           _p: {
             _attr: {
@@ -32,28 +36,28 @@ export default {
               readonly: '1'
             }
           },
-          _p_804: {
+          _p_156: {
             _attr: {
               text: 'This file was generated using the universal'
             },
             _strong: 'Unicode/UTF-8'
           },
-          _p_300: {
+          _p_820: {
             _attr: {
               text: 'The next step depends on the file format:'
             },
             _ul: {
               _li: 'CSV format: you may edit it directly with your favorite spreadsheet software,\n                                the rightmost column (value) contains the translations',
-              _li_877: {
+              _li_678: {
                 _attr: {
                   text: 'PO(T) format: you should edit it with a PO editor such as'
                 },
                 _a: 'POEdit'
               },
-              _li_785: 'TGZ format: bundles multiple PO(T) files as a single archive'
+              _li_393: 'TGZ format: bundles multiple PO(T) files as a single archive'
             }
           },
-          _p_733: {
+          _p_131: {
             _attr: {
               text: 'For more details about translating Odoo in your language, please refer to the'
             },
@@ -61,6 +65,9 @@ export default {
           }
         },
         _footer: {
+          _attr: {
+            states: 'choose'
+          },
           _button_act_getfile: {
             _attr: {
               name: 'act_getfile',
@@ -77,7 +84,10 @@ export default {
             }
           }
         },
-        _footer_448: {
+        _footer_627: {
+          _attr: {
+            states: 'get'
+          },
           _button: {
             _attr: {
               type: 'object',
@@ -95,6 +105,7 @@ export default {
     name: 'Export Translation',
     type: 'ir.actions.act_window',
     res_model: 'base.language.export',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

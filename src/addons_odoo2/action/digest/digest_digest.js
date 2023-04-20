@@ -28,43 +28,44 @@ export default {
     model: 'digest.digest',
     type: 'form',
     arch: {
+      header: {
+        _button_action_send_manual: {
+          _attr: {
+            name: 'action_send_manual',
+            type: 'object',
+            string: 'Send Now',
+            groups: 'base.group_system',
+            invisible: [['state', '=', 'deactivated']],
+            class: 'oe_highlight'
+          }
+        },
+        _button_action_deactivate: {
+          _attr: {
+            name: 'action_deactivate',
+            type: 'object',
+            string: 'Deactivate',
+            groups: 'base.group_system',
+            invisible: [['state', '=', 'deactivated']]
+          }
+        },
+        _button_action_activate: {
+          _attr: {
+            name: 'action_activate',
+            type: 'object',
+            string: 'Activate',
+            groups: 'base.group_system',
+            invisible: [['state', '=', 'activated']],
+            class: 'oe_highlight'
+          }
+        },
+        state: {
+          widget: 'statusbar',
+          statusbar_visible: '0'
+        }
+      },
       sheet: {
         is_subscribed: {
           invisible: '1'
-        },
-        _header: {
-          _button_action_send_manual: {
-            _attr: {
-              name: 'action_send_manual',
-              type: 'object',
-              string: 'Send Now',
-              groups: 'base.group_system',
-              invisible: [['state', '=', 'deactivated']],
-              class: 'oe_highlight'
-            }
-          },
-          _button_action_deactivate: {
-            _attr: {
-              name: 'action_deactivate',
-              type: 'object',
-              string: 'Deactivate',
-              groups: 'base.group_system',
-              invisible: [['state', '=', 'deactivated']]
-            }
-          },
-          _button_action_activate: {
-            _attr: {
-              name: 'action_activate',
-              type: 'object',
-              string: 'Activate',
-              groups: 'base.group_system',
-              invisible: [['state', '=', 'activated']],
-              class: 'oe_highlight'
-            }
-          },
-          state: {
-            widget: 'statusbar'
-          }
         },
         _div_title: {
           _attr: {
@@ -91,7 +92,7 @@ export default {
               no_create: true
             }
           },
-          _group_403: {
+          _group_275: {
             next_run_date: {
               groups: 'base.group_system'
             }
@@ -216,8 +217,8 @@ export default {
   digest_digest_action: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Digest Emails',
-    search_view_id: 'digest_digest_view_search',
     res_model: 'digest.digest',
+    search_view_id: 'digest_digest_view_search',
     context: {
       search_default_filter_activated: 1
     },

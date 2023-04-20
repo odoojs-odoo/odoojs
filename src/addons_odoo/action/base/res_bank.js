@@ -80,7 +80,7 @@ export default {
   },
 
   action_res_bank_form: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Banks',
     type: 'ir.actions.act_window',
     res_model: 'res.bank',

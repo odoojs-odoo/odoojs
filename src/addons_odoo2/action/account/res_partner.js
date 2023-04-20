@@ -7,7 +7,8 @@ export default {
       sheet: {
         _div_button_box: {
           _attr: {
-            name: 'button_box'
+            name: 'button_box',
+            position: 'inside'
           },
           _button_action_view_partner_invoices: {
             _attr: {
@@ -36,7 +37,7 @@ export default {
                   currency_field: 'currency_id'
                 }
               },
-              _span_956: {
+              _span_357: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Invoiced'
@@ -47,7 +48,8 @@ export default {
         },
         _page_internal_notes: {
           _attr: {
-            name: 'internal_notes'
+            name: 'internal_notes',
+            position: 'inside'
           },
           _group: {
             _attr: {
@@ -109,7 +111,8 @@ export default {
         },
         _page_sales_purchases: {
           _attr: {
-            name: 'sales_purchases'
+            name: 'sales_purchases',
+            position: 'after'
           },
           _page_accounting: {
             _attr: {
@@ -227,7 +230,7 @@ export default {
             }
           }
         },
-        _xpath_136: {
+        _xpath_848: {
           _attr: {
             expr: "//group[@name='misc']",
             position: 'before'
@@ -246,7 +249,8 @@ export default {
         },
         _group_sale: {
           _attr: {
-            name: 'sale'
+            name: 'sale',
+            position: 'inside'
           },
           property_payment_term_id: {
             string: 'Payment Terms',
@@ -257,7 +261,8 @@ export default {
         },
         _group_purchase: {
           _attr: {
-            name: 'purchase'
+            name: 'purchase',
+            position: 'inside'
           },
           property_supplier_payment_term_id: {
             string: 'Payment Terms',
@@ -306,6 +311,7 @@ export default {
     name: 'Customers',
     type: 'ir.actions.act_window',
     res_model: 'res.partner',
+    search_view_id: 'tooooooodoooooo',
     context: {
       search_default_customer: 1,
       res_partner_search_mode: 'customer',
@@ -323,6 +329,7 @@ export default {
     name: 'Vendors',
     type: 'ir.actions.act_window',
     res_model: 'res.partner',
+    search_view_id: 'tooooooodoooooo',
     context: {
       search_default_supplier: 1,
       res_partner_search_mode: 'supplier',

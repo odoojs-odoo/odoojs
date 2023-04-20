@@ -3,6 +3,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Send email',
     res_model: 'mail.compose.message',
+    search_view_id: 'tooooooodoooooo',
     context: "{                 'default_composition_mode': 'mass_mail',                 'default_partner_to': '{{ object.id or \'\' }}',                 'default_use_template': False,                 'default_reply_to_force_new': True,             }",
     views: {
       tree: '=======todo==========',
@@ -149,7 +150,7 @@ export default {
               }
             }
           },
-          _page_191: {
+          _page_804: {
             _attr: {
               string: 'Settings'
             },
@@ -180,7 +181,7 @@ export default {
               class: 'btn-primary o_mail_send'
             }
           },
-          _button_action_send_mail_821: {
+          _button_action_send_mail_970: {
             _attr: {
               name: 'action_send_mail',
               type: 'object',
@@ -201,6 +202,7 @@ export default {
               type: 'object',
               string: 'Save as new template',
               icon: 'fa-lg fa-save',
+              help: 'Save as a new template',
               invisible: [['can_edit_body', '=', false]],
               class: 'float-end btn-secondary'
             }
@@ -215,6 +217,7 @@ export default {
     name: 'Compose Email',
     type: 'ir.actions.act_window',
     res_model: 'mail.compose.message',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

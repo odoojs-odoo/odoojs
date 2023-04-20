@@ -6,6 +6,7 @@ export default {
     arch: {
       sheet: {
         name: {
+          position: 'replace',
           __todo__replace: {
             name: {
               string: 'Product',
@@ -16,6 +17,7 @@ export default {
           }
         },
         attribute_line_ids: {
+          position: 'replace',
           __todo__replace: {
             product_template_attribute_value_ids: {
               groups: 'product.group_product_variant'
@@ -33,8 +35,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Product Variants',
     type: 'ir.actions.act_window',
-    search_view_id: 'product_search_form_view',
     res_model: 'product.product',
+    search_view_id: 'product_search_form_view',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -46,16 +48,16 @@ export default {
     model: 'product.product',
     type: 'form',
     arch: {
-      sheet: {
-        _header: {
-          _button_action_open_label_layout: {
-            _attr: {
-              name: 'action_open_label_layout',
-              type: 'object',
-              string: 'Print Labels'
-            }
+      header: {
+        _button_action_open_label_layout: {
+          _attr: {
+            name: 'action_open_label_layout',
+            type: 'object',
+            string: 'Print Labels'
           }
-        },
+        }
+      },
+      sheet: {
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -153,7 +155,7 @@ export default {
             _label_standard_price: {
               for: 'standard_price'
             },
-            _div_517: {
+            _div_369: {
               _attr: {
                 class: 'o_row'
               },
@@ -171,7 +173,7 @@ export default {
             }
           }
         },
-        _group_874: {
+        _group_129: {
           _group_weight: {
             _attr: {
               name: 'weight',
@@ -195,7 +197,7 @@ export default {
             _label_weight: {
               for: 'weight'
             },
-            _div_686: {
+            _div_874: {
               _attr: {
                 class: 'o_row'
               },
@@ -226,7 +228,7 @@ export default {
             }
           }
         },
-        _group_357: {
+        _group_425: {
           _group_packaging: {
             _attr: {
               name: 'packaging',
@@ -248,8 +250,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Product Variants',
     type: 'ir.actions.act_window',
-    search_view_id: 'product_search_form_view',
     res_model: 'product.product',
+    search_view_id: 'product_search_form_view',
     context: {
       todo_ctx: "{'search_default_product_tmpl_id': [active_id], 'default_product_tmpl_id': active_id, 'create': False}"
     },
@@ -344,16 +346,21 @@ export default {
     arch: {
       sheet: {
         _form: {
+          _attr: {
+            position: 'attributes'
+          },
           _attribute_string: {
             _attr: {
               name: 'string',
-              text: 'Product Variant'
+              text: 'Product Variant',
+              string: 'Product Variant'
             }
           },
           _attribute_duplicate: {
             _attr: {
               name: 'duplicate',
-              text: 'false'
+              text: 'false',
+              duplicate: 'false'
             }
           }
         },
@@ -365,7 +372,7 @@ export default {
           default_code: {},
           barcode: {}
         },
-        _xpath_620: {
+        _xpath_759: {
           _attr: {
             expr: "//field[@name='priority']",
             position: 'attributes'
@@ -373,15 +380,17 @@ export default {
           _attribute_readonly: {
             _attr: {
               name: 'readonly',
-              text: '1'
+              text: '1',
+              readonly: '1'
             }
           }
         },
         list_price: {
+          position: 'attributes',
           readonly: [['product_variant_count', '>', 1]],
           invisible: '1'
         },
-        _xpath_908: {
+        _xpath_809: {
           _attr: {
             expr: "//label[@for='list_price']",
             position: 'replace'
@@ -390,8 +399,9 @@ export default {
             for: 'lst_price'
           }
         },
-        _field_list_price_464: {
+        _field_list_price_112: {
           list_price: {
+            position: 'after',
             __todo__after: {
               lst_price: {
                 widget: 'monetary',
@@ -404,16 +414,19 @@ export default {
         },
         _group_packaging: {
           _attr: {
-            name: 'packaging'
+            name: 'packaging',
+            position: 'attributes'
           },
           _attribute_attrs: {
             _attr: {
               name: 'attrs',
-              text: "{'invisible': 0}"
+              text: "{'invisible': 0}",
+              attrs: "{'invisible': 0}"
             }
           }
         },
         name: {
+          position: 'after',
           __todo__after: {
             product_tmpl_id: {
               invisible: '1',
@@ -423,7 +436,7 @@ export default {
             }
           }
         },
-        _xpath_607: {
+        _xpath_714: {
           _attr: {
             expr: "//div[hasclass('oe_title')]",
             position: 'inside'
@@ -435,10 +448,12 @@ export default {
           }
         },
         product_tag_ids: {
+          position: 'attributes',
           __todo__options: "{'no_open': true}"
         },
-        _field_product_tag_ids_434: {
+        _field_product_tag_ids_913: {
           product_tag_ids: {
+            position: 'after',
             __todo__after: {
               additional_product_tag_ids: {
                 color_field: 'color',
@@ -469,8 +484,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Product Variants',
     type: 'ir.actions.act_window',
-    search_view_id: 'product_search_form_view',
     res_model: 'product.product',
+    search_view_id: 'product_search_form_view',
     context: {
       search_default_filter_to_sell: 1
     },

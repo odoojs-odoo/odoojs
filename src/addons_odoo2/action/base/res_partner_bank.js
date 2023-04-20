@@ -29,7 +29,7 @@ export default {
             partner_id: {},
             acc_holder_name: {}
           },
-          _group_294: {
+          _group_144: {
             bank_id: {},
             currency_id: {
               groups: 'base.group_multi_currency',
@@ -94,6 +94,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Bank Accounts',
     res_model: 'res.partner.bank',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

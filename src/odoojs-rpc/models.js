@@ -240,6 +240,7 @@ class BaseModel extends MetaModel {
   }
 
   static async name_get(ids) {
+    console.log('name_get', ids)
     return this.execute('name_get', ids)
   }
 

@@ -163,7 +163,7 @@ export default {
   },
 
   res_lang_act_window: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Languages',
     type: 'ir.actions.act_window',
     res_model: 'res.lang',

@@ -7,7 +7,8 @@ export default {
       sheet: {
         _div_options_active: {
           _attr: {
-            name: 'options_active'
+            name: 'options_active',
+            position: 'inside'
           },
           _div: {
             _attr: {
@@ -20,6 +21,7 @@ export default {
           }
         },
         company_id: {
+          position: 'after',
           __todo__after: {
             _label_invoiced_target: {
               for: 'invoiced_target'
@@ -60,7 +62,7 @@ export default {
           use_quotations: {},
           invoiced_target: {}
         },
-        _xpath_962: {
+        _xpath_169: {
           _attr: {
             expr: "//t[@name='second_options']",
             position: 'after'
@@ -86,10 +88,10 @@ export default {
                   class: 'me-1'
                 },
                 _t: 'Quotation',
-                _t_921: 'Quotations'
+                _t_119: 'Quotations'
               }
             },
-            _div_487: {
+            _div_404: {
               _attr: {
                 class: 'col-auto text-truncate'
               },
@@ -116,12 +118,12 @@ export default {
                   class: 'me-1'
                 },
                 _t: 'Order to Invoice',
-                _t_504: 'Orders to Invoice'
+                _t_135: 'Orders to Invoice'
               }
             }
           }
         },
-        _xpath_415: {
+        _xpath_740: {
           _attr: {
             expr: "//div[hasclass('o_kanban_primary_bottom')]",
             position: 'after'
@@ -141,7 +143,7 @@ export default {
             }
           }
         },
-        _xpath_104: {
+        _xpath_512: {
           _attr: {
             expr: "//div[hasclass('o_kanban_manage_view')]",
             position: 'inside'
@@ -156,7 +158,7 @@ export default {
               }
             }
           },
-          _div_822: {
+          _div_121: {
             _a_action_orders_salesteams: {
               _attr: {
                 name: '%(action_orders_salesteams)d',
@@ -165,7 +167,7 @@ export default {
               }
             }
           },
-          _div_101: {
+          _div_972: {
             _attr: {
               groups: 'account.group_account_invoice'
             },
@@ -178,7 +180,7 @@ export default {
             }
           }
         },
-        _xpath_828: {
+        _xpath_486: {
           _attr: {
             expr: "//div[hasclass('o_kanban_manage_new')]",
             position: 'inside'
@@ -195,7 +197,8 @@ export default {
         },
         _div_o_team_kanban_report_separator: {
           _attr: {
-            name: 'o_team_kanban_report_separator'
+            name: 'o_team_kanban_report_separator',
+            position: 'before'
           },
           _div: {
             _a_action_order_report_quotation_salesteam: {

@@ -28,7 +28,7 @@ export default {
             name: {},
             allow_new_product: {}
           },
-          _group_344: {
+          _group_537: {
             _label_max_weight: {
               for: 'max_weight'
             },
@@ -134,6 +134,7 @@ export default {
     name: 'Storage Categories',
     type: 'ir.actions.act_window',
     res_model: 'stock.storage.category',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'stock_storage_category_tree',
       form: '=======todo=========='

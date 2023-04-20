@@ -53,8 +53,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Industries',
     type: 'ir.actions.act_window',
-    search_view_id: 'res_partner_industry_view_search',
     res_model: 'res.partner.industry',
+    search_view_id: 'res_partner_industry_view_search',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

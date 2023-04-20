@@ -100,12 +100,13 @@ export default {
           },
           _attribute_name: {
             _attr: {
-              name: 'name',
+              name: 'Product Template',
               text: 'Product Template'
             }
           }
         },
         categ_id: {
+          position: 'after',
           __todo__after: {
             default_code: {
               invisible: [['product_variant_count', '>', 1]]
@@ -117,7 +118,8 @@ export default {
         },
         _div_button_box: {
           _attr: {
-            name: 'button_box'
+            name: 'button_box',
+            position: 'inside'
           },
           _button_product__product_variant_action: {
             _attr: {
@@ -215,8 +217,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Products',
     type: 'ir.actions.act_window',
-    search_view_id: 'product.product_template_search_view',
     res_model: 'product.template',
+    search_view_id: 'product.product_template_search_view',
     context: {
       search_default_filter_to_sell: 1
     },
@@ -237,17 +239,17 @@ export default {
     model: 'product.template',
     type: 'form',
     arch: {
-      sheet: {
-        _header: {
-          _button_action_open_label_layout: {
-            _attr: {
-              name: 'action_open_label_layout',
-              type: 'object',
-              string: 'Print Labels',
-              invisible: [['detailed_type', '==', 'service']]
-            }
+      header: {
+        _button_action_open_label_layout: {
+          _attr: {
+            name: 'action_open_label_layout',
+            type: 'object',
+            string: 'Print Labels',
+            invisible: [['detailed_type', '==', 'service']]
           }
-        },
+        }
+      },
+      sheet: {
         product_variant_count: {
           invisible: '1'
         },
@@ -286,13 +288,13 @@ export default {
                 },
                 pricelist_item_count: {}
               },
-              _span_263: {
+              _span_137: {
                 _attr: {
                   invisible: [['pricelist_item_count', '=', 1]],
                   text: 'Extra Prices'
                 }
               },
-              _span_456: {
+              _span_998: {
                 _attr: {
                   invisible: [['pricelist_item_count', '!=', 1]],
                   text: 'Extra Price'
@@ -355,7 +357,7 @@ export default {
               for: 'sale_ok'
             }
           },
-          _span_313: {
+          _span_916: {
             _attr: {
               class: 'd-inline-block'
             },
@@ -457,7 +459,7 @@ export default {
                 }
               }
             },
-            _group_475: {
+            _group_993: {
               _attr: {
                 string: 'Internal Notes'
               },
@@ -614,7 +616,7 @@ export default {
           domain: [['type', 'in', ['consu', 'product']]]
         }
       },
-      _separator_971: {},
+      _separator_476: {},
       _filter_filter_to_sell: {
         _attr: {
           name: 'filter_to_sell',
@@ -629,7 +631,7 @@ export default {
           domain: [['purchase_ok', '=', true]]
         }
       },
-      _separator_452: {},
+      _separator_647: {},
       attribute_line_ids: {
         string: 'Attributes',
         groups: 'product.group_product_variant'
@@ -638,6 +640,7 @@ export default {
         _attr: {
           name: 'activities_overdue',
           string: 'Late Activities',
+          help: 'Show all records which has next action date is before today',
           invisible: '1',
           domain: {
             todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]"
@@ -664,7 +667,7 @@ export default {
           }
         }
       },
-      _separator_252: {},
+      _separator_450: {},
       _filter_favorites: {
         _attr: {
           name: 'favorites',
@@ -672,7 +675,7 @@ export default {
           domain: [['priority', '=', '1']]
         }
       },
-      _separator_820: {},
+      _separator_668: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',
@@ -680,7 +683,7 @@ export default {
           domain: [['activity_exception_decoration', '!=', false]]
         }
       },
-      _separator_722: {},
+      _separator_457: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -719,6 +722,7 @@ export default {
     name: 'Products',
     type: 'ir.actions.act_window',
     res_model: 'product.template',
+    search_view_id: 'tooooooodoooooo',
     context: {},
     views: {
       tree: '=======todo==========',

@@ -73,7 +73,7 @@ export default {
   },
 
   action_tax_form: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '税',
     type: 'ir.actions.act_window',
     res_model: 'account.tax',
@@ -188,7 +188,7 @@ export default {
   },
 
   action_tax_group: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '税组',
     type: 'ir.actions.act_window',
     res_model: 'account.tax.group',

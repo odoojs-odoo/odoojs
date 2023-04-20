@@ -62,6 +62,7 @@ export default {
     name: 'Fed. States',
     type: 'ir.actions.act_window',
     res_model: 'res.country.state',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'view_country_state_tree',
       form: '=======todo=========='

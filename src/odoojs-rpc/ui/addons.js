@@ -502,7 +502,7 @@ export class Addons {
         const menus = load_menu(module_name, one)
         // console.log('menus,', menus)
         acc = { ...acc, ...menus }
-      } else if (one._odoo_model === 'ir.actions') {
+      } else if (one._odoo_model === 'ir.actions.act_window') {
         const one2 = load_action(module_name, one)
         acc = { ...acc, [one.xml_id]: one2 }
       } else if (one._odoo_model === 'ir.ui.view') {
@@ -535,7 +535,7 @@ export class Addons {
     }
 
     const menus = filter_fn(res, 'ir.ui.menu')
-    const actions = filter_fn(res, 'ir.actions')
+    const actions = filter_fn(res, 'ir.actions.act_window')
     const views_to_merge = filter_fn(res, 'ir.ui.view')
     const views = merge_views(views_to_merge)
     // test(views_to_merge)

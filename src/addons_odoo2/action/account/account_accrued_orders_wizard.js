@@ -26,7 +26,7 @@ export default {
               invisible: '1'
             }
           },
-          _group_960: {
+          _group_930: {
             date: {},
             reversal_date: {}
           }

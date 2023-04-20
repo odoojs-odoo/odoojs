@@ -29,7 +29,7 @@ export default {
             class: 'oe_inline'
           }
         },
-        _p_442: 'Once done, press continue.'
+        _p_657: 'Once done, press continue.'
       }
     }
   }

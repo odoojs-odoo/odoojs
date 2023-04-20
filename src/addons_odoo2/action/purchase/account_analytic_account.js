@@ -7,7 +7,8 @@ export default {
       sheet: {
         _div_button_box: {
           _attr: {
-            name: 'button_box'
+            name: 'button_box',
+            position: 'inside'
           },
           _button_action_view_purchase_orders: {
             _attr: {

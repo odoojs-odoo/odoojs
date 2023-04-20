@@ -54,7 +54,7 @@ export default {
   },
 
   action_product: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '开票商品',
     type: 'ir.actions.act_window',
     res_model: 'fp.product',

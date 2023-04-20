@@ -46,13 +46,13 @@ export default {
               partner_id: {},
               partner_category_id: {}
             },
-            _group_182: {
+            _group_662: {
               company_id: {
                 groups: 'base.group_multi_company'
               }
             }
           },
-          _group_120: {
+          _group_700: {
             _attr: {
               string: 'Analytic distribution to apply'
             },
@@ -70,6 +70,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Analytic Distribution Models',
     res_model: 'account.analytic.distribution.model',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

@@ -85,8 +85,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'User-defined Defaults',
     type: 'ir.actions.act_window',
-    search_view_id: 'ir_default_search_view',
     res_model: 'ir.default',
+    search_view_id: 'ir_default_search_view',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

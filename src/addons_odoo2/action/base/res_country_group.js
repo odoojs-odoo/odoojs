@@ -49,6 +49,7 @@ export default {
     name: 'Country Group',
     type: 'ir.actions.act_window',
     res_model: 'res.country.group',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

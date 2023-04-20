@@ -46,7 +46,7 @@ export default {
             }
           }
         },
-        _group_734: {
+        _group_401: {
           _attr: {
             invisible: [['num_journals_without_account', '=', 0]]
           },
@@ -55,7 +55,7 @@ export default {
               no_create: true
             }
           },
-          _group_768: {
+          _group_535: {
             _span: {
               _attr: {
                 class: 'text-muted',

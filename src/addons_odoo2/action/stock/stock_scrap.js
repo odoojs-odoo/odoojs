@@ -64,23 +64,25 @@ export default {
     model: 'stock.scrap',
     type: 'form',
     arch: {
-      sheet: {
-        _header: {
-          _button_action_validate: {
-            _attr: {
-              name: 'action_validate',
-              type: 'object',
-              string: 'Validate',
-              context: {
-                not_unlink_on_discard: true
-              },
-              class: 'oe_highlight'
-            }
-          },
-          state: {
-            widget: 'statusbar'
+      header: {
+        _button_action_validate: {
+          _attr: {
+            name: 'action_validate',
+            type: 'object',
+            string: 'Validate',
+            states: 'draft',
+            context: {
+              not_unlink_on_discard: true
+            },
+            class: 'oe_highlight'
           }
         },
+        state: {
+          widget: 'statusbar',
+          statusbar_visible: 'draft,done'
+        }
+      },
+      sheet: {
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -145,7 +147,7 @@ export default {
               }
             }
           },
-          _group_676: {
+          _group_693: {
             company_id: {
               invisible: '1'
             },
@@ -185,7 +187,7 @@ export default {
             picking_id: {
               invisible: [['picking_id', '=', false]]
             },
-            _field_company_id_372: {
+            _field_company_id_666: {
               company_id: {
                 groups: 'base.group_multi_company'
               }
@@ -232,7 +234,7 @@ export default {
           groups: 'stock.group_stock_multi_locations',
           no_create: true
         },
-        _field_company_id_590: {
+        _field_company_id_717: {
           company_id: {
             groups: 'base.group_multi_company',
             readonly: '1'
@@ -250,6 +252,7 @@ export default {
     name: 'Scrap Orders',
     type: 'ir.actions.act_window',
     res_model: 'stock.scrap',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -291,7 +294,7 @@ export default {
               }
             }
           },
-          _group_740: {
+          _group_781: {
             picking_id: {
               invisible: '1'
             },

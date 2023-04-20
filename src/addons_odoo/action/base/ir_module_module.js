@@ -227,7 +227,7 @@ export default {
   },
 
   open_module_tree: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Apps',
     type: 'ir.actions.act_window',
     res_model: 'ir.module.module',

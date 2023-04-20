@@ -19,14 +19,14 @@ export default {
         //   //   }
         // }
       },
-      menu_sale_master: {
-        name: 'Master'
-        // children: {
-        //   res_partner_action_customer: {
-        //     name: 'Customers',
-        //     action: 'sales_team.res_partner_action_customer'
-        //   }
-        // }
+      menu_purchase_master: {
+        name: 'Master',
+        children: {
+          product_normal_action_puchased: {
+            name: 'Products',
+            action: 'purchase.product_normal_action_puchased'
+          }
+        }
       },
       menu_purchase_rfq: {
         name: 'Requests for Quotation',
@@ -35,6 +35,11 @@ export default {
       menu_purchase_form_action: {
         name: 'Purchase Orders',
         action: 'purchase.purchase_form_action'
+      },
+
+      menu_action_purchase_history: {
+        name: 'Purchase Lines',
+        action: 'purchase.action_purchase_history'
       }
     }
   }

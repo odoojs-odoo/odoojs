@@ -35,7 +35,7 @@ export default {
             hidden: {},
             track_recipients: {}
           },
-          _group_786: {
+          _group_525: {
             _attr: {
               string: 'Auto subscription'
             },
@@ -51,6 +51,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Subtypes',
     res_model: 'mail.message.subtype',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

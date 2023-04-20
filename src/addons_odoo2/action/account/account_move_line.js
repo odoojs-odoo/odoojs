@@ -49,7 +49,7 @@ export default {
                   readonly: '1'
                 }
               },
-              _group_458: {
+              _group_628: {
                 _attr: {
                   string: 'Accounting Documents'
                 },
@@ -61,7 +61,7 @@ export default {
                   readonly: 'True'
                 }
               },
-              _group_234: {
+              _group_656: {
                 _attr: {
                   string: 'Dates'
                 },
@@ -70,7 +70,7 @@ export default {
                 },
                 date_maturity: {}
               },
-              _group_870: {
+              _group_663: {
                 _attr: {
                   string: 'Taxes',
                   invisible: [['tax_line_id', '=', false], ['tax_ids', '=', []]]
@@ -90,7 +90,7 @@ export default {
                 },
                 tax_audit: {}
               },
-              _group_511: {
+              _group_646: {
                 _attr: {
                   string: 'Matching',
                   invisible: [['matched_debit_ids', '=', []], ['matched_credit_ids', '=', []]]
@@ -119,7 +119,7 @@ export default {
                   }
                 }
               },
-              _group_367: {
+              _group_149: {
                 _attr: {
                   string: 'Currency',
                   groups: 'base.group_multi_currency'
@@ -129,7 +129,7 @@ export default {
                 },
                 amount_currency: {}
               },
-              _group_919: {
+              _group_232: {
                 _attr: {
                   string: 'Product',
                   invisible: [['product_id', '=', false]]
@@ -138,13 +138,13 @@ export default {
                   readonly: '1'
                 }
               },
-              _group_531: {
+              _group_377: {
                 _attr: {
                   string: 'States'
                 },
                 blocked: {}
               },
-              _group_685: {
+              _group_347: {
                 _attr: {
                   string: 'Analytic',
                   groups: 'analytic.group_analytic_accounting'
@@ -198,7 +198,8 @@ export default {
           _attribute_create: {
             _attr: {
               name: 'create',
-              text: 'true'
+              text: 'true',
+              create: 'true'
             }
           }
         }
@@ -228,7 +229,7 @@ export default {
         company_id: {
           invisible: '1'
         },
-        _field_company_id_768: {
+        _field_company_id_614: {
           company_id: {
             groups: 'base.group_multi_company',
             readonly: '1',
@@ -389,9 +390,11 @@ export default {
     arch: {
       sheet: {
         date: {
+          position: 'attributes',
           __todo__optional: 'hide'
         },
         tax_tag_ids: {
+          position: 'attributes',
           __todo__optional: 'show'
         }
       }
@@ -405,6 +408,7 @@ export default {
     arch: {
       sheet: {
         date: {
+          position: 'attributes',
           __todo__optional: 'hide'
         }
       }
@@ -418,6 +422,7 @@ export default {
     arch: {
       sheet: {
         date: {
+          position: 'attributes',
           __todo__optional: 'hide'
         }
       }
@@ -431,9 +436,11 @@ export default {
     arch: {
       sheet: {
         account_id: {
+          position: 'attributes',
           __todo__optional: 'hide'
         },
         balance: {
+          position: 'attributes',
           __todo__optional: 'show'
         }
       }
@@ -447,12 +454,15 @@ export default {
     arch: {
       sheet: {
         partner_id: {
+          position: 'attributes',
           __todo__optional: 'hide'
         },
         date_maturity: {
+          position: 'attributes',
           __todo__optional: 'show'
         },
         balance: {
+          position: 'attributes',
           __todo__optional: 'show'
         }
       }
@@ -466,6 +476,7 @@ export default {
     arch: {
       sheet: {
         matching_number: {
+          position: 'replace',
           __todo__replace: {
             tax_line_id: {
               string: 'Tax'
@@ -475,15 +486,19 @@ export default {
           }
         },
         analytic_distribution: {
+          position: 'attributes',
           __todo__optional: 'hide'
         },
         debit: {
+          position: 'attributes',
           __todo__optional: 'show'
         },
         credit: {
+          position: 'attributes',
           __todo__optional: 'show'
         },
         journal_id: {
+          position: 'attributes',
           __todo__optional: 'show'
         }
       }
@@ -508,7 +523,7 @@ export default {
           todo_ctx: "[                         '|', '|', '|',                         ('name', 'ilike', self), ('ref', 'ilike', self), ('account_id', 'ilike', self), ('partner_id', 'ilike', self)]"
         }
       },
-      _field_name_524: {
+      _field_name_506: {
         name: {}
       },
       ref: {},
@@ -534,6 +549,7 @@ export default {
         _attr: {
           name: 'unposted',
           string: 'Unposted',
+          help: 'Unposted Journal Items',
           domain: [['parent_state', '=', 'draft']]
         }
       },
@@ -541,10 +557,11 @@ export default {
         _attr: {
           name: 'posted',
           string: 'Posted',
+          help: 'Posted Journal Items',
           domain: [['parent_state', '=', 'posted']]
         }
       },
-      _separator_411: {},
+      _separator_933: {},
       _filter_to_check: {
         _attr: {
           name: 'to_check',
@@ -552,15 +569,16 @@ export default {
           domain: [['move_id.to_check', '=', true]]
         }
       },
-      _separator_305: {},
+      _separator_343: {},
       _filter_unreconciled: {
         _attr: {
           name: 'unreconciled',
           string: 'Unreconciled',
+          help: "Journal items where matching number isn't set",
           domain: [['amount_residual', '!=', 0], ['account_id.reconcile', '=', true]]
         }
       },
-      _separator_467: {},
+      _separator_687: {},
       _filter_sales: {
         _attr: {
           name: 'sales',
@@ -611,11 +629,12 @@ export default {
           }
         }
       },
-      _separator_670: {},
+      _separator_908: {},
       _filter_trade_payable: {
         _attr: {
           name: 'trade_payable',
           string: 'Payable',
+          help: 'From Trade Payable accounts',
           domain: [['account_id.account_type', '=', 'liability_payable'], ['account_id.non_trade', '=', false]]
         }
       },
@@ -623,6 +642,7 @@ export default {
         _attr: {
           name: 'trade_receivable',
           string: 'Receivable',
+          help: 'From Trade Receivable accounts',
           domain: [['account_id.account_type', '=', 'asset_receivable'], ['account_id.non_trade', '=', false]]
         }
       },
@@ -630,6 +650,7 @@ export default {
         _attr: {
           name: 'non_trade_payable',
           string: 'Non Trade Payable',
+          help: 'From Non Trade Receivable accounts',
           invisible: '1',
           domain: [['account_id.account_type', '=', 'liability_payable'], ['account_id.non_trade', '=', true]]
         }
@@ -638,6 +659,7 @@ export default {
         _attr: {
           name: 'non_trade_receivable',
           string: 'Non Trade Receivable',
+          help: 'From Non Trade Receivable accounts',
           invisible: '1',
           domain: [['account_id.account_type', '=', 'asset_receivable'], ['account_id.non_trade', '=', true]]
         }
@@ -646,17 +668,19 @@ export default {
         _attr: {
           name: 'pl_accounts',
           string: 'P&L Accounts',
+          help: 'From P&L accounts',
           domain: [['account_id.internal_group', 'in', ('income', 'expense')]]
         }
       },
-      _separator_936: {},
+      _separator_822: {},
       _filter_date: {
         _attr: {
           name: 'date',
-          string: 'Date'
+          string: 'Date',
+          date: 'date'
         }
       },
-      _separator_750: {},
+      _separator_339: {},
       _filter_date_between: {
         _attr: {
           name: 'date_between',
@@ -677,7 +701,7 @@ export default {
           }
         }
       },
-      _separator_780: {},
+      _separator_233: {},
       _group: {
         _attr: {
           string: 'Group By'
@@ -776,6 +800,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Journal Items',
     res_model: 'account.move.line',
+    search_view_id: 'tooooooodoooooo',
     context: {
       todo_ctx: "{'search_default_account_id': [active_id], 'search_default_posted': 1}"
     },
@@ -795,6 +820,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Journal Items',
     res_model: 'account.move.line',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['display_type', 'not in', ['line_section', 'line_note']]]",
     context: {
       journal_type: 'general',
@@ -812,6 +838,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Journal Items',
     res_model: 'account.move.line',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['display_type', 'not in', ['line_section', 'line_note']]]",
     context: {
       journal_type: 'general',
@@ -828,6 +855,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Sales',
     res_model: 'account.move.line',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['display_type', 'not in', ['line_section', 'line_note']]]",
     context: {
       journal_type: 'sales',
@@ -846,6 +874,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Purchases',
     res_model: 'account.move.line',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['display_type', 'not in', ['line_section', 'line_note']]]",
     context: {
       journal_type: 'purchase',
@@ -864,6 +893,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Bank and Cash',
     res_model: 'account.move.line',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['display_type', 'not in', ['line_section', 'line_note']]]",
     context: {
       journal_type: 'bank',
@@ -883,6 +913,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Miscellaneous',
     res_model: 'account.move.line',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['display_type', 'not in', ['line_section', 'line_note']]]",
     context: {
       journal_type: 'general',
@@ -900,8 +931,8 @@ export default {
   action_account_moves_ledger_partner: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Partner Ledger',
-    search_view_id: 'view_account_move_line_filter',
     res_model: 'account.move.line',
+    search_view_id: 'view_account_move_line_filter',
     domain: "[['display_type', 'not in', ['line_section', 'line_note']]]",
     context: {
       journal_type: 'general',
@@ -921,6 +952,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Journal Items',
     res_model: 'account.move.line',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['display_type', 'not in', ['line_section', 'line_note']]]",
     context: {
       todo_ctx: "{'search_default_partner_id': [active_id], 'default_partner_id': active_id, 'search_default_posted':1}"
@@ -935,6 +967,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Journal Items',
     res_model: 'account.move.line',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['display_type', 'not in', ['line_section', 'line_note']], ['parent_state', '!=', 'cancel']]",
     context: {
       journal_type: 'general',

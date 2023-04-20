@@ -65,6 +65,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Fields Selection',
     res_model: 'ir.model.fields.selection',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'view_model_fields_selection_tree',
       form: '=======todo=========='

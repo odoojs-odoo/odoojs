@@ -24,6 +24,7 @@ export default {
     name: 'Settings',
     type: 'ir.actions.act_window',
     res_model: 'res.config.settings',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

@@ -25,6 +25,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'API Keys Listing',
     res_model: 'res.users.apikeys',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'base.view_apikeys',
       form: '=======todo=========='

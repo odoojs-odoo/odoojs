@@ -46,8 +46,8 @@ export default {
   digest_tip_action: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Digest Tips',
-    search_view_id: 'digest_tip_view_search',
     res_model: 'digest.tip',
+    search_view_id: 'digest_tip_view_search',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

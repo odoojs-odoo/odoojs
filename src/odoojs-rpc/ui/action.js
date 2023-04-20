@@ -77,6 +77,7 @@ export class Action {
     const actions = addons_data.actions
     const info = actions[action]
     if (!info) {
+      console.log('load_action_info error', action)
       throw `${action} error`
       // return {}
     }

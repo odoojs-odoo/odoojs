@@ -14,6 +14,7 @@ export default {
         _attr: {
           name: 'active',
           string: 'Active',
+          help: 'Show active currencies',
           domain: [['active', '=', true]]
         }
       },
@@ -21,6 +22,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Inactive',
+          help: 'Show inactive currencies',
           domain: [['active', '=', false]]
         }
       }
@@ -79,7 +81,7 @@ export default {
             text: 'You cannot reduce the number of decimal places of a currency already used on an accounting entry.'
           }
         },
-        _div_551: {
+        _div_854: {
           _attr: {
             invisible: [['is_current_company_currency', '=', false]],
             class: 'alert alert-info text-center',
@@ -96,12 +98,12 @@ export default {
               widget: 'boolean_toggle'
             }
           },
-          _group_475: {
+          _group_947: {
             currency_unit_label: {},
             currency_subunit_label: {}
           }
         },
-        _group_428: {
+        _group_424: {
           _attr: {
             groups: 'base.group_no_one'
           },
@@ -112,7 +114,7 @@ export default {
             rounding: {},
             decimal_places: {}
           },
-          _group_237: {
+          _group_924: {
             _attr: {
               string: 'Display'
             },
@@ -170,8 +172,8 @@ export default {
   action_currency_form: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Currencies',
-    search_view_id: 'view_currency_search',
     res_model: 'res.currency',
+    search_view_id: 'view_currency_search',
     context: {
       active_test: false
     },

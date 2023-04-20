@@ -12,6 +12,7 @@ export default {
     arch: {
       sheet: {
         uom_id: {
+          position: 'before',
           __todo__before: {
             show_on_hand_qty_status_button: {
               invisible: '1'
@@ -27,6 +28,7 @@ export default {
           }
         },
         default_code: {
+          position: 'after',
           __todo__after: {
             responsible_id: {
               widget: 'many2one_avatar_user'
@@ -61,7 +63,7 @@ export default {
               todo_ctx: "{'warehouse': self}"
             }
           },
-          _separator_432: {},
+          _separator_982: {},
           _filter_real_stock_available: {
             _attr: {
               name: 'real_stock_available',
@@ -105,7 +107,7 @@ export default {
             }
           }
         },
-        _xpath_199: {
+        _xpath_910: {
           _attr: {
             expr: "//group[@name='group_lots_and_weight']",
             position: 'before'
@@ -148,7 +150,7 @@ export default {
             }
           }
         },
-        _xpath_962: {
+        _xpath_388: {
           _attr: {
             expr: "//group[@name='group_lots_and_weight']",
             position: 'after'
@@ -177,7 +179,8 @@ export default {
         },
         _page_inventory: {
           _attr: {
-            name: 'inventory'
+            name: 'inventory',
+            position: 'inside'
           },
           _group: {
             _group: {
@@ -188,7 +191,7 @@ export default {
                 placeholder: 'This note is added to receipt orders (e.g. where to store the product in the warehouse).'
               }
             },
-            _group_583: {
+            _group_411: {
               _attr: {
                 string: 'Description for Delivery Orders'
               },
@@ -196,7 +199,7 @@ export default {
                 placeholder: 'This note is added to delivery orders.'
               }
             },
-            _group_807: {
+            _group_445: {
               _attr: {
                 string: 'Description for Internal Transfers',
                 groups: 'stock.group_stock_multi_locations'
@@ -207,14 +210,16 @@ export default {
             }
           }
         },
-        _page_inventory_414: {
+        _page_inventory_265: {
           _attr: {
-            name: 'inventory'
+            name: 'inventory',
+            position: 'attributes'
           },
           _attribute_groups: {
             _attr: {
               name: 'groups',
-              text: 'stock.group_stock_user,product.group_stock_packaging'
+              text: 'stock.group_stock_user,product.group_stock_packaging',
+              groups: 'stock.group_stock_user,product.group_stock_packaging'
             }
           }
         }
@@ -236,7 +241,7 @@ export default {
           type: {},
           show_on_hand_qty_status_button: {}
         },
-        _xpath_239: {
+        _xpath_313: {
           _attr: {
             expr: "//div[@name='product_lst_price']",
             position: 'after'
@@ -261,6 +266,9 @@ export default {
       sheet: {
         _data: {
           _header: {
+            _attr: {
+              position: 'inside'
+            },
             _button_action_update_quantity_on_hand: {
               _attr: {
                 name: 'action_update_quantity_on_hand',
@@ -285,7 +293,8 @@ export default {
           },
           _div_button_box: {
             _attr: {
-              name: 'button_box'
+              name: 'button_box',
+              position: 'inside'
             },
             _t: {
               _attr: {
@@ -322,7 +331,7 @@ export default {
                     },
                     uom_name: {}
                   },
-                  _span_475: {
+                  _span_789: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'On Hand'
@@ -355,7 +364,7 @@ export default {
                     },
                     uom_name: {}
                   },
-                  _span_948: {
+                  _span_348: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'Forecasted'
@@ -382,14 +391,14 @@ export default {
                       text: 'In:'
                     }
                   },
-                  _span_484: {
+                  _span_290: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'Out:'
                     }
                   }
                 },
-                _div_446: {
+                _div_901: {
                   _attr: {
                     class: 'o_field_widget o_stat_info'
                   },
@@ -399,7 +408,7 @@ export default {
                     },
                     nbr_moves_in: {}
                   },
-                  _span_500: {
+                  _span_483: {
                     _attr: {
                       class: 'o_stat_value'
                     },
@@ -425,14 +434,14 @@ export default {
                       text: 'Min:'
                     }
                   },
-                  _span_708: {
+                  _span_825: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'Max:'
                     }
                   }
                 },
-                _div_363: {
+                _div_374: {
                   _attr: {
                     class: 'o_field_widget o_stat_info'
                   },
@@ -442,7 +451,7 @@ export default {
                     },
                     reordering_min_qty: {}
                   },
-                  _span_882: {
+                  _span_597: {
                     _attr: {
                       class: 'o_stat_value'
                     },
@@ -450,7 +459,7 @@ export default {
                   }
                 }
               },
-              _button_action_view_orderpoints_727: {
+              _button_action_view_orderpoints_474: {
                 _attr: {
                   name: 'action_view_orderpoints',
                   type: 'object',
@@ -520,8 +529,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Products',
     type: 'ir.actions.act_window',
-    search_view_id: 'product_template_search_form_view_stock',
     res_model: 'product.template',
+    search_view_id: 'product_template_search_form_view_stock',
     context: {
       search_default_consumable: 1,
       default_detailed_type: 'product'

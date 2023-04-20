@@ -6,6 +6,7 @@ export default {
     arch: {
       sheet: {
         mobile: {
+          position: 'after',
           __todo__after: {
             sale_order_count: {
               groups: 'sales_team.group_sale_salesman'
@@ -48,7 +49,8 @@ export default {
       sheet: {
         _div_button_box: {
           _attr: {
-            name: 'button_box'
+            name: 'button_box',
+            position: 'inside'
           },
           _button_action_view_sale_order: {
             _attr: {
@@ -106,12 +108,14 @@ export default {
       sheet: {
         _button_payment__action_payment_token: {
           _attr: {
-            name: '%(payment.action_payment_token)d'
+            name: '%(payment.action_payment_token)d',
+            position: 'attributes'
           },
           _attribute_groups: {
             _attr: {
               name: 'groups',
-              text: 'sales_team.group_sale_salesman'
+              text: 'sales_team.group_sale_salesman',
+              groups: 'sales_team.group_sale_salesman'
             }
           }
         }
@@ -127,19 +131,23 @@ export default {
       sheet: {
         _group_fiscal_information: {
           _attr: {
-            name: 'fiscal_information'
+            name: 'fiscal_information',
+            position: 'attributes'
           },
           _attribute_groups: {
             _attr: {
               name: 'groups',
-              text: 'account.group_account_invoice, sales_team.group_sale_salesman'
+              text: 'account.group_account_invoice, sales_team.group_sale_salesman',
+              groups: 'account.group_account_invoice, sales_team.group_sale_salesman'
             }
           }
         },
         property_payment_term_id: {
+          position: 'attributes',
           __todo__groups: 'account.group_account_invoice, sales_team.group_sale_salesman'
         },
         property_supplier_payment_term_id: {
+          position: 'attributes',
           __todo__groups: 'account.group_account_invoice, sales_team.group_sale_salesman'
         }
       }

@@ -3,6 +3,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Reports',
     res_model: 'ir.actions.report',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -29,6 +30,7 @@ export default {
               type: 'object',
               string: "Add in the 'Print' menu",
               icon: 'fa-plus-square',
+              help: 'Display an option on related documents to print this report',
               invisible: [['binding_model_id', '!=', false]],
               class: 'oe_stat_button'
             }
@@ -39,6 +41,7 @@ export default {
               type: 'object',
               string: "Remove from the 'Print' menu",
               icon: 'fa-minus-square',
+              help: 'Remove the contextual action related to this report',
               invisible: [['binding_model_id', '=', false]],
               class: 'oe_stat_button'
             }
@@ -62,7 +65,7 @@ export default {
               invisible: [['report_type', 'not in', ['qweb-pdf']]]
             }
           },
-          _group_320: {
+          _group_548: {
             model: {},
             report_name: {},
             print_report_name: {}
@@ -156,8 +159,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Reports',
     type: 'ir.actions.act_window',
-    search_view_id: 'act_report_xml_search_view',
     res_model: 'ir.actions.report',
+    search_view_id: 'act_report_xml_search_view',
     views: {
       tree: 'act_report_xml_view_tree',
       form: '=======todo=========='

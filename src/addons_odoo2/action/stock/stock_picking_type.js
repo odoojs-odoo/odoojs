@@ -4,6 +4,7 @@ export default {
     name: 'Operations Types',
     type: 'ir.actions.act_window',
     res_model: 'stock.picking.type',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -15,6 +16,7 @@ export default {
     name: 'Inventory Overview',
     type: 'ir.actions.act_window',
     res_model: 'stock.picking.type',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -155,12 +157,12 @@ export default {
               _span: {
                 reservation_days_before: {}
               },
-              _span_495: {
+              _span_900: {
                 reservation_days_before_priority: {}
               }
             }
           },
-          _group_646: {
+          _group_401: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true

@@ -4,6 +4,7 @@ export default {
     name: 'ICE servers',
     type: 'ir.actions.act_window',
     res_model: 'mail.ice.server',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -47,7 +48,7 @@ export default {
             }
           }
         },
-        _group_691: {
+        _group_453: {
           username: {},
           credential: {}
         }

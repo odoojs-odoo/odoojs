@@ -49,6 +49,7 @@ export default {
     name: 'Stock Rules Report',
     type: 'ir.actions.act_window',
     res_model: 'stock.rules.report',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'view_stock_rules_report',
       form: '=======todo=========='

@@ -52,6 +52,7 @@ export default {
     arch: {
       sheet: {
         partner_id: {
+          position: 'attributes',
           __todo__string: 'Vendor'
         }
       }
@@ -65,6 +66,7 @@ export default {
     arch: {
       sheet: {
         partner_id: {
+          position: 'attributes',
           __todo__string: 'Partner'
         }
       }
@@ -116,7 +118,7 @@ export default {
           domain: [['is_internal_transfer', '=', true]]
         }
       },
-      _separator_837: {},
+      _separator_241: {},
       _filter_state_draft: {
         _attr: {
           name: 'state_draft',
@@ -131,7 +133,7 @@ export default {
           domain: [['state', '=', 'posted']]
         }
       },
-      _separator_724: {},
+      _separator_297: {},
       _filter_state_sent: {
         _attr: {
           name: 'state_sent',
@@ -153,14 +155,15 @@ export default {
           domain: [['is_reconciled', '=', true]]
         }
       },
-      _separator_522: {},
+      _separator_896: {},
       _filter_date: {
         _attr: {
           name: 'date',
-          string: 'Payment Date'
+          string: 'Payment Date',
+          date: 'date'
         }
       },
-      _separator_324: {},
+      _separator_971: {},
       company_id: {
         groups: 'base.group_multi_company'
       },
@@ -236,11 +239,12 @@ export default {
           }
         }
       },
-      _separator_576: {},
+      _separator_337: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
           string: 'Late Activities',
+          help: 'Show all records which has next action date is before today',
           invisible: '1',
           domain: {
             todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]"
@@ -275,55 +279,56 @@ export default {
     model: 'account.payment',
     type: 'form',
     arch: {
-      sheet: {
-        _header: {
-          _button_action_post: {
-            _attr: {
-              name: 'action_post',
-              type: 'object',
-              string: 'Confirm',
-              invisible: [['state', '!=', 'draft']],
-              class: 'oe_highlight'
-            }
-          },
-          _button_action_draft: {
-            _attr: {
-              name: 'action_draft',
-              type: 'object',
-              string: 'Reset To Draft',
-              groups: 'account.group_account_invoice',
-              invisible: [['state', 'not in', ('posted', 'cancel')]],
-              class: 'btn btn-secondary'
-            }
-          },
-          _button_action_cancel: {
-            _attr: {
-              name: 'action_cancel',
-              type: 'object',
-              string: 'Cancel',
-              invisible: [['state', '!=', 'draft']]
-            }
-          },
-          _button_mark_as_sent: {
-            _attr: {
-              name: 'mark_as_sent',
-              type: 'object',
-              string: 'Mark as Sent',
-              invisible: ['|', '|', ['state', '!=', 'posted'], ['is_move_sent', '=', true], ['payment_method_code', '!=', 'manual']]
-            }
-          },
-          _button_unmark_as_sent: {
-            _attr: {
-              name: 'unmark_as_sent',
-              type: 'object',
-              string: 'Unmark as Sent',
-              invisible: ['|', '|', ['state', '!=', 'posted'], ['is_move_sent', '=', false], ['payment_method_code', '!=', 'manual']]
-            }
-          },
-          state: {
-            widget: 'statusbar'
+      header: {
+        _button_action_post: {
+          _attr: {
+            name: 'action_post',
+            type: 'object',
+            string: 'Confirm',
+            invisible: [['state', '!=', 'draft']],
+            class: 'oe_highlight'
           }
         },
+        _button_action_draft: {
+          _attr: {
+            name: 'action_draft',
+            type: 'object',
+            string: 'Reset To Draft',
+            groups: 'account.group_account_invoice',
+            invisible: [['state', 'not in', ('posted', 'cancel')]],
+            class: 'btn btn-secondary'
+          }
+        },
+        _button_action_cancel: {
+          _attr: {
+            name: 'action_cancel',
+            type: 'object',
+            string: 'Cancel',
+            invisible: [['state', '!=', 'draft']]
+          }
+        },
+        _button_mark_as_sent: {
+          _attr: {
+            name: 'mark_as_sent',
+            type: 'object',
+            string: 'Mark as Sent',
+            invisible: ['|', '|', ['state', '!=', 'posted'], ['is_move_sent', '=', true], ['payment_method_code', '!=', 'manual']]
+          }
+        },
+        _button_unmark_as_sent: {
+          _attr: {
+            name: 'unmark_as_sent',
+            type: 'object',
+            string: 'Unmark as Sent',
+            invisible: ['|', '|', ['state', '!=', 'posted'], ['is_move_sent', '=', false], ['payment_method_code', '!=', 'manual']]
+          }
+        },
+        state: {
+          widget: 'statusbar',
+          statusbar_visible: 'draft,posted'
+        }
+      },
+      sheet: {
         _div: {
           _attr: {
             invisible: ['|', '|', ['paired_internal_transfer_payment_id', '!=', false], ['is_internal_transfer', '=', false], ['state', '!=', 'draft']],
@@ -331,7 +336,7 @@ export default {
             text: 'A second payment will be created automatically in the destination journal.'
           }
         },
-        _div_214: {
+        _div_832: {
           _attr: {
             invisible: ['|', '|', ['is_internal_transfer', '=', false], ['require_partner_bank_account', '=', false], ['partner_bank_id', '!=', false]],
             class: 'alert alert-warning text-center',
@@ -346,7 +351,7 @@ export default {
             }
           }
         },
-        _div_113: {
+        _div_138: {
           _attr: {
             class: 'o_attachment_preview'
           }
@@ -430,7 +435,7 @@ export default {
                     text: 'Invoice'
                   }
                 },
-                _span_548: {
+                _span_626: {
                   _attr: {
                     invisible: [['reconciled_invoices_type', '=', 'invoice']],
                     text: 'Credit Note'
@@ -513,7 +518,7 @@ export default {
             },
             _span: 'Draft'
           },
-          _h1_160: {
+          _h1_417: {
             _attr: {
               invisible: [['state', '=', 'draft']]
             },
@@ -544,7 +549,7 @@ export default {
               },
               no_quick_create: true
             },
-            _field_partner_id_900: {
+            _field_partner_id_348: {
               partner_id: {
                 string: 'Vendor',
                 readonly: [['state', '!=', 'draft']],
@@ -605,7 +610,7 @@ export default {
                 todo_ctx: "{'default_partner_id': partner_id, 'default_allow_out_payment': True}"
               }
             },
-            _field_partner_bank_id_812: {
+            _field_partner_bank_id_954: {
               partner_bank_id: {
                 string: 'Vendor Bank Account',
                 invisible: ['|', '|', '|', ['show_partner_bank_account', '=', false], ['partner_type', '!=', 'supplier'], ['is_internal_transfer', '=', true], ['payment_type', '=', 'inbound']],
@@ -615,7 +620,7 @@ export default {
                 }
               }
             },
-            _field_partner_bank_id_454: {
+            _field_partner_bank_id_782: {
               partner_bank_id: {
                 string: 'Company Bank Account',
                 invisible: ['|', '|', ['show_partner_bank_account', '=', false], ['is_internal_transfer', '=', true], ['payment_type', '=', 'outbound']],
@@ -664,6 +669,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Payments',
     res_model: 'account.payment',
+    search_view_id: 'tooooooodoooooo',
     context: {
       default_payment_type: 'inbound',
       default_partner_type: 'customer',
@@ -680,6 +686,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Payments',
     res_model: 'account.payment',
+    search_view_id: 'tooooooodoooooo',
     context: {
       default_payment_type: 'outbound',
       default_partner_type: 'supplier',
@@ -696,6 +703,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Internal Transfers',
     res_model: 'account.payment',
+    search_view_id: 'tooooooodoooooo',
     domain: '[]',
     context: {
       default_payment_type: 'outbound',

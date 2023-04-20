@@ -30,7 +30,7 @@ export default {
                 },
                 product_count: {}
               },
-              _span_606: {
+              _span_545: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Products'
@@ -94,8 +94,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Product Categories',
     type: 'ir.actions.act_window',
-    search_view_id: 'product_category_search_view',
     res_model: 'product.category',
+    search_view_id: 'product_category_search_view',
     views: {
       tree: 'product_category_list_view',
       form: '=======todo=========='

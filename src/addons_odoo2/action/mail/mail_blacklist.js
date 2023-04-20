@@ -18,30 +18,30 @@ export default {
     model: 'mail.blacklist',
     type: 'form',
     arch: {
-      sheet: {
-        _header: {
-          _button_mail_action_blacklist_remove: {
-            _attr: {
-              name: 'mail_action_blacklist_remove',
-              type: 'object',
-              string: 'Unblacklist',
-              invisible: ['|', ['active', '=', false], ['email', '=', false]],
-              context: {
-                todo_ctx: "{'default_email': email}"
-              },
-              class: 'oe_highlight'
-            }
-          },
-          _button_action_add: {
-            _attr: {
-              name: 'action_add',
-              type: 'object',
-              string: 'Blacklist',
-              invisible: ['|', ['active', '=', true], ['email', '=', false]],
-              class: 'oe_highlight'
-            }
+      header: {
+        _button_mail_action_blacklist_remove: {
+          _attr: {
+            name: 'mail_action_blacklist_remove',
+            type: 'object',
+            string: 'Unblacklist',
+            invisible: ['|', ['active', '=', false], ['email', '=', false]],
+            context: {
+              todo_ctx: "{'default_email': email}"
+            },
+            class: 'oe_highlight'
           }
         },
+        _button_action_add: {
+          _attr: {
+            name: 'action_add',
+            type: 'object',
+            string: 'Blacklist',
+            invisible: ['|', ['active', '=', true], ['email', '=', false]],
+            class: 'oe_highlight'
+          }
+        }
+      },
+      sheet: {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
@@ -82,8 +82,8 @@ export default {
   mail_blacklist_action: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Blacklisted Email Addresses',
-    search_view_id: 'mail_blacklist_view_search',
     res_model: 'mail.blacklist',
+    search_view_id: 'mail_blacklist_view_search',
     views: {
       tree: 'mail_blacklist_view_tree',
       form: '=======todo=========='

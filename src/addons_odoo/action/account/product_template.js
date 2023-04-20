@@ -114,7 +114,7 @@ export default {
   },
 
   product_product_action_sellable: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Products(Sold)',
     type: 'ir.actions.act_window',
     res_model: 'product.template',
@@ -128,7 +128,7 @@ export default {
   },
 
   product_product_action_purchasable: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Products(Purchased)',
     type: 'ir.actions.act_window',
     res_model: 'product.template',

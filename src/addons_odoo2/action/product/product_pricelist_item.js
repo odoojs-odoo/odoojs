@@ -155,7 +155,7 @@ export default {
         applied_on: {
           invisible: '1'
         },
-        _field_company_id_394: {
+        _field_company_id_606: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'show',
@@ -243,7 +243,7 @@ export default {
               string: 'Discount',
               invisible: [['compute_price', '!=', 'formula']]
             },
-            _div_110: {
+            _div_701: {
               _attr: {
                 invisible: [['compute_price', '!=', 'formula']],
                 class: 'o_row'
@@ -265,7 +265,7 @@ export default {
               string: 'Margins',
               invisible: [['compute_price', '!=', 'formula']]
             },
-            _div_903: {
+            _div_136: {
               _attr: {
                 invisible: [['compute_price', '!=', 'formula']],
                 class: 'o_row'
@@ -377,6 +377,7 @@ export default {
     name: 'Price Rules',
     type: 'ir.actions.act_window',
     res_model: 'product.pricelist.item',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

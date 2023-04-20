@@ -64,7 +64,7 @@ export default {
           groups: 'base.group_user',
           invisible: "context.get['default_move_type'] not in ['in_invoice', 'in_refund','in_receipt']"
         },
-        _field_invoice_partner_display_name_644: {
+        _field_invoice_partner_display_name_652: {
           invoice_partner_display_name: {
             string: 'Customer',
             groups: 'base.group_user',
@@ -76,7 +76,7 @@ export default {
           invisible: "context.get['default_move_type'] not in ['in_invoice', 'in_refund','in_receipt']",
           optional: 'show'
         },
-        _field_invoice_date_905: {
+        _field_invoice_date_796: {
           invoice_date: {
             string: 'Invoice Date',
             invisible: "context.get['default_move_type'] not in ['out_invoice', 'out_refund','out_receipt']",
@@ -180,11 +180,13 @@ export default {
           _attribute_banner_route: {
             _attr: {
               name: 'banner_route',
-              text: '/account/account_invoice_onboarding'
+              text: '/account/account_invoice_onboarding',
+              banner_route: '/account/account_invoice_onboarding'
             }
           }
         },
         currency_id: {
+          position: 'attributes',
           __todo__string: 'Invoice Currency'
         }
       }
@@ -198,6 +200,7 @@ export default {
     arch: {
       sheet: {
         currency_id: {
+          position: 'attributes',
           __todo__string: 'Credit Note Currency'
         }
       }
@@ -218,7 +221,8 @@ export default {
           _attribute_optional: {
             _attr: {
               name: 'optional',
-              text: 'show'
+              text: 'show',
+              optional: 'show'
             }
           }
         }
@@ -233,6 +237,7 @@ export default {
     arch: {
       sheet: {
         currency_id: {
+          position: 'attributes',
           __todo__string: 'Bill Currency'
         }
       }
@@ -246,6 +251,7 @@ export default {
     arch: {
       sheet: {
         currency_id: {
+          position: 'attributes',
           __todo__string: 'Refund Currency'
         }
       }
@@ -259,6 +265,7 @@ export default {
     arch: {
       sheet: {
         currency_id: {
+          position: 'attributes',
           __todo__string: 'Receipt Currency'
         }
       }
@@ -277,131 +284,132 @@ export default {
     model: 'account.move',
     type: 'form',
     arch: {
-      sheet: {
-        _header: {
-          _button_action_post: {
-            _attr: {
-              name: 'action_post',
-              type: 'object',
-              string: 'Post',
-              groups: 'account.group_account_invoice',
-              invisible: ['|', ['hide_post_button', '=', true], ['move_type', '!=', 'entry']],
-              context: {
-                validate_analytic: true
-              },
-              class: 'oe_highlight'
-            }
-          },
-          _button_action_post_686: {
-            _attr: {
-              name: 'action_post',
-              type: 'object',
-              string: 'Confirm',
-              groups: 'account.group_account_invoice',
-              invisible: ['|', '|', ['hide_post_button', '=', true], ['move_type', '=', 'entry'], ['display_inactive_currency_warning', '=', true]],
-              context: {
-                validate_analytic: true
-              },
-              class: 'oe_highlight'
-            }
-          },
-          _button_action_invoice_sent: {
-            _attr: {
-              name: 'action_invoice_sent',
-              type: 'object',
-              string: 'Send & Print',
-              invisible: ['|', '|', ['state', '!=', 'posted'], ['is_move_sent', '=', true], ['move_type', 'not in', ('out_invoice', 'out_refund')]],
-              class: 'oe_highlight'
-            }
-          },
-          _button_action_invoice_sent_640: {
-            _attr: {
-              name: 'action_invoice_sent',
-              type: 'object',
-              string: 'Send & Print',
-              invisible: ['|', '|', ['state', '!=', 'posted'], ['is_move_sent', '=', false], ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')]]
-            }
-          },
-          _button_action_register_payment: {
-            _attr: {
-              name: 'action_register_payment',
-              type: 'object',
-              string: 'Register Payment',
-              groups: 'account.group_account_invoice',
-              invisible: ['|', '|', ['state', '!=', 'posted'], ['payment_state', 'not in', ('not_paid', 'partial')], ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]],
-              context: {
-                dont_redirect_to_payments: true
-              },
-              class: 'oe_highlight'
-            }
-          },
-          _button_preview_invoice: {
-            _attr: {
-              name: 'preview_invoice',
-              type: 'object',
-              string: 'Preview',
-              title: 'Preview invoice',
-              invisible: [['move_type', 'not in', ('out_invoice', 'out_refund')]]
-            }
-          },
-          _button_action_view_account_move_reversal: {
-            _attr: {
-              name: 'action_view_account_move_reversal',
-              type: 'action',
-              string: 'Reverse Entry',
-              groups: 'account.group_account_invoice',
-              invisible: ['|', ['move_type', '!=', 'entry'], '|', ['state', '!=', 'posted'], ['payment_state', '=', 'reversed']]
-            }
-          },
-          _button_action_reverse: {
-            _attr: {
-              name: 'action_reverse',
-              type: 'object',
-              string: 'Add Credit Note',
-              groups: 'account.group_account_invoice',
-              invisible: ['|', ['move_type', 'not in', ('out_invoice', 'in_invoice')], ['state', '!=', 'posted']]
-            }
-          },
-          _button_button_cancel: {
-            _attr: {
-              name: 'button_cancel',
-              type: 'object',
-              string: 'Cancel Entry',
-              groups: 'account.group_account_invoice',
-              invisible: ['|', '|', ['id', '=', false], ['state', '!=', 'draft'], ['move_type', '!=', 'entry']]
-            }
-          },
-          _button_button_cancel_376: {
-            _attr: {
-              name: 'button_cancel',
-              type: 'object',
-              string: 'Cancel',
-              groups: 'account.group_account_invoice',
-              invisible: ['|', '|', ['id', '=', false], ['state', '!=', 'draft'], ['move_type', '==', 'entry']]
-            }
-          },
-          _button_button_draft: {
-            _attr: {
-              name: 'button_draft',
-              type: 'object',
-              string: 'Reset to Draft',
-              groups: 'account.group_account_invoice',
-              invisible: [['show_reset_to_draft_button', '=', false]]
-            }
-          },
-          _button_button_set_checked: {
-            _attr: {
-              name: 'button_set_checked',
-              type: 'object',
-              string: 'Set as Checked',
-              groups: 'account.group_account_invoice',
-              invisible: [['to_check', '=', false]]
-            }
-          },
-          state: {
-            widget: 'statusbar'
+      header: {
+        _button_action_post: {
+          _attr: {
+            name: 'action_post',
+            type: 'object',
+            string: 'Post',
+            groups: 'account.group_account_invoice',
+            invisible: ['|', ['hide_post_button', '=', true], ['move_type', '!=', 'entry']],
+            context: {
+              validate_analytic: true
+            },
+            class: 'oe_highlight'
           }
         },
+        _button_action_post_290: {
+          _attr: {
+            name: 'action_post',
+            type: 'object',
+            string: 'Confirm',
+            groups: 'account.group_account_invoice',
+            invisible: ['|', '|', ['hide_post_button', '=', true], ['move_type', '=', 'entry'], ['display_inactive_currency_warning', '=', true]],
+            context: {
+              validate_analytic: true
+            },
+            class: 'oe_highlight'
+          }
+        },
+        _button_action_invoice_sent: {
+          _attr: {
+            name: 'action_invoice_sent',
+            type: 'object',
+            string: 'Send & Print',
+            invisible: ['|', '|', ['state', '!=', 'posted'], ['is_move_sent', '=', true], ['move_type', 'not in', ('out_invoice', 'out_refund')]],
+            class: 'oe_highlight'
+          }
+        },
+        _button_action_invoice_sent_728: {
+          _attr: {
+            name: 'action_invoice_sent',
+            type: 'object',
+            string: 'Send & Print',
+            invisible: ['|', '|', ['state', '!=', 'posted'], ['is_move_sent', '=', false], ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')]]
+          }
+        },
+        _button_action_register_payment: {
+          _attr: {
+            name: 'action_register_payment',
+            type: 'object',
+            string: 'Register Payment',
+            groups: 'account.group_account_invoice',
+            invisible: ['|', '|', ['state', '!=', 'posted'], ['payment_state', 'not in', ('not_paid', 'partial')], ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]],
+            context: {
+              dont_redirect_to_payments: true
+            },
+            class: 'oe_highlight'
+          }
+        },
+        _button_preview_invoice: {
+          _attr: {
+            name: 'preview_invoice',
+            type: 'object',
+            string: 'Preview',
+            title: 'Preview invoice',
+            invisible: [['move_type', 'not in', ('out_invoice', 'out_refund')]]
+          }
+        },
+        _button_action_view_account_move_reversal: {
+          _attr: {
+            name: 'action_view_account_move_reversal',
+            type: 'action',
+            string: 'Reverse Entry',
+            groups: 'account.group_account_invoice',
+            invisible: ['|', ['move_type', '!=', 'entry'], '|', ['state', '!=', 'posted'], ['payment_state', '=', 'reversed']]
+          }
+        },
+        _button_action_reverse: {
+          _attr: {
+            name: 'action_reverse',
+            type: 'object',
+            string: 'Add Credit Note',
+            groups: 'account.group_account_invoice',
+            invisible: ['|', ['move_type', 'not in', ('out_invoice', 'in_invoice')], ['state', '!=', 'posted']]
+          }
+        },
+        _button_button_cancel: {
+          _attr: {
+            name: 'button_cancel',
+            type: 'object',
+            string: 'Cancel Entry',
+            groups: 'account.group_account_invoice',
+            invisible: ['|', '|', ['id', '=', false], ['state', '!=', 'draft'], ['move_type', '!=', 'entry']]
+          }
+        },
+        _button_button_cancel_368: {
+          _attr: {
+            name: 'button_cancel',
+            type: 'object',
+            string: 'Cancel',
+            groups: 'account.group_account_invoice',
+            invisible: ['|', '|', ['id', '=', false], ['state', '!=', 'draft'], ['move_type', '==', 'entry']]
+          }
+        },
+        _button_button_draft: {
+          _attr: {
+            name: 'button_draft',
+            type: 'object',
+            string: 'Reset to Draft',
+            groups: 'account.group_account_invoice',
+            invisible: [['show_reset_to_draft_button', '=', false]]
+          }
+        },
+        _button_button_set_checked: {
+          _attr: {
+            name: 'button_set_checked',
+            type: 'object',
+            string: 'Set as Checked',
+            groups: 'account.group_account_invoice',
+            invisible: [['to_check', '=', false]]
+          }
+        },
+        state: {
+          widget: 'statusbar',
+          statusbar_visible: 'draft,posted'
+        }
+      },
+      sheet: {
         _div: {
           _attr: {
             invisible: ['|', ['state', '!=', 'draft'], ['duplicated_ref_ids', '=', []]],
@@ -417,7 +425,7 @@ export default {
             }
           }
         },
-        _div_951: {
+        _div_109: {
           _attr: {
             groups: 'account.group_account_invoice,account.group_account_readonly',
             invisible: ['|', ['state', '!=', 'draft'], ['tax_lock_date_message', '=', false]],
@@ -425,7 +433,7 @@ export default {
           },
           tax_lock_date_message: {}
         },
-        _div_312: {
+        _div_648: {
           _attr: {
             groups: 'account.group_account_invoice,account.group_account_readonly',
             invisible: ['|', '|', ['move_type', '!=', 'out_invoice'], ['invoice_has_outstanding', '=', false], ['payment_state', 'not in', ('not_paid', 'partial')]],
@@ -441,23 +449,13 @@ export default {
             }
           }
         },
-        _div_353: {
+        _div_281: {
           _attr: {
-            groups: 'account.group_account_invoice,account.group_account_readonly',
-            invisible: ['|', '|', ['move_type', '!=', 'in_invoice'], ['invoice_has_outstanding', '=', false], ['payment_state', 'not in', ('not_paid', 'partial')]],
-            class: 'alert alert-info mb-0',
-            text: 'You have'
-          },
-          _bold: {
-            _a: {
-              _attr: {
-                class: 'alert-link',
-                text: 'outstanding debits'
-              }
-            }
+            invisible: ['|', ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')], ['state', '!=', 'draft']],
+            class: 'o_attachment_preview'
           }
         },
-        _div_664: {
+        _div_275: {
           _attr: {
             groups: 'account.group_account_invoice,account.group_account_readonly',
             invisible: ['|', '|', ['move_type', '!=', 'out_refund'], ['invoice_has_outstanding', '=', false], ['payment_state', 'not in', ('not_paid', 'partial')]],
@@ -473,7 +471,7 @@ export default {
             }
           }
         },
-        _div_305: {
+        _div_901: {
           _attr: {
             groups: 'account.group_account_invoice,account.group_account_readonly',
             invisible: ['|', '|', ['move_type', '!=', 'in_refund'], ['invoice_has_outstanding', '=', false], ['payment_state', 'not in', ('not_paid', 'partial')]],
@@ -489,7 +487,7 @@ export default {
             }
           }
         },
-        _div_882: {
+        _div_881: {
           _attr: {
             invisible: ['|', ['state', '!=', 'draft'], ['auto_post', '!=', 'at_date']],
             class: 'alert alert-info mb-0',
@@ -499,7 +497,7 @@ export default {
             readonly: '1'
           }
         },
-        _div_634: {
+        _div_659: {
           _attr: {
             invisible: ['|', '|', ['state', '!=', 'draft'], ['auto_post', '=', 'no'], ['auto_post', '=', 'at_date']],
             class: 'alert alert-info mb-0'
@@ -520,7 +518,7 @@ export default {
             }
           }
         },
-        _div_743: {
+        _div_863: {
           _attr: {
             groups: 'account.group_account_invoice,account.group_account_readonly',
             invisible: [['partner_credit_warning', '=', '']],
@@ -528,7 +526,7 @@ export default {
           },
           partner_credit_warning: {}
         },
-        _div_674: {
+        _div_962: {
           _attr: {
             invisible: ['|', ['display_inactive_currency_warning', '=', false], ['move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt')]],
             class: 'alert alert-warning mb-0',
@@ -543,7 +541,7 @@ export default {
             }
           }
         },
-        _div_918: {
+        _div_351: {
           _attr: {
             invisible: ['|', ['display_inactive_currency_warning', '=', false], ['move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt')]],
             class: 'alert alert-warning mb-0',
@@ -556,12 +554,6 @@ export default {
               class: 'oe_link',
               text: 'activate the currency of the invoice'
             }
-          }
-        },
-        _div_486: {
-          _attr: {
-            invisible: ['|', ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')], ['state', '!=', 'draft']],
-            class: 'o_attachment_preview'
           }
         },
         _div_button_box: {
@@ -607,21 +599,21 @@ export default {
             invisible: ['|', ['payment_state', '!=', 'paid'], ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]]
           }
         },
-        _widget_web_ribbon_752: {
+        _widget_web_ribbon_503: {
           _attr: {
             name: 'web_ribbon',
             title: 'In Payment',
             invisible: ['|', ['payment_state', '!=', 'in_payment'], ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]]
           }
         },
-        _widget_web_ribbon_946: {
+        _widget_web_ribbon_389: {
           _attr: {
             name: 'web_ribbon',
             title: 'Partial',
             invisible: ['|', ['payment_state', '!=', 'partial'], ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]]
           }
         },
-        _widget_web_ribbon_526: {
+        _widget_web_ribbon_459: {
           _attr: {
             name: 'web_ribbon',
             title: 'Reversed',
@@ -629,7 +621,7 @@ export default {
             invisible: [['payment_state', '!=', 'reversed']]
           }
         },
-        _widget_web_ribbon_757: {
+        _widget_web_ribbon_905: {
           _attr: {
             name: 'web_ribbon',
             bg_color: 'bg-info',
@@ -768,7 +760,7 @@ export default {
               string: 'Customer',
               invisible: [['move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt')]]
             },
-            _label_partner_id_905: {
+            _label_partner_id_133: {
               for: 'partner_id',
               string: 'Vendor',
               invisible: [['move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt')]]
@@ -803,7 +795,7 @@ export default {
             ref: {
               invisible: [['move_type', 'not in', ('in_invoice', 'in_receipt', 'in_refund')]]
             },
-            _field_ref_410: {
+            _field_ref_554: {
               ref: {
                 invisible: [['move_type', 'in', ('in_invoice', 'in_receipt', 'in_refund', 'out_invoice', 'out_refund')]]
               }
@@ -830,13 +822,13 @@ export default {
               no_create: true
             }
           },
-          _group_979: {
+          _group_501: {
             _label_invoice_date: {
               for: 'invoice_date',
               string: 'Invoice Date',
               invisible: [['move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt')]]
             },
-            _label_invoice_date_109: {
+            _label_invoice_date_343: {
               for: 'invoice_date',
               string: 'Bill Date',
               invisible: [['move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt')]]
@@ -878,7 +870,7 @@ export default {
                 invisible: [['invoice_payment_term_id', '=', false]]
               }
             },
-            _div_134: {
+            _div_408: {
               _attr: {
                 invisible: [['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]],
                 class: 'd-flex'
@@ -1068,7 +1060,7 @@ export default {
                         invisible: '1',
                         force_save: '1'
                       },
-                      _field_product_uom_id_380: {
+                      _field_product_uom_id_763: {
                         product_uom_id: {
                           invisible: '1'
                         }
@@ -1112,7 +1104,7 @@ export default {
                                   },
                                   _img: {}
                                 },
-                                _div_392: {
+                                _div_220: {
                                   _attr: {
                                     class: 'col-10'
                                   },
@@ -1126,7 +1118,7 @@ export default {
                                       },
                                       _strong: {}
                                     },
-                                    _div_222: {
+                                    _div_715: {
                                       _attr: {
                                         class: 'col-auto'
                                       },
@@ -1139,7 +1131,7 @@ export default {
                                             groups: 'account.group_show_line_subtotals_tax_excluded'
                                           }
                                         },
-                                        _t_141: {
+                                        _t_927: {
                                           _attr: {
                                             groups: 'account.group_show_line_subtotals_tax_included'
                                           }
@@ -1147,19 +1139,19 @@ export default {
                                       }
                                     }
                                   },
-                                  _div_989: {
+                                  _div_634: {
                                     _attr: {
                                       class: 'text-muted',
                                       text: 'Quantity:'
                                     },
                                     _t: {},
-                                    _t_374: {
+                                    _t_192: {
                                       _attr: {
                                         groups: 'uom.group_uom'
                                       }
                                     }
                                   },
-                                  _div_358: {
+                                  _div_160: {
                                     _attr: {
                                       class: 'text-muted',
                                       text: 'Unit Price:'
@@ -1169,7 +1161,7 @@ export default {
                                 }
                               }
                             },
-                            _t_117: {
+                            _t_278: {
                               _div: {
                                 _attr: {
                                   class: 'row'
@@ -1227,7 +1219,7 @@ export default {
                             string: 'Disc.%'
                           }
                         },
-                        _group_400: {
+                        _group_551: {
                           account_id: {
                             domain: {
                               todo_ctx: "[('company_id', '=', company_id)]"
@@ -1250,12 +1242,12 @@ export default {
                           string: 'Description',
                           invisible: [['display_type', 'in', ('line_note', 'line_section')]]
                         },
-                        _label_name_784: {
+                        _label_name_590: {
                           for: 'name',
                           string: 'Section',
                           invisible: [['display_type', '!=', 'line_section']]
                         },
-                        _label_name_893: {
+                        _label_name_986: {
                           for: 'name',
                           string: 'Note',
                           invisible: [['display_type', '!=', 'line_note']]
@@ -1263,7 +1255,7 @@ export default {
                         name: {
                           widget: 'text'
                         },
-                        _group_320: {
+                        _group_460: {
                           price_subtotal: {
                             string: 'Subtotal',
                             groups: 'account.group_show_line_subtotals_tax_excluded'
@@ -1288,7 +1280,7 @@ export default {
                   placeholder: 'Terms and Conditions'
                 }
               },
-              _group_321: {
+              _group_595: {
                 _group: {
                   _attr: {
                     invisible: ['|', ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')], ['payment_state', '=', 'invoicing_legacy']],
@@ -1588,7 +1580,7 @@ export default {
               }
             }
           },
-          _page_other_info_696: {
+          _page_other_info_117: {
             _attr: {
               name: 'other_info',
               string: 'Other Info',
@@ -1642,7 +1634,7 @@ export default {
           todo_ctx: "['|', '|', ('name', 'ilike', self), ('ref', 'ilike', self), ('partner_id', 'ilike', self)]"
         }
       },
-      _field_name_154: {
+      _field_name_392: {
         name: {}
       },
       ref: {},
@@ -1653,6 +1645,7 @@ export default {
         _attr: {
           name: 'unposted',
           string: 'Unposted',
+          help: 'Unposted Journal Entries',
           domain: [['state', '=', 'draft']]
         }
       },
@@ -1660,6 +1653,7 @@ export default {
         _attr: {
           name: 'posted',
           string: 'Posted',
+          help: 'Posted Journal Entries',
           domain: [['state', '=', 'posted']]
         }
       },
@@ -1671,7 +1665,7 @@ export default {
           domain: [['payment_state', '=', 'reversed']]
         }
       },
-      _separator_482: {},
+      _separator_805: {},
       _filter_to_check: {
         _attr: {
           name: 'to_check',
@@ -1679,7 +1673,7 @@ export default {
           domain: [['to_check', '=', true]]
         }
       },
-      _separator_303: {},
+      _separator_387: {},
       _filter_sales: {
         _attr: {
           name: 'sales',
@@ -1730,14 +1724,15 @@ export default {
           }
         }
       },
-      _separator_753: {},
+      _separator_421: {},
       _filter_date: {
         _attr: {
           name: 'date',
-          string: 'Date'
+          string: 'Date',
+          date: 'date'
         }
       },
-      _separator_945: {},
+      _separator_598: {},
       _group: {
         _attr: {
           string: 'Group By'
@@ -1776,6 +1771,7 @@ export default {
           _attr: {
             name: 'by_date',
             string: 'Date',
+            help: 'Journal Entries by Date',
             domain: [],
             context: {
               group_by: 'date'
@@ -1825,6 +1821,7 @@ export default {
       _filter_myinvoices: {
         _attr: {
           name: 'myinvoices',
+          help: 'My Invoices',
           domain: {
             todo_ctx: "[('invoice_user_id', '=', uid)]"
           }
@@ -1852,7 +1849,7 @@ export default {
           domain: [['state', '=', 'cancel']]
         }
       },
-      _separator_281: {},
+      _separator_716: {},
       _filter_to_check: {
         _attr: {
           name: 'to_check',
@@ -1860,7 +1857,7 @@ export default {
           domain: [['to_check', '=', true]]
         }
       },
-      _separator_851: {},
+      _separator_532: {},
       _filter_open: {
         _attr: {
           name: 'open',
@@ -1879,36 +1876,41 @@ export default {
         _attr: {
           name: 'late',
           string: 'Overdue',
+          help: 'Overdue invoices, maturity date passed',
           domain: {
             todo_ctx: "[                         ('invoice_date_due', '<', time.strftime('%Y-%m-%d')),                         ('state', '=', 'posted'),                         ('payment_state', 'in', ('not_paid', 'partial'))                     ]"
           }
         }
       },
-      _separator_733: {},
+      _separator_605: {},
       _filter_invoice_date: {
         _attr: {
           name: 'invoice_date',
-          string: 'Invoice Date'
+          string: 'Invoice Date',
+          date: 'invoice_date'
         }
       },
       _filter_date: {
         _attr: {
           name: 'date',
           string: 'Accounting Date',
+          date: 'date',
           invisible: "context.get['default_move_type'] in ['out_invoice', 'out_refund', 'out_receipt']"
         }
       },
       _filter_due_date: {
         _attr: {
           name: 'due_date',
-          string: 'Due Date'
+          string: 'Due Date',
+          date: 'invoice_date_due'
         }
       },
-      _separator_132: {},
+      _separator_258: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
           string: 'Late Activities',
+          help: 'Show all records which has next action date is before today',
           invisible: '1',
           domain: {
             todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]"
@@ -1993,8 +1995,8 @@ export default {
   action_move_journal_line: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Journal Entries',
-    search_view_id: 'view_account_move_filter',
     res_model: 'account.move',
+    search_view_id: 'view_account_move_filter',
     context: {
       default_move_type: 'entry',
       search_default_posted: 1,
@@ -2009,8 +2011,8 @@ export default {
   action_move_out_invoice_type: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Invoices',
-    search_view_id: 'view_account_invoice_filter',
     res_model: 'account.move',
+    search_view_id: 'view_account_invoice_filter',
     domain: "[['move_type', '=', 'out_invoice']]",
     context: {
       default_move_type: 'out_invoice'
@@ -2024,8 +2026,8 @@ export default {
   action_move_out_refund_type: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Credit Notes',
-    search_view_id: 'view_account_invoice_filter',
     res_model: 'account.move',
+    search_view_id: 'view_account_invoice_filter',
     domain: "[['move_type', '=', 'out_refund']]",
     context: {
       default_move_type: 'out_refund'
@@ -2039,8 +2041,8 @@ export default {
   action_move_in_invoice_type: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Bills',
-    search_view_id: 'view_account_invoice_filter',
     res_model: 'account.move',
+    search_view_id: 'view_account_invoice_filter',
     domain: "[['move_type', '=', 'in_invoice']]",
     context: {
       default_move_type: 'in_invoice'
@@ -2054,8 +2056,8 @@ export default {
   action_move_in_refund_type: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Refunds',
-    search_view_id: 'view_account_invoice_filter',
     res_model: 'account.move',
+    search_view_id: 'view_account_invoice_filter',
     domain: "[['move_type', '=', 'in_refund']]",
     context: {
       default_move_type: 'in_refund'
@@ -2069,8 +2071,8 @@ export default {
   action_move_out_receipt_type: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Receipts',
-    search_view_id: 'view_account_invoice_filter',
     res_model: 'account.move',
+    search_view_id: 'view_account_invoice_filter',
     domain: "[['move_type', '=', 'out_receipt']]",
     context: {
       default_move_type: 'out_receipt'
@@ -2084,8 +2086,8 @@ export default {
   action_move_in_receipt_type: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Receipts',
-    search_view_id: 'view_account_invoice_filter',
     res_model: 'account.move',
+    search_view_id: 'view_account_invoice_filter',
     domain: "[['move_type', '=', 'in_receipt']]",
     context: {
       default_move_type: 'in_receipt'
@@ -2100,8 +2102,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Entries',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_account_move_filter',
     res_model: 'account.move',
+    search_view_id: 'view_account_move_filter',
     views: {
       tree: 'view_move_tree',
       form: '=======todo=========='
@@ -2119,6 +2121,7 @@ export default {
     name: 'Create first invoice',
     type: 'ir.actions.act_window',
     res_model: 'account.move',
+    search_view_id: 'tooooooodoooooo',
     context: {
       default_move_type: 'out_invoice'
     },

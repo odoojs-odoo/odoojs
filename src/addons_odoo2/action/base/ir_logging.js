@@ -111,8 +111,8 @@ export default {
   ir_logging_all_act: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Logging',
-    search_view_id: 'ir_logging_search_view',
     res_model: 'ir.logging',
+    search_view_id: 'ir_logging_search_view',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

@@ -13,7 +13,7 @@ export default {
             }
           }
         },
-        _group_738: {
+        _group_839: {
           product_ids: {
             widget: 'many2many_tags'
           }
@@ -41,6 +41,7 @@ export default {
     name: 'Product Tags',
     type: 'ir.actions.act_window',
     res_model: 'product.tag',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

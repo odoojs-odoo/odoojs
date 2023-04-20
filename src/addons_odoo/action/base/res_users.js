@@ -169,7 +169,7 @@ export default {
   },
 
   action_res_users: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Users',
     type: 'ir.actions.act_window',
     res_model: 'res.users',

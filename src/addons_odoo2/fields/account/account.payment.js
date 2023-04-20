@@ -65,16 +65,16 @@ const ModelFields = {
     }
   },
 
-  partner_bank_id_$_form_$$_323: {
-    string: 'Vendor Bank Account'
-  },
-
-  partner_bank_id_$_form_$$_653: {
+  partner_bank_id_$_form_$$_275: {
     string: 'Customer Bank Account'
   },
 
-  partner_bank_id_$_form_$$_825: {
+  partner_bank_id_$_form_$$_281: {
     string: 'Company Bank Account'
+  },
+
+  partner_bank_id_$_form_$$_972: {
+    string: 'Vendor Bank Account'
   },
 
   partner_id: {
@@ -85,15 +85,15 @@ const ModelFields = {
     }
   },
 
-  partner_id_$_form_$$_517: {
-    string: 'Vendor'
-  },
-
-  partner_id_$_form_$$_942: {
+  partner_id_$_form_$$_149: {
     string: 'Customer'
   },
 
-  partner_id_$_tree_$$_963: {
+  partner_id_$_form_$$_903: {
+    string: 'Vendor'
+  },
+
+  partner_id_$_tree_$$_902: {
     string: 'Customer'
   },
 

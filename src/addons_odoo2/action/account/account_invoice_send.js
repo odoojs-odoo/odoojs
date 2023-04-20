@@ -55,7 +55,7 @@ export default {
             }
           }
         },
-        _div_837: {
+        _div_401: {
           _attr: {
             invisible: ['|', ['is_email', '=', false], ['invoice_without_email', '=', false]],
             class: 'text-start d-inline-block mr8'
@@ -90,7 +90,7 @@ export default {
                   _strong: 'Email mass mailing',
                   _span: 'the selected records'
                 },
-                _span_112: 'Followers of the document and',
+                _span_487: 'Followers of the document and',
                 partner_ids: {
                   widget: 'many2many_tags_email',
                   invisible: [['composition_mode', '=', 'mass_mail']],
@@ -122,7 +122,7 @@ export default {
                 invisible: [['composition_mode', '=', 'mass_mail']]
               }
             },
-            _group_150: {
+            _group_358: {
               template_id: {
                 context: {
                   default_model: 'account.move'
@@ -143,7 +143,7 @@ export default {
               class: 'send_and_print btn-primary o_mail_send'
             }
           },
-          _button_send_and_print_action_775: {
+          _button_send_and_print_action_401: {
             _attr: {
               name: 'send_and_print_action',
               type: 'object',
@@ -152,7 +152,7 @@ export default {
               class: 'send btn-primary o_mail_send'
             }
           },
-          _button_send_and_print_action_967: {
+          _button_send_and_print_action_966: {
             _attr: {
               name: 'send_and_print_action',
               type: 'object',
@@ -173,6 +173,7 @@ export default {
               type: 'object',
               string: 'Save as new template',
               icon: 'fa-lg fa-save',
+              help: 'Save as a new template',
               invisible: ['|', ['composition_mode', '=', 'mass_mail'], ['is_email', '=', false]],
               class: 'float-end btn-secondary'
             }

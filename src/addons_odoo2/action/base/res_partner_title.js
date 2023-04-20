@@ -30,6 +30,7 @@ export default {
     name: 'Contact Titles',
     type: 'ir.actions.act_window',
     res_model: 'res.partner.title',
+    search_view_id: 'tooooooodoooooo',
     domain: '[]',
     context: {},
     views: {

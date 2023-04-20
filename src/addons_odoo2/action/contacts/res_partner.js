@@ -3,8 +3,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Contacts',
     type: 'ir.actions.act_window',
-    search_view_id: 'base.view_res_partner_filter',
     res_model: 'res.partner',
+    search_view_id: 'base.view_res_partner_filter',
     context: {
       default_is_company: true
     },

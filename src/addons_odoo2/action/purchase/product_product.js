@@ -2,8 +2,8 @@ export default {
   product_product_action: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Product Variants',
-    search_view_id: 'product.product_search_form_view',
     res_model: 'product.product',
+    search_view_id: 'product.product_search_form_view',
     context: {
       search_default_filter_to_purchase: 1
     },
@@ -21,13 +21,15 @@ export default {
       sheet: {
         _div_button_box: {
           _attr: {
-            name: 'button_box'
+            name: 'button_box',
+            position: 'inside'
           },
           _button_action_view_po: {
             _attr: {
               name: 'action_view_po',
               type: 'object',
               icon: 'fa-credit-card',
+              help: 'Purchased in the last 365 days',
               groups: 'purchase.group_purchase_user',
               invisible: [['purchase_ok', '=', false]],
               class: 'oe_stat_button'
@@ -46,7 +48,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_977: {
+              _span_841: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Purchased'

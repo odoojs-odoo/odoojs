@@ -145,7 +145,7 @@ export default {
                     }
                   }
                 },
-                todoview___tree_578: {
+                todoview___tree_704: {
                   arch: {
                     sheet: {
                       _attr: {
@@ -218,8 +218,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Pricelists',
     type: 'ir.actions.act_window',
-    search_view_id: 'product_pricelist_view_search',
     res_model: 'product.pricelist',
+    search_view_id: 'product_pricelist_view_search',
     context: {
       default_base: 'list_price'
     },

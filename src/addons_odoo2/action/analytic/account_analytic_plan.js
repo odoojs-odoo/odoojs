@@ -42,7 +42,7 @@ export default {
                 },
                 all_account_count: {}
               },
-              _span_439: {
+              _span_492: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Analytic Accounts'
@@ -69,7 +69,7 @@ export default {
               widget: 'color_picker'
             }
           },
-          _group_919: {
+          _group_537: {
             company_id: {
               groups: 'base.group_multi_company'
             }
@@ -122,6 +122,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Analytic Plans',
     res_model: 'account.analytic.plan',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['parent_id', '=', False]]",
     views: {
       tree: '=======todo==========',

@@ -4,34 +4,38 @@ export default {
     model: 'mail.mail',
     type: 'form',
     arch: {
-      sheet: {
-        _header: {
-          _button_send: {
-            _attr: {
-              name: 'send',
-              type: 'object',
-              string: 'Send Now',
-              class: 'oe_highlight'
-            }
-          },
-          _button_mark_outgoing: {
-            _attr: {
-              name: 'mark_outgoing',
-              type: 'object',
-              string: 'Retry'
-            }
-          },
-          _button_cancel: {
-            _attr: {
-              name: 'cancel',
-              type: 'object',
-              string: 'Cancel'
-            }
-          },
-          state: {
-            widget: 'statusbar'
+      header: {
+        _button_send: {
+          _attr: {
+            name: 'send',
+            type: 'object',
+            string: 'Send Now',
+            states: 'outgoing',
+            class: 'oe_highlight'
           }
         },
+        _button_mark_outgoing: {
+          _attr: {
+            name: 'mark_outgoing',
+            type: 'object',
+            string: 'Retry',
+            states: 'exception,cancel'
+          }
+        },
+        _button_cancel: {
+          _attr: {
+            name: 'cancel',
+            type: 'object',
+            string: 'Cancel',
+            states: 'outgoing'
+          }
+        },
+        state: {
+          widget: 'statusbar',
+          statusbar_visible: 'outgoing,sent,received,exception,cancel'
+        }
+      },
+      sheet: {
         model: {
           invisible: '1'
         },
@@ -83,6 +87,7 @@ export default {
               type: 'action',
               string: 'Reply',
               icon: 'fa-reply text-warning',
+              states: 'received,sent,exception,cancel',
               context: {
                 todo_ctx: "{'default_composition_mode':'comment', 'default_parent_id': mail_message_id_int}"
               }
@@ -136,7 +141,7 @@ export default {
                 model: {},
                 res_id: {}
               },
-              _group_208: {
+              _group_596: {
                 _attr: {
                   string: 'Headers'
                 },
@@ -224,7 +229,8 @@ export default {
             name: 'send',
             type: 'object',
             string: 'Send Now',
-            icon: 'fa-paper-plane'
+            icon: 'fa-paper-plane',
+            states: 'outgoing'
           }
         },
         _button_mark_outgoing: {
@@ -232,7 +238,8 @@ export default {
             name: 'mark_outgoing',
             type: 'object',
             string: 'Retry',
-            icon: 'fa-repeat'
+            icon: 'fa-repeat',
+            states: 'exception,cancel'
           }
         },
         _button_cancel: {
@@ -240,7 +247,8 @@ export default {
             name: 'cancel',
             type: 'object',
             string: 'Cancel Email',
-            icon: 'fa-times-circle'
+            icon: 'fa-times-circle',
+            states: 'outgoing'
           }
         }
       }
@@ -318,7 +326,7 @@ export default {
         model: {},
         res_id: {}
       },
-      _group_674: {
+      _group_273: {
         _attr: {
           string: 'Group By'
         },
@@ -355,6 +363,7 @@ export default {
           _attr: {
             name: 'month',
             string: 'Date',
+            help: 'Creation Date',
             domain: [],
             context: {
               group_by: 'date'
@@ -368,8 +377,8 @@ export default {
   action_view_mail_mail: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Emails',
-    search_view_id: 'view_mail_search',
     res_model: 'mail.mail',
+    search_view_id: 'view_mail_search',
     context: {},
     views: {
       tree: '=======todo==========',
@@ -381,6 +390,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Messages',
     res_model: 'mail.mail',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['email_from', '!=', False], ['fetchmail_server_id', '=', active_id]]",
     context: {
       todo_ctx: "{'search_default_server_id': active_id, 'default_fetchmail_server_id': active_id}"

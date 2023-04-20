@@ -47,7 +47,7 @@ export default {
                 },
                 number_related_products: {}
               },
-              _span_248: {
+              _span_747: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Related Products'
@@ -119,6 +119,7 @@ export default {
     name: 'Attributes',
     type: 'ir.actions.act_window',
     res_model: 'product.attribute',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

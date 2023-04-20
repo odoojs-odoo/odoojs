@@ -13,11 +13,12 @@ export default {
           _attribute_attrs: {
             _attr: {
               name: 'attrs',
-              text: "{'invisible': ['|', '|', '|', ('state', '!=', 'posted'), ('payment_state', 'not in', ('partial', 'not_paid')), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')), ('authorized_transaction_ids', '!=', [])]}"
+              text: "{'invisible': ['|', '|', '|', ('state', '!=', 'posted'), ('payment_state', 'not in', ('partial', 'not_paid')), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')), ('authorized_transaction_ids', '!=', [])]}",
+              attrs: "{'invisible': ['|', '|', '|', ('state', '!=', 'posted'), ('payment_state', 'not in', ('partial', 'not_paid')), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')), ('authorized_transaction_ids', '!=', [])]}"
             }
           }
         },
-        _xpath_747: {
+        _xpath_938: {
           _attr: {
             expr: "//button[@id='account_invoice_payment_btn']",
             position: 'after'
@@ -45,7 +46,7 @@ export default {
             }
           }
         },
-        _xpath_309: {
+        _xpath_241: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'

@@ -2,7 +2,7 @@
 
 export default {
   action_contacts: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '联系人',
     type: 'ir.actions.act_window',
     res_model: 'res.partner',

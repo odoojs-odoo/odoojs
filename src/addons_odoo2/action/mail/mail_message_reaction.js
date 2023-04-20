@@ -18,6 +18,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Message Reactions',
     res_model: 'mail.message.reaction',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

@@ -86,7 +86,7 @@ export default {
   },
 
   product_uom_categ_form_action: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Units of Measure Categories',
     type: 'ir.actions.act_window',
     res_model: 'uom.category',

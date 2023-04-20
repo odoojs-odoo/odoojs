@@ -66,11 +66,11 @@ const ModelFields = {
     required: '1'
   },
 
-  product_id_$_form_$$_896: {
+  product_id_$_form_$$_537: {
     readonly: '1'
   },
 
-  product_id_$_tree_$$_452: {
+  product_id_$_tree_$$_111: {
     readonly: ['|', '&', ['state', '!=', 'draft'], ['additional', '=', false], ['move_lines_count', '>', 0]]
   },
 
@@ -80,29 +80,29 @@ const ModelFields = {
 
   product_type: {},
   product_uom: {
-    groups: 'uom.group_uom',
     readonly: '===todo==',
+    groups: 'uom.group_uom',
     string: '===todo=='
   },
 
-  product_uom_$_form_$$_662: {
+  product_uom_$_form_$$_296: {
     readonly: '1'
   },
 
-  product_uom_$_form_$$_832: {
+  product_uom_$_form_$$_818: {
     readonly: '1'
   },
 
-  product_uom_$_tree_$$_787: {
+  product_uom_$_tree_$$_215: {
     readonly: [['state', '!=', 'draft'], ['id', '!=', false]],
     string: 'Unit of Measure'
   },
 
-  product_uom_$_tree_$$_773: {
+  product_uom_$_tree_$$_596: {
     string: 'Unit'
   },
 
-  product_uom_$_tree_$$_781: {
+  product_uom_$_tree_$$_945: {
     string: 'Unit of Measure'
   },
 
@@ -112,16 +112,16 @@ const ModelFields = {
     string: '===todo=='
   },
 
-  product_uom_qty_$_form_$$_246: {
+  product_uom_qty_$_form_$$_702: {
     readonly: '1'
   },
 
-  product_uom_qty_$_tree_$$_202: {
+  product_uom_qty_$_tree_$$_948: {
     readonly: [['is_initial_demand_editable', '=', false]],
     string: 'Demand'
   },
 
-  product_uom_qty_$_tree_$$_816: {
+  product_uom_qty_$_tree_$$_795: {
     string: 'Quantity'
   },
 

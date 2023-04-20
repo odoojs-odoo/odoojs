@@ -19,13 +19,13 @@ export default {
             class: 'mx-1',
             readonly: 'True'
           },
-          _strong_802: {
+          _strong_774: {
             location_id: {
               readonly: 'True'
             }
           }
         },
-        _xpath_804: {
+        _xpath_987: {
           _attr: {
             expr: "//button[@name='cancel_button']",
             position: 'replace'

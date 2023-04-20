@@ -80,7 +80,7 @@ export default {
               invisible: '1'
             }
           },
-          _group_637: {
+          _group_662: {
             price_unit: {
               readonly: '1'
             },
@@ -119,6 +119,7 @@ export default {
         _attr: {
           name: 'to_invoice',
           string: 'To Invoice',
+          help: 'Sales Order Lines ready to be invoiced',
           domain: [['qty_to_invoice', '!=', 0]]
         }
       },
@@ -127,6 +128,7 @@ export default {
         _attr: {
           name: 'my_sales_order_lines',
           string: 'My Sales Order Lines',
+          help: 'Sales Order Lines related to a Sales Order of mine',
           domain: {
             todo_ctx: "[('salesman_id','=',uid)]"
           }

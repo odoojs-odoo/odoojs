@@ -55,7 +55,7 @@ export default {
   },
 
   action_hr_expense_account: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '员工报销费用',
     type: 'ir.actions.act_window',
     res_model: 'hr.expense.sheet',

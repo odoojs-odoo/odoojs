@@ -15,15 +15,15 @@ const ModelFields = {
     context: '===todo=='
   },
 
-  lot_id_$_form_$$_213: {
+  lot_id_$_form_$$_323: {
     context: {
-      todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}"
+      todo_ctx: "{'default_company_id': company_id, 'default_product_id': product_id}"
     }
   },
 
-  lot_id_$_form_$$_772: {
+  lot_id_$_form_$$_640: {
     context: {
-      todo_ctx: "{'default_company_id': company_id, 'default_product_id': product_id}"
+      todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}"
     }
   },
 

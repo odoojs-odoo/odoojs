@@ -14,7 +14,7 @@ export default {
             ref: {},
             partner_id: {}
           },
-          _xpath_492: {
+          _xpath_676: {
             _attr: {
               expr: "//field[@name='product_uom_id']",
               position: 'before'
@@ -23,7 +23,8 @@ export default {
           },
           _group_amount: {
             _attr: {
-              name: 'amount'
+              name: 'amount',
+              position: 'after'
             },
             _group: {},
             _group_accounting: {
@@ -96,7 +97,7 @@ export default {
               }
             }
           },
-          _xpath_427: {
+          _xpath_331: {
             _attr: {
               expr: "//group[@name='groupby']",
               position: 'after'
@@ -141,6 +142,7 @@ export default {
     arch: {
       sheet: {
         account_id: {
+          position: 'after',
           __todo__after: {
             partner_id: {}
           }

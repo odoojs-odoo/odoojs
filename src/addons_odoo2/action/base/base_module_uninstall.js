@@ -19,7 +19,7 @@ export default {
         module_id: {
           invisible: '1'
         },
-        _div_984: {
+        _div_200: {
           _attr: {
             class: 'd-flex bd-highlight'
           },
@@ -29,7 +29,7 @@ export default {
             },
             _h3: 'Apps to Uninstall'
           },
-          _div_103: {
+          _div_933: {
             _attr: {
               class: 'p-2 bd-highlight'
             },

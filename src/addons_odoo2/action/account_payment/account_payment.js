@@ -24,7 +24,7 @@ export default {
             }
           }
         },
-        _xpath_942: {
+        _xpath_143: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'
@@ -43,7 +43,7 @@ export default {
             }
           }
         },
-        _xpath_799: {
+        _xpath_181: {
           _attr: {
             expr: '//group[2]',
             position: 'inside'
@@ -57,6 +57,7 @@ export default {
           }
         },
         payment_method_line_id: {
+          position: 'after',
           __todo__after: {
             payment_method_code: {
               invisible: '1'

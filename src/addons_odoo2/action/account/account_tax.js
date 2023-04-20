@@ -40,7 +40,8 @@ export default {
           _attribute_default_order: {
             _attr: {
               name: 'default_order',
-              text: 'active desc, type_tax_use desc, amount desc, sequence'
+              text: 'active desc, type_tax_use desc, amount desc, sequence',
+              default_order: 'active desc, type_tax_use desc, amount desc, sequence'
             }
           }
         }
@@ -109,11 +110,12 @@ export default {
           domain: [['tax_scope', '=', 'consu']]
         }
       },
-      _separator_630: {},
+      _separator_256: {},
       _filter_active: {
         _attr: {
           name: 'active',
           string: 'Active',
+          help: 'Show active taxes',
           domain: [['active', '=', true]]
         }
       },
@@ -121,6 +123,7 @@ export default {
         _attr: {
           name: 'inactive',
           string: 'Inactive',
+          help: 'Show inactive taxes',
           domain: [['active', '=', false]]
         }
       },
@@ -149,7 +152,7 @@ export default {
             }
           }
         },
-        _filter_taxapp_913: {
+        _filter_taxapp_836: {
           _attr: {
             name: 'taxapp',
             string: 'Tax Scope',
@@ -197,7 +200,7 @@ export default {
               widget: 'boolean_toggle'
             }
           },
-          _group_690: {
+          _group_535: {
             type_tax_use: {},
             tax_scope: {},
             _label_amount: {
@@ -240,7 +243,7 @@ export default {
                 },
                 invoice_repartition_line_ids: {}
               },
-              _group_491: {
+              _group_900: {
                 _attr: {
                   string: 'Distribution for Refunds'
                 },
@@ -337,6 +340,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Taxes',
     res_model: 'account.tax',
+    search_view_id: 'tooooooodoooooo',
     domain: [],
     context: {
       search_default_sale: true,

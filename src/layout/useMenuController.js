@@ -46,9 +46,13 @@ export function useMenuController({ router }) {
   }
 
   function webMenuSelect(name) {
+    console.log(name)
     const menu = menus_data.value[name]
+    console.log(name, menu, menus_data.value)
     const action_id = menu.action || name
+    console.log('action_id', action_id)
     const action = api.env.action_info_get(action_id)
+    console.log('action_id2', action)
 
     if (!action) {
       return

@@ -50,6 +50,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Payment Icons',
     res_model: 'payment.icon',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

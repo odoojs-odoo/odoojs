@@ -65,7 +65,7 @@ export default {
               class: 'btn-primary'
             }
           },
-          _button_cancel_mail_action_112: {
+          _button_cancel_mail_action_354: {
             _attr: {
               name: 'cancel_mail_action',
               type: 'object',
@@ -90,6 +90,7 @@ export default {
     name: 'Sending Failures',
     type: 'ir.actions.act_window',
     res_model: 'mail.resend.message',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

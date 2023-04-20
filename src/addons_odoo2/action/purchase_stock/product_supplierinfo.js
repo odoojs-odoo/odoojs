@@ -6,6 +6,7 @@ export default {
     arch: {
       sheet: {
         delay: {
+          position: 'after',
           __todo__after: {
             show_set_supplier_button: {
               invisible: '1'
@@ -33,18 +34,22 @@ export default {
           _attribute_decoration$dash$bf: {
             _attr: {
               name: 'decoration-bf',
-              text: 'parent.supplierinfo_id == id'
+              text: 'parent.supplierinfo_id == id',
+              decoration-bf: 'parent.supplierinfo_id == id'
             }
           }
         },
         min_qty: {
+          position: 'attributes',
           __todo__decoration-danger: 'min_qty > parent.qty_to_order'
         },
         company_id: {
+          position: 'attributes',
           __todo__optional: 'hide'
         },
-        _field_delay_482: {
+        _field_delay_604: {
           delay: {
+            position: 'attributes',
             __todo__optional: 'show'
           }
         }

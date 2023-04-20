@@ -38,7 +38,7 @@ export default {
             invisible: [['active', '=', true]]
           }
         },
-        _button_base__action_view_base_language_install_530: {
+        _button_base__action_view_base_language_install_577: {
           _attr: {
             name: 'base.action_view_base_language_install',
             type: 'action',
@@ -110,7 +110,7 @@ export default {
               widget: 'boolean_toggle'
             }
           },
-          _group_538: {
+          _group_124: {
             direction: {},
             grouping: {},
             decimal_point: {},
@@ -139,33 +139,33 @@ export default {
                 }
               }
             },
-            _div_768: {
+            _div_265: {
               _attr: {
                 class: 'col-sm'
               },
               _div: '%a - Abbreviated day of the week.',
-              _div_664: '%A - Full day of the week.',
-              _div_368: '%b - Abbreviated month name.',
-              _div_361: '%B - Full month name."',
-              _div_169: '%d - Day of the month [01,31]."',
-              _div_537: '%j - Day of the year [001,366]."',
-              _div_659: '%H - Hour (24-hour clock) [00,23]."',
-              _div_355: '%I - Hour (12-hour clock) [01,12]."'
+              _div_206: '%A - Full day of the week.',
+              _div_542: '%b - Abbreviated month name.',
+              _div_271: '%B - Full month name."',
+              _div_662: '%d - Day of the month [01,31]."',
+              _div_518: '%j - Day of the year [001,366]."',
+              _div_314: '%H - Hour (24-hour clock) [00,23]."',
+              _div_651: '%I - Hour (12-hour clock) [01,12]."'
             },
-            _div_713: {
+            _div_208: {
               _attr: {
                 class: 'col-sm'
               },
               _div: '%M - Minute [00,59]."',
-              _div_962: '%p - Equivalent of either AM or PM."',
-              _div_851: '%S - Seconds [00,61]."',
-              _div_206: '%w - Day of the week number [0(Sunday),6]."',
-              _div_682: '%y - Year without century [00,99]."',
-              _div_689: '%Y - Year with century."',
-              _div_473: '%m - Month number [01,12]."'
+              _div_732: '%p - Equivalent of either AM or PM."',
+              _div_369: '%S - Seconds [00,61]."',
+              _div_558: '%w - Day of the week number [0(Sunday),6]."',
+              _div_417: '%y - Year without century [00,99]."',
+              _div_126: '%Y - Year with century."',
+              _div_632: '%m - Month number [01,12]."'
             }
           },
-          _div_559: {
+          _div_788: {
             _attr: {
               class: 'col-md-4 text-info'
             },
@@ -175,15 +175,14 @@ export default {
                 text: 'Examples'
               }
             },
-            _div_332: '1. %b, %B         ==> Dec, December',
-            _div_955: '2. %a ,%A         ==> Fri, Friday',
-            _div_868: '3. %y, %Y         ==> 08, 2008',
-            _div_966: '4. %d, %m         ==> 05, 12',
-            _div_644: '5. %H:%M:%S      ==> 18:25:20',
-            _div_672: '6. %I:%M:%S %p  ==> 06:25:20 PM',
-            _div_812: '7. %j              ==> 340',
-            _div_528: '8. %S              ==> 20',
-            _div_460: '9. %w              ==> 5 ( Friday is the 6th day)'
+            _div_639: '2. %a ,%A         ==> Fri, Friday',
+            _div_549: '3. %y, %Y         ==> 08, 2008',
+            _div_109: '4. %d, %m         ==> 05, 12',
+            _div_662: '5. %H:%M:%S      ==> 18:25:20',
+            _div_813: '6. %I:%M:%S %p  ==> 06:25:20 PM',
+            _div_254: '7. %j              ==> 340',
+            _div_640: '8. %S              ==> 20',
+            _div_432: '9. %w              ==> 5 ( Friday is the 6th day)'
           }
         }
       }
@@ -216,8 +215,8 @@ export default {
   res_lang_act_window: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Languages',
-    search_view_id: 'res_lang_search',
     res_model: 'res.lang',
+    search_view_id: 'res_lang_search',
     context: {
       active_test: false
     },

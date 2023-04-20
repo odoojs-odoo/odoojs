@@ -339,7 +339,7 @@ export default {
   },
 
   action_account_fiscal_position_form: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Fiscal Positions',
     type: 'ir.actions.act_window',
     res_model: 'account.fiscal.position',
@@ -447,7 +447,7 @@ export default {
   },
 
   action_account_fiscal_position_template: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Fiscal Position Templates',
     type: 'ir.actions.act_window',
     res_model: 'account.fiscal.position.template',

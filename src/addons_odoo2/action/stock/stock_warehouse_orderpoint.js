@@ -89,7 +89,7 @@ export default {
           string: 'UoM',
           groups: 'uom.group_uom'
         },
-        _field_company_id_956: {
+        _field_company_id_834: {
           company_id: {
             groups: 'base.group_multi_company',
             readonly: '1',
@@ -124,7 +124,7 @@ export default {
             icon: 'fa-bell-slash',
             invisible: [['trigger', '!=', 'manual']],
             context: {
-              default_orderpoint_ids: [<built-in function id>]
+              default_orderpoint_ids: ['todo,------<built-in function id>']
             },
             class: 'text-warning'
           }
@@ -168,7 +168,7 @@ export default {
           domain: [['qty_to_order', '>', 0.0]]
         }
       },
-      _separator_937: {},
+      _separator_319: {},
       _filter_filter_not_snoozed: {
         _attr: {
           name: 'filter_not_snoozed',
@@ -372,7 +372,7 @@ export default {
             _label_product_max_qty: {
               for: 'product_max_qty'
             },
-            _div_139: {
+            _div_363: {
               _attr: {
                 class: 'o_row'
               },
@@ -383,7 +383,7 @@ export default {
               string: 'Quantity Multiple'
             }
           },
-          _group_198: {
+          _group_477: {
             allowed_location_ids: {
               invisible: '1'
             },
@@ -426,8 +426,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Replenishment',
     type: 'ir.actions.act_window',
-    search_view_id: 'stock_reorder_report_search',
     res_model: 'stock.warehouse.orderpoint',
+    search_view_id: 'stock_reorder_report_search',
     views: {
       tree: 'view_warehouse_orderpoint_tree_editable',
       form: '=======todo=========='
@@ -438,8 +438,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Reordering Rules',
     type: 'ir.actions.act_window',
-    search_view_id: 'warehouse_orderpoint_search',
     res_model: 'stock.warehouse.orderpoint',
+    search_view_id: 'warehouse_orderpoint_search',
     context: {
       search_default_trigger: 'auto'
     },

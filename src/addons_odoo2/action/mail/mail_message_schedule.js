@@ -4,21 +4,21 @@ export default {
     model: 'mail.message.schedule',
     type: 'form',
     arch: {
-      sheet: {
-        _header: {
-          _button_force_send: {
-            _attr: {
-              name: 'force_send',
-              type: 'object',
-              string: 'Force Send'
-            }
+      header: {
+        _button_force_send: {
+          _attr: {
+            name: 'force_send',
+            type: 'object',
+            string: 'Force Send'
           }
-        },
+        }
+      },
+      sheet: {
         _group: {
           mail_message_id: {},
           scheduled_datetime: {}
         },
-        _group_682: {
+        _group_590: {
           notification_parameters: {}
         }
       }
@@ -50,6 +50,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Scheduled Messages',
     res_model: 'mail.message.schedule',
+    search_view_id: 'tooooooodoooooo',
     context: {},
     views: {
       tree: '=======todo==========',

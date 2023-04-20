@@ -29,7 +29,7 @@ export default {
                 },
                 purchase_order_count: {}
               },
-              _span_755: {
+              _span_463: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Purchase'

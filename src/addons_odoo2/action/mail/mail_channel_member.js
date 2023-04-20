@@ -41,6 +41,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Channels/Member',
     res_model: 'mail.channel.member',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

@@ -29,7 +29,7 @@ export default {
               widget: 'radio'
             }
           },
-          _group_458: {
+          _group_572: {
             _attr: {
               invisible: [['selection', '!=', 'sample']]
             },
@@ -37,7 +37,7 @@ export default {
               widget: 'html'
             }
           },
-          _group_630: {
+          _group_961: {
             _attr: {
               invisible: [['selection', '!=', 'upload']]
             },

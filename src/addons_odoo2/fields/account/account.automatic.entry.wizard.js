@@ -6,11 +6,11 @@ const ModelFields = {
     string: '===todo=='
   },
 
-  date_$_form_$$_695: {
+  date_$_form_$$_320: {
     string: 'Transfer Date'
   },
 
-  date_$_form_$$_716: {
+  date_$_form_$$_641: {
     string: 'Recognition Date'
   },
 

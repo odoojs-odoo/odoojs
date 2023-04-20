@@ -519,7 +519,7 @@ export class SearchView extends SearchView1 {
     return dm
   }
 
-  _merge_domain(domain1, domain2) {
+  _merge_domain(domain1 = [], domain2 = []) {
     if (!domain1.length) {
       return domain2
     } else if (!domain2.length) {

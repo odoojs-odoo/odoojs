@@ -57,14 +57,14 @@ export default {
           _group: {
             name: {}
           },
-          _group_857: {
+          _group_461: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
             }
           }
         },
-        _group_545: {
+        _group_800: {
           note: {
             placeholder: 'Payment term explanation for the customer...'
           }
@@ -132,7 +132,7 @@ export default {
               text: 'The Payment Term must have one Balance line.'
             }
           },
-          _div_887: {
+          _div_497: {
             _attr: {
               invisible: [['example_invalid', '=', true]],
               class: 'd-flex',
@@ -144,12 +144,12 @@ export default {
               }
             },
             example_amount: {},
-            _span_159: {
+            _span_898: {
               _attr: {
                 class: 'mx-1'
               }
             },
-            _span_772: {
+            _span_802: {
               _attr: {
                 class: 'mx-1'
               }
@@ -176,8 +176,8 @@ export default {
   action_payment_term_form: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Payment Terms',
-    search_view_id: 'view_payment_term_search',
     res_model: 'account.payment.term',
+    search_view_id: 'view_payment_term_search',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

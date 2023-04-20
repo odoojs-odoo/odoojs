@@ -12,7 +12,7 @@ export default {
           _group: {
             name: {}
           },
-          _group_183: {
+          _group_188: {
             type_tax_use: {}
           }
         },
@@ -156,6 +156,7 @@ export default {
         _attr: {
           name: 'sale',
           string: 'Sale',
+          help: 'Taxes used in Sales',
           domain: [['type_tax_use', '=', 'sale']]
         }
       },
@@ -163,6 +164,7 @@ export default {
         _attr: {
           name: 'purchase',
           string: 'Purchase',
+          help: 'Taxes used in Purchases',
           domain: [['type_tax_use', '=', 'purchase']]
         }
       },
@@ -180,8 +182,8 @@ export default {
   action_account_tax_template_form: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Tax Templates',
-    search_view_id: 'view_account_tax_template_search',
     res_model: 'account.tax.template',
+    search_view_id: 'view_account_tax_template_search',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

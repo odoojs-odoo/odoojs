@@ -30,7 +30,7 @@ export default {
   },
 
   action_country_group: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Country Group',
     type: 'ir.actions.act_window',
     res_model: 'res.country.group',

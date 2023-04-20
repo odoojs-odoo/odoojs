@@ -10,7 +10,7 @@ export default {
             text: 'You have not recorded'
           },
           _i: 'done',
-          _i_131: 'apply'
+          _i_667: 'apply'
         },
         pick_ids: {
           invisible: '1'

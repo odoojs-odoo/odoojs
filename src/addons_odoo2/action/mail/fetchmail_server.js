@@ -21,36 +21,36 @@ export default {
     model: 'fetchmail.server',
     type: 'form',
     arch: {
-      sheet: {
-        _header: {
+      header: {
+        _button_button_confirm_login: {
           _attr: {
-            invisible: [['server_type', '=', 'local']]
-          },
-          _button_button_confirm_login: {
-            _attr: {
-              name: 'button_confirm_login',
-              type: 'object',
-              string: 'Test & Confirm'
-            }
-          },
-          _button_fetch_mail: {
-            _attr: {
-              name: 'fetch_mail',
-              type: 'object',
-              string: 'Fetch Now'
-            }
-          },
-          _button_set_draft: {
-            _attr: {
-              name: 'set_draft',
-              type: 'object',
-              string: 'Reset Confirmation'
-            }
-          },
-          state: {
-            widget: 'statusbar'
+            name: 'button_confirm_login',
+            type: 'object',
+            string: 'Test & Confirm',
+            states: 'draft'
           }
         },
+        _button_fetch_mail: {
+          _attr: {
+            name: 'fetch_mail',
+            type: 'object',
+            string: 'Fetch Now',
+            states: 'done'
+          }
+        },
+        _button_set_draft: {
+          _attr: {
+            name: 'set_draft',
+            type: 'object',
+            string: 'Reset Confirmation',
+            states: 'done'
+          }
+        },
+        state: {
+          widget: 'statusbar'
+        }
+      },
+      sheet: {
         active: {
           invisible: '1'
         },
@@ -70,7 +70,7 @@ export default {
               readonly: [['state', '=', 'done']]
             }
           },
-          _group_858: {
+          _group_882: {
             date: {
               invisible: [['date', '=', false]]
             },
@@ -104,7 +104,7 @@ export default {
                 },
                 is_ssl: {}
               },
-              _group_131: {
+              _group_336: {
                 _attr: {
                   string: 'Login Information',
                   invisible: [['server_type', '=', 'local']]
@@ -117,13 +117,13 @@ export default {
                   invisible: [['server_type', 'not in', ('imap', 'pop')]]
                 }
               },
-              _group_485: {
+              _group_531: {
                 _attr: {
                   string: 'Actions to Perform on Incoming Mails'
                 },
                 object_id: {}
               },
-              _group_699: {
+              _group_584: {
                 _attr: {
                   string: 'Configuration',
                   invisible: [['server_type', '!=', 'local']]
@@ -170,6 +170,7 @@ export default {
         _attr: {
           name: 'imap',
           string: 'IMAP',
+          help: 'Server type IMAP.',
           domain: [['server_type', '=', 'imap']]
         }
       },
@@ -177,6 +178,7 @@ export default {
         _attr: {
           name: 'pop',
           string: 'POP',
+          help: 'Server type POP.',
           domain: [['server_type', '=', 'pop']]
         }
       },
@@ -185,10 +187,11 @@ export default {
         _attr: {
           name: 'ssl',
           string: 'SSL',
+          help: 'If SSL required.',
           domain: [['is_ssl', '=', true]]
         }
       },
-      _separator_403: {},
+      _separator_360: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -202,8 +205,8 @@ export default {
   action_email_server_tree: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Incoming Mail Servers',
-    search_view_id: 'view_email_server_search',
     res_model: 'fetchmail.server',
+    search_view_id: 'view_email_server_search',
     views: {
       tree: 'view_email_server_tree',
       form: '=======todo=========='

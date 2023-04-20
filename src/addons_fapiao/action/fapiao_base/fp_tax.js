@@ -42,7 +42,7 @@ export default {
   },
 
   action_tax: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '开票税率',
     type: 'ir.actions.act_window',
     res_model: 'fp.tax',

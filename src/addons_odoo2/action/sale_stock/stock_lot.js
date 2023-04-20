@@ -15,6 +15,7 @@ export default {
               name: 'action_view_so',
               type: 'object',
               icon: 'fa-pencil-square-o',
+              help: 'Sale Orders',
               invisible: ['|', ['sale_order_count', '=', 0], ['display_complete', '=', false]],
               class: 'oe_stat_button'
             },
@@ -31,7 +32,7 @@ export default {
                   class: 'mr4'
                 }
               },
-              _span_592: {
+              _span_309: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Sales'
@@ -40,7 +41,7 @@ export default {
             }
           }
         },
-        _xpath_901: {
+        _xpath_467: {
           _attr: {
             expr: "//group[@name='main_group']",
             position: 'after'

@@ -29,7 +29,7 @@ export default {
         partner_id: {
           optional: 'hide'
         },
-        _field_company_id_508: {
+        _field_company_id_163: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'show'
@@ -54,7 +54,8 @@ export default {
       _filter_date: {
         _attr: {
           name: 'date',
-          string: 'Date'
+          string: 'Date',
+          date: 'date'
         }
       },
       _filter_group_by_analytic_account: {
@@ -96,8 +97,8 @@ export default {
   account_analytic_line_action: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Gross Margin',
-    search_view_id: 'view_account_analytic_line_filter',
     res_model: 'account.analytic.line',
+    search_view_id: 'view_account_analytic_line_filter',
     domain: "[['account_id','=', active_id]]",
     context: {
       todo_ctx: "{'search_default_group_date': 1, 'default_account_id': active_id}"
@@ -176,8 +177,8 @@ export default {
   account_analytic_line_action_entries: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Analytic Items',
-    search_view_id: 'analytic.view_account_analytic_line_filter',
     res_model: 'account.analytic.line',
+    search_view_id: 'analytic.view_account_analytic_line_filter',
     views: {
       tree: 'view_account_analytic_line_tree',
       form: '=======todo=========='

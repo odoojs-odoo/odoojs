@@ -32,11 +32,11 @@ const ModelFields = {
     string: 'To'
   },
 
-  location_dest_id_$_form_$$_205: {
+  location_dest_id_$_form_$$_483: {
     groups: 'stock.group_stock_multi_locations'
   },
 
-  location_dest_id_$_form_$$_636: {
+  location_dest_id_$_form_$$_497: {
     groups: '!stock.group_stock_multi_locations'
   },
 
@@ -49,11 +49,11 @@ const ModelFields = {
     string: 'From'
   },
 
-  location_id_$_form_$$_657: {
+  location_id_$_form_$$_718: {
     groups: 'stock.group_stock_multi_locations'
   },
 
-  location_id_$_form_$$_668: {
+  location_id_$_form_$$_973: {
     groups: '!stock.group_stock_multi_locations'
   },
 

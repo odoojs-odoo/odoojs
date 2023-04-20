@@ -8,7 +8,7 @@ export default {
         _div: {
           _strong: 'Due to some stock moves done between your initial update of the quantity and now, the difference of quantity is not consistent anymore.'
         },
-        _div_364: {
+        _div_967: {
           _attr: {
             text: 'You can either :'
           },
@@ -19,16 +19,16 @@ export default {
               },
               _strong: 'Counted Quantity'
             },
-            _li_741: {
+            _li_327: {
               _attr: {
                 text: 'Keep the'
               },
               _strong: 'Difference'
             },
-            _li_814: 'Discard and manually resolve the conflict'
+            _li_956: 'Discard and manually resolve the conflict'
           }
         },
-        _div_478: {
+        _div_713: {
           _br: {},
           quant_ids: {
             invisible: '1'
@@ -90,7 +90,7 @@ export default {
                     product_uom_id: {
                       groups: 'uom.group_uom'
                     },
-                    _field_company_id_731: {
+                    _field_company_id_908: {
                       company_id: {
                         groups: 'base.group_multi_company',
                         optional: 'show'

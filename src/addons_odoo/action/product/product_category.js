@@ -17,7 +17,7 @@ export default {
     arch: {
       sheet: {
         _div_button_box: {
-          _button: {
+          _button_product_template_action_all: {
             _attr: {
               name: 'product_template_action_all',
               icon: 'fa-th-list',
@@ -60,7 +60,7 @@ export default {
   },
 
   product_category_action_form: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '产品类别',
     type: 'ir.actions.act_window',
     res_model: 'product.category',

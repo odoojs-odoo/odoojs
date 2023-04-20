@@ -19,11 +19,13 @@ export const modules_installed = [
   'analytic',
   'contacts',
   'account',
+  'account_wizard',
   'sales_team',
   'sale',
   'purchase',
-  'stock'
-
+  'stock',
+  'stock_wizard',
+  'stock_sms'
   //
 ]
 

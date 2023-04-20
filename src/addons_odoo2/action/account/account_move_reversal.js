@@ -30,7 +30,7 @@ export default {
               readonly: [['residual', '=', 0]]
             }
           },
-          _group_330: {
+          _group_461: {
             _attr: {
               invisible: ['|', ['move_type', 'not in', ('out_invoice', 'in_invoice', 'some_invoice')], ['residual', '=', 0]]
             },
@@ -41,14 +41,14 @@ export default {
                 text: 'The credit note is created in draft and can be edited before being issued.'
               }
             },
-            _div_169: {
+            _div_742: {
               _attr: {
                 invisible: [['refund_method', '!=', 'cancel']],
                 class: 'oe_grey',
                 text: 'The credit note is auto-validated and reconciled with the invoice.'
               }
             },
-            _div_104: {
+            _div_938: {
               _attr: {
                 invisible: [['refund_method', '!=', 'modify']],
                 class: 'oe_grey',
@@ -57,7 +57,7 @@ export default {
             }
           }
         },
-        _group_888: {
+        _group_769: {
           _group: {
             reason: {
               invisible: [['move_type', '=', 'entry']]
@@ -67,7 +67,7 @@ export default {
               widget: 'radio'
             }
           },
-          _group_900: {
+          _group_565: {
             journal_id: {
               domain: {
                 todo_ctx: "[('id', 'in', available_journal_ids)]"
@@ -78,7 +78,7 @@ export default {
               invisible: ['|', ['move_type', 'not in', ('out_invoice', 'in_invoice')], ['date_mode', '!=', 'custom']],
               required: [['date_mode', '=', 'custom']]
             },
-            _field_date_177: {
+            _field_date_168: {
               date: {
                 invisible: ['|', ['move_type', 'in', ('out_invoice', 'in_invoice')], ['date_mode', '!=', 'custom']],
                 required: [['date_mode', '=', 'custom']]
@@ -110,6 +110,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Reverse',
     res_model: 'account.move.reversal',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'view_account_move_reversal',
       form: '=======todo=========='

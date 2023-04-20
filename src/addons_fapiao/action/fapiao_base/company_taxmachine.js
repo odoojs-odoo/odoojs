@@ -29,7 +29,7 @@ export default {
   },
 
   action_company_taxmachine: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '税控设备',
     type: 'ir.actions.act_window',
     res_model: 'fp.company.taxmachine',

@@ -15,7 +15,7 @@ export default {
               widget: 'boolean_toggle'
             }
           },
-          _group_373: {
+          _group_990: {
             _attr: {
               groups: 'base.group_no_one'
             },
@@ -171,7 +171,7 @@ export default {
           domain: [['arch_updated', '=', true]]
         }
       },
-      _separator_145: {},
+      _separator_738: {},
       _filter_active: {
         _attr: {
           name: 'active',
@@ -229,6 +229,7 @@ export default {
     name: 'Views',
     type: 'ir.actions.act_window',
     res_model: 'ir.ui.view',
+    search_view_id: 'tooooooodoooooo',
     context: {
       search_default_active: 1
     },

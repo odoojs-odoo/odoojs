@@ -55,7 +55,7 @@ export default {
   },
 
   action_partner_category_form: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Contact Tags',
     type: 'ir.actions.act_window',
     res_model: 'res.partner.category',

@@ -3,6 +3,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Activities',
     res_model: 'mail.activity',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -54,7 +55,7 @@ export default {
           previous_activity_type_id: {},
           has_recommended_activities: {}
         },
-        _group_837: {
+        _group_510: {
           _attr: {
             invisible: [['has_recommended_activities', '=', false]]
           },
@@ -66,7 +67,7 @@ export default {
             }
           }
         },
-        _group_100: {
+        _group_711: {
           _group: {
             activity_type_id: {
               required: '1',
@@ -77,7 +78,7 @@ export default {
               placeholder: 'e.g. Discuss proposal'
             }
           },
-          _group_434: {
+          _group_341: {
             date_deadline: {},
             user_id: {}
           }
@@ -99,7 +100,7 @@ export default {
               class: 'btn-primary'
             }
           },
-          _button_action_close_dialog_941: {
+          _button_action_close_dialog_768: {
             _attr: {
               name: 'action_close_dialog',
               type: 'object',
@@ -132,7 +133,7 @@ export default {
               class: 'btn-secondary'
             }
           },
-          _button_action_done_schedule_next_713: {
+          _button_action_done_schedule_next_143: {
             _attr: {
               name: 'action_done_schedule_next',
               type: 'object',
@@ -162,6 +163,7 @@ export default {
     arch: {
       sheet: {
         activity_type_id: {
+          position: 'before',
           __todo__before: {
             res_name: {
               string: 'Document',
@@ -169,7 +171,11 @@ export default {
             }
           }
         },
-        _footer: {},
+        _footer: {
+          _attr: {
+            position: 'replace'
+          }
+        },
         _xpath: {
           _attr: {
             expr: "//div[hasclass('oe_button_box')]",
@@ -178,7 +184,8 @@ export default {
           _attribute_invisible: {
             _attr: {
               name: 'invisible',
-              text: '0'
+              text: '0',
+              invisible: '0'
             }
           }
         }
@@ -198,6 +205,7 @@ export default {
         _attr: {
           name: 'activities_overdue',
           string: 'Late Activities',
+          help: 'Show all records which has next action date is before today',
           invisible: '1',
           domain: {
             todo_ctx: "[('date_deadline', '<', context_today().strftime('%Y-%m-%d'))]"

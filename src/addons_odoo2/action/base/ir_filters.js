@@ -17,7 +17,7 @@ export default {
             widget: 'boolean_toggle'
           }
         },
-        _group_837: {
+        _group_976: {
           domain: {
             widget: 'domain',
             model: 'model_id'
@@ -65,6 +65,7 @@ export default {
         _attr: {
           name: 'user',
           string: 'User',
+          help: 'Filters visible only for one user',
           domain: [['user_id', '!=', false]]
         }
       },
@@ -72,6 +73,7 @@ export default {
         _attr: {
           name: 'shared',
           string: 'Shared',
+          help: 'Filters shared with all users',
           domain: [['user_id', '=', false]]
         }
       },
@@ -79,6 +81,7 @@ export default {
         _attr: {
           name: 'my_filters',
           string: 'My filters',
+          help: 'Filters created by myself',
           domain: {
             todo_ctx: "[('user_id','=',uid)]"
           }
@@ -127,6 +130,7 @@ export default {
     name: 'User-defined Filters',
     type: 'ir.actions.act_window',
     res_model: 'ir.filters',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

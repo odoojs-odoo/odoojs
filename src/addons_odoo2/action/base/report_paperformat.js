@@ -47,6 +47,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Paper Format General Configuration',
     res_model: 'report.paperformat',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

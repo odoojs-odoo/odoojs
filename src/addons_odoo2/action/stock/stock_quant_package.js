@@ -42,16 +42,16 @@ export default {
     model: 'stock.quant.package',
     type: 'form',
     arch: {
-      sheet: {
-        _header: {
-          _button_unpack: {
-            _attr: {
-              name: 'unpack',
-              type: 'object',
-              string: 'Unpack'
-            }
+      header: {
+        _button_unpack: {
+          _attr: {
+            name: 'unpack',
+            type: 'object',
+            string: 'Unpack'
           }
-        },
+        }
+      },
+      sheet: {
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -95,7 +95,7 @@ export default {
               no_create: true
             }
           },
-          _group_292: {
+          _group_457: {
             pack_date: {}
           }
         },
@@ -155,6 +155,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Packages',
     res_model: 'stock.quant.package',
+    search_view_id: 'tooooooodoooooo',
     context: {},
     views: {
       tree: '=======todo==========',

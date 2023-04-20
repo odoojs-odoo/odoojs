@@ -33,6 +33,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Create Menu',
     res_model: 'wizard.ir.model.menu.create',
+    search_view_id: 'tooooooodoooooo',
     context: {
       todo_ctx: "{'model_id': active_id}"
     },

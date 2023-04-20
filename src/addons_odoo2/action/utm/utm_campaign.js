@@ -41,13 +41,13 @@ export default {
     model: 'utm.campaign',
     type: 'form',
     arch: {
+      header: {
+        stage_id: {
+          widget: 'statusbar',
+          clickable: '1'
+        }
+      },
       sheet: {
-        _header: {
-          stage_id: {
-            widget: 'statusbar',
-            clickable: '1'
-          }
-        },
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -138,6 +138,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Campaigns',
     res_model: 'utm.campaign',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

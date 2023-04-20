@@ -227,7 +227,7 @@ export default {
                   readonly: '1'
                 }
               },
-              _span_500: {
+              _span_408: {
                 product_uom: {
                   readonly: '1'
                 }
@@ -236,7 +236,7 @@ export default {
             _label_quantity_done: {
               for: 'quantity_done'
             },
-            _div_656: {
+            _div_753: {
               _attr: {
                 class: 'o_row'
               },
@@ -245,18 +245,18 @@ export default {
                   readonly: '1'
                 }
               },
-              _span_756: {
+              _span_785: {
                 _attr: {
                   invisible: ['|', ['state', '=', 'done'], ['from_immediate_transfer', '=', true]],
                   text: '/'
                 }
               },
-              _span_219: {
+              _span_686: {
                 reserved_availability: {
                   invisible: ['|', ['state', '=', 'done'], ['from_immediate_transfer', '=', true]]
                 }
               },
-              _span_594: {
+              _span_185: {
                 product_uom: {
                   invisible: [['from_immediate_transfer', '=', true]],
                   readonly: '1'
@@ -270,7 +270,7 @@ export default {
               for: 'next_serial_count',
               invisible: [['display_assign_serial', '=', false]]
             },
-            _div_171: {
+            _div_471: {
               _attr: {
                 invisible: [['display_assign_serial', '=', false]],
                 class: 'o_row'
@@ -317,13 +317,13 @@ export default {
               class: 'oe_highlight'
             }
           },
-          _button_809: {
+          _button_505: {
             _attr: {
               string: 'Discard'
             }
           }
         },
-        _footer_897: {
+        _footer_669: {
           _attr: {
             invisible: ['|', '&', ['state', '!=', 'cancel'], ['state', '!=', 'done'], '&', ['state', '=', 'done'], ['is_locked', '!=', true]],
             class: 'oe_edit_only'
@@ -345,6 +345,7 @@ export default {
     arch: {
       sheet: {
         move_line_ids: {
+          position: 'replace',
           __todo__replace: {
             move_line_nosuggest_ids: {
               readonly: ['|', ['state', '=', 'cancel'], '&', ['state', '=', 'done'], ['is_locked', '=', true]],
@@ -363,14 +364,15 @@ export default {
     model: 'stock.move',
     type: 'form',
     arch: {
+      header: {
+        state: {
+          widget: 'statusbar',
+          statusbar_visible: 'draft,confirmed,assigned,done'
+        }
+      },
       sheet: {
         company_id: {
           invisible: '1'
-        },
-        _header: {
-          state: {
-            widget: 'statusbar'
-          }
         },
         _div_button_box: {
           _attr: {
@@ -423,7 +425,7 @@ export default {
               name: {
                 invisible: '1'
               },
-              _div_583: {
+              _div_663: {
                 _attr: {
                   class: 'o_td_label'
                 },
@@ -432,7 +434,7 @@ export default {
                   string: 'Date Scheduled',
                   invisible: [['state', '=', 'done']]
                 },
-                _label_date_351: {
+                _label_date_622: {
                   for: 'date',
                   string: 'Date Processing',
                   invisible: [['state', '!=', 'done']]
@@ -542,6 +544,7 @@ export default {
         _attr: {
           name: 'ready',
           string: 'Ready',
+          help: 'Stock moves that are Available (Ready to process)',
           domain: [['state', '=', 'assigned']]
         }
       },
@@ -549,6 +552,7 @@ export default {
         _attr: {
           name: 'future',
           string: 'To Do',
+          help: 'Stock moves that are Confirmed, Available or Waiting',
           domain: [['state', 'in', ('assigned', 'confirmed', 'waiting')]]
         }
       },
@@ -556,6 +560,7 @@ export default {
         _attr: {
           name: 'done',
           string: 'Done',
+          help: 'Stock moves that have been processed',
           domain: [['state', '=', 'done']]
         }
       },
@@ -581,11 +586,13 @@ export default {
           domain: [['is_inventory', '=', true]]
         }
       },
-      _separator_983: {},
+      _separator_448: {},
       _filter_today: {
         _attr: {
           name: 'today',
-          string: 'Date'
+          string: 'Date',
+          date: 'date',
+          help: 'Scheduled or processing date'
         }
       },
       _group: {
@@ -673,8 +680,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Stock Moves',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_move_search',
     res_model: 'stock.move',
+    search_view_id: 'view_move_search',
     context: {
       search_default_done: 1
     },

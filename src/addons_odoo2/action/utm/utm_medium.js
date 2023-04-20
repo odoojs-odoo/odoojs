@@ -49,8 +49,8 @@ export default {
   utm_medium_action: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Mediums',
-    search_view_id: 'utm_medium_view_search',
     res_model: 'utm.medium',
+    search_view_id: 'utm_medium_view_search',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

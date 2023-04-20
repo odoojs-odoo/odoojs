@@ -275,7 +275,7 @@ export default {
   },
 
   action_invoice_draw: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Invoice Draw ',
     type: 'ir.actions.act_window',
     res_model: 'fp.invoice.draw',

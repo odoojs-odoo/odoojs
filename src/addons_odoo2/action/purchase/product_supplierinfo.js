@@ -13,11 +13,12 @@ export default {
           _attribute_editable: {
             _attr: {
               name: 'editable',
-              text: 'bottom'
+              text: 'bottom',
+              editable: 'bottom'
             }
           }
         },
-        _xpath_210: {
+        _xpath_906: {
           _attr: {
             expr: '//tree',
             position: 'inside'
@@ -26,7 +27,7 @@ export default {
             invisible: '1'
           }
         },
-        _xpath_743: {
+        _xpath_581: {
           _attr: {
             expr: "//field[@name='company_id']",
             position: 'attributes'
@@ -34,17 +35,19 @@ export default {
           _attribute_readonly: {
             _attr: {
               name: 'readonly',
-              text: '0'
+              text: '0',
+              readonly: '0'
             }
           },
           _attribute_optional: {
             _attr: {
               name: 'optional',
-              text: 'hide'
+              text: 'hide',
+              optional: 'hide'
             }
           }
         },
-        _xpath_625: {
+        _xpath_429: {
           _attr: {
             expr: "//field[@name='partner_id']",
             position: 'attributes'
@@ -52,11 +55,12 @@ export default {
           _attribute_readonly: {
             _attr: {
               name: 'readonly',
-              text: '0'
+              text: '0',
+              readonly: '0'
             }
           }
         },
-        _xpath_413: {
+        _xpath_506: {
           _attr: {
             expr: "//field[@name='product_id']",
             position: 'attributes'
@@ -64,17 +68,19 @@ export default {
           _attribute_readonly: {
             _attr: {
               name: 'readonly',
-              text: '0'
+              text: '0',
+              readonly: '0'
             }
           },
           _attribute_options: {
             _attr: {
               name: 'options',
-              text: "{'no_create': True, 'no_open': True}"
+              text: "{'no_create': True, 'no_open': True}",
+              options: "{'no_create': True, 'no_open': True}"
             }
           }
         },
-        _xpath_656: {
+        _xpath_518: {
           _attr: {
             expr: "//field[@name='delay']",
             position: 'attributes'
@@ -82,7 +88,8 @@ export default {
           _attribute_optional: {
             _attr: {
               name: 'optional',
-              text: 'show'
+              text: 'show',
+              optional: 'show'
             }
           }
         }

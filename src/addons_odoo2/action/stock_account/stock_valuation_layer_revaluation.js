@@ -47,7 +47,7 @@ export default {
             for: 'added_value',
             string: 'Added Value'
           },
-          _div_322: {
+          _div_525: {
             _attr: {
               class: 'o_row'
             },
@@ -82,7 +82,7 @@ export default {
             invisible: '1'
           }
         },
-        _group_398: {
+        _group_351: {
           property_valuation: {
             invisible: '1'
           },
@@ -93,7 +93,7 @@ export default {
               required: [['property_valuation', '=', 'real_time']]
             }
           },
-          _group_700: {
+          _group_139: {
             account_id: {
               invisible: [['property_valuation', '!=', 'real_time']],
               required: [['property_valuation', '=', 'real_time']]

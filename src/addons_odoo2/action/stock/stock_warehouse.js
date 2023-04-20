@@ -48,7 +48,7 @@ export default {
               placeholder: 'e.g. CW'
             }
           },
-          _group_169: {
+          _group_326: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
@@ -125,7 +125,7 @@ export default {
                   readonly: '1'
                 }
               },
-              _group_280: {
+              _group_754: {
                 _attr: {
                   string: 'Operation Types'
                 },
@@ -197,6 +197,7 @@ export default {
     name: 'Warehouses',
     type: 'ir.actions.act_window',
     res_model: 'stock.warehouse',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'view_warehouse_tree',
       form: '=======todo=========='

@@ -6,6 +6,7 @@ export default {
     arch: {
       sheet: {
         copied: {
+          position: 'after',
           __todo__after: {
             state: {
               invisible: '1'

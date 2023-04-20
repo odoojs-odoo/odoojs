@@ -52,7 +52,7 @@ export default {
   },
 
   action_account_group_action: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Account Groups',
     type: 'ir.actions.act_window',
     res_model: 'account.group',

@@ -114,8 +114,8 @@ export default {
   action_res_bank_form: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Banks',
-    search_view_id: 'res_bank_view_search',
     res_model: 'res.bank',
+    search_view_id: 'res_bank_view_search',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

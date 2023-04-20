@@ -30,7 +30,7 @@ export default {
                   text: 'Gross Margin'
                 }
               },
-              _span_616: {
+              _span_400: {
                 _attr: {
                   class: 'o_stat_value'
                 },
@@ -79,7 +79,7 @@ export default {
             partner_id: {},
             code: {}
           },
-          _group_331: {
+          _group_277: {
             plan_id: {
               no_quick_create: true
             },
@@ -115,7 +115,7 @@ export default {
         active: {
           invisible: '1'
         },
-        _field_company_id_759: {
+        _field_company_id_120: {
           company_id: {
             groups: 'base.group_multi_company'
           }
@@ -175,8 +175,8 @@ export default {
   action_analytic_account_form: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Chart of Analytic Accounts',
-    search_view_id: 'view_account_analytic_account_search',
     res_model: 'account.analytic.account',
+    search_view_id: 'view_account_analytic_account_search',
     context: {
       search_default_active: 1
     },
@@ -190,8 +190,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Analytic Accounts',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_account_analytic_account_search',
     res_model: 'account.analytic.account',
+    search_view_id: 'view_account_analytic_account_search',
     context: {
       search_default_active: 1
     },

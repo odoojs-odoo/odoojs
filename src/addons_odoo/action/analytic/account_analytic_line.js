@@ -68,7 +68,7 @@ export default {
   },
 
   account_analytic_line_action_entries: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Analytic Items',
     type: 'ir.actions.act_window',
     res_model: 'account.analytic.line',

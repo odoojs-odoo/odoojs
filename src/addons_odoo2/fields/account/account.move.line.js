@@ -109,7 +109,7 @@ const ModelFields = {
     readonly: '1'
   },
 
-  partner_id_$_tree_$$_964: {
+  partner_id_$_tree_$$_226: {
     readonly: [['move_type', '!=', 'entry']]
   },
 

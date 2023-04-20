@@ -112,6 +112,7 @@ export class X2mTree extends X2mTreeBase {
   view_sheet(kw) {
     const viewhelp = this.viewhelp_get()
     const sheet = viewhelp.view_sheet({ ...kw, for_o2m: 1, for_tree: 1 })
+
     return sheet
   }
 

@@ -20,11 +20,11 @@ export default {
               widget: 'radio'
             }
           },
-          _group_415: {
+          _group_767: {
             first_name: {}
           }
         },
-        _group_595: {
+        _group_503: {
           _label_preview_moves: {
             for: 'preview_moves',
             string: 'Preview Modifications'
@@ -57,6 +57,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Resequence',
     res_model: 'account.resequence.wizard',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'account_resequence_view',
       form: '=======todo=========='

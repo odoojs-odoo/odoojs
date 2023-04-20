@@ -31,6 +31,7 @@ export default {
     name: 'Reset Mail Template',
     type: 'ir.actions.act_window',
     res_model: 'mail.template.reset',
+    search_view_id: 'tooooooodoooooo',
     context: {
       todo_ctx: "{\n            'default_template_ids': active_ids\n        }"
     },

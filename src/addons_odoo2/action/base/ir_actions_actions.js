@@ -43,8 +43,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Actions',
     type: 'ir.actions.act_window',
-    search_view_id: 'action_view_search',
     res_model: 'ir.actions.actions',
+    search_view_id: 'action_view_search',
     views: {
       tree: 'action_view_tree',
       form: '=======todo=========='

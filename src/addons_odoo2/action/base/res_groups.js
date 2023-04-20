@@ -140,6 +140,7 @@ export default {
     name: 'Groups',
     type: 'ir.actions.act_window',
     res_model: 'res.groups',
+    search_view_id: 'tooooooodoooooo',
     context: {
       search_default_filter_no_share: 1
     },

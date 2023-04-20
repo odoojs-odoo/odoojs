@@ -98,7 +98,7 @@ export default {
               invisible: [['active', '=', false]]
             }
           },
-          _group_978: {
+          _group_653: {
             _attr: {
               string: 'Logistics',
               groups: 'stock.group_adv_location'
@@ -129,7 +129,8 @@ export default {
           _attribute_create: {
             _attr: {
               name: 'create',
-              text: 'false'
+              text: 'false',
+              create: 'false'
             }
           }
         }
@@ -149,6 +150,7 @@ export default {
         _attr: {
           name: 'in_location',
           string: 'Internal',
+          help: 'Internal Locations',
           domain: [['usage', '=', 'internal']]
         }
       },
@@ -156,6 +158,7 @@ export default {
         _attr: {
           name: 'customer',
           string: 'Customer',
+          help: 'Customer Locations',
           domain: [['usage', '=', 'customer']]
         }
       },
@@ -163,6 +166,7 @@ export default {
         _attr: {
           name: 'prod_inv_location',
           string: 'Production',
+          help: 'Production Locations',
           domain: [['usage', 'in', ['inventory', 'production']]]
         }
       },
@@ -170,6 +174,7 @@ export default {
         _attr: {
           name: 'supplier',
           string: 'Vendor',
+          help: 'Vendor Locations',
           domain: [['usage', '=', 'supplier']]
         }
       },
@@ -207,7 +212,7 @@ export default {
           groups: 'stock.group_stock_storage_categories',
           readonly: [['usage', '!=', 'internal']]
         },
-        _field_company_id_782: {
+        _field_company_id_433: {
           company_id: {
             groups: 'base.group_multi_company'
           }
@@ -230,7 +235,8 @@ export default {
           _attribute_create: {
             _attr: {
               name: 'create',
-              text: 'false'
+              text: 'false',
+              create: 'false'
             }
           }
         }
@@ -243,6 +249,7 @@ export default {
     name: 'Locations',
     type: 'ir.actions.act_window',
     res_model: 'stock.location',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['storage_category_id', '=', active_id]]",
     views: {
       tree: '=======todo==========',
@@ -254,8 +261,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Locations',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_location_search',
     res_model: 'stock.location',
+    search_view_id: 'view_location_search',
     context: {
       search_default_in_location: 1
     },
@@ -269,8 +276,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Locations',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_location_search',
     res_model: 'stock.location',
+    search_view_id: 'view_location_search',
     context: {
       search_default_prod_inv_location: 1
     },

@@ -42,7 +42,7 @@ export default {
   },
 
   action_api_ocr_company: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'OCR 配置',
     type: 'ir.actions.act_window',
     res_model: 'fp.api.ocr.company',

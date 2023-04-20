@@ -30,6 +30,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Run Scheduler',
     res_model: 'stock.scheduler.compute',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

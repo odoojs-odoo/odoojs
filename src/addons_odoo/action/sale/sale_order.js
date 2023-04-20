@@ -99,9 +99,6 @@ const order_line_form_sheet = {
     name: { widget: 'text' }
   },
 
-  state: { invisible: '1' },
-  company_id: { invisible: '1' },
-
   _div_invoice_lines: {
     _attr: {
       groups: 'base.group_no_one',
@@ -113,7 +110,9 @@ const order_line_form_sheet = {
     },
 
     invoice_lines: {}
-  }
+  },
+  state: { invisible: '1' },
+  company_id: { invisible: '1' }
 }
 
 const view_order_form_sheet = {
@@ -233,7 +232,6 @@ const view_order_form_sheet = {
           }
         }
       },
-      pricelist_id: {},
 
       company_id: { invisible: 1 },
       currency_id: { invisible: 1 },
@@ -506,18 +504,8 @@ export default {
     model: 'sale.order',
     type: 'form',
     toolbar: {
-      action: {
-        // 在数据库中 找到 所有绑定到该模型的 action
-        // select * from ir_actions where binding_model_id = ?
-        // model_account_move
-        //
-        //
-        // action_invoice_order_generate_link
-      },
-      print: {
-        // odoo 原生是 report kanban
-        // 需要 前端自定义
-      }
+      action: {},
+      print: {}
     },
 
     arch: {
@@ -525,8 +513,8 @@ export default {
         buttons: {
           action_view_sale_advance_payment_inv: {
             name: 'action_view_sale_advance_payment_inv',
-            string: 'Create Invoice',
             type: 'action',
+            string: 'Create Invoice',
             btn_type: 'primary',
             invisible: ({ record }) => {
               // 'invisible':
@@ -537,8 +525,8 @@ export default {
           },
           action_view_sale_advance_payment_inv2: {
             name: 'action_view_sale_advance_payment_inv',
-            string: 'Create Invoice',
             type: 'action',
+            string: 'Create Invoice',
             context: { default_advance_payment_method: 'percentage' },
             invisible: ({ record }) => {
               // 'invisible': ['|',('invoice_status', '!=', 'no'),
@@ -549,8 +537,8 @@ export default {
           },
           action_quotation_send: {
             name: 'action_quotation_send',
-            string: 'Send by Email',
             type: 'object',
+            string: 'Send by Email',
             btn_type: 'primary',
             invisible: ({ record }) => {
               // states: 'draft',
@@ -560,18 +548,18 @@ export default {
           },
           action_quotation_send2: {
             name: 'action_quotation_send',
-            string: 'Send PRO-FORMA Invoice',
             type: 'object',
+            string: 'Send PRO-FORMA Invoice',
             groups: 'sale.group_proforma_sales',
             btn_type: 'primary',
+            // context="{'proforma': True, 'validate_analytic': True}
+            context: { proforma: true, validate_analytic: true },
             invisible: ({ record }) => {
               // 'invisible': ['|', ('state', '!=', 'draft'),
               // ('invoice_count','&gt;=',1)]
               const { state, invoice_count } = record
               return state !== 'draft' || invoice_count >= 1
-            },
-            // context="{'proforma': True, 'validate_analytic': True}
-            context: { proforma: true, validate_analytic: true }
+            }
           },
           action_confirm: {
             name: 'action_confirm',
@@ -679,28 +667,38 @@ export default {
         },
         partner_id: { operator: 'child_of' },
         user_id: {},
-        team_id: {},
+        team_id: { string: 'Sales Team' },
         order_line: {
-          string: '产品',
+          string: 'Product',
           filter_domain: self => {
             // filter_domain="[('order_line.product_id', 'ilike', self)]
             return [['order_line.product_id', 'ilike', self]]
           }
         },
-        analytic_account_id: {},
-        campaign_id: {}
+        analytic_account_id: { groups: 'analytic.group_analytic_accounting' }
       },
 
       filters: {
         group_me: {
           my_sale_orders_filter: {
+            ame: 'my_sale_orders_filter',
             string: 'My Orders',
             domain: ({ env }) => {
               const uid = env.uid
               return [['user_id', '=', uid]]
             }
           }
-        },
+        }
+      }
+    }
+  },
+
+  sale_order_view_search_inherit_quotation: {
+    _odoo_model: 'ir.ui.view',
+    model: 'sale.order',
+    inherit_id: 'sale.view_sales_order_filter',
+    arch: {
+      filters: {
         group_state: {
           draft: {
             string: 'Quotations',
@@ -713,7 +711,33 @@ export default {
             domain: [['state', 'in', ['sale', 'done']]]
           }
         },
+        // group_invoice: {
+        //   to_invoice: {
+        //     string: 'To Invoice',
+        //     // domain="[('invoice_status','=','to invoice')]
+        //     domain: [['invoice_status', '=', 'to invoice']]
+        //   },
+        //   upselling: {
+        //     string: 'To Upsell',
+        //     // domain="[('invoice_status','=','upselling')]
+        //     domain: [['invoice_status', '=', 'upselling']]
+        //   }
+        // },
+        group_date: {
+          filter_create_date: { string: 'Create Date', date: 'create_date' },
+          order_date: { string: 'Order Date', date: 'date_order' }
+        }
+      }
+    }
+  },
 
+  sale_order_view_search_inherit_sale: {
+    _odoo_model: 'ir.ui.view',
+    model: 'sale.order',
+    inherit_id: 'sale.view_sales_order_filter',
+    arch: {
+      filters: {
+        group_state: {},
         group_invoice: {
           to_invoice: {
             string: 'To Invoice',
@@ -735,7 +759,7 @@ export default {
   },
 
   action_orders: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Sales Orders',
     type: 'ir.actions.act_window',
     res_model: 'sale.order',
@@ -750,7 +774,7 @@ export default {
   },
 
   action_quotations_with_onboarding: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Quotations',
     type: 'ir.actions.act_window',
     res_model: 'sale.order',

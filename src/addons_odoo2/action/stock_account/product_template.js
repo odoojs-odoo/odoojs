@@ -6,6 +6,7 @@ export default {
     arch: {
       sheet: {
         standard_price: {
+          position: 'attributes',
           __todo__readonly: '1'
         }
       }

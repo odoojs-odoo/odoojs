@@ -91,7 +91,7 @@ export default {
               }
             }
           },
-          _button_action_toggle_is_published_500: {
+          _button_action_toggle_is_published_197: {
             _attr: {
               name: 'action_toggle_is_published',
               type: 'object',
@@ -125,7 +125,7 @@ export default {
             invisible: ['|', ['module_state', '!=', 'installed'], ['state', '!=', 'disabled']]
           }
         },
-        _widget_web_ribbon_628: {
+        _widget_web_ribbon_819: {
           _attr: {
             name: 'web_ribbon',
             title: 'Test Mode',
@@ -171,7 +171,7 @@ export default {
           },
           _strong: 'Warning',
           _em: 'CREATE',
-          _em_970: 'Duplicate'
+          _em_820: 'Duplicate'
         },
         _group: {
           _group_payment_state: {
@@ -405,6 +405,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Payment Providers',
     res_model: 'payment.provider',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

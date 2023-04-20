@@ -15,7 +15,7 @@ export default {
               widget: 'boolean_toggle'
             }
           },
-          _group_803: {
+          _group_322: {
             target: {
               invisible: [['directive', '!=', 'replace']]
             },
@@ -65,6 +65,7 @@ export default {
     name: 'Assets',
     type: 'ir.actions.act_window',
     res_model: 'ir.asset',
+    search_view_id: 'tooooooodoooooo',
     context: {
       search_default_active: 1
     },

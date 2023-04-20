@@ -26,32 +26,32 @@ const ModelFields = {
     readonly: '===todo=='
   },
 
-  auto_post_$_form_$$_825: {
+  auto_post_$_form_$$_219: {
+    readonly: [['state', '!=', 'draft']]
+  },
+
+  auto_post_$_form_$$_833: {
+    readonly: [['state', '!=', 'draft']]
+  },
+
+  auto_post_$_form_$$_974: {
     readonly: '1'
-  },
-
-  auto_post_$_form_$$_930: {
-    readonly: [['state', '!=', 'draft']]
-  },
-
-  auto_post_$_form_$$_976: {
-    readonly: [['state', '!=', 'draft']]
   },
 
   auto_post_until: {
     readonly: '===todo=='
   },
 
-  auto_post_until_$_form_$$_359: {
-    readonly: [['state', '!=', 'draft']]
-  },
-
-  auto_post_until_$_form_$$_838: {
-    readonly: [['state', '!=', 'draft']]
-  },
-
-  auto_post_until_$_form_$$_952: {
+  auto_post_until_$_form_$$_115: {
     readonly: '1'
+  },
+
+  auto_post_until_$_form_$$_150: {
+    readonly: [['state', '!=', 'draft']]
+  },
+
+  auto_post_until_$_form_$$_709: {
+    readonly: [['state', '!=', 'draft']]
   },
 
   bank_partner_id: {},
@@ -68,15 +68,15 @@ const ModelFields = {
     readonly: [['state', '!=', 'draft']]
   },
 
-  currency_id_$_form_$$_579: {
-    groups: 'base.group_multi_currency'
-  },
-
-  currency_id_$_form_$$_855: {
+  currency_id_$_form_$$_237: {
     groups: '!account.group_account_readonly,base.group_multi_currency'
   },
 
-  currency_id_$_tree_$$_886: {
+  currency_id_$_form_$$_271: {
+    groups: 'base.group_multi_currency'
+  },
+
+  currency_id_$_tree_$$_731: {
     groups: 'base.group_multi_currency'
   },
 
@@ -85,16 +85,16 @@ const ModelFields = {
     string: 'Accounting Date'
   },
 
-  date_$_form_$$_535: {
+  date_$_form_$$_113: {
     readonly: '1'
   },
 
-  date_$_form_$$_762: {
-    readonly: '1'
-  },
-
-  date_$_form_$$_973: {
+  date_$_form_$$_825: {
     readonly: [['state', '!=', 'draft']]
+  },
+
+  date_$_form_$$_917: {
+    readonly: '1'
   },
 
   display_inactive_currency_warning: {},
@@ -113,11 +113,11 @@ const ModelFields = {
     string: '===todo=='
   },
 
-  invoice_date_$_tree_$$_258: {
+  invoice_date_$_tree_$$_400: {
     string: 'Bill Date'
   },
 
-  invoice_date_$_tree_$$_331: {
+  invoice_date_$_tree_$$_779: {
     string: 'Invoice Date'
   },
 
@@ -144,12 +144,12 @@ const ModelFields = {
     groups: 'base.group_user'
   },
 
-  invoice_partner_display_name_$_tree_$$_271: {
-    string: 'Customer'
+  invoice_partner_display_name_$_tree_$$_239: {
+    string: 'Vendor'
   },
 
-  invoice_partner_display_name_$_tree_$$_600: {
-    string: 'Vendor'
+  invoice_partner_display_name_$_tree_$$_381: {
+    string: 'Customer'
   },
 
   invoice_payment_term_id: {
@@ -201,22 +201,22 @@ const ModelFields = {
     placeholder: '===todo=='
   },
 
-  narration_$_form_$$_179: {
-    placeholder: 'Add an internal note...'
+  narration_$_form_$$_280: {
+    placeholder: 'Terms and Conditions'
   },
 
-  narration_$_form_$$_341: {
-    placeholder: 'Terms and Conditions'
+  narration_$_form_$$_418: {
+    placeholder: 'Add an internal note...'
   },
 
   partner_bank_id: {
     domain: {
       todo_ctx: "[('partner_id', '=', bank_partner_id)]"
     },
-    readonly: [['state', '!=', 'draft']],
     context: {
       todo_ctx: "{'default_partner_id': bank_partner_id}"
-    }
+    },
+    readonly: [['state', '!=', 'draft']]
   },
 
   partner_credit_warning: {},

@@ -26,7 +26,7 @@ export default {
         company_id: {
           invisible: '1'
         },
-        _field_package_type_id_351: {
+        _field_package_type_id_438: {
           package_type_id: {
             invisible: '1'
           }
@@ -40,6 +40,7 @@ export default {
     name: 'Storage Category Capacity',
     type: 'ir.actions.act_window',
     res_model: 'stock.storage.category.capacity',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

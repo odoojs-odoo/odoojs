@@ -4,21 +4,21 @@ export default {
     model: 'mail.template',
     type: 'form',
     arch: {
-      sheet: {
-        _header: {
-          template_fs: {
-            invisible: '1'
-          },
-          _button_mail_template_reset_action: {
-            _attr: {
-              name: 'mail_template_reset_action',
-              type: 'action',
-              string: 'Reset Template',
-              groups: 'mail.group_mail_template_editor',
-              invisible: [['template_fs', '=', false]]
-            }
-          }
+      header: {
+        template_fs: {
+          invisible: '1'
         },
+        _button_mail_template_reset_action: {
+          _attr: {
+            name: 'mail_template_reset_action',
+            type: 'action',
+            string: 'Reset Template',
+            groups: 'mail.group_mail_template_editor',
+            invisible: [['template_fs', '=', false]]
+          }
+        }
+      },
+      sheet: {
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -32,6 +32,7 @@ export default {
               name: 'create_action',
               type: 'object',
               icon: 'fa-plus',
+              help: 'Display an option on related documents to open a composition wizard with this template',
               groups: 'base.group_no_one',
               invisible: [['ref_ir_act_window', '!=', false]],
               class: 'oe_stat_button'
@@ -46,7 +47,7 @@ export default {
                   text: 'Add'
                 }
               },
-              _span_984: {
+              _span_596: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Context Action'
@@ -59,6 +60,7 @@ export default {
               name: 'unlink_action',
               type: 'object',
               icon: 'fa-minus',
+              help: 'Remove the contextual action to use this template on related documents',
               groups: 'base.group_no_one',
               invisible: [['ref_ir_act_window', '=', false]],
               class: 'oe_stat_button'
@@ -73,7 +75,7 @@ export default {
                   text: 'Remove'
                 }
               },
-              _span_891: {
+              _span_458: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Context Action'
@@ -286,8 +288,8 @@ export default {
   action_email_template_tree_all: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Email Templates',
-    search_view_id: 'view_email_template_search',
     res_model: 'mail.template',
+    search_view_id: 'view_email_template_search',
     context: {
       search_default_base_templates: 1
     },

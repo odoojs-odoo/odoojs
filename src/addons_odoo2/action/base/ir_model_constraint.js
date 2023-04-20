@@ -11,7 +11,7 @@ export default {
           module: {},
           model: {}
         },
-        _group_314: {
+        _group_684: {
           message: {}
         }
       }
@@ -78,8 +78,8 @@ export default {
   action_model_constraint: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Model Constraints',
-    search_view_id: 'view_model_constraint_search',
     res_model: 'ir.model.constraint',
+    search_view_id: 'view_model_constraint_search',
     views: {
       tree: 'view_model_constraint_list',
       form: '=======todo=========='

@@ -49,7 +49,7 @@ export default {
   },
 
   action_vat_product: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '商品税收分类',
     type: 'ir.actions.act_window',
     res_model: 'fp.vat.product',

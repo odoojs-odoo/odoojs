@@ -15,11 +15,11 @@ const ModelFields = {
     groups: '===todo=='
   },
 
-  currency_id_$_form_$$_382: {
+  currency_id_$_form_$$_897: {
     groups: 'base.group_multi_currency'
   },
 
-  currency_id_$_form_$$_925: {
+  currency_id_$_form_$$_964: {
     groups: '!base.group_multi_currency'
   },
 
@@ -76,10 +76,7 @@ const ModelFields = {
   priority: {},
   receipt_reminder_email: {},
   reminder_date_before_receipt: {},
-  state: {
-    readonly: '1'
-  },
-
+  state: {},
   tax_country_id: {},
   tax_totals: {
     readonly: '1'

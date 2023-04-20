@@ -78,6 +78,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Tracking Values',
     res_model: 'mail.tracking.value',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

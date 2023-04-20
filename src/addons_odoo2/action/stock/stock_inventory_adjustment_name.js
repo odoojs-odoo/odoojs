@@ -47,6 +47,7 @@ export default {
     name: 'Inventory Adjustment Reference / Reason',
     type: 'ir.actions.act_window',
     res_model: 'stock.inventory.adjustment.name',
+    search_view_id: 'tooooooodoooooo',
     context: {
       todo_ctx: "{\n            'default_quant_ids': active_ids\n        }"
     },

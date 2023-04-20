@@ -17,7 +17,7 @@ export default {
             invisible: '1'
           }
         },
-        _xpath_701: {
+        _xpath_816: {
           _attr: {
             expr: '//sheet',
             position: 'after'
@@ -52,7 +52,7 @@ export default {
               class: 'btn-primary'
             }
           },
-          _button_473: {
+          _button_107: {
             _attr: {
               string: 'Discard',
               class: 'btn-secondary'
@@ -112,6 +112,7 @@ export default {
     name: 'Sales tax',
     type: 'ir.actions.act_window',
     res_model: 'res.company',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'account_invoice_onboarding_sale_tax_form',
       form: '=======todo=========='

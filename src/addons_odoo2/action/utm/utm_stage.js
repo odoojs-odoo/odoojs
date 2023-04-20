@@ -26,6 +26,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'UTM Stages',
     res_model: 'utm.stage',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

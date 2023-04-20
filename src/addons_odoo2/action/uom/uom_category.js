@@ -85,6 +85,7 @@ export default {
     name: 'Units of Measure Categories',
     type: 'ir.actions.act_window',
     res_model: 'uom.category',
+    search_view_id: 'tooooooodoooooo',
     context: {
       allow_to_change_reference: 1
     },

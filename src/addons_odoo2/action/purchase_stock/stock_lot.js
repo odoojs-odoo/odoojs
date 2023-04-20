@@ -15,6 +15,7 @@ export default {
               name: 'action_view_po',
               type: 'object',
               icon: 'fa-credit-card',
+              help: 'Purchase Orders',
               invisible: ['|', ['purchase_order_count', '=', 0], ['display_complete', '=', false]],
               class: 'oe_stat_button'
             },
@@ -31,7 +32,7 @@ export default {
                   class: 'mr4'
                 }
               },
-              _span_780: {
+              _span_298: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Purchases'
@@ -40,7 +41,7 @@ export default {
             }
           }
         },
-        _xpath_849: {
+        _xpath_163: {
           _attr: {
             expr: "//group[@name='main_group']",
             position: 'after'

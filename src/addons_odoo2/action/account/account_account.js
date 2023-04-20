@@ -28,7 +28,7 @@ export default {
                 },
                 related_taxes_amount: {}
               },
-              _span_406: {
+              _span_314: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Taxes'
@@ -53,7 +53,7 @@ export default {
                 },
                 current_balance: {}
               },
-              _span_594: {
+              _span_187: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Balance'
@@ -86,7 +86,7 @@ export default {
                   }
                 }
               },
-              _div_144: {
+              _div_738: {
                 _attr: {
                   class: 'col col-md-8'
                 },
@@ -142,7 +142,7 @@ export default {
                   no_create_edit: true
                 }
               },
-              _group_825: {
+              _group_417: {
                 internal_group: {
                   invisible: '1',
                   readonly: '1'
@@ -210,7 +210,7 @@ export default {
           groups: 'base.group_multi_currency',
           no_create: true
         },
-        _field_company_id_646: {
+        _field_company_id_835: {
           company_id: {
             groups: 'base.group_multi_company',
             no_create: true
@@ -310,7 +310,7 @@ export default {
           domain: [['deprecated', '=', false]]
         }
       },
-      _separator_390: {},
+      _separator_290: {},
       account_type: {},
       _group: {
         _attr: {
@@ -338,8 +338,8 @@ export default {
   action_account_form: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Chart of Accounts',
-    search_view_id: 'view_account_search',
     res_model: 'account.account',
+    search_view_id: 'view_account_search',
     context: {
       search_default_activeacc: true
     },

@@ -7,7 +7,8 @@ export default {
       sheet: {
         _group_signature: {
           _attr: {
-            name: 'signature'
+            name: 'signature',
+            position: 'after'
           },
           _group_Warehouses: {
             _attr: {
@@ -30,7 +31,8 @@ export default {
       sheet: {
         _group_phone_numbers: {
           _attr: {
-            name: 'phone_numbers'
+            name: 'phone_numbers',
+            position: 'after'
           },
           _group_Warehouses: {
             _attr: {
@@ -53,7 +55,8 @@ export default {
       sheet: {
         _group_messaging: {
           _attr: {
-            name: 'messaging'
+            name: 'messaging',
+            position: 'after'
           },
           _group_Warehouses: {
             _attr: {

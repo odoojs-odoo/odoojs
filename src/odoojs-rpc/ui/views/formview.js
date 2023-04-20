@@ -87,17 +87,19 @@ class FormModel extends BaseView {
   }
 
   async _button_clicked_object({ name, record }) {
-    // console.log('button_clicked call object', name)
+    console.log('button_clicked call object', name, record)
 
     const ctx_action = this.context
-    const ctx_me = {} // todo
+    const ctx_me = {
+      active_id: record.id,
+      active_ids: [record.id]
+    }
     const context = { ...ctx_action, ...ctx_me }
 
     const res = await this.Model.call_button(name, [record.id], { context })
 
     if (!res) return res
     else {
-      // console.log('button_clicked, return action ', name, record, res, context)
       // throw 'todo ret action'
       const action_info = await this.Model.call_button_after(name, res, {
         record

@@ -43,7 +43,7 @@ export default {
             }
           }
         },
-        _xpath_187: {
+        _xpath_323: {
           _attr: {
             expr: '//sheet',
             position: 'after'
@@ -68,6 +68,7 @@ export default {
     arch: {
       sheet: {
         type: {
+          position: 'after',
           __todo__after: {
             activity_state: {}
           }
@@ -93,12 +94,14 @@ export default {
       sheet: {
         _filter_inactive: {
           _attr: {
-            name: 'inactive'
+            name: 'inactive',
+            position: 'after'
           },
           _filter_activities_overdue: {
             _attr: {
               name: 'activities_overdue',
               string: 'Late Activities',
+              help: 'Show all records which has next action date is before today',
               invisible: '1',
               domain: {
                 todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]"

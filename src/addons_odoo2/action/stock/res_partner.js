@@ -37,7 +37,8 @@ export default {
       sheet: {
         _page_internal_notes: {
           _attr: {
-            name: 'internal_notes'
+            name: 'internal_notes',
+            position: 'inside'
           },
           _group: {
             _attr: {

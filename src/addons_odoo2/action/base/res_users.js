@@ -99,7 +99,6 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _header: {},
         id: {
           invisible: '1'
         },
@@ -175,7 +174,7 @@ export default {
           _div: {
             _strong: 'The contact linked to this user is still active'
           },
-          _div_278: {
+          _div_733: {
             _attr: {
               text: 'You can archive the contact'
             },
@@ -395,6 +394,7 @@ export default {
     arch: {
       sheet: {
         groups_id: {
+          position: 'after',
           __todo__after: {}
         }
       }
@@ -405,8 +405,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Users',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_users_search',
     res_model: 'res.users',
+    search_view_id: 'view_users_search',
     context: {
       search_default_filter_no_share: 1,
       show_user_group_warning: true
@@ -468,7 +468,7 @@ export default {
                   readonly: '0'
                 }
               },
-              _group_866: {
+              _group_530: {
                 _label_lang: {
                   for: 'lang'
                 },
@@ -568,7 +568,7 @@ export default {
                   }
                 }
               },
-              _div_351: {
+              _div_199: {
                 _attr: {
                   invisible: [['api_key_ids', '=', []]]
                 },
@@ -595,7 +595,7 @@ export default {
                   }
                 }
               },
-              _div_297: {
+              _div_733: {
                 _button_api_key_wizard: {
                   _attr: {
                     name: 'api_key_wizard',
@@ -634,6 +634,7 @@ export default {
     name: 'Change My Preferences',
     type: 'ir.actions.act_window',
     res_model: 'res.users',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

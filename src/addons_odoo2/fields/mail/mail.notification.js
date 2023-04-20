@@ -4,7 +4,6 @@ const ModelFields = {
   is_read: {},
   mail_mail_id: {},
   mail_message_id: {},
-  notification_status: {},
   notification_type: {},
   read_date: {},
   res_partner_id: {}

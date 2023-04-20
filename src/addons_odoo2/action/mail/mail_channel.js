@@ -152,8 +152,8 @@ export default {
   mail_channel_action_view: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Join a group',
-    search_view_id: 'mail_channel_view_search',
     res_model: 'mail.channel',
+    search_view_id: 'mail_channel_view_search',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

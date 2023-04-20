@@ -98,7 +98,7 @@ export default {
               class: 'btn-primary'
             }
           },
-          _button_create_invoices_971: {
+          _button_create_invoices_505: {
             _attr: {
               name: 'create_invoices',
               type: 'object',
@@ -121,6 +121,7 @@ export default {
     name: 'Create invoices',
     type: 'ir.actions.act_window',
     res_model: 'sale.advance.payment.inv',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

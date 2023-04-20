@@ -4,6 +4,7 @@ export default {
     name: 'Choose how to confirm quotations',
     type: 'ir.actions.act_window',
     res_model: 'sale.payment.provider.onboarding.wizard',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'payment.payment_provider_onboarding_wizard_form',
       form: '=======todo=========='

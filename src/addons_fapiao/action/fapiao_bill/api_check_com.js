@@ -45,7 +45,7 @@ export default {
   },
 
   action_api_check_company: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '发票查验配置',
     type: 'ir.actions.act_window',
     res_model: 'fp.api.check.company',

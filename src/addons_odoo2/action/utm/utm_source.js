@@ -27,6 +27,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Sources',
     res_model: 'utm.source',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

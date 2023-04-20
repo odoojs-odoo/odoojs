@@ -39,6 +39,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Scheduled Actions Triggers',
     res_model: 'ir.cron.trigger',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

@@ -41,7 +41,7 @@ export default {
             position: 'replace'
           }
         },
-        _xpath_229: {
+        _xpath_225: {
           _attr: {
             expr: "//tree[@name='packaging']",
             position: 'attributes'
@@ -49,7 +49,8 @@ export default {
           _attribute_editable: {
             _attr: {
               name: 'editable',
-              text: 'bottom'
+              text: 'bottom',
+              editable: 'bottom'
             }
           }
         }
@@ -127,7 +128,7 @@ export default {
             position: 'replace'
           }
         },
-        _xpath_120: {
+        _xpath_862: {
           _attr: {
             expr: "//field[@name='id']",
             position: 'replace'
@@ -141,6 +142,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Product Packagings',
     res_model: 'product.packaging',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['product_id', '!=', False]]",
     views: {
       tree: '=======todo==========',

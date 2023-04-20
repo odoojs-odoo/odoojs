@@ -518,7 +518,7 @@ export default {
   },
 
   product_template_action_all: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Products',
     type: 'ir.actions.act_window',
     res_model: 'product.template',

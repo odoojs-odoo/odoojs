@@ -6,10 +6,10 @@ export default {
     arch: {
       sheet: {
         _p: 'This module will trigger the uninstallation of below modules.',
-        _p_710: {
+        _p_443: {
           _strong: 'This operation will permanently erase all data currently stored by the modules!'
         },
-        _p_370: 'If you wish to cancel the process, press the cancel button below',
+        _p_974: 'If you wish to cancel the process, press the cancel button below',
         _separator: {
           _attr: {
             string: 'Impacted Apps'
@@ -43,6 +43,7 @@ export default {
     name: 'Apply Schedule Upgrade',
     type: 'ir.actions.act_window',
     res_model: 'base.module.upgrade',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -63,7 +64,7 @@ export default {
             }
           }
         },
-        _div_624: {
+        _div_451: {
           _span: {
             _attr: {
               class: 'o_form_label',
@@ -96,6 +97,7 @@ export default {
     name: 'Module Upgrade Install',
     type: 'ir.actions.act_window',
     res_model: 'base.module.upgrade',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'view_base_module_upgrade_install',
       form: '=======todo=========='

@@ -7,7 +7,8 @@ export default {
       sheet: {
         _group_purchase: {
           _attr: {
-            name: 'purchase'
+            name: 'purchase',
+            position: 'inside'
           },
           _div_receipt_reminder: {
             _attr: {
@@ -46,6 +47,7 @@ export default {
     arch: {
       sheet: {
         mobile: {
+          position: 'after',
           __todo__after: {
             purchase_order_count: {
               groups: 'purchase.group_purchase_user'
@@ -88,7 +90,8 @@ export default {
       sheet: {
         _div_button_box: {
           _attr: {
-            name: 'button_box'
+            name: 'button_box',
+            position: 'inside'
           },
           _button_purchase__act_res_partner_2_purchase_order: {
             _attr: {
@@ -106,7 +109,8 @@ export default {
         },
         _page_internal_notes: {
           _attr: {
-            name: 'internal_notes'
+            name: 'internal_notes',
+            position: 'inside'
           },
           _group: {
             _attr: {
@@ -144,13 +148,15 @@ export default {
       sheet: {
         _div_button_box: {
           _attr: {
-            name: 'button_box'
+            name: 'button_box',
+            position: 'inside'
           },
           _button_purchase__act_res_partner_2_supplier_invoices: {
             _attr: {
               name: 'purchase.act_res_partner_2_supplier_invoices',
               type: 'action',
               icon: 'fa-pencil-square-o',
+              help: 'Vendor Bills',
               groups: 'account.group_account_invoice',
               class: 'oe_stat_button'
             },

@@ -24,7 +24,7 @@ export default {
         no_record: {
           invisible: '1'
         },
-        _div_898: {
+        _div_311: {
           _attr: {
             class: 'container'
           },
@@ -62,7 +62,7 @@ export default {
               }
             }
           },
-          _div_759: {
+          _div_927: {
             _attr: {
               class: 'row'
             },
@@ -129,6 +129,7 @@ export default {
     name: 'Template Preview',
     type: 'ir.actions.act_window',
     res_model: 'mail.template.preview',
+    search_view_id: 'tooooooodoooooo',
     context: {
       todo_ctx: "{'default_mail_template_id':active_id}"
     },

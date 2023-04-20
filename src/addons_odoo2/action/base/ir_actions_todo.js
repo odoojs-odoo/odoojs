@@ -17,7 +17,9 @@ export default {
             name: 'action_launch',
             type: 'object',
             string: 'Launch',
-            icon: 'fa-cogs'
+            icon: 'fa-cogs',
+            help: 'Launch Configuration Wizard',
+            states: 'open'
           }
         },
         _button_action_open: {
@@ -25,7 +27,9 @@ export default {
             name: 'action_open',
             type: 'object',
             string: 'Todo',
-            icon: 'fa-exchange'
+            icon: 'fa-exchange',
+            help: 'Set as Todo',
+            states: 'done'
           }
         }
       }
@@ -37,31 +41,35 @@ export default {
     model: 'ir.actions.todo',
     type: 'form',
     arch: {
-      sheet: {
-        _header: {
-          _button_action_launch: {
-            _attr: {
-              name: 'action_launch',
-              type: 'object',
-              string: 'Launch',
-              icon: 'fa-cogs',
-              class: 'oe_highlight'
-            }
-          },
-          _button_action_open: {
-            _attr: {
-              name: 'action_open',
-              type: 'object',
-              string: 'Set as Todo',
-              icon: 'fa-exchange',
-              class: 'oe_highlight'
-            }
-          },
-          state: {
-            widget: 'statusbar',
-            readonly: '1'
+      header: {
+        _button_action_launch: {
+          _attr: {
+            name: 'action_launch',
+            type: 'object',
+            string: 'Launch',
+            icon: 'fa-cogs',
+            help: 'Launch Configuration Wizard',
+            states: 'open',
+            class: 'oe_highlight'
           }
         },
+        _button_action_open: {
+          _attr: {
+            name: 'action_open',
+            type: 'object',
+            string: 'Set as Todo',
+            icon: 'fa-exchange',
+            states: 'done',
+            class: 'oe_highlight'
+          }
+        },
+        state: {
+          widget: 'statusbar',
+          statusbar_visible: 'open,done',
+          readonly: '1'
+        }
+      },
+      sheet: {
         _group: {
           action_id: {},
           sequence: {}
@@ -79,6 +87,7 @@ export default {
         _attr: {
           name: 'todo',
           string: 'To Do',
+          help: 'Wizards to be Launched',
           domain: [['state', '=', 'open']]
         }
       },
@@ -91,6 +100,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Configuration Wizards',
     res_model: 'ir.actions.todo',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'ir_actions_todo_tree',
       form: '=======todo=========='

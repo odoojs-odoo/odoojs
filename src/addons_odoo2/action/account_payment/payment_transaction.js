@@ -7,7 +7,8 @@ export default {
       sheet: {
         _button_action_view_refunds: {
           _attr: {
-            name: 'action_view_refunds'
+            name: 'action_view_refunds',
+            position: 'before'
           },
           _button_action_view_invoices: {
             _attr: {
@@ -24,6 +25,7 @@ export default {
           }
         },
         reference: {
+          position: 'after',
           __todo__after: {
             payment_id: {}
           }

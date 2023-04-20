@@ -180,7 +180,7 @@ export default {
   },
 
   action_payment_term_form: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Payment Terms',
     type: 'ir.actions.act_window',
     res_model: 'account.payment.term',

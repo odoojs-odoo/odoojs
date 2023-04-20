@@ -6,14 +6,17 @@ export default {
     arch: {
       sheet: {
         inventory_datetime: {
+          position: 'attributes',
           invisible: "context.get['active_model'] != 'stock.quant'"
         },
-        _field_inventory_datetime_962: {
+        _field_inventory_datetime_612: {
           inventory_datetime: {
+            position: 'after',
             __todo__after: {
               inventory_datetime: {
                 string: 'Valuation at Date',
-                invisible: "context.get['active_model'] != 'stock.valuation.layer'"
+                invisible: "context.get['active_model'] != 'stock.valuation.layer'",
+                help: 'Choose a date to get the valuation at that date'
               }
             }
           }

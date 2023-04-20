@@ -99,7 +99,7 @@ export default {
               invisible: [['is_company', '=', false]],
               placeholder: 'e.g. Lumber Inc'
             },
-            _field_name_469: {
+            _field_name_638: {
               name: {
                 required: [['type', '=', 'contact'], ['is_company', '=', false]],
                 invisible: [['is_company', '=', true]],
@@ -236,7 +236,7 @@ export default {
               placeholder: 'e.g. https://www.odoo.com'
             }
           },
-          _group_573: {}
+          _group_331: {}
         }
       }
     }
@@ -264,7 +264,7 @@ export default {
           },
           same_vat_partner_id: {}
         },
-        _div_937: {
+        _div_535: {
           _attr: {
             invisible: [['same_company_registry_partner_id', '=', false]],
             class: 'alert alert-warning oe_edit_only',
@@ -332,7 +332,7 @@ export default {
               class: 'text-break',
               placeholder: 'e.g. Lumber Inc'
             },
-            _field_name_846: {
+            _field_name_835: {
               name: {
                 required: [['type', '=', 'contact']],
                 invisible: [['is_company', '=', true]],
@@ -442,7 +442,7 @@ export default {
               placeholder: 'e.g. BE0477472701'
             }
           },
-          _group_837: {
+          _group_298: {
             function: {
               invisible: [['is_company', '=', true]],
               placeholder: 'e.g. Sales Director'
@@ -533,7 +533,7 @@ export default {
                               },
                               _img: {}
                             },
-                            _div_587: {
+                            _div_990: {
                               _attr: {
                                 class: 'oe_kanban_details'
                               },
@@ -541,12 +541,12 @@ export default {
                               _div: {
                                 function: {}
                               },
-                              _div_970: {
+                              _div_539: {
                                 email: {
                                   widget: 'email'
                                 }
                               },
-                              _div_382: {
+                              _div_444: {
                                 _div: {
                                   zip: {},
                                   city: {}
@@ -554,13 +554,13 @@ export default {
                                 state_id: {},
                                 country_id: {}
                               },
-                              _div_133: {
+                              _div_742: {
                                 _attr: {
                                   text: 'Phone:'
                                 },
                                 _t: {}
                               },
-                              _div_282: {
+                              _div_193: {
                                 _attr: {
                                   text: 'Mobile:'
                                 },
@@ -599,28 +599,28 @@ export default {
                             },
                             _span: 'Use this to organize the contact details of employees of a given company (e.g. CEO, CFO, ...).'
                           },
-                          _p_704: {
+                          _p_207: {
                             _attr: {
                               invisible: [['type', '!=', 'invoice']],
                               class: 'mb-0'
                             },
                             _span: 'Preferred address for all invoices. Selected by default when you invoice an order that belongs to this company.'
                           },
-                          _p_671: {
+                          _p_122: {
                             _attr: {
                               invisible: [['type', '!=', 'delivery']],
                               class: 'mb-0'
                             },
                             _span: 'Preferred address for all deliveries. Selected by default when you deliver an order that belongs to this company.'
                           },
-                          _p_973: {
+                          _p_472: {
                             _attr: {
                               invisible: [['type', '!=', 'private']],
                               class: 'mb-0'
                             },
                             _span: 'Private addresses are only visible by authorized users and contain sensitive data (employee home addresses, ...).'
                           },
-                          _p_532: {
+                          _p_310: {
                             _attr: {
                               invisible: [['type', '!=', 'other']],
                               class: 'mb-0'
@@ -692,7 +692,7 @@ export default {
                               }
                             }
                           },
-                          _group_138: {
+                          _group_902: {
                             email: {
                               widget: 'email'
                             },
@@ -707,7 +707,7 @@ export default {
                             }
                           }
                         },
-                        _group_194: {
+                        _group_884: {
                           comment: {
                             placeholder: 'Internal notes...'
                           }
@@ -853,7 +853,7 @@ export default {
               }
             }
           },
-          _group_683: {
+          _group_429: {
             phone: {
               widget: 'phone',
               options: "{'enable_sms': false}"
@@ -866,7 +866,7 @@ export default {
             lang: {}
           }
         },
-        _group_522: {
+        _group_387: {
           _attr: {
             string: 'Bank Accounts'
           },
@@ -936,7 +936,7 @@ export default {
           domain: [['is_company', '=', true]]
         }
       },
-      _separator_350: {},
+      _separator_520: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -944,7 +944,7 @@ export default {
           domain: [['active', '=', false]]
         }
       },
-      _separator_346: {},
+      _separator_315: {},
       _group_group_by: {
         _attr: {
           name: 'group_by',
@@ -993,8 +993,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Customers',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_res_partner_filter',
     res_model: 'res.partner',
+    search_view_id: 'view_res_partner_filter',
     context: {
       res_partner_search_mode: 'customer'
     },
@@ -1030,6 +1030,7 @@ export default {
     name: 'Customers',
     type: 'ir.actions.act_window',
     res_model: 'res.partner',
+    search_view_id: 'tooooooodoooooo',
     domain: '[]',
     context: {
       res_partner_search_mode: 'customer',
@@ -1067,6 +1068,7 @@ export default {
     name: 'Vendors',
     type: 'ir.actions.act_window',
     res_model: 'res.partner',
+    search_view_id: 'tooooooodoooooo',
     domain: '[]',
     context: {
       res_partner_search_mode: 'supplier',

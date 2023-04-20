@@ -58,7 +58,7 @@ export default {
               for: 'price',
               string: 'Unit Price'
             },
-            _div_650: {
+            _div_109: {
               _attr: {
                 class: 'o_row'
               },
@@ -73,7 +73,7 @@ export default {
               for: 'date_start',
               string: 'Validity'
             },
-            _div_118: {
+            _div_779: {
               _attr: {
                 class: 'o_row'
               },
@@ -225,6 +225,7 @@ export default {
     name: 'Vendor Pricelists',
     type: 'ir.actions.act_window',
     res_model: 'product.supplierinfo',
+    search_view_id: 'tooooooodoooooo',
     context: {
       visible_product_tmpl_id: false,
       search_default_active_products: true

@@ -104,7 +104,7 @@ export default {
   },
 
   account_analytic_plan_action: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '分析计划',
     type: 'ir.actions.act_window',
     res_model: 'account.analytic.plan',

@@ -16,7 +16,7 @@ export default {
           widget: 'many2many_tags',
           no_create: true
         },
-        _field_company_id_592: {
+        _field_company_id_358: {
           company_id: {
             groups: 'base.group_multi_company'
           }
@@ -45,7 +45,7 @@ export default {
           sequence: {
             groups: 'base.group_no_one'
           },
-          _field_company_id_279: {
+          _field_company_id_303: {
             company_id: {
               groups: 'base.group_multi_company'
             }
@@ -59,6 +59,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Journal Groups',
     res_model: 'account.journal.group',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

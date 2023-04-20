@@ -61,7 +61,7 @@ export default {
             optional: 'hidden'
           }
         },
-        _xpath_638: {
+        _xpath_355: {
           _attr: {
             expr: "//button[@name='action_view_orderpoints']",
             position: 'after'

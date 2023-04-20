@@ -48,7 +48,7 @@ export default {
               required: [['account_type', '=', 'income'], ['action', '=', 'change_period']]
             }
           },
-          _group_545: {
+          _group_988: {
             _attr: {
               invisible: [['action', '!=', 'change_account']]
             },
@@ -62,7 +62,7 @@ export default {
               required: [['action', '=', 'change_account']]
             }
           },
-          _group_910: {
+          _group_200: {
             _label_total_amount: {
               for: 'total_amount',
               string: 'Adjusting Amount',
@@ -123,6 +123,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Create Automatic Entries for selected Journal Items',
     res_model: 'account.automatic.entry.wizard',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

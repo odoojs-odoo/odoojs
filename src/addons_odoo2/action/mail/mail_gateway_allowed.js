@@ -23,6 +23,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Mail Gateway Allowed',
     res_model: 'mail.gateway.allowed',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

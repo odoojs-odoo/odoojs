@@ -246,7 +246,7 @@ export default {
   },
 
   action_bill_check: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Bill Check ',
     type: 'ir.actions.act_window',
     res_model: 'fp.bill.check',

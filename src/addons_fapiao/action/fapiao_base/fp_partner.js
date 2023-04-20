@@ -114,7 +114,7 @@ export default {
   },
 
   action_partner: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '开票伙伴',
     type: 'ir.actions.act_window',
     res_model: 'fp.partner',
@@ -130,7 +130,7 @@ export default {
   },
 
   action_partner_company: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '开票公司',
     type: 'ir.actions.act_window',
     res_model: 'fp.partner',

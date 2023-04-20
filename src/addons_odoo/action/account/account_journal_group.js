@@ -32,7 +32,7 @@ export default {
   },
 
   action_account_journal_group_list: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Journal Groups',
     type: 'ir.actions.act_window',
     res_model: 'account.journal.group',

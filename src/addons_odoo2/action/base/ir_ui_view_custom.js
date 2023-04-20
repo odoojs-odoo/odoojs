@@ -46,6 +46,7 @@ export default {
     name: 'Customized Views',
     type: 'ir.actions.act_window',
     res_model: 'ir.ui.view.custom',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

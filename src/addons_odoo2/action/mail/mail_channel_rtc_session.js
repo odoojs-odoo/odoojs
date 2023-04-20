@@ -64,7 +64,7 @@ export default {
             partner_id: {},
             guest_id: {}
           },
-          _group_217: {
+          _group_244: {
             _attr: {
               string: 'State'
             },
@@ -82,6 +82,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'RTC sessions',
     res_model: 'mail.channel.rtc.session',
+    search_view_id: 'tooooooodoooooo',
     context: {
       search_default_group_by_channel: true
     },

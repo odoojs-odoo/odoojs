@@ -1,4 +1,18 @@
 export default {
+  action_picking_type_list: {
+    _odoo_model: 'ir.actions.act_window',
+    name: 'Operations Types',
+    type: 'ir.actions.act_window',
+    res_model: 'stock.picking.type',
+    domain: [],
+    context: {},
+    search_view_id: 'view_pickingtype_filter',
+    views: {
+      tree: 'view_picking_type_tree',
+      form: 'view_picking_type_form'
+    }
+  },
+
   view_pickingtype_filter: {
     _odoo_model: 'ir.ui.view',
     model: 'stock.picking.type',
@@ -56,12 +70,11 @@ export default {
         },
         _div_title: {
           _label: { for: 'name' },
-          _h1: {
-            name: {}
-          }
+          _h1: { name: {} }
         },
 
         _group_first: {
+          _attr: { name: 'first' },
           _group: {
             code: {},
             active: { invisible: '1' },
@@ -136,6 +149,7 @@ export default {
       },
 
       _group_second: {
+        _attr: { name: 'second' },
         _group: {
           attr: {
             string: 'Lots/Serial Numbers',
@@ -166,29 +180,15 @@ export default {
         },
         _group_locations: {
           _attr: {
+            name: 'locations',
             string: 'Locations',
-            groups: 'stock.group_stock_multi_locations',
-            name: 'locations'
+            groups: 'stock.group_stock_multi_locations'
           },
 
           default_location_src_id: {},
           default_location_dest_id: {}
         }
       }
-    }
-  },
-
-  action_picking_type_list: {
-    _odoo_model: 'ir.actions',
-    name: 'Operations Types',
-    type: 'ir.actions.act_window',
-    res_model: 'stock.picking.type',
-    domain: [],
-    context: {},
-    search_view_id: 'view_pickingtype_filter',
-    views: {
-      tree: 'view_picking_type_tree',
-      form: 'view_picking_type_form'
     }
   }
 }

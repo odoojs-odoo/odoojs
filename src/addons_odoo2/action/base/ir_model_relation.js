@@ -31,6 +31,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'ManyToMany Relations',
     res_model: 'ir.model.relation',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'view_model_relation_list',
       form: '=======todo=========='

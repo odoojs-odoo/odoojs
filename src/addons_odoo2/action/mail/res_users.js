@@ -7,6 +7,7 @@ export default {
       sheet: {
         _data: {
           email: {
+            position: 'before',
             __todo__before: {
               notification_type: {
                 widget: 'radio',
@@ -38,6 +39,7 @@ export default {
       sheet: {
         _data: {
           signature: {
+            position: 'before',
             __todo__before: {
               notification_type: {
                 widget: 'radio',

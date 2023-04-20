@@ -27,6 +27,7 @@ defineProps(['formInfo', 'headerButtons', 'states', 'currentState'])
 const emit = defineEmits(['button-click'])
 
 async function onBtnClick(btn) {
+  // console.log('onBtnClick', btn)
   emit('button-click', btn)
 }
 </script>

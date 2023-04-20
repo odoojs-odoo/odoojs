@@ -11,6 +11,7 @@ export default {
         _attr: {
           name: 'generic',
           string: 'Generic',
+          help: 'Parameters that are used by all resources.',
           domain: [['res_id', '=', false]]
         }
       },
@@ -37,7 +38,7 @@ export default {
           type: {},
           res_id: {}
         },
-        _group_785: {
+        _group_956: {
           value_integer: {
             string: 'Value',
             invisible: [['type', 'not in', ('integer', 'boolean')]]
@@ -89,6 +90,7 @@ export default {
     name: 'Company Properties',
     type: 'ir.actions.act_window',
     res_model: 'ir.property',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'ir_property_view_tree',
       form: '=======todo=========='

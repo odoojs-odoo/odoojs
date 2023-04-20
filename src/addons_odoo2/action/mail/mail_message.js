@@ -46,7 +46,7 @@ export default {
             subtype_id: {},
             is_internal: {}
           },
-          _group_328: {
+          _group_545: {
             model: {},
             res_id: {},
             record_name: {},
@@ -73,7 +73,7 @@ export default {
                 reply_to: {},
                 reply_to_force_new: {}
               },
-              _group_628: {
+              _group_441: {
                 message_id: {},
                 mail_server_id: {}
               }
@@ -90,7 +90,7 @@ export default {
                   widget: 'many2many_tags'
                 }
               },
-              _group_567: {
+              _group_232: {
                 notified_partner_ids: {
                   widget: 'many2many_tags'
                 },
@@ -99,7 +99,7 @@ export default {
                 }
               }
             },
-            _group_951: {
+            _group_872: {
               notification_ids: {
                 views: {
                   tree: {
@@ -160,18 +160,19 @@ export default {
         _attr: {
           name: 'message_needaction',
           string: 'Need Action',
+          help: 'Unread messages',
           domain: [['needaction', '=', true]]
         }
       },
-      _separator_649: {}
+      _separator_269: {}
     }
   },
 
   action_view_mail_message: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Messages',
-    search_view_id: 'view_message_search',
     res_model: 'mail.message',
+    search_view_id: 'view_message_search',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

@@ -112,7 +112,7 @@ export default {
               invisible: [['action', 'not in', ['pull', 'pull_push']]]
             }
           },
-          _group_492: {
+          _group_750: {
             _div: {
               _label_rule_message: {
                 for: 'rule_message',
@@ -126,7 +126,7 @@ export default {
             }
           }
         },
-        _group_571: {
+        _group_116: {
           _group_apply_on: {
             _attr: {
               name: 'apply_on',
@@ -199,7 +199,7 @@ export default {
             position: 'replace'
           }
         },
-        _xpath_491: {
+        _xpath_789: {
           _attr: {
             expr: "//group[@name='apply_on']",
             position: 'attributes'
@@ -207,11 +207,12 @@ export default {
           _attribute_groups: {
             _attr: {
               name: 'groups',
-              text: 'base.group_multi_company,base.group_no_one'
+              text: 'base.group_multi_company,base.group_no_one',
+              groups: 'base.group_multi_company,base.group_no_one'
             }
           }
         },
-        _xpath_116: {
+        _xpath_204: {
           _attr: {
             expr: '//form',
             position: 'inside'
@@ -229,6 +230,7 @@ export default {
     name: 'Rules',
     type: 'ir.actions.act_window',
     res_model: 'stock.rule',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

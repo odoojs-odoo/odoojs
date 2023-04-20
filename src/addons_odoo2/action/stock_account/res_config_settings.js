@@ -6,6 +6,9 @@ export default {
     arch: {
       sheet: {
         _div: {
+          _attr: {
+            position: 'after'
+          },
           _h2: 'Valuation',
           _div_valuation_setting_container: {
             _attr: {
@@ -23,7 +26,7 @@ export default {
                 },
                 module_stock_landed_costs: {}
               },
-              _div_491: {
+              _div_686: {
                 _attr: {
                   class: 'o_setting_right_pane'
                 },
@@ -42,7 +45,7 @@ export default {
                     text: 'Add additional cost (transport, customs, ...) in the value of the product.'
                   }
                 },
-                _div_538: {
+                _div_689: {
                   _attr: {
                     class: 'content-group'
                   },
@@ -54,7 +57,7 @@ export default {
                 }
               }
             },
-            _div_115: {
+            _div_883: {
               _attr: {
                 invisible: [['group_stock_production_lot', '=', false]],
                 class: 'col-12 col-lg-6 o_setting_box'
@@ -65,7 +68,7 @@ export default {
                 },
                 group_lot_on_invoice: {}
               },
-              _div_384: {
+              _div_604: {
                 _attr: {
                   class: 'o_setting_right_pane'
                 },

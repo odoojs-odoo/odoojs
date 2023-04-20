@@ -41,6 +41,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'System Parameters',
     res_model: 'ir.config_parameter',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

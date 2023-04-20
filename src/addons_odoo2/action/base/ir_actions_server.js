@@ -4,38 +4,41 @@ export default {
     model: 'ir.actions.server',
     type: 'form',
     arch: {
-      sheet: {
-        _header: {
-          binding_model_id: {
-            invisible: '1'
-          },
-          _button_create_action: {
-            _attr: {
-              name: 'create_action',
-              type: 'object',
-              string: 'Create Contextual Action',
-              invisible: [['binding_model_id', '!=', false]],
-              class: 'btn-primary'
-            }
-          },
-          _button_unlink_action: {
-            _attr: {
-              name: 'unlink_action',
-              type: 'object',
-              string: 'Remove Contextual Action',
-              invisible: [['binding_model_id', '=', false]]
-            }
-          },
-          _button_run: {
-            _attr: {
-              name: 'run',
-              type: 'object',
-              string: 'Run',
-              todo_ctx: "{'invisible':['|', ('model_id', '!=', %(base.model_ir_actions_server)s), ('state', '!=', 'code')]}",
-              class: 'btn-primary'
-            }
+      header: {
+        binding_model_id: {
+          invisible: '1'
+        },
+        _button_create_action: {
+          _attr: {
+            name: 'create_action',
+            type: 'object',
+            string: 'Create Contextual Action',
+            help: "Display an option in the 'More' top-menu in order to run this action.",
+            invisible: [['binding_model_id', '!=', false]],
+            class: 'btn-primary'
           }
         },
+        _button_unlink_action: {
+          _attr: {
+            name: 'unlink_action',
+            type: 'object',
+            string: 'Remove Contextual Action',
+            help: "Remove 'More' top-menu contextual action related to this action",
+            invisible: [['binding_model_id', '=', false]]
+          }
+        },
+        _button_run: {
+          _attr: {
+            name: 'run',
+            type: 'object',
+            string: 'Run',
+            help: 'Run this action manually.',
+            todo_ctx: "{'invisible':['|', ('model_id', '!=', %(base.model_ir_actions_server)s), ('state', '!=', 'code')]}",
+            class: 'btn-primary'
+          }
+        }
+      },
+      sheet: {
         _div_title: {
           _attr: {
             class: 'oe_title'
@@ -183,33 +186,33 @@ export default {
                 _li: {
                   _code: 'env'
                 },
-                _li_948: {
+                _li_658: {
                   _code: 'model'
                 },
-                _li_322: {
+                _li_804: {
                   _code: 'record'
                 },
-                _li_783: {
+                _li_206: {
                   _code: 'records'
                 },
-                _li_319: {
+                _li_397: {
                   _code: 'time',
-                  _code_913: 'datetime',
-                  _code_428: 'dateutil',
-                  _code_479: 'timezone'
+                  _code_455: 'datetime',
+                  _code_742: 'dateutil',
+                  _code_131: 'timezone'
                 },
-                _li_264: {
+                _li_524: {
                   _code: "log(message, level='info')",
-                  _code_998: 'ir.logging'
+                  _code_184: 'ir.logging'
                 },
-                _li_567: {
+                _li_447: {
                   _code: 'UserError',
-                  _code_462: 'raise'
+                  _code_631: 'raise'
                 },
-                _li_461: {
+                _li_618: {
                   _code: 'Command'
                 },
-                _li_110: {
+                _li_156: {
                   _attr: {
                     text: 'To return an action, assign:'
                   },
@@ -299,8 +302,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Server Actions',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_server_action_search',
     res_model: 'ir.actions.server',
+    search_view_id: 'view_server_action_search',
     context: {
       key: 'server_action'
     },

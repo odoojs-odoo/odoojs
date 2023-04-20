@@ -50,7 +50,7 @@ export default {
   },
 
   res_partner_industry_action: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Industries',
     type: 'ir.actions.act_window',
     res_model: 'res.partner.industry',

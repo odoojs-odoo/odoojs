@@ -7,7 +7,8 @@ export default {
       sheet: {
         _div_button_box: {
           _attr: {
-            name: 'button_box'
+            name: 'button_box',
+            position: 'inside'
           },
           _button_payment__action_payment_token: {
             _attr: {
@@ -32,7 +33,7 @@ export default {
                   widget: 'statinfo'
                 }
               },
-              _span_931: {
+              _span_202: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Saved Payment Methods'

@@ -1,5 +1,4 @@
 const ModelFields = {
-  binding_model_id: {},
   child_ids: {
     domain: {
       todo_ctx: "[('model_id', '=', model_id)]"

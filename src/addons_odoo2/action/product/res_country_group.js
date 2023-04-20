@@ -7,7 +7,8 @@ export default {
       sheet: {
         _group_country_group: {
           _attr: {
-            name: 'country_group'
+            name: 'country_group',
+            position: 'after'
           },
           pricelist_ids: {}
         }

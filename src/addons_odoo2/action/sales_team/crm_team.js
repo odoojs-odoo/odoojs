@@ -148,7 +148,7 @@ export default {
                                   }
                                 }
                               },
-                              _div_893: {
+                              _div_868: {
                                 _attr: {
                                   class: 'oe_kanban_details d-flex flex-column ms-3'
                                 },
@@ -237,6 +237,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Sales Teams',
     res_model: 'crm.team',
+    search_view_id: 'tooooooodoooooo',
     context: {
       in_sales_app: true
     },
@@ -250,6 +251,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Teams',
     res_model: 'crm.team',
+    search_view_id: 'tooooooodoooooo',
     context: {},
     views: {
       tree: '=======todo==========',
@@ -261,6 +263,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Sales Teams',
     res_model: 'crm.team',
+    search_view_id: 'tooooooodoooooo',
     context: {},
     views: {
       tree: '=======todo==========',

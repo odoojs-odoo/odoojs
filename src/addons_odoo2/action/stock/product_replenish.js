@@ -74,6 +74,7 @@ export default {
     name: 'Replenish',
     type: 'ir.actions.act_window',
     res_model: 'product.replenish',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'view_product_replenish',
       form: '=======todo=========='

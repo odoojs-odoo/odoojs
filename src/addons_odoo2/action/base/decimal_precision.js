@@ -31,6 +31,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Decimal Accuracy',
     res_model: 'decimal.precision',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

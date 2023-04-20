@@ -51,7 +51,7 @@ export default {
               for: 'factor_inv',
               invisible: [['uom_type', '!=', 'bigger']]
             },
-            _div_135: {
+            _div_491: {
               _attr: {
                 invisible: [['uom_type', '!=', 'bigger']]
               },
@@ -118,8 +118,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Units of Measure',
     type: 'ir.actions.act_window',
-    search_view_id: 'uom_uom_view_search',
     res_model: 'uom.uom',
+    search_view_id: 'uom_uom_view_search',
     views: {
       tree: 'product_uom_tree_view',
       form: '=======todo=========='

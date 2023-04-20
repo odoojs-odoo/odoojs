@@ -20,7 +20,7 @@ export default {
               no_open: true
             }
           },
-          _group_858: {
+          _group_886: {
             reset_mode: {
               widget: 'radio'
             }
@@ -40,13 +40,13 @@ export default {
               text: 'This view has no previous version.'
             }
           },
-          _span_889: {
+          _span_111: {
             _attr: {
               invisible: [['reset_mode', '!=', 'hard']],
               text: 'This view is not coming from a file.'
             }
           },
-          _span_348: {
+          _span_260: {
             _attr: {
               invisible: [['reset_mode', '!=', 'other_view']],
               text: 'You need two views to compare.'
@@ -78,6 +78,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Compare/Reset',
     res_model: 'reset.view.arch.wizard',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

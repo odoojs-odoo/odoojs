@@ -78,7 +78,7 @@ export default {
             domain: [['priority', '=', 1]]
           }
         },
-        _separator_457: {},
+        _separator_360: {},
         _filter_negative: {
           _attr: {
             name: 'negative',
@@ -93,13 +93,14 @@ export default {
             domain: [['reserved_quantity', '>', 0.0]]
           }
         },
-        _separator_854: {},
+        _separator_906: {},
         _filter_filter_in_date: {
           _attr: {
-            name: 'filter_in_date'
+            name: 'filter_in_date',
+            date: 'in_date'
           }
         },
-        _separator_778: {},
+        _separator_557: {},
         _filter_my_count: {
           _attr: {
             name: 'my_count',
@@ -110,7 +111,7 @@ export default {
           }
         }
       },
-      _group_746: {
+      _group_713: {
         _attr: {
           string: 'Group by...'
         },
@@ -228,13 +229,13 @@ export default {
               readonly: '0',
               no_create: true
             },
-            _field_company_id_613: {
+            _field_company_id_799: {
               company_id: {
                 groups: 'base.group_multi_company'
               }
             }
           },
-          _group_210: {
+          _group_814: {
             _label_quantity: {
               for: 'quantity',
               string: 'Quantity On Hand'
@@ -252,7 +253,7 @@ export default {
               for: 'available_quantity',
               string: 'Available Quantity'
             },
-            _div_346: {
+            _div_165: {
               _attr: {
                 class: 'o_row'
               },
@@ -265,7 +266,7 @@ export default {
               for: 'reserved_quantity',
               string: 'Quantity Reserved'
             },
-            _div_977: {
+            _div_379: {
               _attr: {
                 class: 'o_row'
               },
@@ -318,7 +319,7 @@ export default {
         product_categ_id: {
           optional: 'hide'
         },
-        _field_company_id_711: {
+        _field_company_id_572: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'hidden'
@@ -450,6 +451,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Locations',
     res_model: 'stock.quant',
+    search_view_id: 'tooooooodoooooo',
     context: {
       search_default_internal_loc: 1,
       search_default_productgroup: 1,
@@ -466,6 +468,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Current Stock',
     res_model: 'stock.quant',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['location_id', 'child_of', active_ids]]",
     context: {
       search_default_productgroup: 1
@@ -636,7 +639,7 @@ export default {
           string: 'User',
           optional: 'show'
         },
-        _field_company_id_416: {
+        _field_company_id_143: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'hide'

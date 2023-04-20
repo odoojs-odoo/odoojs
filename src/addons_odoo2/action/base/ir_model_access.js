@@ -53,7 +53,7 @@ export default {
             widget: 'boolean_toggle'
           }
         },
-        _group_511: {
+        _group_513: {
           _attr: {
             string: 'Access'
           },
@@ -103,7 +103,7 @@ export default {
           domain: [['perm_write', '=', true]]
         }
       },
-      _separator_468: {},
+      _separator_938: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -145,8 +145,8 @@ export default {
   ir_access_act: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Access Rights',
-    search_view_id: 'ir_access_view_search',
     res_model: 'ir.model.access',
+    search_view_id: 'ir_access_view_search',
     views: {
       tree: 'ir_access_view_tree_edition',
       form: '=======todo=========='

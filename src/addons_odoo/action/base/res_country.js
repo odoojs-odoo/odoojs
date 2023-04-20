@@ -89,7 +89,7 @@ export default {
   },
 
   action_country: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Countries',
     type: 'ir.actions.act_window',
     res_model: 'res.country',

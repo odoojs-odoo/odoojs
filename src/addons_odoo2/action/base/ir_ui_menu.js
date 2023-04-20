@@ -18,7 +18,7 @@ export default {
               groups: 'base.group_no_one'
             }
           },
-          _group_472: {
+          _group_497: {
             _attr: {
               groups: 'base.group_no_one'
             },
@@ -107,8 +107,8 @@ export default {
   grant_menu_access: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Menu Items',
-    search_view_id: 'edit_menu_access_search',
     res_model: 'ir.ui.menu',
+    search_view_id: 'edit_menu_access_search',
     context: {
       ir.ui.menu.full_list: true
     },

@@ -1,19 +1,23 @@
-// ok
 export default {
-  crm_team_view_tree: {
+  crm_team_view_search: {
     _odoo_model: 'ir.ui.view',
     model: 'crm.team',
-    type: 'tree',
+    type: 'search',
     arch: {
-      sheet: {
-        sequence: { widget: 'handle' },
-        name: { readonly: '1' },
-        active: { invisible: '1' },
-        user_id: {
-          domain: [['share', '=', false]],
-          widget: 'many2one_avatar_user'
-        },
-        company_id: { groups: 'base.group_multi_company' }
+      fields: {
+        name: {},
+        user_id: {},
+        member_ids: {}
+      },
+
+      filters: {
+        group_active: {
+          inactive: {
+            name: 'inactive',
+            string: 'Archived',
+            domain: [['active', '=', false]]
+          }
+        }
       }
     }
   },
@@ -54,6 +58,11 @@ export default {
         _div_title: {
           _h1: {
             name: { string: 'Sales Team', placeholder: 'e.g. North America' }
+          },
+          _div_options_active: {
+            _attr: {
+              name: 'options_active'
+            }
           }
         },
 
@@ -138,27 +147,26 @@ export default {
     }
   },
 
-  crm_team_view_search: {
+  crm_team_view_tree: {
     _odoo_model: 'ir.ui.view',
     model: 'crm.team',
-    type: 'search',
+    type: 'tree',
     arch: {
-      fields: {
-        name: {},
-        user_id: {},
-        member_ids: {}
-      },
-
-      filters: {
-        group_active: {
-          inactive: { string: '已归档', domain: [['active', '=', false]] }
-        }
+      sheet: {
+        sequence: { widget: 'handle' },
+        name: { readonly: '1' },
+        active: { invisible: '1' },
+        user_id: {
+          domain: [['share', '=', false]],
+          widget: 'many2one_avatar_user'
+        },
+        company_id: { groups: 'base.group_multi_company' }
       }
     }
   },
 
   crm_team_action_config: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Sales Teams',
     type: 'ir.actions.act_window',
     res_model: 'crm.team',

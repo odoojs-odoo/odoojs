@@ -22,7 +22,7 @@ export default {
             }
           }
         },
-        _div_427: {
+        _div_345: {
           _attr: {
             invisible: [['quant_ids', '=', []]]
           },

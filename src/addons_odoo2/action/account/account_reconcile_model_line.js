@@ -54,7 +54,7 @@ export default {
               invisible: '1'
             }
           },
-          _group_181: {
+          _group_252: {
             label: {},
             _label_amount_string: {
               for: 'amount_string'

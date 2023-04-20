@@ -38,12 +38,14 @@ export default {
               width: {
                 placeholder: 'Width'
               },
-              _span_236: '×',
+              _span_756: '×',
               height: {
                 placeholder: 'Height'
               },
-              _span_409: {
-                length_uom_name: {}
+              _span_903: {
+                length_uom_name: {
+                  help: 'Size: Length × Width × Height'
+                }
               }
             },
             _label_base_weight: {
@@ -130,6 +132,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Package Types',
     res_model: 'stock.package.type',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

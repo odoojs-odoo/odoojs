@@ -36,11 +36,11 @@ const ModelFields = {
     readonly: '0'
   },
 
-  location_id_$_tree_$$_125: {
+  location_id_$_tree_$$_215: {
     readonly: [['id', '!=', false]]
   },
 
-  location_id_$_tree_$$_507: {
+  location_id_$_tree_$$_619: {
     readonly: [['id', '!=', false]]
   },
 
@@ -57,12 +57,12 @@ const ModelFields = {
     readonly: [['tracking', 'not in', ['serial', 'lot']]]
   },
 
-  lot_id_$_tree_$$_796: {
-    readonly: ['|', ['id', '!=', false], ['tracking', 'not in', ['serial', 'lot']]]
+  lot_id_$_tree_$$_239: {
+    readonly: ['|', ['tracking', 'not in', ['serial', 'lot']], '&', ['id', '!=', false], '|', ['lot_id', '!=', false], ['quantity', '!=', 0]]
   },
 
-  lot_id_$_tree_$$_939: {
-    readonly: ['|', ['tracking', 'not in', ['serial', 'lot']], '&', ['id', '!=', false], '|', ['lot_id', '!=', false], ['quantity', '!=', 0]]
+  lot_id_$_tree_$$_779: {
+    readonly: ['|', ['id', '!=', false], ['tracking', 'not in', ['serial', 'lot']]]
   },
 
   owner_id: {
@@ -74,11 +74,11 @@ const ModelFields = {
     readonly: '0'
   },
 
-  owner_id_$_tree_$$_638: {
+  owner_id_$_tree_$$_192: {
     readonly: [['id', '!=', false]]
   },
 
-  owner_id_$_tree_$$_792: {
+  owner_id_$_tree_$$_429: {
     readonly: [['id', '!=', false]]
   },
 
@@ -91,11 +91,11 @@ const ModelFields = {
     readonly: '0'
   },
 
-  package_id_$_tree_$$_699: {
+  package_id_$_tree_$$_353: {
     readonly: [['id', '!=', false]]
   },
 
-  package_id_$_tree_$$_732: {
+  package_id_$_tree_$$_901: {
     readonly: [['id', '!=', false]]
   },
 
@@ -109,11 +109,11 @@ const ModelFields = {
     readonly: '0'
   },
 
-  product_id_$_tree_$$_924: {
+  product_id_$_tree_$$_292: {
     readonly: "context.get['single_product', False]"
   },
 
-  product_id_$_tree_$$_936: {
+  product_id_$_tree_$$_876: {
     readonly: "context.get['single_product', False]"
   },
 
@@ -122,11 +122,11 @@ const ModelFields = {
     string: '===todo=='
   },
 
-  product_uom_id_$_tree_$$_663: {
+  product_uom_id_$_tree_$$_586: {
     string: 'UoM'
   },
 
-  product_uom_id_$_tree_$$_878: {
+  product_uom_id_$_tree_$$_829: {
     string: 'Unit'
   },
 

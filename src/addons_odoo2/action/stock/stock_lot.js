@@ -22,6 +22,7 @@ export default {
               name: 'action_lot_open_transfers',
               type: 'object',
               icon: 'fa-truck',
+              help: 'Transfers',
               invisible: [['delivery_count', '=', 0]],
               class: 'oe_stat_button'
             },
@@ -38,7 +39,7 @@ export default {
                   class: 'mr4'
                 }
               },
-              _span_851: {
+              _span_701: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Transfers'
@@ -89,7 +90,8 @@ export default {
                 default_tracking: 'lot'
               },
               readonly: "context.get['set_product_readonly', False]",
-              force_save: '1'
+              force_save: '1',
+              help: 'Product this lot/serial number contains. You cannot change it anymore if it has already been moved.'
             },
             _label_product_qty: {
               for: 'product_qty',
@@ -110,7 +112,7 @@ export default {
               groups: 'base.group_multi_company'
             }
           },
-          _group_335: {}
+          _group_474: {}
         },
         _notebook: {
           _attr: {
@@ -189,8 +191,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Lots/Serial Numbers',
     type: 'ir.actions.act_window',
-    search_view_id: 'search_product_lot_filter',
     res_model: 'stock.lot',
+    search_view_id: 'search_product_lot_filter',
     context: {
       todo_ctx: "{'search_default_group_by_product': 1, 'display_complete': True, 'default_company_id': allowed_company_ids[0]}"
     },

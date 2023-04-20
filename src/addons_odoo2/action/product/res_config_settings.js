@@ -24,7 +24,7 @@ export default {
                   class: 'o_setting_left_pane'
                 }
               },
-              _div_673: {
+              _div_374: {
                 _attr: {
                   class: 'o_setting_right_pane'
                 },
@@ -38,7 +38,7 @@ export default {
                     text: 'Define your weight unit of measure'
                   }
                 },
-                _div_796: {
+                _div_784: {
                   _attr: {
                     class: 'content-group'
                   },
@@ -55,7 +55,7 @@ export default {
                 }
               }
             },
-            _div_365: {
+            _div_860: {
               _attr: {
                 class: 'col-12 col-lg-6 o_setting_box'
               },
@@ -73,7 +73,7 @@ export default {
                     text: 'Define your volume unit of measure'
                   }
                 },
-                _div_592: {
+                _div_439: {
                   _attr: {
                     class: 'content-group'
                   },
@@ -92,7 +92,7 @@ export default {
             }
           }
         },
-        _xpath_890: {
+        _xpath_928: {
           _attr: {
             expr: "//div[@id='product_get_pic_setting']",
             position: 'replace'
@@ -107,7 +107,7 @@ export default {
               },
               module_product_images: {}
             },
-            _div_726: {
+            _div_643: {
               _attr: {
                 class: 'o_setting_right_pane'
               },
@@ -127,7 +127,7 @@ export default {
                   text: 'Get product pictures using Barcode'
                 }
               },
-              _div_506: {
+              _div_684: {
                 _attr: {
                   invisible: [['module_product_images', '=', false]],
                   class: 'content-group mt16'

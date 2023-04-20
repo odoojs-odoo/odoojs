@@ -36,7 +36,7 @@ export default {
           no_create: true,
           no_open: true
         },
-        _field_package_type_ids_441: {
+        _field_package_type_ids_489: {
           package_type_ids: {
             string: 'Package type',
             widget: 'many2many_tags',
@@ -57,7 +57,7 @@ export default {
           optional: 'show',
           no_create: true
         },
-        _field_company_id_688: {
+        _field_company_id_152: {
           company_id: {
             groups: 'stock.group_stock_multi_locations',
             readonly: "context.get['fixed_location', False]",
@@ -75,6 +75,7 @@ export default {
     name: 'Putaways Rules',
     type: 'ir.actions.act_window',
     res_model: 'stock.putaway.rule',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'stock_putaway_list',
       form: '=======todo=========='
@@ -109,7 +110,7 @@ export default {
           }
         }
       },
-      _group_761: {
+      _group_193: {
         _attr: {
           string: 'Group By'
         },
@@ -139,6 +140,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Putaway Rules',
     res_model: 'stock.putaway.rule',
+    search_view_id: 'tooooooodoooooo',
     context: {
       todo_ctx: "{\n            'search_default_category_id': [active_id],\n            'fixed_category': True,\n        }"
     },
@@ -152,6 +154,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Putaway Rules',
     res_model: 'stock.putaway.rule',
+    search_view_id: 'tooooooodoooooo',
     domain: "['|', ['location_out_id', '=', active_id], ['location_in_id', '=', active_id]]",
     context: {
       fixed_location: true

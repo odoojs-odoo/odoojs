@@ -83,6 +83,7 @@ export default {
     name: 'Add Languages',
     type: 'ir.actions.act_window',
     res_model: 'base.language.install',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

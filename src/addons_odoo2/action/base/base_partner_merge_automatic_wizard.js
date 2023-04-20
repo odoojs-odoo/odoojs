@@ -3,6 +3,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Deduplicate Contacts',
     res_model: 'base.partner.merge.automatic.wizard',
+    search_view_id: 'tooooooodoooooo',
     context: {
       active_test: false
     },
@@ -70,7 +71,7 @@ export default {
               class: 'btn btn-secondary oe_inline'
             }
           },
-          _button_868: {
+          _button_708: {
             _attr: {
               type: 'object',
               string: 'Close',
@@ -100,7 +101,7 @@ export default {
             text: 'Select the list of fields used to search for\n                            duplicated records. If you select several fields,\n                            Odoo will propose you to merge only those having\n                            all these fields in common. (not one of the fields).'
           }
         },
-        _group_150: {
+        _group_224: {
           _attr: {
             invisible: ['|', ['state', 'not in', ('selection', 'finished')], ['number_group', '=', 0]]
           },
@@ -109,7 +110,7 @@ export default {
           },
           number_group: {}
         },
-        _group_843: {
+        _group_361: {
           _attr: {
             string: 'Search duplicates based on duplicated data in',
             invisible: [['state', 'not in', ('option',)]]
@@ -120,7 +121,7 @@ export default {
           group_by_vat: {},
           group_by_parent_id: {}
         },
-        _group_127: {
+        _group_607: {
           _attr: {
             string: 'Exclude contacts having',
             invisible: [['state', 'not in', ('option',)]]
@@ -134,7 +135,7 @@ export default {
             invisible: [['state', 'not in', ('option',)]]
           }
         },
-        _group_583: {
+        _group_194: {
           _attr: {
             invisible: [['state', 'not in', ('option', 'finished')]]
           },
@@ -142,13 +143,13 @@ export default {
             readonly: [['state', 'in', 'finished']]
           }
         },
-        _separator_906: {
+        _separator_501: {
           _attr: {
             string: 'Merge the following contacts',
             invisible: [['state', 'in', ('option', 'finished')]]
           }
         },
-        _group_730: {
+        _group_535: {
           _attr: {
             invisible: [['state', 'in', ('option', 'finished')]]
           },
@@ -198,6 +199,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Merge',
     res_model: 'base.partner.merge.automatic.wizard',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

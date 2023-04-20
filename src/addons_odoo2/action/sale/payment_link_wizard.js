@@ -3,6 +3,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Generate a Payment Link',
     res_model: 'payment.link.wizard',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'payment.payment_link_wizard_view_form',
       form: '=======todo=========='

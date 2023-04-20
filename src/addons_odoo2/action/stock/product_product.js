@@ -2,8 +2,8 @@ export default {
   act_product_location_open: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Products',
-    search_view_id: 'stock.stock_product_search_form_view',
     res_model: 'product.product',
+    search_view_id: 'stock.stock_product_search_form_view',
     context: {
       todo_ctx: "{'location': active_id, 'search_default_real_stock_available': 1, 'search_default_virtual_stock_available': 1,\n                    'search_default_virtual_stock_negative': 1, 'search_default_real_stock_negative': 1, 'create': False}"
     },
@@ -20,6 +20,7 @@ export default {
     arch: {
       sheet: {
         type: {
+          position: 'after',
           __todo__after: {
             qty_available: {
               invisible: [['type', '!=', 'product']],
@@ -75,7 +76,8 @@ export default {
       sheet: {
         _filter_activities_overdue: {
           _attr: {
-            name: 'activities_overdue'
+            name: 'activities_overdue',
+            position: 'after'
           },
           location_id: {
             context: {
@@ -100,6 +102,9 @@ export default {
     arch: {
       sheet: {
         _header: {
+          _attr: {
+            position: 'inside'
+          },
           _button_action_update_quantity_on_hand: {
             _attr: {
               name: 'action_update_quantity_on_hand',
@@ -124,7 +129,8 @@ export default {
         },
         _div_button_box: {
           _attr: {
-            name: 'button_box'
+            name: 'button_box',
+            position: 'inside'
           },
           _button_action_view_related_putaway_rules: {
             _attr: {
@@ -154,6 +160,9 @@ export default {
       sheet: {
         _data: {
           _header: {
+            _attr: {
+              position: 'inside'
+            },
             _button_action_update_quantity_on_hand: {
               _attr: {
                 name: 'action_update_quantity_on_hand',
@@ -178,7 +187,8 @@ export default {
           },
           _div_button_box: {
             _attr: {
-              name: 'button_box'
+              name: 'button_box',
+              position: 'inside'
             },
             _t: {
               _attr: {
@@ -215,7 +225,7 @@ export default {
                     },
                     uom_name: {}
                   },
-                  _span_240: {
+                  _span_750: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'On Hand'
@@ -248,7 +258,7 @@ export default {
                     },
                     uom_name: {}
                   },
-                  _span_210: {
+                  _span_159: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'Forecasted'
@@ -275,14 +285,14 @@ export default {
                       text: 'In:'
                     }
                   },
-                  _span_722: {
+                  _span_363: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'Out:'
                     }
                   }
                 },
-                _div_321: {
+                _div_191: {
                   _attr: {
                     class: 'o_field_widget o_stat_info'
                   },
@@ -292,7 +302,7 @@ export default {
                     },
                     nbr_moves_in: {}
                   },
-                  _span_346: {
+                  _span_292: {
                     _attr: {
                       class: 'o_stat_value'
                     },
@@ -318,14 +328,14 @@ export default {
                       text: 'Min:'
                     }
                   },
-                  _span_985: {
+                  _span_670: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'Max:'
                     }
                   }
                 },
-                _div_585: {
+                _div_104: {
                   _attr: {
                     class: 'o_field_widget o_stat_info'
                   },
@@ -335,7 +345,7 @@ export default {
                     },
                     reordering_min_qty: {}
                   },
-                  _span_194: {
+                  _span_344: {
                     _attr: {
                       class: 'o_stat_value'
                     },
@@ -343,7 +353,7 @@ export default {
                   }
                 }
               },
-              _button_action_view_orderpoints_562: {
+              _button_action_view_orderpoints_158: {
                 _attr: {
                   name: 'action_view_orderpoints',
                   type: 'object',
@@ -402,7 +412,8 @@ export default {
             _attribute_context: {
               _attr: {
                 name: 'context',
-                text: "{'default_product_id': id}"
+                text: "{'default_product_id': id}",
+                context: "{'default_product_id': id}"
               }
             }
           }
@@ -526,29 +537,34 @@ export default {
       sheet: {
         _filter_services: {
           _attr: {
-            name: 'services'
+            name: 'services',
+            position: 'attributes'
           },
           _attribute_attrs: {
             _attr: {
               name: 'attrs',
-              text: "{'invisible': 1}"
+              text: "{'invisible': 1}",
+              attrs: "{'invisible': 1}"
             }
           }
         },
         _filter_consumable: {
           _attr: {
-            name: 'consumable'
+            name: 'consumable',
+            position: 'attributes'
           },
           _attribute_attrs: {
             _attr: {
               name: 'attrs',
-              text: "{'invisible': 1}"
+              text: "{'invisible': 1}",
+              attrs: "{'invisible': 1}"
             }
           }
         },
         _filter_real_stock_negative: {
           _attr: {
-            name: 'real_stock_negative'
+            name: 'real_stock_negative',
+            position: 'after'
           },
           _searchpanel: {
             categ_id: {
@@ -563,8 +579,8 @@ export default {
   action_product_stock_view: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Stock',
-    search_view_id: 'product_search_form_view_stock_report',
     res_model: 'product.product',
+    search_view_id: 'product_search_form_view_stock_report',
     domain: "[['detailed_type', '=', 'product']]",
     context: {
       default_detailed_type: 'product'
@@ -579,8 +595,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Product Variants',
     type: 'ir.actions.act_window',
-    search_view_id: 'stock_product_search_form_view',
     res_model: 'product.product',
+    search_view_id: 'stock_product_search_form_view',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

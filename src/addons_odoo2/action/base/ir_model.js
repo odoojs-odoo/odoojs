@@ -5,7 +5,6 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _header: {},
         _group: {
           _group: {
             id: {
@@ -21,7 +20,7 @@ export default {
               readonly: [['id', '!=', false]]
             }
           },
-          _group_366: {
+          _group_379: {
             state: {
               groups: 'base.group_no_one',
               readonly: '1'
@@ -70,7 +69,7 @@ export default {
                           name: {},
                           field_description: {}
                         },
-                        _group_357: {
+                        _group_233: {
                           ttype: {},
                           help: {}
                         }
@@ -98,7 +97,7 @@ export default {
                                 groups: 'base.group_no_one'
                               }
                             },
-                            _group_399: {
+                            _group_475: {
                               translate: {
                                 readonly: [['ttype', 'not in', ['char', 'text', 'html']]],
                                 invisible: [['ttype', 'not in', ['char', 'text', 'html']]]
@@ -145,7 +144,7 @@ export default {
                               }
                             }
                           },
-                          _group_592: {
+                          _group_635: {
                             _attr: {
                               readonly: [['ttype', 'not in', ['selection', 'reference']]],
                               invisible: [['ttype', 'not in', ['selection', 'reference']]]
@@ -166,7 +165,7 @@ export default {
                               }
                             }
                           },
-                          _group_252: {
+                          _group_839: {
                             _attr: {
                               string: 'Advanced Properties',
                               groups: 'base.group_no_one'
@@ -190,44 +189,44 @@ export default {
                                 text: 'Computed fields are defined with the fields'
                               },
                               _strong: 'Dependencies',
-                              _strong_476: 'Compute'
+                              _strong_544: 'Compute'
                             },
-                            _p_412: {
+                            _p_712: {
                               _attr: {
                                 text: 'The field'
                               },
                               _strong: 'Dependencies',
                               _code: 'name, size',
-                              _code_353: 'partner_id.company_id.name'
+                              _code_896: 'partner_id.company_id.name'
                             },
-                            _p_215: {
+                            _p_187: {
                               _attr: {
                                 text: 'The field'
                               },
                               _strong: 'Compute'
                             },
                             _pre: "for record in self:\n        record['size'] = len(record.name)",
-                            _p_942: 'The only predefined variables are',
+                            _p_697: 'The only predefined variables are',
                             _ul: {
                               _li: {
                                 _code: 'self'
                               },
-                              _li_185: {
+                              _li_236: {
                                 _code: 'datetime'
                               },
-                              _li_166: {
+                              _li_924: {
                                 _code: 'dateutil'
                               },
-                              _li_750: {
+                              _li_742: {
                                 _code: 'time'
                               }
                             },
-                            _p_259: {
+                            _p_653: {
                               _attr: {
                                 text: 'Other features are accessible through'
                               },
                               _code: 'self',
-                              _code_622: 'self.env'
+                              _code_601: 'self.env'
                             }
                           }
                         },
@@ -400,6 +399,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Models',
     res_model: 'ir.model',
+    search_view_id: 'tooooooodoooooo',
     context: {},
     views: {
       tree: 'view_model_tree',

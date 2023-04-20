@@ -20,11 +20,11 @@ const ModelFields = {
   },
 
   company_id: {
-    groups: 'base.group_multi_company',
+    string: 'Default Company',
     context: {
       user_preference: 0
     },
-    string: 'Default Company',
+    groups: 'base.group_multi_company',
     readonly: '0'
   },
 
@@ -61,9 +61,9 @@ const ModelFields = {
   login_date: {},
   mobile: {},
   name: {
+    readonly: '1',
     required: '1',
-    placeholder: 'e.g. John Doe',
-    readonly: '1'
+    placeholder: 'e.g. John Doe'
   },
 
   partner_id: {

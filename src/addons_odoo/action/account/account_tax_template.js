@@ -204,7 +204,7 @@ export default {
   },
 
   action_account_tax_template_form: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Tax Templates',
     type: 'ir.actions.act_window',
     res_model: 'account.tax.template',

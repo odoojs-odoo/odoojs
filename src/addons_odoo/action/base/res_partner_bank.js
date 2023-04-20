@@ -84,7 +84,7 @@ export default {
   },
 
   action_res_partner_bank_account_form: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Bank Accounts',
     type: 'ir.actions.act_window',
     res_model: 'res.partner.bank',

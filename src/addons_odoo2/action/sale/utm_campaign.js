@@ -29,7 +29,7 @@ export default {
               }
             }
           },
-          _div_700: {
+          _div_736: {
             _attr: {
               title: 'Quotations',
               groups: 'sales_team.group_sale_salesman',

@@ -51,7 +51,7 @@ export default {
   },
 
   action_users: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '用户开票设置',
     type: 'ir.actions.act_window',
     res_model: 'fp.users',

@@ -37,7 +37,7 @@ export default {
             is_discuss_sidebar_category_channel_open: {},
             is_discuss_sidebar_category_chat_open: {}
           },
-          _group_221: {
+          _group_720: {
             _attr: {
               string: 'Voice'
             },
@@ -78,6 +78,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'User Settings',
     res_model: 'res.users.settings',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

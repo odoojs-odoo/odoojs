@@ -27,7 +27,7 @@ export default {
             }
           }
         },
-        _xpath_663: {
+        _xpath_415: {
           _attr: {
             expr: "//field[@name='inbound_payment_method_line_ids']/tree",
             position: 'attributes'
@@ -35,7 +35,8 @@ export default {
           _attribute_decoration$dash$muted: {
             _attr: {
               name: 'decoration-muted',
-              text: "payment_provider_state == 'disabled'"
+              text: "payment_provider_state == 'disabled'",
+              decoration-muted: "payment_provider_state == 'disabled'"
             }
           }
         }

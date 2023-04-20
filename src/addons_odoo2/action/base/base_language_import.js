@@ -46,6 +46,7 @@ export default {
     name: 'Import Translation',
     type: 'ir.actions.act_window',
     res_model: 'base.language.import',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

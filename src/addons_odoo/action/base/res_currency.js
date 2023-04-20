@@ -155,7 +155,7 @@ export default {
   },
 
   action_currency_form: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Currencies',
     type: 'ir.actions.act_window',
     res_model: 'res.currency',

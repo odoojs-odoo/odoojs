@@ -20,19 +20,19 @@ export default {
             }
           }
         },
-        _xpath_618: {
+        _xpath_889: {
           _attr: {
             expr: "//button[@name='unlink_action']",
             position: 'replace'
           }
         },
-        _xpath_817: {
+        _xpath_168: {
           _attr: {
             expr: "//button[@name='run']",
             position: 'replace'
           }
         },
-        _xpath_533: {
+        _xpath_105: {
           _attr: {
             expr: "//group[@name='action_content']",
             position: 'inside'
@@ -59,6 +59,7 @@ export default {
           doall: {}
         },
         state: {
+          position: 'attributes',
           invisible: '1'
         }
       }
@@ -113,7 +114,7 @@ export default {
           domain: ['|', ['active', '=', false], ['active', '=', true]]
         }
       },
-      _separator_639: {},
+      _separator_997: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -163,6 +164,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Scheduled Actions',
     res_model: 'ir.cron',
+    search_view_id: 'tooooooodoooooo',
     context: {
       search_default_all: 1
     },

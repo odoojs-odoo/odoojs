@@ -76,7 +76,7 @@ export default {
   },
 
   action_bank_statement_tree: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Bank Statements',
     type: 'ir.actions.act_window',
     res_model: 'account.bank.statement',
@@ -90,7 +90,7 @@ export default {
   },
 
   action_view_bank_statement_tree: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Cash Registers',
     type: 'ir.actions.act_window',
     res_model: 'account.bank.statement',

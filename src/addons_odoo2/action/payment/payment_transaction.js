@@ -4,27 +4,29 @@ export default {
     model: 'payment.transaction',
     type: 'form',
     arch: {
-      sheet: {
-        _header: {
-          _button_action_capture: {
-            _attr: {
-              name: 'action_capture',
-              type: 'object',
-              string: 'Capture Transaction',
-              class: 'oe_highlight'
-            }
-          },
-          _button_action_void: {
-            _attr: {
-              name: 'action_void',
-              type: 'object',
-              string: 'Void Transaction'
-            }
-          },
-          state: {
-            widget: 'statusbar'
+      header: {
+        _button_action_capture: {
+          _attr: {
+            name: 'action_capture',
+            type: 'object',
+            string: 'Capture Transaction',
+            states: 'authorized',
+            class: 'oe_highlight'
           }
         },
+        _button_action_void: {
+          _attr: {
+            name: 'action_void',
+            type: 'object',
+            string: 'Void Transaction',
+            states: 'authorized'
+          }
+        },
+        state: {
+          widget: 'statusbar'
+        }
+      },
+      sheet: {
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -121,7 +123,7 @@ export default {
             partner_lang: {}
           }
         },
-        _group_400: {
+        _group_756: {
           _attr: {
             string: 'Message',
             invisible: [['state_message', '=', false]]
@@ -222,6 +224,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Payment Transactions',
     res_model: 'payment.transaction',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -232,6 +235,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Payment Transactions Linked To Token',
     res_model: 'payment.transaction',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['token_id','=', active_id]]",
     context: {
       create: false

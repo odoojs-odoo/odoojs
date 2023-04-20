@@ -40,6 +40,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Unreconcile',
     res_model: 'account.unreconcile',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'account_unreconcile_view',
       form: '=======todo=========='

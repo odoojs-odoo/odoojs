@@ -16,7 +16,7 @@ export default {
             write_date: {},
             create_date: {}
           },
-          _group_561: {
+          _group_779: {
             display_name: {},
             model: {},
             res_id: {},
@@ -103,6 +103,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'External Identifiers',
     res_model: 'ir.model.data',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'view_model_data_list',
       form: '=======todo=========='

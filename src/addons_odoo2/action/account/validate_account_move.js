@@ -39,6 +39,7 @@ export default {
     name: 'Post entries',
     type: 'ir.actions.act_window',
     res_model: 'validate.account.move',
+    search_view_id: 'tooooooodoooooo',
     context: {},
     views: {
       tree: 'validate_account_move_view',

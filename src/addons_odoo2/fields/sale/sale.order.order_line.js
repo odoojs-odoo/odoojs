@@ -87,20 +87,20 @@ const ModelFields = {
     }
   },
 
-  product_uom_$_form_$$_400: {
+  product_uom_$_form_$$_140: {
     groups: 'uom.group_uom'
   },
 
-  product_uom_$_form_$$_529: {
+  product_uom_$_form_$$_859: {
     groups: '!uom.group_uom'
   },
 
-  product_uom_$_tree_$$_520: {
+  product_uom_$_tree_$$_789: {
+    groups: '!uom.group_uom'
+  },
+
+  product_uom_$_tree_$$_882: {
     groups: 'uom.group_uom'
-  },
-
-  product_uom_$_tree_$$_932: {
-    groups: '!uom.group_uom'
   },
 
   product_uom_category_id: {},

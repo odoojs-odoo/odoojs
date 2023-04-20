@@ -121,6 +121,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Aliases',
     res_model: 'mail.alias',
+    search_view_id: 'tooooooodoooooo',
     context: {
       todo_ctx: "{\n                    'search_default_active': True,\n                }\n            "
     },

@@ -10,10 +10,14 @@ export default {
         },
         _separator: {
           _attr: {
-            string: 'Module Update Result'
+            string: 'Module Update Result',
+            states: 'done'
           }
         },
         _group: {
+          _attr: {
+            states: 'init'
+          },
           _span: {
             _attr: {
               class: 'o_form_label',
@@ -21,12 +25,18 @@ export default {
             }
           }
         },
-        _group_581: {
+        _group_464: {
+          _attr: {
+            states: 'done'
+          },
           updated: {},
           added: {}
         },
         _footer: {
           _div: {
+            _attr: {
+              states: 'init'
+            },
             _button_update_module: {
               _attr: {
                 name: 'update_module',
@@ -42,7 +52,10 @@ export default {
               }
             }
           },
-          _div_857: {
+          _div_341: {
+            _attr: {
+              states: 'done'
+            },
             _button_action_module_open: {
               _attr: {
                 name: 'action_module_open',
@@ -68,6 +81,7 @@ export default {
     name: 'Module Update',
     type: 'ir.actions.act_window',
     res_model: 'base.module.update',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

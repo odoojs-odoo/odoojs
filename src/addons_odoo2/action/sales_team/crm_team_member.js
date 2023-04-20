@@ -198,6 +198,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Team Members',
     res_model: 'crm.team.member',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

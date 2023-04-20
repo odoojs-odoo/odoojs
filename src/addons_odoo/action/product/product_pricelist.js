@@ -126,7 +126,7 @@ export default {
   },
 
   product_pricelist_action2: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Pricelists',
     type: 'ir.actions.act_window',
     res_model: 'product.pricelist',

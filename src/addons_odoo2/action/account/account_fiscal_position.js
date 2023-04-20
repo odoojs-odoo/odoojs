@@ -73,14 +73,14 @@ export default {
               invisible: '1'
             },
             name: {},
-            _field_company_id_904: {
+            _field_company_id_385: {
               company_id: {
                 groups: 'base.group_multi_company',
                 no_create: true
               }
             }
           },
-          _group_685: {
+          _group_586: {
             auto_apply: {},
             vat_required: {
               invisible: [['auto_apply', '!=', true]]
@@ -119,7 +119,7 @@ export default {
                   class: 'oe_edit_only'
                 }
               },
-              _span_380: 'To',
+              _span_827: 'To',
               zip_to: {
                 class: 'oe_inline'
               }
@@ -289,8 +289,8 @@ export default {
   action_account_fiscal_position_form: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Fiscal Positions',
-    search_view_id: 'view_account_position_filter',
     res_model: 'account.fiscal.position',
+    search_view_id: 'view_account_position_filter',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

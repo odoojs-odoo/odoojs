@@ -377,7 +377,8 @@ export class ViewHelp {
           if (!acc.children) acc.children = {}
 
           if (is_field(cur)) {
-            const invisible2 = invisible_get(node[cur])
+            const meta = meta_get(cur, node[cur])
+            const invisible2 = invisible_get(meta)
             if (!invisible2) {
               acc.children[cur] = get_field_node(cur)
             }
@@ -435,7 +436,6 @@ export class ViewHelp {
 
   check_invisible(fieldInfo, kw) {
     const { for_tree } = kw
-
     if (for_tree) {
       return this.check_invisible_for_tree(fieldInfo, kw)
     } else {

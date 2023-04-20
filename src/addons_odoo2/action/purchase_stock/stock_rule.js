@@ -6,6 +6,7 @@ export default {
     arch: {
       sheet: {
         location_src_id: {
+          position: 'attributes',
           required: [['action', 'in', ['pull', 'push', 'pull_push']]],
           invisible: [['action', '=', 'buy']]
         }

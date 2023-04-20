@@ -4,12 +4,13 @@ export default {
     model: 'stock.package_level',
     type: 'form',
     arch: {
+      header: {
+        state: {
+          widget: 'statusbar',
+          statusbar_visible: 'draft,confirmed,assigned,done'
+        }
+      },
       sheet: {
-        _header: {
-          state: {
-            widget: 'statusbar'
-          }
-        },
         _group: {
           company_id: {
             invisible: '1'
@@ -124,7 +125,7 @@ export default {
                 class: 'oe_highlight'
               }
             },
-            _button_242: {
+            _button_845: {
               _attr: {
                 string: 'Discard'
               }

@@ -79,7 +79,7 @@ export default {
             },
             price_unit: {}
           },
-          _group_201: {
+          _group_137: {
             taxes_id: {
               widget: 'many2many_tags',
               domain: [['type_tax_use', '=', 'purchase']]
@@ -198,6 +198,7 @@ export default {
   action_purchase_history: {
     _odoo_model: 'ir.actions.act_window',
     res_model: 'purchase.order.line',
+    search_view_id: 'tooooooodoooooo',
     context: {},
     views: {
       tree: 'purchase.purchase_history_tree',

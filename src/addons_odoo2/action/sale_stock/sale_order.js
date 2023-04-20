@@ -25,24 +25,26 @@ export default {
             }
           }
         },
-        _xpath_706: {
+        _xpath_822: {
           _attr: {
             expr: "//group[@name='sale_shipping']",
             position: 'attributes'
           },
           _attribute_groups: {
             _attr: {
-              name: 'groups'
+              name: 'groups',
+              groups: ''
             }
           },
           _attribute_string: {
             _attr: {
               name: 'string',
-              text: 'Delivery'
+              text: 'Delivery',
+              string: 'Delivery'
             }
           }
         },
-        _xpath_829: {
+        _xpath_796: {
           _attr: {
             expr: "//label[@for='commitment_date']",
             position: 'before'
@@ -50,7 +52,7 @@ export default {
           warehouse_id: {
             invisible: '1'
           },
-          _field_warehouse_id_354: {
+          _field_warehouse_id_343: {
             warehouse_id: {
               groups: 'stock.group_stock_multi_warehouses',
               force_save: '1',
@@ -69,7 +71,7 @@ export default {
             required: 'True'
           }
         },
-        _xpath_252: {
+        _xpath_515: {
           _attr: {
             expr: "//span[@name='expected_date_span']",
             position: 'attributes'
@@ -77,11 +79,12 @@ export default {
           _attribute_attrs: {
             _attr: {
               name: 'attrs',
-              text: "{'invisible': [('effective_date', '!=', False), ('commitment_date', '!=', False)]}"
+              text: "{'invisible': [('effective_date', '!=', False), ('commitment_date', '!=', False)]}",
+              attrs: "{'invisible': [('effective_date', '!=', False), ('commitment_date', '!=', False)]}"
             }
           }
         },
-        _xpath_131: {
+        _xpath_123: {
           _attr: {
             expr: "//div[@name='commitment_date_div']",
             position: 'replace'
@@ -108,13 +111,14 @@ export default {
           }
         },
         effective_date: {
+          position: 'after',
           __todo__after: {
             delivery_status: {
               invisible: [['state', 'not in', ['sale', 'done']]]
             }
           }
         },
-        _xpath_307: {
+        _xpath_413: {
           _attr: {
             expr: "//page[@name='other_information']//field[@name='expected_date']",
             position: 'after'
@@ -128,7 +132,7 @@ export default {
             invisible: [['show_json_popover', '=', false]]
           }
         },
-        _xpath_541: {
+        _xpath_387: {
           _attr: {
             expr: "//field[@name='order_line']/form/group/group/field[@name='analytic_distribution']",
             position: 'before'
@@ -138,7 +142,7 @@ export default {
             no_create: true
           }
         },
-        _xpath_977: {
+        _xpath_827: {
           _attr: {
             expr: "//field[@name='order_line']/tree/field[@name='analytic_distribution']",
             position: 'after'
@@ -192,6 +196,7 @@ export default {
           }
         },
         invoice_status: {
+          position: 'before',
           __todo__before: {
             effective_date: {
               invisible: '1'
@@ -253,7 +258,7 @@ export default {
             }
           }
         },
-        _xpath_298: {
+        _xpath_867: {
           _attr: {
             expr: "//page/field[@name='order_line']/tree/field[@name='qty_delivered']",
             position: 'after'

@@ -20,7 +20,7 @@ export default {
               },
               group_display_incoterm: {}
             },
-            _div_355: {
+            _div_435: {
               _attr: {
                 class: 'o_setting_right_pane'
               },
@@ -33,7 +33,7 @@ export default {
                   text: 'Display incoterms on orders & invoices'
                 }
               },
-              _div_355: {
+              _div_689: {
                 _attr: {
                   invisible: [['group_display_incoterm', '=', false]],
                   class: 'content-group'
@@ -67,6 +67,9 @@ export default {
     arch: {
       sheet: {
         _div: {
+          _attr: {
+            position: 'after'
+          },
           _div: {
             _attr: {
               class: 'col-12 col-lg-6 o_setting_box'
@@ -84,7 +87,7 @@ export default {
                   text: 'When to start shipping'
                 }
               },
-              _div_638: {
+              _div_247: {
                 _attr: {
                   class: 'content-group'
                 },
@@ -109,11 +112,15 @@ export default {
           _attribute_invisible: {
             _attr: {
               name: 'invisible',
-              text: '0'
+              text: '0',
+              invisible: '0'
             }
           }
         },
-        _div_873: {
+        _div_154: {
+          _attr: {
+            position: 'replace'
+          },
           _div: {
             _attr: {
               title: 'Margin of error for dates promised to customers. Products will be scheduled for procurement and delivery that many days earlier than the actual promised date, to cope with unexpected delays in the supply chain.',
@@ -125,7 +132,7 @@ export default {
               },
               use_security_lead: {}
             },
-            _div_921: {
+            _div_169: {
               _attr: {
                 class: 'o_setting_right_pane'
               },
@@ -151,7 +158,7 @@ export default {
                   text: 'Schedule deliveries earlier to avoid delays'
                 }
               },
-              _div_694: {
+              _div_936: {
                 _attr: {
                   class: 'content-group'
                 },

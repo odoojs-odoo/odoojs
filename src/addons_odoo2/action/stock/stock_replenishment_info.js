@@ -17,7 +17,7 @@ export default {
               widget: 'lead_days_widget'
             }
           },
-          _group_190: {
+          _group_438: {
             json_replenishment_history: {
               widget: 'replenishment_history_widget'
             }
@@ -52,6 +52,7 @@ export default {
     name: 'Replenishment Information',
     type: 'ir.actions.act_window',
     res_model: 'stock.replenishment.info',
+    search_view_id: 'tooooooodoooooo',
     context: {
       todo_ctx: "{'default_orderpoint_id': active_id}"
     },

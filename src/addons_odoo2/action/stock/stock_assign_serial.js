@@ -39,6 +39,7 @@ export default {
     name: 'Assign Serial Numbers',
     type: 'ir.actions.act_window',
     res_model: 'stock.assign.serial',
+    search_view_id: 'tooooooodoooooo',
     context: {},
     views: {
       tree: 'view_assign_serial_numbers',

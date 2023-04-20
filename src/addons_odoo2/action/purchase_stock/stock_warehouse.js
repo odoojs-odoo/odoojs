@@ -12,7 +12,7 @@ export default {
           },
           buy_to_resupply: {}
         },
-        _xpath_230: {
+        _xpath_863: {
           _attr: {
             expr: "//group[@name='group_resupply']",
             position: 'attributes'
@@ -20,7 +20,8 @@ export default {
           _attribute_groups: {
             _attr: {
               name: 'groups',
-              text: 'stock.group_adv_location,stock.group_stock_multi_warehouses'
+              text: 'stock.group_adv_location,stock.group_stock_multi_warehouses',
+              groups: 'stock.group_adv_location,stock.group_stock_multi_warehouses'
             }
           }
         }

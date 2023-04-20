@@ -11,7 +11,6 @@ const ModelFields = {
     }
   },
 
-  authorized_transaction_ids: {},
   campaign_id: {},
   client_order_ref: {},
   commitment_date: {},
@@ -40,11 +39,11 @@ const ModelFields = {
     groups: '===todo=='
   },
 
-  invoice_status_$_form_$$_784: {
+  invoice_status_$_form_$$_333: {
     groups: 'base.group_no_one'
   },
 
-  invoice_status_$_form_$$_843: {
+  invoice_status_$_form_$$_406: {
     groups: '!base.group_no_one'
   },
 

@@ -102,7 +102,7 @@ export default {
   },
 
   attribute_action: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Attributes',
     type: 'ir.actions.act_window',
     res_model: 'product.attribute',

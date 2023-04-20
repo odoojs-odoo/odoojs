@@ -11,6 +11,16 @@ export default {
           menu_action_picking_type_list: {
             name: 'Operations Types',
             action: 'stock.action_picking_type_list'
+          },
+
+          menu_action_warehouse_form: {
+            name: 'Warehouses',
+            action: 'stock.action_warehouse_form'
+          },
+
+          menu_action_location_form: {
+            name: 'Locations',
+            action: 'stock.action_location_form'
           }
         }
       },

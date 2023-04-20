@@ -128,6 +128,7 @@ export default {
     name: 'Stock Valuation',
     type: 'ir.actions.act_window',
     res_model: 'stock.valuation.layer',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['product_id.type', '=', 'product']]",
     views: {
       tree: 'stock_valuation_layer_tree',
@@ -158,7 +159,7 @@ export default {
           domain: [['stock_move_id.location_id.usage', 'in', ('internal', 'transit')], ['stock_move_id.location_dest_id.usage', 'not in', ('internal', 'transit')]]
         }
       },
-      _separator_519: {},
+      _separator_308: {},
       _filter_has_remaining_qty: {
         _attr: {
           name: 'has_remaining_qty',
@@ -190,14 +191,17 @@ export default {
     arch: {
       sheet: {
         quantity: {
+          position: 'attributes',
           invisible: '1'
         },
         unit_cost: {
+          position: 'after',
           __todo__after: {
             remaining_qty: {}
           }
         },
         value: {
+          position: 'before',
           __todo__before: {
             remaining_value: {}
           }
@@ -211,6 +215,7 @@ export default {
     name: 'Stock Valuation',
     type: 'ir.actions.act_window',
     res_model: 'stock.valuation.layer',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['product_id.type', '=', 'product']]",
     context: {
       search_default_has_remaining_qty: 1

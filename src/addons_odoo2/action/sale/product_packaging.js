@@ -7,7 +7,8 @@ export default {
       sheet: {
         _group_group_product: {
           _attr: {
-            name: 'group_product'
+            name: 'group_product',
+            position: 'inside'
           },
           sales: {}
         }
@@ -22,6 +23,7 @@ export default {
     arch: {
       sheet: {
         product_uom_id: {
+          position: 'after',
           __todo__after: {
             sales: {
               optional: 'show'

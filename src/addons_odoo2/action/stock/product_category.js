@@ -7,7 +7,8 @@ export default {
       sheet: {
         _div_button_box: {
           _attr: {
-            name: 'button_box'
+            name: 'button_box',
+            position: 'inside'
           },
           _button_category_open_putaway: {
             _attr: {
@@ -22,7 +23,8 @@ export default {
         },
         _group_first: {
           _attr: {
-            name: 'first'
+            name: 'first',
+            position: 'after'
           },
           _group: {
             _group_logistics: {

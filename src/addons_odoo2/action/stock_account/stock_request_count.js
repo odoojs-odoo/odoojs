@@ -6,6 +6,7 @@ export default {
     arch: {
       sheet: {
         user_id: {
+          position: 'after',
           __todo__after: {
             accounting_date: {}
           }

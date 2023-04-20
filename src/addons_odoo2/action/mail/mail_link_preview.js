@@ -18,6 +18,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Link Previews',
     res_model: 'mail.link.preview',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

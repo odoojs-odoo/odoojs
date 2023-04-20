@@ -29,7 +29,7 @@ export default {
                 },
                 sale_order_count: {}
               },
-              _span_484: {
+              _span_566: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Sale'

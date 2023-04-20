@@ -3,6 +3,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'API Key: description input wizard',
     res_model: 'res.users.apikeys.description',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -25,7 +26,7 @@ export default {
         name: {
           placeholder: "What's this key for?"
         },
-        _p_501: {
+        _p_465: {
           _attr: {
             text: 'It is very important that this description be clear\n                        and complete,'
           },

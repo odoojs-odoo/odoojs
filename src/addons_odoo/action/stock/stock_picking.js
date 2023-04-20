@@ -23,7 +23,9 @@ const move_ids_without_package_tree_sheet = {
   date_deadline: { optional: 'hide' },
   is_initial_demand_editable: { invisible: '1' },
   is_quantity_done_editable: { invisible: '1' },
-  product_packaging_id: {},
+  product_packaging_id: {
+    // groups: 'product.group_stock_packaging'
+  },
   product_uom_qty: {
     string: 'Demand',
     invisible({ record }) {
@@ -34,58 +36,58 @@ const move_ids_without_package_tree_sheet = {
     }
   },
 
-  _button_action_product_forecast_report: {
-    _attr: {
-      type: 'object',
-      name: 'action_product_forecast_report',
-      title: 'Forecast Report',
-      icon: 'fa-area-chart',
-      invisible({ record }) {
-        // 'invisible': ['|',
-        // ('forecast_availability', '&lt;', 0), '|',
-        // ('parent.immediate_transfer', '=', True), '&amp;',
-        // ('parent.picking_type_code', '=', 'outgoing'),
-        // ('state', '!=', 'draft')]
+  // _button_action_product_forecast_report: {
+  //   _attr: {
+  //     type: 'object',
+  //     name: 'action_product_forecast_report',
+  //     title: 'Forecast Report',
+  //     icon: 'fa-area-chart',
+  //     invisible({ record }) {
+  //       // 'invisible': ['|',
+  //       // ('forecast_availability', '&lt;', 0), '|',
+  //       // ('parent.immediate_transfer', '=', True), '&amp;',
+  //       // ('parent.picking_type_code', '=', 'outgoing'),
+  //       // ('state', '!=', 'draft')]
 
-        const { forecast_availability, parent: prt, state } = record
+  //       const { forecast_availability, parent: prt, state } = record
 
-        return (
-          forecast_availability < 0 ||
-          prt.immediate_transfer ||
-          (prt.picking_type_code === 'outgoing' && state !== 'draft')
-        )
-      }
-    }
-  },
+  //       return (
+  //         forecast_availability < 0 ||
+  //         prt.immediate_transfer ||
+  //         (prt.picking_type_code === 'outgoing' && state !== 'draft')
+  //       )
+  //     }
+  //   }
+  // },
 
-  _button_action_product_forecast_report2: {
-    _attr: {
-      type: 'object',
-      name: 'action_product_forecast_report',
-      title: 'Forecast Report',
-      icon: 'fa-area-chart text-danger',
-      invisible({ record }) {
-        // 'invisible': ['|',
-        // ('forecast_availability', '&lt;', 0), '|',
-        // ('parent.immediate_transfer', '=', True), '&amp;',
-        // ('parent.picking_type_code', '=', 'outgoing'),
-        // ('state', '!=', 'draft')]
+  // _button_action_product_forecast_report2: {
+  //   _attr: {
+  //     type: 'object',
+  //     name: 'action_product_forecast_report',
+  //     title: 'Forecast Report',
+  //     icon: 'fa-area-chart text-danger',
+  //     invisible({ record }) {
+  //       // 'invisible': ['|',
+  //       // ('forecast_availability', '&lt;', 0), '|',
+  //       // ('parent.immediate_transfer', '=', True), '&amp;',
+  //       // ('parent.picking_type_code', '=', 'outgoing'),
+  //       // ('state', '!=', 'draft')]
 
-        //  'invisible': ['|', ('forecast_availability', '&gt;=', 0), '|',
-        // ('parent.immediate_transfer', '=', True), '&amp;',
-        // ('parent.picking_type_code', '=', 'outgoing'),
-        // ('state', '!=', 'draft')]}"/>
+  //       //  'invisible': ['|', ('forecast_availability', '&gt;=', 0), '|',
+  //       // ('parent.immediate_transfer', '=', True), '&amp;',
+  //       // ('parent.picking_type_code', '=', 'outgoing'),
+  //       // ('state', '!=', 'draft')]}"/>
 
-        const { forecast_availability, parent: prt, state } = record
+  //       const { forecast_availability, parent: prt, state } = record
 
-        return (
-          forecast_availability >= 0 ||
-          prt.immediate_transfer ||
-          (prt.picking_type_code === 'outgoing' && state !== 'draft')
-        )
-      }
-    }
-  },
+  //       return (
+  //         forecast_availability >= 0 ||
+  //         prt.immediate_transfer ||
+  //         (prt.picking_type_code === 'outgoing' && state !== 'draft')
+  //       )
+  //     }
+  //   }
+  // },
 
   forecast_expected_date: { invisible: '1' },
 
@@ -258,7 +260,7 @@ const move_ids_without_package_form_sheet = {
     }
   },
   product_uom: {},
-  description_picking: { optional: 'hide' }
+  description_picking: { string: 'Description' }
 }
 
 const view_picking_form_sheet = {
@@ -474,11 +476,30 @@ const view_picking_form_sheet = {
 
     _group_2: {
       scheduled_date: {},
-      date_deadline: {},
-      products_availability_state: {},
-      products_availability: {},
-      date_done: {},
-      origin: {}
+      json_popover: {
+        widget: 'stock_rescheduling_popover',
+        invisible({ record }) {
+          // invisible: [['json_popover', '=', false]]
+          const { json_popover } = record
+          return !json_popover
+        }
+      },
+      date_deadline: {
+        //    invisible: ['|', ['state', 'in', ('done', 'cancel')], ['date_deadline', '=', false]]
+      },
+      products_availability_state: { invisible: '1' },
+      products_availability: {
+        // invisible: ['|', ['picking_type_code', '!=', 'outgoing'], ['state', 'not in', ['confirmed', 'waiting', 'assigned']]]
+      },
+      date_done: {
+        string: 'Effective Date'
+        //   invisible: [['state', '!=', 'done']]
+      },
+      origin: { placeholder: 'e.g. PO0032' },
+      owner_id: {
+        groups: 'stock.group_tracking_owner'
+        // invisible: [['picking_type_code', '!=', 'incoming']]
+      }
     }
   },
   _notebook: {
@@ -536,7 +557,10 @@ const view_picking_form_sheet = {
       _attr: { string: 'Operations', name: 'operations' },
       move_ids_without_package: {
         // add-label="Add a Product">
-        widget: 'stock_move_one2many',
+        // widget: 'stock_move_one2many',
+        nolabel: 1,
+        widget: 'x2many_tree',
+
         views: {
           tree: {
             arch: {
@@ -581,10 +605,7 @@ const view_picking_form_sheet = {
 
       _group: {
         _group_other_infos: {
-          _attr: {
-            string: 'Other Information',
-            name: 'other_infos'
-          },
+          _attr: { string: 'Other Information', name: 'other_infos' },
           picking_type_code: { invisible: '1' },
           move_type: {
             invisible({ record }) {
@@ -1050,26 +1071,31 @@ export default {
         },
         group_state: {
           draft: {
+            name: 'draft',
             string: 'Draft',
             domain: [['state', '=', 'draft']],
             help: 'Draft Moves'
           },
           waiting: {
+            name: 'waiting',
             string: 'Waiting',
             domain: [['state', 'in', ['confirmed', 'waiting']]],
             help: 'Waiting Moves'
           },
           available: {
+            name: 'available',
             string: 'Ready',
             domain: [['state', '=', 'assigned']],
             help: 'Assigned Moves'
           },
           done: {
+            name: 'done',
             string: 'Done',
             domain: [['state', '=', 'done']],
             help: 'Pickings already processed'
           },
           cancel: {
+            name: 'cancel',
             string: 'Cancelled',
             domain: [['state', '=', 'cancel']],
             help: 'Cancelled Moves'
@@ -1078,6 +1104,7 @@ export default {
 
         group_: {
           late: {
+            name: 'late',
             string: 'Late',
             help: 'Deadline exceed or/and by the scheduled',
             domain: ({ env }) => {
@@ -1093,8 +1120,8 @@ export default {
           },
 
           planning_issues: {
+            name: 'planning_issues',
             string: 'Planning Issues',
-
             help: 'Transfers that are late on scheduled time or one of pickings will be late',
             domain: ({ env }) => {
               // ('scheduled_date', '&lt;', time.strftime('%Y-%m-%d %H:%M:%S')),
@@ -1111,6 +1138,7 @@ export default {
 
         group_backorder: {
           backorder: {
+            name: 'backorder',
             string: 'Backorders',
             domain: [
               ('backorder_id', '!=', false),
@@ -1124,7 +1152,7 @@ export default {
   },
 
   action_picking_tree_all: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Transfers',
     type: 'ir.actions.act_window',
     res_model: 'stock.picking',

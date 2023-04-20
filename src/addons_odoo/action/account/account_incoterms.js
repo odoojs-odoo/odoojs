@@ -57,7 +57,7 @@ export default {
   },
 
   action_incoterms_tree: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Incoterms',
     type: 'ir.actions.act_window',
     res_model: 'account.incoterms',

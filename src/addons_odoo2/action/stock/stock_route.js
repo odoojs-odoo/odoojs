@@ -90,7 +90,7 @@ export default {
               groups: 'product.group_stock_packaging'
             }
           },
-          _group_531: {
+          _group_164: {
             _label_warehouse_selectable: {
               for: 'warehouse_selectable',
               string: 'Warehouses'
@@ -112,7 +112,7 @@ export default {
             }
           }
         },
-        _group_342: {
+        _group_945: {
           _attr: {
             string: 'Rules'
           },
@@ -165,6 +165,7 @@ export default {
     name: 'Routes',
     type: 'ir.actions.act_window',
     res_model: 'stock.route',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'stock_location_route_tree',
       form: '=======todo=========='

@@ -10,6 +10,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Accounting Dashboard',
     res_model: 'account.journal',
+    search_view_id: 'tooooooodoooooo',
     domain: '[]',
     context: {
       search_default_dashboard: 1
@@ -34,7 +35,8 @@ export default {
           _attribute_js_class: {
             _attr: {
               name: 'js_class',
-              text: 'account_setup_bar'
+              text: 'account_setup_bar',
+              js_class: 'account_setup_bar'
             }
           }
         }
@@ -137,7 +139,7 @@ export default {
             },
             type: {}
           },
-          _group_778: {
+          _group_761: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
@@ -167,25 +169,25 @@ export default {
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'bank']]
                 },
-                _label_default_account_id_277: {
+                _label_default_account_id_432: {
                   for: 'default_account_id',
                   string: 'Cash Account',
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'cash']]
                 },
-                _label_default_account_id_583: {
+                _label_default_account_id_255: {
                   for: 'default_account_id',
                   string: 'Default Income Account',
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'sale']]
                 },
-                _label_default_account_id_690: {
+                _label_default_account_id_982: {
                   for: 'default_account_id',
                   string: 'Default Expense Account',
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'purchase']]
                 },
-                _label_default_account_id_668: {
+                _label_default_account_id_152: {
                   for: 'default_account_id',
                   string: 'Default Account',
                   groups: 'account.group_account_readonly',
@@ -298,7 +300,7 @@ export default {
               }
             }
           },
-          _page_605: {
+          _page_908: {
             _attr: {
               string: 'Outgoing Payments',
               invisible: [['type', 'not in', ['cash', 'bank']]]
@@ -436,7 +438,7 @@ export default {
                   }
                 }
               },
-              _group_784: {
+              _group_200: {
                 _attr: {
                   string: 'Payment Communications',
                   invisible: [['type', '!=', 'sale']]
@@ -446,7 +448,7 @@ export default {
                   invisible: [['invoice_reference_type', '=', 'none']]
                 }
               },
-              _group_785: {
+              _group_963: {
                 _attr: {
                   string: 'Follow Customer Payments',
                   invisible: [['type', '!=', 'sale']]
@@ -524,7 +526,7 @@ export default {
           domain: [['type', 'not in', ['sale', 'purchase', 'cash', 'bank']]]
         }
       },
-      _separator_474: {},
+      _separator_325: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -539,6 +541,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Journals',
     res_model: 'account.journal',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

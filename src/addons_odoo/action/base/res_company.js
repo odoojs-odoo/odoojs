@@ -76,7 +76,7 @@ export default {
   },
 
   action_res_company_form: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Companies',
     type: 'ir.actions.act_window',
     res_model: 'res.company',

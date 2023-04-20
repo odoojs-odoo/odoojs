@@ -28,7 +28,7 @@ export default {
   },
 
   product_tag_action: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '产品类别',
     type: 'ir.actions.act_window',
     res_model: 'product.tag',

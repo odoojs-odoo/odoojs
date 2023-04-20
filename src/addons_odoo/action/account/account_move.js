@@ -1344,7 +1344,7 @@ export default {
   },
 
   action_move_journal_line: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Journal Entries',
     type: 'ir.actions.act_window',
     res_model: 'account.move',

@@ -7,18 +7,21 @@ export default {
       sheet: {
         _group_payment_followup: {
           _attr: {
-            name: 'payment_followup'
+            name: 'payment_followup',
+            position: 'attributes'
           },
           _attribute_invisible: {
             _attr: {
               name: 'invisible',
-              text: '0'
+              text: '0',
+              invisible: '0'
             }
           }
         },
-        _group_payment_followup_939: {
+        _group_payment_followup_355: {
           _attr: {
-            name: 'payment_followup'
+            name: 'payment_followup',
+            position: 'inside'
           },
           journal_id: {
             required: [['state', '!=', 'disabled'], ['code', 'not in', ['none', 'custom']]],

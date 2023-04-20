@@ -7,13 +7,15 @@ export default {
       sheet: {
         _div_button_box: {
           _attr: {
-            name: 'button_box'
+            name: 'button_box',
+            position: 'inside'
           },
           _button_action_view_sales: {
             _attr: {
               name: 'action_view_sales',
               type: 'object',
               icon: 'fa-signal',
+              help: 'Sold in the last 365 days',
               groups: 'sales_team.group_sale_salesman',
               invisible: [['sale_ok', '=', false]],
               class: 'oe_stat_button'
@@ -32,7 +34,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_224: {
+              _span_102: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Sold'
@@ -43,7 +45,8 @@ export default {
         },
         _group_description: {
           _attr: {
-            name: 'description'
+            name: 'description',
+            position: 'after'
           },
           _t: {
             _attr: {

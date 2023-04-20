@@ -76,7 +76,7 @@ export default {
   },
 
   action_account_account_tag: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Account Tags',
     type: 'ir.actions.act_window',
     res_model: 'account.account.tag',

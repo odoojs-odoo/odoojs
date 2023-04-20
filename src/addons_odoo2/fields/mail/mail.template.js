@@ -60,7 +60,6 @@ const ModelFields = {
     placeholder: 'e.g. "Welcome to MyCompany" or "Nice to meet you, {{ object.name }}"'
   },
 
-  template_fs: {},
   use_default_to: {}
 }
 

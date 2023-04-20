@@ -47,6 +47,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Change Product Quantity',
     res_model: 'stock.change.product.qty',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

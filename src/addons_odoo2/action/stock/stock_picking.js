@@ -102,7 +102,7 @@ export default {
         picking_type_id: {
           optional: 'hide'
         },
-        _field_company_id_808: {
+        _field_company_id_876: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'show'
@@ -128,6 +128,167 @@ export default {
     model: 'stock.picking',
     type: 'form',
     arch: {
+      header: {
+        _button_action_confirm: {
+          _attr: {
+            name: 'action_confirm',
+            type: 'object',
+            string: 'Mark as Todo',
+            groups: 'base.group_user',
+            invisible: [['show_mark_as_todo', '=', false]],
+            class: 'oe_highlight'
+          }
+        },
+        _button_action_assign: {
+          _attr: {
+            name: 'action_assign',
+            type: 'object',
+            string: 'Check Availability',
+            groups: 'base.group_user',
+            invisible: [['show_check_availability', '=', false]],
+            class: 'oe_highlight'
+          }
+        },
+        _button_button_validate: {
+          _attr: {
+            name: 'button_validate',
+            type: 'object',
+            string: 'Validate',
+            groups: 'stock.group_stock_user',
+            invisible: ['|', ['state', 'in', ('waiting', 'confirmed')], ['show_validate', '=', false]],
+            class: 'oe_highlight'
+          }
+        },
+        _button_button_validate_625: {
+          _attr: {
+            name: 'button_validate',
+            type: 'object',
+            string: 'Validate',
+            groups: 'stock.group_stock_user',
+            invisible: ['|', ['state', 'not in', ('waiting', 'confirmed')], ['show_validate', '=', false]],
+            class: 'o_btn_validate'
+          }
+        },
+        _button_action_set_quantities_to_reservation: {
+          _attr: {
+            name: 'action_set_quantities_to_reservation',
+            type: 'object',
+            string: 'Set quantities',
+            groups: 'stock.group_stock_user',
+            invisible: [['show_set_qty_button', '=', false]],
+            class: 'o_btn_validate'
+          }
+        },
+        _button_action_clear_quantities_to_zero: {
+          _attr: {
+            name: 'action_clear_quantities_to_zero',
+            type: 'object',
+            string: 'Clear quantities',
+            groups: 'stock.group_stock_user',
+            invisible: [['show_clear_qty_button', '=', false]],
+            class: 'o_btn_validate'
+          }
+        },
+        _widget_signature: {
+          _attr: {
+            name: 'signature',
+            string: 'Sign',
+            groups: 'stock.group_stock_sign_delivery',
+            invisible: ['|', '|', ['id', '=', false], ['picking_type_code', '!=', 'outgoing'], ['state', '!=', 'done']]
+          }
+        },
+        _widget_signature_438: {
+          _attr: {
+            name: 'signature',
+            string: 'Sign',
+            groups: 'stock.group_stock_sign_delivery',
+            invisible: ['|', '|', ['id', '=', false], ['picking_type_code', '!=', 'outgoing'], ['state', '=', 'done']]
+          }
+        },
+        _button_do_print_picking: {
+          _attr: {
+            name: 'do_print_picking',
+            type: 'object',
+            string: 'Print',
+            groups: 'stock.group_stock_user',
+            invisible: [['state', '!=', 'assigned']]
+          }
+        },
+        _button_action_open_label_type: {
+          _attr: {
+            name: 'action_open_label_type',
+            type: 'object',
+            string: 'Print Labels'
+          }
+        },
+        _button_action_report_delivery: {
+          _attr: {
+            name: 'action_report_delivery',
+            type: 'action',
+            string: 'Print',
+            groups: 'base.group_user',
+            invisible: [['state', '!=', 'done']]
+          }
+        },
+        _button_act_stock_return_picking: {
+          _attr: {
+            name: 'act_stock_return_picking',
+            type: 'action',
+            string: 'Return',
+            groups: 'base.group_user',
+            invisible: [['state', '!=', 'done']]
+          }
+        },
+        _button_do_unreserve: {
+          _attr: {
+            name: 'do_unreserve',
+            type: 'object',
+            string: 'Unreserve',
+            groups: 'base.group_user',
+            invisible: ['|', '|', '|', ['picking_type_code', '=', 'incoming'], ['immediate_transfer', '=', true], '&', ['state', '!=', 'assigned'], ['move_type', '!=', 'one'], '&', ['state', 'not in', ('assigned', 'confirmed')], ['move_type', '=', 'one']]
+          }
+        },
+        _button_button_scrap: {
+          _attr: {
+            name: 'button_scrap',
+            type: 'object',
+            string: 'Scrap',
+            invisible: ['|', '&', ['picking_type_code', '=', 'incoming'], ['state', '!=', 'done'], '&', ['picking_type_code', '=', 'outgoing'], ['state', '=', 'done']]
+          }
+        },
+        _button_action_toggle_is_locked: {
+          _attr: {
+            name: 'action_toggle_is_locked',
+            type: 'object',
+            string: 'Unlock',
+            help: 'If the picking is unlocked you can edit initial demand (for a draft picking) or done quantities (for a done picking).',
+            groups: 'stock.group_stock_manager',
+            invisible: ['|', ['state', 'in', ('draft', 'cancel')], ['is_locked', '=', false]]
+          }
+        },
+        _button_action_toggle_is_locked_945: {
+          _attr: {
+            name: 'action_toggle_is_locked',
+            type: 'object',
+            string: 'Lock',
+            groups: 'stock.group_stock_manager',
+            invisible: [['is_locked', '=', true]]
+          }
+        },
+        state: {
+          widget: 'statusbar',
+          statusbar_visible: 'draft,confirmed,assigned,done'
+        },
+        _button_action_cancel: {
+          _attr: {
+            name: 'action_cancel',
+            type: 'object',
+            string: 'Cancel',
+            groups: 'base.group_user',
+            invisible: [['state', 'not in', ('assigned', 'confirmed', 'draft', 'waiting')]]
+          }
+        }
+      },
       sheet: {
         is_locked: {
           invisible: '1'
@@ -185,165 +346,6 @@ export default {
         company_id: {
           invisible: '1'
         },
-        _header: {
-          _button_action_confirm: {
-            _attr: {
-              name: 'action_confirm',
-              type: 'object',
-              string: 'Mark as Todo',
-              groups: 'base.group_user',
-              invisible: [['show_mark_as_todo', '=', false]],
-              class: 'oe_highlight'
-            }
-          },
-          _button_action_assign: {
-            _attr: {
-              name: 'action_assign',
-              type: 'object',
-              string: 'Check Availability',
-              groups: 'base.group_user',
-              invisible: [['show_check_availability', '=', false]],
-              class: 'oe_highlight'
-            }
-          },
-          _button_button_validate: {
-            _attr: {
-              name: 'button_validate',
-              type: 'object',
-              string: 'Validate',
-              groups: 'stock.group_stock_user',
-              invisible: ['|', ['state', 'in', ('waiting', 'confirmed')], ['show_validate', '=', false]],
-              class: 'oe_highlight'
-            }
-          },
-          _button_button_validate_413: {
-            _attr: {
-              name: 'button_validate',
-              type: 'object',
-              string: 'Validate',
-              groups: 'stock.group_stock_user',
-              invisible: ['|', ['state', 'not in', ('waiting', 'confirmed')], ['show_validate', '=', false]],
-              class: 'o_btn_validate'
-            }
-          },
-          _button_action_set_quantities_to_reservation: {
-            _attr: {
-              name: 'action_set_quantities_to_reservation',
-              type: 'object',
-              string: 'Set quantities',
-              groups: 'stock.group_stock_user',
-              invisible: [['show_set_qty_button', '=', false]],
-              class: 'o_btn_validate'
-            }
-          },
-          _button_action_clear_quantities_to_zero: {
-            _attr: {
-              name: 'action_clear_quantities_to_zero',
-              type: 'object',
-              string: 'Clear quantities',
-              groups: 'stock.group_stock_user',
-              invisible: [['show_clear_qty_button', '=', false]],
-              class: 'o_btn_validate'
-            }
-          },
-          _widget_signature: {
-            _attr: {
-              name: 'signature',
-              string: 'Sign',
-              groups: 'stock.group_stock_sign_delivery',
-              invisible: ['|', '|', ['id', '=', false], ['picking_type_code', '!=', 'outgoing'], ['state', '!=', 'done']]
-            }
-          },
-          _widget_signature_986: {
-            _attr: {
-              name: 'signature',
-              string: 'Sign',
-              groups: 'stock.group_stock_sign_delivery',
-              invisible: ['|', '|', ['id', '=', false], ['picking_type_code', '!=', 'outgoing'], ['state', '=', 'done']]
-            }
-          },
-          _button_do_print_picking: {
-            _attr: {
-              name: 'do_print_picking',
-              type: 'object',
-              string: 'Print',
-              groups: 'stock.group_stock_user',
-              invisible: [['state', '!=', 'assigned']]
-            }
-          },
-          _button_action_open_label_type: {
-            _attr: {
-              name: 'action_open_label_type',
-              type: 'object',
-              string: 'Print Labels'
-            }
-          },
-          _button_action_report_delivery: {
-            _attr: {
-              name: 'action_report_delivery',
-              type: 'action',
-              string: 'Print',
-              groups: 'base.group_user',
-              invisible: [['state', '!=', 'done']]
-            }
-          },
-          _button_act_stock_return_picking: {
-            _attr: {
-              name: 'act_stock_return_picking',
-              type: 'action',
-              string: 'Return',
-              groups: 'base.group_user',
-              invisible: [['state', '!=', 'done']]
-            }
-          },
-          _button_do_unreserve: {
-            _attr: {
-              name: 'do_unreserve',
-              type: 'object',
-              string: 'Unreserve',
-              groups: 'base.group_user',
-              invisible: ['|', '|', '|', ['picking_type_code', '=', 'incoming'], ['immediate_transfer', '=', true], '&', ['state', '!=', 'assigned'], ['move_type', '!=', 'one'], '&', ['state', 'not in', ('assigned', 'confirmed')], ['move_type', '=', 'one']]
-            }
-          },
-          _button_button_scrap: {
-            _attr: {
-              name: 'button_scrap',
-              type: 'object',
-              string: 'Scrap',
-              invisible: ['|', '&', ['picking_type_code', '=', 'incoming'], ['state', '!=', 'done'], '&', ['picking_type_code', '=', 'outgoing'], ['state', '=', 'done']]
-            }
-          },
-          _button_action_toggle_is_locked: {
-            _attr: {
-              name: 'action_toggle_is_locked',
-              type: 'object',
-              string: 'Unlock',
-              groups: 'stock.group_stock_manager',
-              invisible: ['|', ['state', 'in', ('draft', 'cancel')], ['is_locked', '=', false]]
-            }
-          },
-          _button_action_toggle_is_locked_721: {
-            _attr: {
-              name: 'action_toggle_is_locked',
-              type: 'object',
-              string: 'Lock',
-              groups: 'stock.group_stock_manager',
-              invisible: [['is_locked', '=', true]]
-            }
-          },
-          state: {
-            widget: 'statusbar'
-          },
-          _button_action_cancel: {
-            _attr: {
-              name: 'action_cancel',
-              type: 'object',
-              string: 'Cancel',
-              groups: 'base.group_user',
-              invisible: [['state', 'not in', ('assigned', 'confirmed', 'draft', 'waiting')]]
-            }
-          }
-        },
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -395,7 +397,7 @@ export default {
               groups: 'stock.group_reception_report',
               invisible: [['show_allocation', '=', false]],
               context: {
-                default_picking_ids: [<built-in function id>]
+                default_picking_ids: ['todo,------<built-in function id>']
               },
               class: 'oe_stat_button'
             }
@@ -405,6 +407,7 @@ export default {
               name: 'action_picking_move_tree',
               type: 'object',
               icon: 'fa-arrows-v',
+              help: 'List view of operations',
               groups: 'base.group_no_one',
               invisible: ['|', '&', ['show_operations', '=', true], '|', ['is_locked', '=', true], ['state', '=', 'done'], '&', ['state', '=', 'done'], ['is_locked', '=', true]],
               context: {
@@ -454,12 +457,12 @@ export default {
                 string: 'Delivery Address',
                 invisible: [['picking_type_code', '!=', 'outgoing']]
               },
-              _label_partner_id_890: {
+              _label_partner_id_802: {
                 for: 'partner_id',
                 string: 'Receive From',
                 invisible: [['picking_type_code', '!=', 'incoming']]
               },
-              _label_partner_id_925: {
+              _label_partner_id_565: {
                 for: 'partner_id',
                 string: 'Contact',
                 invisible: [['picking_type_code', 'in', ['incoming', 'outgoing']]]
@@ -478,14 +481,14 @@ export default {
               groups: '!stock.group_stock_multi_locations',
               invisible: '1'
             },
-            _field_location_id_845: {
+            _field_location_id_115: {
               location_id: {
                 groups: 'stock.group_stock_multi_locations',
                 invisible: [['picking_type_code', '=', 'incoming']],
                 no_create: true
               }
             },
-            _field_location_dest_id_629: {
+            _field_location_dest_id_726: {
               location_dest_id: {
                 groups: 'stock.group_stock_multi_locations',
                 invisible: [['picking_type_code', '=', 'outgoing']],
@@ -496,7 +499,7 @@ export default {
               invisible: [['backorder_id', '=', false]]
             }
           },
-          _group_165: {
+          _group_333: {
             _label_scheduled_date: {
               for: 'scheduled_date'
             },
@@ -690,7 +693,7 @@ export default {
                           invisible: ['|', ['forecast_availability', '<', 0], '|', ['parent.immediate_transfer', '=', true], '&', ['parent.picking_type_code', '=', 'outgoing'], ['state', '!=', 'draft']]
                         }
                       },
-                      _button_action_product_forecast_report_663: {
+                      _button_action_product_forecast_report_457: {
                         _attr: {
                           name: 'action_product_forecast_report',
                           type: 'object',
@@ -958,6 +961,7 @@ export default {
         _attr: {
           name: 'draft',
           string: 'Draft',
+          help: 'Draft Moves',
           domain: [['state', '=', 'draft']]
         }
       },
@@ -965,6 +969,7 @@ export default {
         _attr: {
           name: 'waiting',
           string: 'Waiting',
+          help: 'Waiting Moves',
           domain: [['state', 'in', ('confirmed', 'waiting')]]
         }
       },
@@ -972,6 +977,7 @@ export default {
         _attr: {
           name: 'available',
           string: 'Ready',
+          help: 'Assigned Moves',
           domain: [['state', '=', 'assigned']]
         }
       },
@@ -979,6 +985,7 @@ export default {
         _attr: {
           name: 'done',
           string: 'Done',
+          help: 'Pickings already processed',
           domain: [['state', '=', 'done']]
         }
       },
@@ -986,14 +993,16 @@ export default {
         _attr: {
           name: 'cancel',
           string: 'Cancelled',
+          help: 'Cancelled Moves',
           domain: [['state', '=', 'cancel']]
         }
       },
-      _separator_680: {},
+      _separator_126: {},
       _filter_late: {
         _attr: {
           name: 'late',
           string: 'Late',
+          help: 'Deadline exceed or/and by the scheduled',
           domain: {
             todo_ctx: "[('state', 'in', ('assigned', 'waiting', 'confirmed')), '|', '|', ('has_deadline_issue', '=', True), ('date_deadline', '<', current_date), ('scheduled_date', '<', current_date)]"
           }
@@ -1003,24 +1012,27 @@ export default {
         _attr: {
           name: 'planning_issues',
           string: 'Planning Issues',
+          help: 'Transfers that are late on scheduled time or one of pickings will be late',
           domain: {
             todo_ctx: "['|', ('delay_alert_date', '!=', False), '&', ('scheduled_date','<', time.strftime('%Y-%m-%d %H:%M:%S')), ('state', 'in', ('assigned', 'waiting', 'confirmed'))]"
           }
         }
       },
-      _separator_850: {},
+      _separator_228: {},
       _filter_backorder: {
         _attr: {
           name: 'backorder',
           string: 'Backorders',
+          help: 'Remaining parts of picking partially processed',
           domain: [['backorder_id', '!=', false], ['state', 'in', ('assigned', 'waiting', 'confirmed')]]
         }
       },
-      _separator_859: {},
+      _separator_767: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
           string: 'Late Activities',
+          help: 'Show all records which has next action date is before today',
           invisible: '1',
           domain: {
             todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]"
@@ -1047,7 +1059,7 @@ export default {
           }
         }
       },
-      _separator_429: {},
+      _separator_838: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',
@@ -1107,8 +1119,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Transfers',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_picking_internal_search',
     res_model: 'stock.picking',
+    search_view_id: 'view_picking_internal_search',
     domain: [],
     context: {
       todo_ctx: "{'contact_display': 'partner_address', 'default_company_id': allowed_company_ids[0]}"
@@ -1135,8 +1147,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'All Transfers',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_picking_internal_search',
     res_model: 'stock.picking',
+    search_view_id: 'view_picking_internal_search',
     domain: [],
     context: {
       contact_display: 'partner_address'
@@ -1151,8 +1163,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'To Do',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_picking_internal_search',
     res_model: 'stock.picking',
+    search_view_id: 'view_picking_internal_search',
     domain: [],
     context: {
       contact_display: 'partner_address',
@@ -1168,8 +1180,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Waiting Transfers',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_picking_internal_search',
     res_model: 'stock.picking',
+    search_view_id: 'view_picking_internal_search',
     domain: [],
     context: {
       contact_display: 'partner_address',
@@ -1185,8 +1197,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Late Transfers',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_picking_internal_search',
     res_model: 'stock.picking',
+    search_view_id: 'view_picking_internal_search',
     domain: [],
     context: {
       contact_display: 'partner_address',
@@ -1202,8 +1214,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Backorders',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_picking_internal_search',
     res_model: 'stock.picking',
+    search_view_id: 'view_picking_internal_search',
     domain: [],
     context: {
       contact_display: 'partner_address',
@@ -1219,8 +1231,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'New Transfer',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_picking_internal_search',
     res_model: 'stock.picking',
+    search_view_id: 'view_picking_internal_search',
     domain: [],
     context: {
       todo_ctx: "{\n                    'search_default_picking_type_id': [active_id],\n                    'default_picking_type_id': active_id,\n                    'contact_display': 'partner_address',\n            }\n            "
@@ -1235,6 +1247,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Transfers for Groups',
     res_model: 'stock.picking',
+    search_view_id: 'tooooooodoooooo',
     domain: "[['group_id','=',active_id]]",
     views: {
       tree: '=======todo==========',

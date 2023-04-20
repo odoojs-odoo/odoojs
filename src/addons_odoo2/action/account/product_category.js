@@ -7,7 +7,8 @@ export default {
       sheet: {
         _group_first: {
           _attr: {
-            name: 'first'
+            name: 'first',
+            position: 'after'
           },
           _group_account_property: {
             _attr: {

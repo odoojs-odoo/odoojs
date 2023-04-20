@@ -16,7 +16,7 @@ export default {
               readonly: [['state', '!=', 'manual']]
             }
           },
-          _group_799: {
+          _group_543: {
             ttype: {},
             help: {}
           }
@@ -44,7 +44,7 @@ export default {
                   groups: 'base.group_no_one'
                 }
               },
-              _group_553: {
+              _group_342: {
                 translate: {
                   readonly: [['ttype', 'not in', ['char', 'text', 'html']]],
                   invisible: [['ttype', 'not in', ['char', 'text', 'html']]]
@@ -96,7 +96,7 @@ export default {
                 }
               }
             },
-            _group_445: {
+            _group_355: {
               _attr: {
                 readonly: [['ttype', 'not in', ['selection', 'reference']]],
                 invisible: [['ttype', 'not in', ['selection', 'reference']]]
@@ -117,7 +117,7 @@ export default {
                 }
               }
             },
-            _group_437: {
+            _group_821: {
               _attr: {
                 string: 'Advanced Properties',
                 groups: 'base.group_no_one'
@@ -141,44 +141,44 @@ export default {
                   text: 'Computed fields are defined with the fields'
                 },
                 _strong: 'Dependencies',
-                _strong_445: 'Compute'
+                _strong_107: 'Compute'
               },
-              _p_531: {
+              _p_207: {
                 _attr: {
                   text: 'The field'
                 },
                 _strong: 'Dependencies',
                 _code: 'name, size',
-                _code_967: 'partner_id.company_id.name'
+                _code_594: 'partner_id.company_id.name'
               },
-              _p_949: {
+              _p_205: {
                 _attr: {
                   text: 'The field'
                 },
                 _strong: 'Compute'
               },
               _pre: "for record in self:\n        record['size'] = len(record.name)",
-              _p_223: 'The only predefined variables are',
+              _p_138: 'The only predefined variables are',
               _ul: {
                 _li: {
                   _code: 'self'
                 },
-                _li_726: {
+                _li_976: {
                   _code: 'datetime'
                 },
-                _li_583: {
+                _li_552: {
                   _code: 'dateutil'
                 },
-                _li_390: {
+                _li_927: {
                   _code: 'time'
                 }
               },
-              _p_205: {
+              _p_648: {
                 _attr: {
                   text: 'Other features are accessible through'
                 },
                 _code: 'self',
-                _code_163: 'self.env'
+                _code_878: 'self.env'
               }
             }
           },
@@ -250,7 +250,7 @@ export default {
           domain: [['readonly', '=', true]]
         }
       },
-      _separator_618: {},
+      _separator_162: {},
       _filter_custom: {
         _attr: {
           name: 'custom',
@@ -265,7 +265,7 @@ export default {
           domain: [['state', '=', 'base']]
         }
       },
-      _separator_680: {},
+      _separator_663: {},
       _filter_translate: {
         _attr: {
           name: 'translate',
@@ -310,6 +310,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Fields',
     res_model: 'ir.model.fields',
+    search_view_id: 'tooooooodoooooo',
     context: {},
     views: {
       tree: 'view_model_fields_tree',

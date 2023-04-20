@@ -6,6 +6,7 @@ export default {
     arch: {
       sheet: {
         transient: {
+          position: 'after',
           __todo__after: {
             is_mail_thread: {
               groups: 'base.group_no_one',
@@ -44,6 +45,7 @@ export default {
     arch: {
       sheet: {
         model: {
+          position: 'after',
           __todo__after: {
             _filter_is_mail_thread: {
               _attr: {

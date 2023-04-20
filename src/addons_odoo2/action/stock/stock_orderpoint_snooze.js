@@ -42,6 +42,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Snooze',
     res_model: 'stock.orderpoint.snooze',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

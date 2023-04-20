@@ -60,7 +60,7 @@ export default {
             widget: 'url'
           }
         },
-        _group_835: {
+        _group_717: {
           _attr: {
             invisible: [['qweb', '=', false]]
           },
@@ -77,6 +77,7 @@ export default {
     name: 'Ir profile',
     type: 'ir.actions.act_window',
     res_model: 'ir.profile',
+    search_view_id: 'tooooooodoooooo',
     context: {
       search_default_group_session: 1
     },

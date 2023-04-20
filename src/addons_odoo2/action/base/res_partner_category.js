@@ -57,8 +57,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Contact Tags',
     type: 'ir.actions.act_window',
-    search_view_id: 'res_partner_category_view_search',
     res_model: 'res.partner.category',
+    search_view_id: 'res_partner_category_view_search',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

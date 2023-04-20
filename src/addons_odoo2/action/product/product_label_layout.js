@@ -18,7 +18,7 @@ export default {
               widget: 'radio'
             }
           },
-          _group_620: {
+          _group_964: {
             extra_html: {
               widget: 'html',
               invisible: [['print_format', 'not in', ('dymo', '2x7xprice')]]
@@ -49,6 +49,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Choose Labels Layout',
     res_model: 'product.label.layout',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

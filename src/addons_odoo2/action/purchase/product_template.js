@@ -3,8 +3,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Products',
     type: 'ir.actions.act_window',
-    search_view_id: 'product.product_template_search_view',
     res_model: 'product.template',
+    search_view_id: 'product.product_template_search_view',
     context: {
       search_default_filter_to_purchase: 1,
       purchase_product_template: 1
@@ -29,13 +29,15 @@ export default {
           _attribute_invisible: {
             _attr: {
               name: 'invisible',
-              text: '0'
+              text: '0',
+              invisible: '0'
             }
           }
         },
         _group_purchase: {
           _attr: {
-            name: 'purchase'
+            name: 'purchase',
+            position: 'before'
           },
           seller_ids: {
             invisible: [['product_variant_count', '>', 1]],
@@ -54,26 +56,30 @@ export default {
         },
         _group_bill: {
           _attr: {
-            name: 'bill'
+            name: 'bill',
+            position: 'attributes'
           },
           _attribute_groups: {
             _attr: {
               name: 'groups',
-              text: 'purchase.group_purchase_manager'
+              text: 'purchase.group_purchase_manager',
+              groups: 'purchase.group_purchase_manager'
             }
           }
         },
-        _group_bill_888: {
+        _group_bill_272: {
           _attr: {
-            name: 'bill'
+            name: 'bill',
+            position: 'inside'
           },
           purchase_method: {
             widget: 'radio'
           }
         },
-        _group_purchase_111: {
+        _group_purchase_357: {
           _attr: {
-            name: 'purchase'
+            name: 'purchase',
+            position: 'inside'
           },
           _group: {
             _group: {
@@ -84,7 +90,7 @@ export default {
                 placeholder: 'This note is added to purchase orders.'
               }
             },
-            _group_612: {
+            _group_910: {
               _attr: {
                 string: 'Warning when Purchasing this Product',
                 groups: 'purchase.group_warning_purchase'
@@ -110,9 +116,11 @@ export default {
     arch: {
       sheet: {
         property_account_expense_id: {
+          position: 'attributes',
           readonly: [['purchase_ok', '=', 0]]
         },
         supplier_taxes_id: {
+          position: 'replace',
           __todo__replace: {
             supplier_taxes_id: {
               widget: 'many2many_tags',
@@ -135,13 +143,15 @@ export default {
       sheet: {
         _div_button_box: {
           _attr: {
-            name: 'button_box'
+            name: 'button_box',
+            position: 'inside'
           },
           _button_action_view_po: {
             _attr: {
               name: 'action_view_po',
               type: 'object',
               icon: 'fa-credit-card',
+              help: 'Purchased in the last 365 days',
               groups: 'purchase.group_purchase_user',
               invisible: [['purchase_ok', '=', false]],
               class: 'oe_stat_button'
@@ -160,7 +170,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_602: {
+              _span_654: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Purchased'

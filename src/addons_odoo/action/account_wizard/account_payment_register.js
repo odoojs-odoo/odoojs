@@ -232,7 +232,7 @@ export default {
   },
 
   action_payment_register_wizard: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Register Payment',
     type: 'ir.actions.act_window',
     res_model: 'account.payment.register',

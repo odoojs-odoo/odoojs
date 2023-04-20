@@ -249,7 +249,7 @@ export default {
   // view_account_move_line_filter
 
   action_account_moves_all: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Journal Items',
     type: 'ir.actions.act_window',
     res_model: 'account.move.line',

@@ -104,7 +104,7 @@ export default {
   },
 
   action_account_analytic_account_form: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '分析科目',
     type: 'ir.actions.act_window',
     res_model: 'account.analytic.account',

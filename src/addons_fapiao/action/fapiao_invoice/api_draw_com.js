@@ -48,7 +48,7 @@ export default {
   },
 
   action_api_draw_company: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: '开票配置',
     type: 'ir.actions.act_window',
     res_model: 'fp.api.draw.company',

@@ -76,7 +76,7 @@ export default {
           _label_address_format: {
             for: 'address_format'
           },
-          _div_660: {
+          _div_212: {
             _attr: {
               class: 'o_row'
             },
@@ -119,6 +119,7 @@ export default {
     name: 'Countries',
     type: 'ir.actions.act_window',
     res_model: 'res.country',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

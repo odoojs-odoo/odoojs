@@ -7,7 +7,8 @@ export default {
       sheet: {
         _group_payment_form: {
           _attr: {
-            name: 'payment_form'
+            name: 'payment_form',
+            position: 'inside'
           },
           so_reference_type: {
             invisible: [['code', '!=', 'custom']]

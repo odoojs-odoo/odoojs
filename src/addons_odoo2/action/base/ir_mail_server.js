@@ -4,17 +4,17 @@ export default {
     model: 'ir.mail_server',
     type: 'form',
     arch: {
-      sheet: {
-        _header: {
-          _button_test_smtp_connection: {
-            _attr: {
-              name: 'test_smtp_connection',
-              type: 'object',
-              string: 'Test Connection',
-              class: 'btn-primary'
-            }
+      header: {
+        _button_test_smtp_connection: {
+          _attr: {
+            name: 'test_smtp_connection',
+            type: 'object',
+            string: 'Test Connection',
+            class: 'btn-primary'
           }
-        },
+        }
+      },
+      sheet: {
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
@@ -30,20 +30,20 @@ export default {
             },
             from_filter: {}
           },
-          _group_728: {
+          _group_592: {
             sequence: {},
             active: {
               invisible: '1'
             }
           }
         },
-        _group_382: {
+        _group_649: {
           _group: {
             smtp_authentication: {
               widget: 'radio'
             }
           },
-          _group_168: {
+          _group_109: {
             _div: {
               _attr: {
                 invisible: [['smtp_authentication_info', '=', false]],
@@ -72,7 +72,7 @@ export default {
                   groups: 'base.group_no_one'
                 }
               },
-              _group_854: {
+              _group_417: {
                 smtp_user: {
                   invisible: [['smtp_authentication', '=', 'certificate']],
                   force_save: '1'
@@ -142,8 +142,8 @@ export default {
   action_ir_mail_server_list: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Outgoing Mail Servers',
-    search_view_id: 'view_ir_mail_server_search',
     res_model: 'ir.mail_server',
+    search_view_id: 'view_ir_mail_server_search',
     views: {
       tree: 'ir_mail_server_list',
       form: '=======todo=========='

@@ -38,7 +38,7 @@ export default {
   },
 
   action_analytic_distribution_model: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Analytic Distribution Models',
     type: 'ir.actions.act_window',
     res_model: 'account.analytic.distribution.model',

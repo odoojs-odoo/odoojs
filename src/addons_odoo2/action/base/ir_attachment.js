@@ -25,7 +25,7 @@ export default {
               groups: 'base.group_no_one'
             }
           },
-          _group_174: {
+          _group_491: {
             _attr: {
               string: 'Attached To',
               groups: 'base.group_no_one'
@@ -40,7 +40,7 @@ export default {
             },
             public: {}
           },
-          _group_382: {
+          _group_465: {
             _attr: {
               string: 'History',
               groups: 'base.group_no_one',
@@ -72,7 +72,7 @@ export default {
             },
             description: {}
           },
-          _group_113: {
+          _group_899: {
             _attr: {
               string: 'Indexed Content',
               groups: 'base.group_no_one'
@@ -121,6 +121,7 @@ export default {
         _attr: {
           name: 'my_documents_filter',
           string: 'My Document(s)',
+          help: 'Filter on my documents',
           domain: {
             todo_ctx: "[('create_uid','=',uid)]"
           }
@@ -199,8 +200,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Attachments',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_attachment_search',
     res_model: 'ir.attachment',
+    search_view_id: 'view_attachment_search',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

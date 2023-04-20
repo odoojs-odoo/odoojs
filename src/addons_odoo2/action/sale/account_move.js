@@ -6,6 +6,7 @@ export default {
     arch: {
       sheet: {
         invoice_user_id: {
+          position: 'after',
           __todo__after: {
             team_id: {}
           }
@@ -37,6 +38,7 @@ export default {
     arch: {
       sheet: {
         invoice_user_id: {
+          position: 'after',
           __todo__after: {
             team_id: {
               invisible: "context.get['default_move_type'] not in ['out_invoice', 'out_refund','out_receipt']",
@@ -61,7 +63,7 @@ export default {
           },
           team_id: {}
         },
-        _xpath_490: {
+        _xpath_981: {
           _attr: {
             expr: "//group[@id='other_tab_group']",
             position: 'inside'
@@ -81,7 +83,7 @@ export default {
             source_id: {}
           }
         },
-        _xpath_429: {
+        _xpath_224: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'
@@ -107,8 +109,8 @@ export default {
   action_invoice_salesteams: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Invoices',
-    search_view_id: 'account.view_account_invoice_filter',
     res_model: 'account.move',
+    search_view_id: 'account.view_account_invoice_filter',
     domain: "[\n            ['state', '=', 'posted'],\n            ['move_type', 'in', ['out_invoice', 'out_refund']]]",
     context: {
       todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n                'default_move_type':'out_invoice',\n                'move_type':'out_invoice',\n                'journal_type': 'sale',\n            }\n        "

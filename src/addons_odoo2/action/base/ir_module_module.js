@@ -146,6 +146,7 @@ export default {
                 type: 'object',
                 string: 'Upgrade',
                 groups: 'base.group_system',
+                states: 'installed',
                 class: 'btn btn-primary me-1'
               }
             },
@@ -155,6 +156,7 @@ export default {
                 type: 'object',
                 string: 'Uninstall',
                 groups: 'base.group_system',
+                states: 'installed',
                 class: 'btn btn-secondary me-1'
               }
             },
@@ -164,6 +166,7 @@ export default {
                 type: 'object',
                 string: 'Cancel Uninstall',
                 groups: 'base.group_system',
+                states: 'to remove',
                 class: 'btn btn-secondary me-1'
               }
             },
@@ -173,6 +176,7 @@ export default {
                 type: 'object',
                 string: 'Cancel Upgrade',
                 groups: 'base.group_system',
+                states: 'to upgrade',
                 class: 'btn btn-secondary me-1'
               }
             },
@@ -182,6 +186,7 @@ export default {
                 type: 'object',
                 string: 'Cancel Install',
                 groups: 'base.group_system',
+                states: 'to install',
                 class: 'btn btn-secondary me-1'
               }
             }
@@ -220,7 +225,7 @@ export default {
                 },
                 summary: {}
               },
-              _group_173: {
+              _group_717: {
                 name: {},
                 license: {},
                 installed_version: {}
@@ -237,7 +242,7 @@ export default {
               application: {},
               state: {}
             },
-            _group_921: {
+            _group_214: {
               _attr: {
                 string: 'Created Views',
                 invisible: [['state', '!=', 'installed']]
@@ -251,12 +256,12 @@ export default {
               }
             },
             views_by_module: {},
-            _group_964: {
+            _group_848: {
               _attr: {
                 string: 'Dependencies'
               }
             },
-            _p_646: {
+            _p_165: {
               _attr: {
                 invisible: [['dependencies_id', 'not in', [None, false]]],
                 class: 'oe_grey',
@@ -278,12 +283,12 @@ export default {
                 }
               }
             },
-            _group_381: {
+            _group_360: {
               _attr: {
                 string: 'Exclusions'
               }
             },
-            _p_647: {
+            _p_877: {
               _attr: {
                 invisible: [['exclusion_ids', 'not in', [None, false]]],
                 class: 'oe_grey',
@@ -325,12 +330,12 @@ export default {
               }
             },
             menus_by_module: {},
-            _group_336: {
+            _group_221: {
               _attr: {
                 string: 'Defined Reports'
               }
             },
-            _p_833: {
+            _p_737: {
               _attr: {
                 invisible: [['reports_by_module', 'not in', [None, false]]],
                 class: 'oe_grey',
@@ -390,8 +395,8 @@ export default {
   open_module_tree: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Apps',
-    search_view_id: 'view_module_filter',
     res_model: 'ir.module.module',
+    search_view_id: 'view_module_filter',
     context: {
       search_default_app: 1
     },

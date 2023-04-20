@@ -255,7 +255,7 @@ export default {
   },
 
   res_partner_action_customer: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Customers',
     type: 'ir.actions.act_window',
     res_model: 'res.partner',
@@ -274,7 +274,7 @@ export default {
   },
 
   res_partner_action_supplier: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Vendors',
     type: 'ir.actions.act_window',
     res_model: 'res.partner',

@@ -48,6 +48,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Tags',
     res_model: 'crm.tag',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'sales_team_crm_tag_view_tree',
       form: '=======todo=========='

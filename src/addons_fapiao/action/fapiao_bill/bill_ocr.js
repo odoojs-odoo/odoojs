@@ -183,7 +183,7 @@ export default {
   },
 
   action_bill_ocr: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Bill OCR ',
     type: 'ir.actions.act_window',
     res_model: 'fp.bill.ocr',

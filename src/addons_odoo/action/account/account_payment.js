@@ -505,7 +505,7 @@ export default {
   },
 
   action_account_payments: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Payments Recieve',
     type: 'ir.actions.act_window',
     res_model: 'account.payment',
@@ -524,7 +524,7 @@ export default {
   },
 
   action_account_payments_payable: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Payments Out',
     type: 'ir.actions.act_window',
     res_model: 'account.payment',
@@ -543,7 +543,7 @@ export default {
   },
 
   action_account_payments_transfer: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Internal Transfers',
     type: 'ir.actions.act_window',
     res_model: 'account.payment',

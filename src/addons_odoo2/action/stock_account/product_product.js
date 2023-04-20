@@ -6,6 +6,7 @@ export default {
     arch: {
       sheet: {
         qty_available: {
+          position: 'before',
           __todo__before: {
             company_currency_id: {
               invisible: '1'

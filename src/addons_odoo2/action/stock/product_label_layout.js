@@ -12,7 +12,7 @@ export default {
           },
           picking_quantity: {}
         },
-        _xpath_918: {
+        _xpath_147: {
           _attr: {
             expr: '//field[@name="custom_quantity"]',
             position: 'attributes'
@@ -20,7 +20,8 @@ export default {
           _attribute_attrs: {
             _attr: {
               name: 'attrs',
-              text: "{'invisible': [('picking_quantity', '=', 'picking')]}"
+              text: "{'invisible': [('picking_quantity', '=', 'picking')]}",
+              attrs: "{'invisible': [('picking_quantity', '=', 'picking')]}"
             }
           }
         }

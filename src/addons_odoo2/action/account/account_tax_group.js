@@ -72,7 +72,7 @@ export default {
             country_id: {},
             sequence: {}
           },
-          _group_680: {
+          _group_295: {
             property_tax_payable_account_id: {},
             property_tax_receivable_account_id: {},
             property_advance_tax_payment_account_id: {},
@@ -87,6 +87,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Tax Groups',
     res_model: 'account.tax.group',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'view_tax_group_tree',
       form: '=======todo=========='

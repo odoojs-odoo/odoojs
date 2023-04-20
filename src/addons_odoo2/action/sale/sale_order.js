@@ -3,6 +3,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Quotations and Sales',
     res_model: 'sale.order',
+    search_view_id: 'tooooooodoooooo',
     context: {
       todo_ctx: "{'default_partner_id': active_id}"
     },
@@ -16,8 +17,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Quotations',
     type: 'ir.actions.act_window',
-    search_view_id: 'sale.sale_order_view_search_inherit_quotation',
     res_model: 'sale.order',
+    search_view_id: 'sale.sale_order_view_search_inherit_quotation',
     domain: '[]',
     context: {
       todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n                'show_address': 1,\n            }\n        "
@@ -32,8 +33,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'New Quotation',
     type: 'ir.actions.act_window',
-    search_view_id: 'sale_order_view_search_inherit_quotation',
     res_model: 'sale.order',
+    search_view_id: 'sale_order_view_search_inherit_quotation',
     context: {
       todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n                'default_user_id': uid,\n        }\n        "
     },
@@ -47,8 +48,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Sales Orders',
     type: 'ir.actions.act_window',
-    search_view_id: 'sale.sale_order_view_search_inherit_sale',
     res_model: 'sale.order',
+    search_view_id: 'sale.sale_order_view_search_inherit_sale',
     domain: "[['state','not in',['draft','sent','cancel']]]",
     context: {
       todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n            }\n        "
@@ -63,8 +64,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Sales Orders',
     type: 'ir.actions.act_window',
-    search_view_id: 'sale.sale_order_view_search_inherit_sale',
     res_model: 'sale.order',
+    search_view_id: 'sale.sale_order_view_search_inherit_sale',
     domain: "[['invoice_status','=','to invoice']]",
     context: {
       todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n            }\n        "
@@ -274,7 +275,8 @@ export default {
           _attribute_banner_route: {
             _attr: {
               name: 'banner_route',
-              text: '/sales/sale_quotation_onboarding_panel'
+              text: '/sales/sale_quotation_onboarding_panel',
+              banner_route: '/sales/sale_quotation_onboarding_panel'
             }
           }
         }
@@ -287,138 +289,142 @@ export default {
     model: 'sale.order',
     type: 'form',
     arch: {
-      sheet: {
-        _header: {
-          authorized_transaction_ids: {
-            invisible: '1'
-          },
-          _button_payment_action_capture: {
-            _attr: {
-              name: 'payment_action_capture',
-              type: 'object',
-              string: 'Capture Transaction',
-              invisible: [['authorized_transaction_ids', '=', []]],
-              class: 'oe_highlight'
-            }
-          },
-          _button_payment_action_void: {
-            _attr: {
-              name: 'payment_action_void',
-              type: 'object',
-              string: 'Void Transaction',
-              invisible: [['authorized_transaction_ids', '=', []]]
-            }
-          },
-          _button_sale__action_view_sale_advance_payment_inv: {
-            _attr: {
-              name: 'sale.action_view_sale_advance_payment_inv',
-              type: 'action',
-              string: 'Create Invoice',
-              invisible: [['invoice_status', '!=', 'to invoice']],
-              class: 'btn-primary'
-            }
-          },
-          _button_sale__action_view_sale_advance_payment_inv_572: {
-            _attr: {
-              name: 'sale.action_view_sale_advance_payment_inv',
-              type: 'action',
-              string: 'Create Invoice',
-              invisible: ['|', ['invoice_status', '!=', 'no'], ['state', '!=', 'sale']],
-              context: {
-                default_advance_payment_method: 'percentage'
-              }
-            }
-          },
-          _button_action_quotation_send: {
-            _attr: {
-              name: 'action_quotation_send',
-              type: 'object',
-              string: 'Send by Email',
-              context: {
-                validate_analytic: true
-              },
-              class: 'btn-primary'
-            }
-          },
-          _button_action_quotation_send_261: {
-            _attr: {
-              name: 'action_quotation_send',
-              type: 'object',
-              string: 'Send PRO-FORMA Invoice',
-              groups: 'sale.group_proforma_sales',
-              invisible: ['|', ['state', '!=', 'draft'], ['invoice_count', '>=', 1]],
-              context: {
-                proforma: true,
-                validate_analytic: true
-              },
-              class: 'btn-primary'
-            }
-          },
-          _button_action_confirm: {
-            _attr: {
-              name: 'action_confirm',
-              type: 'object',
-              string: 'Confirm',
-              invisible: [['state', 'not in', ['sent']]],
-              context: {
-                validate_analytic: true
-              },
-              class: 'btn-primary'
-            }
-          },
-          _button_action_confirm_693: {
-            _attr: {
-              name: 'action_confirm',
-              type: 'object',
-              string: 'Confirm',
-              invisible: [['state', 'not in', ['draft']]],
-              context: {
-                validate_analytic: true
-              }
-            }
-          },
-          _button_action_quotation_send_191: {
-            _attr: {
-              name: 'action_quotation_send',
-              type: 'object',
-              string: 'Send PRO-FORMA Invoice',
-              groups: 'sale.group_proforma_sales',
-              invisible: ['|', ['state', '=', 'draft'], ['invoice_count', '>=', 1]],
-              context: {
-                proforma: true,
-                validate_analytic: true
-              }
-            }
-          },
-          _button_action_quotation_send_488: {
-            _attr: {
-              name: 'action_quotation_send',
-              type: 'object',
-              string: 'Send by Email',
-              context: {
-                validate_analytic: true
-              }
-            }
-          },
-          _button_action_cancel: {
-            _attr: {
-              name: 'action_cancel',
-              type: 'object',
-              string: 'Cancel',
-              invisible: ['|', ['state', 'not in', ['draft', 'sent', 'sale']], ['id', '=', false]]
-            }
-          },
-          _button_action_draft: {
-            _attr: {
-              name: 'action_draft',
-              type: 'object',
-              string: 'Set to Quotation'
-            }
-          },
-          state: {
-            widget: 'statusbar'
+      header: {
+        authorized_transaction_ids: {
+          invisible: '1'
+        },
+        _button_payment_action_capture: {
+          _attr: {
+            name: 'payment_action_capture',
+            type: 'object',
+            string: 'Capture Transaction',
+            invisible: [['authorized_transaction_ids', '=', []]],
+            class: 'oe_highlight'
           }
         },
+        _button_payment_action_void: {
+          _attr: {
+            name: 'payment_action_void',
+            type: 'object',
+            string: 'Void Transaction',
+            invisible: [['authorized_transaction_ids', '=', []]]
+          }
+        },
+        _button_sale__action_view_sale_advance_payment_inv: {
+          _attr: {
+            name: 'sale.action_view_sale_advance_payment_inv',
+            type: 'action',
+            string: 'Create Invoice',
+            invisible: [['invoice_status', '!=', 'to invoice']],
+            class: 'btn-primary'
+          }
+        },
+        _button_sale__action_view_sale_advance_payment_inv_679: {
+          _attr: {
+            name: 'sale.action_view_sale_advance_payment_inv',
+            type: 'action',
+            string: 'Create Invoice',
+            invisible: ['|', ['invoice_status', '!=', 'no'], ['state', '!=', 'sale']],
+            context: {
+              default_advance_payment_method: 'percentage'
+            }
+          }
+        },
+        _button_action_quotation_send: {
+          _attr: {
+            name: 'action_quotation_send',
+            type: 'object',
+            string: 'Send by Email',
+            states: 'draft',
+            context: {
+              validate_analytic: true
+            },
+            class: 'btn-primary'
+          }
+        },
+        _button_action_quotation_send_820: {
+          _attr: {
+            name: 'action_quotation_send',
+            type: 'object',
+            string: 'Send PRO-FORMA Invoice',
+            groups: 'sale.group_proforma_sales',
+            invisible: ['|', ['state', '!=', 'draft'], ['invoice_count', '>=', 1]],
+            context: {
+              proforma: true,
+              validate_analytic: true
+            },
+            class: 'btn-primary'
+          }
+        },
+        _button_action_confirm: {
+          _attr: {
+            name: 'action_confirm',
+            type: 'object',
+            string: 'Confirm',
+            invisible: [['state', 'not in', ['sent']]],
+            context: {
+              validate_analytic: true
+            },
+            class: 'btn-primary'
+          }
+        },
+        _button_action_confirm_536: {
+          _attr: {
+            name: 'action_confirm',
+            type: 'object',
+            string: 'Confirm',
+            invisible: [['state', 'not in', ['draft']]],
+            context: {
+              validate_analytic: true
+            }
+          }
+        },
+        _button_action_quotation_send_177: {
+          _attr: {
+            name: 'action_quotation_send',
+            type: 'object',
+            string: 'Send PRO-FORMA Invoice',
+            groups: 'sale.group_proforma_sales',
+            invisible: ['|', ['state', '=', 'draft'], ['invoice_count', '>=', 1]],
+            context: {
+              proforma: true,
+              validate_analytic: true
+            }
+          }
+        },
+        _button_action_quotation_send_950: {
+          _attr: {
+            name: 'action_quotation_send',
+            type: 'object',
+            string: 'Send by Email',
+            states: 'sent,sale',
+            context: {
+              validate_analytic: true
+            }
+          }
+        },
+        _button_action_cancel: {
+          _attr: {
+            name: 'action_cancel',
+            type: 'object',
+            string: 'Cancel',
+            invisible: ['|', ['state', 'not in', ['draft', 'sent', 'sale']], ['id', '=', false]]
+          }
+        },
+        _button_action_draft: {
+          _attr: {
+            name: 'action_draft',
+            type: 'object',
+            string: 'Set to Quotation',
+            states: 'cancel'
+          }
+        },
+        state: {
+          widget: 'statusbar',
+          statusbar_visible: 'draft,sent,sale'
+        }
+      },
+      sheet: {
         _div: {
           _attr: {
             groups: 'account.group_account_invoice,account.group_account_readonly',
@@ -462,7 +468,7 @@ export default {
                   text: 'Customer'
                 }
               },
-              _span_202: {
+              _span_197: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Preview'
@@ -535,7 +541,7 @@ export default {
               groups: 'base.group_no_one',
               invisible: [['state', 'in', ['sale', 'done', 'cancel']]]
             },
-            _div_739: {
+            _div_122: {
               _attr: {
                 invisible: [['state', 'in', ['draft', 'sent']]],
                 class: 'o_td_label'
@@ -545,7 +551,7 @@ export default {
                 string: 'Order Date'
               }
             },
-            _field_date_order_935: {
+            _field_date_order_577: {
               date_order: {
                 invisible: [['state', 'in', ['draft', 'sent']]]
               }
@@ -557,7 +563,7 @@ export default {
               for: 'pricelist_id',
               groups: 'product.group_product_pricelist'
             },
-            _div_717: {
+            _div_299: {
               _attr: {
                 groups: 'product.group_product_pricelist',
                 class: 'o_row'
@@ -572,6 +578,7 @@ export default {
                   type: 'object',
                   string: ' Update Prices',
                   icon: 'fa-refresh',
+                  help: 'Recompute all prices based on this pricelist',
                   invisible: ['|', ['show_update_pricelist', '=', false], ['state', 'in', ['sale', 'done', 'cancel']]],
                   class: 'btn-link mb-1 px-0'
                 }
@@ -679,7 +686,7 @@ export default {
                               groups: '!uom.group_uom',
                               invisible: '1'
                             },
-                            _field_product_uom_121: {
+                            _field_product_uom_875: {
                               product_uom: {
                                 groups: 'uom.group_uom',
                                 readonly: [['product_uom_readonly', '=', true]],
@@ -753,7 +760,7 @@ export default {
                             invisible: '1'
                           }
                         },
-                        _group_311: {
+                        _group_648: {
                           _attr: {
                             invisible: [['display_type', '!=', false]]
                           },
@@ -781,12 +788,12 @@ export default {
                         string: 'Description',
                         invisible: [['display_type', '!=', false]]
                       },
-                      _label_name_221: {
+                      _label_name_452: {
                         for: 'name',
                         string: 'Section Name (eg. Products, Services)',
                         invisible: [['display_type', '!=', 'line_section']]
                       },
-                      _label_name_411: {
+                      _label_name_936: {
                         for: 'name',
                         string: 'Note',
                         invisible: [['display_type', '!=', 'line_note']]
@@ -926,7 +933,7 @@ export default {
                         groups: '!uom.group_uom',
                         invisible: '1'
                       },
-                      _field_product_uom_773: {
+                      _field_product_uom_406: {
                         product_uom: {
                           string: 'UoM',
                           groups: 'uom.group_uom',
@@ -1024,7 +1031,7 @@ export default {
                       price_tax: {
                         invisible: '1'
                       },
-                      _field_price_total_113: {
+                      _field_price_total_778: {
                         price_total: {
                           invisible: '1'
                         }
@@ -1051,7 +1058,7 @@ export default {
                                   },
                                   _img: {}
                                 },
-                                _div_631: {
+                                _div_239: {
                                   _attr: {
                                     class: 'col-10'
                                   },
@@ -1065,7 +1072,7 @@ export default {
                                       },
                                       _strong: {}
                                     },
-                                    _div_450: {
+                                    _div_632: {
                                       _attr: {
                                         class: 'col-auto'
                                       },
@@ -1074,7 +1081,7 @@ export default {
                                           groups: 'account.group_show_line_subtotals_tax_excluded'
                                         }
                                       },
-                                      _t_596: {
+                                      _t_857: {
                                         _attr: {
                                           groups: 'account.group_show_line_subtotals_tax_included'
                                         }
@@ -1086,7 +1093,7 @@ export default {
                                       }
                                     }
                                   },
-                                  _div_602: {
+                                  _div_812: {
                                     _attr: {
                                       class: 'row'
                                     },
@@ -1096,10 +1103,10 @@ export default {
                                         text: 'Quantity:'
                                       },
                                       _t: {},
-                                      _t_243: {}
+                                      _t_428: {}
                                     }
                                   },
-                                  _div_192: {
+                                  _div_913: {
                                     _attr: {
                                       class: 'row'
                                     },
@@ -1114,7 +1121,7 @@ export default {
                                 }
                               }
                             },
-                            _t_877: {
+                            _t_861: {
                               _div: {
                                 _attr: {
                                   class: 'row'
@@ -1195,7 +1202,7 @@ export default {
                   require_payment: {
                     class: 'oe_inline ms-3'
                   },
-                  _span_468: 'Payment'
+                  _span_226: 'Payment'
                 },
                 reference: {
                   invisible: [['reference', '=', false]],
@@ -1232,6 +1239,7 @@ export default {
                       type: 'object',
                       string: ' Update Taxes',
                       icon: 'fa-refresh',
+                      help: 'Recompute all taxes based on this fiscal position',
                       invisible: ['|', ['show_update_fpos', '=', false], ['state', 'in', ['sale', 'done', 'cancel']]],
                       class: 'btn-link mb-1 px-0'
                     }
@@ -1249,9 +1257,10 @@ export default {
                   force_save: '1'
                 },
                 invoice_status: {
-                  groups: 'base.group_no_one'
+                  groups: 'base.group_no_one',
+                  states: 'sale,done'
                 },
-                _field_invoice_status_824: {
+                _field_invoice_status_373: {
                   invoice_status: {
                     groups: '!base.group_no_one',
                     invisible: '1'
@@ -1259,7 +1268,7 @@ export default {
                 }
               }
             },
-            _group_116: {
+            _group_338: {
               _group_sale_shipping: {
                 _attr: {
                   name: 'sale_shipping'
@@ -1342,7 +1351,8 @@ export default {
       sheet: {
         _button_action_draft: {
           _attr: {
-            name: 'action_draft'
+            name: 'action_draft',
+            position: 'after'
           },
           _t: {
             _attr: {
@@ -1353,7 +1363,9 @@ export default {
                 name: 'action_done',
                 type: 'object',
                 string: 'Lock',
-                groups: 'sales_team.group_sale_manager'
+                help: 'If the sale is locked, you can not modify it anymore. However, you will still be able to invoice or deliver.',
+                groups: 'sales_team.group_sale_manager',
+                states: 'sale'
               }
             },
             _button_action_unlock: {
@@ -1361,7 +1373,8 @@ export default {
                 name: 'action_unlock',
                 type: 'object',
                 string: 'Unlock',
-                groups: 'sales_team.group_sale_manager'
+                groups: 'sales_team.group_sale_manager',
+                states: 'done'
               }
             }
           }
@@ -1410,6 +1423,7 @@ export default {
         _attr: {
           name: 'activities_overdue',
           string: 'Late Activities',
+          help: 'Show all records which has next action date is before today',
           invisible: '1',
           domain: {
             todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]"
@@ -1482,7 +1496,8 @@ export default {
       sheet: {
         _filter_my_sale_orders_filter: {
           _attr: {
-            name: 'my_sale_orders_filter'
+            name: 'my_sale_orders_filter',
+            position: 'replace'
           },
           campaign_id: {},
           _separator: {},
@@ -1495,7 +1510,7 @@ export default {
               }
             }
           },
-          _separator_701: {},
+          _separator_267: {},
           _filter_draft: {
             _attr: {
               name: 'draft',
@@ -1510,11 +1525,12 @@ export default {
               domain: [['state', 'in', ('sale', 'done')]]
             }
           },
-          _separator_195: {},
+          _separator_220: {},
           _filter_filter_create_date: {
             _attr: {
               name: 'filter_create_date',
-              string: 'Create Date'
+              string: 'Create Date',
+              date: 'create_date'
             }
           }
         }
@@ -1530,7 +1546,8 @@ export default {
       sheet: {
         _filter_my_sale_orders_filter: {
           _attr: {
-            name: 'my_sale_orders_filter'
+            name: 'my_sale_orders_filter',
+            position: 'after'
           },
           _separator: {},
           _filter_to_invoice: {
@@ -1547,11 +1564,12 @@ export default {
               domain: [['invoice_status', '=', 'upselling']]
             }
           },
-          _separator_198: {},
+          _separator_206: {},
           _filter_order_date: {
             _attr: {
               name: 'order_date',
-              string: 'Order Date'
+              string: 'Order Date',
+              date: 'date_order'
             }
           }
         }
@@ -1563,8 +1581,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Sales Orders',
     type: 'ir.actions.act_window',
-    search_view_id: 'sale_order_view_search_inherit_sale',
     res_model: 'sale.order',
+    search_view_id: 'sale_order_view_search_inherit_sale',
     domain: "[['state', 'not in', ['draft', 'sent', 'cancel']]]",
     context: {},
     views: {
@@ -1619,8 +1637,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Quotations',
     type: 'ir.actions.act_window',
-    search_view_id: 'sale_order_view_search_inherit_quotation',
     res_model: 'sale.order',
+    search_view_id: 'sale_order_view_search_inherit_quotation',
     context: {
       search_default_my_quotation: 1
     },
@@ -1634,8 +1652,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Quotations',
     type: 'ir.actions.act_window',
-    search_view_id: 'sale_order_view_search_inherit_quotation',
     res_model: 'sale.order',
+    search_view_id: 'sale_order_view_search_inherit_quotation',
     context: {
       search_default_my_quotation: 1
     },
@@ -1691,8 +1709,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Orders to Invoice',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_sales_order_filter',
     res_model: 'sale.order',
+    search_view_id: 'view_sales_order_filter',
     domain: "[['invoice_status','=','to invoice']]",
     context: {
       create: false
@@ -1707,8 +1725,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Orders to Upsell',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_sales_order_filter',
     res_model: 'sale.order',
+    search_view_id: 'view_sales_order_filter',
     domain: "[['invoice_status','=','upselling']]",
     context: {
       create: false

@@ -395,7 +395,9 @@ export function useForm(props, ctx) {
     if (!view) return
 
     const { error, result } = await try_call(async () => {
-      return await view.button_clicked({ ...btn, record: state.record })
+      const res = await view.button_clicked({ ...btn, record: state.record })
+
+      return res
     })
 
     if (error) {

@@ -55,7 +55,8 @@ export default {
       _separator: {},
       _filter_filter_date: {
         _attr: {
-          name: 'filter_date'
+          name: 'filter_date',
+          date: 'date'
         }
       },
       journal_id: {
@@ -90,8 +91,8 @@ export default {
   action_bank_statement_tree: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Bank Statements',
-    search_view_id: 'view_bank_statement_search',
     res_model: 'account.bank.statement',
+    search_view_id: 'view_bank_statement_search',
     domain: "['|', ['journal_id', '=', False], ['journal_id.type', '=', 'bank']]",
     context: {
       journal_type: 'bank'
@@ -127,8 +128,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Cash Registers',
     type: 'ir.actions.act_window',
-    search_view_id: 'view_bank_statement_search',
     res_model: 'account.bank.statement',
+    search_view_id: 'view_bank_statement_search',
     domain: "['|', ['journal_id', '=', False], ['journal_id.type', '=', 'cash']]",
     context: {
       journal_type: 'cash'

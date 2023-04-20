@@ -44,7 +44,7 @@ export default {
             res_model: {
               groups: 'base.group_no_one'
             },
-            _field_res_model_273: {
+            _field_res_model_496: {
               res_model: {
                 invisible: '1'
               }
@@ -181,6 +181,7 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Activity Types',
     res_model: 'mail.activity.type',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

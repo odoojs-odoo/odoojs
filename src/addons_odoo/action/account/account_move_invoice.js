@@ -237,7 +237,7 @@ export default {
   },
 
   action_move_out_invoice_type: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Invoices',
     type: 'ir.actions.act_window',
     res_model: 'account.move',
@@ -251,7 +251,7 @@ export default {
   },
 
   action_move_out_refund_type: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Credit Notes',
     type: 'ir.actions.act_window',
     res_model: 'account.move',
@@ -265,7 +265,7 @@ export default {
   },
 
   action_move_in_invoice_type: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Bills',
     type: 'ir.actions.act_window',
     res_model: 'account.move',
@@ -279,7 +279,7 @@ export default {
   },
 
   action_move_in_refund_type: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Refunds',
     type: 'ir.actions.act_window',
     res_model: 'account.move',
@@ -293,7 +293,7 @@ export default {
   },
 
   action_move_out_receipt_type: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Out Receipts',
     type: 'ir.actions.act_window',
     res_model: 'account.move',
@@ -307,7 +307,7 @@ export default {
   },
 
   action_move_in_receipt_type: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'In Receipts',
     type: 'ir.actions.act_window',
     res_model: 'account.move',

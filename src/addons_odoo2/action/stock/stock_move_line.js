@@ -3,8 +3,8 @@ export default {
     _odoo_model: 'ir.actions.act_window',
     name: 'Operations',
     type: 'ir.actions.act_window',
-    search_view_id: 'stock_move_line_view_search',
     res_model: 'stock.move.line',
+    search_view_id: 'stock_move_line_view_search',
     domain: "[['picking_type_id', '=', active_id], ['picking_id', '!=', False]]",
     context: {
       search_default_todo: '1'
@@ -128,12 +128,12 @@ export default {
     model: 'stock.move.line',
     type: 'form',
     arch: {
+      header: {
+        state: {
+          widget: 'statusbar'
+        }
+      },
       sheet: {
-        _header: {
-          state: {
-            widget: 'statusbar'
-          }
-        },
         company_id: {
           invisible: '1'
         },
@@ -169,7 +169,7 @@ export default {
               no_create: true
             }
           },
-          _group_293: {
+          _group_648: {
             _label_reserved_uom_qty: {
               for: 'reserved_uom_qty',
               string: 'Quantity Reserved',
@@ -193,7 +193,7 @@ export default {
               for: 'qty_done',
               string: 'Quantity Done'
             },
-            _div_897: {
+            _div_871: {
               _attr: {
                 class: 'o_row'
               },
@@ -291,7 +291,7 @@ export default {
           domain: [['state', '=', 'done']]
         }
       },
-      _separator_917: {},
+      _separator_204: {},
       _filter_incoming: {
         _attr: {
           name: 'incoming',
@@ -321,10 +321,11 @@ export default {
           domain: [['picking_id.picking_type_id.code', '=', 'mrp_operation']]
         }
       },
-      _separator_650: {},
+      _separator_758: {},
       _filter_date: {
         _attr: {
-          name: 'date'
+          name: 'date',
+          date: 'date'
         }
       },
       _filter_filter_last_30_days: {
@@ -354,7 +355,7 @@ export default {
           }
         }
       },
-      _separator_289: {},
+      _separator_656: {},
       _filter_inventory: {
         _attr: {
           name: 'inventory',
@@ -362,7 +363,7 @@ export default {
           domain: [['is_inventory', '=', true]]
         }
       },
-      _separator_112: {},
+      _separator_432: {},
       _group_groupby: {
         _attr: {
           name: 'groupby',
@@ -450,6 +451,7 @@ export default {
     name: 'Moves History',
     type: 'ir.actions.act_window',
     res_model: 'stock.move.line',
+    search_view_id: 'tooooooodoooooo',
     context: {
       search_default_done: 1,
       create: 0
@@ -496,7 +498,7 @@ export default {
         package_id: {
           invisible: '1'
         },
-        _field_location_id_724: {
+        _field_location_id_520: {
           location_id: {
             groups: 'stock.group_stock_multi_locations',
             invisible: "not context.get['show_source_location']",
@@ -507,7 +509,7 @@ export default {
             no_create: true
           }
         },
-        _field_location_dest_id_622: {
+        _field_location_dest_id_639: {
           location_dest_id: {
             groups: 'stock.group_stock_multi_locations',
             invisible: "not context.get['show_destination_location']",
@@ -536,7 +538,7 @@ export default {
           readonly: ['&', ['package_level_id', '!=', false], ['parent.picking_type_entire_packs', '=', true]],
           placeholder: 'Write your SN/LN one by one or copy paste a list.'
         },
-        _field_package_id_969: {
+        _field_package_id_846: {
           package_id: {
             groups: 'stock.group_tracking_lot',
             invisible: "not context.get['show_package']",
@@ -619,7 +621,7 @@ export default {
         location_dest_id: {
           invisible: '1'
         },
-        _field_location_id_465: {
+        _field_location_id_353: {
           location_id: {
             groups: 'stock.group_stock_multi_locations',
             domain: {
@@ -629,7 +631,7 @@ export default {
             no_create: true
           }
         },
-        _field_location_dest_id_297: {
+        _field_location_dest_id_506: {
           location_dest_id: {
             groups: 'stock.group_stock_multi_locations',
             domain: {
@@ -639,12 +641,12 @@ export default {
             no_create: true
           }
         },
-        _field_package_id_879: {
+        _field_package_id_996: {
           package_id: {
             groups: 'stock.group_tracking_lot'
           }
         },
-        _field_result_package_id_427: {
+        _field_result_package_id_782: {
           result_package_id: {
             groups: 'stock.group_tracking_lot'
           }

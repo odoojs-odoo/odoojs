@@ -195,18 +195,8 @@ export default {
     model: 'purchase.order',
     type: 'form',
     toolbar: {
-      action: {
-        // 在数据库中 找到 所有绑定到该模型的 action
-        // select * from ir_actions where binding_model_id = ?
-        // model_account_move
-        //
-        //
-        // action_invoice_order_generate_link
-      },
-      print: {
-        // odoo 原生是 report kanban
-        // 需要 前端自定义
-      }
+      action: {},
+      print: {}
     },
 
     arch: {
@@ -214,36 +204,36 @@ export default {
         buttons: {
           action_rfq_send: {
             name: 'action_rfq_send',
-            string: 'Send by Email',
             type: 'object',
-            context: { send_rfq: true },
-            // states: 'draft',
+            string: 'Send by Email',
             btn_type: 'primary',
+            context: { send_rfq: true },
             invisible: ({ record }) => {
+              // states: 'draft',
               const { state } = record
               return state !== 'draft'
             }
           },
           print_quotation: {
-            groups: 'base.group_user',
             name: 'print_quotation',
-            string: 'Print RFQ',
             type: 'object',
-            context: { send_rfq: true },
-            // states: 'draft',
+            string: 'Print RFQ',
+            groups: 'base.group_user',
             btn_type: 'primary',
+            context: { send_rfq: true },
             invisible: ({ record }) => {
+              // states: 'draft',
               const { state } = record
               return state !== 'draft'
             }
           },
           button_confirm: {
             name: 'button_confirm',
-            string: 'Confirm Order',
             type: 'object',
-            // states: 'sent',
+            string: 'Confirm Order',
             btn_type: 'primary',
             invisible: ({ record }) => {
+              // states: 'sent',
               const { state } = record
               return state !== 'sent'
             }
@@ -251,19 +241,19 @@ export default {
           button_approve: {
             groups: 'purchase.group_purchase_manager',
             name: 'button_approve',
-            string: 'Approve Order',
             type: 'object',
-            // states: 'to approve',
+            string: 'Approve Order',
             btn_type: 'primary',
             invisible: ({ record }) => {
+              // states: 'to approve',
               const { state } = record
               return state !== 'to approve'
             }
           },
           action_create_invoice: {
             name: 'action_create_invoice',
-            string: 'Create Bill',
             type: 'object',
+            string: 'Create Bill',
             btn_type: 'primary',
             context: { create_bill: true },
             invisible: ({ record }) => {
@@ -276,11 +266,11 @@ export default {
           },
           action_rfq_send2: {
             name: 'action_rfq_send',
-            string: 'Re-Send by Email',
             type: 'object',
+            string: 'Re-Send by Email',
             context: { send_rfq: true },
-            // states: 'sent',
             invisible: ({ record }) => {
+              // states: 'sent',
               const { state } = record
               return state !== 'sent'
             }
@@ -288,32 +278,32 @@ export default {
           print_quotation2: {
             groups: 'base.group_user',
             name: 'print_quotation',
-            string: 'Print RFQ',
             type: 'object',
+            string: 'Print RFQ',
             context: { send_rfq: true },
-            // states: 'sent',
             invisible: ({ record }) => {
+              // states: 'sent',
               const { state } = record
               return state !== 'sent'
             }
           },
           button_confirm2: {
             name: 'button_confirm',
-            string: 'Confirm Order',
             type: 'object',
-            // states: 'draft',
+            string: 'Confirm Order',
             invisible: ({ record }) => {
+              // states: 'draft',
               const { state } = record
               return state !== 'draft'
             }
           },
           action_rfq_send22: {
             name: 'action_rfq_send',
-            string: 'Send PO by Email',
             type: 'object',
+            string: 'Send PO by Email',
             context: { send_rfq: false },
-            // states: 'purchase',
             invisible: ({ record }) => {
+              // states: 'purchase',
               const { state } = record
               return state !== 'purchase'
             }
@@ -321,8 +311,8 @@ export default {
           confirm_reminder_mail: {
             groups: 'base.group_no_one',
             name: 'confirm_reminder_mail',
-            string: 'Confirm Receipt Date',
             type: 'object',
+            string: 'Confirm Receipt Date',
             invisible: ({ record }) => {
               const { state, mail_reminder_confirmed, date_planned } = record
               return (
@@ -334,8 +324,8 @@ export default {
           },
           action_create_invoice2: {
             name: 'action_create_invoice',
-            string: 'Create Bill',
             type: 'object',
+            string: 'Create Bill',
             context: { create_bill: true },
             invisible: ({ record }) => {
               const { state, invoice_status, order_line = [] } = record
@@ -348,20 +338,20 @@ export default {
           },
           button_draft: {
             name: 'button_draft',
-            string: 'Set to Draft',
             type: 'object',
-            // states: 'cancel',
+            string: 'Set to Draft',
             invisible: ({ record }) => {
+              // states: 'cancel',
               const { state } = record
               return state !== 'cancel'
             }
           },
           button_cancel: {
             name: 'button_cancel',
-            string: 'Cancel',
             type: 'object',
-            // states: 'draft,to approve,sent,purchase',
+            string: 'Cancel',
             invisible: ({ record }) => {
+              // states: 'draft,to approve,sent,purchase',
               const { state } = record
               return !['draft', 'to approve', 'sent', 'purchase'].includes(
                 state
@@ -370,10 +360,10 @@ export default {
           },
           button_done: {
             name: 'button_done',
-            string: 'Lock',
             type: 'object',
-            // states: 'purchase',
+            string: 'Lock',
             invisible: ({ record }) => {
+              // states: 'purchase',
               const { state } = record
               return !['purchase'].includes(state)
             }
@@ -381,10 +371,10 @@ export default {
           button_unlock: {
             groups: 'purchase.group_purchase_manager',
             name: 'button_unlock',
-            string: 'Unlock',
             type: 'object',
-            // states: 'done',
+            string: 'Unlock',
             invisible: ({ record }) => {
+              // states: 'done',
               const { state } = record
               return !['done'].includes(state)
             }
@@ -400,14 +390,12 @@ export default {
       },
 
       sheet: {
-        //
-
         state: { invisible: 1 },
         _div_button_box: {
           _button_action_view_invoice: {
             _attr: {
-              type: 'object',
               name: 'action_view_invoice',
+              type: 'object',
               icon: 'fa-pencil-square-o',
               invisible({ record }) {
                 //  'invisible':['|',
@@ -623,59 +611,168 @@ export default {
     }
   },
 
-  purchase_order_view_tree: {
+  view_purchase_order_filter: {
     _odoo_model: 'ir.ui.view',
     model: 'purchase.order',
-    type: 'tree',
+    type: 'search',
     arch: {
-      sheet: {
-        priority: { optional: 'show', widget: 'priority' },
-        partner_ref: { optional: 'hide' },
-        name: { string: 'Reference' },
-        date_approve: {
-          widget: 'date',
-          optional: 'show',
-          invisible({ context }) {
-            // invisible="context.get('quotation_only', False)"
-            return context.quotation_only
+      fields: {
+        name: {
+          string: 'Order',
+          filter_domain: self => {
+            return [
+              '|',
+              '|',
+              ['name', 'ilike', self],
+              ['partner_ref', 'ilike', self],
+              ['partner_id', 'child_of', self]
+            ]
           }
         },
-        partner_id: {},
-        company_id: { optional: 'show' },
+        partner_id: { operator: 'child_of' },
+        user_id: {},
+        product_id: {},
+        origin: {}
+      },
 
-        user_id: { widget: 'many2one_avatar_user', optional: 'show' },
-        date_order: {
-          optional: 'show',
-          invisible({ context }) {
-            // invisible="not context.get('quotation_only', False)"
-            return !context.quotation_only
+      filters: {
+        group_me: {
+          my_purchases: {
+            name: 'my_purchases',
+            string: 'My Purchases',
+            domain: ({ env }) => {
+              const uid = env.uid
+              return [['user_id', '=', uid]]
+            }
+          },
+          starred: {
+            name: 'starred',
+            string: 'Starred',
+            domain: [['priority', '=', '1']]
           }
         },
-        origin: { optional: 'show' },
-        amount_untaxed: {
-          sum: 'Total Untaxed amount',
-          string: 'Untaxed',
-          widget: 'monetary',
-          optional: 'hide'
+        group_state_rfq: {
+          draft: {
+            name: 'draft',
+            string: 'RFQs',
+            domain: [['state', 'in', ['draft', 'sent', 'to approve']]]
+          }
         },
-        amount_total: {
-          sum: 'Total amount',
-          widget: 'monetary',
-          optional: 'show'
+        group_state: {
+          approved: {
+            name: 'approved',
+            string: 'Purchase Orders',
+            domain: [['state', 'in', ['purchase', 'done']]]
+          },
+          to_approve: {
+            name: 'to_approve',
+            string: 'To Approve',
+            domain: [['state', 'in', ['to approve']]]
+          }
         },
-        currency_id: { invisible: '1' },
-        state: { invisible: '1' },
-        invoice_status: {
-          widget: 'badge',
-          optional: 'show'
-          // decoration-success="invoice_status == 'invoiced'"
-          // decoration-info="invoice_status == 'to invoice'" optional="show"
+        group_type: {
+          order_date: {
+            name: 'order_date',
+            string: 'Order Date',
+            date: 'date_order'
+          },
+          draft_rfqs: {
+            name: 'draft_rfqs',
+            string: 'Draft RFQs',
+            domain: [['state', '=', 'draft']]
+          },
+
+          waiting_rfqs: {
+            name: 'waiting_rfqs',
+            string: 'Waiting RFQs',
+            domain: ({ env }) => {
+              const today = env.date_tools.today
+              return [
+                ['state', '=', 'sent'],
+                ['date_order', '>=', today]
+              ]
+            }
+          },
+          late_rfqs: {
+            name: 'late_rfqs',
+            string: 'Late RFQs',
+            domain: ({ env }) => {
+              const today = env.date_tools.today
+              return [
+                ['state', 'in', ['draft', 'sent', 'to approve']],
+                ['date_order', '<', today]
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+
+  purchase_order_view_search: {
+    _odoo_model: 'ir.ui.view',
+    model: 'purchase.order',
+    type: 'search',
+    arch: {
+      fields: {
+        name: {
+          string: 'Order',
+          filter_domain: self => {
+            return [
+              '|',
+              '|',
+              ['name', 'ilike', self],
+              ['partner_ref', 'ilike', self],
+              ['partner_id', 'child_of', self]
+            ]
+          }
         },
-        date_planned: {
-          optional: 'show',
-          invisible({ context }) {
-            // invisible="context.get('quotation_only', False)"
-            return context.quotation_only
+        partner_id: { operator: 'child_of' },
+        user_id: {},
+        product_id: {}
+      },
+
+      filters: {
+        group_me: {
+          my_purchases: {
+            name: 'my_Orders',
+            string: 'My Orders',
+            domain: ({ env }) => {
+              const uid = env.uid
+              return [['user_id', '=', uid]]
+            }
+          },
+          starred: {
+            name: 'starred',
+            string: 'Starred',
+            domain: [['priority', '=', '1']]
+          }
+        },
+        group_state: {
+          unconfirmed: {
+            name: 'unconfirmed',
+            string: 'Not Acknowledged',
+            domain: [
+              ['mail_reception_confirmed', '=', false],
+              ['state', '=', 'purchase']
+            ]
+          },
+          not_invoiced: {
+            name: 'not_invoiced',
+            string: 'Waiting Bills',
+            domain: [['invoice_status', '=', 'to invoice']]
+          },
+          invoiced: {
+            name: 'invoiced',
+            string: 'Bills Received',
+            domain: [['invoice_status', '=', 'invoiced']]
+          }
+        },
+        group_date: {
+          order_date: {
+            name: 'order_date',
+            string: 'Order Date',
+            date: 'date_order'
           }
         }
       }
@@ -740,149 +837,67 @@ export default {
     }
   },
 
-  view_purchase_order_filter: {
+  purchase_order_view_tree: {
     _odoo_model: 'ir.ui.view',
     model: 'purchase.order',
-    type: 'search',
+    type: 'tree',
     arch: {
-      fields: {
-        name: {
-          string: 'Order',
-          filter_domain: self => {
-            return [
-              '|',
-              '|',
-              ['name', 'ilike', self],
-              ['partner_ref', 'ilike', self],
-              ['partner_id', 'child_of', self]
-            ]
+      sheet: {
+        priority: { optional: 'show', widget: 'priority' },
+        partner_ref: { optional: 'hide' },
+        name: { string: 'Reference' },
+        date_approve: {
+          widget: 'date',
+          optional: 'show',
+          invisible({ context }) {
+            // invisible="context.get('quotation_only', False)"
+            return context.quotation_only
           }
         },
-        partner_id: { operator: 'child_of' },
-        user_id: {},
-        product_id: {},
-        origin: {}
-      },
+        partner_id: {},
+        company_id: { optional: 'show' },
 
-      filters: {
-        group_me: {
-          my_purchases: {
-            string: 'My Purchases',
-            domain: ({ env }) => {
-              const uid = env.uid
-              return [['user_id', '=', uid]]
-            }
-          },
-          starred: { string: 'Starred', domain: [['priority', '=', '1']] }
-        },
-        group_state_rfq: {
-          draft: {
-            string: 'RFQs',
-            domain: [['state', 'in', ['draft', 'sent', 'to approve']]]
+        user_id: { widget: 'many2one_avatar_user', optional: 'show' },
+        date_order: {
+          optional: 'show',
+          invisible({ context }) {
+            // invisible="not context.get('quotation_only', False)"
+            return !context.quotation_only
           }
         },
-        group_state: {
-          approved: {
-            string: 'Purchase Orders',
-            domain: [['state', 'in', ['purchase', 'done']]]
-          },
-          to_approve: {
-            string: 'To Approve',
-            domain: [['state', 'in', ['to approve']]]
-          }
+        origin: { optional: 'show' },
+        amount_untaxed: {
+          sum: 'Total Untaxed amount',
+          string: 'Untaxed',
+          widget: 'monetary',
+          optional: 'hide'
         },
-        group_type: {
-          order_date: { string: 'Order Date', date: 'date_order' },
-          draft_rfqs: {
-            string: 'Draft RFQs',
-            domain: [['state', '=', 'draft']]
-          },
-
-          waiting_rfqs: {
-            string: 'Waiting RFQs',
-            domain: ({ env }) => {
-              const today = env.date_tools.today
-              return [
-                ['state', '=', 'sent'],
-                ['date_order', '>=', today]
-              ]
-            }
-          },
-          late_rfqs: {
-            string: 'Late RFQs',
-            domain: ({ env }) => {
-              const today = env.date_tools.today
-              return [
-                ['state', 'in', ['draft', 'sent', 'to approve']],
-                ['date_order', '<', today]
-              ]
-            }
-          }
-        }
-      }
-    }
-  },
-
-  purchase_order_view_search: {
-    _odoo_model: 'ir.ui.view',
-    model: 'purchase.order',
-    type: 'search',
-    arch: {
-      fields: {
-        name: {
-          string: 'Order',
-          filter_domain: self => {
-            return [
-              '|',
-              '|',
-              ['name', 'ilike', self],
-              ['partner_ref', 'ilike', self],
-              ['partner_id', 'child_of', self]
-            ]
-          }
+        amount_total: {
+          sum: 'Total amount',
+          widget: 'monetary',
+          optional: 'show'
         },
-        partner_id: { operator: 'child_of' },
-        user_id: {},
-        product_id: {}
-      },
-
-      filters: {
-        group_me: {
-          my_purchases: {
-            string: 'My Orders',
-            domain: ({ env }) => {
-              const uid = env.uid
-              return [['user_id', '=', uid]]
-            }
-          },
-          starred: { string: 'Starred', domain: [['priority', '=', '1']] }
+        currency_id: { invisible: '1' },
+        state: { invisible: '1' },
+        invoice_status: {
+          widget: 'badge',
+          optional: 'show'
+          // decoration-success="invoice_status == 'invoiced'"
+          // decoration-info="invoice_status == 'to invoice'" optional="show"
         },
-        group_state: {
-          unconfirmed: {
-            string: 'Not Acknowledged',
-            domain: [
-              ['mail_reception_confirmed', '=', false],
-              ['state', '=', 'purchase']
-            ]
-          },
-          not_invoiced: {
-            string: 'Waiting Bills',
-            domain: [['invoice_status', '=', 'to invoice']]
-          },
-          invoiced: {
-            string: 'Bills Received',
-            domain: [['invoice_status', '=', 'invoiced']]
+        date_planned: {
+          optional: 'show',
+          invisible({ context }) {
+            // invisible="context.get('quotation_only', False)"
+            return context.quotation_only
           }
-        },
-        group_date: {
-          order_date: { string: 'Order Date', date: 'date_order' }
         }
       }
     }
   },
 
   purchase_rfq: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Requests for Quotation',
     type: 'ir.actions.act_window',
     res_model: 'purchase.order',
@@ -896,7 +911,7 @@ export default {
   },
 
   purchase_form_action: {
-    _odoo_model: 'ir.actions',
+    _odoo_model: 'ir.actions.act_window',
     name: 'Purchase Orders',
     type: 'ir.actions.act_window',
     res_model: 'purchase.order',

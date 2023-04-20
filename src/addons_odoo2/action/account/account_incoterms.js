@@ -61,6 +61,7 @@ export default {
     name: 'Incoterms',
     type: 'ir.actions.act_window',
     res_model: 'account.incoterms',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

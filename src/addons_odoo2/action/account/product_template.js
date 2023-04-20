@@ -26,6 +26,7 @@ export default {
     name: 'Products',
     type: 'ir.actions.act_window',
     res_model: 'product.template',
+    search_view_id: 'tooooooodoooooo',
     context: {
       search_default_filter_to_sell: 1
     },
@@ -40,6 +41,7 @@ export default {
     name: 'Products',
     type: 'ir.actions.act_window',
     res_model: 'product.template',
+    search_view_id: 'tooooooodoooooo',
     context: {
       search_default_filter_to_purchase: 1
     },
@@ -63,13 +65,15 @@ export default {
           _attribute_invisible: {
             _attr: {
               name: 'invisible',
-              text: '0'
+              text: '0',
+              invisible: '0'
             }
           }
         },
         _page_inventory: {
           _attr: {
-            name: 'inventory'
+            name: 'inventory',
+            position: 'after'
           },
           _page_invoicing: {
             _attr: {
@@ -108,7 +112,7 @@ export default {
             }
           }
         },
-        _xpath_943: {
+        _xpath_437: {
           _attr: {
             expr: "//div[@name='pricing']",
             position: 'after'
@@ -123,7 +127,7 @@ export default {
             }
           }
         },
-        _xpath_646: {
+        _xpath_697: {
           _attr: {
             expr: "//div[@name='pricing']",
             position: 'inside'
@@ -137,7 +141,8 @@ export default {
         },
         _group_bill: {
           _attr: {
-            name: 'bill'
+            name: 'bill',
+            position: 'inside'
           },
           supplier_taxes_id: {
             widget: 'many2many_tags',

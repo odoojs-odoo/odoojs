@@ -13,13 +13,14 @@ export default {
           team_id: {
             invisible: '1'
           },
-          _field_team_id_444: {
+          _field_team_id_103: {
             team_id: {
               groups: 'base.group_no_one'
             }
           }
         },
         parent_id: {
+          position: 'attributes',
           context: {
             todo_ctx: "{'default_is_company': True, 'show_vat': True, 'default_user_id': user_id, 'default_team_id': team_id}"
           }

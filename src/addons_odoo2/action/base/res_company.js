@@ -82,7 +82,7 @@ export default {
                   no_open: true
                 }
               },
-              _group_600: {
+              _group_374: {
                 phone: {
                   class: 'o_force_ltr'
                 },
@@ -146,6 +146,7 @@ export default {
     name: 'Companies',
     type: 'ir.actions.act_window',
     res_model: 'res.company',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -165,7 +166,13 @@ export default {
           }
         },
         _form: {
+          _attr: {
+            position: 'inside'
+          },
           _footer: {
+            _attr: {
+              position: 'replace'
+            },
             _button_action_save_onboarding_company_step: {
               _attr: {
                 name: 'action_save_onboarding_company_step',
@@ -190,6 +197,7 @@ export default {
     name: 'Set your company data',
     type: 'ir.actions.act_window',
     res_model: 'res.company',
+    search_view_id: 'tooooooodoooooo',
     views: {
       tree: 'base_onboarding_company_form',
       form: '=======todo=========='
