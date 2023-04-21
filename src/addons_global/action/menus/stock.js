@@ -33,6 +33,17 @@ export default {
           // }
         }
       },
+
+      menu_stock_move_action: {
+        name: 'Stock Moves',
+        action: 'stock.stock_move_action'
+      },
+
+      menu_stock_move_line_action: {
+        name: 'Moves History',
+        action: 'stock.stock_move_line_action'
+      },
+
       menu_action_picking_tree_all: {
         name: 'Transfers',
         action: 'stock.action_picking_tree_all'
