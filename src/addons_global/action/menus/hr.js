@@ -41,6 +41,15 @@ export default {
       menu_action_hr_contract: {
         name: 'Contracts',
         action: 'hr_contract.action_hr_contract'
+      },
+      menu_action_hr_expense_sheet_all_all: {
+        name: 'All Expense Reports',
+        action: 'hr_expense.action_hr_expense_sheet_all_all'
+      },
+
+      menu_hr_expense_actions_all: {
+        name: 'Expenses Analysis',
+        action: 'hr_expense.hr_expense_actions_all'
       }
     }
   }
