@@ -11,13 +11,9 @@ export default {
             position: 'after'
           },
           _group: {
-            _attr: {
-              string: 'Inventory Valuation'
-            },
+            _attr: { string: 'Inventory Valuation' },
             property_cost_method: {},
-            property_valuation: {
-              groups: 'account.group_account_readonly,stock.group_stock_manager'
-            }
+            property_valuation: { groups: 'account.group_account_readonly,stock.group_stock_manager' }
           }
         }
       }
@@ -42,16 +38,12 @@ export default {
               groups: 'account.group_account_readonly',
               invisible: [['property_valuation', '=', 'manual_periodic']]
             },
-            property_valuation: {
-              invisible: '1'
-            },
+            property_valuation: { invisible: '1' },
             property_stock_valuation_account_id: {
               required: [['property_valuation', '=', 'real_time']],
               no_create: true
             },
-            property_stock_journal: {
-              required: [['property_valuation', '=', 'real_time']]
-            },
+            property_stock_journal: { required: [['property_valuation', '=', 'real_time']] },
             property_stock_account_input_categ_id: {
               required: [['property_valuation', '=', 'real_time']],
               no_create: true
@@ -61,9 +53,7 @@ export default {
               no_create: true
             },
             _div: {
-              _attr: {
-                class: 'alert alert-info mt16'
-              },
+              _attr: { class: 'alert alert-info mt16' },
               _b: 'Set other input/output accounts on specific',
               _button_stock__action_prod_inv_location_form: {
                 _attr: {

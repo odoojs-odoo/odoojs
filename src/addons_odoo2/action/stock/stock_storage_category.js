@@ -5,9 +5,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        company_id: {
-          invisible: '1'
-        },
+        company_id: { invisible: '1' },
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -28,20 +26,14 @@ export default {
             name: {},
             allow_new_product: {}
           },
-          _group_537: {
-            _label_max_weight: {
-              for: 'max_weight'
-            },
+          _group_862: {
+            _label_max_weight: { for: 'max_weight' },
             _div: {
-              _attr: {
-                class: 'o_row'
-              },
+              _attr: { class: 'o_row' },
               max_weight: {},
               _span: 'kg'
             },
-            company_id: {
-              groups: 'base.group_multi_company'
-            }
+            company_id: { groups: 'base.group_multi_company' }
           }
         },
         _notebook: {
@@ -52,20 +44,14 @@ export default {
               groups: 'stock.group_tracking_lot'
             },
             package_capacity_ids: {
-              context: {
-                todo_ctx: "{'default_storage_category_id': id, 'default_company_id': company_id}"
-              },
+              context: { todo_ctx: "{'default_storage_category_id': id, 'default_company_id': company_id}" },
               views: {
                 tree: {
                   arch: {
                     sheet: {
-                      package_type_id: {
-                        required: '1'
-                      },
+                      package_type_id: { required: '1' },
                       quantity: {},
-                      company_id: {
-                        invisible: '1'
-                      }
+                      company_id: { invisible: '1' }
                     }
                   }
                 }
@@ -78,17 +64,13 @@ export default {
               string: 'Capacity by Product'
             },
             product_capacity_ids: {
-              context: {
-                todo_ctx: "{'default_storage_category_id': id, 'default_company_id': company_id}"
-              },
+              context: { todo_ctx: "{'default_storage_category_id': id, 'default_company_id': company_id}" },
               views: {
                 tree: {
                   arch: {
                     sheet: {
                       product_id: {
-                        context: {
-                          default_detailed_type: 'product'
-                        },
+                        context: { default_detailed_type: 'product' },
                         required: '1'
                       },
                       quantity: {},
@@ -97,9 +79,7 @@ export default {
                         no_create: true,
                         no_open: true
                       },
-                      company_id: {
-                        invisible: '1'
-                      }
+                      company_id: { invisible: '1' }
                     }
                   }
                 }
@@ -118,13 +98,9 @@ export default {
     arch: {
       sheet: {
         name: {},
-        max_weight: {
-          string: 'Max Weight (kg)'
-        },
+        max_weight: { string: 'Max Weight (kg)' },
         allow_new_product: {},
-        company_id: {
-          groups: 'base.group_multi_company'
-        }
+        company_id: { groups: 'base.group_multi_company' }
       }
     }
   },

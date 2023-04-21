@@ -1,8 +1,5 @@
 const ModelFields = {
-  attachment_ids: {
-    string: 'Attach a file'
-  },
-
+  attachment_ids: { string: 'Attach a file' },
   author_id: {},
   auto_delete: {},
   auto_delete_message: {},
@@ -46,9 +43,7 @@ const ModelFields = {
   subtype_id: {},
   template_id: {
     string: 'Load template',
-    context: {
-      todo_ctx: "{'default_model': model, 'default_body_html': body, 'default_subject': subject}"
-    }
+    context: { todo_ctx: "{'default_model': model, 'default_body_html': body, 'default_subject': subject}" }
   }
 }
 

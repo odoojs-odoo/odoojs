@@ -34,51 +34,33 @@ export default {
           }
         },
         _group: {
-          _attr: {
-            invisible: '1'
-          },
-          activity_category: {
-            invisible: '1'
-          },
-          res_model: {
-            invisible: '1'
-          },
-          res_model_id: {
-            invisible: '1'
-          },
-          res_id: {
-            invisible: '1'
-          },
-          chaining_type: {
-            invisible: '1'
-          },
+          _attr: { invisible: '1' },
+          activity_category: { invisible: '1' },
+          res_model: { invisible: '1' },
+          res_model_id: { invisible: '1' },
+          res_id: { invisible: '1' },
+          chaining_type: { invisible: '1' },
           previous_activity_type_id: {},
           has_recommended_activities: {}
         },
-        _group_510: {
-          _attr: {
-            invisible: [['has_recommended_activities', '=', false]]
-          },
+        _group_319: {
+          _attr: { invisible: [['has_recommended_activities', '=', false]] },
           recommended_activity_type_id: {
             string: 'Recommended Activities',
             widget: 'selection_badge',
-            domain: {
-              todo_ctx: "[('previous_type_ids', '=', previous_activity_type_id)]"
-            }
+            domain: { todo_ctx: "[('previous_type_ids', '=', previous_activity_type_id)]" }
           }
         },
-        _group_711: {
+        _group_496: {
           _group: {
             activity_type_id: {
               required: '1',
               no_create: true,
               no_open: true
             },
-            summary: {
-              placeholder: 'e.g. Discuss proposal'
-            }
+            summary: { placeholder: 'e.g. Discuss proposal' }
           },
-          _group_341: {
+          _group_900: {
             date_deadline: {},
             user_id: {}
           }
@@ -88,9 +70,7 @@ export default {
           placeholder: 'Log a note...'
         },
         _footer: {
-          id: {
-            invisible: '1'
-          },
+          id: { invisible: '1' },
           _button_action_close_dialog: {
             _attr: {
               name: 'action_close_dialog',
@@ -100,7 +80,7 @@ export default {
               class: 'btn-primary'
             }
           },
-          _button_action_close_dialog_768: {
+          _button_action_close_dialog_208: {
             _attr: {
               name: 'action_close_dialog',
               type: 'object',
@@ -115,9 +95,7 @@ export default {
               type: 'object',
               string: 'Mark as Done',
               invisible: [['chaining_type', '=', 'trigger']],
-              context: {
-                mail_activity_quick_update: true
-              },
+              context: { mail_activity_quick_update: true },
               class: 'btn-secondary'
             }
           },
@@ -127,21 +105,17 @@ export default {
               type: 'object',
               string: 'Done & Schedule Next',
               invisible: [['chaining_type', '=', 'trigger']],
-              context: {
-                mail_activity_quick_update: true
-              },
+              context: { mail_activity_quick_update: true },
               class: 'btn-secondary'
             }
           },
-          _button_action_done_schedule_next_143: {
+          _button_action_done_schedule_next_823: {
             _attr: {
               name: 'action_done_schedule_next',
               type: 'object',
               string: 'Done & Launch Next',
               invisible: [['chaining_type', '=', 'suggest']],
-              context: {
-                mail_activity_quick_update: true
-              },
+              context: { mail_activity_quick_update: true },
               class: 'btn-secondary'
             }
           },
@@ -172,9 +146,7 @@ export default {
           }
         },
         _footer: {
-          _attr: {
-            position: 'replace'
-          }
+          _attr: { position: 'replace' }
         },
         _xpath: {
           _attr: {
@@ -207,9 +179,7 @@ export default {
           string: 'Late Activities',
           help: 'Show all records which has next action date is before today',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('date_deadline', '<', context_today().strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('date_deadline', '<', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
       _filter_activities_today: {
@@ -217,9 +187,7 @@ export default {
           name: 'activities_today',
           string: 'Today Activities',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('date_deadline', '=', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
       _filter_activities_upcoming_all: {
@@ -227,40 +195,30 @@ export default {
           name: 'activities_upcoming_all',
           string: 'Future Activities',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('date_deadline', '>', context_today().strftime('%Y-%m-%d'))                         ]"
-          }
+          domain: { todo_ctx: "[('date_deadline', '>', context_today().strftime('%Y-%m-%d'))                         ]" }
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_date_deadline: {
           _attr: {
             name: 'date_deadline',
             string: 'Deadline',
-            context: {
-              group_by: 'date_deadline'
-            }
+            context: { group_by: 'date_deadline' }
           }
         },
         _filter_createdby: {
           _attr: {
             name: 'createdby',
             string: 'Created By',
-            context: {
-              group_by: 'create_uid'
-            }
+            context: { group_by: 'create_uid' }
           }
         },
         _filter_activittype: {
           _attr: {
             name: 'activittype',
             string: 'Activity Type',
-            context: {
-              group_by: 'activity_type_id'
-            }
+            context: { group_by: 'activity_type_id' }
           }
         }
       }

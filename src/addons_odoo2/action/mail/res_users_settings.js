@@ -19,43 +19,31 @@ export default {
     arch: {
       sheet: {
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _h1: {
             user_id: {}
           }
         },
         _group_discuss_user_settings: {
-          _attr: {
-            name: 'discuss_user_settings'
-          },
+          _attr: { name: 'discuss_user_settings' },
           _group: {
-            _attr: {
-              string: 'Discuss sidebar'
-            },
+            _attr: { string: 'Discuss sidebar' },
             is_discuss_sidebar_category_channel_open: {},
             is_discuss_sidebar_category_chat_open: {}
           },
-          _group_720: {
-            _attr: {
-              string: 'Voice'
-            },
+          _group_306: {
+            _attr: { string: 'Voice' },
             use_push_to_talk: {},
             push_to_talk_key: {
               invisible: [['use_push_to_talk', '=', false]],
               placeholder: 'e.g. true.true..f'
             },
-            voice_active_duration: {
-              invisible: [['use_push_to_talk', '=', true]]
-            }
+            voice_active_duration: { invisible: [['use_push_to_talk', '=', true]] }
           }
         },
         _notebook: {
           _page: {
-            _attr: {
-              string: 'Volume per partner'
-            },
+            _attr: { string: 'Volume per partner' },
             volume_settings_ids: {
               views: {
                 tree: {

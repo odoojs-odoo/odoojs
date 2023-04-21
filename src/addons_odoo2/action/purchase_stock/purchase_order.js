@@ -21,7 +21,7 @@ export default {
             }
           }
         },
-        _xpath_335: {
+        _xpath_851: {
           _attr: {
             expr: "//header/button[@name='confirm_reminder_mail']",
             position: 'attributes'
@@ -34,7 +34,7 @@ export default {
             }
           }
         },
-        _xpath_313: {
+        _xpath_952: {
           _attr: {
             expr: "//div[hasclass('oe_button_box')]",
             position: 'inside'
@@ -55,32 +55,26 @@ export default {
             }
           }
         },
-        _xpath_759: {
+        _xpath_626: {
           _attr: {
             expr: "//field[@name='currency_id']",
             position: 'after'
           },
-          is_shipped: {
-            invisible: '1'
-          }
+          is_shipped: { invisible: '1' }
         },
-        _xpath_369: {
+        _xpath_440: {
           _attr: {
             expr: "//field[@name='order_line']/tree//field[@name='date_planned']",
             position: 'after'
           },
-          move_dest_ids: {
-            invisible: '1'
-          }
+          move_dest_ids: { invisible: '1' }
         },
-        _xpath_635: {
+        _xpath_619: {
           _attr: {
             expr: "//page/field[@name='order_line']/tree/field[@name='product_qty']",
             position: 'after'
           },
-          forecasted_issue: {
-            invisible: '1'
-          },
+          forecasted_issue: { invisible: '1' },
           _button_action_product_forecast_report: {
             _attr: {
               name: 'action_product_forecast_report',
@@ -91,7 +85,7 @@ export default {
               class: 'text-danger'
             }
           },
-          _button_action_product_forecast_report_104: {
+          _button_action_product_forecast_report_637: {
             _attr: {
               name: 'action_product_forecast_report',
               type: 'object',
@@ -101,7 +95,7 @@ export default {
             }
           }
         },
-        _xpath_736: {
+        _xpath_286: {
           _attr: {
             expr: "//div[@name='date_planned_div']",
             position: 'inside'
@@ -111,21 +105,17 @@ export default {
               name: 'action_purchase_vendor_delay_report',
               type: 'action',
               invisible: ['|', ['state', 'in', ['purchase', 'done']], ['partner_id', '=', false]],
-              context: {
-                todo_ctx: "{'search_default_partner_id': partner_id}"
-              },
+              context: { todo_ctx: "{'search_default_partner_id': partner_id}" },
               class: 'oe_link'
             },
             _span: {
-              _attr: {
-                invisible: [['on_time_rate', '<', 0]]
-              },
+              _attr: { invisible: [['on_time_rate', '<', 0]] },
               on_time_rate: {
                 widget: 'integer',
                 class: 'oe_inline'
               }
             },
-            _span_891: {
+            _span_403: {
               _attr: {
                 invisible: [['on_time_rate', '>=', 0]],
                 text: 'No On-time Delivery Data'
@@ -133,7 +123,7 @@ export default {
             }
           }
         },
-        _xpath_115: {
+        _xpath_799: {
           _attr: {
             expr: "//label[@for='receipt_reminder_email']",
             position: 'attributes'
@@ -146,7 +136,7 @@ export default {
             }
           }
         },
-        _xpath_685: {
+        _xpath_591: {
           _attr: {
             expr: "//div[@name='reminder']",
             position: 'attributes'
@@ -159,16 +149,14 @@ export default {
             }
           }
         },
-        _xpath_811: {
+        _xpath_876: {
           _attr: {
             expr: "//div[@name='reminder']",
             position: 'after'
           },
-          effective_date: {
-            invisible: [['effective_date', '=', false]]
-          }
+          effective_date: { invisible: [['effective_date', '=', false]] }
         },
-        _xpath_871: {
+        _xpath_460: {
           _attr: {
             expr: "//field[@name='order_line']/form//field[@name='invoice_lines']",
             position: 'after'
@@ -178,21 +166,17 @@ export default {
         invoice_status: {
           position: 'before',
           __todo__before: {
-            receipt_status: {
-              invisible: [['state', 'not in', ('purchase', 'done')]]
-            }
+            receipt_status: { invisible: [['state', 'not in', ('purchase', 'done')]] }
           }
         },
-        _xpath_723: {
+        _xpath_145: {
           _attr: {
             expr: "//field[@name='order_line']/form//field[@name='analytic_distribution']",
             position: 'before'
           },
-          propagate_cancel: {
-            groups: 'base.group_no_one'
-          }
+          propagate_cancel: { groups: 'base.group_no_one' }
         },
-        _xpath_183: {
+        _xpath_375: {
           _attr: {
             expr: "//field[@name='order_line']/tree//field[@name='qty_received']",
             position: 'attributes'
@@ -205,27 +189,23 @@ export default {
             }
           }
         },
-        _xpath_432: {
+        _xpath_636: {
           _attr: {
             expr: "//page[@name='purchase_delivery_invoice']/group/group",
             position: 'inside'
           },
-          default_location_dest_id_usage: {
-            invisible: '1'
-          },
+          default_location_dest_id_usage: { invisible: '1' },
           incoterm_id: {},
           incoterm_location: {}
         },
-        _xpath_801: {
+        _xpath_382: {
           _attr: {
             expr: "//div[@name='reminder']",
             position: 'after'
           },
           picking_type_id: {
             groups: 'stock.group_stock_multi_locations',
-            domain: {
-              todo_ctx: "[('code','=','incoming'), '|', ('warehouse_id', '=', False), ('warehouse_id.company_id', '=', company_id)]"
-            },
+            domain: { todo_ctx: "[('code','=','incoming'), '|', ('warehouse_id', '=', False), ('warehouse_id.company_id', '=', company_id)]" },
             no_create: true
           },
           dest_address_id: {
@@ -247,9 +227,7 @@ export default {
         invoice_status: {
           position: 'before',
           __todo__before: {
-            effective_date: {
-              invisible: '1'
-            },
+            effective_date: { invisible: '1' },
             receipt_status: {
               widget: 'badge',
               optional: 'hide'

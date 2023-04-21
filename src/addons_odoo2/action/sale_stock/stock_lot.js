@@ -20,19 +20,15 @@ export default {
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_field_widget o_stat_info'
-              },
+              _attr: { class: 'o_field_widget o_stat_info' },
               _span: {
-                _attr: {
-                  class: 'o_stat_value'
-                },
+                _attr: { class: 'o_stat_value' },
                 sale_order_count: {
                   widget: 'statinfo',
                   class: 'mr4'
                 }
               },
-              _span_309: {
+              _span_880: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Sales'
@@ -41,7 +37,7 @@ export default {
             }
           }
         },
-        _xpath_467: {
+        _xpath_363: {
           _attr: {
             expr: "//group[@name='main_group']",
             position: 'after'
@@ -58,9 +54,7 @@ export default {
                       name: {},
                       partner_id: {},
                       date_order: {},
-                      state: {
-                        invisible: '1'
-                      }
+                      state: { invisible: '1' }
                     }
                   }
                 }

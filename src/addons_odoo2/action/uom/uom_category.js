@@ -7,9 +7,7 @@ export default {
       sheet: {
         _group: {
           name: {},
-          reference_uom_id: {
-            invisible: '1'
-          }
+          reference_uom_id: { invisible: '1' }
         },
         _notebook: {
           _page_uom_lines: {
@@ -29,21 +27,15 @@ export default {
                     sheet: {
                       name: {},
                       uom_type: {},
-                      factor: {
-                        invisible: '1'
-                      },
-                      factor_inv: {
-                        invisible: '1'
-                      },
+                      factor: { invisible: '1' },
+                      factor_inv: { invisible: '1' },
                       ratio: {
                         string: 'Ratio',
                         readonly: [['uom_type', '=', 'reference']],
                         digits: '[42,5]'
                       },
                       active: {},
-                      rounding: {
-                        digits: '[42, 5]'
-                      }
+                      rounding: { digits: '[42, 5]' }
                     }
                   }
                 }
@@ -86,9 +78,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'uom.category',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      allow_to_change_reference: 1
-    },
+    context: { allow_to_change_reference: 1 },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

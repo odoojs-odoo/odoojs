@@ -1,12 +1,6 @@
 const ModelFields = {
-  account_id: {
-    required: [['property_valuation', '=', 'real_time']]
-  },
-
-  account_journal_id: {
-    required: [['property_valuation', '=', 'real_time']]
-  },
-
+  account_id: { required: [['property_valuation', '=', 'real_time']] },
+  account_journal_id: { required: [['property_valuation', '=', 'real_time']] },
   added_value: {},
   company_id: {},
   currency_id: {},

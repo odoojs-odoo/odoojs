@@ -5,9 +5,7 @@ const ModelFields = {
   repartition_type: {},
   sequence: {},
   tag_ids: {
-    domain: {
-      todo_ctx: "[('applicability', '=', 'taxes'), '|', ('country_id', '=', parent.country_id), ('country_id', '=', False)]"
-    }
+    domain: { todo_ctx: "[('applicability', '=', 'taxes'), '|', ('country_id', '=', parent.country_id), ('country_id', '=', False)]" }
   },
 
   use_in_tax_closing: {}

@@ -11,10 +11,7 @@ const ModelFields = {
     readonly: [['package_type_id', '!=', false]]
   },
 
-  product_uom_id: {
-    groups: 'uom.group_uom'
-  },
-
+  product_uom_id: { groups: 'uom.group_uom' },
   quantity: {},
   storage_category_id: {}
 }

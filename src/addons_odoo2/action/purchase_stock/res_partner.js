@@ -16,37 +16,31 @@ export default {
               type: 'action',
               icon: 'fa-truck',
               groups: 'purchase.group_purchase_user',
-              context: {
-                search_default_partner_id: 'todo===id'
-              },
+              context: { search_default_partner_id: 'todo===id' },
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_form_field o_stat_info'
-              },
+              _attr: { class: 'o_form_field o_stat_info' },
               _div: {
                 _attr: {
                   invisible: [['on_time_rate', '<', 0]],
                   class: 'o_row'
                 },
                 _span: {
-                  _attr: {
-                    class: 'o_stat_value'
-                  },
+                  _attr: { class: 'o_stat_value' },
                   on_time_rate: {
                     string: 'On-time Rate',
                     widget: 'integer'
                   }
                 },
-                _span_914: {
+                _span_784: {
                   _attr: {
                     class: 'o_stat_value',
                     text: '%'
                   }
                 }
               },
-              _div_550: {
+              _div_854: {
                 _attr: {
                   invisible: [['on_time_rate', '>=', 0]],
                   class: 'o_stat_value',

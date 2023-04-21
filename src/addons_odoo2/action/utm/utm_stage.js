@@ -14,9 +14,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {}
       }
     }

@@ -10,9 +10,7 @@ export default {
             expr: "//header/button[@name='action_draft']",
             position: 'after'
           },
-          amount_available_for_refund: {
-            invisible: '1'
-          },
+          amount_available_for_refund: { invisible: '1' },
           _button_action_refund_wizard: {
             _attr: {
               name: 'action_refund_wizard',
@@ -24,7 +22,7 @@ export default {
             }
           }
         },
-        _xpath_143: {
+        _xpath_692: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'
@@ -43,14 +41,12 @@ export default {
             }
           }
         },
-        _xpath_181: {
+        _xpath_704: {
           _attr: {
             expr: '//group[2]',
             position: 'inside'
           },
-          source_payment_id: {
-            invisible: [['source_payment_id', '=', false]]
-          },
+          source_payment_id: { invisible: [['source_payment_id', '=', false]] },
           payment_transaction_id: {
             groups: 'base.group_no_one',
             invisible: [['use_electronic_payment_method', '!=', true]]
@@ -59,15 +55,9 @@ export default {
         payment_method_line_id: {
           position: 'after',
           __todo__after: {
-            payment_method_code: {
-              invisible: '1'
-            },
-            suitable_payment_token_ids: {
-              invisible: '1'
-            },
-            use_electronic_payment_method: {
-              invisible: '1'
-            },
+            payment_method_code: { invisible: '1' },
+            suitable_payment_token_ids: { invisible: '1' },
+            use_electronic_payment_method: { invisible: '1' },
             payment_token_id: {
               invisible: [['use_electronic_payment_method', '!=', true]],
               readonly: [['state', '!=', 'draft']],

@@ -5,9 +5,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        line_ids: {
-          invisible: '1'
-        },
+        line_ids: { invisible: '1' },
         can_edit_wizard: {
           invisible: '1',
           force_save: '1'
@@ -52,41 +50,23 @@ export default {
           invisible: '1',
           force_save: '1'
         },
-        show_partner_bank_account: {
-          invisible: '1'
-        },
-        require_partner_bank_account: {
-          invisible: '1'
-        },
-        available_journal_ids: {
-          invisible: '1'
-        },
-        available_payment_method_line_ids: {
-          invisible: '1'
-        },
-        available_partner_bank_ids: {
-          invisible: '1'
-        },
-        company_currency_id: {
-          invisible: '1'
-        },
-        hide_writeoff_section: {
-          invisible: '1'
-        },
+        show_partner_bank_account: { invisible: '1' },
+        require_partner_bank_account: { invisible: '1' },
+        available_journal_ids: { invisible: '1' },
+        available_payment_method_line_ids: { invisible: '1' },
+        available_partner_bank_ids: { invisible: '1' },
+        company_currency_id: { invisible: '1' },
+        hide_writeoff_section: { invisible: '1' },
         _div: {
           _attr: {
             invisible: [['hide_writeoff_section', '=', false]],
             class: 'alert alert-info'
           },
-          _p: {
-            _b: 'Early Payment Discount applied.'
-          }
+          _p: { _b: 'Early Payment Discount applied.' }
         },
         _group: {
           _group_group1: {
-            _attr: {
-              name: 'group1'
-            },
+            _attr: { name: 'group1' },
             journal_id: {
               required: '1',
               no_open: true,
@@ -101,18 +81,12 @@ export default {
               invisible: ['|', ['show_partner_bank_account', '=', false], '|', ['can_edit_wizard', '=', false], '&', ['can_group_payments', '=', true], ['group_payment', '=', false]],
               required: [['require_partner_bank_account', '=', true], ['can_edit_wizard', '=', true], '|', ['can_group_payments', '=', false], ['group_payment', '=', false]],
               readonly: [['payment_type', '=', 'inbound']],
-              context: {
-                default_allow_out_payment: true
-              }
+              context: { default_allow_out_payment: true }
             },
-            group_payment: {
-              invisible: [['can_group_payments', '=', false]]
-            }
+            group_payment: { invisible: [['can_group_payments', '=', false]] }
           },
           _group_group2: {
-            _attr: {
-              name: 'group2'
-            },
+            _attr: { name: 'group2' },
             _label_amount: {
               for: 'amount',
               invisible: ['|', ['can_edit_wizard', '=', false], '&', ['can_group_payments', '=', true], ['group_payment', '=', false]]
@@ -132,27 +106,19 @@ export default {
               }
             },
             payment_date: {},
-            communication: {
-              invisible: ['|', ['can_edit_wizard', '=', false], '&', ['can_group_payments', '=', true], ['group_payment', '=', false]]
-            }
+            communication: { invisible: ['|', ['can_edit_wizard', '=', false], '&', ['can_group_payments', '=', true], ['group_payment', '=', false]] }
           },
           _group_group3: {
             _attr: {
               name: 'group3',
               invisible: ['|', ['payment_difference', '=', 0.0], '|', ['can_edit_wizard', '=', false], '&', ['can_group_payments', '=', true], ['group_payment', '=', false]]
             },
-            _label_payment_difference: {
-              for: 'payment_difference'
-            },
+            _label_payment_difference: { for: 'payment_difference' },
             _div: {
               payment_difference: {},
-              payment_difference_handling: {
-                widget: 'radio'
-              },
+              payment_difference_handling: { widget: 'radio' },
               _div: {
-                _attr: {
-                  invisible: ['|', ['hide_writeoff_section', '=', true], ['payment_difference_handling', '=', 'open']]
-                },
+                _attr: { invisible: ['|', ['hide_writeoff_section', '=', true], ['payment_difference_handling', '=', 'open']] },
                 _label_writeoff_account_id: {
                   for: 'writeoff_account_id',
                   string: 'Post Difference In',
@@ -168,9 +134,7 @@ export default {
                   string: 'Label',
                   class: 'oe_edit_only'
                 },
-                writeoff_label: {
-                  required: [['payment_difference_handling', '=', 'reconcile']]
-                }
+                writeoff_label: { required: [['payment_difference_handling', '=', 'reconcile']] }
               }
             }
           }

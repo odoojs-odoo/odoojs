@@ -6,12 +6,8 @@ export default {
     arch: {
       sheet: {
         _group: {
-          new_password: {
-            required: '1'
-          },
-          confirm_password: {
-            required: '1'
-          }
+          new_password: { required: '1' },
+          confirm_password: { required: '1' }
         },
         _footer: {
           _button_change_password: {

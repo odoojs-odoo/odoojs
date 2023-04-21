@@ -15,16 +15,12 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_groupby_crm_team_id: {
           _attr: {
             name: 'groupby_crm_team_id',
             string: 'Sales Team',
-            context: {
-              group_by: 'crm_team_id'
-            }
+            context: { group_by: 'crm_team_id' }
           }
         }
       }
@@ -88,24 +84,12 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        active: {
-          invisible: '1'
-        },
-        company_id: {
-          invisible: '1'
-        },
-        is_membership_multi: {
-          invisible: '1'
-        },
-        member_warning: {
-          invisible: '1'
-        },
-        user_in_teams_ids: {
-          invisible: '1'
-        },
-        user_company_ids: {
-          invisible: '1'
-        },
+        active: { invisible: '1' },
+        company_id: { invisible: '1' },
+        is_membership_multi: { invisible: '1' },
+        member_warning: { invisible: '1' },
+        user_in_teams_ids: { invisible: '1' },
+        user_company_ids: { invisible: '1' },
         _div: {
           _attr: {
             invisible: [['member_warning', '=', false]],
@@ -128,17 +112,13 @@ export default {
           preview_image: 'image_128'
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _label_user_id: {
             for: 'user_id',
             class: 'oe_edit_only'
           },
           _h1: {
-            _attr: {
-              class: 'd-flex'
-            },
+            _attr: { class: 'd-flex' },
             user_id: {
               class: 'flex-grow-1',
               no_quick_create: true
@@ -146,32 +126,20 @@ export default {
           }
         },
         _group_member_partner_info: {
-          _attr: {
-            name: 'member_partner_info'
-          },
+          _attr: { name: 'member_partner_info' },
           _group_group_owner: {
-            _attr: {
-              name: 'group_owner'
-            },
+            _attr: { name: 'group_owner' },
             crm_team_id: {}
           },
           _group_group_user: {
-            _attr: {
-              name: 'group_user'
-            },
+            _attr: { name: 'group_user' },
             company_id: {
               groups: 'base.group_multi_company',
               invisible: [['user_id', '=', false]]
             },
-            email: {
-              invisible: [['user_id', '=', false]]
-            },
-            mobile: {
-              invisible: [['user_id', '=', false]]
-            },
-            phone: {
-              invisible: [['user_id', '=', false]]
-            }
+            email: { invisible: [['user_id', '=', false]] },
+            mobile: { invisible: [['user_id', '=', false]] },
+            phone: { invisible: [['user_id', '=', false]] }
           }
         }
       }

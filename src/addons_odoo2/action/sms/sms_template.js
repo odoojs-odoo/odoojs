@@ -5,9 +5,7 @@ export default {
     type: 'form',
     arch: {
       header: {
-        template_fs: {
-          invisible: '1'
-        },
+        template_fs: { invisible: '1' },
         _button_sms_template_reset_action: {
           _attr: {
             name: 'sms_template_reset_action',
@@ -24,9 +22,7 @@ export default {
             name: 'button_box',
             class: 'oe_button_box'
           },
-          sidebar_action_id: {
-            invisible: '1'
-          },
+          sidebar_action_id: { invisible: '1' },
           _button_action_create_sidebar_action: {
             _attr: {
               name: 'action_create_sidebar_action',
@@ -38,16 +34,14 @@ export default {
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_field_widget o_stat_info'
-              },
+              _attr: { class: 'o_field_widget o_stat_info' },
               _span: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Add'
                 }
               },
-              _span_400: {
+              _span_153: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Context Action'
@@ -66,16 +60,14 @@ export default {
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_field_widget o_stat_info'
-              },
+              _attr: { class: 'o_field_widget o_stat_info' },
               _span: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Remove'
                 }
               },
-              _span_923: {
+              _span_198: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Context Action'
@@ -94,9 +86,7 @@ export default {
           }
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _label_name: {
             for: 'name',
             string: 'SMS Template'
@@ -113,9 +103,7 @@ export default {
               placeholder: 'e.g. Contact',
               no_create: true
             },
-            model: {
-              invisible: '1'
-            },
+            model: { invisible: '1' },
             lang: {
               groups: 'base.group_no_one',
               placeholder: 'e.g. en_US or {{ object.partner_id.lang }}'
@@ -129,9 +117,7 @@ export default {
               string: 'Content'
             },
             _group: {
-              body: {
-                widget: 'sms_widget'
-              }
+              body: { widget: 'sms_widget' }
             }
           }
         }

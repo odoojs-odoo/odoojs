@@ -1,8 +1,5 @@
 const ModelFields = {
-  inventory_adjustment_name: {
-    string: 'Inventory Reference / Reason'
-  },
-
+  inventory_adjustment_name: { string: 'Inventory Reference / Reason' },
   show_info: {}
 }
 

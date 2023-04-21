@@ -14,28 +14,16 @@ export default {
             }
           }
         },
-        product_variant_count: {
-          invisible: '1'
-        },
-        sale_ok: {
-          invisible: '1'
-        },
-        currency_id: {
-          invisible: '1'
-        },
-        cost_currency_id: {
-          invisible: '1'
-        },
+        product_variant_count: { invisible: '1' },
+        sale_ok: { invisible: '1' },
+        currency_id: { invisible: '1' },
+        cost_currency_id: { invisible: '1' },
         priority: {
           widget: 'priority',
           optional: 'show'
         },
-        name: {
-          string: 'Product Name'
-        },
-        default_code: {
-          optional: 'show'
-        },
+        name: { string: 'Product Name' },
+        default_code: { optional: 'show' },
         product_tag_ids: {
           widget: 'many2many_tags',
           optional: 'show',
@@ -62,27 +50,19 @@ export default {
           optional: 'show',
           currency_field: 'cost_currency_id'
         },
-        categ_id: {
-          optional: 'hide'
-        },
+        categ_id: { optional: 'hide' },
         detailed_type: {
           readonly: '1',
           optional: 'hide'
         },
-        type: {
-          invisible: '1'
-        },
+        type: { invisible: '1' },
         uom_id: {
           groups: 'uom.group_uom',
           readonly: '1',
           optional: 'show'
         },
-        active: {
-          invisible: '1'
-        },
-        activity_exception_decoration: {
-          widget: 'activity_exception'
-        }
+        active: { invisible: '1' },
+        activity_exception_decoration: { widget: 'activity_exception' }
       }
     }
   },
@@ -108,12 +88,8 @@ export default {
         categ_id: {
           position: 'after',
           __todo__after: {
-            default_code: {
-              invisible: [['product_variant_count', '>', 1]]
-            },
-            barcode: {
-              invisible: [['product_variant_count', '>', 1]]
-            }
+            default_code: { invisible: [['product_variant_count', '>', 1]] },
+            barcode: { invisible: [['product_variant_count', '>', 1]] }
           }
         },
         _div_button_box: {
@@ -136,7 +112,7 @@ export default {
             }
           }
         },
-        _xpath_136: {
+        _xpath_494: {
           _attr: {
             expr: "//page[@name='general_information']",
             position: 'after'
@@ -149,27 +125,17 @@ export default {
             },
             attribute_line_ids: {
               widget: 'one2many',
-              context: {
-                show_attribute: false
-              },
+              context: { show_attribute: false },
               views: {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Variants'
-                      },
-                      value_count: {
-                        invisible: '1'
-                      },
-                      attribute_id: {
-                        readonly: [['id', '!=', false]]
-                      },
+                      _attr: { string: 'Variants' },
+                      value_count: { invisible: '1' },
+                      attribute_id: { readonly: [['id', '!=', false]] },
                       value_ids: {
                         widget: 'many2many_tags',
-                        context: {
-                          todo_ctx: "{'default_attribute_id': attribute_id, 'show_attribute': False}"
-                        },
+                        context: { todo_ctx: "{'default_attribute_id': attribute_id, 'show_attribute': False}" },
                         no_create_edit: true,
                         color_field: 'color'
                       },
@@ -188,9 +154,7 @@ export default {
               }
             },
             _p: {
-              _attr: {
-                class: 'oe_grey oe_edit_only'
-              },
+              _attr: { class: 'oe_grey oe_edit_only' },
               _strong: 'Warning'
             }
           }
@@ -219,9 +183,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'product.template',
     search_view_id: 'product.product_template_search_view',
-    context: {
-      search_default_filter_to_sell: 1
-    },
+    context: { search_default_filter_to_sell: 1 },
     views: {
       tree: 'product_template_kanban_view',
       form: '=======todo=========='
@@ -250,21 +212,11 @@ export default {
         }
       },
       sheet: {
-        product_variant_count: {
-          invisible: '1'
-        },
-        is_product_variant: {
-          invisible: '1'
-        },
-        attribute_line_ids: {
-          invisible: '1'
-        },
-        type: {
-          invisible: '1'
-        },
-        company_id: {
-          invisible: '1'
-        },
+        product_variant_count: { invisible: '1' },
+        is_product_variant: { invisible: '1' },
+        attribute_line_ids: { invisible: '1' },
+        type: { invisible: '1' },
+        company_id: { invisible: '1' },
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -279,22 +231,18 @@ export default {
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_field_widget o_stat_info'
-              },
+              _attr: { class: 'o_field_widget o_stat_info' },
               _span: {
-                _attr: {
-                  class: 'o_stat_value'
-                },
+                _attr: { class: 'o_stat_value' },
                 pricelist_item_count: {}
               },
-              _span_137: {
+              _span_590: {
                 _attr: {
                   invisible: [['pricelist_item_count', '=', 1]],
                   text: 'Extra Prices'
                 }
               },
-              _span_998: {
+              _span_363: {
                 _attr: {
                   invisible: [['pricelist_item_count', '!=', 1]],
                   text: 'Extra Price'
@@ -311,27 +259,21 @@ export default {
             invisible: [['active', '=', true]]
           }
         },
-        id: {
-          invisible: 'True'
-        },
+        id: { invisible: 'True' },
         image_1920: {
           widget: 'image',
           class: 'oe_avatar',
           preview_image: 'image_128'
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _label_name: {
             for: 'name',
             string: 'Product Name'
           },
           _h1: {
             _div: {
-              _attr: {
-                class: 'd-flex'
-              },
+              _attr: { class: 'd-flex' },
               priority: {
                 widget: 'priority',
                 class: 'me-3'
@@ -345,26 +287,16 @@ export default {
         },
         _style: 'div[name="options"] .o_field_boolean > div {\n                            margin-left: 10px;\n                            margin-right: 0px;\n                        }',
         _div_options: {
-          _attr: {
-            name: 'options'
-          },
+          _attr: { name: 'options' },
           _span: {
-            _attr: {
-              class: 'd-inline-block'
-            },
+            _attr: { class: 'd-inline-block' },
             sale_ok: {},
-            _label_sale_ok: {
-              for: 'sale_ok'
-            }
+            _label_sale_ok: { for: 'sale_ok' }
           },
-          _span_916: {
-            _attr: {
-              class: 'd-inline-block'
-            },
+          _span_567: {
+            _attr: { class: 'd-inline-block' },
             purchase_ok: {},
-            _label_purchase_ok: {
-              for: 'purchase_ok'
-            }
+            _label_purchase_ok: { for: 'purchase_ok' }
           }
         },
         _notebook: {
@@ -375,16 +307,10 @@ export default {
             },
             _group: {
               _group_group_general: {
-                _attr: {
-                  name: 'group_general'
-                },
-                active: {
-                  invisible: '1'
-                },
+                _attr: { name: 'group_general' },
+                active: { invisible: '1' },
                 detailed_type: {},
-                product_tooltip: {
-                  class: 'fst-italic text-muted'
-                },
+                product_tooltip: { class: 'fst-italic text-muted' },
                 uom_id: {
                   groups: 'uom.group_uom',
                   no_create: true
@@ -395,16 +321,10 @@ export default {
                 }
               },
               _group_group_standard_price: {
-                _attr: {
-                  name: 'group_standard_price'
-                },
-                _label_list_price: {
-                  for: 'list_price'
-                },
+                _attr: { name: 'group_standard_price' },
+                _label_list_price: { for: 'list_price' },
                 _div_pricing: {
-                  _attr: {
-                    name: 'pricing'
-                  },
+                  _attr: { name: 'pricing' },
                   list_price: {
                     widget: 'monetary',
                     class: 'oe_inline',
@@ -432,14 +352,10 @@ export default {
                       groups: 'uom.group_uom',
                       text: 'per'
                     },
-                    uom_name: {
-                      class: 'oe_inline'
-                    }
+                    uom_name: { class: 'oe_inline' }
                   }
                 },
-                categ_id: {
-                  string: 'Product Category'
-                },
+                categ_id: { string: 'Product Category' },
                 product_tag_ids: {
                   widget: 'many2many_tags',
                   color_field: 'color'
@@ -448,24 +364,14 @@ export default {
                   groups: 'base.group_multi_company',
                   no_create: true
                 },
-                currency_id: {
-                  invisible: '1'
-                },
-                cost_currency_id: {
-                  invisible: '1'
-                },
-                product_variant_id: {
-                  invisible: '1'
-                }
+                currency_id: { invisible: '1' },
+                cost_currency_id: { invisible: '1' },
+                product_variant_id: { invisible: '1' }
               }
             },
-            _group_993: {
-              _attr: {
-                string: 'Internal Notes'
-              },
-              description: {
-                placeholder: 'This note is only for internal purposes.'
-              }
+            _group_598: {
+              _attr: { string: 'Internal Notes' },
+              description: { placeholder: 'This note is only for internal purposes.' }
             }
           },
           _page_sales: {
@@ -475,9 +381,7 @@ export default {
               invisible: [['sale_ok', '=', false]]
             },
             _group_sale: {
-              _attr: {
-                name: 'sale'
-              },
+              _attr: { name: 'sale' },
               _group_upsell: {
                 _attr: {
                   name: 'upsell',
@@ -492,9 +396,7 @@ export default {
                   name: 'description',
                   string: 'Sales Description'
                 },
-                description_sale: {
-                  placeholder: 'This note is added to sales orders and invoices.'
-                }
+                description_sale: { placeholder: 'This note is added to sales orders and invoices.' }
               }
             }
           },
@@ -505,9 +407,7 @@ export default {
               invisible: [['purchase_ok', '=', false]]
             },
             _group_purchase: {
-              _attr: {
-                name: 'purchase'
-              },
+              _attr: { name: 'purchase' },
               _group_bill: {
                 _attr: {
                   name: 'bill',
@@ -524,9 +424,7 @@ export default {
               invisible: [['type', '=', 'service']]
             },
             _group_inventory: {
-              _attr: {
-                name: 'inventory'
-              },
+              _attr: { name: 'inventory' },
               _group_group_lots_and_weight: {
                 _attr: {
                   name: 'group_lots_and_weight',
@@ -543,9 +441,7 @@ export default {
                     invisible: [['product_variant_count', '>', 1], ['is_product_variant', '=', false]],
                     class: 'o_row'
                   },
-                  weight: {
-                    class: 'oe_inline'
-                  },
+                  weight: { class: 'oe_inline' },
                   weight_uom_name: {}
                 },
                 _label_volume: {
@@ -574,9 +470,7 @@ export default {
                 invisible: ['|', ['type', 'not in', ['product', 'consu']], ['product_variant_count', '>', 1], ['is_product_variant', '=', false]]
               },
               packaging_ids: {
-                context: {
-                  todo_ctx: "{'tree_view_ref':'product.product_packaging_tree_view2', 'default_company_id': company_id}"
-                }
+                context: { todo_ctx: "{'tree_view_ref':'product.product_packaging_tree_view2', 'default_company_id': company_id}" }
               }
             }
           }
@@ -592,14 +486,10 @@ export default {
     arch: {
       name: {
         string: 'Product',
-        filter_domain: {
-          todo_ctx: "['|', '|', '|', ('default_code', 'ilike', self), ('product_variant_ids.default_code', 'ilike', self),('name', 'ilike', self), ('barcode', 'ilike', self)]"
-        }
+        filter_domain: { todo_ctx: "['|', '|', '|', ('default_code', 'ilike', self), ('product_variant_ids.default_code', 'ilike', self),('name', 'ilike', self), ('barcode', 'ilike', self)]" }
       },
       categ_id: {
-        filter_domain: {
-          todo_ctx: "[('categ_id', 'child_of', raw_value)]"
-        }
+        filter_domain: { todo_ctx: "[('categ_id', 'child_of', raw_value)]" }
       },
       _separator: {},
       _filter_services: {
@@ -616,7 +506,7 @@ export default {
           domain: [['type', 'in', ['consu', 'product']]]
         }
       },
-      _separator_476: {},
+      _separator_221: {},
       _filter_filter_to_sell: {
         _attr: {
           name: 'filter_to_sell',
@@ -631,7 +521,7 @@ export default {
           domain: [['purchase_ok', '=', true]]
         }
       },
-      _separator_647: {},
+      _separator_695: {},
       attribute_line_ids: {
         string: 'Attributes',
         groups: 'product.group_product_variant'
@@ -642,9 +532,7 @@ export default {
           string: 'Late Activities',
           help: 'Show all records which has next action date is before today',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
       _filter_activities_today: {
@@ -652,9 +540,7 @@ export default {
           name: 'activities_today',
           string: 'Today Activities',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
       _filter_activities_upcoming_all: {
@@ -662,12 +548,10 @@ export default {
           name: 'activities_upcoming_all',
           string: 'Future Activities',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))                     ]"
-          }
+          domain: { todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))                     ]" }
         }
       },
-      _separator_450: {},
+      _separator_914: {},
       _filter_favorites: {
         _attr: {
           name: 'favorites',
@@ -675,7 +559,7 @@ export default {
           domain: [['priority', '=', '1']]
         }
       },
-      _separator_668: {},
+      _separator_598: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',
@@ -683,7 +567,7 @@ export default {
           domain: [['activity_exception_decoration', '!=', false]]
         }
       },
-      _separator_457: {},
+      _separator_607: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -692,25 +576,19 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_type: {
           _attr: {
             name: 'type',
             string: 'Product Type',
-            context: {
-              group_by: 'type'
-            }
+            context: { group_by: 'type' }
           }
         },
         _filter_categ_id: {
           _attr: {
             name: 'categ_id',
             string: 'Product Category',
-            context: {
-              group_by: 'categ_id'
-            }
+            context: { group_by: 'categ_id' }
           }
         }
       }

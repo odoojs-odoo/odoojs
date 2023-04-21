@@ -4,23 +4,17 @@ export default {
     model: 'stock.quant.package',
     type: 'search',
     arch: {
-      name: {
-        string: 'Package Name'
-      },
+      name: { string: 'Package Name' },
       location_id: {},
       package_type_id: {},
       _group: {
-        _attr: {
-          string: 'Group by...'
-        },
+        _attr: { string: 'Group by...' },
         _filter_location: {
           _attr: {
             name: 'location',
             string: 'Location',
             domain: [],
-            context: {
-              group_by: 'location_id'
-            }
+            context: { group_by: 'location_id' }
           }
         },
         _filter_package_type: {
@@ -28,9 +22,7 @@ export default {
             name: 'package_type',
             string: 'Package Type',
             domain: [],
-            context: {
-              group_by: 'package_type_id'
-            }
+            context: { group_by: 'package_type_id' }
           }
         }
       }
@@ -68,9 +60,7 @@ export default {
           }
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _label_name: {
             for: 'name',
             string: 'Package Reference'
@@ -85,24 +75,16 @@ export default {
         _group: {
           _group: {
             package_type_id: {},
-            company_id: {
-              groups: 'base.group_multi_company'
-            },
-            owner_id: {
-              groups: 'stock.group_tracking_owner'
-            },
-            location_id: {
-              no_create: true
-            }
+            company_id: { groups: 'base.group_multi_company' },
+            owner_id: { groups: 'stock.group_tracking_owner' },
+            location_id: { no_create: true }
           },
-          _group_457: {
+          _group_282: {
             pack_date: {}
           }
         },
         _separator: {
-          _attr: {
-            string: 'Content'
-          }
+          _attr: { string: 'Content' }
         },
         quant_ids: {
           views: {
@@ -110,13 +92,9 @@ export default {
               arch: {
                 sheet: {
                   product_id: {},
-                  lot_id: {
-                    groups: 'stock.group_production_lot'
-                  },
+                  lot_id: { groups: 'stock.group_production_lot' },
                   quantity: {},
-                  product_uom_id: {
-                    groups: 'uom.group_uom'
-                  }
+                  product_uom_id: { groups: 'uom.group_uom' }
                 }
               }
             }
@@ -134,12 +112,8 @@ export default {
       sheet: {
         display_name: {},
         package_type_id: {},
-        location_id: {
-          no_create: true
-        },
-        company_id: {
-          groups: 'base.group_multi_company'
-        }
+        location_id: { no_create: true },
+        company_id: { groups: 'base.group_multi_company' }
       }
     }
   },

@@ -1,18 +1,13 @@
 const ModelFields = {
   bank_ids: {
-    context: {
-      default_allow_out_payment: true
-    }
+    context: { default_allow_out_payment: true }
   },
 
   credit: {},
   credit_limit: {},
   currency_id: {},
   duplicated_bank_account_partners_count: {},
-  invoice_warn: {
-    required: '1'
-  },
-
+  invoice_warn: { required: '1' },
   invoice_warn_msg: {
     required: [['invoice_warn', '!=', false], ['invoice_warn', '!=', 'no-message']],
     placeholder: 'Type a message...'

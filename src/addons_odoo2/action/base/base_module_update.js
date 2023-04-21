@@ -5,9 +5,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        state: {
-          invisible: '1'
-        },
+        state: { invisible: '1' },
         _separator: {
           _attr: {
             string: 'Module Update Result',
@@ -15,9 +13,7 @@ export default {
           }
         },
         _group: {
-          _attr: {
-            states: 'init'
-          },
+          _attr: { states: 'init' },
           _span: {
             _attr: {
               class: 'o_form_label',
@@ -25,18 +21,14 @@ export default {
             }
           }
         },
-        _group_464: {
-          _attr: {
-            states: 'done'
-          },
+        _group_554: {
+          _attr: { states: 'done' },
           updated: {},
           added: {}
         },
         _footer: {
           _div: {
-            _attr: {
-              states: 'init'
-            },
+            _attr: { states: 'init' },
             _button_update_module: {
               _attr: {
                 name: 'update_module',
@@ -52,10 +44,8 @@ export default {
               }
             }
           },
-          _div_341: {
-            _attr: {
-              states: 'done'
-            },
+          _div_254: {
+            _attr: { states: 'done' },
             _button_action_module_open: {
               _attr: {
                 name: 'action_module_open',

@@ -1,8 +1,5 @@
 const ModelFields = {
-  company_id: {
-    groups: 'base.group_multi_company'
-  },
-
+  company_id: { groups: 'base.group_multi_company' },
   is_subscribed: {},
   kpi_mail_message_total: {},
   kpi_res_users_connected: {},
@@ -11,23 +8,11 @@ const ModelFields = {
     string: 'Title'
   },
 
-  next_run_date: {
-    groups: '===todo=='
-  },
-
-  next_run_date_$_form: {
-    groups: 'base.group_system'
-  },
-
-  next_run_date_$_tree: {
-    groups: 'base.group_no_one'
-  },
-
+  next_run_date: { groups: '===todo==' },
+  next_run_date_$_form: { groups: 'base.group_system' },
+  next_run_date_$_tree: { groups: 'base.group_no_one' },
   periodicity: {},
-  state: {
-    groups: 'base.group_no_one'
-  },
-
+  state: { groups: 'base.group_no_one' },
   user_ids: {}
 }
 

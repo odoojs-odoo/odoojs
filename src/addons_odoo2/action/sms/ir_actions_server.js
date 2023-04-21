@@ -13,9 +13,7 @@ export default {
           sms_template_id: {
             invisible: [['state', '!=', 'sms']],
             required: [['state', '=', 'sms']],
-            context: {
-              todo_ctx: "{'default_model': model_name}"
-            }
+            context: { todo_ctx: "{'default_model': model_name}" }
           },
           sms_method: {
             string: 'Send as',

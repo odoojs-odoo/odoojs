@@ -21,9 +21,7 @@ export default {
             }
           }
         },
-        _h3: {
-          _strong: 'Please enter your password to confirm you own this account'
-        },
+        _h3: { _strong: 'Please enter your password to confirm you own this account' },
         _br: {},
         _div: {
           password: {

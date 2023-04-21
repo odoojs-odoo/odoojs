@@ -15,10 +15,7 @@ const ModelFields = {
     readonly: "context.get['fixed_location', False]"
   },
 
-  location_out_id: {
-    readonly: [['location_in_id', '=', false]]
-  },
-
+  location_out_id: { readonly: [['location_in_id', '=', false]] },
   package_type_ids: {
     string: 'Package type',
     groups: 'stock.group_tracking_lot'

@@ -1,11 +1,6 @@
 const ModelFields = {
-  package_type_id: {
-    groups: 'stock.group_tracking_lot'
-  },
-
-  route_ids: {
-    groups: 'stock.group_adv_location'
-  }
+  package_type_id: { groups: 'stock.group_tracking_lot' },
+  route_ids: { groups: 'stock.group_adv_location' }
 }
 
 const AddonsFields = {

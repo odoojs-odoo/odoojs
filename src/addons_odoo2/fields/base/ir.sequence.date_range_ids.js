@@ -1,9 +1,7 @@
 const ModelFields = {
   date_from: {},
   date_to: {},
-  number_next_actual: {
-    string: 'Next Number'
-  }
+  number_next_actual: { string: 'Next Number' }
 }
 
 const AddonsFields = {

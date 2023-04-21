@@ -9,10 +9,7 @@ const ModelFields = {
   recipient_invalid_count: {},
   recipient_single_description: {},
   recipient_single_number: {},
-  recipient_single_number_itf: {
-    placeholder: 'e.g. +1 415 555 0100'
-  },
-
+  recipient_single_number_itf: { placeholder: 'e.g. +1 415 555 0100' },
   recipient_single_valid: {},
   res_id: {},
   res_ids: {},

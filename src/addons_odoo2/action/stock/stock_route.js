@@ -5,16 +5,10 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {},
-        active: {
-          invisible: '1'
-        },
-        company_id: {
-          groups: 'base.group_multi_company'
-        }
+        active: { invisible: '1' },
+        company_id: { groups: 'base.group_multi_company' }
       }
     }
   },
@@ -25,9 +19,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        company_id: {
-          invisible: '1'
-        },
+        company_id: { invisible: '1' },
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
@@ -37,16 +29,10 @@ export default {
           }
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
-          _label_name: {
-            for: 'name'
-          },
+          _attr: { class: 'oe_title' },
+          _label_name: { for: 'name' },
           _h1: {
-            name: {
-              placeholder: 'e.g. Two-steps reception'
-            }
+            name: { placeholder: 'e.g. Two-steps reception' }
           }
         },
         _group: {
@@ -55,12 +41,8 @@ export default {
               string: 'Sequence',
               groups: 'base.group_no_one'
             },
-            supplied_wh_id: {
-              groups: 'base.group_no_one'
-            },
-            active: {
-              invisible: '1'
-            },
+            supplied_wh_id: { groups: 'base.group_no_one' },
+            active: { invisible: '1' },
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
@@ -79,32 +61,22 @@ export default {
             }
           },
           _group: {
-            product_categ_selectable: {
-              string: 'Product Categories'
-            },
-            product_selectable: {
-              string: 'Products'
-            },
+            product_categ_selectable: { string: 'Product Categories' },
+            product_selectable: { string: 'Products' },
             packaging_selectable: {
               string: 'Packagings',
               groups: 'product.group_stock_packaging'
             }
           },
-          _group_164: {
+          _group_777: {
             _label_warehouse_selectable: {
               for: 'warehouse_selectable',
               string: 'Warehouses'
             },
             _div: {
-              _attr: {
-                class: 'o_row'
-              },
-              warehouse_selectable: {
-                class: 'oe_inline'
-              },
-              warehouse_domain_ids: {
-                invisible: '1'
-              },
+              _attr: { class: 'o_row' },
+              warehouse_selectable: { class: 'oe_inline' },
+              warehouse_domain_ids: { invisible: '1' },
               warehouse_ids: {
                 widget: 'many2many_tags',
                 invisible: [['warehouse_selectable', '=', false]]
@@ -112,28 +84,18 @@ export default {
             }
           }
         },
-        _group_945: {
-          _attr: {
-            string: 'Rules'
-          },
+        _group_470: {
+          _attr: { string: 'Rules' },
           rule_ids: {
-            context: {
-              todo_ctx: "{'default_company_id': company_id, 'form_view_ref':'stock.view_route_rule_form'}"
-            },
+            context: { todo_ctx: "{'default_company_id': company_id, 'form_view_ref':'stock.view_route_rule_form'}" },
             views: {
               tree: {
                 arch: {
                   sheet: {
-                    sequence: {
-                      widget: 'handle'
-                    },
+                    sequence: { widget: 'handle' },
                     action: {},
-                    location_src_id: {
-                      no_create: true
-                    },
-                    location_dest_id: {
-                      no_create: true
-                    }
+                    location_src_id: { no_create: true },
+                    location_dest_id: { no_create: true }
                   }
                 }
               }

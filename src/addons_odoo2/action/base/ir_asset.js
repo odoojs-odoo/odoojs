@@ -11,14 +11,10 @@ export default {
             bundle: {},
             directive: {},
             sequence: {},
-            active: {
-              widget: 'boolean_toggle'
-            }
+            active: { widget: 'boolean_toggle' }
           },
-          _group_322: {
-            target: {
-              invisible: [['directive', '!=', 'replace']]
-            },
+          _group_190: {
+            target: { invisible: [['directive', '!=', 'replace']] },
             path: {}
           }
         }
@@ -66,9 +62,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'ir.asset',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      search_default_active: 1
-    },
+    context: { search_default_active: 1 },
     views: {
       tree: 'asset_view_tree',
       form: '=======todo=========='

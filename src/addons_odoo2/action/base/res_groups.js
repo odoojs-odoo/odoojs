@@ -6,9 +6,7 @@ export default {
     arch: {
       name: {
         string: 'Group',
-        filter_domain: {
-          todo_ctx: "['|', ('name','ilike',self), ('category_id','ilike',self)]"
-        }
+        filter_domain: { todo_ctx: "['|', ('name','ilike',self), ('category_id','ilike',self)]" }
       },
       _separator: {},
       share: {},
@@ -40,9 +38,7 @@ export default {
               string: 'Users'
             },
             users: {
-              context: {
-                search_default_filter_no_share: 1
-              }
+              context: { search_default_filter_no_share: 1 }
             }
           },
           _page_inherit_groups: {
@@ -68,9 +64,7 @@ export default {
               name: 'views',
               string: 'Views'
             },
-            view_access: {
-              groups: 'base.group_system'
-            }
+            view_access: { groups: 'base.group_system' }
           },
           _page_access_rights: {
             _attr: {
@@ -82,9 +76,7 @@ export default {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Access Rights'
-                      },
+                      _attr: { string: 'Access Rights' },
                       name: {},
                       model_id: {},
                       perm_read: {},
@@ -107,9 +99,7 @@ export default {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Record Rules'
-                      },
+                      _attr: { string: 'Record Rules' },
                       name: {},
                       model_id: {},
                       domain_force: {},
@@ -141,9 +131,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'res.groups',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      search_default_filter_no_share: 1
-    },
+    context: { search_default_filter_no_share: 1 },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

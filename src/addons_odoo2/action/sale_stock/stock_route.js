@@ -10,9 +10,7 @@ export default {
             expr: "//group[@name='route_selector']/group[last()]",
             position: 'inside'
           },
-          sale_selectable: {
-            string: 'Sales Order Lines'
-          }
+          sale_selectable: { string: 'Sales Order Lines' }
         }
       }
     }

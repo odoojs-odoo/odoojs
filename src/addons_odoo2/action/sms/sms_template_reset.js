@@ -32,9 +32,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'sms.template.reset',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      todo_ctx: "{\n            'default_template_ids': active_ids\n        }"
-    },
+    context: { todo_ctx: "{\n            'default_template_ids': active_ids\n        }" },
     views: {
       tree: 'sms_template_reset_view_form',
       form: '=======todo=========='

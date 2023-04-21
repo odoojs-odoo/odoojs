@@ -17,23 +17,17 @@ export default {
     arch: {
       sheet: {
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _label_name: {
             for: 'name',
             string: 'Group Name'
           },
           _h1: {
-            name: {
-              placeholder: 'e.g. Europe'
-            }
+            name: { placeholder: 'e.g. Europe' }
           }
         },
         _group_country_group: {
-          _attr: {
-            name: 'country_group'
-          },
+          _attr: { name: 'country_group' },
           country_ids: {
             widget: 'many2many_tags',
             no_open: true,

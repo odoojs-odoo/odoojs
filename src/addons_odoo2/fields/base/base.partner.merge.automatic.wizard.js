@@ -1,12 +1,8 @@
 const ModelFields = {
   dst_partner_id: {
-    domain: {
-      todo_ctx: "[('id', 'in', partner_ids or False)]"
-    },
+    domain: { todo_ctx: "[('id', 'in', partner_ids or False)]" },
     required: [['state', '=', 'selection']],
-    context: {
-      partner_show_db_id: true
-    }
+    context: { partner_show_db_id: true }
   },
 
   exclude_contact: {},
@@ -16,10 +12,7 @@ const ModelFields = {
   group_by_name: {},
   group_by_parent_id: {},
   group_by_vat: {},
-  maximum_group: {
-    readonly: [['state', 'in', 'finished']]
-  },
-
+  maximum_group: { readonly: [['state', 'in', 'finished']] },
   number_group: {},
   partner_ids: {},
   state: {}

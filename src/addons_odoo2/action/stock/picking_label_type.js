@@ -6,9 +6,7 @@ export default {
     arch: {
       sheet: {
         _group: {
-          label_type: {
-            widget: 'radio'
-          }
+          label_type: { widget: 'radio' }
         },
         _footer: {
           _button_process: {

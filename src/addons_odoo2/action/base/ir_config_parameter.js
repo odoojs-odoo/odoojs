@@ -4,9 +4,7 @@ export default {
     model: 'ir.config_parameter',
     type: 'search',
     arch: {
-      key: {
-        string: 'Key'
-      },
+      key: { string: 'Key' },
       value: {}
     }
   },

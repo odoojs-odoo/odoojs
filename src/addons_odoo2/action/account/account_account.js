@@ -19,16 +19,12 @@ export default {
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_stat_info'
-              },
+              _attr: { class: 'o_stat_info' },
               _span: {
-                _attr: {
-                  class: 'o_stat_value'
-                },
+                _attr: { class: 'o_stat_value' },
                 related_taxes_amount: {}
               },
-              _span_314: {
+              _span_931: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Taxes'
@@ -44,16 +40,12 @@ export default {
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_stat_info'
-              },
+              _attr: { class: 'o_stat_info' },
               _span: {
-                _attr: {
-                  class: 'o_stat_value'
-                },
+                _attr: { class: 'o_stat_value' },
                 current_balance: {}
               },
-              _span_187: {
+              _span_906: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Balance'
@@ -62,19 +54,13 @@ export default {
             }
           }
         },
-        company_id: {
-          invisible: '1'
-        },
+        company_id: { invisible: '1' },
         _div: {
           _h1: {
             _div: {
-              _attr: {
-                class: 'row'
-              },
+              _attr: { class: 'row' },
               _div: {
-                _attr: {
-                  class: 'col col-md-auto'
-                },
+                _attr: { class: 'col col-md-auto' },
                 _label_code: {
                   for: 'code',
                   string: 'Code'
@@ -86,10 +72,8 @@ export default {
                   }
                 }
               },
-              _div_738: {
-                _attr: {
-                  class: 'col col-md-8'
-                },
+              _div_200: {
+                _attr: { class: 'col col-md-8' },
                 _label_name: {
                   for: 'name',
                   string: 'Account Name'
@@ -102,9 +86,7 @@ export default {
                 }
               }
             },
-            company_id: {
-              invisible: '1'
-            }
+            company_id: { invisible: '1' }
           }
         },
         _notebook: {
@@ -115,34 +97,26 @@ export default {
             },
             _group: {
               _group: {
-                account_type: {
-                  widget: 'account_type_selection'
-                },
+                account_type: { widget: 'account_type_selection' },
                 tax_ids: {
                   widget: 'many2many_tags',
-                  domain: {
-                    todo_ctx: "[('company_id','=',company_id)]"
-                  },
+                  domain: { todo_ctx: "[('company_id','=',company_id)]" },
                   invisible: [['internal_group', '=', 'off_balance']],
                   no_quick_create: true
                 },
                 tag_ids: {
                   widget: 'many2many_tags',
                   domain: [['applicability', '=', 'accounts']],
-                  context: {
-                    default_applicability: 'accounts'
-                  },
+                  context: { default_applicability: 'accounts' },
                   no_create_edit: true
                 },
                 allowed_journal_ids: {
                   widget: 'many2many_tags',
-                  domain: {
-                    todo_ctx: "[('company_id','=',company_id)]"
-                  },
+                  domain: { todo_ctx: "[('company_id','=',company_id)]" },
                   no_create_edit: true
                 }
               },
-              _group_417: {
+              _group_710: {
                 internal_group: {
                   invisible: '1',
                   readonly: '1'
@@ -171,20 +145,12 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        company_id: {
-          invisible: '1'
-        },
+        company_id: { invisible: '1' },
         code: {},
         name: {},
-        account_type: {
-          widget: 'account_type_selection'
-        },
-        group_id: {
-          optional: 'hide'
-        },
-        internal_group: {
-          invisible: '1'
-        },
+        account_type: { widget: 'account_type_selection' },
+        group_id: { optional: 'hide' },
+        internal_group: { invisible: '1' },
         reconcile: {
           widget: 'boolean_toggle',
           invisible: ['|', ['account_type', 'in', ('asset_cash', 'liability_credit_card')], ['internal_group', '=', 'off_balance']]
@@ -210,7 +176,7 @@ export default {
           groups: 'base.group_multi_currency',
           no_create: true
         },
-        _field_company_id_835: {
+        _field_company_id_864: {
           company_id: {
             groups: 'base.group_multi_company',
             no_create: true
@@ -242,9 +208,7 @@ export default {
     arch: {
       name: {
         string: 'Account',
-        filter_domain: {
-          todo_ctx: "['|', ('name','ilike',self), ('code','ilike',self)]"
-        }
+        filter_domain: { todo_ctx: "['|', ('name','ilike',self), ('code','ilike',self)]" }
       },
       _filter_receivableacc: {
         _attr: {
@@ -310,26 +274,20 @@ export default {
           domain: [['deprecated', '=', false]]
         }
       },
-      _separator_290: {},
+      _separator_125: {},
       account_type: {},
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_accounttype: {
           _attr: {
             name: 'accounttype',
             string: 'Account Type',
-            context: {
-              group_by: 'account_type'
-            }
+            context: { group_by: 'account_type' }
           }
         }
       },
       _searchpanel: {
-        _attr: {
-          class: 'account_root'
-        },
+        _attr: { class: 'account_root' },
         root_id: {}
       }
     }
@@ -340,9 +298,7 @@ export default {
     name: 'Chart of Accounts',
     res_model: 'account.account',
     search_view_id: 'view_account_search',
-    context: {
-      search_default_activeacc: true
-    },
+    context: { search_default_activeacc: true },
     views: {
       tree: 'view_account_list',
       form: '=======todo=========='
@@ -363,20 +319,12 @@ export default {
       sheet: {
         code: {},
         name: {},
-        company_id: {
-          invisible: '1'
-        },
-        account_type: {
-          widget: 'account_type_selection'
-        },
-        reconcile: {
-          widget: 'boolean_toggle'
-        },
+        company_id: { invisible: '1' },
+        account_type: { widget: 'account_type_selection' },
+        reconcile: { widget: 'boolean_toggle' },
         opening_debit: {},
         opening_credit: {},
-        opening_balance: {
-          optional: 'hide'
-        },
+        opening_balance: { optional: 'hide' },
         tax_ids: {
           widget: 'many2many_tags',
           optional: 'hide'

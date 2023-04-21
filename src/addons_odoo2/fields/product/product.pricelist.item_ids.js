@@ -6,27 +6,16 @@ const ModelFields = {
   currency_id: {},
   date_end: {},
   date_start: {},
-  fixed_price: {
-    string: 'Price'
-  },
-
+  fixed_price: { string: 'Price' },
   min_quantity: {},
-  name: {
-    string: 'Applicable On'
-  },
-
-  price: {
-    string: 'Price'
-  },
-
+  name: { string: 'Applicable On' },
+  price: { string: 'Price' },
   price_discount: {},
   pricelist_id: {},
   product_id: {
     string: 'Variants',
     groups: 'product.group_product_variant',
-    domain: {
-      todo_ctx: "[('product_tmpl_id', '=', product_tmpl_id)]"
-    }
+    domain: { todo_ctx: "[('product_tmpl_id', '=', product_tmpl_id)]" }
   },
 
   product_tmpl_id: {

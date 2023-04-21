@@ -10,9 +10,7 @@ export default {
           name: 'group_by_channel',
           string: 'Channel',
           domain: [],
-          context: {
-            group_by: 'channel_id'
-          }
+          context: { group_by: 'channel_id' }
         }
       }
     }
@@ -48,26 +46,20 @@ export default {
     arch: {
       sheet: {
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _h1: {
             channel_member_id: {}
           }
         },
         _group: {
           _group: {
-            _attr: {
-              string: 'Identity'
-            },
+            _attr: { string: 'Identity' },
             channel_id: {},
             partner_id: {},
             guest_id: {}
           },
-          _group_244: {
-            _attr: {
-              string: 'State'
-            },
+          _group_395: {
+            _attr: { string: 'State' },
             is_screen_sharing_on: {},
             is_camera_on: {},
             is_muted: {},
@@ -83,9 +75,7 @@ export default {
     name: 'RTC sessions',
     res_model: 'mail.channel.rtc.session',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      search_default_group_by_channel: true
-    },
+    context: { search_default_group_by_channel: true },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

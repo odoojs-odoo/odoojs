@@ -6,9 +6,7 @@ export default {
     arch: {
       sheet: {
         _div: {
-          _attr: {
-            class: 'alert alert-warning oe_button_box'
-          },
+          _attr: { class: 'alert alert-warning oe_button_box' },
           _p: {
             _attr: {
               class: 'mt-3',
@@ -16,23 +14,15 @@ export default {
             }
           }
         },
-        module_id: {
-          invisible: '1'
-        },
-        _div_200: {
-          _attr: {
-            class: 'd-flex bd-highlight'
-          },
+        module_id: { invisible: '1' },
+        _div_979: {
+          _attr: { class: 'd-flex bd-highlight' },
           _div: {
-            _attr: {
-              class: 'me-auto p-2 bd-highlight'
-            },
+            _attr: { class: 'me-auto p-2 bd-highlight' },
             _h3: 'Apps to Uninstall'
           },
-          _div_933: {
-            _attr: {
-              class: 'p-2 bd-highlight'
-            },
+          _div_234: {
+            _attr: { class: 'p-2 bd-highlight' },
             show_all: {}
           }
         },
@@ -42,45 +32,29 @@ export default {
             kanban: {
               arch: {
                 sheet: {
-                  _attr: {
-                    class: 'o_modules_kanban'
-                  },
+                  _attr: { class: 'o_modules_kanban' },
                   icon: {},
                   state: {},
                   summary: {},
                   _templates: {
                     _t: {
                       _div: {
-                        _attr: {
-                          class: 'oe_module_vignette'
-                        },
+                        _attr: { class: 'oe_module_vignette' },
                         _t: {},
                         _img: {
-                          _attr: {
-                            class: 'oe_module_icon'
-                          }
+                          _attr: { class: 'oe_module_icon' }
                         },
                         _div: {
-                          _attr: {
-                            class: 'oe_module_desc'
-                          },
+                          _attr: { class: 'oe_module_desc' },
                           _h4: {
-                            _attr: {
-                              class: 'o_kanban_record_title'
-                            },
+                            _attr: { class: 'o_kanban_record_title' },
                             shortdesc: {}
                           },
                           _p: {
-                            _attr: {
-                              class: 'oe_module_name'
-                            },
-                            summary: {
-                              groups: '!base.group_no_one'
-                            },
+                            _attr: { class: 'oe_module_name' },
+                            summary: { groups: '!base.group_no_one' },
                             _code: {
-                              _attr: {
-                                groups: 'base.group_no_one'
-                              },
+                              _attr: { groups: 'base.group_no_one' },
                               name: {}
                             }
                           }
@@ -100,12 +74,8 @@ export default {
             tree: {
               arch: {
                 sheet: {
-                  _attr: {
-                    string: 'Models'
-                  },
-                  name: {
-                    string: 'Document'
-                  },
+                  _attr: { string: 'Models' },
+                  name: { string: 'Document' },
                   count: {}
                 }
               }

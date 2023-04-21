@@ -6,13 +6,11 @@ export default {
     arch: {
       sheet: {
         _group_main_group: {
-          _attr: {
-            name: 'main_group'
-          },
+          _attr: { name: 'main_group' },
           _group: {
             name: {}
           },
-          _group_188: {
+          _group_336: {
             type_tax_use: {}
           }
         },
@@ -23,9 +21,7 @@ export default {
               string: 'Definition'
             },
             _group_tax_definitions: {
-              _attr: {
-                name: 'tax_definitions'
-              },
+              _attr: { name: 'tax_definitions' },
               _group: {
                 amount_type: {},
                 _label_amount: {
@@ -33,12 +29,8 @@ export default {
                   invisible: [['amount_type', '=', 'group']]
                 },
                 _div: {
-                  _attr: {
-                    invisible: [['amount_type', '=', 'group']]
-                  },
-                  amount: {
-                    class: 'oe_inline'
-                  },
+                  _attr: { invisible: [['amount_type', '=', 'group']] },
+                  amount: { class: 'oe_inline' },
                   _span: {
                     _attr: {
                       invisible: [['amount_type', '=', 'fixed']],
@@ -50,20 +42,14 @@ export default {
               }
             },
             children_tax_ids: {
-              domain: {
-                todo_ctx: "[('type_tax_use','in',('none',type_tax_use)), ('amount_type','!=','group')]"
-              },
+              domain: { todo_ctx: "[('type_tax_use','in',('none',type_tax_use)), ('amount_type','!=','group')]" },
               invisible: ['|', ['amount_type', '!=', 'group'], ['type_tax_use', '=', 'none']],
               views: {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Children Taxes'
-                      },
-                      sequence: {
-                        widget: 'handle'
-                      },
+                      _attr: { string: 'Children Taxes' },
+                      sequence: { widget: 'handle' },
                       name: {},
                       amount_type: {},
                       amount: {}
@@ -79,39 +65,23 @@ export default {
               string: 'Advanced Options'
             },
             _group_advanced_definitions: {
-              _attr: {
-                name: 'advanced_definitions'
-              },
+              _attr: { name: 'advanced_definitions' },
               _group: {
-                description: {
-                  invisible: [['amount_type', '=', 'group']]
-                },
+                description: { invisible: [['amount_type', '=', 'group']] },
                 analytic: {
                   groups: 'analytic.group_analytic_accounting',
                   invisible: [['amount_type', '=', 'group']]
                 }
               },
               _group_price_definitions: {
-                _attr: {
-                  name: 'price_definitions'
-                },
-                price_include: {
-                  invisible: [['amount_type', '=', 'group']]
-                },
-                include_base_amount: {
-                  invisible: [['amount_type', '=', 'group']]
-                },
-                is_base_affected: {
-                  invisible: ['|', ['amount_type', '=', 'group'], ['price_include', '=', true]]
-                }
+                _attr: { name: 'price_definitions' },
+                price_include: { invisible: [['amount_type', '=', 'group']] },
+                include_base_amount: { invisible: [['amount_type', '=', 'group']] },
+                is_base_affected: { invisible: ['|', ['amount_type', '=', 'group'], ['price_include', '=', true]] }
               },
               _group_tax_configuration: {
-                _attr: {
-                  name: 'tax_configuration'
-                },
-                active: {
-                  groups: 'base.group_no_one'
-                },
+                _attr: { name: 'tax_configuration' },
+                active: { groups: 'base.group_no_one' },
                 tax_exigibility: {
                   widget: 'radio',
                   invisible: [['amount_type', '=', 'group']]
@@ -147,9 +117,7 @@ export default {
     arch: {
       name: {
         string: 'Tax Template',
-        filter_domain: {
-          todo_ctx: "['|', ('name', 'ilike', self), ('description', 'ilike', self)]"
-        }
+        filter_domain: { todo_ctx: "['|', ('name', 'ilike', self), ('description', 'ilike', self)]" }
       },
       chart_template_id: {},
       _filter_sale: {

@@ -6,12 +6,8 @@ export default {
     arch: {
       sheet: {
         _group: {
-          move_id: {
-            invisible: '1'
-          },
-          product_id: {
-            readonly: '1'
-          },
+          move_id: { invisible: '1' },
+          product_id: { readonly: '1' },
           next_serial_number: {},
           next_serial_count: {}
         },
@@ -25,9 +21,7 @@ export default {
             }
           },
           _button: {
-            _attr: {
-              string: 'Cancel'
-            }
+            _attr: { string: 'Cancel' }
           }
         }
       }

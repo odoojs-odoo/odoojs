@@ -1,8 +1,5 @@
 const ModelFields = {
-  failure_type: {
-    string: 'Reason'
-  },
-
+  failure_type: { string: 'Reason' },
   notification_id: {},
   partner_name: {},
   resend: {},

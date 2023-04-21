@@ -11,16 +11,10 @@ export default {
             position: 'before'
           },
           _page: {
-            _attr: {
-              string: 'Vendors'
-            },
-            supplierinfo_id: {
-              invisible: '1'
-            },
+            _attr: { string: 'Vendors' },
+            supplierinfo_id: { invisible: '1' },
             supplierinfo_ids: {
-              context: {
-                tree_view_ref: 'purchase_stock.product_supplierinfo_replenishment_tree_view'
-              },
+              context: { tree_view_ref: 'purchase_stock.product_supplierinfo_replenishment_tree_view' },
               readonly: '1'
             }
           }

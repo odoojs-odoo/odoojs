@@ -16,7 +16,7 @@ export default {
             write_date: {},
             create_date: {}
           },
-          _group_779: {
+          _group_381: {
             display_name: {},
             model: {},
             res_id: {},
@@ -38,12 +38,8 @@ export default {
       sheet: {
         complete_name: {},
         display_name: {},
-        model: {
-          groups: 'base.group_no_one'
-        },
-        module: {
-          invisible: '1'
-        },
+        model: { groups: 'base.group_no_one' },
+        module: { invisible: '1' },
         res_id: {}
       }
     }
@@ -56,9 +52,7 @@ export default {
     arch: {
       name: {
         string: 'External Identifier',
-        filter_domain: {
-          todo_ctx: "[('name','ilike',self)]"
-        }
+        filter_domain: { todo_ctx: "[('name','ilike',self)]" }
       },
       _filter_updatable: {
         _attr: {
@@ -72,17 +66,13 @@ export default {
       res_id: {},
       noupdate: {},
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_group_by_module: {
           _attr: {
             name: 'group_by_module',
             string: 'Module',
             domain: [],
-            context: {
-              group_by: 'module'
-            }
+            context: { group_by: 'module' }
           }
         },
         _filter_group_by_object: {
@@ -90,9 +80,7 @@ export default {
             name: 'group_by_object',
             string: 'Model',
             domain: [],
-            context: {
-              group_by: 'model'
-            }
+            context: { group_by: 'model' }
           }
         }
       }

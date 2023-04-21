@@ -13,12 +13,8 @@ export default {
             }
           },
           _group: {
-            inventory_adjustment_name: {
-              string: 'Inventory Reference / Reason'
-            },
-            show_info: {
-              invisible: '1'
-            }
+            inventory_adjustment_name: { string: 'Inventory Reference / Reason' },
+            show_info: { invisible: '1' }
           }
         },
         _footer: {
@@ -48,9 +44,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'stock.inventory.adjustment.name',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      todo_ctx: "{\n            'default_quant_ids': active_ids\n        }"
-    },
+    context: { todo_ctx: "{\n            'default_quant_ids': active_ids\n        }" },
     views: {
       tree: 'stock_inventory_adjustment_name_form_view',
       form: '=======todo=========='

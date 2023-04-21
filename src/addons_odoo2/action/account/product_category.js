@@ -11,9 +11,7 @@ export default {
             position: 'after'
           },
           _group_account_property: {
-            _attr: {
-              name: 'account_property'
-            },
+            _attr: { name: 'account_property' },
             _group: {
               _attr: {
                 string: 'Account Properties',

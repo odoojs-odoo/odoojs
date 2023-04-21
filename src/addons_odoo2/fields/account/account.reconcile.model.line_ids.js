@@ -2,10 +2,7 @@ const ModelFields = {
   account_id: {},
   amount_string: {},
   amount_type: {},
-  analytic_distribution: {
-    groups: 'analytic.group_analytic_accounting'
-  },
-
+  analytic_distribution: { groups: 'analytic.group_analytic_accounting' },
   company_id: {},
   force_tax_included: {},
   journal_id: {},

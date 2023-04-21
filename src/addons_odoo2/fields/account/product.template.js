@@ -3,14 +3,8 @@ const ModelFields = {
   default_code: {},
   list_price: {},
   name: {},
-  property_account_expense_id: {
-    groups: 'account.group_account_readonly'
-  },
-
-  property_account_income_id: {
-    groups: 'account.group_account_readonly'
-  },
-
+  property_account_expense_id: { groups: 'account.group_account_readonly' },
+  property_account_income_id: { groups: 'account.group_account_readonly' },
   supplier_taxes_id: {
     context: {
       default_type_tax_use: 'purchase',

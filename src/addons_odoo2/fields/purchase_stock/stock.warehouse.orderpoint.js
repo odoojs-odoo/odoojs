@@ -1,8 +1,6 @@
 const ModelFields = {
   show_supplier: {},
-  supplier_id: {
-    string: 'Vendor'
-  }
+  supplier_id: { string: 'Vendor' }
 }
 
 const AddonsFields = {

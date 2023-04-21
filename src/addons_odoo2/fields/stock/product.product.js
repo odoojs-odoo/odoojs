@@ -1,23 +1,14 @@
 const ModelFields = {
   categ_id: {},
-  display_name: {
-    string: 'Product'
-  },
-
-  free_qty: {
-    string: 'Free to Use'
-  },
-
+  display_name: { string: 'Product' },
+  free_qty: { string: 'Free to Use' },
   id: {},
   incoming_qty: {},
   nbr_moves_in: {},
   nbr_moves_out: {},
   nbr_reordering_rules: {},
   outgoing_qty: {},
-  qty_available: {
-    string: 'On Hand'
-  },
-
+  qty_available: { string: 'On Hand' },
   reordering_max_qty: {},
   reordering_min_qty: {},
   show_forecasted_qty_status_button: {},
@@ -30,9 +21,7 @@ const ModelFields = {
   },
 
   uom_name: {},
-  virtual_available: {
-    string: 'Forecasted'
-  }
+  virtual_available: { string: 'Forecasted' }
 }
 
 const AddonsFields = {

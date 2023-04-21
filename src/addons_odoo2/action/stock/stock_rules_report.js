@@ -6,16 +6,10 @@ export default {
     arch: {
       sheet: {
         _group: {
-          product_tmpl_id: {
-            invisible: '1'
-          },
-          product_has_variants: {
-            invisible: '1'
-          },
+          product_tmpl_id: { invisible: '1' },
+          product_has_variants: { invisible: '1' },
           product_id: {
-            domain: {
-              todo_ctx: "[('product_tmpl_id', '=', product_tmpl_id)]"
-            },
+            domain: { todo_ctx: "[('product_tmpl_id', '=', product_tmpl_id)]" },
             readonly: [['product_has_variants', '=', false]],
             no_create: true
           },

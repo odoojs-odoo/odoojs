@@ -6,14 +6,10 @@ export default {
     arch: {
       sheet: {
         _group: {
-          quant_ids: {
-            invisible: '1'
-          },
+          quant_ids: { invisible: '1' },
           inventory_date: {},
           user_id: {},
-          set_count: {
-            widget: 'radio'
-          }
+          set_count: { widget: 'radio' }
         },
         _footer: {
           _button_action_request_count: {
@@ -41,9 +37,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'stock.request.count',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      todo_ctx: "{\n            'default_quant_ids': active_ids\n        }"
-    },
+    context: { todo_ctx: "{\n            'default_quant_ids': active_ids\n        }" },
     views: {
       tree: 'stock_inventory_request_count_form_view',
       form: '=======todo=========='

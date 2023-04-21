@@ -5,9 +5,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {},
         type_tax_use: {},
         tax_scope: {},
@@ -16,12 +14,8 @@ export default {
           groups: 'base.group_multi_company',
           no_create: true
         },
-        country_id: {
-          optional: 'hide'
-        },
-        active: {
-          widget: 'boolean_toggle'
-        }
+        country_id: { optional: 'hide' },
+        active: { widget: 'boolean_toggle' }
       }
     }
   },
@@ -55,9 +49,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        display_name: {
-          string: 'name'
-        },
+        display_name: { string: 'name' },
         description: {}
       }
     }
@@ -75,12 +67,8 @@ export default {
     model: 'account.tax',
     type: 'search',
     arch: {
-      name_searchable: {
-        string: 'Name'
-      },
-      company_id: {
-        groups: 'base.group_multi_company'
-      },
+      name_searchable: { string: 'Name' },
+      company_id: { groups: 'base.group_multi_company' },
       _filter_sale: {
         _attr: {
           name: 'sale',
@@ -110,7 +98,7 @@ export default {
           domain: [['tax_scope', '=', 'consu']]
         }
       },
-      _separator_256: {},
+      _separator_986: {},
       _filter_active: {
         _attr: {
           name: 'active',
@@ -128,18 +116,14 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_company: {
           _attr: {
             name: 'company',
             string: 'Company',
             groups: 'base.group_multi_company',
             domain: [],
-            context: {
-              group_by: 'company_id'
-            }
+            context: { group_by: 'company_id' }
           }
         },
         _filter_taxapp: {
@@ -147,19 +131,15 @@ export default {
             name: 'taxapp',
             string: 'Tax Type',
             domain: [],
-            context: {
-              group_by: 'type_tax_use'
-            }
+            context: { group_by: 'type_tax_use' }
           }
         },
-        _filter_taxapp_836: {
+        _filter_taxapp_520: {
           _attr: {
             name: 'taxapp',
             string: 'Tax Scope',
             domain: [],
-            context: {
-              group_by: 'tax_scope'
-            }
+            context: { group_by: 'tax_scope' }
           }
         }
       }
@@ -173,13 +153,9 @@ export default {
     arch: {
       name: {
         string: 'Tax',
-        filter_domain: {
-          todo_ctx: "['|', ('name','ilike',self), ('description','ilike',self)]"
-        }
+        filter_domain: { todo_ctx: "['|', ('name','ilike',self), ('description','ilike',self)]" }
       },
-      company_id: {
-        groups: 'base.group_multi_company'
-      }
+      company_id: { groups: 'base.group_multi_company' }
     }
   },
 
@@ -189,18 +165,14 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        company_id: {
-          invisible: '1'
-        },
+        company_id: { invisible: '1' },
         _group: {
           _group: {
             name: {},
             amount_type: {},
-            active: {
-              widget: 'boolean_toggle'
-            }
+            active: { widget: 'boolean_toggle' }
           },
-          _group_535: {
+          _group_913: {
             type_tax_use: {},
             tax_scope: {},
             _label_amount: {
@@ -208,12 +180,8 @@ export default {
               invisible: [['amount_type', 'not in', ('fixed', 'percent', 'division')]]
             },
             _div: {
-              _attr: {
-                invisible: [['amount_type', 'not in', ('fixed', 'percent', 'division')]]
-              },
-              amount: {
-                class: 'oe_inline'
-              },
+              _attr: { invisible: [['amount_type', 'not in', ('fixed', 'percent', 'division')]] },
+              amount: { class: 'oe_inline' },
               _span: {
                 _attr: {
                   invisible: [['amount_type', '=', 'fixed']],
@@ -231,40 +199,26 @@ export default {
               string: 'Definition'
             },
             _div: {
-              _attr: {
-                invisible: [['amount_type', '=', 'group']]
-              },
-              country_code: {
-                invisible: '1'
-              },
+              _attr: { invisible: [['amount_type', '=', 'group']] },
+              country_code: { invisible: '1' },
               _group: {
-                _attr: {
-                  string: 'Distribution for Invoices'
-                },
+                _attr: { string: 'Distribution for Invoices' },
                 invoice_repartition_line_ids: {}
               },
-              _group_900: {
-                _attr: {
-                  string: 'Distribution for Refunds'
-                },
+              _group_157: {
+                _attr: { string: 'Distribution for Refunds' },
                 refund_repartition_line_ids: {}
               }
             },
             children_tax_ids: {
-              domain: {
-                todo_ctx: "[('type_tax_use','in',('none',type_tax_use)), ('amount_type','!=','group')]"
-              },
+              domain: { todo_ctx: "[('type_tax_use','in',('none',type_tax_use)), ('amount_type','!=','group')]" },
               invisible: ['|', ['amount_type', '!=', 'group'], ['type_tax_use', '=', 'none']],
               views: {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Children Taxes'
-                      },
-                      sequence: {
-                        widget: 'handle'
-                      },
+                      _attr: { string: 'Children Taxes' },
+                      sequence: { widget: 'handle' },
                       name: {},
                       amount_type: {},
                       amount: {}
@@ -281,9 +235,7 @@ export default {
             },
             _group: {
               _group: {
-                description: {
-                  invisible: [['amount_type', '=', 'group']]
-                },
+                description: { invisible: [['amount_type', '=', 'group']] },
                 tax_group_id: {
                   invisible: [['amount_type', '=', 'group']],
                   required: [['amount_type', '!=', 'group']]
@@ -296,27 +248,17 @@ export default {
                   groups: 'base.group_multi_company',
                   no_create: true
                 },
-                country_id: {
-                  required: 'True'
-                }
+                country_id: { required: 'True' }
               },
               _group_advanced_booleans: {
-                _attr: {
-                  name: 'advanced_booleans'
-                },
-                price_include: {
-                  invisible: [['amount_type', '=', 'group']]
-                },
-                include_base_amount: {
-                  invisible: [['amount_type', '=', 'group']]
-                },
+                _attr: { name: 'advanced_booleans' },
+                price_include: { invisible: [['amount_type', '=', 'group']] },
+                include_base_amount: { invisible: [['amount_type', '=', 'group']] },
                 is_base_affected: {
                   groups: 'base.group_no_one',
                   invisible: ['|', ['amount_type', '=', 'group'], ['price_include', '=', true]]
                 },
-                hide_tax_exigibility: {
-                  invisible: '1'
-                },
+                hide_tax_exigibility: { invisible: '1' },
                 tax_exigibility: {
                   widget: 'radio',
                   groups: 'account.group_account_readonly',

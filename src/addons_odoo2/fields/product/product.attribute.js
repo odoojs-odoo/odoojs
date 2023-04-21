@@ -1,8 +1,5 @@
 const ModelFields = {
-  create_variant: {
-    readonly: [['number_related_products', '!=', 0]]
-  },
-
+  create_variant: { readonly: [['number_related_products', '!=', 0]] },
   display_type: {},
   name: {},
   number_related_products: {},

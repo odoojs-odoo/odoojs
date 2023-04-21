@@ -6,7 +6,7 @@ export default {
     arch: {
       sheet: {
         _br: {},
-        _br_735: {},
+        _br_983: {},
         _footer: {
           _button_send_sms: {
             _attr: {
@@ -25,9 +25,7 @@ export default {
             }
           },
           _button: {
-            _attr: {
-              string: 'Cancel'
-            }
+            _attr: { string: 'Cancel' }
           }
         }
       }

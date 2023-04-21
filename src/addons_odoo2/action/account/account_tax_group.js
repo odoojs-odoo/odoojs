@@ -7,17 +7,13 @@ export default {
       name: {},
       country_id: {},
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_group_by_country: {
           _attr: {
             name: 'group_by_country',
             string: 'Country',
             domain: [],
-            context: {
-              group_by: 'country_id'
-            }
+            context: { group_by: 'country_id' }
           }
         }
       }
@@ -30,32 +26,20 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {},
         country_id: {},
-        country_code: {
-          invisible: 'True'
-        },
+        country_code: { invisible: 'True' },
         property_tax_payable_account_id: {
-          domain: {
-            todo_ctx: "[('company_id', '=', context['force_account_company'])] if context.get('force_account_company') else []"
-          }
+          domain: { todo_ctx: "[('company_id', '=', context['force_account_company'])] if context.get('force_account_company') else []" }
         },
         property_tax_receivable_account_id: {
-          domain: {
-            todo_ctx: "[('company_id', '=', context['force_account_company'])] if context.get('force_account_company') else []"
-          }
+          domain: { todo_ctx: "[('company_id', '=', context['force_account_company'])] if context.get('force_account_company') else []" }
         },
         property_advance_tax_payment_account_id: {
-          domain: {
-            todo_ctx: "[('company_id', '=', context['force_account_company'])] if context.get('force_account_company') else []"
-          }
+          domain: { todo_ctx: "[('company_id', '=', context['force_account_company'])] if context.get('force_account_company') else []" }
         },
-        preceding_subtotal: {
-          optional: 'hide'
-        }
+        preceding_subtotal: { optional: 'hide' }
       }
     }
   },
@@ -72,7 +56,7 @@ export default {
             country_id: {},
             sequence: {}
           },
-          _group_295: {
+          _group_339: {
             property_tax_payable_account_id: {},
             property_tax_receivable_account_id: {},
             property_advance_tax_payment_account_id: {},

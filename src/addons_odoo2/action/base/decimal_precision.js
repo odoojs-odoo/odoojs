@@ -6,9 +6,7 @@ export default {
     arch: {
       sheet: {
         _group: {
-          name: {
-            readonly: [['id', '!=', false]]
-          },
+          name: { readonly: [['id', '!=', false]] },
           digits: {}
         }
       }

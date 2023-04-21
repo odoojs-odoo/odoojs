@@ -4,25 +4,17 @@ const ModelFields = {
     readonly: '1'
   },
 
-  currency_id: {
-    groups: 'base.group_multi_currency'
-  },
-
+  currency_id: { groups: 'base.group_multi_currency' },
   date_end: {},
   date_start: {},
   delay: {},
   min_qty: {},
   partner_id: {
-    context: {
-      res_partner_search_mode: 'supplier'
-    },
+    context: { res_partner_search_mode: 'supplier' },
     readonly: '1'
   },
 
-  price: {
-    string: 'Price'
-  },
-
+  price: { string: 'Price' },
   product_code: {},
   product_id: {
     groups: 'product.group_product_variant',
@@ -35,10 +27,7 @@ const ModelFields = {
     readonly: '1'
   },
 
-  product_uom: {
-    groups: 'uom.group_uom'
-  },
-
+  product_uom: { groups: 'uom.group_uom' },
   product_variant_count: {},
   sequence: {}
 }

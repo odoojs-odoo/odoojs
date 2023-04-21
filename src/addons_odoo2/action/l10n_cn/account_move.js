@@ -10,12 +10,8 @@ export default {
             expr: "//field[@name='ref']",
             position: 'after'
           },
-          move_type: {
-            invisible: '1'
-          },
-          fapiao: {
-            invisible: ['|', ['country_code', '!=', 'CN'], ['move_type', 'not in', ['out_invoice', 'out_refund', 'in_invoice', 'in_refund']]]
-          }
+          move_type: { invisible: '1' },
+          fapiao: { invisible: ['|', ['country_code', '!=', 'CN'], ['move_type', 'not in', ['out_invoice', 'out_refund', 'in_invoice', 'in_refund']]] }
         }
       }
     }

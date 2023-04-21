@@ -5,9 +5,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {},
         display_type: {},
         create_variant: {}
@@ -21,9 +19,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        number_related_products: {
-          invisible: '1'
-        },
+        number_related_products: { invisible: '1' },
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -38,16 +34,12 @@ export default {
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_stat_info'
-              },
+              _attr: { class: 'o_stat_info' },
               _span: {
-                _attr: {
-                  class: 'o_stat_value'
-                },
+                _attr: { class: 'o_stat_value' },
                 number_related_products: {}
               },
-              _span_747: {
+              _span_800: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Related Products'
@@ -66,9 +58,7 @@ export default {
             string: 'Attribute Name'
           },
           name: {},
-          display_type: {
-            widget: 'radio'
-          },
+          display_type: { widget: 'radio' },
           create_variant: {
             widget: 'radio',
             readonly: [['number_related_products', '!=', 0]]
@@ -86,19 +76,11 @@ export default {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Values'
-                      },
-                      sequence: {
-                        widget: 'handle'
-                      },
+                      _attr: { string: 'Values' },
+                      sequence: { widget: 'handle' },
                       name: {},
-                      display_type: {
-                        invisible: '1'
-                      },
-                      is_custom: {
-                        groups: 'product.group_product_variant'
-                      },
+                      display_type: { invisible: '1' },
+                      is_custom: { groups: 'product.group_product_variant' },
                       html_color: {
                         widget: 'color',
                         column_invisible: [['parent.display_type', '!=', 'color']]

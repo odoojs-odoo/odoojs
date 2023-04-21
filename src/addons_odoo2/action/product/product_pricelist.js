@@ -4,12 +4,8 @@ export default {
     model: 'product.pricelist',
     type: 'search',
     arch: {
-      name: {
-        string: 'Products Price'
-      },
-      currency_id: {
-        groups: 'base.group_multi_currency'
-      },
+      name: { string: 'Products Price' },
+      currency_id: { groups: 'base.group_multi_currency' },
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -26,19 +22,11 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {},
-        discount_policy: {
-          groups: 'product.group_discount_per_so_line'
-        },
-        currency_id: {
-          groups: 'base.group_multi_currency'
-        },
-        company_id: {
-          groups: 'base.group_multi_company'
-        }
+        discount_policy: { groups: 'product.group_discount_per_so_line' },
+        currency_id: { groups: 'base.group_multi_currency' },
+        company_id: { groups: 'base.group_multi_company' }
       }
     }
   },
@@ -65,26 +53,16 @@ export default {
           }
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _h1: {
-            name: {
-              placeholder: 'e.g. USD Retailers'
-            }
+            name: { placeholder: 'e.g. USD Retailers' }
           }
         },
         _group: {
           _group_pricelist_settings: {
-            _attr: {
-              name: 'pricelist_settings'
-            },
-            currency_id: {
-              groups: 'base.group_multi_currency'
-            },
-            active: {
-              invisible: '1'
-            },
+            _attr: { name: 'pricelist_settings' },
+            currency_id: { groups: 'base.group_multi_currency' },
+            active: { invisible: '1' },
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
@@ -98,9 +76,7 @@ export default {
               string: 'Price Rules'
             },
             item_ids: {
-              context: {
-                default_base: 'list_price'
-              },
+              context: { default_base: 'list_price' },
               views: {
                 tree: {
                   arch: {
@@ -116,66 +92,38 @@ export default {
                       product_id: {
                         string: 'Variants',
                         groups: 'product.group_product_variant',
-                        domain: {
-                          todo_ctx: "[('product_tmpl_id', '=', product_tmpl_id)]"
-                        },
+                        domain: { todo_ctx: "[('product_tmpl_id', '=', product_tmpl_id)]" },
                         no_create: 1
                       },
                       min_quantity: {},
-                      fixed_price: {
-                        string: 'Price'
-                      },
-                      currency_id: {
-                        invisible: '1'
-                      },
-                      pricelist_id: {
-                        invisible: '1'
-                      },
+                      fixed_price: { string: 'Price' },
+                      currency_id: { invisible: '1' },
+                      pricelist_id: { invisible: '1' },
                       date_start: {},
                       date_end: {},
-                      base: {
-                        invisible: '1'
-                      },
-                      applied_on: {
-                        invisible: '1'
-                      },
-                      company_id: {
-                        invisible: '1'
-                      }
+                      base: { invisible: '1' },
+                      applied_on: { invisible: '1' },
+                      company_id: { invisible: '1' }
                     }
                   }
                 },
-                todoview___tree_704: {
+                todoview___tree_617: {
                   arch: {
                     sheet: {
                       _attr: {
                         string: 'Pricelist Rules',
                         groups: 'product.group_sale_pricelist'
                       },
-                      product_tmpl_id: {
-                        invisible: '1'
-                      },
-                      name: {
-                        string: 'Applicable On'
-                      },
+                      product_tmpl_id: { invisible: '1' },
+                      name: { string: 'Applicable On' },
                       min_quantity: {},
-                      price: {
-                        string: 'Price'
-                      },
+                      price: { string: 'Price' },
                       date_start: {},
                       date_end: {},
-                      base: {
-                        invisible: '1'
-                      },
-                      price_discount: {
-                        invisible: '1'
-                      },
-                      applied_on: {
-                        invisible: '1'
-                      },
-                      compute_price: {
-                        invisible: '1'
-                      }
+                      base: { invisible: '1' },
+                      price_discount: { invisible: '1' },
+                      applied_on: { invisible: '1' },
+                      compute_price: { invisible: '1' }
                     }
                   }
                 }
@@ -193,9 +141,7 @@ export default {
                   name: 'pricelist_availability',
                   string: 'Availability'
                 },
-                country_group_ids: {
-                  widget: 'many2many_tags'
-                }
+                country_group_ids: { widget: 'many2many_tags' }
               },
               _group_pricelist_discounts: {
                 _attr: {
@@ -203,9 +149,7 @@ export default {
                   string: 'Discounts',
                   groups: 'product.group_discount_per_so_line'
                 },
-                discount_policy: {
-                  widget: 'radio'
-                }
+                discount_policy: { widget: 'radio' }
               }
             }
           }
@@ -220,9 +164,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'product.pricelist',
     search_view_id: 'product_pricelist_view_search',
-    context: {
-      default_base: 'list_price'
-    },
+    context: { default_base: 'list_price' },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

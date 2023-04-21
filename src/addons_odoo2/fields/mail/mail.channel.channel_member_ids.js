@@ -1,8 +1,5 @@
 const ModelFields = {
-  partner_email: {
-    readonly: '1'
-  },
-
+  partner_email: { readonly: '1' },
   partner_id: {
     readonly: [['id', '!=', false]],
     required: '1'

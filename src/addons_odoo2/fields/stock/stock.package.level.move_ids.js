@@ -1,9 +1,6 @@
 const ModelFields = {
   product_id: {},
-  product_uom: {
-    groups: 'uom.group_uom'
-  },
-
+  product_uom: { groups: 'uom.group_uom' },
   product_uom_qty: {},
   quantity_done: {},
   state: {}

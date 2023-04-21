@@ -201,70 +201,65 @@ export default {
             string: 'Done',
             domain: [['state', '=', 'done']]
           }
-        }
-      },
+        },
+        group_picking_type_id: {
+          incoming: {
+            name: 'incoming',
+            string: 'Incoming',
+            domain: [['picking_id.picking_type_id.code', '=', 'incoming']]
+          },
+          outgoing: {
+            name: 'outgoing',
+            string: 'Outgoing',
+            domain: [['picking_id.picking_type_id.code', '=', 'outgoing']]
+          },
+          internal: {
+            name: 'internal',
+            string: 'Internal',
+            domain: [['picking_id.picking_type_id.code', '=', 'internal']]
+          },
+          manufacturing: {
+            name: 'manufacturing',
+            string: 'Manufacturing',
+            invisible: '1',
+            domain: [['picking_id.picking_type_id.code', '=', 'mrp_operation']]
+          }
+        },
 
-      _separator_204: {},
-      group_picking_type_id: {
-        incoming: {
-          name: 'incoming',
-          string: 'Incoming',
-          domain: [['picking_id.picking_type_id.code', '=', 'incoming']]
-        },
-        outgoing: {
-          name: 'outgoing',
-          string: 'Outgoing',
-          domain: [['picking_id.picking_type_id.code', '=', 'outgoing']]
-        },
-        internal: {
-          name: 'internal',
-          string: 'Internal',
-          domain: [['picking_id.picking_type_id.code', '=', 'internal']]
-        },
-        manufacturing: {
-          name: 'manufacturing',
-          string: 'Manufacturing',
-          invisible: '1',
-          domain: [['picking_id.picking_type_id.code', '=', 'mrp_operation']]
-        }
-      },
-      _filter_outgoing: {},
-      _filter_internal: {},
-      _filter_manufacturing: {},
-      _separator_758: {},
-      group_date: {
-        date: { name: 'date', date: 'date' },
-        filter_last_30_days: {
-          name: 'filter_last_30_days',
-          string: 'Last 30 Days',
-          domain({ env }) {
-            const last30 = env.date_tools.increase(new Date(), -30)
-            return [['date', '>=', last30]]
+        group_date: {
+          date: { name: 'date', date: 'date' },
+          filter_last_30_days: {
+            name: 'filter_last_30_days',
+            string: 'Last 30 Days',
+            domain({ env }) {
+              const last30 = env.date_tools.increase(new Date(), -30)
+              return [['date', '>=', last30]]
+            }
+          },
+          filter_last_3_months: {
+            name: 'filter_last_3_months',
+            string: 'Last 3 Months',
+            domain({ env }) {
+              const last90 = env.date_tools.increase(new Date(), -92)
+              return [['date', '>=', last90]]
+            }
+          },
+          filter_last_12_months: {
+            name: 'filter_last_12_months',
+            string: 'Last 12 Months',
+            domain({ env }) {
+              const last90 = env.date_tools.increase(new Date(), -366)
+              return [['date', '>=', last90]]
+            }
           }
         },
-        filter_last_3_months: {
-          name: 'filter_last_3_months',
-          string: 'Last 3 Months',
-          domain({ env }) {
-            const last90 = env.date_tools.increase(new Date(), -92)
-            return [['date', '>=', last90]]
-          }
-        },
-        filter_last_12_months: {
-          name: 'filter_last_12_months',
-          string: 'Last 12 Months',
-          domain({ env }) {
-            const last90 = env.date_tools.increase(new Date(), -366)
-            return [['date', '>=', last90]]
-          }
-        }
-      },
 
-      group_inventory: {
-        inventory: {
-          name: 'inventory',
-          string: 'Inventory',
-          domain: [['is_inventory', '=', true]]
+        group_inventory: {
+          inventory: {
+            name: 'inventory',
+            string: 'Inventory',
+            domain: [['is_inventory', '=', true]]
+          }
         }
       }
     }

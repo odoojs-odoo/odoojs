@@ -8,15 +8,11 @@ export default {
         _group: {
           _group: {
             name: {},
-            color: {
-              widget: 'color_picker'
-            }
+            color: { widget: 'color_picker' }
           }
         },
-        _group_839: {
-          product_ids: {
-            widget: 'many2many_tags'
-          }
+        _group_617: {
+          product_ids: { widget: 'many2many_tags' }
         }
       }
     }
@@ -29,9 +25,7 @@ export default {
     arch: {
       sheet: {
         name: {},
-        color: {
-          widget: 'color_picker'
-        }
+        color: { widget: 'color_picker' }
       }
     }
   },

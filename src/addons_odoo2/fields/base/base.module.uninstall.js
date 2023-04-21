@@ -1,8 +1,5 @@
 const ModelFields = {
-  model_ids: {
-    string: 'Models'
-  },
-
+  model_ids: { string: 'Models' },
   module_id: {},
   module_ids: {},
   show_all: {}

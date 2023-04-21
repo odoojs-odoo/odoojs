@@ -5,27 +5,19 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        attribute_id: {
-          optional: 'hide'
-        },
+        attribute_id: { optional: 'hide' },
         name: {},
-        display_type: {
-          optional: 'hide'
-        },
+        display_type: { optional: 'hide' },
         html_color: {
           widget: 'color',
           invisible: [['display_type', '!=', 'color']]
         },
-        ptav_active: {
-          optional: 'hide'
-        },
+        ptav_active: { optional: 'hide' },
         price_extra: {
           widget: 'monetary',
           field_digits: true
         },
-        currency_id: {
-          invisible: '1'
-        }
+        currency_id: { invisible: '1' }
       }
     }
   },
@@ -42,19 +34,13 @@ export default {
             readonly: '1'
           },
           name: {},
-          display_type: {
-            invisible: '1'
-          },
-          html_color: {
-            invisible: [['display_type', '!=', 'color']]
-          },
+          display_type: { invisible: '1' },
+          html_color: { invisible: [['display_type', '!=', 'color']] },
           price_extra: {
             widget: 'monetary',
             field_digits: true
           },
-          currency_id: {
-            invisible: '1'
-          },
+          currency_id: { invisible: '1' },
           exclude_for: {
             widget: 'one2many',
             views: {

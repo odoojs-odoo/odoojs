@@ -4,9 +4,7 @@ export default {
     name: 'Product Variants',
     res_model: 'product.product',
     search_view_id: 'product.product_search_form_view',
-    context: {
-      search_default_filter_to_purchase: 1
-    },
+    context: { search_default_filter_to_purchase: 1 },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -35,20 +33,16 @@ export default {
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_field_widget o_stat_info'
-              },
+              _attr: { class: 'o_field_widget o_stat_info' },
               _span: {
-                _attr: {
-                  class: 'o_stat_value'
-                },
+                _attr: { class: 'o_stat_value' },
                 purchased_product_qty: {
                   widget: 'statinfo',
                   class: 'mr4'
                 },
                 uom_name: {}
               },
-              _span_841: {
+              _span_680: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Purchased'

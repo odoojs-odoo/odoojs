@@ -5,9 +5,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {},
         res_model: {},
         default: {}
@@ -23,9 +21,7 @@ export default {
       sheet: {
         _group: {
           _group: {
-            _attr: {
-              string: 'Description'
-            },
+            _attr: { string: 'Description' },
             name: {},
             sequence: {},
             res_model: {},
@@ -35,10 +31,8 @@ export default {
             hidden: {},
             track_recipients: {}
           },
-          _group_525: {
-            _attr: {
-              string: 'Auto subscription'
-            },
+          _group_190: {
+            _attr: { string: 'Auto subscription' },
             parent_id: {},
             relation_field: {}
           }

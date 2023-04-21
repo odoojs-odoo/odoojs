@@ -10,9 +10,7 @@ export default {
             name: 'payment_form',
             position: 'inside'
           },
-          so_reference_type: {
-            invisible: [['code', '!=', 'custom']]
-          }
+          so_reference_type: { invisible: [['code', '!=', 'custom']] }
         }
       }
     }

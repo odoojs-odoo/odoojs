@@ -6,9 +6,7 @@ const ModelFields = {
 
   sms_template_id: {
     required: [['state', '=', 'sms']],
-    context: {
-      todo_ctx: "{'default_model': model_name}"
-    }
+    context: { todo_ctx: "{'default_model': model_name}" }
   }
 }
 

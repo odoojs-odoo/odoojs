@@ -7,23 +7,15 @@ export default {
       sheet: {
         _group: {
           _div_title: {
-            _attr: {
-              class: 'oe_title'
-            },
+            _attr: { class: 'oe_title' },
             _h1: {
-              name: {
-                readonly: '1'
-              }
+              name: { readonly: '1' }
             }
           },
           _separator: {
-            _attr: {
-              string: 'Matched Journal Items'
-            }
+            _attr: { string: 'Matched Journal Items' }
           },
-          reconciled_line_ids: {
-            readonly: '1'
-          }
+          reconciled_line_ids: { readonly: '1' }
         }
       }
     }

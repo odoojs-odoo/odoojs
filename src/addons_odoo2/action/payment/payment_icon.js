@@ -10,13 +10,9 @@ export default {
           class: 'oe_avatar'
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _h1: {
-            name: {
-              placeholder: 'Name'
-            }
+            name: { placeholder: 'Name' }
           }
         },
         _notebook: {
@@ -38,9 +34,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {}
       }
     }

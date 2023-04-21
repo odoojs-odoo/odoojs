@@ -1,16 +1,11 @@
 const ModelFields = {
   company_id: {},
   product_id: {
-    context: {
-      default_detailed_type: 'product'
-    },
+    context: { default_detailed_type: 'product' },
     required: '1'
   },
 
-  product_uom_id: {
-    groups: 'uom.group_uom'
-  },
-
+  product_uom_id: { groups: 'uom.group_uom' },
   quantity: {}
 }
 

@@ -5,9 +5,7 @@ export default {
     res_model: 'mail.activity.type',
     search_view_id: 'tooooooodoooooo',
     domain: "['|', ['res_model', '=', False], ['res_model', '=', 'sale.order']]",
-    context: {
-      default_res_model: 'sale.order'
-    },
+    context: { default_res_model: 'sale.order' },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

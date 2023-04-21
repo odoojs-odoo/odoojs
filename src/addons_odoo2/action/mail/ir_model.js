@@ -27,12 +27,8 @@ export default {
             expr: "//field[@name='field_id']//field[@name='copied']",
             position: 'after'
           },
-          state: {
-            invisible: '1'
-          },
-          tracking: {
-            readonly: [['state', '!=', 'manual']]
-          }
+          state: { invisible: '1' },
+          tracking: { readonly: [['state', '!=', 'manual']] }
         }
       }
     }

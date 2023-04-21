@@ -17,16 +17,10 @@ export default {
     arch: {
       sheet: {
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
-          _label_name: {
-            for: 'name'
-          },
+          _attr: { class: 'oe_title' },
+          _label_name: { for: 'name' },
           _h1: {
-            name: {
-              class: 'oe_inline'
-            }
+            name: { class: 'oe_inline' }
           }
         },
         _group: {

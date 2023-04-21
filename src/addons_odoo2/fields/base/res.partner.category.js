@@ -2,10 +2,7 @@ const ModelFields = {
   active: {},
   color: {},
   display_name: {},
-  name: {
-    placeholder: 'e.g. "Consulting Services"'
-  },
-
+  name: { placeholder: 'e.g. "Consulting Services"' },
   parent_id: {}
 }
 

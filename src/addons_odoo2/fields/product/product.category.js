@@ -1,12 +1,6 @@
 const ModelFields = {
-  display_name: {
-    string: 'Product Category'
-  },
-
-  name: {
-    placeholder: 'e.g. Lamps'
-  },
-
+  display_name: { string: 'Product Category' },
+  name: { placeholder: 'e.g. Lamps' },
   parent_id: {},
   product_count: {}
 }

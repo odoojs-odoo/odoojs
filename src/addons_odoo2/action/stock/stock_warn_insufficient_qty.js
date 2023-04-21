@@ -6,9 +6,7 @@ export default {
     arch: {
       sheet: {
         _div: {
-          _attr: {
-            text: 'The product is not available in sufficient quantity'
-          },
+          _attr: { text: 'The product is not available in sufficient quantity' },
           _span: {
             _attr: {
               groups: 'stock.group_stock_multi_locations',
@@ -16,16 +14,12 @@ export default {
               text: 'in'
             },
             _strong: {
-              location_id: {
-                readonly: 'True'
-              }
+              location_id: { readonly: 'True' }
             }
           }
         },
-        _div_345: {
-          _attr: {
-            invisible: [['quant_ids', '=', []]]
-          },
+        _div_422: {
+          _attr: { invisible: [['quant_ids', '=', []]] },
           _br: {},
           _strong: 'Current Inventory:',
           quant_ids: {
@@ -33,12 +27,8 @@ export default {
               tree: {
                 arch: {
                   sheet: {
-                    location_id: {
-                      no_create: true
-                    },
-                    lot_id: {
-                      groups: 'stock.group_production_lot'
-                    },
+                    location_id: { no_create: true },
+                    lot_id: { groups: 'stock.group_production_lot' },
                     quantity: {}
                   }
                 }
@@ -47,9 +37,7 @@ export default {
           }
         },
         _div_description: {
-          _attr: {
-            name: 'description'
-          }
+          _attr: { name: 'description' }
         },
         _footer: {
           _button_cancel_button: {

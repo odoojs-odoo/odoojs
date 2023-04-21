@@ -8,12 +8,8 @@ export default {
         qty_available: {
           position: 'before',
           __todo__before: {
-            company_currency_id: {
-              invisible: '1'
-            },
-            cost_method: {
-              invisible: '1'
-            },
+            company_currency_id: { invisible: '1' },
+            cost_method: { invisible: '1' },
             avg_cost: {
               string: 'Unit Cost',
               widget: 'monetary',

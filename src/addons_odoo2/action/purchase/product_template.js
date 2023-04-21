@@ -42,16 +42,12 @@ export default {
           seller_ids: {
             invisible: [['product_variant_count', '>', 1]],
             readonly: [['product_variant_count', '>', 1]],
-            context: {
-              todo_ctx: "{'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 'product_template_invisible_variant': True, 'tree_view_ref':'purchase.product_supplierinfo_tree_view2'}"
-            }
+            context: { todo_ctx: "{'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 'product_template_invisible_variant': True, 'tree_view_ref':'purchase.product_supplierinfo_tree_view2'}" }
           },
           variant_seller_ids: {
             invisible: [['product_variant_count', '<=', 1]],
             readonly: [['product_variant_count', '<=', 1]],
-            context: {
-              todo_ctx: "{'model': active_model, 'active_id': active_id, 'tree_view_ref':'purchase.product_supplierinfo_tree_view2'}"
-            }
+            context: { todo_ctx: "{'model': active_model, 'active_id': active_id, 'tree_view_ref':'purchase.product_supplierinfo_tree_view2'}" }
           }
         },
         _group_bill: {
@@ -67,30 +63,24 @@ export default {
             }
           }
         },
-        _group_bill_272: {
+        _group_bill_532: {
           _attr: {
             name: 'bill',
             position: 'inside'
           },
-          purchase_method: {
-            widget: 'radio'
-          }
+          purchase_method: { widget: 'radio' }
         },
-        _group_purchase_357: {
+        _group_purchase_645: {
           _attr: {
             name: 'purchase',
             position: 'inside'
           },
           _group: {
             _group: {
-              _attr: {
-                string: 'Purchase Description'
-              },
-              description_purchase: {
-                placeholder: 'This note is added to purchase orders.'
-              }
+              _attr: { string: 'Purchase Description' },
+              description_purchase: { placeholder: 'This note is added to purchase orders.' }
             },
-            _group_910: {
+            _group_475: {
               _attr: {
                 string: 'Warning when Purchasing this Product',
                 groups: 'purchase.group_warning_purchase'
@@ -125,9 +115,7 @@ export default {
             supplier_taxes_id: {
               widget: 'many2many_tags',
               readonly: [['purchase_ok', '=', 0]],
-              context: {
-                default_type_tax_use: 'purchase'
-              }
+              context: { default_type_tax_use: 'purchase' }
             }
           }
         }
@@ -157,20 +145,16 @@ export default {
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_field_widget o_stat_info'
-              },
+              _attr: { class: 'o_field_widget o_stat_info' },
               _span: {
-                _attr: {
-                  class: 'o_stat_value'
-                },
+                _attr: { class: 'o_stat_value' },
                 purchased_product_qty: {
                   widget: 'statinfo',
                   class: 'mr4'
                 },
                 uom_name: {}
               },
-              _span_654: {
+              _span_393: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Purchased'

@@ -5,13 +5,9 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         action_id: {},
-        state: {
-          readonly: '1'
-        },
+        state: { readonly: '1' },
         _button_action_launch: {
           _attr: {
             name: 'action_launch',

@@ -7,24 +7,14 @@ export default {
       sheet: {
         order_id: {},
         name: {},
-        partner_id: {
-          string: 'Vendor'
-        },
+        partner_id: { string: 'Vendor' },
         product_id: {},
         price_unit: {},
         product_qty: {},
-        product_uom: {
-          groups: 'uom.group_uom'
-        },
-        price_subtotal: {
-          widget: 'monetary'
-        },
-        currency_id: {
-          invisible: '1'
-        },
-        date_planned: {
-          widget: 'date'
-        }
+        product_uom: { groups: 'uom.group_uom' },
+        price_subtotal: { widget: 'monetary' },
+        currency_id: { invisible: '1' },
+        date_planned: { widget: 'date' }
       }
     }
   },
@@ -35,43 +25,27 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _label_order_id: {
-          for: 'order_id'
-        },
+        _label_order_id: { for: 'order_id' },
         _h1: {
-          order_id: {
-            class: 'oe_inline'
-          },
+          order_id: { class: 'oe_inline' },
           _label_date_order: {
             for: 'date_order',
             string: ',',
             invisible: [['date_order', '=', false]]
           },
-          date_order: {
-            class: 'oe_inline'
-          }
+          date_order: { class: 'oe_inline' }
         },
-        _label_partner_id: {
-          for: 'partner_id'
-        },
+        _label_partner_id: { for: 'partner_id' },
         _h2: {
           partner_id: {}
         },
         _group: {
           _group: {
-            product_id: {
-              readonly: '1'
-            },
-            _label_product_qty: {
-              for: 'product_qty'
-            },
+            product_id: { readonly: '1' },
+            _label_product_qty: { for: 'product_qty' },
             _div: {
-              _attr: {
-                class: 'o_row'
-              },
-              product_qty: {
-                readonly: '1'
-              },
+              _attr: { class: 'o_row' },
+              product_qty: { readonly: '1' },
               product_uom: {
                 groups: 'uom.group_uom',
                 readonly: '1'
@@ -79,7 +53,7 @@ export default {
             },
             price_unit: {}
           },
-          _group_137: {
+          _group_728: {
             taxes_id: {
               widget: 'many2many_tags',
               domain: [['type_tax_use', '=', 'purchase']]
@@ -102,9 +76,7 @@ export default {
         },
         name: {},
         _separator: {
-          _attr: {
-            string: 'Manual Invoices'
-          }
+          _attr: { string: 'Manual Invoices' }
         },
         invoice_lines: {}
       }
@@ -118,9 +90,7 @@ export default {
     arch: {
       order_id: {},
       product_id: {},
-      partner_id: {
-        string: 'Vendor'
-      },
+      partner_id: { string: 'Vendor' },
       _filter_hide_cancelled: {
         _attr: {
           name: 'hide_cancelled',
@@ -129,17 +99,13 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_groupby_supplier: {
           _attr: {
             name: 'groupby_supplier',
             string: 'Vendor',
             domain: [],
-            context: {
-              group_by: 'partner_id'
-            }
+            context: { group_by: 'partner_id' }
           }
         },
         _filter_groupby_product: {
@@ -147,9 +113,7 @@ export default {
             name: 'groupby_product',
             string: 'Product',
             domain: [],
-            context: {
-              group_by: 'product_id'
-            }
+            context: { group_by: 'product_id' }
           }
         },
         _filter_order_reference: {
@@ -157,9 +121,7 @@ export default {
             name: 'order_reference',
             string: 'Order Reference',
             domain: [],
-            context: {
-              group_by: 'order_id'
-            }
+            context: { group_by: 'order_id' }
           }
         },
         _filter_status: {
@@ -167,9 +129,7 @@ export default {
             name: 'status',
             string: 'Status',
             domain: [],
-            context: {
-              group_by: 'state'
-            }
+            context: { group_by: 'state' }
           }
         }
       }
@@ -182,12 +142,8 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        order_id: {
-          widget: 'many2one'
-        },
-        date_approve: {
-          widget: 'date'
-        },
+        order_id: { widget: 'many2one' },
+        date_approve: { widget: 'date' },
         partner_id: {},
         product_uom_qty: {},
         price_unit: {}

@@ -7,47 +7,27 @@ export default {
       sheet: {
         _p: 'Use this assistant to replenish your stock.\n                Depending on your product configuration, launching a replenishment may trigger a request for quotation,\n                a manufacturing order or a transfer.',
         _group: {
-          product_tmpl_id: {
-            invisible: '1'
-          },
-          product_has_variants: {
-            invisible: '1'
-          },
+          product_tmpl_id: { invisible: '1' },
+          product_has_variants: { invisible: '1' },
           product_id: {
-            domain: {
-              todo_ctx: "[('product_tmpl_id', '=', product_tmpl_id)]"
-            },
+            domain: { todo_ctx: "[('product_tmpl_id', '=', product_tmpl_id)]" },
             readonly: [['product_has_variants', '=', false]],
             no_create_edit: 1
           },
-          product_uom_category_id: {
-            invisible: '1'
-          },
-          _label_quantity: {
-            for: 'quantity'
-          },
+          product_uom_category_id: { invisible: '1' },
+          _label_quantity: { for: 'quantity' },
           _div: {
-            _attr: {
-              class: 'o_row'
-            },
+            _attr: { class: 'o_row' },
             quantity: {},
             product_uom_id: {
               groups: 'uom.group_uom',
-              domain: {
-                todo_ctx: "[('category_id', '=', product_uom_category_id)]"
-              }
+              domain: { todo_ctx: "[('category_id', '=', product_uom_category_id)]" }
             }
           },
           date_planned: {},
-          warehouse_id: {
-            groups: 'stock.group_stock_multi_warehouses'
-          },
-          route_ids: {
-            widget: 'many2many_tags'
-          },
-          company_id: {
-            invisible: '1'
-          }
+          warehouse_id: { groups: 'stock.group_stock_multi_warehouses' },
+          route_ids: { widget: 'many2many_tags' },
+          company_id: { invisible: '1' }
         },
         _footer: {
           _button_launch_replenishment: {

@@ -1,8 +1,5 @@
 const ModelFields = {
-  email: {
-    string: 'Email Address'
-  },
-
+  email: { string: 'Email Address' },
   name: {}
 }
 

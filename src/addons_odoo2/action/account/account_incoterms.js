@@ -5,9 +5,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        active: {
-          invisible: '1'
-        },
+        active: { invisible: '1' },
         code: {},
         name: {}
       }
@@ -29,9 +27,7 @@ export default {
           }
         },
         _group: {
-          active: {
-            invisible: '1'
-          },
+          active: { invisible: '1' },
           name: {},
           code: {}
         }

@@ -15,22 +15,16 @@ export default {
               name: 'product_template_action_all',
               type: 'action',
               icon: 'fa-th-list',
-              context: {
-                todo_ctx: "{'search_default_categ_id': active_id, 'default_categ_id': active_id, 'group_expand': True}"
-              },
+              context: { todo_ctx: "{'search_default_categ_id': active_id, 'default_categ_id': active_id, 'group_expand': True}" },
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_field_widget o_stat_info'
-              },
+              _attr: { class: 'o_field_widget o_stat_info' },
               _span: {
-                _attr: {
-                  class: 'o_stat_value'
-                },
+                _attr: { class: 'o_stat_value' },
                 product_count: {}
               },
-              _span_545: {
+              _span_286: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Products'
@@ -40,26 +34,18 @@ export default {
           }
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _label_name: {
             for: 'name',
             string: 'Category'
           },
           _h1: {
-            name: {
-              placeholder: 'e.g. Lamps'
-            }
+            name: { placeholder: 'e.g. Lamps' }
           }
         },
         _group_first: {
-          _attr: {
-            name: 'first'
-          },
-          parent_id: {
-            class: 'oe_inline'
-          }
+          _attr: { name: 'first' },
+          parent_id: { class: 'oe_inline' }
         }
       }
     }
@@ -71,9 +57,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        display_name: {
-          string: 'Product Category'
-        }
+        display_name: { string: 'Product Category' }
       }
     }
   },
@@ -83,9 +67,7 @@ export default {
     model: 'product.category',
     type: 'search',
     arch: {
-      name: {
-        string: 'Product Categories'
-      },
+      name: { string: 'Product Categories' },
       parent_id: {}
     }
   },

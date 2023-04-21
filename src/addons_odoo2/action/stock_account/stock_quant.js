@@ -10,9 +10,7 @@ export default {
             expr: "//field[@name='product_uom_id']",
             position: 'after'
           },
-          accounting_date: {
-            optional: 'hide'
-          }
+          accounting_date: { optional: 'hide' }
         }
       }
     }
@@ -29,12 +27,8 @@ export default {
             expr: "//field[@name='product_uom_id']",
             position: 'after'
           },
-          currency_id: {
-            invisible: '1'
-          },
-          value: {
-            optional: 'hidden'
-          }
+          currency_id: { invisible: '1' },
+          value: { optional: 'hidden' }
         }
       }
     }
@@ -51,17 +45,11 @@ export default {
             expr: "//field[@name='product_uom_id']",
             position: 'after'
           },
-          currency_id: {
-            invisible: '1'
-          },
-          cost_method: {
-            invisible: '1'
-          },
-          value: {
-            optional: 'hidden'
-          }
+          currency_id: { invisible: '1' },
+          cost_method: { invisible: '1' },
+          value: { optional: 'hidden' }
         },
-        _xpath_355: {
+        _xpath_440: {
           _attr: {
             expr: "//button[@name='action_view_orderpoints']",
             position: 'after'
@@ -74,9 +62,7 @@ export default {
               title: 'Stock Valuation',
               icon: 'fa-bar-chart',
               invisible: [['cost_method', '!=', 'fifo']],
-              context: {
-                todo_ctx: "{'search_default_product_id': product_id}"
-              },
+              context: { todo_ctx: "{'search_default_product_id': product_id}" },
               class: 'btn-link'
             }
           }

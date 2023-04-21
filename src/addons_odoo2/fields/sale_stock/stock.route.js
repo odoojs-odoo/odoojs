@@ -1,7 +1,5 @@
 const ModelFields = {
-  sale_selectable: {
-    string: 'Sales Order Lines'
-  }
+  sale_selectable: { string: 'Sales Order Lines' }
 }
 
 const AddonsFields = {

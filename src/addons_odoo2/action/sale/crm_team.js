@@ -11,25 +11,17 @@ export default {
             position: 'inside'
           },
           _div: {
-            _attr: {
-              class: 'o_row'
-            },
+            _attr: { class: 'o_row' },
             use_quotations: {},
-            _label_use_quotations: {
-              for: 'use_quotations'
-            }
+            _label_use_quotations: { for: 'use_quotations' }
           }
         },
         company_id: {
           position: 'after',
           __todo__after: {
-            _label_invoiced_target: {
-              for: 'invoiced_target'
-            },
+            _label_invoiced_target: { for: 'invoiced_target' },
             _div: {
-              _attr: {
-                class: 'o_row'
-              },
+              _attr: { class: 'o_row' },
               invoiced_target: {
                 widget: 'monetary',
                 class: 'oe_inline',
@@ -62,19 +54,15 @@ export default {
           use_quotations: {},
           invoiced_target: {}
         },
-        _xpath_169: {
+        _xpath_254: {
           _attr: {
             expr: "//t[@name='second_options']",
             position: 'after'
           },
           _div: {
-            _attr: {
-              class: 'row'
-            },
+            _attr: { class: 'row' },
             _div: {
-              _attr: {
-                class: 'col'
-              },
+              _attr: { class: 'col' },
               _a_action_quotations_salesteams: {
                 _attr: {
                   name: '%(action_quotations_salesteams)d',
@@ -84,20 +72,14 @@ export default {
                     search_default_sent: true
                   }
                 },
-                quotations_count: {
-                  class: 'me-1'
-                },
+                quotations_count: { class: 'me-1' },
                 _t: 'Quotation',
-                _t_119: 'Quotations'
+                _t_899: 'Quotations'
               }
             },
-            _div_404: {
-              _attr: {
-                class: 'col-auto text-truncate'
-              },
-              quotations_amount: {
-                widget: 'monetary'
-              }
+            _div_163: {
+              _attr: { class: 'col-auto text-truncate' },
+              quotations_amount: { widget: 'monetary' }
             }
           },
           _div_orders_to_invoice: {
@@ -106,36 +88,28 @@ export default {
               class: 'row'
             },
             _div: {
-              _attr: {
-                class: 'col-8'
-              },
+              _attr: { class: 'col-8' },
               _a_action_orders_to_invoice_salesteams: {
                 _attr: {
                   name: '%(action_orders_to_invoice_salesteams)d',
                   type: 'action'
                 },
-                sales_to_invoice_count: {
-                  class: 'me-1'
-                },
+                sales_to_invoice_count: { class: 'me-1' },
                 _t: 'Order to Invoice',
-                _t_135: 'Orders to Invoice'
+                _t_230: 'Orders to Invoice'
               }
             }
           }
         },
-        _xpath_740: {
+        _xpath_324: {
           _attr: {
             expr: "//div[hasclass('o_kanban_primary_bottom')]",
             position: 'after'
           },
           _t: {
-            _attr: {
-              groups: 'sales_team.group_sale_manager'
-            },
+            _attr: { groups: 'sales_team.group_sale_manager' },
             _div: {
-              _attr: {
-                class: 'col-12 o_kanban_primary_bottom bottom_block'
-              },
+              _attr: { class: 'col-12 o_kanban_primary_bottom bottom_block' },
               invoiced: {
                 widget: 'sales_team_progressbar',
                 options: "{'current_value': 'invoiced', 'max_value': 'invoiced_target', 'editable': true, 'edit_max_value': true, 'on_change': 'update_invoiced_target'}"
@@ -143,7 +117,7 @@ export default {
             }
           }
         },
-        _xpath_512: {
+        _xpath_972: {
           _attr: {
             expr: "//div[hasclass('o_kanban_manage_view')]",
             position: 'inside'
@@ -158,7 +132,7 @@ export default {
               }
             }
           },
-          _div_121: {
+          _div_861: {
             _a_action_orders_salesteams: {
               _attr: {
                 name: '%(action_orders_salesteams)d',
@@ -167,10 +141,8 @@ export default {
               }
             }
           },
-          _div_972: {
-            _attr: {
-              groups: 'account.group_account_invoice'
-            },
+          _div_750: {
+            _attr: { groups: 'account.group_account_invoice' },
             _a_action_invoice_salesteams: {
               _attr: {
                 name: '%(action_invoice_salesteams)d',
@@ -180,7 +152,7 @@ export default {
             }
           }
         },
-        _xpath_486: {
+        _xpath_802: {
           _attr: {
             expr: "//div[hasclass('o_kanban_manage_new')]",
             position: 'inside'
@@ -210,9 +182,7 @@ export default {
             }
           },
           _div_sales_report: {
-            _attr: {
-              name: 'sales_report'
-            },
+            _attr: { name: 'sales_report' },
             _a_action_order_report_so_salesteam: {
               _attr: {
                 name: '%(action_order_report_so_salesteam)d',

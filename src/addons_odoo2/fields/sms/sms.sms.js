@@ -4,22 +4,10 @@ const ModelFields = {
     required: '1'
   },
 
-  failure_type: {
-    readonly: '1'
-  },
-
-  mail_message_id: {
-    readonly: '1'
-  },
-
-  number: {
-    required: '1'
-  },
-
-  partner_id: {
-    string: 'Contact'
-  },
-
+  failure_type: { readonly: '1' },
+  mail_message_id: { readonly: '1' },
+  number: { required: '1' },
+  partner_id: { string: 'Contact' },
   state: {}
 }
 

@@ -57,38 +57,24 @@ export default {
         },
         _group: {
           _group: {
-            active: {
-              invisible: '1'
-            },
-            company_id: {
-              invisible: '1'
-            },
-            states_count: {
-              invisible: '1'
-            },
-            company_country_id: {
-              invisible: '1'
-            },
-            foreign_vat_header_mode: {
-              invisible: '1'
-            },
+            active: { invisible: '1' },
+            company_id: { invisible: '1' },
+            states_count: { invisible: '1' },
+            company_country_id: { invisible: '1' },
+            foreign_vat_header_mode: { invisible: '1' },
             name: {},
-            _field_company_id_385: {
+            _field_company_id_774: {
               company_id: {
                 groups: 'base.group_multi_company',
                 no_create: true
               }
             }
           },
-          _group_586: {
+          _group_320: {
             auto_apply: {},
-            vat_required: {
-              invisible: [['auto_apply', '!=', true]]
-            },
+            vat_required: { invisible: [['auto_apply', '!=', true]] },
             foreign_vat: {},
-            country_group_id: {
-              invisible: [['auto_apply', '!=', true]]
-            },
+            country_group_id: { invisible: [['auto_apply', '!=', true]] },
             country_id: {
               required: [['foreign_vat', '!=', false]],
               no_open: true,
@@ -96,9 +82,7 @@ export default {
             },
             state_ids: {
               widget: 'many2many_tags',
-              domain: {
-                todo_ctx: "[('country_id', '=', country_id)]"
-              },
+              domain: { todo_ctx: "[('country_id', '=', country_id)]" },
               invisible: ['|', '|', '&', ['auto_apply', '!=', true], ['foreign_vat', '=', false], ['country_id', '=', false], ['states_count', '=', 0]]
             },
             _label_zip_from: {
@@ -107,22 +91,14 @@ export default {
               invisible: ['|', ['auto_apply', '!=', true], ['country_id', '=', false]]
             },
             _div: {
-              _attr: {
-                invisible: ['|', ['auto_apply', '!=', true], ['country_id', '=', false]]
-              },
+              _attr: { invisible: ['|', ['auto_apply', '!=', true], ['country_id', '=', false]] },
               _span: 'From',
-              zip_from: {
-                class: 'oe_inline'
-              },
+              zip_from: { class: 'oe_inline' },
               _div: {
-                _attr: {
-                  class: 'oe_edit_only'
-                }
+                _attr: { class: 'oe_edit_only' }
               },
-              _span_827: 'To',
-              zip_to: {
-                class: 'oe_inline'
-              }
+              _span_171: 'To',
+              zip_to: { class: 'oe_inline' }
             }
           }
         },
@@ -134,9 +110,7 @@ export default {
             },
             tax_ids: {
               widget: 'one2many',
-              context: {
-                append_type_to_tax_name: true
-              },
+              context: { append_type_to_tax_name: true },
               views: {
                 todoview___tree_tax_map_tree: {
                   arch: {
@@ -146,20 +120,12 @@ export default {
                         string: 'Tax Mapping'
                       },
                       tax_src_id: {
-                        domain: {
-                          todo_ctx: "[                                             ('type_tax_use', '!=', 'none'),                                             ('country_id', '=', parent.company_country_id),                                             '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)                                         ]"
-                        },
-                        context: {
-                          append_type_to_tax_name: true
-                        }
+                        domain: { todo_ctx: "[                                             ('type_tax_use', '!=', 'none'),                                             ('country_id', '=', parent.company_country_id),                                             '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)                                         ]" },
+                        context: { append_type_to_tax_name: true }
                       },
                       tax_dest_id: {
-                        domain: {
-                          todo_ctx: "[                                             ('type_tax_use', '!=', 'none'),                                             ('country_id', '=', parent.country_id if parent.foreign_vat else parent.company_country_id),                                             '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
-                        },
-                        context: {
-                          append_type_to_tax_name: true
-                        }
+                        domain: { todo_ctx: "[                                             ('type_tax_use', '!=', 'none'),                                             ('country_id', '=', parent.country_id if parent.foreign_vat else parent.company_country_id),                                             '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" },
+                        context: { append_type_to_tax_name: true }
                       }
                     }
                   }
@@ -174,15 +140,11 @@ export default {
                       _group: {
                         tax_src_id: {
                           domain: [['type_tax_use', '!=', 'none']],
-                          context: {
-                            append_type_to_tax_name: true
-                          }
+                          context: { append_type_to_tax_name: true }
                         },
                         tax_dest_id: {
                           domain: [['type_tax_use', '!=', 'none']],
-                          context: {
-                            append_type_to_tax_name: true
-                          }
+                          context: { append_type_to_tax_name: true }
                         }
                       }
                     }
@@ -203,18 +165,12 @@ export default {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Account Mapping'
-                      },
+                      _attr: { string: 'Account Mapping' },
                       account_src_id: {
-                        domain: {
-                          todo_ctx: "['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
-                        }
+                        domain: { todo_ctx: "['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" }
                       },
                       account_dest_id: {
-                        domain: {
-                          todo_ctx: "['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
-                        }
+                        domain: { todo_ctx: "['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" }
                       }
                     }
                   }
@@ -222,18 +178,12 @@ export default {
                 form: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Account Mapping'
-                      },
+                      _attr: { string: 'Account Mapping' },
                       account_src_id: {
-                        domain: {
-                          todo_ctx: "['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
-                        }
+                        domain: { todo_ctx: "['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" }
                       },
                       account_dest_id: {
-                        domain: {
-                          todo_ctx: "['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
-                        }
+                        domain: { todo_ctx: "['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" }
                       }
                     }
                   }
@@ -255,9 +205,7 @@ export default {
     model: 'account.fiscal.position',
     type: 'search',
     arch: {
-      name: {
-        string: 'Fiscal Position'
-      },
+      name: { string: 'Fiscal Position' },
       _filter_active: {
         _attr: {
           name: 'active',
@@ -274,9 +222,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {},
         company_id: {
           groups: 'base.group_multi_company',

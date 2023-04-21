@@ -10,9 +10,7 @@ export default {
             expr: "//button[@name='action_stock_replenishment_info']",
             position: 'before'
           },
-          show_supplier: {
-            invisible: '1'
-          },
+          show_supplier: { invisible: '1' },
           supplier_id: {
             string: 'Vendor',
             invisible: [['show_supplier', '=', false]],

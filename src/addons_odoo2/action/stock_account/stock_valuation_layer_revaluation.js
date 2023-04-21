@@ -27,43 +27,27 @@ export default {
             string: 'Current Value'
           },
           _div: {
-            _attr: {
-              class: 'o_row'
-            },
+            _attr: { class: 'o_row' },
             _span: {
               current_value_svl: {
                 widget: 'monetary',
                 class: 'oe_inline'
               },
-              current_quantity_svl: {
-                class: 'oe_inline'
-              },
-              product_uom_name: {
-                class: 'oe_inline'
-              }
+              current_quantity_svl: { class: 'oe_inline' },
+              product_uom_name: { class: 'oe_inline' }
             }
           },
           _label_added_value: {
             for: 'added_value',
             string: 'Added Value'
           },
-          _div_525: {
-            _attr: {
-              class: 'o_row'
-            },
+          _div_187: {
+            _attr: { class: 'o_row' },
             _span: {
-              added_value: {
-                class: 'oe_inline'
-              },
-              new_value: {
-                class: 'oe_inline'
-              },
-              new_value_by_qty: {
-                class: 'oe_inline ms-1'
-              },
-              product_uom_name: {
-                class: 'oe_inline me-1'
-              },
+              added_value: { class: 'oe_inline' },
+              new_value: { class: 'oe_inline' },
+              new_value_by_qty: { class: 'oe_inline ms-1' },
+              product_uom_name: { class: 'oe_inline me-1' },
               _small: {
                 _attr: {
                   class: 'mx-2 fst-italic',
@@ -72,20 +56,12 @@ export default {
               }
             }
           },
-          company_id: {
-            invisible: '1'
-          },
-          currency_id: {
-            invisible: '1'
-          },
-          product_id: {
-            invisible: '1'
-          }
+          company_id: { invisible: '1' },
+          currency_id: { invisible: '1' },
+          product_id: { invisible: '1' }
         },
-        _group_351: {
-          property_valuation: {
-            invisible: '1'
-          },
+        _group_933: {
+          property_valuation: { invisible: '1' },
           _group: {
             reason: {},
             account_journal_id: {
@@ -93,14 +69,12 @@ export default {
               required: [['property_valuation', '=', 'real_time']]
             }
           },
-          _group_139: {
+          _group_613: {
             account_id: {
               invisible: [['property_valuation', '!=', 'real_time']],
               required: [['property_valuation', '=', 'real_time']]
             },
-            date: {
-              invisible: [['property_valuation', '!=', 'real_time']]
-            }
+            date: { invisible: [['property_valuation', '!=', 'real_time']] }
           }
         }
       }

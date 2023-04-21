@@ -6,10 +6,7 @@ const ModelFields = {
   group_stock_packaging: {},
   group_warning_purchase: {},
   lock_confirmed_po: {},
-  module_account_3way_match: {
-    string: '3-way matching'
-  },
-
+  module_account_3way_match: { string: '3-way matching' },
   module_purchase_product_matrix: {},
   module_purchase_requisition: {},
   po_double_validation: {},

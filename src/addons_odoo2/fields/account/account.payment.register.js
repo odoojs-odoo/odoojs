@@ -17,17 +17,12 @@ const ModelFields = {
   early_payment_discount_mode: {},
   group_payment: {},
   hide_writeoff_section: {},
-  journal_id: {
-    required: '1'
-  },
-
+  journal_id: { required: '1' },
   line_ids: {},
   partner_bank_id: {
     required: [['require_partner_bank_account', '=', true], ['can_edit_wizard', '=', true], '|', ['can_group_payments', '=', false], ['group_payment', '=', false]],
     readonly: [['payment_type', '=', 'inbound']],
-    context: {
-      default_allow_out_payment: true
-    }
+    context: { default_allow_out_payment: true }
   },
 
   partner_id: {},
@@ -35,10 +30,7 @@ const ModelFields = {
   payment_date: {},
   payment_difference: {},
   payment_difference_handling: {},
-  payment_method_line_id: {
-    required: '1'
-  },
-
+  payment_method_line_id: { required: '1' },
   payment_type: {},
   require_partner_bank_account: {},
   show_partner_bank_account: {},
@@ -50,9 +42,7 @@ const ModelFields = {
     required: [['payment_difference_handling', '=', 'reconcile'], ['early_payment_discount_mode', '=', false]]
   },
 
-  writeoff_label: {
-    required: [['payment_difference_handling', '=', 'reconcile']]
-  }
+  writeoff_label: { required: [['payment_difference_handling', '=', 'reconcile']] }
 }
 
 const AddonsFields = {

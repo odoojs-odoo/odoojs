@@ -4,9 +4,7 @@ export default {
     model: 'res.currency.rate',
     type: 'search',
     arch: {
-      name: {
-        string: 'Date'
-      }
+      name: { string: 'Date' }
     }
   },
 
@@ -17,22 +15,14 @@ export default {
     arch: {
       sheet: {
         name: {},
-        company_id: {
-          groups: 'base.group_multi_company'
-        },
-        company_rate: {
-          digits: '[12,12]'
-        },
-        inverse_company_rate: {
-          digits: '[12,12]'
-        },
+        company_id: { groups: 'base.group_multi_company' },
+        company_rate: { digits: '[12,12]' },
+        inverse_company_rate: { digits: '[12,12]' },
         rate: {
           optional: 'hide',
           digits: '[12,12]'
         },
-        write_date: {
-          optional: 'hide'
-        }
+        write_date: { optional: 'hide' }
       }
     }
   },
@@ -50,18 +40,12 @@ export default {
               groups: 'base.group_no_one',
               digits: '[12,12]'
             },
-            company_rate: {
-              digits: '[12,12]'
-            },
-            inverse_company_rate: {
-              digits: '[12,12]'
-            }
+            company_rate: { digits: '[12,12]' },
+            inverse_company_rate: { digits: '[12,12]' }
           },
-          _group_351: {
+          _group_596: {
             currency_id: {},
-            company_id: {
-              groups: 'base.group_multi_company'
-            }
+            company_id: { groups: 'base.group_multi_company' }
           }
         }
       }
@@ -74,9 +58,7 @@ export default {
     res_model: 'res.currency.rate',
     search_view_id: 'tooooooodoooooo',
     domain: "[['currency_id','=', active_id]]",
-    context: {
-      todo_ctx: "{'default_currency_id': active_id}"
-    },
+    context: { todo_ctx: "{'default_currency_id': active_id}" },
     views: {
       tree: 'view_currency_rate_tree',
       form: '=======todo=========='

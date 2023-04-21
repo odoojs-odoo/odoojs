@@ -7,13 +7,9 @@ export default {
       sheet: {
         _group: {
           _group: {
-            create_date: {
-              string: 'Date'
-            },
+            create_date: { string: 'Date' },
             product_id: {},
-            stock_move_id: {
-              invisible: [['stock_move_id', '=', false]]
-            }
+            stock_move_id: { invisible: [['stock_move_id', '=', false]] }
           }
         },
         _notebook: {
@@ -24,12 +20,8 @@ export default {
             },
             _group: {
               quantity: {},
-              uom_id: {
-                groups: 'uom.group_uom'
-              },
-              currency_id: {
-                invisible: '1'
-              },
+              uom_id: { groups: 'uom.group_uom' },
+              currency_id: { invisible: '1' },
               unit_cost: {},
               value: {},
               remaining_qty: {}
@@ -46,12 +38,8 @@ export default {
                 groups: 'account.group_account_invoice',
                 invisible: [['account_move_id', '=', false]]
               },
-              company_id: {
-                groups: 'base.group_multi_company'
-              },
-              stock_valuation_layer_id: {
-                invisible: [['stock_valuation_layer_id', '=', false]]
-              }
+              company_id: { groups: 'base.group_multi_company' },
+              stock_valuation_layer_id: { invisible: [['stock_valuation_layer_id', '=', false]] }
             }
           }
         }
@@ -65,9 +53,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        create_date: {
-          string: 'Date'
-        },
+        create_date: { string: 'Date' },
         reference: {},
         _button_action_open_layer: {
           _attr: {
@@ -78,30 +64,16 @@ export default {
           }
         },
         product_id: {},
-        company_id: {
-          groups: 'base.group_multi_company'
-        },
-        quantity: {
-          string: 'Moved Quantity'
-        },
+        company_id: { groups: 'base.group_multi_company' },
+        quantity: { string: 'Moved Quantity' },
         unit_cost: {},
-        uom_id: {
-          groups: 'uom.group_uom'
-        },
-        currency_id: {
-          invisible: '1'
-        },
+        uom_id: { groups: 'uom.group_uom' },
+        currency_id: { invisible: '1' },
         value: {},
         _groupby_product_id: {
-          _attr: {
-            name: 'product_id'
-          },
-          cost_method: {
-            invisible: '1'
-          },
-          quantity_svl: {
-            invisible: '1'
-          },
+          _attr: { name: 'product_id' },
+          cost_method: { invisible: '1' },
+          quantity_svl: { invisible: '1' },
           _button_action_revaluation: {
             _attr: {
               name: 'action_revaluation',
@@ -159,7 +131,7 @@ export default {
           domain: [['stock_move_id.location_id.usage', 'in', ('internal', 'transit')], ['stock_move_id.location_dest_id.usage', 'not in', ('internal', 'transit')]]
         }
       },
-      _separator_308: {},
+      _separator_840: {},
       _filter_has_remaining_qty: {
         _attr: {
           name: 'has_remaining_qty',
@@ -168,16 +140,12 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group by...'
-        },
+        _attr: { string: 'Group by...' },
         _filter_group_by_product_id: {
           _attr: {
             name: 'group_by_product_id',
             string: 'Product',
-            context: {
-              group_by: 'product_id'
-            }
+            context: { group_by: 'product_id' }
           }
         }
       }
@@ -217,9 +185,7 @@ export default {
     res_model: 'stock.valuation.layer',
     search_view_id: 'tooooooodoooooo',
     domain: "[['product_id.type', '=', 'product']]",
-    context: {
-      search_default_has_remaining_qty: 1
-    },
+    context: { search_default_has_remaining_qty: 1 },
     views: {
       tree: 'stock_valuation_layer_report_tree',
       form: '=======todo=========='

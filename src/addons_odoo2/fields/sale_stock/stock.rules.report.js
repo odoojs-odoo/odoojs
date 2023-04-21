@@ -1,7 +1,5 @@
 const ModelFields = {
-  so_route_ids: {
-    groups: 'stock.group_adv_location'
-  }
+  so_route_ids: { groups: 'stock.group_adv_location' }
 }
 
 const AddonsFields = {

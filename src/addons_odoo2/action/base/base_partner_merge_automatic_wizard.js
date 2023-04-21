@@ -4,9 +4,7 @@ export default {
     name: 'Deduplicate Contacts',
     res_model: 'base.partner.merge.automatic.wizard',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      active_test: false
-    },
+    context: { active_test: false },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -71,7 +69,7 @@ export default {
               class: 'btn btn-secondary oe_inline'
             }
           },
-          _button_708: {
+          _button_924: {
             _attr: {
               type: 'object',
               string: 'Close',
@@ -81,9 +79,7 @@ export default {
           }
         },
         _group: {
-          _attr: {
-            invisible: [['state', '!=', 'finished']]
-          },
+          _attr: { invisible: [['state', '!=', 'finished']] },
           _h2: 'There are no more contacts to merge for this request',
           _button_action_partner_deduplicate: {
             _attr: {
@@ -101,16 +97,12 @@ export default {
             text: 'Select the list of fields used to search for\n                            duplicated records. If you select several fields,\n                            Odoo will propose you to merge only those having\n                            all these fields in common. (not one of the fields).'
           }
         },
-        _group_224: {
-          _attr: {
-            invisible: ['|', ['state', 'not in', ('selection', 'finished')], ['number_group', '=', 0]]
-          },
-          state: {
-            invisible: '1'
-          },
+        _group_782: {
+          _attr: { invisible: ['|', ['state', 'not in', ('selection', 'finished')], ['number_group', '=', 0]] },
+          state: { invisible: '1' },
           number_group: {}
         },
-        _group_361: {
+        _group_133: {
           _attr: {
             string: 'Search duplicates based on duplicated data in',
             invisible: [['state', 'not in', ('option',)]]
@@ -121,7 +113,7 @@ export default {
           group_by_vat: {},
           group_by_parent_id: {}
         },
-        _group_607: {
+        _group_951: {
           _attr: {
             string: 'Exclude contacts having',
             invisible: [['state', 'not in', ('option',)]]
@@ -135,24 +127,18 @@ export default {
             invisible: [['state', 'not in', ('option',)]]
           }
         },
-        _group_194: {
-          _attr: {
-            invisible: [['state', 'not in', ('option', 'finished')]]
-          },
-          maximum_group: {
-            readonly: [['state', 'in', 'finished']]
-          }
+        _group_227: {
+          _attr: { invisible: [['state', 'not in', ('option', 'finished')]] },
+          maximum_group: { readonly: [['state', 'in', 'finished']] }
         },
-        _separator_501: {
+        _separator_182: {
           _attr: {
             string: 'Merge the following contacts',
             invisible: [['state', 'in', ('option', 'finished')]]
           }
         },
-        _group_535: {
-          _attr: {
-            invisible: [['state', 'in', ('option', 'finished')]]
-          },
+        _group_637: {
+          _attr: { invisible: [['state', 'in', ('option', 'finished')]] },
           _p: {
             _attr: {
               class: 'oe_grey',
@@ -161,13 +147,9 @@ export default {
           },
           _group: {
             dst_partner_id: {
-              domain: {
-                todo_ctx: "[('id', 'in', partner_ids or False)]"
-              },
+              domain: { todo_ctx: "[('id', 'in', partner_ids or False)]" },
               required: [['state', '=', 'selection']],
-              context: {
-                partner_show_db_id: true
-              },
+              context: { partner_show_db_id: true },
               always_reload: true
             }
           },
@@ -176,9 +158,7 @@ export default {
               tree: {
                 arch: {
                   sheet: {
-                    _attr: {
-                      string: 'Partners'
-                    },
+                    _attr: { string: 'Partners' },
                     id: {},
                     display_name: {},
                     email: {},

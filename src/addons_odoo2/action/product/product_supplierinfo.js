@@ -11,29 +11,19 @@ export default {
               name: 'vendor',
               string: 'Vendor'
             },
-            product_variant_count: {
-              invisible: '1'
-            },
+            product_variant_count: { invisible: '1' },
             partner_id: {
-              context: {
-                res_partner_search_mode: 'supplier'
-              }
+              context: { res_partner_search_mode: 'supplier' }
             },
             product_name: {},
             product_code: {},
-            _label_delay: {
-              for: 'delay'
-            },
+            _label_delay: { for: 'delay' },
             _div: {
-              delay: {
-                class: 'oe_inline'
-              }
+              delay: { class: 'oe_inline' }
             }
           },
           _group: {
-            _attr: {
-              string: 'Pricelist'
-            },
+            _attr: { string: 'Pricelist' },
             product_tmpl_id: {
               string: 'Product',
               invisible: "context.get['visible_product_tmpl_id', True]"
@@ -42,51 +32,31 @@ export default {
               groups: 'product.group_product_variant',
               no_create: true
             },
-            _label_min_qty: {
-              for: 'min_qty'
-            },
+            _label_min_qty: { for: 'min_qty' },
             _div: {
-              _attr: {
-                class: 'o_row'
-              },
+              _attr: { class: 'o_row' },
               min_qty: {},
-              product_uom: {
-                groups: 'uom.group_uom'
-              }
+              product_uom: { groups: 'uom.group_uom' }
             },
             _label_price: {
               for: 'price',
               string: 'Unit Price'
             },
-            _div_109: {
-              _attr: {
-                class: 'o_row'
-              },
-              price: {
-                class: 'oe_inline'
-              },
-              currency_id: {
-                groups: 'base.group_multi_currency'
-              }
+            _div_510: {
+              _attr: { class: 'o_row' },
+              price: { class: 'oe_inline' },
+              currency_id: { groups: 'base.group_multi_currency' }
             },
             _label_date_start: {
               for: 'date_start',
               string: 'Validity'
             },
-            _div_779: {
-              _attr: {
-                class: 'o_row'
-              },
-              date_start: {
-                class: 'oe_inline'
-              },
-              date_end: {
-                class: 'oe_inline'
-              }
+            _div_633: {
+              _attr: { class: 'o_row' },
+              date_start: { class: 'oe_inline' },
+              date_end: { class: 'oe_inline' }
             },
-            company_id: {
-              no_create: true
-            }
+            company_id: { no_create: true }
           }
         }
       }
@@ -112,32 +82,24 @@ export default {
         _attr: {
           name: 'active',
           string: 'Active',
-          domain: {
-            todo_ctx: "['|', ('date_end', '=', False), ('date_end', '>=',  (context_today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "['|', ('date_end', '=', False), ('date_end', '>=',  (context_today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d'))]" }
         }
       },
       _filter_archived: {
         _attr: {
           name: 'archived',
           string: 'Archived',
-          domain: {
-            todo_ctx: "[('date_end', '<',  (context_today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('date_end', '<',  (context_today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d'))]" }
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_groupby_product: {
           _attr: {
             name: 'groupby_product',
             string: 'Product',
             domain: [],
-            context: {
-              group_by: 'product_tmpl_id'
-            }
+            context: { group_by: 'product_tmpl_id' }
           }
         },
         _filter_groupby_vendor: {
@@ -145,9 +107,7 @@ export default {
             name: 'groupby_vendor',
             string: 'Vendor',
             domain: [],
-            context: {
-              group_by: 'partner_id'
-            }
+            context: { group_by: 'partner_id' }
           }
         }
       }
@@ -167,12 +127,8 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
-        partner_id: {
-          readonly: '1'
-        },
+        sequence: { widget: 'handle' },
+        partner_id: { readonly: '1' },
         product_id: {
           groups: 'product.group_product_variant',
           invisible: "context.get['product_template_invisible_variant', False]",
@@ -184,38 +140,22 @@ export default {
           invisible: "context.get['visible_product_tmpl_id', True]",
           readonly: '1'
         },
-        product_name: {
-          optional: 'hide'
-        },
-        product_code: {
-          optional: 'hide'
-        },
-        date_start: {
-          optional: 'hide'
-        },
-        date_end: {
-          optional: 'hide'
-        },
+        product_name: { optional: 'hide' },
+        product_code: { optional: 'hide' },
+        date_start: { optional: 'hide' },
+        date_end: { optional: 'hide' },
         company_id: {
           groups: 'base.group_multi_company',
           readonly: '1'
         },
-        min_qty: {
-          optional: 'hide'
-        },
+        min_qty: { optional: 'hide' },
         product_uom: {
           groups: 'uom.group_uom',
           optional: 'hide'
         },
-        price: {
-          string: 'Price'
-        },
-        currency_id: {
-          groups: 'base.group_multi_currency'
-        },
-        delay: {
-          optional: 'hide'
-        }
+        price: { string: 'Price' },
+        currency_id: { groups: 'base.group_multi_currency' },
+        delay: { optional: 'hide' }
       }
     }
   },

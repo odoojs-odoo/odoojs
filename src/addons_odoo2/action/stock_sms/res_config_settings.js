@@ -12,7 +12,7 @@ export default {
           },
           stock_move_sms_validation: {}
         },
-        _xpath_803: {
+        _xpath_587: {
           _attr: {
             expr: "//label[@for='module_stock_sms']",
             position: 'replace'
@@ -22,7 +22,7 @@ export default {
             string: 'SMS Confirmation'
           }
         },
-        _xpath_147: {
+        _xpath_862: {
           _attr: {
             expr: "//div[@id='stock_confirmation_sms']",
             position: 'replace'
@@ -39,9 +39,7 @@ export default {
             },
             stock_sms_confirmation_template_id: {
               required: [['stock_move_sms_validation', '=', true]],
-              context: {
-                default_model: 'stock.picking'
-              },
+              context: { default_model: 'stock.picking' },
               class: 'oe_inline'
             }
           },

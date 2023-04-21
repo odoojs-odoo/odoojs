@@ -16,7 +16,7 @@ export default {
               }
             }
           },
-          _group_178: {
+          _group_752: {
             _div: {
               _attr: {
                 class: 'text-muted',
@@ -25,12 +25,8 @@ export default {
             }
           }
         },
-        pick_ids: {
-          invisible: '1'
-        },
-        show_transfers: {
-          invisible: '1'
-        },
+        pick_ids: { invisible: '1' },
+        show_transfers: { invisible: '1' },
         backorder_confirmation_line_ids: {
           invisible: [['show_transfers', '=', false]],
           views: {
@@ -38,9 +34,7 @@ export default {
               arch: {
                 sheet: {
                   picking_id: {},
-                  to_backorder: {
-                    widget: 'boolean_toggle'
-                  }
+                  to_backorder: { widget: 'boolean_toggle' }
                 }
               }
             }

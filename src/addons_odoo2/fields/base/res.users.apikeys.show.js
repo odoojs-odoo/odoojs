@@ -1,7 +1,5 @@
 const ModelFields = {
-  key: {
-    readonly: 'True'
-  }
+  key: { readonly: 'True' }
 }
 
 const AddonsFields = {

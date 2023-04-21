@@ -13,26 +13,16 @@ export default {
       product_id: {},
       location_id: {},
       warehouse_id: {},
-      storage_category_id: {
-        groups: 'stock.group_stock_storage_categories'
-      },
+      storage_category_id: { groups: 'stock.group_stock_storage_categories' },
       user_id: {},
       inventory_date: {},
       product_categ_id: {},
       product_tmpl_id: {},
-      package_id: {
-        groups: 'stock.group_tracking_lot'
-      },
-      lot_id: {
-        groups: 'stock.group_production_lot'
-      },
-      owner_id: {
-        groups: 'stock.group_tracking_owner'
-      },
+      package_id: { groups: 'stock.group_tracking_lot' },
+      lot_id: { groups: 'stock.group_production_lot' },
+      owner_id: { groups: 'stock.group_tracking_owner' },
       _group: {
-        _attr: {
-          string: 'Filters'
-        },
+        _attr: { string: 'Filters' },
         _filter_internal_loc: {
           _attr: {
             name: 'internal_loc',
@@ -59,9 +49,7 @@ export default {
           _attr: {
             name: 'to_count',
             string: 'To Count',
-            domain: {
-              todo_ctx: "[('inventory_date', '<=', context_today().strftime('%Y-%m-%d'))]"
-            }
+            domain: { todo_ctx: "[('inventory_date', '<=', context_today().strftime('%Y-%m-%d'))]" }
           }
         },
         _filter_to_apply: {
@@ -78,7 +66,7 @@ export default {
             domain: [['priority', '=', 1]]
           }
         },
-        _separator_360: {},
+        _separator_247: {},
         _filter_negative: {
           _attr: {
             name: 'negative',
@@ -93,35 +81,29 @@ export default {
             domain: [['reserved_quantity', '>', 0.0]]
           }
         },
-        _separator_906: {},
+        _separator_737: {},
         _filter_filter_in_date: {
           _attr: {
             name: 'filter_in_date',
             date: 'in_date'
           }
         },
-        _separator_557: {},
+        _separator_819: {},
         _filter_my_count: {
           _attr: {
             name: 'my_count',
             string: 'My Counts',
-            domain: {
-              todo_ctx: "[('user_id', '=', uid)]"
-            }
+            domain: { todo_ctx: "[('user_id', '=', uid)]" }
           }
         }
       },
-      _group_713: {
-        _attr: {
-          string: 'Group by...'
-        },
+      _group_292: {
+        _attr: { string: 'Group by...' },
         _filter_productgroup: {
           _attr: {
             name: 'productgroup',
             string: 'Product',
-            context: {
-              group_by: 'product_id'
-            }
+            context: { group_by: 'product_id' }
           }
         },
         _filter_locationgroup: {
@@ -129,9 +111,7 @@ export default {
             name: 'locationgroup',
             string: 'Location',
             domain: [],
-            context: {
-              group_by: 'location_id'
-            }
+            context: { group_by: 'location_id' }
           }
         },
         _filter_storagecategorygroup: {
@@ -139,9 +119,7 @@ export default {
             name: 'storagecategorygroup',
             string: 'Storage Category',
             domain: [],
-            context: {
-              group_by: 'storage_category_id'
-            }
+            context: { group_by: 'storage_category_id' }
           }
         },
         _filter_owner: {
@@ -149,9 +127,7 @@ export default {
             name: 'owner',
             string: 'Owner',
             groups: 'stock.group_tracking_owner',
-            context: {
-              group_by: 'owner_id'
-            }
+            context: { group_by: 'owner_id' }
           }
         },
         _filter_Lot_Serial_number: {
@@ -159,9 +135,7 @@ export default {
             name: 'Lot_Serial_number',
             string: 'Lot/Serial Number',
             groups: 'stock.group_production_lot',
-            context: {
-              group_by: 'lot_id'
-            }
+            context: { group_by: 'lot_id' }
           }
         },
         _filter_package: {
@@ -170,9 +144,7 @@ export default {
             string: 'Package',
             groups: 'stock.group_tracking_lot',
             domain: [],
-            context: {
-              group_by: 'package_id'
-            }
+            context: { group_by: 'package_id' }
           }
         },
         _filter_company: {
@@ -181,9 +153,7 @@ export default {
             string: 'Company',
             groups: 'base.group_multi_company',
             domain: [],
-            context: {
-              group_by: 'company_id'
-            }
+            context: { group_by: 'company_id' }
           }
         }
       }
@@ -198,12 +168,8 @@ export default {
       sheet: {
         _group: {
           _group: {
-            tracking: {
-              invisible: '1'
-            },
-            company_id: {
-              invisible: '1'
-            },
+            tracking: { invisible: '1' },
+            company_id: { invisible: '1' },
             product_id: {
               readonly: '0',
               no_create: true
@@ -216,9 +182,7 @@ export default {
               groups: 'stock.group_production_lot',
               readonly: [['tracking', 'not in', ['serial', 'lot']]],
               required: [['tracking', '!=', 'none']],
-              context: {
-                todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}"
-              }
+              context: { todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}" }
             },
             package_id: {
               groups: 'stock.group_tracking_lot',
@@ -229,51 +193,37 @@ export default {
               readonly: '0',
               no_create: true
             },
-            _field_company_id_799: {
-              company_id: {
-                groups: 'base.group_multi_company'
-              }
+            _field_company_id_396: {
+              company_id: { groups: 'base.group_multi_company' }
             }
           },
-          _group_814: {
+          _group_879: {
             _label_quantity: {
               for: 'quantity',
               string: 'Quantity On Hand'
             },
             _div: {
-              _attr: {
-                class: 'o_row'
-              },
+              _attr: { class: 'o_row' },
               quantity: {},
-              product_uom_id: {
-                groups: 'uom.group_uom'
-              }
+              product_uom_id: { groups: 'uom.group_uom' }
             },
             _label_available_quantity: {
               for: 'available_quantity',
               string: 'Available Quantity'
             },
-            _div_165: {
-              _attr: {
-                class: 'o_row'
-              },
+            _div_820: {
+              _attr: { class: 'o_row' },
               available_quantity: {},
-              product_uom_id: {
-                groups: 'uom.group_uom'
-              }
+              product_uom_id: { groups: 'uom.group_uom' }
             },
             _label_reserved_quantity: {
               for: 'reserved_quantity',
               string: 'Quantity Reserved'
             },
-            _div_379: {
-              _attr: {
-                class: 'o_row'
-              },
+            _div_865: {
+              _attr: { class: 'o_row' },
               reserved_quantity: {},
-              product_uom_id: {
-                groups: 'uom.group_uom'
-              }
+              product_uom_id: { groups: 'uom.group_uom' }
             }
           }
         }
@@ -287,39 +237,25 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        create_date: {
-          invisible: '1'
-        },
-        write_date: {
-          invisible: '1'
-        },
-        id: {
-          invisible: '1'
-        },
-        tracking: {
-          invisible: '1'
-        },
-        company_id: {
-          invisible: '1'
-        },
+        create_date: { invisible: '1' },
+        write_date: { invisible: '1' },
+        id: { invisible: '1' },
+        tracking: { invisible: '1' },
+        company_id: { invisible: '1' },
         location_id: {
           invisible: "context.get['hide_location', False]",
           readonly: [['id', '!=', false]],
           no_create: true
         },
-        storage_category_id: {
-          optional: 'hide'
-        },
+        storage_category_id: { optional: 'hide' },
         product_id: {
           widget: 'many2one',
           readonly: "context.get['single_product', False]",
           force_save: '1',
           no_create: true
         },
-        product_categ_id: {
-          optional: 'hide'
-        },
-        _field_company_id_572: {
+        product_categ_id: { optional: 'hide' },
+        _field_company_id_298: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'hidden'
@@ -334,9 +270,7 @@ export default {
           invisible: "context.get['hide_lot', False]",
           readonly: ['|', ['id', '!=', false], ['tracking', 'not in', ['serial', 'lot']]],
           required: [['tracking', '!=', 'none']],
-          context: {
-            todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}"
-          }
+          context: { todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}" }
         },
         owner_id: {
           groups: 'stock.group_tracking_owner',
@@ -353,15 +287,11 @@ export default {
             type: 'action',
             title: 'Inventory Adjustment',
             icon: 'fa-pencil',
-            context: {
-              todo_ctx: "{'search_default_product_id': product_id, 'default_product_id': product_id}"
-            },
+            context: { todo_ctx: "{'search_default_product_id': product_id, 'default_product_id': product_id}" },
             class: 'btn-link'
           }
         },
-        reserved_quantity: {
-          optional: 'show'
-        },
+        reserved_quantity: { optional: 'show' },
         product_uom_id: {
           string: 'Unit',
           groups: 'uom.group_uom'
@@ -381,9 +311,7 @@ export default {
             type: 'object',
             string: 'Replenishment',
             icon: 'fa-refresh',
-            context: {
-              todo_ctx: "{'default_product_id': product_id, 'search_default_location_id': location_id}"
-            },
+            context: { todo_ctx: "{'default_product_id': product_id, 'search_default_location_id': location_id}" },
             class: 'btn-link'
           }
         }
@@ -397,32 +325,18 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        product_id: {
-          invisible: "context.get['single_product', False]"
-        },
-        location_id: {
-          invisible: "context.get['hide_location', False]"
-        },
+        product_id: { invisible: "context.get['single_product', False]" },
+        location_id: { invisible: "context.get['hide_location', False]" },
         lot_id: {
           groups: 'stock.group_production_lot',
           invisible: "context.get['hide_lot', False]"
         },
-        package_id: {
-          groups: 'stock.group_tracking_lot'
-        },
-        owner_id: {
-          groups: 'stock.group_tracking_owner'
-        },
+        package_id: { groups: 'stock.group_tracking_lot' },
+        owner_id: { groups: 'stock.group_tracking_owner' },
         available_quantity: {},
-        quantity: {
-          string: 'On Hand Quantity'
-        },
-        product_uom_id: {
-          groups: 'uom.group_uom'
-        },
-        company_id: {
-          groups: 'base.group_multi_company'
-        }
+        quantity: { string: 'On Hand Quantity' },
+        product_uom_id: { groups: 'uom.group_uom' },
+        company_id: { groups: 'base.group_multi_company' }
       }
     }
   },
@@ -470,9 +384,7 @@ export default {
     res_model: 'stock.quant',
     search_view_id: 'tooooooodoooooo',
     domain: "[['location_id', 'child_of', active_ids]]",
-    context: {
-      search_default_productgroup: 1
-    },
+    context: { search_default_productgroup: 1 },
     views: {
       tree: 'view_stock_quant_tree',
       form: '=======todo=========='
@@ -528,30 +440,14 @@ export default {
             }
           }
         },
-        create_date: {
-          invisible: '1'
-        },
-        write_date: {
-          invisible: '1'
-        },
-        id: {
-          invisible: '1'
-        },
-        is_outdated: {
-          invisible: '1'
-        },
-        sn_duplicated: {
-          invisible: '1'
-        },
-        tracking: {
-          invisible: '1'
-        },
-        inventory_quantity_set: {
-          invisible: '1'
-        },
-        company_id: {
-          invisible: '1'
-        },
+        create_date: { invisible: '1' },
+        write_date: { invisible: '1' },
+        id: { invisible: '1' },
+        is_outdated: { invisible: '1' },
+        sn_duplicated: { invisible: '1' },
+        tracking: { invisible: '1' },
+        inventory_quantity_set: { invisible: '1' },
+        company_id: { invisible: '1' },
         location_id: {
           invisible: "context.get['hide_location', False]",
           domain: [['usage', 'in', ['internal', 'transit']]],
@@ -578,9 +474,7 @@ export default {
           force_save: '1',
           no_create: true
         },
-        product_categ_id: {
-          optional: 'hide'
-        },
+        product_categ_id: { optional: 'hide' },
         _button_action_warning_duplicated_sn: {
           _attr: {
             name: 'action_warning_duplicated_sn',
@@ -595,9 +489,7 @@ export default {
           groups: 'stock.group_production_lot',
           invisible: "context.get['hide_lot', False]",
           readonly: ['|', ['tracking', 'not in', ['serial', 'lot']], '&', ['id', '!=', false], '|', ['lot_id', '!=', false], ['quantity', '!=', 0]],
-          context: {
-            todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}"
-          },
+          context: { todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}" },
           force_save: '1'
         },
         package_id: {
@@ -625,21 +517,17 @@ export default {
           string: 'UoM',
           groups: 'uom.group_uom'
         },
-        inventory_quantity: {
-          widget: 'counted_quantity_widget'
-        },
+        inventory_quantity: { widget: 'counted_quantity_widget' },
         inventory_diff_quantity: {
           string: 'Difference',
           invisible: [['inventory_quantity_set', '=', false]]
         },
-        inventory_date: {
-          optional: 'show'
-        },
+        inventory_date: { optional: 'show' },
         user_id: {
           string: 'User',
           optional: 'show'
         },
-        _field_company_id_143: {
+        _field_company_id_100: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'hide'

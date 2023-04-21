@@ -3,9 +3,7 @@ const ModelFields = {
   mobile_blacklisted: {},
   phone: {},
   phone_blacklisted: {},
-  phone_sanitized: {
-    groups: 'base.group_no_one'
-  }
+  phone_sanitized: { groups: 'base.group_no_one' }
 }
 
 const AddonsFields = {

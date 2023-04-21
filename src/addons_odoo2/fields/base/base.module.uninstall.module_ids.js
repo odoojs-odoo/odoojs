@@ -3,9 +3,7 @@ const ModelFields = {
   name: {},
   shortdesc: {},
   state: {},
-  summary: {
-    groups: '!base.group_no_one'
-  }
+  summary: { groups: '!base.group_no_one' }
 }
 
 const AddonsFields = {

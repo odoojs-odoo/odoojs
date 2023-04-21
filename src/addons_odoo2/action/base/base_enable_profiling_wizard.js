@@ -6,9 +6,7 @@ export default {
     arch: {
       sheet: {
         _div: {
-          _attr: {
-            class: 'alert alert-warning'
-          },
+          _attr: { class: 'alert alert-warning' },
           _h3: 'Profiling is currently disabled.'
         },
         _group: {

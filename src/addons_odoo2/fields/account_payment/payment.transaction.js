@@ -1,8 +1,5 @@
 const ModelFields = {
-  invoices_count: {
-    string: 'Invoice(s)'
-  },
-
+  invoices_count: { string: 'Invoice(s)' },
   reference: {}
 }
 

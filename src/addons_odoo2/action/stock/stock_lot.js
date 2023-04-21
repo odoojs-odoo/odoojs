@@ -5,12 +5,8 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        company_id: {
-          invisible: '1'
-        },
-        display_complete: {
-          invisible: '1'
-        },
+        company_id: { invisible: '1' },
+        display_complete: { invisible: '1' },
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -27,19 +23,15 @@ export default {
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_field_widget o_stat_info'
-              },
+              _attr: { class: 'o_field_widget o_stat_info' },
               _span: {
-                _attr: {
-                  class: 'o_stat_value'
-                },
+                _attr: { class: 'o_stat_value' },
                 delivery_count: {
                   widget: 'statinfo',
                   class: 'mr4'
                 }
               },
-              _span_701: {
+              _span_957: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Transfers'
@@ -67,22 +59,14 @@ export default {
           }
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
-          _label_name: {
-            for: 'name'
-          },
+          _attr: { class: 'oe_title' },
+          _label_name: { for: 'name' },
           _h1: {
-            name: {
-              placeholder: 'e.g. LOT/0001/20121'
-            }
+            name: { placeholder: 'e.g. LOT/0001/20121' }
           }
         },
         _group_main_group: {
-          _attr: {
-            name: 'main_group'
-          },
+          _attr: { name: 'main_group' },
           _group: {
             product_id: {
               context: {
@@ -103,21 +87,15 @@ export default {
                 class: 'o_row'
               },
               product_qty: {},
-              product_uom_id: {
-                groups: 'uom.group_uom'
-              }
+              product_uom_id: { groups: 'uom.group_uom' }
             },
             ref: {},
-            company_id: {
-              groups: 'base.group_multi_company'
-            }
+            company_id: { groups: 'base.group_multi_company' }
           },
-          _group_474: {}
+          _group_753: {}
         },
         _notebook: {
-          _attr: {
-            invisible: [['display_complete', '=', false]]
-          },
+          _attr: { invisible: [['display_complete', '=', false]] },
           _page_description: {
             _attr: {
               name: 'description',
@@ -137,18 +115,10 @@ export default {
     arch: {
       sheet: {
         name: {},
-        ref: {
-          optional: 'show'
-        },
-        product_id: {
-          readonly: '1'
-        },
-        create_date: {
-          optional: 'show'
-        },
-        company_id: {
-          groups: 'base.group_multi_company'
-        },
+        ref: { optional: 'show' },
+        product_id: { readonly: '1' },
+        create_date: { optional: 'show' },
+        company_id: { groups: 'base.group_multi_company' },
         last_delivery_partner_id: {
           string: 'Transfer to',
           optional: 'hide'
@@ -164,23 +134,17 @@ export default {
     arch: {
       name: {
         string: 'Lot/Serial Number',
-        filter_domain: {
-          todo_ctx: "['|', ('name', 'ilike', self),('ref', 'ilike', self)]"
-        }
+        filter_domain: { todo_ctx: "['|', ('name', 'ilike', self),('ref', 'ilike', self)]" }
       },
       product_id: {},
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_group_by_product: {
           _attr: {
             name: 'group_by_product',
             string: 'Product',
             domain: [],
-            context: {
-              group_by: 'product_id'
-            }
+            context: { group_by: 'product_id' }
           }
         }
       }
@@ -193,9 +157,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'stock.lot',
     search_view_id: 'search_product_lot_filter',
-    context: {
-      todo_ctx: "{'search_default_group_by_product': 1, 'display_complete': True, 'default_company_id': allowed_company_ids[0]}"
-    },
+    context: { todo_ctx: "{'search_default_group_by_product': 1, 'display_complete': True, 'default_company_id': allowed_company_ids[0]}" },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

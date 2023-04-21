@@ -2,9 +2,7 @@ const ModelFields = {
   move_id: {},
   product_id: {},
   quantity: {},
-  uom_id: {
-    groups: 'uom.group_uom'
-  }
+  uom_id: { groups: 'uom.group_uom' }
 }
 
 const AddonsFields = {

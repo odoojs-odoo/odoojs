@@ -5,9 +5,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        company_id: {
-          invisible: '1'
-        },
+        company_id: { invisible: '1' },
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -21,22 +19,16 @@ export default {
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_form_field o_stat_info'
-              },
+              _attr: { class: 'o_form_field o_stat_info' },
               _span: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Gross Margin'
                 }
               },
-              _span_400: {
-                _attr: {
-                  class: 'o_stat_value'
-                },
-                balance: {
-                  widget: 'monetary'
-                }
+              _span_811: {
+                _attr: { class: 'o_stat_value' },
+                balance: { widget: 'monetary' }
               }
             }
           }
@@ -50,12 +42,8 @@ export default {
           }
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
-          _label_name: {
-            for: 'name'
-          },
+          _attr: { class: 'oe_title' },
+          _label_name: { for: 'name' },
           _h1: {
             name: {
               class: 'oe_inline',
@@ -64,25 +52,17 @@ export default {
           }
         },
         _div_project: {
-          _attr: {
-            name: 'project'
-          }
+          _attr: { name: 'project' }
         },
         _group_main: {
-          _attr: {
-            name: 'main'
-          },
+          _attr: { name: 'main' },
           _group: {
-            active: {
-              invisible: '1'
-            },
+            active: { invisible: '1' },
             partner_id: {},
             code: {}
           },
-          _group_277: {
-            plan_id: {
-              no_quick_create: true
-            },
+          _group_897: {
+            plan_id: { no_quick_create: true },
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
@@ -103,22 +83,14 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        company_id: {
-          invisible: '1'
-        },
-        name: {
-          string: 'Name'
-        },
+        company_id: { invisible: '1' },
+        name: { string: 'Name' },
         code: {},
         partner_id: {},
         plan_id: {},
-        active: {
-          invisible: '1'
-        },
-        _field_company_id_120: {
-          company_id: {
-            groups: 'base.group_multi_company'
-          }
+        active: { invisible: '1' },
+        _field_company_id_982: {
+          company_id: { groups: 'base.group_multi_company' }
         },
         debit: {},
         credit: {},
@@ -141,9 +113,7 @@ export default {
     arch: {
       name: {
         string: 'Analytic Account',
-        filter_domain: {
-          todo_ctx: "['|', ('name', 'ilike', self), ('code', 'ilike', self)]"
-        }
+        filter_domain: { todo_ctx: "['|', ('name', 'ilike', self), ('code', 'ilike', self)]" }
       },
       partner_id: {},
       _separator: {},
@@ -155,17 +125,13 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By...'
-        },
+        _attr: { string: 'Group By...' },
         _filter_associatedpartner: {
           _attr: {
             name: 'associatedpartner',
             string: 'Associated Partner',
             domain: [],
-            context: {
-              group_by: 'partner_id'
-            }
+            context: { group_by: 'partner_id' }
           }
         }
       }
@@ -177,9 +143,7 @@ export default {
     name: 'Chart of Analytic Accounts',
     res_model: 'account.analytic.account',
     search_view_id: 'view_account_analytic_account_search',
-    context: {
-      search_default_active: 1
-    },
+    context: { search_default_active: 1 },
     views: {
       tree: 'view_account_analytic_account_list',
       form: '=======todo=========='
@@ -192,9 +156,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'account.analytic.account',
     search_view_id: 'view_account_analytic_account_search',
-    context: {
-      search_default_active: 1
-    },
+    context: { search_default_active: 1 },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

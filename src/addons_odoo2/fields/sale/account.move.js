@@ -2,10 +2,7 @@ const ModelFields = {
   campaign_id: {},
   invoice_user_id: {},
   medium_id: {},
-  sale_order_count: {
-    string: 'Sale Orders'
-  },
-
+  sale_order_count: { string: 'Sale Orders' },
   source_id: {},
   team_id: {}
 }

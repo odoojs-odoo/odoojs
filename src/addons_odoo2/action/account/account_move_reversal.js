@@ -5,35 +5,21 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        residual: {
-          invisible: '1'
-        },
-        company_id: {
-          invisible: '1'
-        },
-        move_ids: {
-          invisible: '1'
-        },
-        move_type: {
-          invisible: '1'
-        },
-        available_journal_ids: {
-          invisible: '1'
-        },
+        residual: { invisible: '1' },
+        company_id: { invisible: '1' },
+        move_ids: { invisible: '1' },
+        move_type: { invisible: '1' },
+        available_journal_ids: { invisible: '1' },
         _group: {
           _group: {
-            _attr: {
-              invisible: ['|', ['move_type', 'not in', ('out_invoice', 'in_invoice')], ['residual', '=', 0]]
-            },
+            _attr: { invisible: ['|', ['move_type', 'not in', ('out_invoice', 'in_invoice')], ['residual', '=', 0]] },
             refund_method: {
               widget: 'radio',
               readonly: [['residual', '=', 0]]
             }
           },
-          _group_461: {
-            _attr: {
-              invisible: ['|', ['move_type', 'not in', ('out_invoice', 'in_invoice', 'some_invoice')], ['residual', '=', 0]]
-            },
+          _group_759: {
+            _attr: { invisible: ['|', ['move_type', 'not in', ('out_invoice', 'in_invoice', 'some_invoice')], ['residual', '=', 0]] },
             _div: {
               _attr: {
                 invisible: [['refund_method', '!=', 'refund']],
@@ -41,14 +27,14 @@ export default {
                 text: 'The credit note is created in draft and can be edited before being issued.'
               }
             },
-            _div_742: {
+            _div_976: {
               _attr: {
                 invisible: [['refund_method', '!=', 'cancel']],
                 class: 'oe_grey',
                 text: 'The credit note is auto-validated and reconciled with the invoice.'
               }
             },
-            _div_938: {
+            _div_323: {
               _attr: {
                 invisible: [['refund_method', '!=', 'modify']],
                 class: 'oe_grey',
@@ -57,28 +43,24 @@ export default {
             }
           }
         },
-        _group_769: {
+        _group_353: {
           _group: {
-            reason: {
-              invisible: [['move_type', '=', 'entry']]
-            },
+            reason: { invisible: [['move_type', '=', 'entry']] },
             date_mode: {
               string: 'Reversal Date',
               widget: 'radio'
             }
           },
-          _group_565: {
+          _group_285: {
             journal_id: {
-              domain: {
-                todo_ctx: "[('id', 'in', available_journal_ids)]"
-              }
+              domain: { todo_ctx: "[('id', 'in', available_journal_ids)]" }
             },
             date: {
               string: 'Refund Date',
               invisible: ['|', ['move_type', 'not in', ('out_invoice', 'in_invoice')], ['date_mode', '!=', 'custom']],
               required: [['date_mode', '=', 'custom']]
             },
-            _field_date_168: {
+            _field_date_523: {
               date: {
                 invisible: ['|', ['move_type', 'in', ('out_invoice', 'in_invoice')], ['date_mode', '!=', 'custom']],
                 required: [['date_mode', '=', 'custom']]

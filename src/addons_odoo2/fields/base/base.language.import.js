@@ -6,13 +6,8 @@ const ModelFields = {
 
   data: {},
   filename: {},
-  name: {
-    placeholder: 'e.g. English'
-  },
-
-  overwrite: {
-    groups: 'base.group_no_one'
-  }
+  name: { placeholder: 'e.g. English' },
+  overwrite: { groups: 'base.group_no_one' }
 }
 
 const AddonsFields = {

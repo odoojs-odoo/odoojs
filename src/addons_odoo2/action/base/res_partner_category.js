@@ -6,16 +6,10 @@ export default {
     arch: {
       sheet: {
         _group: {
-          name: {
-            placeholder: 'e.g. "Consulting Services"'
-          },
-          color: {
-            widget: 'color_picker'
-          },
+          name: { placeholder: 'e.g. "Consulting Services"' },
+          color: { widget: 'color_picker' },
           parent_id: {},
-          active: {
-            widget: 'boolean_toggle'
-          }
+          active: { widget: 'boolean_toggle' }
         }
       }
     }
@@ -28,9 +22,7 @@ export default {
     arch: {
       sheet: {
         display_name: {},
-        color: {
-          widget: 'color_picker'
-        }
+        color: { widget: 'color_picker' }
       }
     }
   },

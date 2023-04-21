@@ -1,13 +1,7 @@
 const ModelFields = {
-  lot_id: {
-    groups: 'stock.group_production_lot'
-  },
-
+  lot_id: { groups: 'stock.group_production_lot' },
   product_id: {},
-  product_uom_id: {
-    groups: 'uom.group_uom'
-  },
-
+  product_uom_id: { groups: 'uom.group_uom' },
   quantity: {}
 }
 

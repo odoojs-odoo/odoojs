@@ -41,9 +41,7 @@ export default {
                 groups: 'stock.group_adv_location',
                 invisible: [['parent_id', '=', false]]
               },
-              removal_strategy_id: {
-                no_create: true
-              },
+              removal_strategy_id: { no_create: true },
               packaging_reserve_method: {
                 widget: 'radio',
                 groups: 'product.group_stock_packaging'

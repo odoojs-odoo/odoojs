@@ -1,9 +1,6 @@
 const ModelFields = {
   state: {},
-  tracking: {
-    readonly: [['state', '!=', 'manual']]
-  },
-
+  tracking: { readonly: [['state', '!=', 'manual']] },
   transient: {}
 }
 

@@ -5,16 +5,10 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        name: {
-          string: 'Title'
-        },
+        name: { string: 'Title' },
         periodicity: {},
-        next_run_date: {
-          groups: 'base.group_no_one'
-        },
-        company_id: {
-          groups: 'base.group_multi_company'
-        },
+        next_run_date: { groups: 'base.group_no_one' },
+        company_id: { groups: 'base.group_multi_company' },
         state: {
           widget: 'badge',
           groups: 'base.group_no_one'
@@ -64,21 +58,15 @@ export default {
         }
       },
       sheet: {
-        is_subscribed: {
-          invisible: '1'
-        },
+        is_subscribed: { invisible: '1' },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _label_name: {
             for: 'name',
             string: 'Digest Title'
           },
           _h1: {
-            name: {
-              placeholder: 'e.g. Your Weekly Digest'
-            }
+            name: { placeholder: 'e.g. Your Weekly Digest' }
           }
         },
         _group: {
@@ -92,10 +80,8 @@ export default {
               no_create: true
             }
           },
-          _group_275: {
-            next_run_date: {
-              groups: 'base.group_system'
-            }
+          _group_303: {
+            next_run_date: { groups: 'base.group_system' }
           }
         },
         _notebook: {
@@ -105,9 +91,7 @@ export default {
               string: 'KPIs'
             },
             _group_kpis: {
-              _attr: {
-                name: 'kpis'
-              },
+              _attr: { name: 'kpis' },
               _group_kpi_general: {
                 _attr: {
                   name: 'kpi_general',
@@ -118,9 +102,7 @@ export default {
                 kpi_mail_message_total: {}
               },
               _group_kpi_sales: {
-                _attr: {
-                  name: 'kpi_sales'
-                }
+                _attr: { name: 'kpi_sales' }
               },
               _group_custom: {
                 _attr: {
@@ -130,15 +112,11 @@ export default {
                 },
                 _div: {
                   _p: {
-                    _attr: {
-                      text: 'Want to add your own KPIs?'
-                    },
+                    _attr: { text: 'Want to add your own KPIs?' },
                     _br: {},
                     _a: {
                       _i: {
-                        _attr: {
-                          class: 'fa fa-arrow-right'
-                        }
+                        _attr: { class: 'fa fa-arrow-right' }
                       }
                     }
                   }
@@ -158,13 +136,9 @@ export default {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Recipients'
-                      },
+                      _attr: { string: 'Recipients' },
                       name: {},
-                      email: {
-                        string: 'Email Address'
-                      }
+                      email: { string: 'Email Address' }
                     }
                   }
                 }
@@ -198,16 +172,12 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group by'
-        },
+        _attr: { string: 'Group by' },
         _filter_periodicity: {
           _attr: {
             name: 'periodicity',
             string: 'Periodicity',
-            context: {
-              group_by: 'periodicity'
-            }
+            context: { group_by: 'periodicity' }
           }
         }
       }
@@ -219,9 +189,7 @@ export default {
     name: 'Digest Emails',
     res_model: 'digest.digest',
     search_view_id: 'digest_digest_view_search',
-    context: {
-      search_default_filter_activated: 1
-    },
+    context: { search_default_filter_activated: 1 },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

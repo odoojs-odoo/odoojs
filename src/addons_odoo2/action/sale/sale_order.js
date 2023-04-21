@@ -4,9 +4,7 @@ export default {
     name: 'Quotations and Sales',
     res_model: 'sale.order',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      todo_ctx: "{'default_partner_id': active_id}"
-    },
+    context: { todo_ctx: "{'default_partner_id': active_id}" },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -20,9 +18,7 @@ export default {
     res_model: 'sale.order',
     search_view_id: 'sale.sale_order_view_search_inherit_quotation',
     domain: '[]',
-    context: {
-      todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n                'show_address': 1,\n            }\n        "
-    },
+    context: { todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n                'show_address': 1,\n            }\n        " },
     views: {
       tree: 'sale.view_quotation_tree',
       form: '=======todo=========='
@@ -35,9 +31,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'sale.order',
     search_view_id: 'sale_order_view_search_inherit_quotation',
-    context: {
-      todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n                'default_user_id': uid,\n        }\n        "
-    },
+    context: { todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n                'default_user_id': uid,\n        }\n        " },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -51,9 +45,7 @@ export default {
     res_model: 'sale.order',
     search_view_id: 'sale.sale_order_view_search_inherit_sale',
     domain: "[['state','not in',['draft','sent','cancel']]]",
-    context: {
-      todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n            }\n        "
-    },
+    context: { todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n            }\n        " },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -67,9 +59,7 @@ export default {
     res_model: 'sale.order',
     search_view_id: 'sale.sale_order_view_search_inherit_sale',
     domain: "[['invoice_status','=','to invoice']]",
-    context: {
-      todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n            }\n        "
-    },
+    context: { todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n            }\n        " },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -117,9 +107,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        message_needaction: {
-          invisible: '1'
-        },
+        message_needaction: { invisible: '1' },
         name: {
           string: 'Number',
           readonly: '1'
@@ -129,15 +117,9 @@ export default {
           widget: 'date',
           optional: 'show'
         },
-        commitment_date: {
-          optional: 'hide'
-        },
-        expected_date: {
-          optional: 'hide'
-        },
-        partner_id: {
-          readonly: '1'
-        },
+        commitment_date: { optional: 'hide' },
+        expected_date: { optional: 'hide' },
+        partner_id: { readonly: '1' },
         user_id: {
           widget: 'many2one_avatar_user',
           optional: 'show'
@@ -146,9 +128,7 @@ export default {
           widget: 'list_activity',
           optional: 'show'
         },
-        team_id: {
-          optional: 'hide'
-        },
+        team_id: { optional: 'hide' },
         company_id: {
           groups: 'base.group_multi_company',
           readonly: '1',
@@ -166,9 +146,7 @@ export default {
           widget: 'monetary',
           optional: 'show'
         },
-        currency_id: {
-          invisible: '1'
-        },
+        currency_id: { invisible: '1' },
         invoice_status: {
           widget: 'badge',
           optional: 'show'
@@ -178,9 +156,7 @@ export default {
           optional: 'hide',
           color_field: 'color'
         },
-        state: {
-          invisible: '1'
-        }
+        state: { invisible: '1' }
       }
     }
   },
@@ -208,9 +184,7 @@ export default {
           widget: 'date',
           optional: 'hide'
         },
-        partner_id: {
-          readonly: '1'
-        },
+        partner_id: { readonly: '1' },
         user_id: {
           widget: 'many2one_avatar_user',
           optional: 'show'
@@ -219,9 +193,7 @@ export default {
           widget: 'list_activity',
           optional: 'show'
         },
-        team_id: {
-          optional: 'hide'
-        },
+        team_id: { optional: 'hide' },
         tag_ids: {
           widget: 'many2many_tags',
           optional: 'hide',
@@ -248,15 +220,9 @@ export default {
           widget: 'badge',
           optional: 'show'
         },
-        invoice_status: {
-          optional: 'hide'
-        },
-        message_needaction: {
-          invisible: '1'
-        },
-        currency_id: {
-          invisible: '1'
-        }
+        invoice_status: { optional: 'hide' },
+        message_needaction: { invisible: '1' },
+        currency_id: { invisible: '1' }
       }
     }
   },
@@ -290,9 +256,7 @@ export default {
     type: 'form',
     arch: {
       header: {
-        authorized_transaction_ids: {
-          invisible: '1'
-        },
+        authorized_transaction_ids: { invisible: '1' },
         _button_payment_action_capture: {
           _attr: {
             name: 'payment_action_capture',
@@ -319,15 +283,13 @@ export default {
             class: 'btn-primary'
           }
         },
-        _button_sale__action_view_sale_advance_payment_inv_679: {
+        _button_sale__action_view_sale_advance_payment_inv_189: {
           _attr: {
             name: 'sale.action_view_sale_advance_payment_inv',
             type: 'action',
             string: 'Create Invoice',
             invisible: ['|', ['invoice_status', '!=', 'no'], ['state', '!=', 'sale']],
-            context: {
-              default_advance_payment_method: 'percentage'
-            }
+            context: { default_advance_payment_method: 'percentage' }
           }
         },
         _button_action_quotation_send: {
@@ -336,13 +298,11 @@ export default {
             type: 'object',
             string: 'Send by Email',
             states: 'draft',
-            context: {
-              validate_analytic: true
-            },
+            context: { validate_analytic: true },
             class: 'btn-primary'
           }
         },
-        _button_action_quotation_send_820: {
+        _button_action_quotation_send_290: {
           _attr: {
             name: 'action_quotation_send',
             type: 'object',
@@ -362,24 +322,20 @@ export default {
             type: 'object',
             string: 'Confirm',
             invisible: [['state', 'not in', ['sent']]],
-            context: {
-              validate_analytic: true
-            },
+            context: { validate_analytic: true },
             class: 'btn-primary'
           }
         },
-        _button_action_confirm_536: {
+        _button_action_confirm_324: {
           _attr: {
             name: 'action_confirm',
             type: 'object',
             string: 'Confirm',
             invisible: [['state', 'not in', ['draft']]],
-            context: {
-              validate_analytic: true
-            }
+            context: { validate_analytic: true }
           }
         },
-        _button_action_quotation_send_177: {
+        _button_action_quotation_send_865: {
           _attr: {
             name: 'action_quotation_send',
             type: 'object',
@@ -392,15 +348,13 @@ export default {
             }
           }
         },
-        _button_action_quotation_send_950: {
+        _button_action_quotation_send_534: {
           _attr: {
             name: 'action_quotation_send',
             type: 'object',
             string: 'Send by Email',
             states: 'sent,sale',
-            context: {
-              validate_analytic: true
-            }
+            context: { validate_analytic: true }
           }
         },
         _button_action_cancel: {
@@ -459,16 +413,14 @@ export default {
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_field_widget o_stat_info'
-              },
+              _attr: { class: 'o_field_widget o_stat_info' },
               _span: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Customer'
                 }
               },
-              _span_197: {
+              _span_334: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Preview'
@@ -478,23 +430,15 @@ export default {
           }
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _h1: {
-            name: {
-              readonly: '1'
-            }
+            name: { readonly: '1' }
           }
         },
         _group_sale_header: {
-          _attr: {
-            name: 'sale_header'
-          },
+          _attr: { name: 'sale_header' },
           _group_partner_details: {
-            _attr: {
-              name: 'partner_details'
-            },
+            _attr: { name: 'partner_details' },
             partner_id: {
               widget: 'res_partner_many2one',
               context: {
@@ -506,26 +450,18 @@ export default {
             },
             partner_invoice_id: {
               groups: 'account.group_delivery_invoice_address',
-              context: {
-                default_type: 'invoice'
-              },
+              context: { default_type: 'invoice' },
               always_reload: true
             },
             partner_shipping_id: {
               groups: 'account.group_delivery_invoice_address',
-              context: {
-                default_type: 'delivery'
-              },
+              context: { default_type: 'delivery' },
               always_reload: true
             }
           },
           _group_order_details: {
-            _attr: {
-              name: 'order_details'
-            },
-            validity_date: {
-              invisible: [['state', 'in', ['sale', 'done']]]
-            },
+            _attr: { name: 'order_details' },
+            validity_date: { invisible: [['state', 'in', ['sale', 'done']]] },
             _div: {
               _attr: {
                 groups: 'base.group_no_one',
@@ -541,7 +477,7 @@ export default {
               groups: 'base.group_no_one',
               invisible: [['state', 'in', ['sale', 'done', 'cancel']]]
             },
-            _div_122: {
+            _div_552: {
               _attr: {
                 invisible: [['state', 'in', ['draft', 'sent']]],
                 class: 'o_td_label'
@@ -551,19 +487,15 @@ export default {
                 string: 'Order Date'
               }
             },
-            _field_date_order_577: {
-              date_order: {
-                invisible: [['state', 'in', ['draft', 'sent']]]
-              }
+            _field_date_order_121: {
+              date_order: { invisible: [['state', 'in', ['draft', 'sent']]] }
             },
-            show_update_pricelist: {
-              invisible: '1'
-            },
+            show_update_pricelist: { invisible: '1' },
             _label_pricelist_id: {
               for: 'pricelist_id',
               groups: 'product.group_product_pricelist'
             },
-            _div_299: {
+            _div_182: {
               _attr: {
                 groups: 'product.group_product_pricelist',
                 class: 'o_row'
@@ -584,19 +516,13 @@ export default {
                 }
               }
             },
-            company_id: {
-              invisible: '1'
-            },
-            currency_id: {
-              invisible: '1'
-            },
+            company_id: { invisible: '1' },
+            currency_id: { invisible: '1' },
             pricelist_id: {
               groups: '!product.group_product_pricelist',
               invisible: '1'
             },
-            tax_country_id: {
-              invisible: '1'
-            },
+            tax_country_id: { invisible: '1' },
             payment_term_id: {
               no_open: true,
               no_create: true
@@ -616,77 +542,43 @@ export default {
                 form: {
                   arch: {
                     sheet: {
-                      display_type: {
-                        invisible: '1'
-                      },
-                      sequence: {
-                        invisible: '1'
-                      },
-                      product_uom_category_id: {
-                        invisible: '1'
-                      },
+                      display_type: { invisible: '1' },
+                      sequence: { invisible: '1' },
+                      product_uom_category_id: { invisible: '1' },
                       _group: {
                         _group: {
-                          _attr: {
-                            invisible: [['display_type', '!=', false]]
-                          },
-                          product_updatable: {
-                            invisible: '1'
-                          },
+                          _attr: { invisible: [['display_type', '!=', false]] },
+                          product_updatable: { invisible: '1' },
                           product_id: {
                             widget: 'many2one_barcode',
-                            domain: {
-                              todo_ctx: "[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
-                            },
+                            domain: { todo_ctx: "[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" },
                             readonly: [['product_updatable', '=', false]],
                             required: [['display_type', '=', false]],
-                            context: {
-                              todo_ctx: "{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
-                            },
+                            context: { todo_ctx: "{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}" },
                             force_save: '1'
                           },
-                          product_type: {
-                            invisible: '1'
-                          },
-                          invoice_status: {
-                            invisible: '1'
-                          },
-                          qty_to_invoice: {
-                            invisible: '1'
-                          },
-                          qty_delivered_method: {
-                            invisible: '1'
-                          },
-                          price_total: {
-                            invisible: '1'
-                          },
-                          price_tax: {
-                            invisible: '1'
-                          },
-                          price_subtotal: {
-                            invisible: '1'
-                          },
-                          product_uom_readonly: {
-                            invisible: '1'
-                          },
-                          _label_product_uom_qty: {
-                            for: 'product_uom_qty'
-                          },
+                          product_type: { invisible: '1' },
+                          invoice_status: { invisible: '1' },
+                          qty_to_invoice: { invisible: '1' },
+                          qty_delivered_method: { invisible: '1' },
+                          price_total: { invisible: '1' },
+                          price_tax: { invisible: '1' },
+                          price_subtotal: { invisible: '1' },
+                          product_uom_readonly: { invisible: '1' },
+                          _label_product_uom_qty: { for: 'product_uom_qty' },
                           _div_ordered_qty: {
                             _attr: {
                               name: 'ordered_qty',
                               class: 'o_row'
                             },
                             product_uom_qty: {
-                              context: {
-                                todo_ctx: "{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'uom_qty_change':True, 'company_id': parent.company_id}"
-                              }
+                              context: { todo_ctx: "{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'uom_qty_change':True, 'company_id': parent.company_id}" }
                             },
                             product_uom: {
                               groups: '!uom.group_uom',
                               invisible: '1'
                             },
-                            _field_product_uom_875: {
+                            _field_product_uom_400: {
                               product_uom: {
                                 groups: 'uom.group_uom',
                                 readonly: [['product_uom_readonly', '=', true]],
@@ -706,9 +598,7 @@ export default {
                               name: 'delivered_qty',
                               invisible: [['parent.state', 'not in', ['sale', 'done']]]
                             },
-                            qty_delivered: {
-                              readonly: [['qty_delivered_method', '!=', 'manual']]
-                            }
+                            qty_delivered: { readonly: [['qty_delivered_method', '!=', 'manual']] }
                           },
                           _label_qty_invoiced: {
                             for: 'qty_invoiced',
@@ -720,27 +610,19 @@ export default {
                               name: 'invoiced_qty',
                               invisible: [['parent.state', 'not in', ['sale', 'done']]]
                             },
-                            qty_invoiced: {
-                              invisible: [['parent.state', 'not in', ['sale', 'done']]]
-                            }
+                            qty_invoiced: { invisible: [['parent.state', 'not in', ['sale', 'done']]] }
                           },
                           product_packaging_id: {
                             groups: 'product.group_stock_packaging',
                             invisible: [['product_id', '=', false]],
-                            context: {
-                              todo_ctx: "{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}"
-                            }
+                            context: { todo_ctx: "{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}" }
                           },
                           price_unit: {},
                           tax_id: {
                             widget: 'many2many_tags',
-                            domain: {
-                              todo_ctx: "[('type_tax_use','=','sale'), ('company_id','=',parent.company_id), ('country_id', '=', parent.tax_country_id)]"
-                            },
+                            domain: { todo_ctx: "[('type_tax_use','=','sale'), ('company_id','=',parent.company_id), ('country_id', '=', parent.tax_country_id)]" },
                             readonly: [['qty_invoiced', '>', 0]],
-                            context: {
-                              search_view_ref: 'account.account_tax_view_search'
-                            },
+                            context: { search_view_ref: 'account.account_tax_view_search' },
                             no_create: true
                           },
                           _label_discount: {
@@ -752,28 +634,16 @@ export default {
                               name: 'discount',
                               groups: 'product.group_discount_per_so_line'
                             },
-                            discount: {
-                              class: 'oe_inline'
-                            }
+                            discount: { class: 'oe_inline' }
                           },
-                          sequence: {
-                            invisible: '1'
-                          }
+                          sequence: { invisible: '1' }
                         },
-                        _group_648: {
-                          _attr: {
-                            invisible: [['display_type', '!=', false]]
-                          },
-                          _label_customer_lead: {
-                            for: 'customer_lead'
-                          },
+                        _group_884: {
+                          _attr: { invisible: [['display_type', '!=', false]] },
+                          _label_customer_lead: { for: 'customer_lead' },
                           _div_lead: {
-                            _attr: {
-                              name: 'lead'
-                            },
-                            customer_lead: {
-                              class: 'oe_inline'
-                            }
+                            _attr: { name: 'lead' },
+                            customer_lead: { class: 'oe_inline' }
                           },
                           analytic_distribution: {
                             widget: 'analytic_distribution',
@@ -788,12 +658,12 @@ export default {
                         string: 'Description',
                         invisible: [['display_type', '!=', false]]
                       },
-                      _label_name_452: {
+                      _label_name_569: {
                         for: 'name',
                         string: 'Section Name (eg. Products, Services)',
                         invisible: [['display_type', '!=', 'line_section']]
                       },
-                      _label_name_936: {
+                      _label_name_760: {
                         for: 'name',
                         string: 'Note',
                         invisible: [['display_type', '!=', 'line_note']]
@@ -805,26 +675,18 @@ export default {
                           groups: 'base.group_no_one',
                           invisible: [['display_type', '!=', false]]
                         },
-                        _label_invoice_lines: {
-                          for: 'invoice_lines'
-                        },
+                        _label_invoice_lines: { for: 'invoice_lines' },
                         invoice_lines: {}
                       },
-                      state: {
-                        invisible: '1'
-                      },
-                      company_id: {
-                        invisible: '1'
-                      }
+                      state: { invisible: '1' },
+                      company_id: { invisible: '1' }
                     }
                   }
                 },
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Sales Order Lines'
-                      },
+                      _attr: { string: 'Sales Order Lines' },
                       _control: {
                         _create_add_product_control: {
                           _attr: {
@@ -836,46 +698,28 @@ export default {
                           _attr: {
                             name: 'add_section_control',
                             string: 'Add a section',
-                            context: {
-                              default_display_type: 'line_section'
-                            }
+                            context: { default_display_type: 'line_section' }
                           }
                         },
                         _create_add_note_control: {
                           _attr: {
                             name: 'add_note_control',
                             string: 'Add a note',
-                            context: {
-                              default_display_type: 'line_note'
-                            }
+                            context: { default_display_type: 'line_note' }
                           }
                         }
                       },
-                      sequence: {
-                        widget: 'handle'
-                      },
-                      display_type: {
-                        invisible: '1'
-                      },
-                      product_uom_category_id: {
-                        invisible: '1'
-                      },
-                      product_type: {
-                        invisible: '1'
-                      },
-                      product_updatable: {
-                        invisible: '1'
-                      },
+                      sequence: { widget: 'handle' },
+                      display_type: { invisible: '1' },
+                      product_uom_category_id: { invisible: '1' },
+                      product_type: { invisible: '1' },
+                      product_updatable: { invisible: '1' },
                       product_id: {
                         widget: 'sol_product_many2one',
-                        domain: {
-                          todo_ctx: "[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
-                        },
+                        domain: { todo_ctx: "[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" },
                         readonly: [['product_updatable', '=', false]],
                         required: [['display_type', '=', false]],
-                        context: {
-                          todo_ctx: "{                                         'partner_id': parent.partner_id,                                         'quantity': product_uom_qty,                                         'pricelist': parent.pricelist_id,                                         'uom':product_uom,                                         'company_id': parent.company_id,                                         'default_lst_price': price_unit,                                         'default_description_sale': name                                     }"
-                        },
+                        context: { todo_ctx: "{                                         'partner_id': parent.partner_id,                                         'quantity': product_uom_qty,                                         'pricelist': parent.pricelist_id,                                         'uom':product_uom,                                         'company_id': parent.company_id,                                         'default_lst_price': price_unit,                                         'default_description_sale': name                                     }" },
                         force_save: '1',
                         no_open: true
                       },
@@ -883,14 +727,10 @@ export default {
                         string: 'Product',
                         widget: 'sol_product_many2one',
                         invisible: '1',
-                        domain: {
-                          todo_ctx: "[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
-                        },
+                        domain: { todo_ctx: "[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" },
                         readonly: [['product_updatable', '=', false]],
                         required: [['display_type', '=', false]],
-                        context: {
-                          todo_ctx: "{                                         'partner_id': parent.partner_id,                                         'quantity': product_uom_qty,                                         'pricelist': parent.pricelist_id,                                         'uom':product_uom,                                         'company_id': parent.company_id,                                         'default_list_price': price_unit,                                         'default_description_sale': name                                     }"
-                        },
+                        context: { todo_ctx: "{                                         'partner_id': parent.partner_id,                                         'quantity': product_uom_qty,                                         'pricelist': parent.pricelist_id,                                         'uom':product_uom,                                         'company_id': parent.company_id,                                         'default_list_price': price_unit,                                         'default_description_sale': name                                     }" },
                         no_open: true
                       },
                       name: {
@@ -905,9 +745,7 @@ export default {
                         business_domain: 'sale_order'
                       },
                       product_uom_qty: {
-                        context: {
-                          todo_ctx: "{                                         'partner_id': parent.partner_id,                                         'quantity': product_uom_qty,                                         'pricelist': parent.pricelist_id,                                         'uom': product_uom,                                         'company_id': parent.company_id                                     }"
-                        }
+                        context: { todo_ctx: "{                                         'partner_id': parent.partner_id,                                         'quantity': product_uom_qty,                                         'pricelist': parent.pricelist_id,                                         'uom': product_uom,                                         'company_id': parent.company_id                                     }" }
                       },
                       qty_delivered: {
                         string: 'Delivered',
@@ -915,33 +753,25 @@ export default {
                         readonly: [['qty_delivered_method', '!=', 'manual']],
                         optional: 'show'
                       },
-                      qty_delivered_method: {
-                        invisible: '1'
-                      },
+                      qty_delivered_method: { invisible: '1' },
                       qty_invoiced: {
                         string: 'Invoiced',
                         column_invisible: [['parent.state', 'not in', ['sale', 'done']]],
                         optional: 'show'
                       },
-                      qty_to_invoice: {
-                        invisible: '1'
-                      },
-                      product_uom_readonly: {
-                        invisible: '1'
-                      },
+                      qty_to_invoice: { invisible: '1' },
+                      product_uom_readonly: { invisible: '1' },
                       product_uom: {
                         groups: '!uom.group_uom',
                         invisible: '1'
                       },
-                      _field_product_uom_406: {
+                      _field_product_uom_656: {
                         product_uom: {
                           string: 'UoM',
                           groups: 'uom.group_uom',
                           readonly: [['product_uom_readonly', '=', true]],
                           required: [['display_type', '=', false]],
-                          context: {
-                            todo_ctx: "{'company_id': parent.company_id}"
-                          },
+                          context: { todo_ctx: "{'company_id': parent.company_id}" },
                           optional: 'show',
                           force_save: '1',
                           no_open: true
@@ -959,23 +789,15 @@ export default {
                       product_packaging_id: {
                         groups: 'product.group_stock_packaging',
                         invisible: [['product_id', '=', false]],
-                        context: {
-                          todo_ctx: "{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}"
-                        },
+                        context: { todo_ctx: "{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}" },
                         optional: 'show'
                       },
-                      price_unit: {
-                        readonly: [['qty_invoiced', '>', 0]]
-                      },
+                      price_unit: { readonly: [['qty_invoiced', '>', 0]] },
                       tax_id: {
                         widget: 'many2many_tags',
-                        domain: {
-                          todo_ctx: "[('type_tax_use','=','sale'),('company_id','=',parent.company_id), ('country_id', '=', parent.tax_country_id)]"
-                        },
+                        domain: { todo_ctx: "[('type_tax_use','=','sale'),('company_id','=',parent.company_id), ('country_id', '=', parent.tax_country_id)]" },
                         readonly: [['qty_invoiced', '>', 0]],
-                        context: {
-                          active_test: true
-                        },
+                        context: { active_test: true },
                         optional: 'show',
                         no_create: true
                       },
@@ -985,9 +807,7 @@ export default {
                         groups: 'product.group_discount_per_so_line',
                         optional: 'show'
                       },
-                      is_downpayment: {
-                        invisible: '1'
-                      },
+                      is_downpayment: { invisible: '1' },
                       price_subtotal: {
                         widget: 'monetary',
                         groups: 'account.group_show_line_subtotals_tax_excluded',
@@ -998,118 +818,76 @@ export default {
                         groups: 'account.group_show_line_subtotals_tax_included',
                         invisible: [['is_downpayment', '=', true]]
                       },
-                      state: {
-                        invisible: '1'
-                      },
-                      invoice_status: {
-                        invisible: '1'
-                      },
-                      currency_id: {
-                        invisible: '1'
-                      },
-                      price_tax: {
-                        invisible: '1'
-                      },
-                      company_id: {
-                        invisible: '1'
-                      }
+                      state: { invisible: '1' },
+                      invoice_status: { invisible: '1' },
+                      currency_id: { invisible: '1' },
+                      price_tax: { invisible: '1' },
+                      company_id: { invisible: '1' }
                     }
                   }
                 },
                 kanban: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        class: 'o_kanban_mobile'
-                      },
+                      _attr: { class: 'o_kanban_mobile' },
                       name: {},
                       product_id: {},
                       product_uom_qty: {},
                       product_uom: {},
                       price_subtotal: {},
                       price_total: {},
-                      price_tax: {
-                        invisible: '1'
-                      },
-                      _field_price_total_778: {
-                        price_total: {
-                          invisible: '1'
-                        }
+                      price_tax: { invisible: '1' },
+                      _field_price_total_490: {
+                        price_total: { invisible: '1' }
                       },
                       price_unit: {},
                       display_type: {},
-                      tax_id: {
-                        invisible: '1'
-                      },
-                      company_id: {
-                        invisible: '1'
-                      },
+                      tax_id: { invisible: '1' },
+                      company_id: { invisible: '1' },
                       _templates: {
                         _t: {
                           _div: {
                             _t: {
                               _div: {
-                                _attr: {
-                                  class: 'row g-0'
-                                },
+                                _attr: { class: 'row g-0' },
                                 _div: {
-                                  _attr: {
-                                    class: 'col-2 pe-3'
-                                  },
+                                  _attr: { class: 'col-2 pe-3' },
                                   _img: {}
                                 },
-                                _div_239: {
-                                  _attr: {
-                                    class: 'col-10'
-                                  },
+                                _div_787: {
+                                  _attr: { class: 'col-10' },
                                   _div: {
-                                    _attr: {
-                                      class: 'row'
-                                    },
+                                    _attr: { class: 'row' },
                                     _div: {
-                                      _attr: {
-                                        class: 'col'
-                                      },
+                                      _attr: { class: 'col' },
                                       _strong: {}
                                     },
-                                    _div_632: {
-                                      _attr: {
-                                        class: 'col-auto'
-                                      },
+                                    _div_250: {
+                                      _attr: { class: 'col-auto' },
                                       _t: {
-                                        _attr: {
-                                          groups: 'account.group_show_line_subtotals_tax_excluded'
-                                        }
+                                        _attr: { groups: 'account.group_show_line_subtotals_tax_excluded' }
                                       },
-                                      _t_857: {
-                                        _attr: {
-                                          groups: 'account.group_show_line_subtotals_tax_included'
-                                        }
+                                      _t_609: {
+                                        _attr: { groups: 'account.group_show_line_subtotals_tax_included' }
                                       },
                                       _strong: {
-                                        _attr: {
-                                          class: 'float-end text-end'
-                                        }
+                                        _attr: { class: 'float-end text-end' }
                                       }
                                     }
                                   },
-                                  _div_812: {
-                                    _attr: {
-                                      class: 'row'
-                                    },
+                                  _div_449: {
+                                    _attr: { class: 'row' },
                                     _div: {
                                       _attr: {
                                         class: 'col-12 text-muted',
                                         text: 'Quantity:'
                                       },
                                       _t: {},
-                                      _t_428: {}
+                                      _t_594: {}
                                     }
                                   },
-                                  _div_913: {
-                                    _attr: {
-                                      class: 'row'
-                                    },
+                                  _div_607: {
+                                    _attr: { class: 'row' },
                                     _div: {
                                       _attr: {
                                         class: 'col-12 text-muted',
@@ -1121,15 +899,11 @@ export default {
                                 }
                               }
                             },
-                            _t_861: {
+                            _t_617: {
                               _div: {
-                                _attr: {
-                                  class: 'row'
-                                },
+                                _attr: { class: 'row' },
                                 _div: {
-                                  _attr: {
-                                    class: 'col-12'
-                                  },
+                                  _attr: { class: 'col-12' },
                                   _t: {}
                                 }
                               }
@@ -1148,9 +922,7 @@ export default {
                 class: 'mt-2 mt-md-0'
               },
               _group: {
-                note: {
-                  placeholder: 'Terms and conditions...'
-                }
+                note: { placeholder: 'Terms and conditions...' }
               },
               _group_sale_total: {
                 _attr: {
@@ -1163,9 +935,7 @@ export default {
                 }
               },
               _div: {
-                _attr: {
-                  class: 'clearfix'
-                }
+                _attr: { class: 'clearfix' }
               }
             }
           },
@@ -1180,12 +950,8 @@ export default {
                   name: 'sales_person',
                   string: 'Sales'
                 },
-                user_id: {
-                  widget: 'many2one_avatar_user'
-                },
-                team_id: {
-                  no_create: true
-                },
+                user_id: { widget: 'many2one_avatar_user' },
+                team_id: { no_create: true },
                 company_id: {
                   groups: 'base.group_multi_company',
                   no_create: true
@@ -1195,14 +961,10 @@ export default {
                   string: 'Online confirmation'
                 },
                 _div: {
-                  require_signature: {
-                    class: 'oe_inline'
-                  },
+                  require_signature: { class: 'oe_inline' },
                   _span: 'Signature',
-                  require_payment: {
-                    class: 'oe_inline ms-3'
-                  },
-                  _span_226: 'Payment'
+                  require_payment: { class: 'oe_inline ms-3' },
+                  _span_201: 'Payment'
                 },
                 reference: {
                   invisible: [['reference', '=', false]],
@@ -1220,19 +982,11 @@ export default {
                   name: 'sale_info',
                   string: 'Invoicing and Payments'
                 },
-                show_update_fpos: {
-                  invisible: '1'
-                },
-                _label_fiscal_position_id: {
-                  for: 'fiscal_position_id'
-                },
+                show_update_fpos: { invisible: '1' },
+                _label_fiscal_position_id: { for: 'fiscal_position_id' },
                 _div: {
-                  _attr: {
-                    class: 'o_row'
-                  },
-                  fiscal_position_id: {
-                    no_create: true
-                  },
+                  _attr: { class: 'o_row' },
+                  fiscal_position_id: { no_create: true },
                   _button_action_update_taxes: {
                     _attr: {
                       name: 'action_update_taxes',
@@ -1245,22 +999,18 @@ export default {
                     }
                   }
                 },
-                partner_invoice_id: {
-                  invisible: '1'
-                },
+                partner_invoice_id: { invisible: '1' },
                 analytic_account_id: {
                   groups: 'analytic.group_analytic_accounting',
                   readonly: [['invoice_count', '!=', 0], ['state', '=', 'sale']],
-                  context: {
-                    todo_ctx: "{'default_partner_id':partner_invoice_id, 'default_name':name}"
-                  },
+                  context: { todo_ctx: "{'default_partner_id':partner_invoice_id, 'default_name':name}" },
                   force_save: '1'
                 },
                 invoice_status: {
                   groups: 'base.group_no_one',
                   states: 'sale,done'
                 },
-                _field_invoice_status_373: {
+                _field_invoice_status_355: {
                   invoice_status: {
                     groups: '!base.group_no_one',
                     invisible: '1'
@@ -1268,11 +1018,9 @@ export default {
                 }
               }
             },
-            _group_338: {
+            _group_682: {
               _group_sale_shipping: {
-                _attr: {
-                  name: 'sale_shipping'
-                },
+                _attr: { name: 'sale_shipping' },
                 _label_commitment_date: {
                   for: 'commitment_date',
                   string: 'Delivery Date'
@@ -1333,9 +1081,7 @@ export default {
             _group: {
               signed_by: {},
               signed_on: {},
-              signature: {
-                widget: 'image'
-              }
+              signature: { widget: 'image' }
             }
           }
         }
@@ -1355,9 +1101,7 @@ export default {
             position: 'after'
           },
           _t: {
-            _attr: {
-              groups: 'sale.group_auto_done_setting'
-            },
+            _attr: { groups: 'sale.group_auto_done_setting' },
             _button_action_done: {
               _attr: {
                 name: 'action_done',
@@ -1390,33 +1134,21 @@ export default {
     arch: {
       name: {
         string: 'Order',
-        filter_domain: {
-          todo_ctx: "['|', '|', ('name', 'ilike', self), ('client_order_ref', 'ilike', self), ('partner_id', 'child_of', self)]"
-        }
+        filter_domain: { todo_ctx: "['|', '|', ('name', 'ilike', self), ('client_order_ref', 'ilike', self), ('partner_id', 'child_of', self)]" }
       },
-      partner_id: {
-        operator: 'child_of'
-      },
+      partner_id: { operator: 'child_of' },
       user_id: {},
-      team_id: {
-        string: 'Sales Team'
-      },
+      team_id: { string: 'Sales Team' },
       order_line: {
         string: 'Product',
-        filter_domain: {
-          todo_ctx: "[('order_line.product_id', 'ilike', self)]"
-        }
+        filter_domain: { todo_ctx: "[('order_line.product_id', 'ilike', self)]" }
       },
-      analytic_account_id: {
-        groups: 'analytic.group_analytic_accounting'
-      },
+      analytic_account_id: { groups: 'analytic.group_analytic_accounting' },
       _filter_my_sale_orders_filter: {
         _attr: {
           name: 'my_sale_orders_filter',
           string: 'My Orders',
-          domain: {
-            todo_ctx: "[('user_id', '=', uid)]"
-          }
+          domain: { todo_ctx: "[('user_id', '=', uid)]" }
         }
       },
       _filter_activities_overdue: {
@@ -1425,9 +1157,7 @@ export default {
           string: 'Late Activities',
           help: 'Show all records which has next action date is before today',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
       _filter_activities_today: {
@@ -1435,9 +1165,7 @@ export default {
           name: 'activities_today',
           string: 'Today Activities',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
       _filter_activities_upcoming_all: {
@@ -1445,23 +1173,17 @@ export default {
           name: 'activities_upcoming_all',
           string: 'Future Activities',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_salesperson: {
           _attr: {
             name: 'salesperson',
             string: 'Salesperson',
             domain: [],
-            context: {
-              group_by: 'user_id'
-            }
+            context: { group_by: 'user_id' }
           }
         },
         _filter_customer: {
@@ -1469,9 +1191,7 @@ export default {
             name: 'customer',
             string: 'Customer',
             domain: [],
-            context: {
-              group_by: 'partner_id'
-            }
+            context: { group_by: 'partner_id' }
           }
         },
         _filter_order_month: {
@@ -1479,9 +1199,7 @@ export default {
             name: 'order_month',
             string: 'Order Date',
             domain: [],
-            context: {
-              group_by: 'date_order'
-            }
+            context: { group_by: 'date_order' }
           }
         }
       }
@@ -1505,12 +1223,10 @@ export default {
             _attr: {
               name: 'my_quotation',
               string: 'My Quotations',
-              domain: {
-                todo_ctx: "[('user_id', '=', uid)]"
-              }
+              domain: { todo_ctx: "[('user_id', '=', uid)]" }
             }
           },
-          _separator_267: {},
+          _separator_910: {},
           _filter_draft: {
             _attr: {
               name: 'draft',
@@ -1525,7 +1241,7 @@ export default {
               domain: [['state', 'in', ('sale', 'done')]]
             }
           },
-          _separator_220: {},
+          _separator_858: {},
           _filter_filter_create_date: {
             _attr: {
               name: 'filter_create_date',
@@ -1564,7 +1280,7 @@ export default {
               domain: [['invoice_status', '=', 'upselling']]
             }
           },
-          _separator_206: {},
+          _separator_369: {},
           _filter_order_date: {
             _attr: {
               name: 'order_date',
@@ -1639,9 +1355,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'sale.order',
     search_view_id: 'sale_order_view_search_inherit_quotation',
-    context: {
-      search_default_my_quotation: 1
-    },
+    context: { search_default_my_quotation: 1 },
     views: {
       tree: 'view_quotation_tree_with_onboarding',
       form: '=======todo=========='
@@ -1654,9 +1368,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'sale.order',
     search_view_id: 'sale_order_view_search_inherit_quotation',
-    context: {
-      search_default_my_quotation: 1
-    },
+    context: { search_default_my_quotation: 1 },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -1712,9 +1424,7 @@ export default {
     res_model: 'sale.order',
     search_view_id: 'view_sales_order_filter',
     domain: "[['invoice_status','=','to invoice']]",
-    context: {
-      create: false
-    },
+    context: { create: false },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -1728,9 +1438,7 @@ export default {
     res_model: 'sale.order',
     search_view_id: 'view_sales_order_filter',
     domain: "[['invoice_status','=','upselling']]",
-    context: {
-      create: false
-    },
+    context: { create: false },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

@@ -6,9 +6,7 @@ export default {
     arch: {
       sheet: {
         _separator: {
-          _attr: {
-            string: 'Unreconcile Transactions'
-          }
+          _attr: { string: 'Unreconcile Transactions' }
         },
         _form: {
           _attr: {

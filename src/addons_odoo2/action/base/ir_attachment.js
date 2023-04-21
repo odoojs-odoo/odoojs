@@ -5,27 +5,21 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _label_name: {
-          for: 'name'
-        },
+        _label_name: { for: 'name' },
         _h1: {
           name: {}
         },
         _group: {
           _group: {
             type: {},
-            datas: {
-              invisible: [['type', '=', 'url']]
-            },
+            datas: { invisible: [['type', '=', 'url']] },
             url: {
               widget: 'url',
               invisible: [['type', '=', 'binary']]
             },
-            mimetype: {
-              groups: 'base.group_no_one'
-            }
+            mimetype: { groups: 'base.group_no_one' }
           },
-          _group_491: {
+          _group_527: {
             _attr: {
               string: 'Attached To',
               groups: 'base.group_no_one'
@@ -40,7 +34,7 @@ export default {
             },
             public: {}
           },
-          _group_465: {
+          _group_445: {
             _attr: {
               string: 'History',
               groups: 'base.group_no_one',
@@ -51,9 +45,7 @@ export default {
               string: 'Creation'
             },
             _div_creation_div: {
-              _attr: {
-                name: 'creation_div'
-              },
+              _attr: { name: 'creation_div' },
               create_uid: {
                 class: 'oe_inline',
                 readonly: '1'
@@ -72,7 +64,7 @@ export default {
             },
             description: {}
           },
-          _group_899: {
+          _group_926: {
             _attr: {
               string: 'Indexed Content',
               groups: 'base.group_no_one'
@@ -96,9 +88,7 @@ export default {
         res_id: {},
         type: {},
         file_size: {},
-        company_id: {
-          groups: 'base.group_multi_company'
-        },
+        company_id: { groups: 'base.group_multi_company' },
         create_uid: {},
         create_date: {}
       }
@@ -112,9 +102,7 @@ export default {
     arch: {
       name: {
         string: 'Attachment',
-        filter_domain: {
-          todo_ctx: "[('name','ilike',self)]"
-        }
+        filter_domain: { todo_ctx: "[('name','ilike',self)]" }
       },
       create_date: {},
       _filter_my_documents_filter: {
@@ -122,9 +110,7 @@ export default {
           name: 'my_documents_filter',
           string: 'My Document(s)',
           help: 'Filter on my documents',
-          domain: {
-            todo_ctx: "[('create_uid','=',uid)]"
-          }
+          domain: { todo_ctx: "[('create_uid','=',uid)]" }
         }
       },
       _filter_url_filter: {
@@ -142,22 +128,16 @@ export default {
         }
       },
       _separator: {},
-      create_uid: {
-        string: 'Created by'
-      },
+      create_uid: { string: 'Created by' },
       type: {},
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_owner: {
           _attr: {
             name: 'owner',
             string: 'Owner',
             domain: [],
-            context: {
-              group_by: 'create_uid'
-            }
+            context: { group_by: 'create_uid' }
           }
         },
         _filter_type: {
@@ -166,9 +146,7 @@ export default {
             string: 'Type',
             groups: 'base.group_no_one',
             domain: [],
-            context: {
-              group_by: 'type'
-            }
+            context: { group_by: 'type' }
           }
         },
         _filter_company: {
@@ -177,9 +155,7 @@ export default {
             string: 'Company',
             groups: 'base.group_multi_company',
             domain: [],
-            context: {
-              group_by: 'company_id'
-            }
+            context: { group_by: 'company_id' }
           }
         },
         _filter_creation_month: {
@@ -187,9 +163,7 @@ export default {
             name: 'creation_month',
             string: 'Creation Date',
             domain: [],
-            context: {
-              group_by: 'create_date'
-            }
+            context: { group_by: 'create_date' }
           }
         }
       }

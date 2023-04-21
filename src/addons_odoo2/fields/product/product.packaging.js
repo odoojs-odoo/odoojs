@@ -1,23 +1,14 @@
 const ModelFields = {
   barcode: {},
-  company_id: {
-    groups: 'base.group_multi_company'
-  },
-
+  company_id: { groups: 'base.group_multi_company' },
   id: {},
-  name: {
-    string: 'Packaging'
-  },
-
+  name: { string: 'Packaging' },
   product_id: {
     readonly: [['id', '!=', false]],
     required: 'True'
   },
 
-  product_uom_id: {
-    groups: 'uom.group_uom'
-  },
-
+  product_uom_id: { groups: 'uom.group_uom' },
   qty: {},
   sequence: {}
 }

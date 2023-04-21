@@ -7,20 +7,14 @@ export default {
       sheet: {
         _group: {
           _group_field_value: {
-            _attr: {
-              name: 'field_value'
-            },
+            _attr: { name: 'field_value' },
             field_id: {},
             json_value: {}
           },
           _group_user_company_details: {
-            _attr: {
-              name: 'user_company_details'
-            },
+            _attr: { name: 'user_company_details' },
             user_id: {},
-            company_id: {
-              groups: 'base.group_multi_company'
-            }
+            company_id: { groups: 'base.group_multi_company' }
           }
         }
       }
@@ -36,9 +30,7 @@ export default {
         field_id: {},
         json_value: {},
         user_id: {},
-        company_id: {
-          groups: 'base.group_multi_company'
-        }
+        company_id: { groups: 'base.group_multi_company' }
       }
     }
   },
@@ -50,21 +42,15 @@ export default {
     arch: {
       field_id: {},
       user_id: {},
-      company_id: {
-        groups: 'base.group_multi_company'
-      },
+      company_id: { groups: 'base.group_multi_company' },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_groupby_user: {
           _attr: {
             name: 'groupby_user',
             string: 'User',
             domain: [],
-            context: {
-              group_by: 'user_id'
-            }
+            context: { group_by: 'user_id' }
           }
         },
         _filter_groupby_company: {
@@ -72,9 +58,7 @@ export default {
             name: 'groupby_company',
             string: 'Company',
             domain: [],
-            context: {
-              group_by: 'company_id'
-            }
+            context: { group_by: 'company_id' }
           }
         }
       }

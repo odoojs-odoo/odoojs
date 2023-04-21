@@ -6,15 +6,9 @@ export default {
     arch: {
       sheet: {
         _group: {
-          _attr: {
-            class: 'oe_title'
-          },
-          email: {
-            string: 'Email Address'
-          },
-          reason: {
-            string: 'Reason'
-          }
+          _attr: { class: 'oe_title' },
+          email: { string: 'Email Address' },
+          reason: { string: 'Reason' }
         },
         _footer: {
           _button_action_unblacklist_apply: {

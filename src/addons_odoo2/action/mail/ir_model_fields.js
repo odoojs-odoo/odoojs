@@ -8,12 +8,8 @@ export default {
         copied: {
           position: 'after',
           __todo__after: {
-            state: {
-              invisible: '1'
-            },
-            tracking: {
-              readonly: [['state', '!=', 'manual']]
-            }
+            state: { invisible: '1' },
+            tracking: { readonly: [['state', '!=', 'manual']] }
           }
         }
       }

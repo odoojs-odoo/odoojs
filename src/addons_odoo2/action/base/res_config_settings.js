@@ -6,13 +6,9 @@ export default {
     arch: {
       sheet: {
         _div: {
-          _attr: {
-            class: 'o_setting_container'
-          },
+          _attr: { class: 'o_setting_container' },
           _div: {
-            _attr: {
-              class: 'settings'
-            }
+            _attr: { class: 'settings' }
           }
         }
       }

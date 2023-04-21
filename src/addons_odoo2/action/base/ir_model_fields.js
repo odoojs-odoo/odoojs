@@ -5,18 +5,14 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        state: {
-          invisible: '1'
-        },
+        state: { invisible: '1' },
         _group: {
           _group: {
             name: {},
             field_description: {},
-            model_id: {
-              readonly: [['state', '!=', 'manual']]
-            }
+            model_id: { readonly: [['state', '!=', 'manual']] }
           },
-          _group_543: {
+          _group_220: {
             ttype: {},
             help: {}
           }
@@ -28,23 +24,15 @@ export default {
               string: 'Properties'
             },
             _group: {
-              _attr: {
-                string: 'Base Properties'
-              },
+              _attr: { string: 'Base Properties' },
               _group: {
                 required: {},
                 readonly: {},
-                store: {
-                  groups: 'base.group_no_one'
-                },
-                index: {
-                  groups: 'base.group_no_one'
-                },
-                copied: {
-                  groups: 'base.group_no_one'
-                }
+                store: { groups: 'base.group_no_one' },
+                index: { groups: 'base.group_no_one' },
+                copied: { groups: 'base.group_no_one' }
               },
-              _group_342: {
+              _group_791: {
                 translate: {
                   readonly: [['ttype', 'not in', ['char', 'text', 'html']]],
                   invisible: [['ttype', 'not in', ['char', 'text', 'html']]]
@@ -96,7 +84,7 @@ export default {
                 }
               }
             },
-            _group_355: {
+            _group_932: {
               _attr: {
                 readonly: [['ttype', 'not in', ['selection', 'reference']]],
                 invisible: [['ttype', 'not in', ['selection', 'reference']]]
@@ -106,9 +94,7 @@ export default {
                   tree: {
                     arch: {
                       sheet: {
-                        sequence: {
-                          widget: 'handle'
-                        },
+                        sequence: { widget: 'handle' },
                         value: {},
                         name: {}
                       }
@@ -117,68 +103,48 @@ export default {
                 }
               }
             },
-            _group_821: {
+            _group_413: {
               _attr: {
                 string: 'Advanced Properties',
                 groups: 'base.group_no_one'
               },
               related: {},
-              depends: {
-                required: [['compute', 'not in', [false, '']]]
-              },
+              depends: { required: [['compute', 'not in', [false, '']]] },
               compute: {
                 widget: 'ace',
                 mode: 'python'
               }
             },
             _div: {
-              _attr: {
-                groups: 'base.group_no_one'
-              },
+              _attr: { groups: 'base.group_no_one' },
               _h3: 'How to define a computed field',
               _p: {
-                _attr: {
-                  text: 'Computed fields are defined with the fields'
-                },
+                _attr: { text: 'Computed fields are defined with the fields' },
                 _strong: 'Dependencies',
-                _strong_107: 'Compute'
+                _strong_623: 'Compute'
               },
-              _p_207: {
-                _attr: {
-                  text: 'The field'
-                },
+              _p_925: {
+                _attr: { text: 'The field' },
                 _strong: 'Dependencies',
                 _code: 'name, size',
-                _code_594: 'partner_id.company_id.name'
+                _code_932: 'partner_id.company_id.name'
               },
               _p_205: {
-                _attr: {
-                  text: 'The field'
-                },
+                _attr: { text: 'The field' },
                 _strong: 'Compute'
               },
               _pre: "for record in self:\n        record['size'] = len(record.name)",
-              _p_138: 'The only predefined variables are',
+              _p_705: 'The only predefined variables are',
               _ul: {
-                _li: {
-                  _code: 'self'
-                },
-                _li_976: {
-                  _code: 'datetime'
-                },
-                _li_552: {
-                  _code: 'dateutil'
-                },
-                _li_927: {
-                  _code: 'time'
-                }
+                _li: { _code: 'self' },
+                _li_570: { _code: 'datetime' },
+                _li_366: { _code: 'dateutil' },
+                _li_593: { _code: 'time' }
               },
-              _p_648: {
-                _attr: {
-                  text: 'Other features are accessible through'
-                },
+              _p_533: {
+                _attr: { text: 'Other features are accessible through' },
                 _code: 'self',
-                _code_878: 'self.env'
+                _code_640: 'self.env'
               }
             }
           },
@@ -231,9 +197,7 @@ export default {
     arch: {
       name: {
         string: 'Field',
-        filter_domain: {
-          todo_ctx: "['|', ('name','ilike',self), ('field_description','ilike',self)]"
-        }
+        filter_domain: { todo_ctx: "['|', ('name','ilike',self), ('field_description','ilike',self)]" }
       },
       _filter_required: {
         _attr: {
@@ -250,7 +214,7 @@ export default {
           domain: [['readonly', '=', true]]
         }
       },
-      _separator_162: {},
+      _separator_482: {},
       _filter_custom: {
         _attr: {
           name: 'custom',
@@ -265,7 +229,7 @@ export default {
           domain: [['state', '=', 'base']]
         }
       },
-      _separator_663: {},
+      _separator_587: {},
       _filter_translate: {
         _attr: {
           name: 'translate',
@@ -279,17 +243,13 @@ export default {
       readonly: {},
       relation: {},
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_group_by_object: {
           _attr: {
             name: 'group_by_object',
             string: 'Model',
             domain: [],
-            context: {
-              group_by: 'model_id'
-            }
+            context: { group_by: 'model_id' }
           }
         },
         _filter_group_by_ttype: {
@@ -297,9 +257,7 @@ export default {
             name: 'group_by_ttype',
             string: 'Field Type',
             domain: [],
-            context: {
-              group_by: 'ttype'
-            }
+            context: { group_by: 'ttype' }
           }
         }
       }

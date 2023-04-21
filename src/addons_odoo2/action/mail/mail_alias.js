@@ -31,12 +31,8 @@ export default {
           }
         },
         _h2: {
-          alias_name: {
-            class: 'oe_inline'
-          },
-          alias_domain: {
-            class: 'oe_inline'
-          }
+          alias_name: { class: 'oe_inline' },
+          alias_domain: { class: 'oe_inline' }
         },
         _group: {
           alias_model_id: {},
@@ -51,9 +47,7 @@ export default {
           for: 'alias_bounced_content',
           invisible: [['alias_contact', '=', 'everyone']]
         },
-        alias_bounced_content: {
-          invisible: [['alias_contact', '=', 'everyone']]
-        }
+        alias_bounced_content: { invisible: [['alias_contact', '=', 'everyone']] }
       }
     }
   },
@@ -92,25 +86,19 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_User: {
           _attr: {
             name: 'User',
             string: 'User',
-            context: {
-              group_by: 'alias_user_id'
-            }
+            context: { group_by: 'alias_user_id' }
           }
         },
         _filter_Model: {
           _attr: {
             name: 'Model',
             string: 'Model',
-            context: {
-              group_by: 'alias_model_id'
-            }
+            context: { group_by: 'alias_model_id' }
           }
         }
       }
@@ -122,9 +110,7 @@ export default {
     name: 'Aliases',
     res_model: 'mail.alias',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      todo_ctx: "{\n                    'search_default_active': True,\n                }\n            "
-    },
+    context: { todo_ctx: "{\n                    'search_default_active': True,\n                }\n            " },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

@@ -7,39 +7,29 @@ export default {
       sheet: {
         _group: {
           _group: {
-            _attr: {
-              string: 'General'
-            },
+            _attr: { string: 'General' },
             name: {},
             model_id: {},
-            active: {
-              widget: 'boolean_toggle'
-            }
+            active: { widget: 'boolean_toggle' }
           },
-          _group_729: {
-            _attr: {
-              string: 'Access Rights'
-            },
+          _group_299: {
+            _attr: { string: 'Access Rights' },
             _group: {
               perm_read: {},
               perm_create: {}
             },
-            _group_498: {
+            _group_877: {
               perm_write: {},
               perm_unlink: {}
             }
           }
         },
         _separator: {
-          _attr: {
-            string: 'Rule Definition (Domain Filter)'
-          }
+          _attr: { string: 'Rule Definition (Domain Filter)' }
         },
         domain_force: {},
-        _group_836: {
-          _attr: {
-            string: 'Groups (no group = global)'
-          },
+        _group_252: {
+          _attr: { string: 'Groups (no group = global)' },
           global: {},
           groups: {}
         },
@@ -52,17 +42,15 @@ export default {
         _h3: 'Interaction between rules',
         _div: {
           _p: 'Global rules (non group-specific) are restrictions, and cannot be bypassed.\n                         Group-specific rules grant additional permissions, but are constrained within the bounds of global ones.\n                         The first group rules restrict further the global rules, but can be relaxed by additional group rules.',
-          _p_236: {
-            _attr: {
-              text: 'Detailed algorithm:'
-            },
+          _p_156: {
+            _attr: { text: 'Detailed algorithm:' },
             _ol: {
               _li: 'Global rules are combined together with a logical AND operator, and with the result of the following steps',
-              _li_589: 'Group-specific rules are combined together with a logical OR operator',
-              _li_551: 'If user belongs to several groups, the results from step 2 are combined with logical OR operator'
+              _li_301: 'Group-specific rules are combined together with a logical OR operator',
+              _li_853: 'If user belongs to several groups, the results from step 2 are combined with logical OR operator'
             }
           },
-          _p_556: 'Example: GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 OR GROUP_A_RULE_2) OR (GROUP_B_RULE_1 OR GROUP_B_RULE_2) )'
+          _p_679: 'Example: GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 OR GROUP_A_RULE_2) OR (GROUP_B_RULE_1 OR GROUP_B_RULE_2) )'
         }
       }
     }
@@ -94,9 +82,7 @@ export default {
     model: 'ir.rule',
     type: 'search',
     arch: {
-      name: {
-        string: 'Record Rule'
-      },
+      name: { string: 'Record Rule' },
       model_id: {},
       groups: {},
       _filter_global: {
@@ -142,7 +128,7 @@ export default {
           domain: [['perm_unlink', '=', true]]
         }
       },
-      _separator_120: {},
+      _separator_747: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -151,17 +137,13 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_group_by_object: {
           _attr: {
             name: 'group_by_object',
             string: 'Model',
             domain: [],
-            context: {
-              group_by: 'model_id'
-            }
+            context: { group_by: 'model_id' }
           }
         }
       }

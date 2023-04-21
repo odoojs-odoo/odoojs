@@ -4,32 +4,24 @@ export default {
     model: 'utm.campaign',
     type: 'search',
     arch: {
-      title: {
-        string: 'Campaigns'
-      },
+      title: { string: 'Campaigns' },
       tag_ids: {},
       user_id: {},
       is_auto_campaign: {},
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_group_stage_id: {
           _attr: {
             name: 'group_stage_id',
             string: 'Stage',
-            context: {
-              group_by: 'stage_id'
-            }
+            context: { group_by: 'stage_id' }
           }
         },
         _filter_group_user_id: {
           _attr: {
             name: 'group_user_id',
             string: 'Responsible',
-            context: {
-              group_by: 'user_id'
-            }
+            context: { group_by: 'user_id' }
           }
         }
       }
@@ -60,12 +52,8 @@ export default {
             class: 'text-break',
             placeholder: 'e.g. Black Friday'
           },
-          name: {
-            invisible: '1'
-          },
-          user_id: {
-            domain: [['share', '=', false]]
-          },
+          name: { invisible: '1' },
+          user_id: { domain: [['share', '=', false]] },
           tag_ids: {
             widget: 'many2many_tags',
             color_field: 'color',
@@ -83,12 +71,8 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        title: {
-          readonly: '1'
-        },
-        name: {
-          invisible: '1'
-        },
+        title: { readonly: '1' },
+        name: { invisible: '1' },
         user_id: {},
         stage_id: {},
         tag_ids: {
@@ -106,17 +90,13 @@ export default {
     arch: {
       sheet: {
         _group: {
-          name: {
-            invisible: '1'
-          },
+          name: { invisible: '1' },
           title: {
             string: 'Campaign Name',
             class: 'o_text_overflow',
             placeholder: 'e.g. Black Friday'
           },
-          user_id: {
-            domain: [['share', '=', false]]
-          },
+          user_id: { domain: [['share', '=', false]] },
           tag_ids: {
             widget: 'many2many_tags',
             color_field: 'color',

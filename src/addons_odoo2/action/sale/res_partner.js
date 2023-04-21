@@ -8,9 +8,7 @@ export default {
         mobile: {
           position: 'after',
           __todo__after: {
-            sale_order_count: {
-              groups: 'sales_team.group_sale_salesman'
-            }
+            sale_order_count: { groups: 'sales_team.group_sale_salesman' }
           }
         },
         _xpath: {
@@ -24,9 +22,7 @@ export default {
               class: 'oe_kanban_action oe_kanban_action_a me-1'
             },
             _span: {
-              _attr: {
-                class: 'badge rounded-pill'
-              },
+              _attr: { class: 'badge rounded-pill' },
               _i: {
                 _attr: {
                   title: 'Sales orders',
@@ -72,21 +68,13 @@ export default {
             position: 'after'
           },
           _group: {
-            _attr: {
-              groups: 'sales_team.group_sale_salesman'
-            },
+            _attr: { groups: 'sales_team.group_sale_salesman' },
             _group: {
-              _attr: {
-                groups: 'sale.group_warning_sale'
-              },
+              _attr: { groups: 'sale.group_warning_sale' },
               _separator: {
-                _attr: {
-                  string: 'Warning on the Sales Order'
-                }
+                _attr: { string: 'Warning on the Sales Order' }
               },
-              sale_warn: {
-                required: '1'
-              },
+              sale_warn: { required: '1' },
               sale_warn_msg: {
                 string: 'Message',
                 required: [['sale_warn', '!=', false], ['sale_warn', '!=', 'no-message']],

@@ -6,29 +6,17 @@ export default {
     arch: {
       sheet: {
         _group: {
-          render_model: {
-            invisible: '1'
-          },
-          order_id: {
-            invisible: '1'
-          },
-          template_id: {
-            invisible: '1'
-          },
-          display_invoice_alert: {
-            invisible: '1'
-          },
+          render_model: { invisible: '1' },
+          order_id: { invisible: '1' },
+          template_id: { invisible: '1' },
+          display_invoice_alert: { invisible: '1' },
           _div: {
-            _attr: {
-              class: 'alert alert-warning'
-            },
+            _attr: { class: 'alert alert-warning' },
             _span: {
-              _attr: {
-                text: 'Are you sure you want to cancel this order?'
-              },
+              _attr: { text: 'Are you sure you want to cancel this order?' },
               _br: {}
             },
-            _span_573: {
+            _span_903: {
               _attr: {
                 invisible: [['display_invoice_alert', '=', false]],
                 text: 'Draft invoices for this order will be cancelled.'
@@ -46,10 +34,8 @@ export default {
               }
             }
           },
-          _group_318: {
-            subject: {
-              placeholder: 'Subject'
-            }
+          _group_316: {
+            subject: { placeholder: 'Subject' }
           },
           body: {
             class: 'oe-bordered-editor',

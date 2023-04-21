@@ -6,12 +6,8 @@ export default {
     arch: {
       sheet: {
         _group: {
-          orderpoint_ids: {
-            invisible: '1'
-          },
-          predefined_date: {
-            widget: 'radio'
-          },
+          orderpoint_ids: { invisible: '1' },
+          predefined_date: { widget: 'radio' },
           snoozed_until: {
             readonly: [['predefined_date', '!=', 'custom']],
             force_save: '1'

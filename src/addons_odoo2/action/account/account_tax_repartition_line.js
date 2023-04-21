@@ -5,12 +5,8 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
-        factor_percent: {
-          invisible: [['repartition_type', '=', 'base']]
-        },
+        sequence: { widget: 'handle' },
+        factor_percent: { invisible: [['repartition_type', '=', 'base']] },
         repartition_type: {},
         account_id: {
           invisible: [['repartition_type', '=', 'base']],
@@ -18,18 +14,14 @@ export default {
         },
         tag_ids: {
           widget: 'many2many_tags',
-          domain: {
-            todo_ctx: "[('applicability', '=', 'taxes'), '|', ('country_id', '=', parent.country_id), ('country_id', '=', False)]"
-          },
+          domain: { todo_ctx: "[('applicability', '=', 'taxes'), '|', ('country_id', '=', parent.country_id), ('country_id', '=', False)]" },
           no_create: true
         },
         use_in_tax_closing: {
           invisible: [['repartition_type', '=', 'base']],
           optional: 'hidden'
         },
-        company_id: {
-          invisible: '1'
-        }
+        company_id: { invisible: '1' }
       }
     }
   }

@@ -10,16 +10,10 @@ export default {
           class: 'oe_avatar'
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
-          _label_name: {
-            for: 'name'
-          },
+          _attr: { class: 'oe_title' },
+          _label_name: { for: 'name' },
           _h1: {
-            name: {
-              placeholder: 'e.g. My Company'
-            }
+            name: { placeholder: 'e.g. My Company' }
           }
         },
         _notebook: {
@@ -41,9 +35,7 @@ export default {
                   string: 'Address'
                 },
                 _div: {
-                  _attr: {
-                    class: 'o_address_format'
-                  },
+                  _attr: { class: 'o_address_format' },
                   street: {
                     class: 'o_address_street',
                     placeholder: 'Street...'
@@ -75,32 +67,22 @@ export default {
                 vat: {},
                 company_registry: {},
                 currency_id: {
-                  context: {
-                    active_test: false
-                  },
+                  context: { active_test: false },
                   no_create: true,
                   no_open: true
                 }
               },
-              _group_374: {
-                phone: {
-                  class: 'o_force_ltr'
-                },
-                mobile: {
-                  class: 'o_force_ltr'
-                },
+              _group_477: {
+                phone: { class: 'o_force_ltr' },
+                mobile: { class: 'o_force_ltr' },
                 email: {},
                 website: {
                   string: 'Website',
                   widget: 'url',
                   placeholder: 'e.g. https://www.odoo.com'
                 },
-                parent_id: {
-                  groups: 'base.group_multi_company'
-                },
-                sequence: {
-                  invisible: '1'
-                },
+                parent_id: { groups: 'base.group_multi_company' },
+                sequence: { invisible: '1' },
                 favicon: {
                   widget: 'image',
                   groups: 'base.group_no_one',
@@ -108,9 +90,7 @@ export default {
                 }
               },
               _group_social_media: {
-                _attr: {
-                  name: 'social_media'
-                }
+                _attr: { name: 'social_media' }
               }
             }
           }
@@ -125,9 +105,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {},
         partner_id: {}
       }
@@ -166,13 +144,9 @@ export default {
           }
         },
         _form: {
-          _attr: {
-            position: 'inside'
-          },
+          _attr: { position: 'inside' },
           _footer: {
-            _attr: {
-              position: 'replace'
-            },
+            _attr: { position: 'replace' },
             _button_action_save_onboarding_company_step: {
               _attr: {
                 name: 'action_save_onboarding_company_step',
@@ -182,9 +156,7 @@ export default {
               }
             },
             _button: {
-              _attr: {
-                string: 'Cancel'
-              }
+              _attr: { string: 'Cancel' }
             }
           }
         }

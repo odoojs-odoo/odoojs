@@ -6,9 +6,7 @@ export default {
     arch: {
       sheet: {
         _group_main_field: {
-          _attr: {
-            name: 'main_field'
-          },
+          _attr: { name: 'main_field' },
           _label_attribute_id: {
             for: 'attribute_id',
             string: 'Attribute Name'
@@ -20,9 +18,7 @@ export default {
               tree: {
                 arch: {
                   sheet: {
-                    _attr: {
-                      string: 'Values'
-                    },
+                    _attr: { string: 'Values' },
                     name: {},
                     html_color: {}
                   }
@@ -31,9 +27,7 @@ export default {
               form: {
                 arch: {
                   sheet: {
-                    _attr: {
-                      string: 'Values'
-                    },
+                    _attr: { string: 'Values' },
                     name: {}
                   }
                 }

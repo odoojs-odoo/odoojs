@@ -5,21 +5,11 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        qty_to_order: {
-          invisible: '1'
-        },
-        warehouse_id: {
-          string: 'Warehouse'
-        },
-        location_id: {
-          string: 'Warehouse Location'
-        },
-        free_qty: {
-          string: 'Available Quantity'
-        },
-        uom: {
-          string: 'UoM'
-        },
+        qty_to_order: { invisible: '1' },
+        warehouse_id: { string: 'Warehouse' },
+        location_id: { string: 'Warehouse Location' },
+        free_qty: { string: 'Available Quantity' },
+        uom: { string: 'UoM' },
         route_id: {},
         lead_time: {},
         _button_select_route: {

@@ -1,8 +1,6 @@
 const ModelFields = {
   country_ids: {},
-  name: {
-    placeholder: 'e.g. Europe'
-  }
+  name: { placeholder: 'e.g. Europe' }
 }
 
 const AddonsFields = {

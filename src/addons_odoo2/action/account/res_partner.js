@@ -16,28 +16,20 @@ export default {
               type: 'object',
               icon: 'fa-pencil-square-o',
               groups: 'account.group_account_invoice,account.group_account_readonly',
-              context: {
-                todo_ctx: "{'default_partner_id': active_id}"
-              },
+              context: { todo_ctx: "{'default_partner_id': active_id}" },
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_form_field o_stat_info'
-              },
+              _attr: { class: 'o_form_field o_stat_info' },
               _span: {
-                _attr: {
-                  class: 'o_stat_value'
-                },
-                currency_id: {
-                  invisible: '1'
-                },
+                _attr: { class: 'o_stat_value' },
+                currency_id: { invisible: '1' },
                 total_invoiced: {
                   widget: 'monetary',
                   currency_field: 'currency_id'
                 }
               },
-              _span_357: {
+              _span_336: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Invoiced'
@@ -52,21 +44,13 @@ export default {
             position: 'inside'
           },
           _group: {
-            _attr: {
-              groups: 'account.group_account_invoice,account.group_account_readonly'
-            },
+            _attr: { groups: 'account.group_account_invoice,account.group_account_readonly' },
             _group: {
-              _attr: {
-                groups: 'account.group_warning_account'
-              },
+              _attr: { groups: 'account.group_warning_account' },
               _separator: {
-                _attr: {
-                  string: 'Warning on the Invoice'
-                }
+                _attr: { string: 'Warning on the Invoice' }
               },
-              invoice_warn: {
-                required: '1'
-              },
+              invoice_warn: { required: '1' },
               invoice_warn_msg: {
                 required: [['invoice_warn', '!=', false], ['invoice_warn', '!=', 'no-message']],
                 invisible: [['invoice_warn', 'in', (false, 'no-message')]],
@@ -121,12 +105,8 @@ export default {
               groups: 'account.group_account_invoice,account.group_account_readonly',
               invisible: [['is_company', '=', false], ['parent_id', '!=', false]]
             },
-            duplicated_bank_account_partners_count: {
-              invisible: '1'
-            },
-            show_credit_limit: {
-              invisible: '1'
-            },
+            duplicated_bank_account_partners_count: { invisible: '1' },
+            show_credit_limit: { invisible: '1' },
             _group: {
               _group_banks: {
                 _attr: {
@@ -135,24 +115,16 @@ export default {
                   groups: 'account.group_account_invoice,account.group_account_readonly'
                 },
                 bank_ids: {
-                  context: {
-                    default_allow_out_payment: true
-                  },
+                  context: { default_allow_out_payment: true },
                   views: {
                     tree: {
                       arch: {
                         sheet: {
-                          sequence: {
-                            widget: 'handle'
-                          },
+                          sequence: { widget: 'handle' },
                           bank_id: {},
                           acc_number: {},
-                          allow_out_payment: {
-                            widget: 'boolean_toggle'
-                          },
-                          acc_holder_name: {
-                            invisible: '1'
-                          }
+                          allow_out_payment: { widget: 'boolean_toggle' },
+                          acc_holder_name: { invisible: '1' }
                         }
                       }
                     }
@@ -163,9 +135,7 @@ export default {
                     name: 'base.action_res_partner_bank_account_form',
                     type: 'action',
                     string: 'View accounts detail',
-                    context: {
-                      todo_ctx: "{'search_default_partner_id': active_id, 'default_partner_id': active_id}"
-                    },
+                    context: { todo_ctx: "{'search_default_partner_id': active_id, 'default_partner_id': active_id}" },
                     class: 'btn-link'
                   }
                 }
@@ -176,9 +146,7 @@ export default {
                   string: 'Accounting Entries',
                   groups: 'account.group_account_readonly'
                 },
-                currency_id: {
-                  invisible: '1'
-                },
+                currency_id: { invisible: '1' },
                 property_account_receivable_id: {},
                 property_account_payable_id: {}
               },
@@ -190,13 +158,9 @@ export default {
                   invisible: [['show_credit_limit', '=', false]]
                 },
                 credit: {},
-                _label_use_partner_credit_limit: {
-                  for: 'use_partner_credit_limit'
-                },
+                _label_use_partner_credit_limit: { for: 'use_partner_credit_limit' },
                 _div: {
-                  _attr: {
-                    class: 'o_row'
-                  },
+                  _attr: { class: 'o_row' },
                   use_partner_credit_limit: {},
                   credit_limit: {
                     invisible: [['use_partner_credit_limit', '=', false]],
@@ -215,9 +179,7 @@ export default {
             },
             _div: {
               _p: {
-                _attr: {
-                  text: 'Accounting-related settings are managed on'
-                },
+                _attr: { text: 'Accounting-related settings are managed on' },
                 _button_open_commercial_entity: {
                   _attr: {
                     name: 'open_commercial_entity',
@@ -230,7 +192,7 @@ export default {
             }
           }
         },
-        _xpath_848: {
+        _xpath_373: {
           _attr: {
             expr: "//group[@name='misc']",
             position: 'before'

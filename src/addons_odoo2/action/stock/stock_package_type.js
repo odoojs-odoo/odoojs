@@ -11,16 +11,12 @@ export default {
             class: 'oe_button_box'
           }
         },
-        _label_name: {
-          for: 'name'
-        },
+        _label_name: { for: 'name' },
         _h1: {
           name: {}
         },
         _group_delivery: {
-          _attr: {
-            name: 'delivery'
-          },
+          _attr: { name: 'delivery' },
           _group: {
             _label_length_uom_name: {
               for: 'length_uom_name',
@@ -31,26 +27,16 @@ export default {
                 name: 'size',
                 class: 'o_row'
               },
-              packaging_length: {
-                placeholder: 'Length'
-              },
+              packaging_length: { placeholder: 'Length' },
               _span: '×',
-              width: {
-                placeholder: 'Width'
-              },
-              _span_756: '×',
-              height: {
-                placeholder: 'Height'
-              },
-              _span_903: {
-                length_uom_name: {
-                  help: 'Size: Length × Width × Height'
-                }
+              width: { placeholder: 'Width' },
+              _span_233: '×',
+              height: { placeholder: 'Height' },
+              _span_790: {
+                length_uom_name: { help: 'Size: Length × Width × Height' }
               }
             },
-            _label_base_weight: {
-              for: 'base_weight'
-            },
+            _label_base_weight: { for: 'base_weight' },
             _div_base_weight: {
               _attr: {
                 name: 'base_weight',
@@ -61,9 +47,7 @@ export default {
                 weight_uom_name: {}
               }
             },
-            _label_max_weight: {
-              for: 'max_weight'
-            },
+            _label_max_weight: { for: 'max_weight' },
             _div_max_weight: {
               _attr: {
                 name: 'max_weight',
@@ -75,9 +59,7 @@ export default {
               }
             },
             barcode: {},
-            company_id: {
-              groups: 'base.group_multi_company'
-            }
+            company_id: { groups: 'base.group_multi_company' }
           }
         },
         _group_storage_categories: {
@@ -87,9 +69,7 @@ export default {
           },
           _group: {
             storage_category_capacity_ids: {
-              context: {
-                default_package_type_id: 'todo===id'
-              },
+              context: { default_package_type_id: 'todo===id' },
               views: {
                 tree: {
                   arch: {
@@ -113,17 +93,13 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {},
         height: {},
         width: {},
         packaging_length: {},
         max_weight: {},
-        barcode: {
-          optional: 'hide'
-        }
+        barcode: { optional: 'hide' }
       }
     }
   },

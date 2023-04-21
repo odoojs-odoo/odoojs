@@ -16,17 +16,11 @@ export default {
               groups: 'purchase.group_send_reminder',
               class: 'o_checkbox_optional_field'
             },
-            _label_receipt_reminder_email: {
-              for: 'receipt_reminder_email'
-            },
+            _label_receipt_reminder_email: { for: 'receipt_reminder_email' },
             receipt_reminder_email: {},
             _div: {
-              _attr: {
-                invisible: [['receipt_reminder_email', '=', false]]
-              },
-              reminder_date_before_receipt: {
-                class: 'oe_inline'
-              },
+              _attr: { invisible: [['receipt_reminder_email', '=', false]] },
+              reminder_date_before_receipt: { class: 'oe_inline' },
               _span: 'day(s) before'
             }
           },
@@ -49,9 +43,7 @@ export default {
         mobile: {
           position: 'after',
           __todo__after: {
-            purchase_order_count: {
-              groups: 'purchase.group_purchase_user'
-            }
+            purchase_order_count: { groups: 'purchase.group_purchase_user' }
           }
         },
         _xpath: {
@@ -65,9 +57,7 @@ export default {
               class: 'oe_kanban_action oe_kanban_action_a me-1'
             },
             _span: {
-              _attr: {
-                class: 'badge rounded-pill'
-              },
+              _attr: { class: 'badge rounded-pill' },
               _i: {
                 _attr: {
                   title: 'Purchases',
@@ -113,21 +103,13 @@ export default {
             position: 'inside'
           },
           _group: {
-            _attr: {
-              groups: 'purchase.group_purchase_user'
-            },
+            _attr: { groups: 'purchase.group_purchase_user' },
             _group: {
-              _attr: {
-                groups: 'purchase.group_warning_purchase'
-              },
+              _attr: { groups: 'purchase.group_warning_purchase' },
               _separator: {
-                _attr: {
-                  string: 'Warning on the Purchase Order'
-                }
+                _attr: { string: 'Warning on the Purchase Order' }
               },
-              purchase_warn: {
-                required: '1'
-              },
+              purchase_warn: { required: '1' },
               purchase_warn_msg: {
                 required: [['purchase_warn', '!=', false], ['purchase_warn', '!=', 'no-message']],
                 invisible: [['purchase_warn', 'in', (false, 'no-message')]],

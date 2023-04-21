@@ -5,22 +5,16 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         product_id: {},
-        name: {
-          string: 'Packaging'
-        },
+        name: { string: 'Packaging' },
         qty: {},
         product_uom_id: {
           groups: 'uom.group_uom',
           no_open: true,
           no_create: true
         },
-        barcode: {
-          optional: 'hide'
-        },
+        barcode: { optional: 'hide' },
         company_id: {
           groups: 'base.group_multi_company',
           optional: 'hide'
@@ -41,7 +35,7 @@ export default {
             position: 'replace'
           }
         },
-        _xpath_225: {
+        _xpath_289: {
           _attr: {
             expr: "//tree[@name='packaging']",
             position: 'attributes'
@@ -72,33 +66,23 @@ export default {
           name: {}
         },
         _group: {
-          id: {
-            invisible: '1'
-          },
-          company_id: {
-            invisible: '1'
-          },
+          id: { invisible: '1' },
+          company_id: { invisible: '1' },
           _group_group_product: {
-            _attr: {
-              name: 'group_product'
-            },
+            _attr: { name: 'group_product' },
             product_id: {
               readonly: [['id', '!=', false]],
               required: 'True'
             }
           },
           _group_qty: {
-            _attr: {
-              name: 'qty'
-            },
+            _attr: { name: 'qty' },
             _label_qty: {
               for: 'qty',
               string: 'Contained quantity'
             },
             _div: {
-              _attr: {
-                class: 'o_row'
-              },
+              _attr: { class: 'o_row' },
               qty: {},
               product_uom_id: {
                 groups: 'uom.group_uom',
@@ -107,9 +91,7 @@ export default {
               }
             },
             barcode: {},
-            company_id: {
-              groups: 'base.group_multi_company'
-            }
+            company_id: { groups: 'base.group_multi_company' }
           }
         }
       }
@@ -128,7 +110,7 @@ export default {
             position: 'replace'
           }
         },
-        _xpath_862: {
+        _xpath_930: {
           _attr: {
             expr: "//field[@name='id']",
             position: 'replace'

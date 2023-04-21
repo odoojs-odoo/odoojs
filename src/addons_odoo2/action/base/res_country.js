@@ -29,24 +29,16 @@ export default {
           size: [128, 128]
         },
         _group_main_group: {
-          _attr: {
-            name: 'main_group'
-          },
+          _attr: { name: 'main_group' },
           _group_country_details: {
-            _attr: {
-              name: 'country_details'
-            },
+            _attr: { name: 'country_details' },
             name: {},
             currency_id: {},
             code: {}
           },
           _group_phone_vat_settings: {
-            _attr: {
-              name: 'phone_vat_settings'
-            },
-            phone_code: {
-              options: "{'format': false}"
-            },
+            _attr: { name: 'phone_vat_settings' },
+            phone_code: { options: "{'format': false}" },
             vat_label: {},
             zip_required: {},
             state_required: {}
@@ -58,13 +50,9 @@ export default {
             string: 'Advanced Address Formatting',
             groups: 'base.group_no_one'
           },
-          _label_address_view_id: {
-            for: 'address_view_id'
-          },
+          _label_address_view_id: { for: 'address_view_id' },
           _div: {
-            _attr: {
-              class: 'o_row'
-            },
+            _attr: { class: 'o_row' },
             address_view_id: {},
             _div: {
               _attr: {
@@ -73,16 +61,10 @@ export default {
               }
             }
           },
-          _label_address_format: {
-            for: 'address_format'
-          },
-          _div_212: {
-            _attr: {
-              class: 'o_row'
-            },
-            address_format: {
-              placeholder: 'Address format...'
-            },
+          _label_address_format: { for: 'address_format' },
+          _div_979: {
+            _attr: { class: 'o_row' },
+            address_format: { placeholder: 'Address format...' },
             _div_div_address_format$space$ms$dash$2: {
               _attr: {
                 name: 'div_address_format ms-2',
@@ -91,13 +73,9 @@ export default {
               }
             }
           },
-          name_position: {
-            class: 'oe_inline'
-          }
+          name_position: { class: 'oe_inline' }
         },
-        _label_state_ids: {
-          for: 'state_ids'
-        },
+        _label_state_ids: { for: 'state_ids' },
         state_ids: {
           views: {
             tree: {

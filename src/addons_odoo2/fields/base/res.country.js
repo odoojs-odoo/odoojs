@@ -1,8 +1,5 @@
 const ModelFields = {
-  address_format: {
-    placeholder: 'Address format...'
-  },
-
+  address_format: { placeholder: 'Address format...' },
   address_view_id: {},
   code: {},
   currency_id: {},

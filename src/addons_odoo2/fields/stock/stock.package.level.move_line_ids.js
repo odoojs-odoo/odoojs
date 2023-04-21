@@ -1,16 +1,7 @@
 const ModelFields = {
-  lot_id: {
-    groups: 'stock.group_production_lot'
-  },
-
-  lot_name: {
-    groups: 'stock.group_production_lot'
-  },
-
-  owner_id: {
-    groups: 'stock.group_tracking_owner'
-  },
-
+  lot_id: { groups: 'stock.group_production_lot' },
+  lot_name: { groups: 'stock.group_production_lot' },
+  owner_id: { groups: 'stock.group_tracking_owner' },
   product_id: {},
   product_uom_id: {
     string: 'Unit of Measure',

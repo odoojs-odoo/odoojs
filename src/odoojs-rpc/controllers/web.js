@@ -687,16 +687,6 @@ class Home extends FileRequest {
 
     this._login_info = { is_user, groups }
     return { is_user, groups }
-
-    // if (is_user) {
-    //   const menus = await this._menus_get()
-    //   this._login_info = { is_user, menus }
-    //   return { is_user, menus }
-    // } else {
-    //   // portal/controllers/portal.py/CustomerPortal.home
-    //   this._login_info = { is_user }
-    //   return { is_user }
-    // }
   }
 
   static async get_session() {

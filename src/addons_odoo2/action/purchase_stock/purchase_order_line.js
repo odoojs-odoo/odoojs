@@ -11,9 +11,7 @@ export default {
             position: 'after'
           },
           _separator: {
-            _attr: {
-              string: 'Stock Moves'
-            }
+            _attr: { string: 'Stock Moves' }
           },
           move_ids: {}
         }

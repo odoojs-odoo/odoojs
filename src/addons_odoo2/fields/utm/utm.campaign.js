@@ -8,9 +8,7 @@ const ModelFields = {
     readonly: '1'
   },
 
-  user_id: {
-    domain: [['share', '=', false]]
-  }
+  user_id: { domain: [['share', '=', false]] }
 }
 
 const AddonsFields = {

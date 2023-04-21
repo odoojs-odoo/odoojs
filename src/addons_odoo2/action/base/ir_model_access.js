@@ -49,14 +49,10 @@ export default {
           name: {},
           model_id: {},
           group_id: {},
-          active: {
-            widget: 'boolean_toggle'
-          }
+          active: { widget: 'boolean_toggle' }
         },
-        _group_513: {
-          _attr: {
-            string: 'Access'
-          },
+        _group_670: {
+          _attr: { string: 'Access' },
           perm_read: {},
           perm_write: {},
           perm_create: {},
@@ -71,9 +67,7 @@ export default {
     model: 'ir.model.access',
     type: 'search',
     arch: {
-      name: {
-        string: 'Access Rights'
-      },
+      name: { string: 'Access Rights' },
       _filter_global: {
         _attr: {
           name: 'global',
@@ -103,7 +97,7 @@ export default {
           domain: [['perm_write', '=', true]]
         }
       },
-      _separator_938: {},
+      _separator_456: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -123,9 +117,7 @@ export default {
             name: 'group',
             string: 'Group',
             domain: [],
-            context: {
-              group_by: 'group_id'
-            }
+            context: { group_by: 'group_id' }
           }
         },
         _filter_group_by_object: {
@@ -133,9 +125,7 @@ export default {
             name: 'group_by_object',
             string: 'Model',
             domain: [],
-            context: {
-              group_by: 'model_id'
-            }
+            context: { group_by: 'model_id' }
           }
         }
       }

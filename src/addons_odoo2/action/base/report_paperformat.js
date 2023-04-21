@@ -19,12 +19,8 @@ export default {
         _group: {
           name: {},
           format: {},
-          page_height: {
-            invisible: [['format', '!=', 'custom']]
-          },
-          page_width: {
-            invisible: [['format', '!=', 'custom']]
-          },
+          page_height: { invisible: [['format', '!=', 'custom']] },
+          page_width: { invisible: [['format', '!=', 'custom']] },
           orientation: {},
           margin_top: {},
           margin_bottom: {},

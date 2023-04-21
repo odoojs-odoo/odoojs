@@ -10,12 +10,8 @@ export default {
             expr: "//field[@name='inbound_payment_method_line_ids']//field[@name='payment_account_id']",
             position: 'after'
           },
-          payment_provider_id: {
-            invisible: '1'
-          },
-          payment_provider_state: {
-            invisible: '1'
-          },
+          payment_provider_id: { invisible: '1' },
+          payment_provider_state: { invisible: '1' },
           _button_action_open_provider_form: {
             _attr: {
               name: 'action_open_provider_form',
@@ -27,7 +23,7 @@ export default {
             }
           }
         },
-        _xpath_415: {
+        _xpath_540: {
           _attr: {
             expr: "//field[@name='inbound_payment_method_line_ids']/tree",
             position: 'attributes'

@@ -6,9 +6,7 @@ export default {
     arch: {
       name: {
         string: 'Module',
-        filter_domain: {
-          todo_ctx: "['|', '|', ('summary', 'ilike', self), ('shortdesc', 'ilike', self), ('name',                         'ilike', self)]"
-        }
+        filter_domain: { todo_ctx: "['|', '|', ('summary', 'ilike', self), ('shortdesc', 'ilike', self), ('name',                         'ilike', self)]" }
       },
       _filter_app: {
         _attr: {
@@ -41,17 +39,13 @@ export default {
       },
       category_id: {},
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_author: {
           _attr: {
             name: 'author',
             string: 'Author',
             domain: [],
-            context: {
-              group_by: 'author'
-            }
+            context: { group_by: 'author' }
           }
         },
         _filter_category: {
@@ -59,9 +53,7 @@ export default {
             name: 'category',
             string: 'Category',
             domain: [],
-            context: {
-              group_by: 'category_id'
-            }
+            context: { group_by: 'category_id' }
           }
         },
         _filter_state: {
@@ -69,16 +61,12 @@ export default {
             name: 'state',
             string: 'State',
             domain: [],
-            context: {
-              group_by: 'state'
-            }
+            context: { group_by: 'state' }
           }
         }
       },
       _searchpanel: {
-        category_id: {
-          string: 'Categories'
-        }
+        category_id: { string: 'Categories' }
       }
     }
   },
@@ -95,13 +83,9 @@ export default {
           class: 'oe_avatar'
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title mb32'
-          },
+          _attr: { class: 'oe_title mb32' },
           _h1: {
-            shortdesc: {
-              placeholder: 'Module Name'
-            }
+            shortdesc: { placeholder: 'Module Name' }
           },
           _h3: {
             _attr: {
@@ -114,15 +98,9 @@ export default {
             }
           },
           _div: {
-            state: {
-              invisible: '1'
-            },
-            to_buy: {
-              invisible: '1'
-            },
-            has_iap: {
-              invisible: '1'
-            },
+            state: { invisible: '1' },
+            to_buy: { invisible: '1' },
+            has_iap: { invisible: '1' },
             _button_button_immediate_install: {
               _attr: {
                 name: 'button_immediate_install',
@@ -200,14 +178,10 @@ export default {
           }
         },
         _div: {
-          _attr: {
-            class: 'clearfix'
-          }
+          _attr: { class: 'clearfix' }
         },
         _notebook: {
-          _attr: {
-            groups: 'base.group_no_one'
-          },
+          _attr: { groups: 'base.group_no_one' },
           _page_information: {
             _attr: {
               name: 'information',
@@ -225,7 +199,7 @@ export default {
                 },
                 summary: {}
               },
-              _group_717: {
+              _group_821: {
                 name: {},
                 license: {},
                 installed_version: {}
@@ -242,7 +216,7 @@ export default {
               application: {},
               state: {}
             },
-            _group_214: {
+            _group_903: {
               _attr: {
                 string: 'Created Views',
                 invisible: [['state', '!=', 'installed']]
@@ -256,16 +230,14 @@ export default {
               }
             },
             views_by_module: {},
-            _group_848: {
-              _attr: {
-                string: 'Dependencies'
-              }
+            _group_301: {
+              _attr: { string: 'Dependencies' }
             },
-            _p_165: {
+            _p_413: {
               _attr: {
-                invisible: [['dependencies_id', 'not in', [None, false]]],
+                invisible: [['exclusion_ids', 'not in', [None, false]]],
                 class: 'oe_grey',
-                text: '-This module does not depends on any other module.'
+                text: '-This module does not exclude any other module.'
               }
             },
             dependencies_id: {
@@ -273,9 +245,7 @@ export default {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Dependencies'
-                      },
+                      _attr: { string: 'Dependencies' },
                       name: {},
                       state: {}
                     }
@@ -283,26 +253,15 @@ export default {
                 }
               }
             },
-            _group_360: {
-              _attr: {
-                string: 'Exclusions'
-              }
-            },
-            _p_877: {
-              _attr: {
-                invisible: [['exclusion_ids', 'not in', [None, false]]],
-                class: 'oe_grey',
-                text: '-This module does not exclude any other module.'
-              }
+            _group_685: {
+              _attr: { string: 'Exclusions' }
             },
             exclusion_ids: {
               views: {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Exclusions'
-                      },
+                      _attr: { string: 'Exclusions' },
                       name: {},
                       state: {}
                     }
@@ -318,9 +277,7 @@ export default {
               invisible: [['state', '!=', 'installed']]
             },
             _group: {
-              _attr: {
-                string: 'Created Menus'
-              }
+              _attr: { string: 'Created Menus' }
             },
             _p: {
               _attr: {
@@ -330,12 +287,10 @@ export default {
               }
             },
             menus_by_module: {},
-            _group_221: {
-              _attr: {
-                string: 'Defined Reports'
-              }
+            _group_360: {
+              _attr: { string: 'Defined Reports' }
             },
-            _p_737: {
+            _p_782: {
               _attr: {
                 invisible: [['reports_by_module', 'not in', [None, false]]],
                 class: 'oe_grey',
@@ -345,9 +300,7 @@ export default {
             reports_by_module: {}
           }
         },
-        description_html: {
-          class: 'oe_styling_v8'
-        }
+        description_html: { class: 'oe_styling_v8' }
       }
     }
   },
@@ -369,18 +322,12 @@ export default {
           }
         },
         shortdesc: {},
-        name: {
-          groups: 'base.group_no_one'
-        },
+        name: { groups: 'base.group_no_one' },
         author: {},
         website: {},
         installed_version: {},
-        state: {
-          widget: 'badge'
-        },
-        category_id: {
-          invisible: '1'
-        }
+        state: { widget: 'badge' },
+        category_id: { invisible: '1' }
       }
     }
   },
@@ -397,9 +344,7 @@ export default {
     name: 'Apps',
     res_model: 'ir.module.module',
     search_view_id: 'view_module_filter',
-    context: {
-      search_default_app: 1
-    },
+    context: { search_default_app: 1 },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

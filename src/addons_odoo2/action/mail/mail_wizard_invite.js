@@ -6,12 +6,8 @@ export default {
     arch: {
       sheet: {
         _group: {
-          res_model: {
-            invisible: '1'
-          },
-          res_id: {
-            invisible: '1'
-          },
+          res_model: { invisible: '1' },
+          res_id: { invisible: '1' },
           partner_ids: {
             widget: 'many2many_tags_email',
             context: {

@@ -48,15 +48,11 @@ export default {
         _group: {
           lang_ids: {
             widget: 'many2many_tags',
-            context: {
-              active_test: false
-            },
+            context: { active_test: false },
             no_quick_create: true,
             no_create_edit: true
           },
-          overwrite: {
-            groups: 'base.group_no_one'
-          }
+          overwrite: { groups: 'base.group_no_one' }
         },
         _footer: {
           _button_lang_install: {

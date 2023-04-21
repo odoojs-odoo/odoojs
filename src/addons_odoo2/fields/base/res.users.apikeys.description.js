@@ -1,7 +1,5 @@
 const ModelFields = {
-  name: {
-    placeholder: "What's this key for?"
-  }
+  name: { placeholder: "What's this key for?" }
 }
 
 const AddonsFields = {

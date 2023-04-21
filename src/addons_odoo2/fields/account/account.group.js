@@ -1,10 +1,7 @@
 const ModelFields = {
   code_prefix_end: {},
   code_prefix_start: {},
-  company_id: {
-    groups: 'base.group_multi_company'
-  },
-
+  company_id: { groups: 'base.group_multi_company' },
   name: {}
 }
 

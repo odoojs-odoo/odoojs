@@ -11,21 +11,17 @@ export default {
             position: 'inside'
           },
           _strong: {
-            quantity: {
-              readonly: 'True'
-            }
+            quantity: { readonly: 'True' }
           },
           product_uom_name: {
             class: 'mx-1',
             readonly: 'True'
           },
-          _strong_774: {
-            location_id: {
-              readonly: 'True'
-            }
+          _strong_152: {
+            location_id: { readonly: 'True' }
           }
         },
-        _xpath_987: {
+        _xpath_760: {
           _attr: {
             expr: "//button[@name='cancel_button']",
             position: 'replace'

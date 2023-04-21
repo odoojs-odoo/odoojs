@@ -9,9 +9,7 @@ export default {
         server_type: {},
         user: {},
         date: {},
-        state: {
-          widget: 'badge'
-        }
+        state: { widget: 'badge' }
       }
     }
   },
@@ -46,14 +44,10 @@ export default {
             states: 'done'
           }
         },
-        state: {
-          widget: 'statusbar'
-        }
+        state: { widget: 'statusbar' }
       },
       sheet: {
-        active: {
-          invisible: '1'
-        },
+        active: { invisible: '1' },
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
@@ -70,10 +64,8 @@ export default {
               readonly: [['state', '=', 'done']]
             }
           },
-          _group_882: {
-            date: {
-              invisible: [['date', '=', false]]
-            },
+          _group_988: {
+            date: { invisible: [['date', '=', false]] },
             _div: {
               _attr: {
                 invisible: [['server_type_info', '=', false]],
@@ -95,43 +87,35 @@ export default {
                   string: 'Server Information',
                   invisible: [['server_type', '=', 'local']]
                 },
-                server: {
-                  required: [['server_type', '!=', 'local']]
-                },
+                server: { required: [['server_type', '!=', 'local']] },
                 port: {
                   required: '1',
                   options: "{'format': false}"
                 },
                 is_ssl: {}
               },
-              _group_336: {
+              _group_707: {
                 _attr: {
                   string: 'Login Information',
                   invisible: [['server_type', '=', 'local']]
                 },
-                user: {
-                  required: [['server_type', '!=', 'local']]
-                },
+                user: { required: [['server_type', '!=', 'local']] },
                 password: {
                   required: [['server_type', 'in', ('imap', 'pop')]],
                   invisible: [['server_type', 'not in', ('imap', 'pop')]]
                 }
               },
-              _group_531: {
-                _attr: {
-                  string: 'Actions to Perform on Incoming Mails'
-                },
+              _group_450: {
+                _attr: { string: 'Actions to Perform on Incoming Mails' },
                 object_id: {}
               },
-              _group_584: {
+              _group_873: {
                 _attr: {
                   string: 'Configuration',
                   invisible: [['server_type', '!=', 'local']]
                 },
                 configuration: {},
-                script: {
-                  widget: 'url'
-                }
+                script: { widget: 'url' }
               }
             }
           },
@@ -143,9 +127,7 @@ export default {
             },
             _group: {
               _group: {
-                _attr: {
-                  string: 'Advanced Options'
-                },
+                _attr: { string: 'Advanced Options' },
                 priority: {},
                 attach: {},
                 original: {}
@@ -162,9 +144,7 @@ export default {
     model: 'fetchmail.server',
     type: 'search',
     arch: {
-      name: {
-        string: 'Incoming Mail Server'
-      },
+      name: { string: 'Incoming Mail Server' },
       user: {},
       _filter_imap: {
         _attr: {
@@ -191,7 +171,7 @@ export default {
           domain: [['is_ssl', '=', true]]
         }
       },
-      _separator_360: {},
+      _separator_576: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',

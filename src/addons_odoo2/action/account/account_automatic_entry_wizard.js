@@ -5,18 +5,10 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        account_type: {
-          invisible: '1'
-        },
-        company_id: {
-          invisible: '1'
-        },
-        move_line_ids: {
-          invisible: '1'
-        },
-        display_currency_helper: {
-          invisible: '1'
-        },
+        account_type: { invisible: '1' },
+        company_id: { invisible: '1' },
+        move_line_ids: { invisible: '1' },
+        display_currency_helper: { invisible: '1' },
         _div: {
           _attr: {
             invisible: [['display_currency_helper', '=', false]],
@@ -31,12 +23,8 @@ export default {
         },
         _group: {
           _group: {
-            _attr: {
-              invisible: [['action', '!=', 'change_period']]
-            },
-            date: {
-              string: 'Recognition Date'
-            },
+            _attr: { invisible: [['action', '!=', 'change_period']] },
+            date: { string: 'Recognition Date' },
             expense_accrual_account: {
               string: 'Accrued Account',
               invisible: [['account_type', '!=', 'expense']],
@@ -48,41 +36,27 @@ export default {
               required: [['account_type', '=', 'income'], ['action', '=', 'change_period']]
             }
           },
-          _group_988: {
-            _attr: {
-              invisible: [['action', '!=', 'change_account']]
-            },
-            date: {
-              string: 'Transfer Date'
-            },
+          _group_833: {
+            _attr: { invisible: [['action', '!=', 'change_account']] },
+            date: { string: 'Transfer Date' },
             destination_account_id: {
-              domain: {
-                todo_ctx: "[('company_id', '=', company_id)]"
-              },
+              domain: { todo_ctx: "[('company_id', '=', company_id)]" },
               required: [['action', '=', 'change_account']]
             }
           },
-          _group_200: {
+          _group_744: {
             _label_total_amount: {
               for: 'total_amount',
               string: 'Adjusting Amount',
               invisible: [['action', '!=', 'change_period']]
             },
             _div: {
-              _attr: {
-                invisible: [['action', '!=', 'change_period']]
-              },
-              percentage: {
-                readonly: [['action', '!=', 'change_period']]
-              },
+              _attr: { invisible: [['action', '!=', 'change_period']] },
+              percentage: { readonly: [['action', '!=', 'change_period']] },
               _span: {
-                _attr: {
-                  class: 'px-3'
-                }
+                _attr: { class: 'px-3' }
               },
-              total_amount: {
-                class: 'oe_inline'
-              }
+              total_amount: { class: 'oe_inline' }
             },
             total_amount: {
               invisible: [['action', '=', 'change_period']],

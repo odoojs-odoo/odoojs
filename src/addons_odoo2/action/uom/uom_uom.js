@@ -20,22 +20,16 @@ export default {
       sheet: {
         _group: {
           _group_uom_details: {
-            _attr: {
-              name: 'uom_details'
-            },
+            _attr: { name: 'uom_details' },
             name: {},
             category_id: {},
-            uom_type: {
-              readonly: '1'
-            },
+            uom_type: { readonly: '1' },
             _label_factor: {
               for: 'factor',
               invisible: [['uom_type', '!=', 'smaller']]
             },
             _div: {
-              _attr: {
-                invisible: [['uom_type', '!=', 'smaller']]
-              },
+              _attr: { invisible: [['uom_type', '!=', 'smaller']] },
               factor: {
                 readonly: [['uom_type', '=', 'bigger']],
                 digits: '[42,5]'
@@ -51,10 +45,8 @@ export default {
               for: 'factor_inv',
               invisible: [['uom_type', '!=', 'bigger']]
             },
-            _div_491: {
-              _attr: {
-                invisible: [['uom_type', '!=', 'bigger']]
-              },
+            _div_992: {
+              _attr: { invisible: [['uom_type', '!=', 'bigger']] },
               factor_inv: {
                 readonly: [['uom_type', '!=', 'bigger']],
                 digits: '[42,5]'
@@ -68,15 +60,9 @@ export default {
             }
           },
           _group_active_rounding: {
-            _attr: {
-              name: 'active_rounding'
-            },
-            active: {
-              widget: 'boolean_toggle'
-            },
-            rounding: {
-              digits: '[42, 5]'
-            }
+            _attr: { name: 'active_rounding' },
+            active: { widget: 'boolean_toggle' },
+            rounding: { digits: '[42, 5]' }
           }
         }
       }
@@ -98,16 +84,12 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_group_by_category: {
           _attr: {
             name: 'group_by_category',
             string: 'Category',
-            context: {
-              group_by: 'category_id'
-            }
+            context: { group_by: 'category_id' }
           }
         }
       }

@@ -38,9 +38,7 @@ export default {
           tracking_sequence: {}
         },
         _group_values: {
-          _attr: {
-            name: 'values'
-          },
+          _attr: { name: 'values' },
           _group_old_values: {
             _attr: {
               name: 'old_values',
@@ -65,9 +63,7 @@ export default {
           }
         },
         _group: {
-          _attr: {
-            string: 'Related Message'
-          },
+          _attr: { string: 'Related Message' },
           mail_message_id: {}
         }
       }

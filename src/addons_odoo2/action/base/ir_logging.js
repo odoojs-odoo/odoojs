@@ -61,17 +61,13 @@ export default {
       level: {},
       message: {},
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_database: {
           _attr: {
             name: 'database',
             string: 'Database',
             domain: [],
-            context: {
-              group_by: 'dbname'
-            }
+            context: { group_by: 'dbname' }
           }
         },
         _filter_group_by_level: {
@@ -79,9 +75,7 @@ export default {
             name: 'group_by_level',
             string: 'Level',
             domain: [],
-            context: {
-              group_by: 'level'
-            }
+            context: { group_by: 'level' }
           }
         },
         _filter_group_by_type: {
@@ -89,9 +83,7 @@ export default {
             name: 'group_by_type',
             string: 'Type',
             domain: [],
-            context: {
-              group_by: 'type'
-            }
+            context: { group_by: 'type' }
           }
         },
         _filter_group_by_month: {
@@ -99,9 +91,7 @@ export default {
             name: 'group_by_month',
             string: 'Creation Date',
             domain: [],
-            context: {
-              group_by: 'create_date'
-            }
+            context: { group_by: 'create_date' }
           }
         }
       }

@@ -25,7 +25,10 @@ export const modules_installed = [
   'purchase',
   'stock',
   'stock_wizard',
-  'stock_sms'
+  'stock_sms',
+  'hr',
+  'hr_contract',
+  'hr_expense'
   //
 ]
 

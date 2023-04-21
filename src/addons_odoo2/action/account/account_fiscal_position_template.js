@@ -4,9 +4,7 @@ export default {
     model: 'account.fiscal.position.template',
     type: 'search',
     arch: {
-      name: {
-        string: 'Fiscal Position Template'
-      }
+      name: { string: 'Fiscal Position Template' }
     }
   },
 
@@ -25,30 +23,18 @@ export default {
             tree: {
               arch: {
                 sheet: {
-                  _attr: {
-                    string: 'Taxes Mapping'
-                  },
-                  tax_src_id: {
-                    domain: [['type_tax_use', '!=', None]]
-                  },
-                  tax_dest_id: {
-                    domain: [['type_tax_use', '!=', None]]
-                  }
+                  _attr: { string: 'Taxes Mapping' },
+                  tax_src_id: { domain: [['type_tax_use', '!=', None]] },
+                  tax_dest_id: { domain: [['type_tax_use', '!=', None]] }
                 }
               }
             },
             form: {
               arch: {
                 sheet: {
-                  _attr: {
-                    string: 'Taxes Mapping'
-                  },
-                  tax_src_id: {
-                    domain: [['type_tax_use', '!=', None]]
-                  },
-                  tax_dest_id: {
-                    domain: [['type_tax_use', '!=', None]]
-                  }
+                  _attr: { string: 'Taxes Mapping' },
+                  tax_src_id: { domain: [['type_tax_use', '!=', None]] },
+                  tax_dest_id: { domain: [['type_tax_use', '!=', None]] }
                 }
               }
             }
@@ -59,9 +45,7 @@ export default {
             tree: {
               arch: {
                 sheet: {
-                  _attr: {
-                    string: 'Accounts Mapping'
-                  },
+                  _attr: { string: 'Accounts Mapping' },
                   account_src_id: {},
                   account_dest_id: {}
                 }
@@ -70,9 +54,7 @@ export default {
             form: {
               arch: {
                 sheet: {
-                  _attr: {
-                    string: 'Accounts Mapping'
-                  },
+                  _attr: { string: 'Accounts Mapping' },
                   account_src_id: {},
                   account_dest_id: {}
                 }

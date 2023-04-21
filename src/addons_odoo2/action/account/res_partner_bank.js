@@ -11,18 +11,10 @@ export default {
             position: 'after'
           },
           _div: {
-            _attr: {
-              class: 'oe_chatter'
-            },
-            message_follower_ids: {
-              widget: 'mail_followers'
-            },
-            message_ids: {
-              widget: 'mail_thread'
-            },
-            activity_ids: {
-              widget: 'mail_activity'
-            }
+            _attr: { class: 'oe_chatter' },
+            message_follower_ids: { widget: 'mail_followers' },
+            message_ids: { widget: 'mail_thread' },
+            activity_ids: { widget: 'mail_activity' }
           }
         }
       }

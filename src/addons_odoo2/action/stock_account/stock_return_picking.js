@@ -10,9 +10,7 @@ export default {
             expr: "//field[@name='product_return_moves']/tree",
             position: 'inside'
           },
-          to_refund: {
-            groups: 'base.group_no_one'
-          }
+          to_refund: { groups: 'base.group_no_one' }
         }
       }
     }

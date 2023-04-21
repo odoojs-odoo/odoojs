@@ -6,9 +6,7 @@ export default {
     arch: {
       sheet: {
         name: {},
-        active: {
-          invisible: '1'
-        }
+        active: { invisible: '1' }
       }
     }
   },
@@ -21,9 +19,7 @@ export default {
       sheet: {
         _group: {
           name: {},
-          active: {
-            widget: 'boolean_toggle'
-          }
+          active: { widget: 'boolean_toggle' }
         }
       }
     }

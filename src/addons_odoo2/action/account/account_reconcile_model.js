@@ -5,9 +5,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {},
         rule_type: {},
         auto_reconcile: {}
@@ -21,15 +19,9 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        active: {
-          invisible: '1'
-        },
-        payment_tolerance_param: {
-          invisible: '1'
-        },
-        company_id: {
-          invisible: '1'
-        },
+        active: { invisible: '1' },
+        payment_tolerance_param: { invisible: '1' },
+        company_id: { invisible: '1' },
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -49,66 +41,42 @@ export default {
           }
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
-          _label_name: {
-            for: 'name'
-          },
+          _attr: { class: 'oe_title' },
+          _label_name: { for: 'name' },
           _h1: {
-            name: {
-              placeholder: 'e.g. Bank Fees'
-            }
+            name: { placeholder: 'e.g. Bank Fees' }
           }
         },
         _group: {
           _group: {
-            rule_type: {
-              widget: 'radio'
-            }
+            rule_type: { widget: 'radio' }
           },
-          _group_524: {
-            auto_reconcile: {
-              invisible: [['rule_type', '=', 'writeoff_button']]
-            },
-            to_check: {
-              invisible: [['rule_type', '!=', 'writeoff_button']]
-            },
-            past_months_limit: {
-              invisible: [['rule_type', '!=', 'invoice_matching']]
-            },
-            matching_order: {
-              invisible: [['rule_type', '!=', 'invoice_matching']]
-            }
+          _group_813: {
+            auto_reconcile: { invisible: [['rule_type', '=', 'writeoff_button']] },
+            to_check: { invisible: [['rule_type', '!=', 'writeoff_button']] },
+            past_months_limit: { invisible: [['rule_type', '!=', 'invoice_matching']] },
+            matching_order: { invisible: [['rule_type', '!=', 'invoice_matching']] }
           }
         },
         _notebook: {
           _page: {
-            _attr: {
-              string: 'Bank Transactions Conditions'
-            },
+            _attr: { string: 'Bank Transactions Conditions' },
             _group: {
               _group: {
-                _attr: {
-                  class: 'col-6'
-                },
-                _label_match_journal_ids: {
-                  for: 'match_journal_ids'
-                },
+                _attr: { class: 'col-6' },
+                _label_match_journal_ids: { for: 'match_journal_ids' },
                 _div: {
                   match_journal_ids: {
                     widget: 'many2many_tags',
                     no_create: true
                   }
                 },
-                match_nature: {
-                  invisible: [['rule_type', '=', 'writeoff_button']]
-                },
+                match_nature: { invisible: [['rule_type', '=', 'writeoff_button']] },
                 _label_match_amount: {
                   for: 'match_amount',
                   invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_942: {
+                _div_415: {
                   _attr: {
                     invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-2'
@@ -134,7 +102,7 @@ export default {
                   for: 'allow_payment_tolerance',
                   invisible: [['rule_type', '!=', 'invoice_matching']]
                 },
-                _div_514: {
+                _div_158: {
                   _attr: {
                     invisible: [['rule_type', '!=', 'invoice_matching']],
                     class: 'd-flex gap-2'
@@ -149,14 +117,10 @@ export default {
                     payment_tolerance_type: {}
                   }
                 },
-                match_same_currency: {
-                  invisible: [['rule_type', '!=', 'invoice_matching']]
-                }
+                match_same_currency: { invisible: [['rule_type', '!=', 'invoice_matching']] }
               },
-              _group_928: {
-                _attr: {
-                  class: 'col-6'
-                },
+              _group_363: {
+                _attr: { class: 'col-6' },
                 _span: {
                   _attr: {
                     invisible: [['rule_type', '!=', 'invoice_matching']],
@@ -189,7 +153,7 @@ export default {
                   for: 'match_label',
                   invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_671: {
+                _div_414: {
                   _attr: {
                     invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-3'
@@ -204,7 +168,7 @@ export default {
                   for: 'match_note',
                   invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_584: {
+                _div_930: {
                   _attr: {
                     invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-3'
@@ -219,7 +183,7 @@ export default {
                   for: 'match_transaction_type',
                   invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_906: {
+                _div_572: {
                   _attr: {
                     invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-3'
@@ -230,9 +194,7 @@ export default {
                     required: [['match_transaction_type', '!=', false]]
                   }
                 },
-                match_partner: {
-                  invisible: [['rule_type', '=', 'writeoff_button']]
-                },
+                match_partner: { invisible: [['rule_type', '=', 'writeoff_button']] },
                 _label_match_partner_ids: {
                   for: 'match_partner_ids',
                   invisible: ['|', ['match_partner', '=', false], ['rule_type', '=', 'writeoff_button']],
@@ -254,16 +216,14 @@ export default {
                 }
               }
             },
-            _group_149: {
+            _group_612: {
               _attr: {
                 string: 'Counterpart Entries',
                 invisible: [['rule_type', '=', 'invoice_matching'], '|', ['allow_payment_tolerance', '=', false], '&', ['allow_payment_tolerance', '=', true], ['payment_tolerance_param', '=', 0.0]],
                 class: 'oe_inline'
               },
               _group: {
-                show_decimal_separator: {
-                  invisible: '1'
-                },
+                show_decimal_separator: { invisible: '1' },
                 decimal_separator: {
                   groups: 'base.group_no_one',
                   invisible: [['show_decimal_separator', '=', false]]
@@ -274,15 +234,9 @@ export default {
                   tree: {
                     arch: {
                       sheet: {
-                        show_force_tax_included: {
-                          invisible: '1'
-                        },
-                        company_id: {
-                          invisible: '1'
-                        },
-                        sequence: {
-                          widget: 'handle'
-                        },
+                        show_force_tax_included: { invisible: '1' },
+                        company_id: { invisible: '1' },
+                        sequence: { widget: 'handle' },
                         account_id: {},
                         amount_type: {},
                         journal_id: {
@@ -313,7 +267,7 @@ export default {
               }
             }
           },
-          _page_155: {
+          _page_599: {
             _attr: {
               string: 'Partner Mapping',
               invisible: [['rule_type', 'not in', ('invoice_matching', 'writeoff_suggestion')]]
@@ -323,12 +277,8 @@ export default {
                 tree: {
                   arch: {
                     sheet: {
-                      payment_ref_regex: {
-                        required: [['narration_regex', '=', false]]
-                      },
-                      narration_regex: {
-                        required: [['payment_ref_regex', '=', false]]
-                      },
+                      payment_ref_regex: { required: [['narration_regex', '=', false]] },
+                      narration_regex: { required: [['payment_ref_regex', '=', false]] },
                       partner_id: {}
                     }
                   }

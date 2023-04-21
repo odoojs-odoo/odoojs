@@ -1,9 +1,6 @@
 const ModelFields = {
   image: {},
-  name: {
-    placeholder: 'Name'
-  },
-
+  name: { placeholder: 'Name' },
   provider_ids: {},
   sequence: {}
 }

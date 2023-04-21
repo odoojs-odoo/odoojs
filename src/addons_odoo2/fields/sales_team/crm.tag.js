@@ -1,11 +1,6 @@
 const ModelFields = {
-  color: {
-    required: 'True'
-  },
-
-  name: {
-    placeholder: 'e.g. Services'
-  }
+  color: { required: 'True' },
+  name: { placeholder: 'e.g. Services' }
 }
 
 const AddonsFields = {

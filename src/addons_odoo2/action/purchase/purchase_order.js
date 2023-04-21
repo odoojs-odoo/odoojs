@@ -4,9 +4,7 @@ export default {
     name: 'RFQs and Purchases',
     res_model: 'purchase.order',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      todo_ctx: "{'search_default_partner_id': active_id, 'default_partner_id': active_id}"
-    },
+    context: { todo_ctx: "{'search_default_partner_id': active_id, 'default_partner_id': active_id}" },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -46,9 +44,7 @@ export default {
             type: 'object',
             string: 'Send by Email',
             states: 'draft',
-            context: {
-              send_rfq: true
-            },
+            context: { send_rfq: true },
             class: 'oe_highlight'
           }
         },
@@ -68,9 +64,7 @@ export default {
             type: 'object',
             string: 'Confirm Order',
             states: 'sent',
-            context: {
-              validate_analytic: true
-            },
+            context: { validate_analytic: true },
             class: 'oe_highlight'
           }
         },
@@ -90,24 +84,20 @@ export default {
             type: 'object',
             string: 'Create Bill',
             invisible: ['|', ['state', 'not in', ('purchase', 'done')], ['invoice_status', 'in', ('no', 'invoiced')]],
-            context: {
-              create_bill: true
-            },
+            context: { create_bill: true },
             class: 'oe_highlight'
           }
         },
-        _button_action_rfq_send_375: {
+        _button_action_rfq_send_168: {
           _attr: {
             name: 'action_rfq_send',
             type: 'object',
             string: 'Re-Send by Email',
             states: 'sent',
-            context: {
-              send_rfq: true
-            }
+            context: { send_rfq: true }
           }
         },
-        _button_print_quotation_340: {
+        _button_print_quotation_898: {
           _attr: {
             name: 'print_quotation',
             type: 'object',
@@ -116,26 +106,22 @@ export default {
             states: 'sent'
           }
         },
-        _button_button_confirm_821: {
+        _button_button_confirm_447: {
           _attr: {
             name: 'button_confirm',
             type: 'object',
             string: 'Confirm Order',
             states: 'draft',
-            context: {
-              validate_analytic: true
-            }
+            context: { validate_analytic: true }
           }
         },
-        _button_action_rfq_send_551: {
+        _button_action_rfq_send_450: {
           _attr: {
             name: 'action_rfq_send',
             type: 'object',
             string: 'Send PO by Email',
             states: 'purchase',
-            context: {
-              send_rfq: false
-            }
+            context: { send_rfq: false }
           }
         },
         _button_confirm_reminder_mail: {
@@ -147,15 +133,13 @@ export default {
             invisible: ['|', '|', ['state', 'not in', ('purchase', 'done')], ['mail_reminder_confirmed', '=', true], ['date_planned', '=', false]]
           }
         },
-        _button_action_create_invoice_869: {
+        _button_action_create_invoice_581: {
           _attr: {
             name: 'action_create_invoice',
             type: 'object',
             string: 'Create Bill',
             invisible: ['|', '|', ['state', 'not in', ('purchase', 'done')], ['invoice_status', 'not in', ('no', 'invoiced')], ['order_line', '=', []]],
-            context: {
-              create_bill: true
-            }
+            context: { create_bill: true }
           }
         },
         _button_button_draft: {
@@ -215,15 +199,11 @@ export default {
               string: 'Vendor Bills',
               widget: 'statinfo'
             },
-            invoice_ids: {
-              invisible: '1'
-            }
+            invoice_ids: { invisible: '1' }
           }
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _span: {
             _attr: {
               invisible: [['state', 'not in', ('draft', 'sent')]],
@@ -231,7 +211,7 @@ export default {
               text: 'Request for Quotation'
             }
           },
-          _span_362: {
+          _span_596: {
             _attr: {
               invisible: [['state', 'in', ('draft', 'sent')]],
               class: 'o_form_label',
@@ -239,16 +219,12 @@ export default {
             }
           },
           _h1: {
-            _attr: {
-              class: 'd-flex'
-            },
+            _attr: { class: 'd-flex' },
             priority: {
               widget: 'priority',
               class: 'me-3'
             },
-            name: {
-              readonly: '1'
-            }
+            name: { readonly: '1' }
           }
         },
         _group: {
@@ -266,23 +242,17 @@ export default {
               groups: 'base.group_multi_currency',
               force_save: '1'
             },
-            id: {
-              invisible: '1'
-            },
-            company_id: {
-              invisible: '1'
-            },
-            _field_currency_id_337: {
+            id: { invisible: '1' },
+            company_id: { invisible: '1' },
+            _field_currency_id_852: {
               currency_id: {
                 groups: '!base.group_multi_currency',
                 invisible: '1'
               }
             }
           },
-          _group_213: {
-            date_order: {
-              invisible: [['state', 'in', ('purchase', 'done')]]
-            },
+          _group_204: {
+            date_order: { invisible: [['state', 'in', ('purchase', 'done')]] },
             _label_date_approve: {
               for: 'date_approve',
               invisible: [['state', 'not in', ('purchase', 'done')]]
@@ -294,9 +264,7 @@ export default {
                 class: 'o_row'
               },
               date_approve: {},
-              mail_reception_confirmed: {
-                invisible: '1'
-              },
+              mail_reception_confirmed: { invisible: '1' },
               _span: {
                 _attr: {
                   invisible: [['mail_reception_confirmed', '=', false]],
@@ -305,20 +273,14 @@ export default {
                 }
               }
             },
-            _label_date_planned: {
-              for: 'date_planned'
-            },
+            _label_date_planned: { for: 'date_planned' },
             _div_date_planned_div: {
               _attr: {
                 name: 'date_planned_div',
                 class: 'o_row'
               },
-              date_planned: {
-                readonly: [['state', 'not in', ('draft', 'sent', 'to approve', 'purchase')]]
-              },
-              mail_reminder_confirmed: {
-                invisible: '1'
-              },
+              date_planned: { readonly: [['state', 'not in', ('draft', 'sent', 'to approve', 'purchase')]] },
+              mail_reminder_confirmed: { invisible: '1' },
               _span: {
                 _attr: {
                   invisible: [['mail_reminder_confirmed', '=', false]],
@@ -364,22 +326,16 @@ export default {
               name: 'products',
               string: 'Products'
             },
-            tax_country_id: {
-              invisible: '1'
-            },
+            tax_country_id: { invisible: '1' },
             order_line: {
               widget: 'section_and_note_one2many',
               readonly: [['state', 'in', ('done', 'cancel')]],
-              context: {
-                default_state: 'draft'
-              },
+              context: { default_state: 'draft' },
               views: {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Purchase Order Lines'
-                      },
+                      _attr: { string: 'Purchase Order Lines' },
                       _control: {
                         _create_add_product_control: {
                           _attr: {
@@ -391,60 +347,36 @@ export default {
                           _attr: {
                             name: 'add_section_control',
                             string: 'Add a section',
-                            context: {
-                              default_display_type: 'line_section'
-                            }
+                            context: { default_display_type: 'line_section' }
                           }
                         },
                         _create_add_note_control: {
                           _attr: {
                             name: 'add_note_control',
                             string: 'Add a note',
-                            context: {
-                              default_display_type: 'line_note'
-                            }
+                            context: { default_display_type: 'line_note' }
                           }
                         }
                       },
-                      display_type: {
-                        invisible: '1'
-                      },
-                      currency_id: {
-                        invisible: '1'
-                      },
-                      state: {
-                        invisible: '1'
-                      },
-                      product_type: {
-                        invisible: '1'
-                      },
+                      display_type: { invisible: '1' },
+                      currency_id: { invisible: '1' },
+                      state: { invisible: '1' },
+                      product_type: { invisible: '1' },
                       product_uom: {
                         groups: '!uom.group_uom',
                         invisible: '1'
                       },
-                      product_uom_category_id: {
-                        invisible: '1'
-                      },
-                      invoice_lines: {
-                        invisible: '1'
-                      },
-                      sequence: {
-                        widget: 'handle'
-                      },
+                      product_uom_category_id: { invisible: '1' },
+                      invoice_lines: { invisible: '1' },
+                      sequence: { widget: 'handle' },
                       product_id: {
-                        domain: {
-                          todo_ctx: "[('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
-                        },
+                        domain: { todo_ctx: "[('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" },
                         readonly: [['state', 'in', ('purchase', 'to approve', 'done', 'cancel')]],
                         required: [['display_type', '=', false]],
-                        context: {
-                          todo_ctx: "{'partner_id':parent.partner_id, 'quantity':product_qty,'uom':product_uom, 'company_id': parent.company_id}"
-                        },
+                        context: { todo_ctx: "{'partner_id':parent.partner_id, 'quantity':product_qty,'uom':product_uom, 'company_id': parent.company_id}" },
                         force_save: '1'
                       },
-                      name: {
-                        widget: 'section_and_note_text'
-                      },
+                      name: { widget: 'section_and_note_text' },
                       date_planned: {
                         required: [['display_type', '=', false]],
                         optional: 'hide',
@@ -458,12 +390,8 @@ export default {
                         business_domain: 'purchase_order'
                       },
                       product_qty: {},
-                      qty_received_manual: {
-                        invisible: '1'
-                      },
-                      qty_received_method: {
-                        invisible: '1'
-                      },
+                      qty_received_manual: { invisible: '1' },
+                      qty_received_method: { invisible: '1' },
                       qty_received: {
                         string: 'Received',
                         column_invisible: [['parent.state', 'not in', ('purchase', 'done')]],
@@ -475,7 +403,7 @@ export default {
                         column_invisible: [['parent.state', 'not in', ('purchase', 'done')]],
                         optional: 'show'
                       },
-                      _field_product_uom_439: {
+                      _field_product_uom_626: {
                         product_uom: {
                           string: 'UoM',
                           groups: 'uom.group_uom',
@@ -493,14 +421,10 @@ export default {
                       product_packaging_id: {
                         groups: 'product.group_stock_packaging',
                         invisible: [['product_id', '=', false]],
-                        context: {
-                          todo_ctx: "{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}"
-                        },
+                        context: { todo_ctx: "{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}" },
                         optional: 'show'
                       },
-                      price_unit: {
-                        readonly: [['qty_invoiced', '!=', 0]]
-                      },
+                      price_unit: { readonly: [['qty_invoiced', '!=', 0]] },
                       _button_action_purchase_history: {
                         _attr: {
                           name: 'action_purchase_history',
@@ -512,9 +436,7 @@ export default {
                       },
                       taxes_id: {
                         widget: 'many2many_tags',
-                        domain: {
-                          todo_ctx: "[('type_tax_use','=','purchase'), ('company_id', '=', parent.company_id), ('country_id', '=', parent.tax_country_id)]"
-                        },
+                        domain: { todo_ctx: "[('type_tax_use','=','purchase'), ('company_id', '=', parent.company_id), ('country_id', '=', parent.tax_country_id)]" },
                         context: {
                           default_type_tax_use: 'purchase',
                           search_view_ref: 'account.account_tax_view_search'
@@ -522,63 +444,37 @@ export default {
                         optional: 'show',
                         no_create: true
                       },
-                      price_subtotal: {
-                        widget: 'monetary'
-                      },
-                      price_total: {
-                        invisible: '1'
-                      },
-                      price_tax: {
-                        invisible: '1'
-                      }
+                      price_subtotal: { widget: 'monetary' },
+                      price_total: { invisible: '1' },
+                      price_tax: { invisible: '1' }
                     }
                   }
                 },
                 form: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Purchase Order Line'
-                      },
-                      state: {
-                        invisible: '1'
-                      },
-                      display_type: {
-                        invisible: '1'
-                      },
+                      _attr: { string: 'Purchase Order Line' },
+                      state: { invisible: '1' },
+                      display_type: { invisible: '1' },
                       _group: {
-                        _attr: {
-                          invisible: [['display_type', '!=', false]]
-                        },
+                        _attr: { invisible: [['display_type', '!=', false]] },
                         _group: {
-                          product_uom_category_id: {
-                            invisible: '1'
-                          },
+                          product_uom_category_id: { invisible: '1' },
                           product_id: {
                             widget: 'many2one_barcode',
-                            domain: {
-                              todo_ctx: "[('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
-                            },
-                            context: {
-                              todo_ctx: "{'partner_id': parent.partner_id}"
-                            }
+                            domain: { todo_ctx: "[('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" },
+                            context: { todo_ctx: "{'partner_id': parent.partner_id}" }
                           },
-                          _label_product_qty: {
-                            for: 'product_qty'
-                          },
+                          _label_product_qty: { for: 'product_qty' },
                           _div: {
-                            _attr: {
-                              class: 'o_row'
-                            },
+                            _attr: { class: 'o_row' },
                             product_qty: {},
                             product_uom: {
                               groups: 'uom.group_uom',
                               required: [['display_type', '=', false]]
                             }
                           },
-                          qty_received_method: {
-                            invisible: '1'
-                          },
+                          qty_received_method: { invisible: '1' },
                           qty_received: {
                             string: 'Received Quantity',
                             invisible: [['parent.state', 'not in', ('purchase', 'done')]],
@@ -591,20 +487,16 @@ export default {
                           product_packaging_id: {
                             groups: 'product.group_stock_packaging',
                             invisible: [['product_id', '=', false]],
-                            context: {
-                              todo_ctx: "{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}"
-                            }
+                            context: { todo_ctx: "{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}" }
                           },
                           price_unit: {},
                           taxes_id: {
                             widget: 'many2many_tags',
-                            domain: {
-                              todo_ctx: "[('type_tax_use', '=', 'purchase'), ('company_id', '=', parent.company_id), ('country_id', '=', parent.tax_country_id)]"
-                            },
+                            domain: { todo_ctx: "[('type_tax_use', '=', 'purchase'), ('company_id', '=', parent.company_id), ('country_id', '=', parent.tax_country_id)]" },
                             no_create: true
                           }
                         },
-                        _group_892: {
+                        _group_566: {
                           date_planned: {
                             widget: 'date',
                             required: [['display_type', '=', false]]
@@ -616,7 +508,7 @@ export default {
                             business_domain: 'purchase_order'
                           }
                         },
-                        _group_858: {
+                        _group_271: {
                           _notebook: {
                             _page_notes: {
                               _attr: {
@@ -640,116 +532,78 @@ export default {
                         string: 'Section Name (eg. Products, Services)',
                         invisible: [['display_type', '!=', 'line_section']]
                       },
-                      _label_name_211: {
+                      _label_name_563: {
                         for: 'name',
                         string: 'Note',
                         invisible: [['display_type', '!=', 'line_note']]
                       },
-                      name: {
-                        invisible: [['display_type', '=', false]]
-                      }
+                      name: { invisible: [['display_type', '=', false]] }
                     }
                   }
                 },
                 kanban: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        class: 'o_kanban_mobile'
-                      },
+                      _attr: { class: 'o_kanban_mobile' },
                       name: {},
                       product_id: {},
                       product_qty: {},
-                      product_uom: {
-                        groups: 'uom.group_uom'
-                      },
+                      product_uom: { groups: 'uom.group_uom' },
                       price_subtotal: {},
-                      price_tax: {
-                        invisible: '1'
-                      },
-                      price_total: {
-                        invisible: '1'
-                      },
+                      price_tax: { invisible: '1' },
+                      price_total: { invisible: '1' },
                       price_unit: {},
                       display_type: {},
-                      taxes_id: {
-                        invisible: '1'
-                      },
+                      taxes_id: { invisible: '1' },
                       _templates: {
                         _t: {
                           _div: {
                             _t: {
                               _div: {
-                                _attr: {
-                                  class: 'row'
-                                },
+                                _attr: { class: 'row' },
                                 _div: {
-                                  _attr: {
-                                    class: 'col-8'
-                                  },
+                                  _attr: { class: 'col-8' },
                                   _strong: {
                                     _span: {}
                                   }
                                 },
-                                _div_618: {
-                                  _attr: {
-                                    class: 'col-4'
-                                  },
+                                _div_723: {
+                                  _attr: { class: 'col-4' },
                                   _strong: {
                                     _span: {
-                                      _attr: {
-                                        class: 'float-end text-end'
-                                      }
+                                      _attr: { class: 'float-end text-end' }
                                     }
                                   }
                                 }
                               },
-                              _div_361: {
-                                _attr: {
-                                  class: 'row'
-                                },
+                              _div_515: {
+                                _attr: { class: 'row' },
                                 _div: {
-                                  _attr: {
-                                    class: 'col-12 text-muted'
-                                  },
+                                  _attr: { class: 'col-12 text-muted' },
                                   _span: {
-                                    _attr: {
-                                      text: 'Quantity:'
-                                    },
+                                    _attr: { text: 'Quantity:' },
                                     _t: {},
-                                    _t_342: {
-                                      _attr: {
-                                        groups: 'uom.group_uom'
-                                      }
+                                    _t_801: {
+                                      _attr: { groups: 'uom.group_uom' }
                                     }
                                   }
                                 }
                               },
-                              _div_950: {
-                                _attr: {
-                                  class: 'row'
-                                },
+                              _div_413: {
+                                _attr: { class: 'row' },
                                 _div: {
-                                  _attr: {
-                                    class: 'col-12 text-muted'
-                                  },
+                                  _attr: { class: 'col-12 text-muted' },
                                   _span: {
-                                    _attr: {
-                                      text: 'Unit Price:'
-                                    },
+                                    _attr: { text: 'Unit Price:' },
                                     _t: {}
                                   }
                                 }
                               }
                             },
                             _div: {
-                              _attr: {
-                                class: 'row'
-                              },
+                              _attr: { class: 'row' },
                               _div: {
-                                _attr: {
-                                  class: 'col-12'
-                                },
+                                _attr: { class: 'col-12' },
                                 _span: {}
                               }
                             }
@@ -763,14 +617,10 @@ export default {
             },
             _group: {
               _group: {
-                notes: {
-                  placeholder: 'Define your terms and conditions ...'
-                }
+                notes: { placeholder: 'Define your terms and conditions ...' }
               },
-              _group_376: {
-                _attr: {
-                  class: 'oe_subtotal_footer oe_right'
-                },
+              _group_994: {
+                _attr: { class: 'oe_subtotal_footer oe_right' },
                 tax_totals: {
                   widget: 'account-tax-totals-field',
                   readonly: '1'
@@ -778,9 +628,7 @@ export default {
               }
             },
             _div: {
-              _attr: {
-                class: 'clearfix'
-              }
+              _attr: { class: 'clearfix' }
             }
           },
           _page_purchase_delivery_invoice: {
@@ -790,9 +638,7 @@ export default {
             },
             _group: {
               _group_other_info: {
-                _attr: {
-                  name: 'other_info'
-                },
+                _attr: { name: 'other_info' },
                 user_id: {
                   widget: 'many2one_avatar_user',
                   domain: [['share', '=', false]]
@@ -804,12 +650,8 @@ export default {
                 origin: {}
               },
               _group_invoice_info: {
-                _attr: {
-                  name: 'invoice_info'
-                },
-                invoice_status: {
-                  invisible: [['state', 'in', ('draft', 'sent', 'to approve', 'cancel')]]
-                },
+                _attr: { name: 'invoice_info' },
+                invoice_status: { invisible: [['state', 'in', ('draft', 'sent', 'to approve', 'cancel')]] },
                 payment_term_id: {
                   readonly: ['|', ['invoice_status', '=', 'invoiced'], ['state', '=', 'done']],
                   no_create: true
@@ -833,13 +675,9 @@ export default {
     arch: {
       name: {
         string: 'Order',
-        filter_domain: {
-          todo_ctx: "['|', '|', ('name', 'ilike', self), ('partner_ref', 'ilike', self), ('partner_id', 'child_of', self)]"
-        }
+        filter_domain: { todo_ctx: "['|', '|', ('name', 'ilike', self), ('partner_ref', 'ilike', self), ('partner_id', 'child_of', self)]" }
       },
-      partner_id: {
-        operator: 'child_of'
-      },
+      partner_id: { operator: 'child_of' },
       user_id: {},
       product_id: {},
       origin: {},
@@ -847,9 +685,7 @@ export default {
         _attr: {
           name: 'my_purchases',
           string: 'My Purchases',
-          domain: {
-            todo_ctx: "[('user_id', '=', uid)]"
-          }
+          domain: { todo_ctx: "[('user_id', '=', uid)]" }
         }
       },
       _filter_starred: {
@@ -867,7 +703,7 @@ export default {
           domain: [['state', 'in', ('draft', 'sent', 'to approve')]]
         }
       },
-      _separator_731: {},
+      _separator_910: {},
       _filter_approved: {
         _attr: {
           name: 'approved',
@@ -882,7 +718,7 @@ export default {
           domain: [['state', '=', 'to approve']]
         }
       },
-      _separator_398: {},
+      _separator_451: {},
       _filter_order_date: {
         _attr: {
           name: 'order_date',
@@ -901,30 +737,24 @@ export default {
         _attr: {
           name: 'waiting_rfqs',
           string: 'Waiting RFQs',
-          domain: {
-            todo_ctx: "[('state', '=', 'sent'), ('date_order', '>=', datetime.datetime.now())]"
-          }
+          domain: { todo_ctx: "[('state', '=', 'sent'), ('date_order', '>=', datetime.datetime.now())]" }
         }
       },
       _filter_late_rfqs: {
         _attr: {
           name: 'late_rfqs',
           string: 'Late RFQs',
-          domain: {
-            todo_ctx: "[('state', 'in', ['draft', 'sent', 'to approve']),('date_order', '<', datetime.datetime.now())]"
-          }
+          domain: { todo_ctx: "[('state', 'in', ['draft', 'sent', 'to approve']),('date_order', '<', datetime.datetime.now())]" }
         }
       },
-      _separator_770: {},
+      _separator_515: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
           string: 'Late Activities',
           help: 'Show all records which has next action date is before today',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
       _filter_activities_today: {
@@ -932,9 +762,7 @@ export default {
           name: 'activities_today',
           string: 'Today Activities',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
       _filter_activities_upcoming_all: {
@@ -942,12 +770,10 @@ export default {
           name: 'activities_upcoming_all',
           string: 'Future Activities',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
-      _separator_343: {},
+      _separator_362: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',
@@ -956,17 +782,13 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_vendor: {
           _attr: {
             name: 'vendor',
             string: 'Vendor',
             domain: [],
-            context: {
-              group_by: 'partner_id'
-            }
+            context: { group_by: 'partner_id' }
           }
         },
         _filter_representative: {
@@ -974,9 +796,7 @@ export default {
             name: 'representative',
             string: 'Purchase Representative',
             domain: [],
-            context: {
-              group_by: 'user_id'
-            }
+            context: { group_by: 'user_id' }
           }
         },
         _filter_order_date: {
@@ -984,9 +804,7 @@ export default {
             name: 'order_date',
             string: 'Order Date',
             domain: [],
-            context: {
-              group_by: 'date_order'
-            }
+            context: { group_by: 'date_order' }
           }
         }
       }
@@ -1000,22 +818,16 @@ export default {
     arch: {
       name: {
         string: 'Order',
-        filter_domain: {
-          todo_ctx: "['|', '|', ('name', 'ilike', self), ('partner_ref', 'ilike', self), ('partner_id', 'child_of', self)]"
-        }
+        filter_domain: { todo_ctx: "['|', '|', ('name', 'ilike', self), ('partner_ref', 'ilike', self), ('partner_id', 'child_of', self)]" }
       },
-      partner_id: {
-        operator: 'child_of'
-      },
+      partner_id: { operator: 'child_of' },
       user_id: {},
       product_id: {},
       _filter_my_Orders: {
         _attr: {
           name: 'my_Orders',
           string: 'My Orders',
-          domain: {
-            todo_ctx: "[('user_id', '=', uid)]"
-          }
+          domain: { todo_ctx: "[('user_id', '=', uid)]" }
         }
       },
       _filter_starred: {
@@ -1049,7 +861,7 @@ export default {
           domain: [['invoice_status', '=', 'invoiced']]
         }
       },
-      _separator_940: {},
+      _separator_318: {},
       _filter_order_date: {
         _attr: {
           name: 'order_date',
@@ -1057,16 +869,14 @@ export default {
           date: 'date_order'
         }
       },
-      _separator_258: {},
+      _separator_926: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
           string: 'Late Activities',
           help: 'Show all records which has next action date is before today',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
       _filter_activities_today: {
@@ -1074,9 +884,7 @@ export default {
           name: 'activities_today',
           string: 'Today Activities',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
       _filter_activities_upcoming_all: {
@@ -1084,12 +892,10 @@ export default {
           name: 'activities_upcoming_all',
           string: 'Future Activities',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
-      _separator_619: {},
+      _separator_178: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',
@@ -1098,17 +904,13 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_vendor: {
           _attr: {
             name: 'vendor',
             string: 'Vendor',
             domain: [],
-            context: {
-              group_by: 'partner_id'
-            }
+            context: { group_by: 'partner_id' }
           }
         },
         _filter_representative: {
@@ -1116,9 +918,7 @@ export default {
             name: 'representative',
             string: 'Purchase Representative',
             domain: [],
-            context: {
-              group_by: 'user_id'
-            }
+            context: { group_by: 'user_id' }
           }
         },
         _filter_order_date: {
@@ -1126,9 +926,7 @@ export default {
             name: 'order_date',
             string: 'Order Date',
             domain: [],
-            context: {
-              group_by: 'date_order'
-            }
+            context: { group_by: 'date_order' }
           }
         }
       }
@@ -1174,9 +972,7 @@ export default {
           widget: 'priority',
           optional: 'show'
         },
-        partner_ref: {
-          optional: 'hide'
-        },
+        partner_ref: { optional: 'hide' },
         name: {
           string: 'Reference',
           readonly: '1'
@@ -1189,21 +985,15 @@ export default {
           invisible: "context.get['quotation_only', False]",
           optional: 'show'
         },
-        partner_id: {
-          readonly: '1'
-        },
+        partner_id: { readonly: '1' },
         company_id: {
           groups: 'base.group_multi_company',
           readonly: '1',
           optional: 'show',
           no_create: true
         },
-        user_id: {
-          optional: 'show'
-        },
-        origin: {
-          optional: 'show'
-        },
+        user_id: { optional: 'show' },
+        origin: { optional: 'show' },
         amount_untaxed: {
           string: 'Untaxed',
           widget: 'monetary',
@@ -1213,12 +1003,8 @@ export default {
           widget: 'monetary',
           optional: 'show'
         },
-        currency_id: {
-          invisible: '1'
-        },
-        state: {
-          optional: 'show'
-        },
+        currency_id: { invisible: '1' },
+        state: { optional: 'show' },
         date_planned: {
           invisible: "context.get['quotation_only', False]",
           optional: 'show'
@@ -1227,9 +1013,7 @@ export default {
           invisible: "context.get['quotation_only', False]",
           optional: 'hide'
         },
-        activity_exception_decoration: {
-          widget: 'activity_exception'
-        }
+        activity_exception_decoration: { widget: 'activity_exception' }
       }
     }
   },
@@ -1253,9 +1037,7 @@ export default {
           widget: 'priority',
           optional: 'show'
         },
-        partner_ref: {
-          optional: 'hide'
-        },
+        partner_ref: { optional: 'hide' },
         name: {
           string: 'Reference',
           readonly: '1'
@@ -1264,9 +1046,7 @@ export default {
           invisible: "context.get['quotation_only', False]",
           optional: 'show'
         },
-        partner_id: {
-          readonly: '1'
-        },
+        partner_id: { readonly: '1' },
         company_id: {
           groups: 'base.group_multi_company',
           readonly: '1',
@@ -1290,9 +1070,7 @@ export default {
           widget: 'list_activity',
           optional: 'show'
         },
-        origin: {
-          optional: 'show'
-        },
+        origin: { optional: 'show' },
         amount_untaxed: {
           string: 'Untaxed',
           widget: 'monetary',
@@ -1302,16 +1080,12 @@ export default {
           widget: 'monetary',
           optional: 'show'
         },
-        currency_id: {
-          invisible: '1'
-        },
+        currency_id: { invisible: '1' },
         state: {
           widget: 'badge',
           optional: 'show'
         },
-        invoice_status: {
-          optional: 'hide'
-        }
+        invoice_status: { optional: 'hide' }
       }
     }
   },
@@ -1335,9 +1109,7 @@ export default {
           widget: 'priority',
           optional: 'show'
         },
-        partner_ref: {
-          optional: 'hide'
-        },
+        partner_ref: { optional: 'hide' },
         name: {
           string: 'Reference',
           readonly: '1'
@@ -1365,9 +1137,7 @@ export default {
           widget: 'list_activity',
           optional: 'show'
         },
-        origin: {
-          optional: 'show'
-        },
+        origin: { optional: 'show' },
         amount_untaxed: {
           string: 'Untaxed',
           widget: 'monetary',
@@ -1377,12 +1147,8 @@ export default {
           widget: 'monetary',
           optional: 'show'
         },
-        currency_id: {
-          invisible: '1'
-        },
-        state: {
-          invisible: '1'
-        },
+        currency_id: { invisible: '1' },
+        state: { invisible: '1' },
         invoice_status: {
           widget: 'badge',
           optional: 'show'
@@ -1409,9 +1175,7 @@ export default {
     res_model: 'purchase.order',
     search_view_id: 'view_purchase_order_filter',
     domain: '[]',
-    context: {
-      quotation_only: true
-    },
+    context: { quotation_only: true },
     views: {
       tree: 'purchase_order_kpis_tree',
       form: '=======todo=========='

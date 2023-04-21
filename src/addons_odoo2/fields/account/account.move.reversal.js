@@ -2,27 +2,19 @@ const ModelFields = {
   available_journal_ids: {},
   company_id: {},
   date: {
-    string: 'Refund Date',
-    required: [['date_mode', '=', 'custom']]
+    required: [['date_mode', '=', 'custom']],
+    string: 'Refund Date'
   },
 
-  date_mode: {
-    string: 'Reversal Date'
-  },
-
+  date_mode: { string: 'Reversal Date' },
   journal_id: {
-    domain: {
-      todo_ctx: "[('id', 'in', available_journal_ids)]"
-    }
+    domain: { todo_ctx: "[('id', 'in', available_journal_ids)]" }
   },
 
   move_ids: {},
   move_type: {},
   reason: {},
-  refund_method: {
-    readonly: [['residual', '=', 0]]
-  },
-
+  refund_method: { readonly: [['residual', '=', 0]] },
   residual: {}
 }
 

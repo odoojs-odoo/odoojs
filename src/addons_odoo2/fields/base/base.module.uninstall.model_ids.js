@@ -1,8 +1,6 @@
 const ModelFields = {
   count: {},
-  name: {
-    string: 'Document'
-  }
+  name: { string: 'Document' }
 }
 
 const AddonsFields = {

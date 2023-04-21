@@ -1,8 +1,5 @@
 const ModelFields = {
-  company_id: {
-    groups: 'base.group_multi_company'
-  },
-
+  company_id: { groups: 'base.group_multi_company' },
   field_id: {},
   json_value: {},
   user_id: {}

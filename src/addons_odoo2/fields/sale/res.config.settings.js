@@ -1,14 +1,9 @@
 const ModelFields = {
-  auth_signup_uninvited: {
-    required: 'True'
-  },
-
+  auth_signup_uninvited: { required: 'True' },
   automatic_invoice: {},
   default_invoice_policy: {},
   deposit_default_product_id: {
-    context: {
-      default_detailed_type: 'service'
-    }
+    context: { default_detailed_type: 'service' }
   },
 
   group_auto_done_setting: {},
@@ -37,10 +32,7 @@ const ModelFields = {
   portal_confirmation_pay: {},
   portal_confirmation_sign: {},
   product_pricelist_setting: {},
-  quotation_validity_days: {
-    required: [['use_quotation_validity_days', '=', true]]
-  },
-
+  quotation_validity_days: { required: [['use_quotation_validity_days', '=', true]] },
   use_quotation_validity_days: {}
 }
 

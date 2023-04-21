@@ -8,9 +8,7 @@ export default {
         delay: {
           position: 'after',
           __todo__after: {
-            show_set_supplier_button: {
-              invisible: '1'
-            },
+            show_set_supplier_button: { invisible: '1' },
             last_purchase_date: {},
             _button_action_set_supplier: {
               _attr: {
@@ -18,9 +16,7 @@ export default {
                 type: 'object',
                 string: 'Set as Supplier',
                 invisible: [['show_set_supplier_button', '=', false]],
-                context: {
-                  todo_ctx: "{'orderpoint_id': parent.orderpoint_id, 'stock_replenishment_info_id': parent.id}"
-                },
+                context: { todo_ctx: "{'orderpoint_id': parent.orderpoint_id, 'stock_replenishment_info_id': parent.id}" },
                 class: 'btn btn-link'
               }
             }
@@ -47,7 +43,7 @@ export default {
           position: 'attributes',
           __todo__optional: 'hide'
         },
-        _field_delay_604: {
+        _field_delay_913: {
           delay: {
             position: 'attributes',
             __todo__optional: 'show'

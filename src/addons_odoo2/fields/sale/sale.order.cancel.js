@@ -11,10 +11,7 @@ const ModelFields = {
   },
 
   render_model: {},
-  subject: {
-    placeholder: 'Subject'
-  },
-
+  subject: { placeholder: 'Subject' },
   template_id: {}
 }
 

@@ -12,22 +12,14 @@ export default {
           },
           _h2: 'Units of Measure',
           _div: {
-            _attr: {
-              class: 'row mt16 o_settings_container'
-            },
+            _attr: { class: 'row mt16 o_settings_container' },
             _div: {
-              _attr: {
-                class: 'col-12 col-lg-6 o_setting_box'
-              },
+              _attr: { class: 'col-12 col-lg-6 o_setting_box' },
               _div: {
-                _attr: {
-                  class: 'o_setting_left_pane'
-                }
+                _attr: { class: 'o_setting_left_pane' }
               },
-              _div_374: {
-                _attr: {
-                  class: 'o_setting_right_pane'
-                },
+              _div_261: {
+                _attr: { class: 'o_setting_right_pane' },
                 _label_product_weight_in_lbs: {
                   for: 'product_weight_in_lbs',
                   string: 'Weight'
@@ -38,14 +30,10 @@ export default {
                     text: 'Define your weight unit of measure'
                   }
                 },
-                _div_784: {
-                  _attr: {
-                    class: 'content-group'
-                  },
+                _div_386: {
+                  _attr: { class: 'content-group' },
                   _div: {
-                    _attr: {
-                      class: 'mt16'
-                    },
+                    _attr: { class: 'mt16' },
                     product_weight_in_lbs: {
                       widget: 'radio',
                       class: 'o_light_label',
@@ -55,14 +43,10 @@ export default {
                 }
               }
             },
-            _div_860: {
-              _attr: {
-                class: 'col-12 col-lg-6 o_setting_box'
-              },
+            _div_334: {
+              _attr: { class: 'col-12 col-lg-6 o_setting_box' },
               _div: {
-                _attr: {
-                  class: 'o_setting_right_pane'
-                },
+                _attr: { class: 'o_setting_right_pane' },
                 _label_product_volume_volume_in_cubic_feet: {
                   for: 'product_volume_volume_in_cubic_feet',
                   string: 'Volume'
@@ -73,14 +57,10 @@ export default {
                     text: 'Define your volume unit of measure'
                   }
                 },
-                _div_439: {
-                  _attr: {
-                    class: 'content-group'
-                  },
+                _div_582: {
+                  _attr: { class: 'content-group' },
                   _div: {
-                    _attr: {
-                      class: 'mt16'
-                    },
+                    _attr: { class: 'mt16' },
                     product_volume_volume_in_cubic_feet: {
                       widget: 'radio',
                       class: 'o_light_label',
@@ -92,25 +72,19 @@ export default {
             }
           }
         },
-        _xpath_928: {
+        _xpath_860: {
           _attr: {
             expr: "//div[@id='product_get_pic_setting']",
             position: 'replace'
           },
           _div: {
-            _attr: {
-              class: 'col-12 col-lg-6 o_setting_box'
-            },
+            _attr: { class: 'col-12 col-lg-6 o_setting_box' },
             _div: {
-              _attr: {
-                class: 'o_setting_left_pane'
-              },
+              _attr: { class: 'o_setting_left_pane' },
               module_product_images: {}
             },
-            _div_643: {
-              _attr: {
-                class: 'o_setting_right_pane'
-              },
+            _div_651: {
+              _attr: { class: 'o_setting_right_pane' },
               _label_module_product_images: {
                 for: 'module_product_images',
                 string: 'Google Images'
@@ -127,15 +101,13 @@ export default {
                   text: 'Get product pictures using Barcode'
                 }
               },
-              _div_684: {
+              _div_618: {
                 _attr: {
                   invisible: [['module_product_images', '=', false]],
                   class: 'content-group mt16'
                 },
                 _div: {
-                  _attr: {
-                    class: 'mt16 text-warning'
-                  },
+                  _attr: { class: 'mt16 text-warning' },
                   _strong: 'Save'
                 }
               }

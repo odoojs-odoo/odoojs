@@ -34,6 +34,11 @@ export default {
         }
       },
 
+      menu_dashboard_open_quants: {
+        name: 'Locations',
+        action: 'stock.dashboard_open_quants'
+      },
+
       menu_stock_move_action: {
         name: 'Stock Moves',
         action: 'stock.stock_move_action'

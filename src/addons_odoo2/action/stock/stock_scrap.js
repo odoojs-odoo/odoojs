@@ -4,25 +4,19 @@ export default {
     model: 'stock.scrap',
     type: 'search',
     arch: {
-      name: {
-        string: 'Reference'
-      },
+      name: { string: 'Reference' },
       product_id: {},
       location_id: {},
       scrap_location_id: {},
       create_date: {},
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_product: {
           _attr: {
             name: 'product',
             string: 'Product',
             domain: [],
-            context: {
-              group_by: 'product_id'
-            }
+            context: { group_by: 'product_id' }
           }
         },
         _filter_location: {
@@ -30,9 +24,7 @@ export default {
             name: 'location',
             string: 'Location',
             domain: [],
-            context: {
-              group_by: 'location_id'
-            }
+            context: { group_by: 'location_id' }
           }
         },
         _filter_scrap_location: {
@@ -40,9 +32,7 @@ export default {
             name: 'scrap_location',
             string: 'Scrap Location',
             domain: [],
-            context: {
-              group_by: 'scrap_location_id'
-            }
+            context: { group_by: 'scrap_location_id' }
           }
         },
         _filter_transfer: {
@@ -50,9 +40,7 @@ export default {
             name: 'transfer',
             string: 'Transfer',
             domain: [],
-            context: {
-              group_by: 'picking_id'
-            }
+            context: { group_by: 'picking_id' }
           }
         }
       }
@@ -71,9 +59,7 @@ export default {
             type: 'object',
             string: 'Validate',
             states: 'draft',
-            context: {
-              not_unlink_on_discard: true
-            },
+            context: { not_unlink_on_discard: true },
             class: 'oe_highlight'
           }
         },
@@ -98,9 +84,7 @@ export default {
               class: 'oe_stat_button'
             }
           },
-          picking_id: {
-            invisible: '1'
-          },
+          picking_id: { invisible: '1' },
           _button_action_get_stock_move_lines: {
             _attr: {
               name: 'action_get_stock_move_lines',
@@ -111,14 +95,10 @@ export default {
               class: 'oe_stat_button'
             }
           },
-          move_id: {
-            invisible: '1'
-          }
+          move_id: { invisible: '1' }
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _h1: {
             name: {}
           }
@@ -126,48 +106,30 @@ export default {
         _group: {
           _group: {
             product_id: {
-              context: {
-                default_detailed_type: 'product'
-              }
+              context: { default_detailed_type: 'product' }
             },
-            _label_scrap_qty: {
-              for: 'scrap_qty'
-            },
+            _label_scrap_qty: { for: 'scrap_qty' },
             _div: {
-              _attr: {
-                class: 'o_row'
-              },
+              _attr: { class: 'o_row' },
               scrap_qty: {},
-              product_uom_category_id: {
-                invisible: '1'
-              },
+              product_uom_category_id: { invisible: '1' },
               product_uom_id: {
                 groups: 'uom.group_uom',
                 force_save: '1'
               }
             }
           },
-          _group_693: {
-            company_id: {
-              invisible: '1'
-            },
+          _group_306: {
+            company_id: { invisible: '1' },
             lot_id: {
               groups: 'stock.group_production_lot',
               invisible: ['|', ['product_id', '=', false], ['tracking', '=', 'none']],
               required: [['tracking', '!=', 'none']],
-              context: {
-                todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}"
-              }
+              context: { todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}" }
             },
-            tracking: {
-              invisible: '1'
-            },
-            package_id: {
-              groups: 'stock.group_tracking_lot'
-            },
-            owner_id: {
-              groups: 'stock.group_tracking_owner'
-            },
+            tracking: { invisible: '1' },
+            package_id: { groups: 'stock.group_tracking_lot' },
+            owner_id: { groups: 'stock.group_tracking_owner' },
             location_id: {
               groups: 'stock.group_stock_multi_locations',
               force_save: '1',
@@ -181,16 +143,10 @@ export default {
               no_open: true
             },
             origin: {},
-            date_done: {
-              invisible: [['state', '=', 'draft']]
-            },
-            picking_id: {
-              invisible: [['picking_id', '=', false]]
-            },
-            _field_company_id_666: {
-              company_id: {
-                groups: 'base.group_multi_company'
-              }
+            date_done: { invisible: [['state', '=', 'draft']] },
+            picking_id: { invisible: [['picking_id', '=', false]] },
+            _field_company_id_161: {
+              company_id: { groups: 'base.group_multi_company' }
             }
           }
         }
@@ -211,21 +167,13 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        company_id: {
-          invisible: '1'
-        },
-        product_uom_category_id: {
-          invisible: '1'
-        },
+        company_id: { invisible: '1' },
+        product_uom_category_id: { invisible: '1' },
         name: {},
         date_done: {},
-        product_id: {
-          readonly: '1'
-        },
+        product_id: { readonly: '1' },
         scrap_qty: {},
-        product_uom_id: {
-          groups: 'uom.group_uom'
-        },
+        product_uom_id: { groups: 'uom.group_uom' },
         location_id: {
           groups: 'stock.group_stock_multi_locations',
           no_create: true
@@ -234,15 +182,13 @@ export default {
           groups: 'stock.group_stock_multi_locations',
           no_create: true
         },
-        _field_company_id_717: {
+        _field_company_id_233: {
           company_id: {
             groups: 'base.group_multi_company',
             readonly: '1'
           }
         },
-        state: {
-          widget: 'badge'
-        }
+        state: { widget: 'badge' }
       }
     }
   },
@@ -267,57 +213,31 @@ export default {
       sheet: {
         _group: {
           _group: {
-            state: {
-              invisible: '1'
-            },
+            state: { invisible: '1' },
             product_id: {
-              domain: {
-                todo_ctx: "[('id', 'in', context.get('product_ids', []))]"
-              },
+              domain: { todo_ctx: "[('id', 'in', context.get('product_ids', []))]" },
               no_create: true
             },
-            _label_scrap_qty: {
-              for: 'scrap_qty'
-            },
+            _label_scrap_qty: { for: 'scrap_qty' },
             _div: {
-              _attr: {
-                class: 'o_row'
-              },
-              scrap_qty: {
-                readonly: [['tracking', '=', 'serial']]
-              },
-              product_uom_category_id: {
-                invisible: '1'
-              },
-              product_uom_id: {
-                groups: 'uom.group_uom'
-              }
+              _attr: { class: 'o_row' },
+              scrap_qty: { readonly: [['tracking', '=', 'serial']] },
+              product_uom_category_id: { invisible: '1' },
+              product_uom_id: { groups: 'uom.group_uom' }
             }
           },
-          _group_781: {
-            picking_id: {
-              invisible: '1'
-            },
-            tracking: {
-              invisible: '1'
-            },
+          _group_374: {
+            picking_id: { invisible: '1' },
+            tracking: { invisible: '1' },
             lot_id: {
               groups: 'stock.group_production_lot',
               invisible: ['|', ['product_id', '=', false], ['tracking', '=', 'none']],
               required: [['tracking', '!=', 'none']],
-              context: {
-                todo_ctx: "{'default_company_id': company_id, 'default_product_id': product_id}"
-              }
+              context: { todo_ctx: "{'default_company_id': company_id, 'default_product_id': product_id}" }
             },
-            package_id: {
-              groups: 'stock.group_tracking_lot'
-            },
-            owner_id: {
-              groups: 'stock.group_tracking_owner'
-            },
-            company_id: {
-              invisible: '1'
-            },
+            package_id: { groups: 'stock.group_tracking_lot' },
+            owner_id: { groups: 'stock.group_tracking_owner' },
+            company_id: { invisible: '1' },
             location_id: {
               groups: 'stock.group_stock_multi_locations',
               no_open: true,

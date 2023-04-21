@@ -23,26 +23,16 @@ export default {
                   no_create: true,
                   no_open: true
                 },
-                activity_summary: {
-                  placeholder: 'e.g. Discuss proposal'
-                }
+                activity_summary: { placeholder: 'e.g. Discuss proposal' }
               },
-              _group_411: {
-                _label_activity_date_deadline_range: {
-                  for: 'activity_date_deadline_range'
-                },
+              _group_196: {
+                _label_activity_date_deadline_range: { for: 'activity_date_deadline_range' },
                 _div: {
-                  _attr: {
-                    class: 'o_row'
-                  },
+                  _attr: { class: 'o_row' },
                   activity_date_deadline_range: {},
-                  activity_date_deadline_range_type: {
-                    required: [['state', '=', 'next_activity'], ['activity_date_deadline_range', '>', 0]]
-                  }
+                  activity_date_deadline_range_type: { required: [['state', '=', 'next_activity'], ['activity_date_deadline_range', '>', 0]] }
                 },
-                activity_user_type: {
-                  required: [['state', '=', 'next_activity']]
-                },
+                activity_user_type: { required: [['state', '=', 'next_activity']] },
                 activity_user_field_name: {
                   invisible: [['activity_user_type', '=', 'specific']],
                   required: [['state', '=', 'next_activity'], ['activity_user_type', '=', 'generic']]
@@ -59,7 +49,7 @@ export default {
             }
           }
         },
-        _xpath_233: {
+        _xpath_801: {
           _attr: {
             expr: "//field[@name='link_field_id']",
             position: 'after'
@@ -71,17 +61,13 @@ export default {
           template_id: {
             invisible: [['state', '!=', 'mail_post']],
             required: [['state', '=', 'mail_post']],
-            context: {
-              todo_ctx: "{'default_model': model_name,                                      'default_use_default_to': True}"
-            }
+            context: { todo_ctx: "{'default_model': model_name,                                      'default_use_default_to': True}" }
           },
           mail_post_method: {
             invisible: [['state', '!=', 'mail_post']],
             required: [['state', '=', 'mail_post']]
           },
-          mail_post_autofollow: {
-            invisible: '1'
-          }
+          mail_post_autofollow: { invisible: '1' }
         }
       }
     }

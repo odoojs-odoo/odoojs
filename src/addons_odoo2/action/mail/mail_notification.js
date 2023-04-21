@@ -20,25 +20,19 @@ export default {
     type: 'form',
     arch: {
       header: {
-        notification_status: {
-          widget: 'statusbar'
-        }
+        notification_status: { widget: 'statusbar' }
       },
       sheet: {
         _group: {
           _group: {
-            _attr: {
-              string: 'Source'
-            },
+            _attr: { string: 'Source' },
             mail_message_id: {},
             notification_type: {},
             mail_mail_id: {},
             res_partner_id: {}
           },
-          _group_953: {
-            _attr: {
-              string: 'Status'
-            },
+          _group_690: {
+            _attr: { string: 'Status' },
             is_read: {},
             read_date: {},
             failure_type: {},

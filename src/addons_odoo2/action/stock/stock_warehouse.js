@@ -28,27 +28,17 @@ export default {
             invisible: [['active', '=', true]]
           }
         },
-        _label_name: {
-          for: 'name'
-        },
+        _label_name: { for: 'name' },
         _h1: {
-          name: {
-            placeholder: 'e.g. Central Warehouse'
-          }
+          name: { placeholder: 'e.g. Central Warehouse' }
         },
         _group: {
           _group: {
-            active: {
-              invisible: '1'
-            },
-            company_id: {
-              invisible: '1'
-            },
-            code: {
-              placeholder: 'e.g. CW'
-            }
+            active: { invisible: '1' },
+            company_id: { invisible: '1' },
+            code: { placeholder: 'e.g. CW' }
           },
-          _group_326: {
+          _group_953: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
@@ -57,9 +47,7 @@ export default {
           }
         },
         _notebook: {
-          _attr: {
-            groups: 'stock.group_adv_location,stock.group_stock_multi_warehouses'
-          },
+          _attr: { groups: 'stock.group_adv_location,stock.group_stock_multi_warehouses' },
           _page_warehouse_config: {
             _attr: {
               name: 'warehouse_config',
@@ -71,12 +59,8 @@ export default {
                   string: 'Shipments',
                   groups: 'stock.group_adv_location'
                 },
-                reception_steps: {
-                  widget: 'radio'
-                },
-                delivery_steps: {
-                  widget: 'radio'
-                }
+                reception_steps: { widget: 'radio' },
+                delivery_steps: { widget: 'radio' }
               },
               _group_group_resupply: {
                 _attr: {
@@ -100,9 +84,7 @@ export default {
             },
             _group: {
               _group: {
-                _attr: {
-                  string: 'Locations'
-                },
+                _attr: { string: 'Locations' },
                 view_location_id: {
                   string: 'Warehouse view location',
                   required: '0',
@@ -112,38 +94,18 @@ export default {
                   required: '0',
                   readonly: '1'
                 },
-                wh_input_stock_loc_id: {
-                  readonly: '1'
-                },
-                wh_qc_stock_loc_id: {
-                  readonly: '1'
-                },
-                wh_pack_stock_loc_id: {
-                  readonly: '1'
-                },
-                wh_output_stock_loc_id: {
-                  readonly: '1'
-                }
+                wh_input_stock_loc_id: { readonly: '1' },
+                wh_qc_stock_loc_id: { readonly: '1' },
+                wh_pack_stock_loc_id: { readonly: '1' },
+                wh_output_stock_loc_id: { readonly: '1' }
               },
-              _group_754: {
-                _attr: {
-                  string: 'Operation Types'
-                },
-                in_type_id: {
-                  readonly: '1'
-                },
-                int_type_id: {
-                  readonly: '1'
-                },
-                pick_type_id: {
-                  readonly: '1'
-                },
-                pack_type_id: {
-                  readonly: '1'
-                },
-                out_type_id: {
-                  readonly: '1'
-                }
+              _group_250: {
+                _attr: { string: 'Operation Types' },
+                in_type_id: { readonly: '1' },
+                int_type_id: { readonly: '1' },
+                pick_type_id: { readonly: '1' },
+                pack_type_id: { readonly: '1' },
+                out_type_id: { readonly: '1' }
               }
             }
           }
@@ -158,20 +120,12 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {},
-        active: {
-          invisible: '1'
-        },
-        lot_stock_id: {
-          groups: 'stock.group_stock_multi_locations'
-        },
+        active: { invisible: '1' },
+        lot_stock_id: { groups: 'stock.group_stock_multi_locations' },
         partner_id: {},
-        company_id: {
-          groups: 'base.group_multi_company'
-        }
+        company_id: { groups: 'base.group_multi_company' }
       }
     }
   },

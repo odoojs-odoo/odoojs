@@ -6,14 +6,8 @@ const ModelFields = {
   allow_out_payment: {},
   bank_id: {},
   bank_name: {},
-  company_id: {
-    groups: 'base.group_multi_company'
-  },
-
-  currency_id: {
-    groups: 'base.group_multi_currency'
-  },
-
+  company_id: { groups: 'base.group_multi_company' },
+  currency_id: { groups: 'base.group_multi_currency' },
   partner_id: {},
   sequence: {}
 }

@@ -7,18 +7,12 @@ export default {
       sheet: {
         _group: {
           _group: {
-            product_ids: {
-              invisible: '1'
-            },
-            product_tmpl_ids: {
-              invisible: '1'
-            },
+            product_ids: { invisible: '1' },
+            product_tmpl_ids: { invisible: '1' },
             custom_quantity: {},
-            print_format: {
-              widget: 'radio'
-            }
+            print_format: { widget: 'radio' }
           },
-          _group_964: {
+          _group_632: {
             extra_html: {
               widget: 'html',
               invisible: [['print_format', 'not in', ('dymo', '2x7xprice')]]

@@ -10,21 +10,15 @@ export default {
           __todo__replace: {
             name: {
               string: 'Product',
-              filter_domain: {
-                todo_ctx: "['|', '|', ('default_code', 'ilike', self), ('name', 'ilike', self), ('barcode', 'ilike', self)]"
-              }
+              filter_domain: { todo_ctx: "['|', '|', ('default_code', 'ilike', self), ('name', 'ilike', self), ('barcode', 'ilike', self)]" }
             }
           }
         },
         attribute_line_ids: {
           position: 'replace',
           __todo__replace: {
-            product_template_attribute_value_ids: {
-              groups: 'product.group_product_variant'
-            },
-            product_tmpl_id: {
-              string: 'Product Template'
-            }
+            product_template_attribute_value_ids: { groups: 'product.group_product_variant' },
+            product_tmpl_id: { string: 'Product Template' }
           }
         }
       }
@@ -72,24 +66,16 @@ export default {
             invisible: [['active', '=', true]]
           }
         },
-        active: {
-          invisible: '1'
-        },
-        id: {
-          invisible: '1'
-        },
-        company_id: {
-          invisible: '1'
-        },
+        active: { invisible: '1' },
+        id: { invisible: '1' },
+        company_id: { invisible: '1' },
         image_1920: {
           widget: 'image',
           class: 'oe_avatar',
           preview_image: 'image_128'
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _label_name: {
             for: 'name',
             string: 'Product Name'
@@ -124,26 +110,20 @@ export default {
             },
             default_code: {},
             barcode: {},
-            type: {
-              invisible: '1'
-            }
+            type: { invisible: '1' }
           },
           _group_pricing: {
             _attr: {
               name: 'pricing',
               string: 'Pricing'
             },
-            product_variant_count: {
-              invisible: '1'
-            },
+            product_variant_count: { invisible: '1' },
             _label_lst_price: {
               for: 'lst_price',
               string: 'Sales Price'
             },
             _div: {
-              _attr: {
-                class: 'o_row'
-              },
+              _attr: { class: 'o_row' },
               lst_price: {
                 widget: 'monetary',
                 readonly: [['product_variant_count', '>', 1]],
@@ -152,58 +132,38 @@ export default {
                 field_digits: true
               }
             },
-            _label_standard_price: {
-              for: 'standard_price'
-            },
-            _div_369: {
-              _attr: {
-                class: 'o_row'
-              },
+            _label_standard_price: { for: 'standard_price' },
+            _div_520: {
+              _attr: { class: 'o_row' },
               standard_price: {
                 widget: 'monetary',
                 class: 'oe_inline',
                 currency_field: 'cost_currency_id'
               }
             },
-            currency_id: {
-              invisible: '1'
-            },
-            cost_currency_id: {
-              invisible: '1'
-            }
+            currency_id: { invisible: '1' },
+            cost_currency_id: { invisible: '1' }
           }
         },
-        _group_129: {
+        _group_343: {
           _group_weight: {
             _attr: {
               name: 'weight',
               string: 'Logistics',
               invisible: [['type', 'not in', ['product', 'consu']]]
             },
-            _label_volume: {
-              for: 'volume'
-            },
+            _label_volume: { for: 'volume' },
             _div: {
-              _attr: {
-                class: 'o_row'
-              },
-              volume: {
-                class: 'oe_inline'
-              },
+              _attr: { class: 'o_row' },
+              volume: { class: 'oe_inline' },
               _span: {
                 volume_uom_name: {}
               }
             },
-            _label_weight: {
-              for: 'weight'
-            },
-            _div_874: {
-              _attr: {
-                class: 'o_row'
-              },
-              weight: {
-                class: 'oe_inline'
-              },
+            _label_weight: { for: 'weight' },
+            _div_815: {
+              _attr: { class: 'o_row' },
+              weight: { class: 'oe_inline' },
               _span: {
                 weight_uom_name: {}
               }
@@ -228,7 +188,7 @@ export default {
             }
           }
         },
-        _group_425: {
+        _group_467: {
           _group_packaging: {
             _attr: {
               name: 'packaging',
@@ -236,9 +196,7 @@ export default {
               groups: 'product.group_stock_packaging'
             },
             packaging_ids: {
-              context: {
-                todo_ctx: "{'tree_view_ref':'product.product_packaging_tree_view2', 'default_company_id': company_id}"
-              }
+              context: { todo_ctx: "{'tree_view_ref':'product.product_packaging_tree_view2', 'default_company_id': company_id}" }
             }
           }
         }
@@ -252,9 +210,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'product.product',
     search_view_id: 'product_search_form_view',
-    context: {
-      todo_ctx: "{'search_default_product_tmpl_id': [active_id], 'default_product_tmpl_id': active_id, 'create': False}"
-    },
+    context: { todo_ctx: "{'search_default_product_tmpl_id': [active_id], 'default_product_tmpl_id': active_id, 'create': False}" },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -288,9 +244,7 @@ export default {
           readonly: '1',
           optional: 'hide'
         },
-        name: {
-          readonly: '1'
-        },
+        name: { readonly: '1' },
         product_template_variant_value_ids: {
           widget: 'many2many_tags',
           groups: 'product.group_product_variant',
@@ -305,12 +259,8 @@ export default {
           string: 'Sales Price',
           optional: 'show'
         },
-        standard_price: {
-          optional: 'show'
-        },
-        categ_id: {
-          optional: 'hide'
-        },
+        standard_price: { optional: 'show' },
+        categ_id: { optional: 'hide' },
         product_tag_ids: {
           widget: 'many2many_tags',
           optional: 'hide',
@@ -332,9 +282,7 @@ export default {
           invisible: '1',
           readonly: '1'
         },
-        active: {
-          invisible: '1'
-        }
+        active: { invisible: '1' }
       }
     }
   },
@@ -346,9 +294,7 @@ export default {
     arch: {
       sheet: {
         _form: {
-          _attr: {
-            position: 'attributes'
-          },
+          _attr: { position: 'attributes' },
           _attribute_string: {
             _attr: {
               name: 'string',
@@ -372,7 +318,7 @@ export default {
           default_code: {},
           barcode: {}
         },
-        _xpath_759: {
+        _xpath_166: {
           _attr: {
             expr: "//field[@name='priority']",
             position: 'attributes'
@@ -390,16 +336,14 @@ export default {
           readonly: [['product_variant_count', '>', 1]],
           invisible: '1'
         },
-        _xpath_809: {
+        _xpath_408: {
           _attr: {
             expr: "//label[@for='list_price']",
             position: 'replace'
           },
-          _label_lst_price: {
-            for: 'lst_price'
-          }
+          _label_lst_price: { for: 'lst_price' }
         },
-        _field_list_price_112: {
+        _field_list_price_815: {
           list_price: {
             position: 'after',
             __todo__after: {
@@ -436,7 +380,7 @@ export default {
             }
           }
         },
-        _xpath_714: {
+        _xpath_355: {
           _attr: {
             expr: "//div[hasclass('oe_title')]",
             position: 'inside'
@@ -451,7 +395,7 @@ export default {
           position: 'attributes',
           __todo__options: "{'no_open': true}"
         },
-        _field_product_tag_ids_913: {
+        _field_product_tag_ids_114: {
           product_tag_ids: {
             position: 'after',
             __todo__after: {
@@ -486,9 +430,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'product.product',
     search_view_id: 'product_search_form_view',
-    context: {
-      search_default_filter_to_sell: 1
-    },
+    context: { search_default_filter_to_sell: 1 },
     views: {
       tree: 'product_product_tree_view',
       form: '=======todo=========='

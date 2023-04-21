@@ -30,32 +30,26 @@ export default {
             states: 'error,outgoing'
           }
         },
-        state: {
-          widget: 'statusbar'
-        }
+        state: { widget: 'statusbar' }
       },
       sheet: {
         _group: {
           _group: {
-            partner_id: {
-              string: 'Contact'
-            },
+            partner_id: { string: 'Contact' },
             mail_message_id: {
               invisible: [['mail_message_id', '=', false]],
               readonly: '1'
             }
           },
-          _group_670: {
-            number: {
-              required: '1'
-            },
+          _group_455: {
+            number: { required: '1' },
             failure_type: {
               invisible: [['failure_type', '=', false]],
               readonly: '1'
             }
           }
         },
-        _group_111: {
+        _group_807: {
           body: {
             string: 'Message',
             widget: 'sms_widget',
@@ -75,9 +69,7 @@ export default {
         number: {},
         partner_id: {},
         failure_type: {},
-        state: {
-          widget: 'badge'
-        },
+        state: { widget: 'badge' },
         _button_send: {
           _attr: {
             name: 'send',

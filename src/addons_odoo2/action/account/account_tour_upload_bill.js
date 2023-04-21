@@ -25,22 +25,14 @@ export default {
         _p: 'We process bills automatically so that you only have to validate them. Choose how you want to test our artificial intelligence engine:',
         _group: {
           _group: {
-            selection: {
-              widget: 'radio'
-            }
+            selection: { widget: 'radio' }
           },
-          _group_572: {
-            _attr: {
-              invisible: [['selection', '!=', 'sample']]
-            },
-            preview_invoice: {
-              widget: 'html'
-            }
+          _group_128: {
+            _attr: { invisible: [['selection', '!=', 'sample']] },
+            preview_invoice: { widget: 'html' }
           },
-          _group_961: {
-            _attr: {
-              invisible: [['selection', '!=', 'upload']]
-            },
+          _group_318: {
+            _attr: { invisible: [['selection', '!=', 'upload']] },
             attachment_ids: {
               string: 'Attach a file',
               widget: 'many2many_binary'

@@ -1,12 +1,6 @@
 const ModelFields = {
-  amount: {
-    readonly: [['state', '!=', 'draft']]
-  },
-
-  amount_company_currency_signed: {
-    string: 'Amount'
-  },
-
+  amount: { readonly: [['state', '!=', 'draft']] },
+  amount_company_currency_signed: { string: 'Amount' },
   amount_signed: {
     string: 'Amount in Currency',
     groups: 'base.group_multi_currency'
@@ -25,78 +19,43 @@ const ModelFields = {
     string: 'Payment Currency'
   },
 
-  date: {
-    readonly: [['state', '!=', 'draft']]
-  },
-
+  date: { readonly: [['state', '!=', 'draft']] },
   destination_journal_id: {
     readonly: [['state', '!=', 'draft']],
     required: [['is_internal_transfer', '=', true], ['state', '=', 'draft']],
-    context: {
-      todo_ctx: "{'default_partner_id': partner_id}"
-    }
+    context: { todo_ctx: "{'default_partner_id': partner_id}" }
   },
 
   id: {},
-  is_internal_transfer: {
-    readonly: [['state', '!=', 'draft']]
-  },
-
+  is_internal_transfer: { readonly: [['state', '!=', 'draft']] },
   is_matched: {},
   is_move_sent: {},
   is_reconciled: {},
   journal_id: {
-    domain: {
-      todo_ctx: "[('id', 'in', available_journal_ids)]"
-    },
+    domain: { todo_ctx: "[('id', 'in', available_journal_ids)]" },
     readonly: [['state', '!=', 'draft']]
   },
 
-  name: {
-    readonly: '1'
-  },
-
+  name: { readonly: '1' },
   paired_internal_transfer_payment_id: {},
   partner_bank_id: {
     string: '===todo==',
     required: [['require_partner_bank_account', '=', true], ['is_internal_transfer', '=', false]],
-    context: {
-      todo_ctx: "{'default_partner_id': partner_id, 'default_allow_out_payment': True}"
-    }
+    context: { todo_ctx: "{'default_partner_id': partner_id, 'default_allow_out_payment': True}" }
   },
 
-  partner_bank_id_$_form_$$_275: {
-    string: 'Customer Bank Account'
-  },
-
-  partner_bank_id_$_form_$$_281: {
-    string: 'Company Bank Account'
-  },
-
-  partner_bank_id_$_form_$$_972: {
-    string: 'Vendor Bank Account'
-  },
-
+  partner_bank_id_$_form_$$_259: { string: 'Vendor Bank Account' },
+  partner_bank_id_$_form_$$_636: { string: 'Company Bank Account' },
+  partner_bank_id_$_form_$$_701: { string: 'Customer Bank Account' },
   partner_id: {
     string: '===todo==',
     readonly: [['state', '!=', 'draft']],
-    context: {
-      default_is_company: true
-    }
+    context: { default_is_company: true }
   },
 
-  partner_id_$_form_$$_149: {
-    string: 'Customer'
-  },
-
-  partner_id_$_form_$$_903: {
-    string: 'Vendor'
-  },
-
-  partner_id_$_tree_$$_902: {
-    string: 'Customer'
-  },
-
+  partner_id_$_form_$$_317: { string: 'Customer' },
+  partner_id_$_form_$$_475: { string: 'Vendor' },
+  partner_id_$_tree_$$_671: { string: 'Customer' },
   partner_type: {},
   payment_method_code: {},
   payment_method_line_id: {
@@ -104,20 +63,14 @@ const ModelFields = {
     required: '1'
   },
 
-  payment_type: {
-    readonly: [['state', '!=', 'draft']]
-  },
-
+  payment_type: { readonly: [['state', '!=', 'draft']] },
   posted_before: {},
   qr_code: {},
   reconciled_bills_count: {},
   reconciled_invoices_count: {},
   reconciled_invoices_type: {},
   reconciled_statement_lines_count: {},
-  ref: {
-    string: 'Memo'
-  },
-
+  ref: { string: 'Memo' },
   require_partner_bank_account: {},
   show_partner_bank_account: {},
   state: {},

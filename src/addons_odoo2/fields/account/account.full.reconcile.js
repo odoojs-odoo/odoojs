@@ -1,11 +1,6 @@
 const ModelFields = {
-  name: {
-    readonly: '1'
-  },
-
-  reconciled_line_ids: {
-    readonly: '1'
-  }
+  name: { readonly: '1' },
+  reconciled_line_ids: { readonly: '1' }
 }
 
 const AddonsFields = {

@@ -10,14 +10,8 @@ const ModelFields = {
   },
 
   compute: {},
-  copied: {
-    groups: 'base.group_no_one'
-  },
-
-  depends: {
-    required: [['compute', 'not in', [false, '']]]
-  },
-
+  copied: { groups: 'base.group_no_one' },
+  depends: { required: [['compute', 'not in', [false, '']]] },
   domain: {
     groups: 'base.group_no_one',
     readonly: [['ttype', 'not in', ['many2one', 'one2many', 'many2many']]]
@@ -31,14 +25,8 @@ const ModelFields = {
 
   groups: {},
   help: {},
-  index: {
-    groups: 'base.group_no_one'
-  },
-
-  model_id: {
-    readonly: [['state', '!=', 'manual']]
-  },
-
+  index: { groups: 'base.group_no_one' },
+  model_id: { readonly: [['state', '!=', 'manual']] },
   modules: {},
   name: {},
   on_delete: {
@@ -71,14 +59,8 @@ const ModelFields = {
   },
 
   state: {},
-  store: {
-    groups: 'base.group_no_one'
-  },
-
-  translate: {
-    readonly: [['ttype', 'not in', ['char', 'text', 'html']]]
-  },
-
+  store: { groups: 'base.group_no_one' },
+  translate: { readonly: [['ttype', 'not in', ['char', 'text', 'html']]] },
   ttype: {}
 }
 

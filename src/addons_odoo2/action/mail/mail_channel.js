@@ -18,9 +18,7 @@ export default {
             class: 'oe_button_box'
           }
         },
-        avatar_128: {
-          invisible: '1'
-        },
+        avatar_128: { invisible: '1' },
         image_128: {
           widget: 'image',
           class: 'oe_avatar',
@@ -28,17 +26,13 @@ export default {
           preview_image: 'avatar_128'
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _label_name: {
             for: 'name',
             string: 'Group Name'
           },
           _h1: {
-            _attr: {
-              text: '#'
-            },
+            _attr: { text: '#' },
             name: {
               class: 'oe_inline',
               readonly: '0',
@@ -47,15 +41,9 @@ export default {
           }
         },
         _group: {
-          _attr: {
-            class: 'o_label_nowrap'
-          },
-          active: {
-            invisible: '1'
-          },
-          description: {
-            placeholder: 'Topics discussed in this group...'
-          }
+          _attr: { class: 'o_label_nowrap' },
+          active: { invisible: '1' },
+          description: { placeholder: 'Topics discussed in this group...' }
         },
         _notebook: {
           _page_privacy: {
@@ -64,12 +52,8 @@ export default {
               string: 'Privacy'
             },
             _group: {
-              _attr: {
-                class: 'o_label_nowrap'
-              },
-              group_public_id: {
-                invisible: [['channel_type', '!=', 'channel']]
-              },
+              _attr: { class: 'o_label_nowrap' },
+              group_public_id: { invisible: [['channel_type', '!=', 'channel']] },
               group_ids: {
                 string: 'Auto Subscribe Groups',
                 widget: 'many2many_tags',
@@ -82,28 +66,20 @@ export default {
               name: 'members',
               string: 'Members'
             },
-            channel_type: {
-              invisible: '1'
-            },
+            channel_type: { invisible: '1' },
             channel_member_ids: {
               readonly: [['channel_type', '=', 'chat']],
-              context: {
-                active_test: false
-              },
+              context: { active_test: false },
               views: {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Members'
-                      },
+                      _attr: { string: 'Members' },
                       partner_id: {
                         readonly: [['id', '!=', false]],
                         required: '1'
                       },
-                      partner_email: {
-                        readonly: '1'
-                      }
+                      partner_email: { readonly: '1' }
                     }
                   }
                 }

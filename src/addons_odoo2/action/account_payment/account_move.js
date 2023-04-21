@@ -18,14 +18,12 @@ export default {
             }
           }
         },
-        _xpath_938: {
+        _xpath_278: {
           _attr: {
             expr: "//button[@id='account_invoice_payment_btn']",
             position: 'after'
           },
-          authorized_transaction_ids: {
-            invisible: '1'
-          },
+          authorized_transaction_ids: { invisible: '1' },
           _button_payment_action_capture: {
             _attr: {
               name: 'payment_action_capture',
@@ -46,14 +44,12 @@ export default {
             }
           }
         },
-        _xpath_241: {
+        _xpath_337: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'
           },
-          transaction_ids: {
-            invisible: '1'
-          },
+          transaction_ids: { invisible: '1' },
           _button_action_view_payment_transactions: {
             _attr: {
               name: 'action_view_payment_transactions',

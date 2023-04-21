@@ -18,45 +18,19 @@ export default {
     arch: {
       sheet: {
         _group: {
-          author_id: {
-            invisible: '1'
-          },
-          auto_delete: {
-            invisible: '1'
-          },
-          auto_delete_message: {
-            invisible: '1'
-          },
-          composition_mode: {
-            invisible: '1'
-          },
-          email_layout_xmlid: {
-            invisible: '1'
-          },
-          is_log: {
-            invisible: '1'
-          },
-          mail_server_id: {
-            invisible: '1'
-          },
-          model: {
-            invisible: '1'
-          },
-          parent_id: {
-            invisible: '1'
-          },
-          record_name: {
-            invisible: '1'
-          },
-          res_id: {
-            invisible: '1'
-          },
-          subtype_id: {
-            invisible: '1'
-          },
-          email_from: {
-            invisible: [['composition_mode', '!=', 'mass_mail']]
-          },
+          author_id: { invisible: '1' },
+          auto_delete: { invisible: '1' },
+          auto_delete_message: { invisible: '1' },
+          composition_mode: { invisible: '1' },
+          email_layout_xmlid: { invisible: '1' },
+          is_log: { invisible: '1' },
+          mail_server_id: { invisible: '1' },
+          model: { invisible: '1' },
+          parent_id: { invisible: '1' },
+          record_name: { invisible: '1' },
+          res_id: { invisible: '1' },
+          subtype_id: { invisible: '1' },
+          email_from: { invisible: [['composition_mode', '!=', 'mass_mail']] },
           _label_partner_ids: {
             for: 'partner_ids',
             string: 'Recipients',
@@ -87,17 +61,11 @@ export default {
             required: 'True',
             placeholder: 'Welcome to MyCompany!'
           },
-          notify: {
-            invisible: [['composition_mode', '!=', 'mass_post']]
-          }
+          notify: { invisible: [['composition_mode', '!=', 'mass_post']] }
         },
-        can_edit_body: {
-          invisible: '1'
-        },
+        can_edit_body: { invisible: '1' },
         _div: {
-          _attr: {
-            invisible: [['composition_mode', '=', 'mass_mail']]
-          },
+          _attr: { invisible: [['composition_mode', '=', 'mass_mail']] },
           body: {
             readonly: [['can_edit_body', '=', false]],
             class: 'oe-bordered-editor',
@@ -112,21 +80,15 @@ export default {
             },
             template_id: {
               string: 'Load template',
-              context: {
-                todo_ctx: "{'default_model': model, 'default_body_html': body, 'default_subject': subject}"
-              },
+              context: { todo_ctx: "{'default_model': model, 'default_body_html': body, 'default_subject': subject}" },
               no_create: true
             }
           }
         },
         _notebook: {
-          _attr: {
-            invisible: [['composition_mode', '!=', 'mass_mail']]
-          },
+          _attr: { invisible: [['composition_mode', '!=', 'mass_mail']] },
           _page: {
-            _attr: {
-              string: 'Content'
-            },
+            _attr: { string: 'Content' },
             _div: {
               body: {
                 readonly: [['can_edit_body', '=', false]],
@@ -142,21 +104,15 @@ export default {
                 },
                 template_id: {
                   string: 'Load template',
-                  context: {
-                    todo_ctx: "{'default_model': model, 'default_body_html': body, 'default_subject': subject}"
-                  },
+                  context: { todo_ctx: "{'default_model': model, 'default_body_html': body, 'default_subject': subject}" },
                   no_create: true
                 }
               }
             }
           },
-          _page_804: {
-            _attr: {
-              string: 'Settings'
-            },
-            reply_to_force_new: {
-              invisible: '1'
-            },
+          _page_828: {
+            _attr: { string: 'Settings' },
+            reply_to_force_new: { invisible: '1' },
             reply_to_mode: {
               widget: 'radio',
               invisible: [['composition_mode', '!=', 'mass_mail']]
@@ -181,7 +137,7 @@ export default {
               class: 'btn-primary o_mail_send'
             }
           },
-          _button_action_send_mail_970: {
+          _button_action_send_mail_418: {
             _attr: {
               name: 'action_send_mail',
               type: 'object',

@@ -2,10 +2,7 @@ const ModelFields = {
   detailed_type: {},
   product_tooltip: {},
   product_variant_count: {},
-  sale_line_warn: {
-    string: 'Warning'
-  },
-
+  sale_line_warn: { string: 'Warning' },
   sale_line_warn_msg: {
     string: 'Message',
     required: [['sale_line_warn', '!=', 'no-message']],

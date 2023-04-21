@@ -8,15 +8,9 @@ export default {
         default_code: {},
         name: {},
         list_price: {},
-        taxes_id: {
-          widget: 'many2many_tags'
-        },
-        supplier_taxes_id: {
-          widget: 'many2many_tags'
-        },
-        activity_exception_decoration: {
-          widget: 'activity_exception'
-        }
+        taxes_id: { widget: 'many2many_tags' },
+        supplier_taxes_id: { widget: 'many2many_tags' },
+        activity_exception_decoration: { widget: 'activity_exception' }
       }
     }
   },
@@ -27,9 +21,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'product.template',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      search_default_filter_to_sell: 1
-    },
+    context: { search_default_filter_to_sell: 1 },
     views: {
       tree: 'product_template_view_tree',
       form: '=======todo=========='
@@ -42,9 +34,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'product.template',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      search_default_filter_to_purchase: 1
-    },
+    context: { search_default_filter_to_purchase: 1 },
     views: {
       tree: 'product_template_view_tree',
       form: '=======todo=========='
@@ -87,21 +77,15 @@ export default {
                 groups: 'account.group_account_readonly'
               },
               _group: {
-                _attr: {
-                  string: 'Receivables'
-                },
-                property_account_income_id: {
-                  groups: 'account.group_account_readonly'
-                }
+                _attr: { string: 'Receivables' },
+                property_account_income_id: { groups: 'account.group_account_readonly' }
               },
               _group_payables: {
                 _attr: {
                   name: 'payables',
                   string: 'Payables'
                 },
-                property_account_expense_id: {
-                  groups: 'account.group_account_readonly'
-                }
+                property_account_expense_id: { groups: 'account.group_account_readonly' }
               }
             },
             _group_accounting: {
@@ -112,7 +96,7 @@ export default {
             }
           }
         },
-        _xpath_437: {
+        _xpath_592: {
           _attr: {
             expr: "//div[@name='pricing']",
             position: 'after'
@@ -127,15 +111,13 @@ export default {
             }
           }
         },
-        _xpath_697: {
+        _xpath_646: {
           _attr: {
             expr: "//div[@name='pricing']",
             position: 'inside'
           },
           _span: {
-            _attr: {
-              class: 'ms-2'
-            }
+            _attr: { class: 'ms-2' }
           },
           tax_string: {}
         },

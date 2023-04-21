@@ -14,7 +14,7 @@ export default {
             ref: {},
             partner_id: {}
           },
-          _xpath_676: {
+          _xpath_717: {
             _attr: {
               expr: "//field[@name='product_uom_id']",
               position: 'before'
@@ -36,9 +36,7 @@ export default {
                 widget: 'line_open_move_widget',
                 no_create: true
               },
-              general_account_id: {
-                readonly: [['move_line_id', '!=', false]]
-              }
+              general_account_id: { readonly: [['move_line_id', '!=', false]] }
             }
           }
         }
@@ -62,16 +60,12 @@ export default {
               invisible: "context.get['to_invoice', False]",
               optional: 'hide'
             },
-            general_account_id: {
-              optional: 'hide'
-            },
+            general_account_id: { optional: 'hide' },
             move_line_id: {
               widget: 'line_open_move_widget',
               optional: 'hide'
             },
-            product_id: {
-              optional: 'hide'
-            }
+            product_id: { optional: 'hide' }
           }
         }
       }
@@ -92,12 +86,10 @@ export default {
             },
             product_id: {},
             partner_id: {
-              filter_domain: {
-                todo_ctx: "[('partner_id','child_of',self)]"
-              }
+              filter_domain: { todo_ctx: "[('partner_id','child_of',self)]" }
             }
           },
-          _xpath_331: {
+          _xpath_600: {
             _attr: {
               expr: "//group[@name='groupby']",
               position: 'after'
@@ -106,27 +98,21 @@ export default {
               _attr: {
                 name: 'financialaccount',
                 string: 'Financial Account',
-                context: {
-                  group_by: 'general_account_id'
-                }
+                context: { group_by: 'general_account_id' }
               }
             },
             _filter_product: {
               _attr: {
                 name: 'product',
                 string: 'Product',
-                context: {
-                  group_by: 'product_id'
-                }
+                context: { group_by: 'product_id' }
               }
             },
             _filter_partner: {
               _attr: {
                 name: 'partner',
                 string: 'Partner',
-                context: {
-                  group_by: 'partner_id'
-                }
+                context: { group_by: 'partner_id' }
               }
             }
           }
@@ -166,9 +152,7 @@ export default {
             _attr: {
               name: 'category',
               string: 'Category',
-              context: {
-                group_by: 'category'
-              }
+              context: { group_by: 'category' }
             }
           }
         }

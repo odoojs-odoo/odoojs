@@ -7,27 +7,21 @@ export default {
       sheet: {
         _group: {
           _group: {
-            id: {
-              invisible: '1'
-            },
+            id: { invisible: '1' },
             name: {},
-            model: {
-              readonly: [['id', '!=', false]]
-            },
+            model: { readonly: [['id', '!=', false]] },
             order: {},
             transient: {
               groups: 'base.group_no_one',
               readonly: [['id', '!=', false]]
             }
           },
-          _group_379: {
+          _group_184: {
             state: {
               groups: 'base.group_no_one',
               readonly: '1'
             },
-            modules: {
-              groups: 'base.group_no_one'
-            }
+            modules: { groups: 'base.group_no_one' }
           }
         },
         _notebook: {
@@ -41,35 +35,27 @@ export default {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Fields Description'
-                      },
+                      _attr: { string: 'Fields Description' },
                       name: {},
                       field_description: {},
                       ttype: {},
                       required: {},
                       readonly: {},
-                      index: {
-                        groups: 'base.group_no_one'
-                      },
-                      state: {
-                        groups: 'base.group_no_one'
-                      }
+                      index: { groups: 'base.group_no_one' },
+                      state: { groups: 'base.group_no_one' }
                     }
                   }
                 },
                 form: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Fields Description'
-                      },
+                      _attr: { string: 'Fields Description' },
                       _group: {
                         _group: {
                           name: {},
                           field_description: {}
                         },
-                        _group_233: {
+                        _group_855: {
                           ttype: {},
                           help: {}
                         }
@@ -81,23 +67,15 @@ export default {
                             string: 'Properties'
                           },
                           _group: {
-                            _attr: {
-                              string: 'Base Properties'
-                            },
+                            _attr: { string: 'Base Properties' },
                             _group: {
                               required: {},
                               readonly: {},
-                              store: {
-                                groups: 'base.group_no_one'
-                              },
-                              index: {
-                                groups: 'base.group_no_one'
-                              },
-                              copied: {
-                                groups: 'base.group_no_one'
-                              }
+                              store: { groups: 'base.group_no_one' },
+                              index: { groups: 'base.group_no_one' },
+                              copied: { groups: 'base.group_no_one' }
                             },
-                            _group_475: {
+                            _group_453: {
                               translate: {
                                 readonly: [['ttype', 'not in', ['char', 'text', 'html']]],
                                 invisible: [['ttype', 'not in', ['char', 'text', 'html']]]
@@ -144,7 +122,7 @@ export default {
                               }
                             }
                           },
-                          _group_635: {
+                          _group_824: {
                             _attr: {
                               readonly: [['ttype', 'not in', ['selection', 'reference']]],
                               invisible: [['ttype', 'not in', ['selection', 'reference']]]
@@ -154,9 +132,7 @@ export default {
                                 tree: {
                                   arch: {
                                     sheet: {
-                                      sequence: {
-                                        widget: 'handle'
-                                      },
+                                      sequence: { widget: 'handle' },
                                       value: {},
                                       name: {}
                                     }
@@ -165,68 +141,48 @@ export default {
                               }
                             }
                           },
-                          _group_839: {
+                          _group_738: {
                             _attr: {
                               string: 'Advanced Properties',
                               groups: 'base.group_no_one'
                             },
                             related: {},
-                            depends: {
-                              required: [['compute', 'not in', [false, '']]]
-                            },
+                            depends: { required: [['compute', 'not in', [false, '']]] },
                             compute: {
                               widget: 'ace',
                               mode: 'python'
                             }
                           },
                           _div: {
-                            _attr: {
-                              groups: 'base.group_no_one'
-                            },
+                            _attr: { groups: 'base.group_no_one' },
                             _h3: 'How to define a computed field',
                             _p: {
-                              _attr: {
-                                text: 'Computed fields are defined with the fields'
-                              },
+                              _attr: { text: 'Computed fields are defined with the fields' },
                               _strong: 'Dependencies',
-                              _strong_544: 'Compute'
+                              _strong_981: 'Compute'
                             },
-                            _p_712: {
-                              _attr: {
-                                text: 'The field'
-                              },
+                            _p_564: {
+                              _attr: { text: 'The field' },
                               _strong: 'Dependencies',
                               _code: 'name, size',
-                              _code_896: 'partner_id.company_id.name'
+                              _code_258: 'partner_id.company_id.name'
                             },
-                            _p_187: {
-                              _attr: {
-                                text: 'The field'
-                              },
+                            _p_987: {
+                              _attr: { text: 'The field' },
                               _strong: 'Compute'
                             },
                             _pre: "for record in self:\n        record['size'] = len(record.name)",
-                            _p_697: 'The only predefined variables are',
+                            _p_223: 'The only predefined variables are',
                             _ul: {
-                              _li: {
-                                _code: 'self'
-                              },
-                              _li_236: {
-                                _code: 'datetime'
-                              },
-                              _li_924: {
-                                _code: 'dateutil'
-                              },
-                              _li_742: {
-                                _code: 'time'
-                              }
+                              _li: { _code: 'self' },
+                              _li_402: { _code: 'datetime' },
+                              _li_749: { _code: 'dateutil' },
+                              _li_310: { _code: 'time' }
                             },
-                            _p_653: {
-                              _attr: {
-                                text: 'Other features are accessible through'
-                              },
+                            _p_196: {
+                              _attr: { text: 'Other features are accessible through' },
                               _code: 'self',
-                              _code_601: 'self.env'
+                              _code_966: 'self.env'
                             }
                           }
                         },
@@ -274,9 +230,7 @@ export default {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Access Rights'
-                      },
+                      _attr: { string: 'Access Rights' },
                       name: {},
                       group_id: {},
                       perm_read: {},
@@ -299,9 +253,7 @@ export default {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Record Rules'
-                      },
+                      _attr: { string: 'Record Rules' },
                       name: {},
                       groups: {
                         widget: 'many2many_tags',
@@ -360,15 +312,11 @@ export default {
     arch: {
       name: {
         string: 'Model',
-        filter_domain: {
-          todo_ctx: "['|', ('name','ilike',self), ('model','ilike',self)]"
-        }
+        filter_domain: { todo_ctx: "['|', ('name','ilike',self), ('model','ilike',self)]" }
       },
       model: {
         string: 'Technical Name',
-        filter_domain: {
-          todo_ctx: "[('model','ilike',self)]"
-        }
+        filter_domain: { todo_ctx: "[('model','ilike',self)]" }
       },
       _filter_transient: {
         _attr: {

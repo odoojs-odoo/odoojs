@@ -36,12 +36,8 @@ export default {
         }
       },
       sheet: {
-        model: {
-          invisible: '1'
-        },
-        res_id: {
-          invisible: '1'
-        },
+        model: { invisible: '1' },
+        res_id: { invisible: '1' },
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -70,9 +66,7 @@ export default {
           subject: {}
         },
         _div: {
-          _attr: {
-            text: 'by'
-          },
+          _attr: { text: 'by' },
           author_id: {
             string: 'User',
             class: 'oe_inline'
@@ -88,9 +82,7 @@ export default {
               string: 'Reply',
               icon: 'fa-reply text-warning',
               states: 'received,sent,exception,cancel',
-              context: {
-                todo_ctx: "{'default_composition_mode':'comment', 'default_parent_id': mail_message_id_int}"
-              }
+              context: { todo_ctx: "{'default_composition_mode':'comment', 'default_parent_id': mail_message_id_int}" }
             }
           }
         },
@@ -103,9 +95,7 @@ export default {
           },
           email_cc: {},
           reply_to: {},
-          scheduled_date: {
-            placeholder: 'YYYY-MM-DD HH:MM:SS'
-          }
+          scheduled_date: { placeholder: 'YYYY-MM-DD HH:MM:SS' }
         },
         _notebook: {
           _page_body: {
@@ -126,25 +116,17 @@ export default {
             },
             _group: {
               _group: {
-                _attr: {
-                  string: 'Status'
-                },
-                auto_delete: {
-                  invisible: [['state', '!=', 'outgoing'], ['state', '!=', 'exception']]
-                },
-                to_delete: {
-                  invisible: [['state', '=', 'outgoing']]
-                },
+                _attr: { string: 'Status' },
+                auto_delete: { invisible: [['state', '!=', 'outgoing'], ['state', '!=', 'exception']] },
+                to_delete: { invisible: [['state', '=', 'outgoing']] },
                 is_notification: {},
                 message_type: {},
                 mail_server_id: {},
                 model: {},
                 res_id: {}
               },
-              _group_596: {
-                _attr: {
-                  string: 'Headers'
-                },
+              _group_530: {
+                _attr: { string: 'Headers' },
                 message_id: {},
                 references: {},
                 fetchmail_server_id: {},
@@ -165,9 +147,7 @@ export default {
               },
               restricted_attachment_count: {}
             },
-            unrestricted_attachment_ids: {
-              domain: [['res_field', '=', false]]
-            }
+            unrestricted_attachment_ids: { domain: [['res_field', '=', false]] }
           },
           _page_failure_reason: {
             _attr: {
@@ -199,30 +179,14 @@ export default {
         },
         date: {},
         subject: {},
-        author_id: {
-          string: 'User'
-        },
-        message_id: {
-          invisible: '1'
-        },
-        recipient_ids: {
-          invisible: '1'
-        },
-        model: {
-          invisible: '1'
-        },
-        res_id: {
-          invisible: '1'
-        },
-        email_from: {
-          invisible: '1'
-        },
-        message_type: {
-          invisible: '1'
-        },
-        state: {
-          widget: 'badge'
-        },
+        author_id: { string: 'User' },
+        message_id: { invisible: '1' },
+        recipient_ids: { invisible: '1' },
+        model: { invisible: '1' },
+        res_id: { invisible: '1' },
+        email_from: { invisible: '1' },
+        message_type: { invisible: '1' },
+        state: { widget: 'badge' },
         to_delete: {},
         _button_send: {
           _attr: {
@@ -262,9 +226,7 @@ export default {
     arch: {
       email_from: {
         string: 'Email',
-        filter_domain: {
-          todo_ctx: "['|', '|',('email_from','ilike',self), ('email_to','ilike',self), ('subject','ilike',self)]"
-        }
+        filter_domain: { todo_ctx: "['|', '|',('email_from','ilike',self), ('email_to','ilike',self), ('subject','ilike',self)]" }
       },
       date: {},
       _filter_received: {
@@ -318,35 +280,27 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Extended Filters...'
-        },
+        _attr: { string: 'Extended Filters...' },
         author_id: {},
         recipient_ids: {},
         model: {},
         res_id: {}
       },
-      _group_273: {
-        _attr: {
-          string: 'Group By'
-        },
+      _group_520: {
+        _attr: { string: 'Group By' },
         _filter_status: {
           _attr: {
             name: 'status',
             string: 'Status',
             domain: [],
-            context: {
-              group_by: 'state'
-            }
+            context: { group_by: 'state' }
           }
         },
         _filter_author: {
           _attr: {
             name: 'author',
             string: 'Author',
-            context: {
-              group_by: 'author_id'
-            }
+            context: { group_by: 'author_id' }
           }
         },
         _filter_thread: {
@@ -354,9 +308,7 @@ export default {
             name: 'thread',
             string: 'Thread',
             domain: [],
-            context: {
-              group_by: 'message_id'
-            }
+            context: { group_by: 'message_id' }
           }
         },
         _filter_month: {
@@ -365,9 +317,7 @@ export default {
             string: 'Date',
             help: 'Creation Date',
             domain: [],
-            context: {
-              group_by: 'date'
-            }
+            context: { group_by: 'date' }
           }
         }
       }
@@ -392,9 +342,7 @@ export default {
     res_model: 'mail.mail',
     search_view_id: 'tooooooodoooooo',
     domain: "[['email_from', '!=', False], ['fetchmail_server_id', '=', active_id]]",
-    context: {
-      todo_ctx: "{'search_default_server_id': active_id, 'default_fetchmail_server_id': active_id}"
-    },
+    context: { todo_ctx: "{'search_default_server_id': active_id, 'default_fetchmail_server_id': active_id}" },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

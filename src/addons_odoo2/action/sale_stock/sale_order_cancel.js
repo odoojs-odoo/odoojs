@@ -6,12 +6,8 @@ export default {
     arch: {
       sheet: {
         _span: {
-          _attr: {
-            position: 'after'
-          },
-          display_delivery_alert: {
-            invisible: '1'
-          },
+          _attr: { position: 'after' },
+          display_delivery_alert: { invisible: '1' },
           _span: {
             _attr: {
               invisible: [['display_delivery_alert', '=', false]],

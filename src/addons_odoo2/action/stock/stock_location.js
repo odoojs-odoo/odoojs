@@ -5,9 +5,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        company_id: {
-          invisible: '1'
-        },
+        company_id: { invisible: '1' },
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -20,9 +18,7 @@ export default {
               string: 'Putaway Rules',
               icon: 'fa-random',
               groups: 'stock.group_stock_multi_locations',
-              context: {
-                todo_ctx: "{'default_company_id': company_id}"
-              },
+              context: { todo_ctx: "{'default_company_id': company_id}" },
               class: 'oe_stat_button'
             }
           },
@@ -44,17 +40,11 @@ export default {
             invisible: [['active', '=', true]]
           }
         },
-        _label_name: {
-          for: 'name'
-        },
+        _label_name: { for: 'name' },
         _h1: {
-          name: {
-            placeholder: 'e.g. Spare Stock'
-          }
+          name: { placeholder: 'e.g. Spare Stock' }
         },
-        _label_location_id: {
-          for: 'location_id'
-        },
+        _label_location_id: { for: 'location_id' },
         _h2: {
           location_id: {
             placeholder: 'e.g. Physical Locations',
@@ -67,9 +57,7 @@ export default {
               name: 'additional_info',
               string: 'Additional Information'
             },
-            active: {
-              invisible: '1'
-            },
+            active: { invisible: '1' },
             usage: {},
             storage_category_id: {
               groups: 'stock.group_stock_storage_categories',
@@ -79,13 +67,9 @@ export default {
               groups: 'base.group_multi_company',
               no_create: true
             },
-            scrap_location: {
-              invisible: [['usage', 'not in', ('inventory', 'internal')]]
-            },
+            scrap_location: { invisible: [['usage', 'not in', ('inventory', 'internal')]] },
             return_location: {},
-            replenish_location: {
-              invisible: [['usage', '!=', 'internal']]
-            }
+            replenish_location: { invisible: [['usage', '!=', 'internal']] }
           },
           _group: {
             _attr: {
@@ -94,23 +78,17 @@ export default {
             },
             cyclic_inventory_frequency: {},
             last_inventory_date: {},
-            next_inventory_date: {
-              invisible: [['active', '=', false]]
-            }
+            next_inventory_date: { invisible: [['active', '=', false]] }
           },
-          _group_653: {
+          _group_408: {
             _attr: {
               string: 'Logistics',
               groups: 'stock.group_adv_location'
             },
-            removal_strategy_id: {
-              no_create: true
-            }
+            removal_strategy_id: { no_create: true }
           }
         },
-        comment: {
-          placeholder: 'External note...'
-        }
+        comment: { placeholder: 'External note...' }
       }
     }
   },
@@ -143,9 +121,7 @@ export default {
     model: 'stock.location',
     type: 'search',
     arch: {
-      complete_name: {
-        string: 'Stock Locations'
-      },
+      complete_name: { string: 'Stock Locations' },
       _filter_in_location: {
         _attr: {
           name: 'in_location',
@@ -178,9 +154,7 @@ export default {
           domain: [['usage', '=', 'supplier']]
         }
       },
-      location_id: {
-        string: 'Parent Location'
-      },
+      location_id: { string: 'Parent Location' },
       _separator: {},
       _filter_inactive: {
         _attr: {
@@ -198,24 +172,16 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        company_id: {
-          invisible: '1'
-        },
-        active: {
-          invisible: '1'
-        },
-        complete_name: {
-          string: 'Location'
-        },
+        company_id: { invisible: '1' },
+        active: { invisible: '1' },
+        complete_name: { string: 'Location' },
         usage: {},
         storage_category_id: {
           groups: 'stock.group_stock_storage_categories',
           readonly: [['usage', '!=', 'internal']]
         },
-        _field_company_id_433: {
-          company_id: {
-            groups: 'base.group_multi_company'
-          }
+        _field_company_id_464: {
+          company_id: { groups: 'base.group_multi_company' }
         }
       }
     }
@@ -263,9 +229,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'stock.location',
     search_view_id: 'view_location_search',
-    context: {
-      search_default_in_location: 1
-    },
+    context: { search_default_in_location: 1 },
     views: {
       tree: 'view_location_tree2',
       form: '=======todo=========='
@@ -278,9 +242,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'stock.location',
     search_view_id: 'view_location_search',
-    context: {
-      search_default_prod_inv_location: 1
-    },
+    context: { search_default_prod_inv_location: 1 },
     views: {
       tree: 'view_location_tree2',
       form: '=======todo=========='

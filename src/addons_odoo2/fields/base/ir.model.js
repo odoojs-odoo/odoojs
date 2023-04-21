@@ -3,14 +3,8 @@ const ModelFields = {
   field_id: {},
   id: {},
   info: {},
-  model: {
-    readonly: [['id', '!=', false]]
-  },
-
-  modules: {
-    groups: 'base.group_no_one'
-  },
-
+  model: { readonly: [['id', '!=', false]] },
+  modules: { groups: 'base.group_no_one' },
   name: {},
   order: {},
   rule_ids: {},

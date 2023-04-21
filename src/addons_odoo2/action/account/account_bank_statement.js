@@ -8,23 +8,13 @@ export default {
         name: {},
         date: {},
         journal_id: {},
-        company_id: {
-          groups: 'base.group_multi_company'
-        },
+        company_id: { groups: 'base.group_multi_company' },
         balance_start: {},
         balance_end_real: {},
-        balance_end: {
-          invisible: '1'
-        },
-        currency_id: {
-          invisible: '1'
-        },
-        is_complete: {
-          invisible: '1'
-        },
-        is_valid: {
-          invisible: '1'
-        }
+        balance_end: { invisible: '1' },
+        currency_id: { invisible: '1' },
+        is_complete: { invisible: '1' },
+        is_valid: { invisible: '1' }
       }
     }
   },
@@ -34,9 +24,7 @@ export default {
     model: 'account.bank.statement',
     type: 'search',
     arch: {
-      name: {
-        string: 'Bank Statement'
-      },
+      name: { string: 'Bank Statement' },
       date: {},
       _filter_empty: {
         _attr: {
@@ -59,29 +47,21 @@ export default {
           date: 'date'
         }
       },
-      journal_id: {
-        domain: [['type', 'in', ('bank', 'cash')]]
-      },
+      journal_id: { domain: [['type', 'in', ('bank', 'cash')]] },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_journal: {
           _attr: {
             name: 'journal',
             string: 'Journal',
-            context: {
-              group_by: 'journal_id'
-            }
+            context: { group_by: 'journal_id' }
           }
         },
         _filter_date: {
           _attr: {
             name: 'date',
             string: 'Date',
-            context: {
-              group_by: 'date'
-            }
+            context: { group_by: 'date' }
           }
         }
       }
@@ -94,9 +74,7 @@ export default {
     res_model: 'account.bank.statement',
     search_view_id: 'view_bank_statement_search',
     domain: "['|', ['journal_id', '=', False], ['journal_id.type', '=', 'bank']]",
-    context: {
-      journal_type: 'bank'
-    },
+    context: { journal_type: 'bank' },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -131,9 +109,7 @@ export default {
     res_model: 'account.bank.statement',
     search_view_id: 'view_bank_statement_search',
     domain: "['|', ['journal_id', '=', False], ['journal_id.type', '=', 'cash']]",
-    context: {
-      journal_type: 'cash'
-    },
+    context: { journal_type: 'cash' },
     views: {
       tree: 'view_bank_statement_tree',
       form: '=======todo=========='

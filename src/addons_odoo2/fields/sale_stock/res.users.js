@@ -1,7 +1,5 @@
 const ModelFields = {
-  property_warehouse_id: {
-    groups: 'stock.group_stock_multi_warehouses'
-  }
+  property_warehouse_id: { groups: 'stock.group_stock_multi_warehouses' }
 }
 
 const AddonsFields = {

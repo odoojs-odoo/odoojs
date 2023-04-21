@@ -16,34 +16,26 @@ export default {
               groups: 'sales_team.group_sale_salesman',
               class: 'me-3'
             },
-            currency_id: {
-              invisible: 'True'
-            },
+            currency_id: { invisible: 'True' },
             _small: {
-              _attr: {
-                class: 'fw-bold'
-              },
+              _attr: { class: 'fw-bold' },
               invoiced_amount: {
                 widget: 'monetary',
                 currency_field: 'currency_id'
               }
             }
           },
-          _div_736: {
+          _div_684: {
             _attr: {
               title: 'Quotations',
               groups: 'sales_team.group_sale_salesman',
               class: 'me-3'
             },
             _i: {
-              _attr: {
-                class: 'fa fa-money text-muted'
-              }
+              _attr: { class: 'fa fa-money text-muted' }
             },
             _small: {
-              _attr: {
-                class: 'fw-bold'
-              },
+              _attr: { class: 'fw-bold' },
               quotation_count: {}
             }
           }

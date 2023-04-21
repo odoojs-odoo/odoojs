@@ -46,7 +46,7 @@ export default {
             subtype_id: {},
             is_internal: {}
           },
-          _group_545: {
+          _group_169: {
             model: {},
             res_id: {},
             record_name: {},
@@ -59,9 +59,7 @@ export default {
               name: 'body',
               string: 'Body'
             },
-            body: {
-              options: "{'style-inline': true}"
-            }
+            body: { options: "{'style-inline': true}" }
           },
           _page_gateway: {
             _attr: {
@@ -73,7 +71,7 @@ export default {
                 reply_to: {},
                 reply_to_force_new: {}
               },
-              _group_441: {
+              _group_404: {
                 message_id: {},
                 mail_server_id: {}
               }
@@ -86,20 +84,14 @@ export default {
             },
             _group: {
               _group: {
-                partner_ids: {
-                  widget: 'many2many_tags'
-                }
+                partner_ids: { widget: 'many2many_tags' }
               },
-              _group_232: {
-                notified_partner_ids: {
-                  widget: 'many2many_tags'
-                },
-                starred_partner_ids: {
-                  widget: 'many2many_tags'
-                }
+              _group_220: {
+                notified_partner_ids: { widget: 'many2many_tags' },
+                starred_partner_ids: { widget: 'many2many_tags' }
               }
             },
-            _group_872: {
+            _group_630: {
               notification_ids: {
                 views: {
                   tree: {
@@ -135,9 +127,7 @@ export default {
     arch: {
       body: {
         string: 'Content',
-        filter_domain: {
-          todo_ctx: "['|', ('subject', 'ilike', self), ('body', 'ilike', self)]"
-        }
+        filter_domain: { todo_ctx: "['|', ('subject', 'ilike', self), ('body', 'ilike', self)]" }
       },
       subject: {},
       message_type: {},
@@ -150,9 +140,7 @@ export default {
         _attr: {
           name: 'filter_has_mentions',
           string: 'Has Mentions',
-          domain: {
-            todo_ctx: "[('partner_ids.user_ids', 'in', [uid])]"
-          }
+          domain: { todo_ctx: "[('partner_ids.user_ids', 'in', [uid])]" }
         }
       },
       _separator: {},
@@ -164,7 +152,7 @@ export default {
           domain: [['needaction', '=', true]]
         }
       },
-      _separator_269: {}
+      _separator_631: {}
     }
   },
 

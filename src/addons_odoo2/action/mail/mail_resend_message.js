@@ -5,42 +5,24 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        mail_message_id: {
-          invisible: '1'
-        },
-        notification_ids: {
-          invisible: '1'
-        },
-        can_resend: {
-          invisible: '1'
-        },
-        partner_readonly: {
-          invisible: '1'
-        },
+        mail_message_id: { invisible: '1' },
+        notification_ids: { invisible: '1' },
+        can_resend: { invisible: '1' },
+        partner_readonly: { invisible: '1' },
         partner_ids: {
           views: {
             tree: {
               arch: {
                 sheet: {
-                  _attr: {
-                    string: 'Recipient'
-                  },
-                  name: {
-                    readonly: '1'
-                  },
-                  email: {
-                    readonly: [['parent.partner_readonly', '=', true]]
-                  },
+                  _attr: { string: 'Recipient' },
+                  name: { readonly: '1' },
+                  email: { readonly: [['parent.partner_readonly', '=', true]] },
                   message: {
                     class: 'text-wrap',
                     readonly: '1'
                   },
-                  partner_id: {
-                    invisible: '1'
-                  },
-                  resend: {
-                    widget: 'boolean_toggle'
-                  }
+                  partner_id: { invisible: '1' },
+                  resend: { widget: 'boolean_toggle' }
                 }
               }
             }
@@ -65,7 +47,7 @@ export default {
               class: 'btn-primary'
             }
           },
-          _button_cancel_mail_action_354: {
+          _button_cancel_mail_action_554: {
             _attr: {
               name: 'cancel_mail_action',
               type: 'object',

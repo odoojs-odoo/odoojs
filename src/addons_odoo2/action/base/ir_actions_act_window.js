@@ -22,25 +22,15 @@ export default {
       sheet: {
         _group: {
           _group_main_details: {
-            _attr: {
-              name: 'main_details'
-            },
+            _attr: { name: 'main_details' },
             name: {},
-            xml_id: {
-              string: 'External ID'
-            },
-            res_model: {
-              string: 'Object'
-            }
+            xml_id: { string: 'External ID' },
+            res_model: { string: 'Object' }
           },
           _group_action_details: {
-            _attr: {
-              name: 'action_details'
-            },
+            _attr: { name: 'action_details' },
             usage: {},
-            type: {
-              readonly: '1'
-            },
+            type: { readonly: '1' },
             target: {}
           }
         },
@@ -76,9 +66,7 @@ export default {
                 name: 'help',
                 string: 'Help'
               },
-              help: {
-                class: 'oe-bordered-editor'
-              }
+              help: { class: 'oe-bordered-editor' }
             },
             _group_views_tree: {
               _attr: {
@@ -90,16 +78,12 @@ export default {
                   form: {
                     arch: {
                       sheet: {
-                        _attr: {
-                          string: 'Views'
-                        },
+                        _attr: { string: 'Views' },
                         _group: {
                           sequence: {},
                           view_mode: {},
                           view_id: {
-                            domain: {
-                              todo_ctx: "[('type', '=', view_mode)]"
-                            }
+                            domain: { todo_ctx: "[('type', '=', view_mode)]" }
                           }
                         }
                       }
@@ -108,12 +92,8 @@ export default {
                   tree: {
                     arch: {
                       sheet: {
-                        _attr: {
-                          string: 'Views'
-                        },
-                        sequence: {
-                          widget: 'handle'
-                        },
+                        _attr: { string: 'Views' },
+                        sequence: { widget: 'handle' },
                         view_mode: {},
                         view_id: {}
                       }
@@ -142,9 +122,7 @@ export default {
     arch: {
       name: {
         string: 'Action',
-        filter_domain: {
-          todo_ctx: "['|', ('name','ilike',self), ('res_model','ilike',self)]"
-        }
+        filter_domain: { todo_ctx: "['|', ('name','ilike',self), ('res_model','ilike',self)]" }
       }
     }
   },

@@ -1,11 +1,6 @@
 const ModelFields = {
-  invoiced_amount: {
-    string: 'Revenues'
-  },
-
-  quotation_count: {
-    string: 'Quotations'
-  }
+  invoiced_amount: { string: 'Revenues' },
+  quotation_count: { string: 'Quotations' }
 }
 
 const AddonsFields = {

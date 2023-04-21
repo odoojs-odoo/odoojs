@@ -1,9 +1,6 @@
 const ModelFields = {
   application: {},
-  author: {
-    placeholder: 'Author Name'
-  },
-
+  author: { placeholder: 'Author Name' },
   category_id: {},
   demo: {},
   dependencies_id: {},
@@ -14,15 +11,9 @@ const ModelFields = {
   installed_version: {},
   license: {},
   menus_by_module: {},
-  name: {
-    groups: 'base.group_no_one'
-  },
-
+  name: { groups: 'base.group_no_one' },
   reports_by_module: {},
-  shortdesc: {
-    placeholder: 'Module Name'
-  },
-
+  shortdesc: { placeholder: 'Module Name' },
   state: {},
   summary: {},
   to_buy: {},

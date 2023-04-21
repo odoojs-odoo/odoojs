@@ -5,12 +5,8 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        partner_id: {
-          optional: 'show'
-        },
-        partner_category_id: {
-          optional: 'hide'
-        },
+        partner_id: { optional: 'show' },
+        partner_category_id: { optional: 'hide' },
         company_id: {
           groups: 'base.group_multi_company',
           optional: 'show'
@@ -39,23 +35,17 @@ export default {
       sheet: {
         _group: {
           _group: {
-            _attr: {
-              string: 'Simultaneous conditions to meet'
-            },
+            _attr: { string: 'Simultaneous conditions to meet' },
             _group: {
               partner_id: {},
               partner_category_id: {}
             },
-            _group_662: {
-              company_id: {
-                groups: 'base.group_multi_company'
-              }
+            _group_790: {
+              company_id: { groups: 'base.group_multi_company' }
             }
           },
-          _group_700: {
-            _attr: {
-              string: 'Analytic distribution to apply'
-            },
+          _group_623: {
+            _attr: { string: 'Analytic distribution to apply' },
             analytic_distribution: {
               widget: 'analytic_distribution',
               options: "{'force_applicability': 'optional', 'disable_save': true}"

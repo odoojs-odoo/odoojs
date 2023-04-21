@@ -5,9 +5,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        company_id: {
-          invisible: '1'
-        },
+        company_id: { invisible: '1' },
         _group: {
           _div: {
             _attr: {
@@ -19,14 +17,10 @@ export default {
           _group: {
             journal_id: {},
             account_id: {},
-            amount: {
-              invisible: [['display_amount', '!=', true]]
-            },
-            display_amount: {
-              invisible: '1'
-            }
+            amount: { invisible: [['display_amount', '!=', true]] },
+            display_amount: { invisible: '1' }
           },
-          _group_930: {
+          _group_293: {
             date: {},
             reversal_date: {}
           }

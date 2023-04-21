@@ -1,11 +1,6 @@
 const ModelFields = {
-  email: {
-    string: 'Email Address'
-  },
-
-  reason: {
-    string: 'Reason'
-  }
+  email: { string: 'Email Address' },
+  reason: { string: 'Reason' }
 }
 
 const AddonsFields = {

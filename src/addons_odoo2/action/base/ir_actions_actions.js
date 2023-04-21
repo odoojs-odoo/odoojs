@@ -32,9 +32,7 @@ export default {
     arch: {
       name: {
         string: 'Action',
-        filter_domain: {
-          todo_ctx: "['|', ('name','ilike',self), ('type','ilike',self)]"
-        }
+        filter_domain: { todo_ctx: "['|', ('name','ilike',self), ('type','ilike',self)]" }
       }
     }
   },

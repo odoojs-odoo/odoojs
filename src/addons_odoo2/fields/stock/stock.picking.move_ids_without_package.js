@@ -3,15 +3,9 @@ const ModelFields = {
   company_id: {},
   date: {},
   date_deadline: {},
-  description_picking: {
-    string: 'Description'
-  },
-
+  description_picking: { string: 'Description' },
   display_assign_serial: {},
-  forecast_availability: {
-    string: 'Reserved'
-  },
-
+  forecast_availability: { string: 'Reserved' },
   forecast_expected_date: {},
   has_tracking: {},
   is_initial_demand_editable: {},
@@ -21,12 +15,8 @@ const ModelFields = {
   location_id: {},
   lot_ids: {
     groups: 'stock.group_production_lot',
-    domain: {
-      todo_ctx: "[('product_id','=',product_id)]"
-    },
-    context: {
-      todo_ctx: "{'default_company_id': company_id, 'default_product_id': product_id, 'active_picking_id': parent.id}"
-    }
+    domain: { todo_ctx: "[('product_id','=',product_id)]" },
+    context: { todo_ctx: "{'default_company_id': company_id, 'default_product_id': product_id, 'active_picking_id': parent.id}" }
   },
 
   move_lines_count: {},
@@ -37,19 +27,11 @@ const ModelFields = {
   product_id: {
     readonly: ['|', '&', ['state', '!=', 'draft'], ['additional', '=', false], ['move_lines_count', '>', 0]],
     required: '1',
-    context: {
-      default_detailed_type: 'product'
-    }
+    context: { default_detailed_type: 'product' }
   },
 
-  product_packaging_id: {
-    groups: 'product.group_stock_packaging'
-  },
-
-  product_qty: {
-    readonly: '1'
-  },
-
+  product_packaging_id: { groups: 'product.group_stock_packaging' },
+  product_qty: { readonly: '1' },
   product_type: {},
   product_uom: {
     string: 'Unit of Measure',
@@ -57,55 +39,29 @@ const ModelFields = {
     readonly: '===todo=='
   },
 
-  product_uom_$_form: {
-    readonly: [['state', '!=', 'draft'], ['id', '!=', false]]
-  },
-
-  product_uom_$_tree: {
-    readonly: [['state', '!=', 'draft'], ['additional', '=', false]]
-  },
-
+  product_uom_$_form: { readonly: [['state', '!=', 'draft'], ['id', '!=', false]] },
+  product_uom_$_tree: { readonly: [['state', '!=', 'draft'], ['additional', '=', false]] },
   product_uom_category_id: {},
   product_uom_qty: {
     readonly: '===todo==',
     string: 'Demand'
   },
 
-  product_uom_qty_$_form: {
-    readonly: [['is_initial_demand_editable', '=', false]]
-  },
-
-  product_uom_qty_$_tree: {
-    readonly: ['|', ['is_initial_demand_editable', '=', false], '&', '&', ['show_operations', '=', true], ['is_locked', '=', true], ['is_initial_demand_editable', '=', false]]
-  },
-
+  product_uom_qty_$_form: { readonly: [['is_initial_demand_editable', '=', false]] },
+  product_uom_qty_$_tree: { readonly: ['|', ['is_initial_demand_editable', '=', false], '&', '&', ['show_operations', '=', true], ['is_locked', '=', true], ['is_initial_demand_editable', '=', false]] },
   quantity_done: {
     string: 'Done',
     readonly: '===todo=='
   },
 
-  quantity_done_$_form: {
-    readonly: [['is_quantity_done_editable', '=', false]]
-  },
-
-  quantity_done_$_tree: {
-    readonly: [['product_id', '=', false]]
-  },
-
-  reserved_availability: {
-    string: 'Reserved'
-  },
-
+  quantity_done_$_form: { readonly: [['is_quantity_done_editable', '=', false]] },
+  quantity_done_$_tree: { readonly: [['product_id', '=', false]] },
+  reserved_availability: { string: 'Reserved' },
   scrapped: {},
   show_details_visible: {},
-  show_operations: {
-    readonly: '1'
-  },
-
+  show_operations: { readonly: '1' },
   show_reserved_availability: {},
-  state: {
-    readonly: '0'
-  }
+  state: { readonly: '0' }
 }
 
 const AddonsFields = {

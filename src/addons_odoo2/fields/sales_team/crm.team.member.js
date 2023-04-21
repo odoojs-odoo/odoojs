@@ -1,9 +1,6 @@
 const ModelFields = {
   active: {},
-  company_id: {
-    groups: 'base.group_multi_company'
-  },
-
+  company_id: { groups: 'base.group_multi_company' },
   crm_team_id: {},
   email: {},
   image_1920: {},

@@ -5,9 +5,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        id: {
-          invisible: '1'
-        },
+        id: { invisible: '1' },
         _div: {
           _attr: {
             invisible: [['id', '>', 0]],
@@ -15,38 +13,28 @@ export default {
             text: 'You are inviting a new user.'
           }
         },
-        avatar_128: {
-          invisible: '1'
-        },
+        avatar_128: { invisible: '1' },
         image_1920: {
           widget: 'image',
           class: 'oe_avatar',
           options: '{"zoom": true, "preview_image": "avatar_128"}'
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
-          _label_name: {
-            for: 'name'
-          },
+          _attr: { class: 'oe_title' },
+          _label_name: { for: 'name' },
           _h1: {
             name: {
               required: '1',
               placeholder: 'e.g. John Doe'
             }
           },
-          email: {
-            invisible: '1'
-          },
+          email: { invisible: '1' },
           _label_login: {
             for: 'login',
             string: 'Email Address'
           },
           _h2: {
-            login: {
-              placeholder: 'e.g. email@yourcompany.com'
-            }
+            login: { placeholder: 'e.g. email@yourcompany.com' }
           },
           _label_company_id: {
             for: 'company_id',
@@ -54,15 +42,11 @@ export default {
           },
           company_id: {
             groups: 'base.group_multi_company',
-            context: {
-              user_preference: 0
-            }
+            context: { user_preference: 0 }
           }
         },
         _group_phone_numbers: {
-          _attr: {
-            name: 'phone_numbers'
-          },
+          _attr: { name: 'phone_numbers' },
           _label_groups_id: {
             for: 'groups_id',
             string: 'Access Rights',
@@ -99,9 +83,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        id: {
-          invisible: '1'
-        },
+        id: { invisible: '1' },
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -171,51 +153,37 @@ export default {
               text: 'x'
             }
           },
-          _div: {
-            _strong: 'The contact linked to this user is still active'
-          },
-          _div_733: {
-            _attr: {
-              text: 'You can archive the contact'
-            },
+          _div: { _strong: 'The contact linked to this user is still active' },
+          _div_672: {
+            _attr: { text: 'You can archive the contact' },
             partner_id: {
               required: '0',
               readonly: '1'
             }
           }
         },
-        avatar_128: {
-          invisible: '1'
-        },
+        avatar_128: { invisible: '1' },
         image_1920: {
           widget: 'image',
           class: 'oe_avatar',
           preview_image: 'avatar_128'
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
-          _label_name: {
-            for: 'name'
-          },
+          _attr: { class: 'oe_title' },
+          _label_name: { for: 'name' },
           _h1: {
             name: {
               required: '1',
               placeholder: 'e.g. John Doe'
             }
           },
-          email: {
-            invisible: '1'
-          },
+          email: { invisible: '1' },
           _label_login: {
             for: 'login',
             string: 'Email Address'
           },
           _h2: {
-            login: {
-              placeholder: 'e.g. email@yourcompany.com'
-            }
+            login: { placeholder: 'e.g. email@yourcompany.com' }
           },
           _group: {
             partner_id: {
@@ -224,9 +192,7 @@ export default {
               required: '0',
               readonly: '1'
             },
-            share: {
-              invisible: '1'
-            }
+            share: { invisible: '1' }
           }
         },
         _notebook: {
@@ -247,9 +213,7 @@ export default {
               },
               company_id: {
                 string: 'Default Company',
-                context: {
-                  user_preference: 0
-                }
+                context: { user_preference: 0 }
               },
               companies_count: {
                 string: 'Companies count',
@@ -269,19 +233,11 @@ export default {
                   name: 'preferences',
                   string: 'Localization'
                 },
-                active: {
-                  invisible: '1'
-                },
-                _label_lang: {
-                  for: 'lang'
-                },
+                active: { invisible: '1' },
+                _label_lang: { for: 'lang' },
                 _div: {
-                  _attr: {
-                    class: 'o_row'
-                  },
-                  lang: {
-                    required: '1'
-                  },
+                  _attr: { class: 'o_row' },
+                  lang: { required: '1' },
                   _button_base__action_view_base_language_install: {
                     _attr: {
                       name: 'base.action_view_base_language_install',
@@ -295,9 +251,7 @@ export default {
                   widget: 'timezone_mismatch',
                   tz_offset_field: 'tz_offset'
                 },
-                tz_offset: {
-                  invisible: '1'
-                }
+                tz_offset: { invisible: '1' }
               },
               _group: {
                 _attr: {
@@ -309,12 +263,8 @@ export default {
               }
             },
             _group_messaging: {
-              _attr: {
-                name: 'messaging'
-              },
-              signature: {
-                options: "{'style-inline': true, 'codeview': true}"
-              }
+              _attr: { name: 'messaging' },
+              signature: { options: "{'style-inline': true, 'codeview': true}" }
             }
           }
         }
@@ -332,9 +282,7 @@ export default {
         login: {},
         lang: {},
         login_date: {},
-        company_id: {
-          groups: 'base.group_multi_company'
-        }
+        company_id: { groups: 'base.group_multi_company' }
       }
     }
   },
@@ -353,9 +301,7 @@ export default {
     arch: {
       name: {
         string: 'User',
-        filter_domain: {
-          todo_ctx: "['|', '|', ('name','ilike',self), ('login','ilike',self), ('email','ilike',self)]"
-        }
+        filter_domain: { todo_ctx: "['|', '|', ('name','ilike',self), ('login','ilike',self), ('email','ilike',self)]" }
       },
       company_ids: {
         string: 'Company',
@@ -437,9 +383,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        avatar_128: {
-          invisible: '1'
-        },
+        avatar_128: { invisible: '1' },
         image_1920: {
           widget: 'image',
           class: 'oe_right oe_avatar',
@@ -459,23 +403,17 @@ export default {
               string: 'Preferences'
             },
             _group_preferences: {
-              _attr: {
-                name: 'preferences'
-              },
+              _attr: { name: 'preferences' },
               _group: {
                 email: {
                   widget: 'email',
                   readonly: '0'
                 }
               },
-              _group_530: {
-                _label_lang: {
-                  for: 'lang'
-                },
+              _group_227: {
+                _label_lang: { for: 'lang' },
                 _div: {
-                  _attr: {
-                    class: 'o_row'
-                  },
+                  _attr: { class: 'o_row' },
                   lang: {
                     required: '1',
                     readonly: '0'
@@ -495,18 +433,12 @@ export default {
                   readonly: '0',
                   tz_offset_field: 'tz_offset'
                 },
-                tz_offset: {
-                  invisible: '1'
-                }
+                tz_offset: { invisible: '1' }
               },
-              share: {
-                invisible: '1'
-              }
+              share: { invisible: '1' }
             },
             _group_signature: {
-              _attr: {
-                name: 'signature'
-              },
+              _attr: { name: 'signature' },
               signature: {
                 readonly: '0',
                 options: "{'style-inline': true, 'codeview': true}"
@@ -525,15 +457,11 @@ export default {
               }
             },
             _group_preference_contact: {
-              _attr: {
-                name: 'preference_contact'
-              }
+              _attr: { name: 'preference_contact' }
             }
           },
           _page: {
-            _attr: {
-              string: 'Account Security'
-            },
+            _attr: { string: 'Account Security' },
             _group_auth: {
               _attr: {
                 name: 'auth',
@@ -551,9 +479,7 @@ export default {
               }
             },
             _group: {
-              _attr: {
-                string: 'API Keys'
-              },
+              _attr: { string: 'API Keys' },
               _div: {
                 _attr: {
                   class: 'text-muted',
@@ -568,10 +494,8 @@ export default {
                   }
                 }
               },
-              _div_199: {
-                _attr: {
-                  invisible: [['api_key_ids', '=', []]]
-                },
+              _div_386: {
+                _attr: { invisible: [['api_key_ids', '=', []]] },
                 api_key_ids: {
                   readonly: '0',
                   views: {
@@ -595,7 +519,7 @@ export default {
                   }
                 }
               },
-              _div_733: {
+              _div_400: {
                 _button_api_key_wizard: {
                   _attr: {
                     name: 'api_key_wizard',

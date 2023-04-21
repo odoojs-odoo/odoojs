@@ -5,9 +5,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        company_id: {
-          invisible: '1'
-        },
+        company_id: { invisible: '1' },
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -33,16 +31,12 @@ export default {
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_field_widget o_stat_info'
-              },
+              _attr: { class: 'o_field_widget o_stat_info' },
               _span: {
-                _attr: {
-                  class: 'o_stat_value'
-                },
+                _attr: { class: 'o_stat_value' },
                 all_account_count: {}
               },
-              _span_492: {
+              _span_276: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Analytic Accounts'
@@ -52,9 +46,7 @@ export default {
           }
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _h1: {
             name: {}
           }
@@ -62,17 +54,11 @@ export default {
         _group: {
           _group: {
             parent_id: {},
-            default_applicability: {
-              invisible: [['parent_id', '!=', false]]
-            },
-            color: {
-              widget: 'color_picker'
-            }
+            default_applicability: { invisible: [['parent_id', '!=', false]] },
+            color: { widget: 'color_picker' }
           },
-          _group_537: {
-            company_id: {
-              groups: 'base.group_multi_company'
-            }
+          _group_930: {
+            company_id: { groups: 'base.group_multi_company' }
           }
         },
         _notebook: {
@@ -108,12 +94,8 @@ export default {
       sheet: {
         name: {},
         default_applicability: {},
-        color: {
-          widget: 'color_picker'
-        },
-        company_id: {
-          groups: 'base.group_multi_company'
-        }
+        color: { widget: 'color_picker' },
+        company_id: { groups: 'base.group_multi_company' }
       }
     }
   },

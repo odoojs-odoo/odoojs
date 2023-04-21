@@ -12,15 +12,9 @@ export default {
             string: 'Code Prefix'
           },
           _div: {
-            _attr: {
-              text: 'From'
-            },
-            code_prefix_start: {
-              class: 'oe_inline'
-            },
-            code_prefix_end: {
-              class: 'oe_inline'
-            }
+            _attr: { text: 'From' },
+            code_prefix_start: { class: 'oe_inline' },
+            code_prefix_end: { class: 'oe_inline' }
           },
           company_id: {
             groups: 'base.group_multi_company',
@@ -38,9 +32,7 @@ export default {
     arch: {
       name: {
         string: 'Account group',
-        filter_domain: {
-          todo_ctx: "['|', ('code_prefix_start', '=like', self + '%'), ('name', 'ilike', self)]"
-        }
+        filter_domain: { todo_ctx: "['|', ('code_prefix_start', '=like', self + '%'), ('name', 'ilike', self)]" }
       }
     }
   },
@@ -54,9 +46,7 @@ export default {
         code_prefix_start: {},
         code_prefix_end: {},
         name: {},
-        company_id: {
-          groups: 'base.group_multi_company'
-        }
+        company_id: { groups: 'base.group_multi_company' }
       }
     }
   }

@@ -14,9 +14,7 @@ export default {
           }
         },
         _group: {
-          active: {
-            invisible: '1'
-          },
+          active: { invisible: '1' },
           name: {},
           applicability: {},
           tax_negate: {

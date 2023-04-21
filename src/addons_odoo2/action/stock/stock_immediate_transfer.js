@@ -6,18 +6,12 @@ export default {
     arch: {
       sheet: {
         _p: {
-          _attr: {
-            text: 'You have not recorded'
-          },
+          _attr: { text: 'You have not recorded' },
           _i: 'done',
-          _i_667: 'apply'
+          _i_592: 'apply'
         },
-        pick_ids: {
-          invisible: '1'
-        },
-        show_transfers: {
-          invisible: '1'
-        },
+        pick_ids: { invisible: '1' },
+        show_transfers: { invisible: '1' },
         immediate_transfer_line_ids: {
           invisible: [['show_transfers', '=', false]],
           views: {
@@ -25,9 +19,7 @@ export default {
               arch: {
                 sheet: {
                   picking_id: {},
-                  to_immediate: {
-                    widget: 'boolean_toggle'
-                  }
+                  to_immediate: { widget: 'boolean_toggle' }
                 }
               }
             }

@@ -6,9 +6,7 @@ export default {
     arch: {
       sheet: {
         _group_res_config_contents: {
-          _attr: {
-            name: 'res_config_contents'
-          }
+          _attr: { name: 'res_config_contents' }
         },
         _footer: {
           _button_action_next: {

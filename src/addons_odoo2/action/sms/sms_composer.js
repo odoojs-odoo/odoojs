@@ -4,9 +4,7 @@ export default {
     name: 'Send SMS Text Message',
     res_model: 'sms.composer',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      todo_ctx: "{\n            'default_composition_mode': 'mass',\n            'default_mass_keep_log': True,\n            'default_res_ids': active_ids\n        }"
-    },
+    context: { todo_ctx: "{\n            'default_composition_mode': 'mass',\n            'default_mass_keep_log': True,\n            'default_res_ids': active_ids\n        }" },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -18,9 +16,7 @@ export default {
     name: 'Send SMS Text Message',
     res_model: 'sms.composer',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      todo_ctx: "{\n            'default_composition_mode': 'comment',\n            'default_res_id': active_id,\n        }"
-    },
+    context: { todo_ctx: "{\n            'default_composition_mode': 'comment',\n            'default_res_id': active_id,\n        }" },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='
@@ -39,32 +35,24 @@ export default {
             class: 'alert alert-danger text-center mb-0'
           },
           _p: {
-            _attr: {
-              class: 'my-0'
-            },
+            _attr: { class: 'my-0' },
             _strong: 'Invalid number:',
             _span: 'make sure to set a country on the',
-            _span_507: {
+            _span_721: {
               res_model_description: {}
             },
-            _span_610: 'or to specify the country code.'
+            _span_297: 'or to specify the country code.'
           }
         },
-        _div_469: {
+        _div_351: {
           _attr: {
             invisible: ['|', ['comment_single_recipient', '=', true], ['recipient_invalid_count', '=', 0]],
             class: 'alert alert-info text-center mb-0'
           },
           _p: {
-            _attr: {
-              class: 'my-0'
-            },
-            recipient_invalid_count: {
-              class: 'oe_inline fw-bold'
-            },
-            res_ids_count: {
-              class: 'oe_inline fw-bold'
-            }
+            _attr: { class: 'my-0' },
+            recipient_invalid_count: { class: 'oe_inline fw-bold' },
+            res_ids_count: { class: 'oe_inline fw-bold' }
           }
         },
         _footer: {
@@ -77,7 +65,7 @@ export default {
               class: 'oe_highlight'
             }
           },
-          _button_action_send_sms_229: {
+          _button_action_send_sms_307: {
             _attr: {
               name: 'action_send_sms',
               type: 'object',
@@ -86,7 +74,7 @@ export default {
               class: 'oe_highlight'
             }
           },
-          _button_action_send_sms_718: {
+          _button_action_send_sms_362: {
             _attr: {
               name: 'action_send_sms',
               type: 'object',
@@ -111,39 +99,17 @@ export default {
           }
         },
         _group: {
-          composition_mode: {
-            invisible: '1'
-          },
-          comment_single_recipient: {
-            invisible: '1'
-          },
-          res_id: {
-            invisible: '1'
-          },
-          res_ids: {
-            invisible: '1'
-          },
-          res_model: {
-            invisible: '1'
-          },
-          mass_force_send: {
-            invisible: '1'
-          },
-          recipient_single_valid: {
-            invisible: '1'
-          },
-          recipient_single_number: {
-            invisible: '1'
-          },
-          number_field_name: {
-            invisible: '1'
-          },
-          numbers: {
-            invisible: '1'
-          },
-          sanitized_numbers: {
-            invisible: '1'
-          },
+          composition_mode: { invisible: '1' },
+          comment_single_recipient: { invisible: '1' },
+          res_id: { invisible: '1' },
+          res_ids: { invisible: '1' },
+          res_model: { invisible: '1' },
+          mass_force_send: { invisible: '1' },
+          recipient_single_valid: { invisible: '1' },
+          recipient_single_number: { invisible: '1' },
+          number_field_name: { invisible: '1' },
+          numbers: { invisible: '1' },
+          sanitized_numbers: { invisible: '1' },
           _label_recipient_single_description: {
             for: 'recipient_single_description',
             string: 'Recipient',
@@ -151,12 +117,8 @@ export default {
             class: 'fw-bold'
           },
           _div: {
-            _attr: {
-              invisible: [['comment_single_recipient', '=', false]]
-            },
-            recipient_single_description: {
-              class: 'oe_inline'
-            },
+            _attr: { invisible: [['comment_single_recipient', '=', false]] },
+            recipient_single_description: { class: 'oe_inline' },
             recipient_single_number_itf: {
               class: 'oe_inline',
               placeholder: 'e.g. +1 415 555 0100'
@@ -166,15 +128,13 @@ export default {
             widget: 'sms_widget',
             invisible: ['|', ['comment_single_recipient', '=', false], ['recipient_single_valid', '=', true]]
           },
-          _field_body_176: {
+          _field_body_757: {
             body: {
               widget: 'sms_widget',
               invisible: [['comment_single_recipient', '=', true], ['recipient_single_valid', '=', false]]
             }
           },
-          mass_keep_log: {
-            invisible: '1'
-          }
+          mass_keep_log: { invisible: '1' }
         }
       }
     }

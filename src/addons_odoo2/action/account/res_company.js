@@ -10,25 +10,17 @@ export default {
             expr: "//field[@name='country_id']",
             position: 'after'
           },
-          country_code: {
-            invisible: '1'
-          },
-          account_enabled_tax_country_ids: {
-            invisible: '1'
-          }
+          country_code: { invisible: '1' },
+          account_enabled_tax_country_ids: { invisible: '1' }
         },
-        _xpath_816: {
+        _xpath_123: {
           _attr: {
             expr: '//sheet',
             position: 'after'
           },
           _div: {
-            _attr: {
-              class: 'oe_chatter'
-            },
-            message_follower_ids: {
-              groups: 'base.group_user'
-            },
+            _attr: { class: 'oe_chatter' },
+            message_follower_ids: { groups: 'base.group_user' },
             message_ids: {}
           }
         }
@@ -42,9 +34,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        invoice_terms_html: {
-          class: 'oe_account_terms'
-        },
+        invoice_terms_html: { class: 'oe_account_terms' },
         _footer: {
           _button: {
             _attr: {
@@ -52,7 +42,7 @@ export default {
               class: 'btn-primary'
             }
           },
-          _button_107: {
+          _button_555: {
             _attr: {
               string: 'Discard',
               class: 'btn-secondary'

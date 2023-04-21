@@ -32,23 +32,17 @@ export default {
     arch: {
       sheet: {
         _group: {
-          _label_uri: {
-            for: 'uri'
-          },
+          _label_uri: { for: 'uri' },
           _div_URI: {
             _attr: {
               name: 'URI',
               class: 'oe_inline'
             },
-            server_type: {
-              class: 'oe_inline'
-            },
-            uri: {
-              class: 'oe_inline'
-            }
+            server_type: { class: 'oe_inline' },
+            uri: { class: 'oe_inline' }
           }
         },
-        _group_453: {
+        _group_595: {
           username: {},
           credential: {}
         }

@@ -12,21 +12,11 @@ export default {
       },
       sheet: {
         _group: {
-          company_id: {
-            invisible: '1'
-          },
-          picking_id: {
-            invisible: '1'
-          },
-          show_lots_m2o: {
-            invisible: '1'
-          },
-          show_lots_text: {
-            invisible: '1'
-          },
-          picking_type_code: {
-            invisible: '1'
-          },
+          company_id: { invisible: '1' },
+          picking_id: { invisible: '1' },
+          show_lots_m2o: { invisible: '1' },
+          show_lots_text: { invisible: '1' },
+          picking_type_code: { invisible: '1' },
           _group: {
             package_id: {},
             location_id: {
@@ -40,9 +30,7 @@ export default {
               no_create: true
             },
             is_done: {},
-            company_id: {
-              groups: 'base.main_company'
-            }
+            company_id: { groups: 'base.main_company' }
           },
           move_ids: {
             invisible: [['state', 'in', ('new', 'draft', 'assigned', 'done')]],
@@ -53,12 +41,8 @@ export default {
                     product_id: {},
                     product_uom_qty: {},
                     quantity_done: {},
-                    product_uom: {
-                      groups: 'uom.group_uom'
-                    },
-                    state: {
-                      invisible: '1'
-                    }
+                    product_uom: { groups: 'uom.group_uom' },
+                    state: { invisible: '1' }
                   }
                 }
               }
@@ -79,9 +63,7 @@ export default {
                       groups: 'stock.group_production_lot',
                       column_invisible: [['parent.show_lots_text', '=', false]]
                     },
-                    owner_id: {
-                      groups: 'stock.group_tracking_owner'
-                    },
+                    owner_id: { groups: 'stock.group_tracking_owner' },
                     reserved_uom_qty: {},
                     qty_done: {},
                     product_uom_id: {
@@ -91,9 +73,7 @@ export default {
                       no_open: true,
                       no_create: true
                     },
-                    state: {
-                      invisible: '1'
-                    }
+                    state: { invisible: '1' }
                   }
                 }
               }
@@ -116,19 +96,15 @@ export default {
             position: 'inside'
           },
           _footer: {
-            _attr: {
-              class: 'oe_edit_only'
-            },
+            _attr: { class: 'oe_edit_only' },
             _button: {
               _attr: {
                 string: 'Confirm',
                 class: 'oe_highlight'
               }
             },
-            _button_845: {
-              _attr: {
-                string: 'Discard'
-              }
+            _button_132: {
+              _attr: { string: 'Discard' }
             }
           }
         }
@@ -142,12 +118,8 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        is_fresh_package: {
-          invisible: '1'
-        },
-        company_id: {
-          invisible: '1'
-        },
+        is_fresh_package: { invisible: '1' },
+        company_id: { invisible: '1' },
         package_id: {
           readonly: [['state', 'in', ('confirmed', 'assigned', 'done', 'cancel')]],
           no_create: true
@@ -163,9 +135,7 @@ export default {
           no_create: true
         },
         state: {},
-        is_done: {
-          readonly: ['|', ['parent.state', 'in', ('draft', 'new', 'done')], ['is_fresh_package', '=', true]]
-        },
+        is_done: { readonly: ['|', ['parent.state', 'in', ('draft', 'new', 'done')], ['is_fresh_package', '=', true]] },
         _button_action_show_package_details: {
           _attr: {
             name: 'action_show_package_details',

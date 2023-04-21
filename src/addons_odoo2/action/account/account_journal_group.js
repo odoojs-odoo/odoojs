@@ -5,21 +5,15 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        company_id: {
-          invisible: '1'
-        },
-        sequence: {
-          widget: 'handle'
-        },
+        company_id: { invisible: '1' },
+        sequence: { widget: 'handle' },
         name: {},
         excluded_journal_ids: {
           widget: 'many2many_tags',
           no_create: true
         },
-        _field_company_id_358: {
-          company_id: {
-            groups: 'base.group_multi_company'
-          }
+        _field_company_id_130: {
+          company_id: { groups: 'base.group_multi_company' }
         }
       }
     }
@@ -32,23 +26,15 @@ export default {
     arch: {
       sheet: {
         _group: {
-          company_id: {
-            invisible: '1'
-          },
-          name: {
-            placeholder: 'e.g. GAAP, IFRS, ...'
-          },
+          company_id: { invisible: '1' },
+          name: { placeholder: 'e.g. GAAP, IFRS, ...' },
           excluded_journal_ids: {
             widget: 'many2many_tags',
             no_create: true
           },
-          sequence: {
-            groups: 'base.group_no_one'
-          },
-          _field_company_id_303: {
-            company_id: {
-              groups: 'base.group_multi_company'
-            }
+          sequence: { groups: 'base.group_no_one' },
+          _field_company_id_487: {
+            company_id: { groups: 'base.group_multi_company' }
           }
         }
       }

@@ -1,17 +1,8 @@
 const ModelFields = {
   default_code: {},
-  description_picking: {
-    placeholder: 'This note is added to internal transfer orders (e.g. where to pick the product in the warehouse).'
-  },
-
-  description_pickingin: {
-    placeholder: 'This note is added to receipt orders (e.g. where to store the product in the warehouse).'
-  },
-
-  description_pickingout: {
-    placeholder: 'This note is added to delivery orders.'
-  },
-
+  description_picking: { placeholder: 'This note is added to internal transfer orders (e.g. where to pick the product in the warehouse).' },
+  description_pickingin: { placeholder: 'This note is added to receipt orders (e.g. where to store the product in the warehouse).' },
+  description_pickingout: { placeholder: 'This note is added to delivery orders.' },
   has_available_route_ids: {},
   nbr_moves_in: {},
   nbr_moves_out: {},

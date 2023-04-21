@@ -25,25 +25,19 @@ export default {
         },
         _group: {
           _group: {
-            name: {
-              placeholder: 'e.g. My Outgoing Server'
-            },
+            name: { placeholder: 'e.g. My Outgoing Server' },
             from_filter: {}
           },
-          _group_592: {
+          _group_610: {
             sequence: {},
-            active: {
-              invisible: '1'
-            }
+            active: { invisible: '1' }
           }
         },
-        _group_649: {
+        _group_884: {
           _group: {
-            smtp_authentication: {
-              widget: 'radio'
-            }
+            smtp_authentication: { widget: 'radio' }
           },
-          _group_109: {
+          _group_655: {
             _div: {
               _attr: {
                 invisible: [['smtp_authentication_info', '=', false]],
@@ -61,18 +55,12 @@ export default {
             },
             _group: {
               _group: {
-                smtp_encryption: {
-                  widget: 'radio'
-                },
+                smtp_encryption: { widget: 'radio' },
                 smtp_host: {},
-                smtp_port: {
-                  options: "{'format': false}"
-                },
-                smtp_debug: {
-                  groups: 'base.group_no_one'
-                }
+                smtp_port: { options: "{'format': false}" },
+                smtp_debug: { groups: 'base.group_no_one' }
               },
-              _group_417: {
+              _group_111: {
                 smtp_user: {
                   invisible: [['smtp_authentication', '=', 'certificate']],
                   force_save: '1'
@@ -108,9 +96,7 @@ export default {
         smtp_host: {},
         smtp_user: {},
         smtp_encryption: {},
-        from_filter: {
-          optional: 'hide'
-        }
+        from_filter: { optional: 'hide' }
       }
     }
   },
@@ -122,9 +108,7 @@ export default {
     arch: {
       name: {
         string: 'Outgoing Mail Server',
-        filter_domain: {
-          todo_ctx: "['|', '|',                                         ('name', 'ilike', self),                                         ('smtp_host', 'ilike', self),                                         ('smtp_user', 'ilike', self)]"
-        }
+        filter_domain: { todo_ctx: "['|', '|',                                         ('name', 'ilike', self),                                         ('smtp_host', 'ilike', self),                                         ('smtp_user', 'ilike', self)]" }
       },
       smtp_encryption: {},
       from_filter: {},

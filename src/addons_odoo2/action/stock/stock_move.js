@@ -19,19 +19,11 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        date: {
-          groups: 'base.group_no_one'
-        },
+        date: { groups: 'base.group_no_one' },
         reference: {},
-        picking_type_id: {
-          invisible: '1'
-        },
-        location_usage: {
-          invisible: '1'
-        },
-        location_dest_usage: {
-          invisible: '1'
-        },
+        picking_type_id: { invisible: '1' },
+        location_usage: { invisible: '1' },
+        location_dest_usage: { invisible: '1' },
         product_id: {},
         location_id: {
           string: 'From',
@@ -45,18 +37,14 @@ export default {
           groups: 'product.group_stock_packaging',
           optional: 'hide'
         },
-        product_uom_qty: {
-          string: 'Quantity'
-        },
+        product_uom_qty: { string: 'Quantity' },
         product_uom: {
           string: 'Unit',
           groups: 'uom.group_uom',
           no_open: true,
           no_create: true
         },
-        company_id: {
-          groups: 'base.group_multi_company'
-        },
+        company_id: { groups: 'base.group_multi_company' },
         state: {
           widget: 'badge',
           optional: 'show'
@@ -71,76 +59,40 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        company_id: {
-          invisible: '1'
-        },
-        name: {
-          invisible: '1'
-        },
-        date: {
-          invisible: '1'
-        },
+        company_id: { invisible: '1' },
+        name: { invisible: '1' },
+        date: { invisible: '1' },
         state: {
           invisible: '1',
           readonly: '0'
         },
-        picking_type_id: {
-          invisible: '1'
-        },
-        location_id: {
-          invisible: '1'
-        },
-        location_dest_id: {
-          invisible: '1'
-        },
-        scrapped: {
-          invisible: '1'
-        },
-        picking_code: {
-          invisible: '1'
-        },
-        product_type: {
-          invisible: '1'
-        },
-        show_details_visible: {
-          invisible: '1'
-        },
-        show_reserved_availability: {
-          invisible: '1'
-        },
+        picking_type_id: { invisible: '1' },
+        location_id: { invisible: '1' },
+        location_dest_id: { invisible: '1' },
+        scrapped: { invisible: '1' },
+        picking_code: { invisible: '1' },
+        product_type: { invisible: '1' },
+        show_details_visible: { invisible: '1' },
+        show_reserved_availability: { invisible: '1' },
         show_operations: {
           invisible: '1',
           readonly: '1'
         },
-        additional: {
-          invisible: '1'
-        },
-        move_lines_count: {
-          invisible: '1'
-        },
-        is_locked: {
-          invisible: '1'
-        },
-        product_uom_category_id: {
-          invisible: '1'
-        },
+        additional: { invisible: '1' },
+        move_lines_count: { invisible: '1' },
+        is_locked: { invisible: '1' },
+        product_uom_category_id: { invisible: '1' },
         product_id: {
           readonly: ['|', '&', ['state', '!=', 'draft'], ['additional', '=', false], ['move_lines_count', '>', 0]],
           required: '1'
         },
-        is_initial_demand_editable: {
-          invisible: '1'
-        },
-        is_quantity_done_editable: {
-          invisible: '1'
-        },
+        is_initial_demand_editable: { invisible: '1' },
+        is_quantity_done_editable: { invisible: '1' },
         product_uom_qty: {
           string: 'Demand',
           readonly: [['is_initial_demand_editable', '=', false]]
         },
-        reserved_availability: {
-          string: 'Reserved'
-        },
+        reserved_availability: { string: 'Reserved' },
         quantity_done: {
           string: 'Done',
           readonly: [['is_quantity_done_editable', '=', false]]
@@ -169,50 +121,22 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        sequence: {
-          invisible: '1'
-        },
-        company_id: {
-          invisible: '1'
-        },
-        state: {
-          invisible: '1'
-        },
-        location_id: {
-          invisible: '1'
-        },
-        location_dest_id: {
-          invisible: '1'
-        },
-        picking_id: {
-          invisible: '1'
-        },
-        picking_type_id: {
-          invisible: '1'
-        },
-        is_locked: {
-          invisible: '1'
-        },
-        picking_type_entire_packs: {
-          invisible: '1'
-        },
-        display_assign_serial: {
-          invisible: '1'
-        },
-        from_immediate_transfer: {
-          invisible: '1'
-        },
-        product_uom_category_id: {
-          invisible: '1'
-        },
-        display_clear_serial: {
-          invisible: '1'
-        },
+        sequence: { invisible: '1' },
+        company_id: { invisible: '1' },
+        state: { invisible: '1' },
+        location_id: { invisible: '1' },
+        location_dest_id: { invisible: '1' },
+        picking_id: { invisible: '1' },
+        picking_type_id: { invisible: '1' },
+        is_locked: { invisible: '1' },
+        picking_type_entire_packs: { invisible: '1' },
+        display_assign_serial: { invisible: '1' },
+        from_immediate_transfer: { invisible: '1' },
+        product_uom_category_id: { invisible: '1' },
+        display_clear_serial: { invisible: '1' },
         _group: {
           _group: {
-            product_id: {
-              readonly: '1'
-            },
+            product_id: { readonly: '1' },
             _label_product_uom_qty: {
               for: 'product_uom_qty',
               invisible: [['from_immediate_transfer', '=', true]]
@@ -223,54 +147,40 @@ export default {
                 class: 'o_row'
               },
               _span: {
-                product_uom_qty: {
-                  readonly: '1'
-                }
+                product_uom_qty: { readonly: '1' }
               },
-              _span_408: {
-                product_uom: {
-                  readonly: '1'
-                }
+              _span_554: {
+                product_uom: { readonly: '1' }
               }
             },
-            _label_quantity_done: {
-              for: 'quantity_done'
-            },
-            _div_753: {
-              _attr: {
-                class: 'o_row'
-              },
+            _label_quantity_done: { for: 'quantity_done' },
+            _div_324: {
+              _attr: { class: 'o_row' },
               _span: {
-                quantity_done: {
-                  readonly: '1'
-                }
+                quantity_done: { readonly: '1' }
               },
-              _span_785: {
+              _span_905: {
                 _attr: {
                   invisible: ['|', ['state', '=', 'done'], ['from_immediate_transfer', '=', true]],
                   text: '/'
                 }
               },
-              _span_686: {
-                reserved_availability: {
-                  invisible: ['|', ['state', '=', 'done'], ['from_immediate_transfer', '=', true]]
-                }
+              _span_405: {
+                reserved_availability: { invisible: ['|', ['state', '=', 'done'], ['from_immediate_transfer', '=', true]] }
               },
-              _span_185: {
+              _span_882: {
                 product_uom: {
                   invisible: [['from_immediate_transfer', '=', true]],
                   readonly: '1'
                 }
               }
             },
-            next_serial: {
-              invisible: [['display_assign_serial', '=', false]]
-            },
+            next_serial: { invisible: [['display_assign_serial', '=', false]] },
             _label_next_serial_count: {
               for: 'next_serial_count',
               invisible: [['display_assign_serial', '=', false]]
             },
-            _div_471: {
+            _div_148: {
               _attr: {
                 invisible: [['display_assign_serial', '=', false]],
                 class: 'o_row'
@@ -302,9 +212,7 @@ export default {
         },
         move_line_ids: {
           readonly: ['|', ['state', '=', 'cancel'], '&', ['state', '=', 'done'], ['is_locked', '=', true]],
-          context: {
-            todo_ctx: "{'tree_view_ref': 'stock.view_stock_move_line_operation_tree', 'default_product_uom_id': product_uom, 'default_picking_id': picking_id, 'default_move_id': id, 'default_product_id': product_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'default_company_id': company_id}"
-          }
+          context: { todo_ctx: "{'tree_view_ref': 'stock.view_stock_move_line_operation_tree', 'default_product_uom_id': product_uom, 'default_picking_id': picking_id, 'default_move_id': id, 'default_product_id': product_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'default_company_id': company_id}" }
         },
         _footer: {
           _attr: {
@@ -317,21 +225,17 @@ export default {
               class: 'oe_highlight'
             }
           },
-          _button_505: {
-            _attr: {
-              string: 'Discard'
-            }
+          _button_540: {
+            _attr: { string: 'Discard' }
           }
         },
-        _footer_669: {
+        _footer_449: {
           _attr: {
             invisible: ['|', '&', ['state', '!=', 'cancel'], ['state', '!=', 'done'], '&', ['state', '=', 'done'], ['is_locked', '!=', true]],
             class: 'oe_edit_only'
           },
           _button: {
-            _attr: {
-              string: 'Close'
-            }
+            _attr: { string: 'Close' }
           }
         }
       }
@@ -349,9 +253,7 @@ export default {
           __todo__replace: {
             move_line_nosuggest_ids: {
               readonly: ['|', ['state', '=', 'cancel'], '&', ['state', '=', 'done'], ['is_locked', '=', true]],
-              context: {
-                todo_ctx: "{'tree_view_ref': 'stock.view_stock_move_line_operation_tree','default_picking_id': picking_id, 'default_move_id': id, 'default_product_id': product_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'default_company_id': company_id}"
-              }
+              context: { todo_ctx: "{'tree_view_ref': 'stock.view_stock_move_line_operation_tree','default_picking_id': picking_id, 'default_move_id': id, 'default_product_id': product_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'default_company_id': company_id}" }
             }
           }
         }
@@ -371,9 +273,7 @@ export default {
         }
       },
       sheet: {
-        company_id: {
-          invisible: '1'
-        },
+        company_id: { invisible: '1' },
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -382,39 +282,21 @@ export default {
         },
         _group: {
           _group_main_grp: {
-            _attr: {
-              name: 'main_grp'
-            },
+            _attr: { name: 'main_grp' },
             _group_main_grp_col1: {
-              _attr: {
-                name: 'main_grp_col1'
-              },
+              _attr: { name: 'main_grp_col1' },
               reference: {},
-              location_id: {
-                no_create: true
-              },
-              location_dest_id: {
-                no_create: true
-              },
-              company_id: {
-                groups: 'base.group_multi_company'
-              }
+              location_id: { no_create: true },
+              location_dest_id: { no_create: true },
+              company_id: { groups: 'base.group_multi_company' }
             },
             _group_main_grp_col2: {
-              _attr: {
-                name: 'main_grp_col2'
-              },
+              _attr: { name: 'main_grp_col2' },
               product_id: {},
-              product_uom_category_id: {
-                invisible: '1'
-              },
-              _label_product_uom_qty: {
-                for: 'product_uom_qty'
-              },
+              product_uom_category_id: { invisible: '1' },
+              _label_product_uom_qty: { for: 'product_uom_qty' },
               _div: {
-                _attr: {
-                  class: 'o_row'
-                },
+                _attr: { class: 'o_row' },
                 product_uom_qty: {},
                 product_uom: {
                   groups: 'uom.group_uom',
@@ -422,30 +304,22 @@ export default {
                   no_create: true
                 }
               },
-              name: {
-                invisible: '1'
-              },
-              _div_663: {
-                _attr: {
-                  class: 'o_td_label'
-                },
+              name: { invisible: '1' },
+              _div_359: {
+                _attr: { class: 'o_td_label' },
                 _label_date: {
                   for: 'date',
                   string: 'Date Scheduled',
                   invisible: [['state', '=', 'done']]
                 },
-                _label_date_622: {
+                _label_date_500: {
                   for: 'date',
                   string: 'Date Processing',
                   invisible: [['state', '!=', 'done']]
                 }
               },
-              date: {
-                readonly: '1'
-              },
-              date_deadline: {
-                force_save: '1'
-              }
+              date: { readonly: '1' },
+              date_deadline: { force_save: '1' }
             }
           },
           _group_origin_grp: {
@@ -515,16 +389,12 @@ export default {
       name: {
         string: 'Location',
         groups: 'stock.group_stock_multi_locations',
-        filter_domain: {
-          todo_ctx: "['|',('location_id', 'ilike', self),('location_dest_id', 'ilike', self)]"
-        }
+        filter_domain: { todo_ctx: "['|',('location_id', 'ilike', self),('location_dest_id', 'ilike', self)]" }
       },
       product_id: {},
       origin: {
         string: 'Reference',
-        filter_domain: {
-          todo_ctx: "['|', '|', ('origin', 'ilike', self), ('name', 'ilike', self), ('picking_id', 'ilike', self)]"
-        }
+        filter_domain: { todo_ctx: "['|', '|', ('origin', 'ilike', self), ('name', 'ilike', self), ('picking_id', 'ilike', self)]" }
       },
       location_id: {
         string: 'Source Location',
@@ -536,9 +406,7 @@ export default {
       },
       partner_id: {
         string: 'Partner',
-        filter_domain: {
-          todo_ctx: "[('picking_id.partner_id', 'child_of', self)]"
-        }
+        filter_domain: { todo_ctx: "[('picking_id.partner_id', 'child_of', self)]" }
       },
       _filter_ready: {
         _attr: {
@@ -586,7 +454,7 @@ export default {
           domain: [['is_inventory', '=', true]]
         }
       },
-      _separator_448: {},
+      _separator_315: {},
       _filter_today: {
         _attr: {
           name: 'today',
@@ -596,17 +464,13 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_by_product: {
           _attr: {
             name: 'by_product',
             string: 'Product',
             domain: [],
-            context: {
-              group_by: 'product_id'
-            }
+            context: { group_by: 'product_id' }
           }
         },
         _filter_groupby_picking_id: {
@@ -614,9 +478,7 @@ export default {
             name: 'groupby_picking_id',
             string: 'Picking',
             domain: [],
-            context: {
-              group_by: 'picking_id'
-            }
+            context: { group_by: 'picking_id' }
           }
         },
         _filter_groupby_location_id: {
@@ -625,9 +487,7 @@ export default {
             string: 'Source Location',
             groups: 'stock.group_stock_multi_locations',
             domain: [],
-            context: {
-              group_by: 'location_id'
-            }
+            context: { group_by: 'location_id' }
           }
         },
         _filter_groupby_dest_location_id: {
@@ -636,9 +496,7 @@ export default {
             string: 'Destination Location',
             groups: 'stock.group_stock_multi_locations',
             domain: [],
-            context: {
-              group_by: 'location_dest_id'
-            }
+            context: { group_by: 'location_dest_id' }
           }
         },
         _filter_status: {
@@ -646,9 +504,7 @@ export default {
             name: 'status',
             string: 'Status',
             domain: [],
-            context: {
-              group_by: 'state'
-            }
+            context: { group_by: 'state' }
           }
         },
         _filter_groupby_create_date: {
@@ -657,9 +513,7 @@ export default {
             string: 'Creation Date',
             groups: 'base.group_no_one',
             domain: [],
-            context: {
-              group_by: 'create_date'
-            }
+            context: { group_by: 'create_date' }
           }
         },
         _filter_groupby_date: {
@@ -667,9 +521,7 @@ export default {
             name: 'groupby_date',
             string: 'Scheduled Date',
             domain: [],
-            context: {
-              group_by: 'date'
-            }
+            context: { group_by: 'date' }
           }
         }
       }
@@ -682,9 +534,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'stock.move',
     search_view_id: 'view_move_search',
-    context: {
-      search_default_done: 1
-    },
+    context: { search_default_done: 1 },
     views: {
       tree: 'view_move_tree',
       form: '=======todo=========='
@@ -732,22 +582,14 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        date: {
-          invisible: '1'
-        },
-        date_deadline: {
-          optional: 'hide'
-        },
+        date: { invisible: '1' },
+        date_deadline: { optional: 'hide' },
         picking_id: {
           string: 'Reference',
           invisible: '1'
         },
-        sequence: {
-          invisible: '1'
-        },
-        origin: {
-          optional: 'show'
-        },
+        sequence: { invisible: '1' },
+        origin: { optional: 'show' },
         product_id: {},
         product_uom_qty: {},
         product_uom: {
@@ -760,15 +602,9 @@ export default {
           invisible: '1',
           no_create: true
         },
-        location_dest_id: {
-          invisible: '1'
-        },
-        state: {
-          optional: 'show'
-        },
-        company_id: {
-          invisible: '1'
-        }
+        location_dest_id: { invisible: '1' },
+        state: { optional: 'show' },
+        company_id: { invisible: '1' }
       }
     }
   }

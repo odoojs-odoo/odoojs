@@ -22,9 +22,7 @@ export default {
             states: 'authorized'
           }
         },
-        state: {
-          widget: 'statusbar'
-        }
+        state: { widget: 'statusbar' }
       },
       sheet: {
         _div_button_box: {
@@ -48,49 +46,29 @@ export default {
         },
         _group: {
           _group_transaction_details: {
-            _attr: {
-              name: 'transaction_details'
-            },
+            _attr: { name: 'transaction_details' },
             reference: {},
-            source_transaction_id: {
-              invisible: [['source_transaction_id', '=', false]]
-            },
+            source_transaction_id: { invisible: [['source_transaction_id', '=', false]] },
             amount: {},
-            fees: {
-              invisible: [['fees', '=', 0.0]]
-            },
-            currency_id: {
-              invisible: '1'
-            },
+            fees: { invisible: [['fees', '=', 0.0]] },
+            currency_id: { invisible: '1' },
             provider_id: {},
-            company_id: {
-              groups: 'base.group_multi_company'
-            },
-            provider_code: {
-              invisible: '1'
-            },
+            company_id: { groups: 'base.group_multi_company' },
+            provider_code: { invisible: '1' },
             provider_reference: {},
-            token_id: {
-              invisible: [['token_id', '=', false]]
-            },
+            token_id: { invisible: [['token_id', '=', false]] },
             create_date: {},
             last_state_change: {}
           },
           _group_transaction_partner: {
-            _attr: {
-              name: 'transaction_partner'
-            },
-            partner_id: {
-              widget: 'res_partner_many2one'
-            },
+            _attr: { name: 'transaction_partner' },
+            partner_id: { widget: 'res_partner_many2one' },
             _label_partner_address: {
               for: 'partner_address',
               string: 'Address'
             },
             _div: {
-              _attr: {
-                class: 'o_address_format'
-              },
+              _attr: { class: 'o_address_format' },
               partner_address: {
                 class: 'o_address_street',
                 placeholder: 'Address'
@@ -114,16 +92,12 @@ export default {
                 no_open: true
               }
             },
-            partner_email: {
-              widget: 'email'
-            },
-            partner_phone: {
-              widget: 'phone'
-            },
+            partner_email: { widget: 'email' },
+            partner_phone: { widget: 'phone' },
             partner_lang: {}
           }
         },
-        _group_756: {
+        _group_414: {
           _attr: {
             string: 'Message',
             invisible: [['state_message', '=', false]]
@@ -145,9 +119,7 @@ export default {
         provider_id: {},
         partner_id: {},
         partner_name: {},
-        currency_id: {
-          invisible: '1'
-        },
+        currency_id: { invisible: '1' },
         amount: {},
         fees: {},
         state: {},
@@ -176,34 +148,26 @@ export default {
       partner_id: {},
       partner_name: {},
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_provider_id: {
           _attr: {
             name: 'provider_id',
             string: 'Provider',
-            context: {
-              group_by: 'provider_id'
-            }
+            context: { group_by: 'provider_id' }
           }
         },
         _filter_partner_id: {
           _attr: {
             name: 'partner_id',
             string: 'Partner',
-            context: {
-              group_by: 'partner_id'
-            }
+            context: { group_by: 'partner_id' }
           }
         },
         _filter_state: {
           _attr: {
             name: 'state',
             string: 'Status',
-            context: {
-              group_by: 'state'
-            }
+            context: { group_by: 'state' }
           }
         },
         _filter_company: {
@@ -211,9 +175,7 @@ export default {
             name: 'company',
             string: 'Company',
             groups: 'base.group_multi_company',
-            context: {
-              group_by: 'company_id'
-            }
+            context: { group_by: 'company_id' }
           }
         }
       }
@@ -237,9 +199,7 @@ export default {
     res_model: 'payment.transaction',
     search_view_id: 'tooooooodoooooo',
     domain: "[['token_id','=', active_id]]",
-    context: {
-      create: false
-    },
+    context: { create: false },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

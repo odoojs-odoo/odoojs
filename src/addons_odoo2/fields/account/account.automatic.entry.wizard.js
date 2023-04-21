@@ -2,22 +2,11 @@ const ModelFields = {
   account_type: {},
   action: {},
   company_id: {},
-  date: {
-    string: '===todo=='
-  },
-
-  date_$_form_$$_320: {
-    string: 'Transfer Date'
-  },
-
-  date_$_form_$$_641: {
-    string: 'Recognition Date'
-  },
-
+  date: { string: '===todo==' },
+  date_$_form_$$_198: { string: 'Transfer Date' },
+  date_$_form_$$_269: { string: 'Recognition Date' },
   destination_account_id: {
-    domain: {
-      todo_ctx: "[('company_id', '=', company_id)]"
-    },
+    domain: { todo_ctx: "[('company_id', '=', company_id)]" },
     required: [['action', '=', 'change_account']]
   },
 
@@ -29,19 +18,14 @@ const ModelFields = {
 
   journal_id: {},
   move_line_ids: {},
-  percentage: {
-    readonly: [['action', '!=', 'change_period']]
-  },
-
+  percentage: { readonly: [['action', '!=', 'change_period']] },
   preview_move_data: {},
   revenue_accrual_account: {
     string: 'Accrued Account',
     required: [['account_type', '=', 'income'], ['action', '=', 'change_period']]
   },
 
-  total_amount: {
-    readonly: '1'
-  }
+  total_amount: { readonly: '1' }
 }
 
 const AddonsFields = {

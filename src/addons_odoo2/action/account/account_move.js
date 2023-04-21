@@ -5,31 +5,19 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        made_sequence_hole: {
-          invisible: '1'
-        },
+        made_sequence_hole: { invisible: '1' },
         date: {},
         name: {},
-        partner_id: {
-          optional: 'show'
-        },
-        ref: {
-          optional: 'show'
-        },
+        partner_id: { optional: 'show' },
+        ref: { optional: 'show' },
         journal_id: {},
         company_id: {
           groups: 'base.group_multi_company',
           optional: 'show'
         },
-        amount_total_signed: {
-          string: 'Total'
-        },
-        state: {
-          widget: 'badge'
-        },
-        currency_id: {
-          invisible: '1'
-        },
+        amount_total_signed: { string: 'Total' },
+        state: { widget: 'badge' },
+        currency_id: { invisible: '1' },
         to_check: {
           widget: 'boolean_toggle',
           optional: 'hide'
@@ -55,16 +43,14 @@ export default {
             }
           }
         },
-        made_sequence_hole: {
-          invisible: '1'
-        },
+        made_sequence_hole: { invisible: '1' },
         name: {},
         invoice_partner_display_name: {
           string: 'Vendor',
           groups: 'base.group_user',
           invisible: "context.get['default_move_type'] not in ['in_invoice', 'in_refund','in_receipt']"
         },
-        _field_invoice_partner_display_name_652: {
+        _field_invoice_partner_display_name_715: {
           invoice_partner_display_name: {
             string: 'Customer',
             groups: 'base.group_user',
@@ -76,7 +62,7 @@ export default {
           invisible: "context.get['default_move_type'] not in ['in_invoice', 'in_refund','in_receipt']",
           optional: 'show'
         },
-        _field_invoice_date_796: {
+        _field_invoice_date_286: {
           invoice_date: {
             string: 'Invoice Date',
             invisible: "context.get['default_move_type'] not in ['out_invoice', 'out_refund','out_receipt']",
@@ -100,9 +86,7 @@ export default {
           invisible: "context.get['default_move_type'] in ['out_invoice', 'out_refund','out_receipt']",
           optional: 'hide'
         },
-        ref: {
-          optional: 'hide'
-        },
+        ref: { optional: 'hide' },
         invoice_user_id: {
           string: 'Salesperson',
           widget: 'many2one_avatar_user',
@@ -143,9 +127,7 @@ export default {
           groups: 'base.group_multi_currency',
           optional: 'hide'
         },
-        company_currency_id: {
-          invisible: '1'
-        },
+        company_currency_id: { invisible: '1' },
         to_check: {
           widget: 'boolean_toggle',
           optional: 'hide'
@@ -159,9 +141,7 @@ export default {
           widget: 'badge',
           optional: 'show'
         },
-        move_type: {
-          invisible: "context.get['default_move_type', True]"
-        }
+        move_type: { invisible: "context.get['default_move_type', True]" }
       }
     }
   },
@@ -292,22 +272,18 @@ export default {
             string: 'Post',
             groups: 'account.group_account_invoice',
             invisible: ['|', ['hide_post_button', '=', true], ['move_type', '!=', 'entry']],
-            context: {
-              validate_analytic: true
-            },
+            context: { validate_analytic: true },
             class: 'oe_highlight'
           }
         },
-        _button_action_post_290: {
+        _button_action_post_933: {
           _attr: {
             name: 'action_post',
             type: 'object',
             string: 'Confirm',
             groups: 'account.group_account_invoice',
             invisible: ['|', '|', ['hide_post_button', '=', true], ['move_type', '=', 'entry'], ['display_inactive_currency_warning', '=', true]],
-            context: {
-              validate_analytic: true
-            },
+            context: { validate_analytic: true },
             class: 'oe_highlight'
           }
         },
@@ -320,7 +296,7 @@ export default {
             class: 'oe_highlight'
           }
         },
-        _button_action_invoice_sent_728: {
+        _button_action_invoice_sent_672: {
           _attr: {
             name: 'action_invoice_sent',
             type: 'object',
@@ -335,9 +311,7 @@ export default {
             string: 'Register Payment',
             groups: 'account.group_account_invoice',
             invisible: ['|', '|', ['state', '!=', 'posted'], ['payment_state', 'not in', ('not_paid', 'partial')], ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]],
-            context: {
-              dont_redirect_to_payments: true
-            },
+            context: { dont_redirect_to_payments: true },
             class: 'oe_highlight'
           }
         },
@@ -377,7 +351,7 @@ export default {
             invisible: ['|', '|', ['id', '=', false], ['state', '!=', 'draft'], ['move_type', '!=', 'entry']]
           }
         },
-        _button_button_cancel_368: {
+        _button_button_cancel_793: {
           _attr: {
             name: 'button_cancel',
             type: 'object',
@@ -425,7 +399,7 @@ export default {
             }
           }
         },
-        _div_109: {
+        _div_817: {
           _attr: {
             groups: 'account.group_account_invoice,account.group_account_readonly',
             invisible: ['|', ['state', '!=', 'draft'], ['tax_lock_date_message', '=', false]],
@@ -433,7 +407,7 @@ export default {
           },
           tax_lock_date_message: {}
         },
-        _div_648: {
+        _div_776: {
           _attr: {
             groups: 'account.group_account_invoice,account.group_account_readonly',
             invisible: ['|', '|', ['move_type', '!=', 'out_invoice'], ['invoice_has_outstanding', '=', false], ['payment_state', 'not in', ('not_paid', 'partial')]],
@@ -449,13 +423,23 @@ export default {
             }
           }
         },
-        _div_281: {
+        _div_474: {
           _attr: {
-            invisible: ['|', ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')], ['state', '!=', 'draft']],
-            class: 'o_attachment_preview'
+            groups: 'account.group_account_invoice,account.group_account_readonly',
+            invisible: ['|', '|', ['move_type', '!=', 'in_invoice'], ['invoice_has_outstanding', '=', false], ['payment_state', 'not in', ('not_paid', 'partial')]],
+            class: 'alert alert-info mb-0',
+            text: 'You have'
+          },
+          _bold: {
+            _a: {
+              _attr: {
+                class: 'alert-link',
+                text: 'outstanding debits'
+              }
+            }
           }
         },
-        _div_275: {
+        _div_580: {
           _attr: {
             groups: 'account.group_account_invoice,account.group_account_readonly',
             invisible: ['|', '|', ['move_type', '!=', 'out_refund'], ['invoice_has_outstanding', '=', false], ['payment_state', 'not in', ('not_paid', 'partial')]],
@@ -471,7 +455,7 @@ export default {
             }
           }
         },
-        _div_901: {
+        _div_463: {
           _attr: {
             groups: 'account.group_account_invoice,account.group_account_readonly',
             invisible: ['|', '|', ['move_type', '!=', 'in_refund'], ['invoice_has_outstanding', '=', false], ['payment_state', 'not in', ('not_paid', 'partial')]],
@@ -487,38 +471,30 @@ export default {
             }
           }
         },
-        _div_881: {
+        _div_763: {
           _attr: {
             invisible: ['|', ['state', '!=', 'draft'], ['auto_post', '!=', 'at_date']],
             class: 'alert alert-info mb-0',
             text: 'This move is configured to be posted automatically at the accounting date:'
           },
-          date: {
-            readonly: '1'
-          }
+          date: { readonly: '1' }
         },
-        _div_659: {
+        _div_830: {
           _attr: {
             invisible: ['|', '|', ['state', '!=', 'draft'], ['auto_post', '=', 'no'], ['auto_post', '=', 'at_date']],
             class: 'alert alert-info mb-0'
           },
-          auto_post: {
-            readonly: '1'
-          },
-          date: {
-            readonly: '1'
-          },
+          auto_post: { readonly: '1' },
+          date: { readonly: '1' },
           _span: {
             _attr: {
               invisible: [['auto_post_until', '=', false]],
               text: 'The recurrence will end on'
             },
-            auto_post_until: {
-              readonly: '1'
-            }
+            auto_post_until: { readonly: '1' }
           }
         },
-        _div_863: {
+        _div_933: {
           _attr: {
             groups: 'account.group_account_invoice,account.group_account_readonly',
             invisible: [['partner_credit_warning', '=', '']],
@@ -526,7 +502,7 @@ export default {
           },
           partner_credit_warning: {}
         },
-        _div_962: {
+        _div_245: {
           _attr: {
             invisible: ['|', ['display_inactive_currency_warning', '=', false], ['move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt')]],
             class: 'alert alert-warning mb-0',
@@ -541,7 +517,7 @@ export default {
             }
           }
         },
-        _div_351: {
+        _div_316: {
           _attr: {
             invisible: ['|', ['display_inactive_currency_warning', '=', false], ['move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt')]],
             class: 'alert alert-warning mb-0',
@@ -554,6 +530,12 @@ export default {
               class: 'oe_link',
               text: 'activate the currency of the invoice'
             }
+          }
+        },
+        _div_369: {
+          _attr: {
+            invisible: ['|', ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')], ['state', '!=', 'draft']],
+            class: 'o_attachment_preview'
           }
         },
         _div_button_box: {
@@ -599,21 +581,21 @@ export default {
             invisible: ['|', ['payment_state', '!=', 'paid'], ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]]
           }
         },
-        _widget_web_ribbon_503: {
+        _widget_web_ribbon_817: {
           _attr: {
             name: 'web_ribbon',
             title: 'In Payment',
             invisible: ['|', ['payment_state', '!=', 'in_payment'], ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]]
           }
         },
-        _widget_web_ribbon_389: {
+        _widget_web_ribbon_667: {
           _attr: {
             name: 'web_ribbon',
             title: 'Partial',
             invisible: ['|', ['payment_state', '!=', 'partial'], ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]]
           }
         },
-        _widget_web_ribbon_459: {
+        _widget_web_ribbon_290: {
           _attr: {
             name: 'web_ribbon',
             title: 'Reversed',
@@ -621,109 +603,49 @@ export default {
             invisible: [['payment_state', '!=', 'reversed']]
           }
         },
-        _widget_web_ribbon_905: {
+        _widget_web_ribbon_434: {
           _attr: {
             name: 'web_ribbon',
             bg_color: 'bg-info',
             invisible: [['payment_state', '!=', 'invoicing_legacy']]
           }
         },
-        id: {
-          invisible: '1'
-        },
-        company_id: {
-          invisible: '1'
-        },
-        journal_id: {
-          invisible: '1'
-        },
-        show_name_warning: {
-          invisible: '1'
-        },
-        posted_before: {
-          invisible: '1'
-        },
-        move_type: {
-          invisible: '1'
-        },
+        id: { invisible: '1' },
+        company_id: { invisible: '1' },
+        journal_id: { invisible: '1' },
+        show_name_warning: { invisible: '1' },
+        posted_before: { invisible: '1' },
+        move_type: { invisible: '1' },
         payment_state: {
           invisible: '1',
           force_save: '1'
         },
-        invoice_filter_type_domain: {
-          invisible: '1'
-        },
-        suitable_journal_ids: {
-          invisible: '1'
-        },
-        currency_id: {
-          invisible: '1'
-        },
-        company_currency_id: {
-          invisible: '1'
-        },
-        commercial_partner_id: {
-          invisible: '1'
-        },
-        bank_partner_id: {
-          invisible: '1'
-        },
-        display_qr_code: {
-          invisible: '1'
-        },
-        show_reset_to_draft_button: {
-          invisible: '1'
-        },
-        invoice_has_outstanding: {
-          invisible: '1'
-        },
-        is_move_sent: {
-          invisible: '1'
-        },
-        has_reconciled_entries: {
-          invisible: '1'
-        },
-        restrict_mode_hash_table: {
-          invisible: '1'
-        },
-        country_code: {
-          invisible: '1'
-        },
-        display_inactive_currency_warning: {
-          invisible: '1'
-        },
-        statement_line_id: {
-          invisible: '1'
-        },
-        payment_id: {
-          invisible: '1'
-        },
-        tax_country_id: {
-          invisible: '1'
-        },
-        tax_cash_basis_created_move_ids: {
-          invisible: '1'
-        },
-        quick_edit_mode: {
-          invisible: '1'
-        },
-        hide_post_button: {
-          invisible: '1'
-        },
-        duplicated_ref_ids: {
-          invisible: '1'
-        },
-        quick_encoding_vals: {
-          invisible: '1'
-        },
+        invoice_filter_type_domain: { invisible: '1' },
+        suitable_journal_ids: { invisible: '1' },
+        currency_id: { invisible: '1' },
+        company_currency_id: { invisible: '1' },
+        commercial_partner_id: { invisible: '1' },
+        bank_partner_id: { invisible: '1' },
+        display_qr_code: { invisible: '1' },
+        show_reset_to_draft_button: { invisible: '1' },
+        invoice_has_outstanding: { invisible: '1' },
+        is_move_sent: { invisible: '1' },
+        has_reconciled_entries: { invisible: '1' },
+        restrict_mode_hash_table: { invisible: '1' },
+        country_code: { invisible: '1' },
+        display_inactive_currency_warning: { invisible: '1' },
+        statement_line_id: { invisible: '1' },
+        payment_id: { invisible: '1' },
+        tax_country_id: { invisible: '1' },
+        tax_cash_basis_created_move_ids: { invisible: '1' },
+        quick_edit_mode: { invisible: '1' },
+        hide_post_button: { invisible: '1' },
+        duplicated_ref_ids: { invisible: '1' },
+        quick_encoding_vals: { invisible: '1' },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
+          _attr: { class: 'oe_title' },
           _span: {
-            _attr: {
-              class: 'o_form_label'
-            },
+            _attr: { class: 'o_form_label' },
             move_type: {
               invisible: [['move_type', '=', 'entry']],
               readonly: '1'
@@ -735,9 +657,7 @@ export default {
               class: 'text-warning',
               text: 'The current highest number is'
             },
-            highest_name: {
-              class: 'oe_inline'
-            }
+            highest_name: { class: 'oe_inline' }
           },
           _h1: {
             name: {
@@ -760,20 +680,16 @@ export default {
               string: 'Customer',
               invisible: [['move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt')]]
             },
-            _label_partner_id_133: {
+            _label_partner_id_478: {
               for: 'partner_id',
               string: 'Vendor',
               invisible: [['move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt')]]
             },
             partner_id: {
               widget: 'res_partner_many2one',
-              domain: {
-                todo_ctx: "[('type', '!=', 'private'), ('company_id', 'in', (False, company_id))]"
-              },
+              domain: { todo_ctx: "[('type', '!=', 'private'), ('company_id', 'in', (False, company_id))]" },
               invisible: [['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]],
-              context: {
-                todo_ctx: "{                                             'res_partner_search_mode': (context.get('default_move_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt') and 'customer') or (context.get('default_move_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt') and 'supplier') or False,                                             'show_address': 1, 'default_is_company': True, 'show_vat': True}"
-              },
+              context: { todo_ctx: "{                                             'res_partner_search_mode': (context.get('default_move_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt') and 'customer') or (context.get('default_move_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt') and 'supplier') or False,                                             'show_address': 1, 'default_is_company': True, 'show_vat': True}" },
               always_reload: true,
               no_quick_create: true
             },
@@ -792,17 +708,11 @@ export default {
               string: 'Bill Reference',
               invisible: [['move_type', 'not in', ('in_invoice', 'in_receipt', 'in_refund')]]
             },
-            ref: {
-              invisible: [['move_type', 'not in', ('in_invoice', 'in_receipt', 'in_refund')]]
+            ref: { invisible: [['move_type', 'not in', ('in_invoice', 'in_receipt', 'in_refund')]] },
+            _field_ref_582: {
+              ref: { invisible: [['move_type', 'in', ('in_invoice', 'in_receipt', 'in_refund', 'out_invoice', 'out_refund')]] }
             },
-            _field_ref_554: {
-              ref: {
-                invisible: [['move_type', 'in', ('in_invoice', 'in_receipt', 'in_refund', 'out_invoice', 'out_refund')]]
-              }
-            },
-            tax_cash_basis_origin_move_id: {
-              invisible: [['tax_cash_basis_origin_move_id', '=', false]]
-            },
+            tax_cash_basis_origin_move_id: { invisible: [['tax_cash_basis_origin_move_id', '=', false]] },
             _label_invoice_vendor_bill_id: {
               for: 'invoice_vendor_bill_id',
               string: 'Auto-Complete',
@@ -810,25 +720,21 @@ export default {
               class: 'oe_edit_only'
             },
             invoice_vendor_bill_id: {
-              domain: {
-                todo_ctx: "[('company_id', '=', company_id), ('partner_id','child_of', [partner_id]), ('move_type','=','in_invoice')]"
-              },
+              domain: { todo_ctx: "[('company_id', '=', company_id), ('partner_id','child_of', [partner_id]), ('move_type','=','in_invoice')]" },
               invisible: ['|', ['state', '!=', 'draft'], ['move_type', '!=', 'in_invoice']],
-              context: {
-                show_total_amount: true
-              },
+              context: { show_total_amount: true },
               class: 'oe_edit_only',
               placeholder: 'Select an old vendor bill',
               no_create: true
             }
           },
-          _group_501: {
+          _group_301: {
             _label_invoice_date: {
               for: 'invoice_date',
               string: 'Invoice Date',
               invisible: [['move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt')]]
             },
-            _label_invoice_date_343: {
+            _label_invoice_date_852: {
               for: 'invoice_date',
               string: 'Bill Date',
               invisible: [['move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt')]]
@@ -842,17 +748,11 @@ export default {
               invisible: [['move_type', 'in', ('out_invoice', 'out_refund', 'out_receipt')], ['quick_edit_mode', '=', false]],
               readonly: [['state', '!=', 'draft']]
             },
-            payment_reference: {
-              invisible: [['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]]
-            },
+            payment_reference: { invisible: [['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]] },
             partner_bank_id: {
-              domain: {
-                todo_ctx: "[('partner_id', '=', bank_partner_id)]"
-              },
+              domain: { todo_ctx: "[('partner_id', '=', bank_partner_id)]" },
               invisible: [['move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt')]],
-              context: {
-                todo_ctx: "{'default_partner_id': bank_partner_id}"
-              }
+              context: { todo_ctx: "{'default_partner_id': bank_partner_id}" }
             },
             _div: {
               _attr: {
@@ -870,7 +770,7 @@ export default {
                 invisible: [['invoice_payment_term_id', '=', false]]
               }
             },
-            _div_408: {
+            _div_220: {
               _attr: {
                 invisible: [['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')]],
                 class: 'd-flex'
@@ -888,9 +788,7 @@ export default {
                 }
               },
               invoice_payment_term_id: {
-                context: {
-                  todo_ctx: "{'example_date': invoice_date, 'example_amount': tax_totals['amount_total']}"
-                },
+                context: { todo_ctx: "{'example_date': invoice_date, 'example_amount': tax_totals['amount_total']}" },
                 placeholder: 'Terms'
               }
             },
@@ -940,16 +838,12 @@ export default {
             },
             invoice_line_ids: {
               widget: 'section_and_note_one2many',
-              context: {
-                todo_ctx: "{                                            'default_move_type': context.get('default_move_type'),                                            'journal_id': journal_id,                                            'default_partner_id': commercial_partner_id,                                            'default_currency_id': currency_id or company_currency_id,                                            'default_display_type': 'product',                                            'quick_encoding_vals': quick_encoding_vals,                                        }"
-              },
+              context: { todo_ctx: "{                                            'default_move_type': context.get('default_move_type'),                                            'journal_id': journal_id,                                            'default_partner_id': commercial_partner_id,                                            'default_currency_id': currency_id or company_currency_id,                                            'default_display_type': 'product',                                            'quick_encoding_vals': quick_encoding_vals,                                        }" },
               views: {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Journal Items'
-                      },
+                      _attr: { string: 'Journal Items' },
                       _control: {
                         _create_add_line_control: {
                           _attr: {
@@ -961,28 +855,20 @@ export default {
                           _attr: {
                             name: 'add_section_control',
                             string: 'Add a section',
-                            context: {
-                              default_display_type: 'line_section'
-                            }
+                            context: { default_display_type: 'line_section' }
                           }
                         },
                         _create_add_note_control: {
                           _attr: {
                             name: 'add_note_control',
                             string: 'Add a note',
-                            context: {
-                              default_display_type: 'line_note'
-                            }
+                            context: { default_display_type: 'line_note' }
                           }
                         }
                       },
-                      sequence: {
-                        widget: 'handle'
-                      },
+                      sequence: { widget: 'handle' },
                       product_id: {
-                        domain: {
-                          todo_ctx: "                                                     context.get('default_move_type') in ('out_invoice', 'out_refund', 'out_receipt')                                                     and [('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]                                                     or [('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]                                                "
-                        },
+                        domain: { todo_ctx: "                                                     context.get('default_move_type') in ('out_invoice', 'out_refund', 'out_receipt')                                                     and [('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]                                                     or [('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]                                                " },
                         optional: 'show'
                       },
                       name: {
@@ -991,13 +877,9 @@ export default {
                       },
                       account_id: {
                         groups: 'account.group_account_readonly',
-                        domain: {
-                          todo_ctx: "[('deprecated', '=', False), ('account_type', 'not in', ('asset_receivable', 'liability_payable')), ('company_id', '=', parent.company_id), ('is_off_balance', '=', False)]"
-                        },
+                        domain: { todo_ctx: "[('deprecated', '=', False), ('account_type', 'not in', ('asset_receivable', 'liability_payable')), ('company_id', '=', parent.company_id), ('is_off_balance', '=', False)]" },
                         required: [['display_type', 'not in', ('line_note', 'line_section')]],
-                        context: {
-                          todo_ctx: "{'partner_id': partner_id, 'move_type': parent.move_type}"
-                        },
+                        context: { todo_ctx: "{'partner_id': partner_id, 'move_type': parent.move_type}" },
                         no_create: true
                       },
                       analytic_distribution: {
@@ -1007,32 +889,22 @@ export default {
                         product_field: 'product_id',
                         account_field: 'account_id'
                       },
-                      quantity: {
-                        optional: 'show'
-                      },
-                      product_uom_category_id: {
-                        invisible: '1'
-                      },
+                      quantity: { optional: 'show' },
+                      product_uom_category_id: { invisible: '1' },
                       product_uom_id: {
                         string: 'UoM',
                         groups: 'uom.group_uom',
                         optional: 'show'
                       },
-                      price_unit: {
-                        string: 'Price'
-                      },
+                      price_unit: { string: 'Price' },
                       discount: {
                         string: 'Disc.%',
                         optional: 'hide'
                       },
                       tax_ids: {
                         widget: 'many2many_tags',
-                        domain: {
-                          todo_ctx: "[('type_tax_use', '=?', parent.invoice_filter_type_domain), ('company_id', '=', parent.company_id), ('country_id', '=', parent.tax_country_id)]"
-                        },
-                        context: {
-                          todo_ctx: "{'append_type_to_tax_name': not parent.invoice_filter_type_domain}"
-                        },
+                        domain: { todo_ctx: "[('type_tax_use', '=?', parent.invoice_filter_type_domain), ('company_id', '=', parent.company_id), ('country_id', '=', parent.tax_country_id)]" },
+                        context: { todo_ctx: "{'append_type_to_tax_name': not parent.invoice_filter_type_domain}" },
                         optional: 'show',
                         no_create: true
                       },
@@ -1044,26 +916,16 @@ export default {
                         string: 'Total',
                         groups: 'account.group_show_line_subtotals_tax_included'
                       },
-                      partner_id: {
-                        invisible: '1'
-                      },
-                      currency_id: {
-                        invisible: '1'
-                      },
-                      company_id: {
-                        invisible: '1'
-                      },
-                      company_currency_id: {
-                        invisible: '1'
-                      },
+                      partner_id: { invisible: '1' },
+                      currency_id: { invisible: '1' },
+                      company_id: { invisible: '1' },
+                      company_currency_id: { invisible: '1' },
                       display_type: {
                         invisible: '1',
                         force_save: '1'
                       },
-                      _field_product_uom_id_763: {
-                        product_uom_id: {
-                          invisible: '1'
-                        }
+                      _field_product_uom_id_475: {
+                        product_uom_id: { invisible: '1' }
                       }
                     }
                   }
@@ -1071,87 +933,57 @@ export default {
                 kanban: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        class: 'o_kanban_mobile'
-                      },
+                      _attr: { class: 'o_kanban_mobile' },
                       name: {},
                       product_id: {},
-                      price_subtotal: {
-                        groups: 'account.group_show_line_subtotals_tax_excluded'
-                      },
-                      price_total: {
-                        groups: 'account.group_show_line_subtotals_tax_included'
-                      },
+                      price_subtotal: { groups: 'account.group_show_line_subtotals_tax_excluded' },
+                      price_total: { groups: 'account.group_show_line_subtotals_tax_included' },
                       quantity: {},
-                      product_uom_category_id: {
-                        invisible: '1'
-                      },
-                      product_uom_id: {
-                        groups: 'uom.group_uom'
-                      },
+                      product_uom_category_id: { invisible: '1' },
+                      product_uom_id: { groups: 'uom.group_uom' },
                       price_unit: {},
                       _templates: {
                         _t: {
                           _div: {
                             _t: {
                               _div: {
-                                _attr: {
-                                  class: 'row g-0'
-                                },
+                                _attr: { class: 'row g-0' },
                                 _div: {
-                                  _attr: {
-                                    class: 'col-2 pe-3'
-                                  },
+                                  _attr: { class: 'col-2 pe-3' },
                                   _img: {}
                                 },
-                                _div_220: {
-                                  _attr: {
-                                    class: 'col-10'
-                                  },
+                                _div_128: {
+                                  _attr: { class: 'col-10' },
                                   _div: {
-                                    _attr: {
-                                      class: 'row'
-                                    },
+                                    _attr: { class: 'row' },
                                     _div: {
-                                      _attr: {
-                                        class: 'col'
-                                      },
+                                      _attr: { class: 'col' },
                                       _strong: {}
                                     },
-                                    _div_715: {
-                                      _attr: {
-                                        class: 'col-auto'
-                                      },
+                                    _div_280: {
+                                      _attr: { class: 'col-auto' },
                                       _strong: {
-                                        _attr: {
-                                          class: 'float-end text-end'
-                                        },
+                                        _attr: { class: 'float-end text-end' },
                                         _t: {
-                                          _attr: {
-                                            groups: 'account.group_show_line_subtotals_tax_excluded'
-                                          }
+                                          _attr: { groups: 'account.group_show_line_subtotals_tax_excluded' }
                                         },
-                                        _t_927: {
-                                          _attr: {
-                                            groups: 'account.group_show_line_subtotals_tax_included'
-                                          }
+                                        _t_275: {
+                                          _attr: { groups: 'account.group_show_line_subtotals_tax_included' }
                                         }
                                       }
                                     }
                                   },
-                                  _div_634: {
+                                  _div_498: {
                                     _attr: {
                                       class: 'text-muted',
                                       text: 'Quantity:'
                                     },
                                     _t: {},
-                                    _t_192: {
-                                      _attr: {
-                                        groups: 'uom.group_uom'
-                                      }
+                                    _t_222: {
+                                      _attr: { groups: 'uom.group_uom' }
                                     }
                                   },
-                                  _div_160: {
+                                  _div_362: {
                                     _attr: {
                                       class: 'text-muted',
                                       text: 'Unit Price:'
@@ -1161,15 +993,11 @@ export default {
                                 }
                               }
                             },
-                            _t_278: {
+                            _t_116: {
                               _div: {
-                                _attr: {
-                                  class: 'row'
-                                },
+                                _attr: { class: 'row' },
                                 _div: {
-                                  _attr: {
-                                    class: 'col-12'
-                                  },
+                                  _attr: { class: 'col-12' },
                                   _t: {}
                                 }
                               }
@@ -1177,12 +1005,8 @@ export default {
                           }
                         }
                       },
-                      currency_id: {
-                        invisible: '1'
-                      },
-                      company_currency_id: {
-                        invisible: '1'
-                      },
+                      currency_id: { invisible: '1' },
+                      company_currency_id: { invisible: '1' },
                       display_type: {
                         invisible: '1',
                         force_save: '1'
@@ -1194,44 +1018,24 @@ export default {
                   arch: {
                     sheet: {
                       _sheet: {
-                        display_type: {
-                          invisible: '1'
-                        },
-                        company_id: {
-                          invisible: '1'
-                        },
-                        partner_id: {
-                          invisible: '1'
-                        },
+                        display_type: { invisible: '1' },
+                        company_id: { invisible: '1' },
+                        partner_id: { invisible: '1' },
                         _group: {
-                          product_id: {
-                            widget: 'many2one_barcode'
-                          },
+                          product_id: { widget: 'many2one_barcode' },
                           quantity: {},
-                          product_uom_category_id: {
-                            invisible: '1'
-                          },
-                          product_uom_id: {
-                            groups: 'uom.group_uom'
-                          },
+                          product_uom_category_id: { invisible: '1' },
+                          product_uom_id: { groups: 'uom.group_uom' },
                           price_unit: {},
-                          discount: {
-                            string: 'Disc.%'
-                          }
+                          discount: { string: 'Disc.%' }
                         },
-                        _group_551: {
+                        _group_381: {
                           account_id: {
-                            domain: {
-                              todo_ctx: "[('company_id', '=', company_id)]"
-                            },
-                            context: {
-                              todo_ctx: "{'partner_id': partner_id, 'move_type': parent.move_type}"
-                            },
+                            domain: { todo_ctx: "[('company_id', '=', company_id)]" },
+                            context: { todo_ctx: "{'partner_id': partner_id, 'move_type': parent.move_type}" },
                             no_create: true
                           },
-                          tax_ids: {
-                            widget: 'many2many_tags'
-                          },
+                          tax_ids: { widget: 'many2many_tags' },
                           analytic_distribution: {
                             widget: 'analytic_distribution',
                             groups: 'analytic.group_analytic_accounting'
@@ -1242,20 +1046,18 @@ export default {
                           string: 'Description',
                           invisible: [['display_type', 'in', ('line_note', 'line_section')]]
                         },
-                        _label_name_590: {
+                        _label_name_232: {
                           for: 'name',
                           string: 'Section',
                           invisible: [['display_type', '!=', 'line_section']]
                         },
-                        _label_name_986: {
+                        _label_name_470: {
                           for: 'name',
                           string: 'Note',
                           invisible: [['display_type', '!=', 'line_note']]
                         },
-                        name: {
-                          widget: 'text'
-                        },
-                        _group_460: {
+                        name: { widget: 'text' },
+                        _group_938: {
                           price_subtotal: {
                             string: 'Subtotal',
                             groups: 'account.group_show_line_subtotals_tax_excluded'
@@ -1272,15 +1074,11 @@ export default {
               }
             },
             _group: {
-              _attr: {
-                class: 'oe_invoice_lines_tab'
-              },
+              _attr: { class: 'oe_invoice_lines_tab' },
               _group: {
-                narration: {
-                  placeholder: 'Terms and Conditions'
-                }
+                narration: { placeholder: 'Terms and Conditions' }
               },
-              _group_595: {
+              _group_814: {
                 _group: {
                   _attr: {
                     invisible: ['|', ['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')], ['payment_state', '=', 'invoicing_legacy']],
@@ -1290,9 +1088,7 @@ export default {
                     widget: 'account-tax-totals-field',
                     readonly: ['|', ['state', '!=', 'draft'], '&', ['move_type', 'not in', ('in_invoice', 'in_refund')], ['quick_edit_mode', '=', false]]
                   },
-                  invoice_payments_widget: {
-                    widget: 'payment'
-                  },
+                  invoice_payments_widget: { widget: 'payment' },
                   amount_residual: {
                     invisible: [['state', '=', 'draft']],
                     class: 'oe_subtotal_footer_separator'
@@ -1314,20 +1110,14 @@ export default {
             },
             line_ids: {
               invisible: [['payment_state', '=', 'invoicing_legacy'], ['move_type', '!=', 'entry']],
-              context: {
-                todo_ctx: "{                                            'default_move_type': context.get('default_move_type'),                                            'line_ids': line_ids,                                            'journal_id': journal_id,                                            'default_partner_id': commercial_partner_id,                                            'default_currency_id': currency_id or company_currency_id,                                            'kanban_view_ref': 'account.account_move_line_view_kanban_mobile',                                        }"
-              },
+              context: { todo_ctx: "{                                            'default_move_type': context.get('default_move_type'),                                            'line_ids': line_ids,                                            'journal_id': journal_id,                                            'default_partner_id': commercial_partner_id,                                            'default_currency_id': currency_id or company_currency_id,                                            'kanban_view_ref': 'account.account_move_line_view_kanban_mobile',                                        }" },
               views: {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Journal Items'
-                      },
+                      _attr: { string: 'Journal Items' },
                       account_id: {
-                        domain: {
-                          todo_ctx: "[('deprecated', '=', False), ('company_id', '=', parent.company_id)]"
-                        },
+                        domain: { todo_ctx: "[('deprecated', '=', False), ('company_id', '=', parent.company_id)]" },
                         required: [['display_type', 'not in', ('line_section', 'line_note')]],
                         invisible: [['display_type', 'in', ('line_section', 'line_note')]]
                       },
@@ -1362,13 +1152,9 @@ export default {
                       },
                       tax_ids: {
                         widget: 'autosave_many2many_tags',
-                        domain: {
-                          todo_ctx: "[('type_tax_use', '=?', parent.invoice_filter_type_domain)]"
-                        },
+                        domain: { todo_ctx: "[('type_tax_use', '=?', parent.invoice_filter_type_domain)]" },
                         readonly: ['|', '|', ['display_type', 'in', ('line_section', 'line_note')], ['tax_line_id', '!=', false], '&', ['parent.move_type', 'in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')], ['account_type', 'in', ('asset_receivable', 'liability_payable')]],
-                        context: {
-                          todo_ctx: "{'append_type_to_tax_name': not parent.invoice_filter_type_domain}"
-                        },
+                        context: { todo_ctx: "{'append_type_to_tax_name': not parent.invoice_filter_type_domain}" },
                         optional: 'hide',
                         force_save: '1',
                         no_create: true
@@ -1381,9 +1167,7 @@ export default {
                         invisible: [['display_type', 'in', ('line_section', 'line_note')]],
                         readonly: [['parent.move_type', 'in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')], ['display_type', 'in', ('line_section', 'line_note', 'product')]]
                       },
-                      balance: {
-                        invisible: '1'
-                      },
+                      balance: { invisible: '1' },
                       discount_date: {
                         string: 'Discount Date',
                         optional: 'hide'
@@ -1395,9 +1179,7 @@ export default {
                       tax_tag_ids: {
                         string: 'Tax Grids',
                         widget: 'many2many_tags',
-                        domain: {
-                          todo_ctx: "[                                                     ('applicability', '=', 'taxes'),                                                     '|', ('country_id', '=', parent.tax_country_id),                                                     ('country_id', '=', False),                                                 ]"
-                        },
+                        domain: { todo_ctx: "[                                                     ('applicability', '=', 'taxes'),                                                     '|', ('country_id', '=', parent.tax_country_id),                                                     ('country_id', '=', False),                                                 ]" },
                         optional: 'show',
                         no_create: true
                       },
@@ -1421,31 +1203,17 @@ export default {
                           class: 'float-end'
                         }
                       },
-                      tax_line_id: {
-                        invisible: '1'
-                      },
-                      company_currency_id: {
-                        invisible: '1'
-                      },
+                      tax_line_id: { invisible: '1' },
+                      company_currency_id: { invisible: '1' },
                       display_type: {
                         invisible: '1',
                         force_save: '1'
                       },
-                      company_id: {
-                        invisible: '1'
-                      },
-                      sequence: {
-                        invisible: '1'
-                      },
-                      id: {
-                        invisible: '1'
-                      },
-                      account_internal_group: {
-                        invisible: '1'
-                      },
-                      account_type: {
-                        invisible: '1'
-                      }
+                      company_id: { invisible: '1' },
+                      sequence: { invisible: '1' },
+                      id: { invisible: '1' },
+                      account_internal_group: { invisible: '1' },
+                      account_type: { invisible: '1' }
                     }
                   }
                 },
@@ -1454,36 +1222,24 @@ export default {
                     sheet: {
                       _group: {
                         account_id: {
-                          domain: {
-                            todo_ctx: "[('company_id', '=', parent.company_id), ('deprecated', '=', False)]"
-                          }
+                          domain: { todo_ctx: "[('company_id', '=', parent.company_id), ('deprecated', '=', False)]" }
                         },
-                        partner_id: {
-                          domain: ['|', ['parent_id', '=', false], ['is_company', '=', true]]
-                        },
+                        partner_id: { domain: ['|', ['parent_id', '=', false], ['is_company', '=', true]] },
                         name: {},
                         analytic_distribution: {
                           widget: 'analytic_distribution',
                           groups: 'analytic.group_analytic_accounting'
                         },
-                        amount_currency: {
-                          groups: 'base.group_multi_currency'
-                        },
-                        company_currency_id: {
-                          invisible: '1'
-                        },
-                        company_id: {
-                          invisible: '1'
-                        },
+                        amount_currency: { groups: 'base.group_multi_currency' },
+                        company_currency_id: { invisible: '1' },
+                        company_id: { invisible: '1' },
                         currency_id: {
                           groups: 'base.group_multi_currency',
                           no_create: true
                         },
                         debit: {},
                         credit: {},
-                        balance: {
-                          invisible: '1'
-                        },
+                        balance: { invisible: '1' },
                         tax_ids: {
                           string: 'Taxes Applied',
                           widget: 'autosave_many2many_tags',
@@ -1539,17 +1295,11 @@ export default {
                   force_save: '1'
                 },
                 partner_bank_id: {
-                  domain: {
-                    todo_ctx: "[('partner_id', '=', bank_partner_id)]"
-                  },
+                  domain: { todo_ctx: "[('partner_id', '=', bank_partner_id)]" },
                   readonly: [['state', '!=', 'draft']],
-                  context: {
-                    todo_ctx: "{'default_partner_id': bank_partner_id}"
-                  }
+                  context: { todo_ctx: "{'default_partner_id': bank_partner_id}" }
                 },
-                qr_code_method: {
-                  invisible: [['display_qr_code', '=', false]]
-                }
+                qr_code_method: { invisible: [['display_qr_code', '=', false]] }
               },
               _group_accounting_info_group: {
                 _attr: {
@@ -1557,21 +1307,15 @@ export default {
                   string: 'Accounting',
                   invisible: [['move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')]]
                 },
-                company_id: {
-                  groups: 'base.group_multi_company'
-                },
+                company_id: { groups: 'base.group_multi_company' },
                 invoice_incoterm_id: {},
                 fiscal_position_id: {},
-                invoice_cash_rounding_id: {
-                  groups: 'account.group_cash_rounding'
-                },
+                invoice_cash_rounding_id: { groups: 'account.group_cash_rounding' },
                 invoice_source_email: {
                   widget: 'email',
                   invisible: ['|', ['move_type', 'not in', ('in_invoice', 'in_refund')], ['invoice_source_email', '=', false]]
                 },
-                auto_post: {
-                  readonly: [['state', '!=', 'draft']]
-                },
+                auto_post: { readonly: [['state', '!=', 'draft']] },
                 auto_post_until: {
                   invisible: [['auto_post', 'in', ('no', 'at_date')]],
                   readonly: [['state', '!=', 'draft']]
@@ -1580,7 +1324,7 @@ export default {
               }
             }
           },
-          _page_other_info_117: {
+          _page_other_info_739: {
             _attr: {
               name: 'other_info',
               string: 'Other Info',
@@ -1588,23 +1332,17 @@ export default {
             },
             _group: {
               _group_misc_group: {
-                _attr: {
-                  name: 'misc_group'
-                },
+                _attr: { name: 'misc_group' },
                 auto_post: {
                   invisible: [['move_type', '!=', 'entry']],
                   readonly: [['state', '!=', 'draft']]
                 },
-                reversed_entry_id: {
-                  invisible: [['move_type', '!=', 'entry']]
-                },
+                reversed_entry_id: { invisible: [['move_type', '!=', 'entry']] },
                 auto_post_until: {
                   invisible: [['auto_post', 'in', ('no', 'at_date')]],
                   readonly: [['state', '!=', 'draft']]
                 },
-                to_check: {
-                  invisible: [['move_type', '!=', 'entry']]
-                }
+                to_check: { invisible: [['move_type', '!=', 'entry']] }
               },
               _group: {
                 fiscal_position_id: {},
@@ -1614,9 +1352,7 @@ export default {
                 }
               }
             },
-            narration: {
-              placeholder: 'Add an internal note...'
-            }
+            narration: { placeholder: 'Add an internal note...' }
           }
         }
       }
@@ -1630,11 +1366,9 @@ export default {
     arch: {
       name: {
         string: 'Journal Entry',
-        filter_domain: {
-          todo_ctx: "['|', '|', ('name', 'ilike', self), ('ref', 'ilike', self), ('partner_id', 'ilike', self)]"
-        }
+        filter_domain: { todo_ctx: "['|', '|', ('name', 'ilike', self), ('ref', 'ilike', self), ('partner_id', 'ilike', self)]" }
       },
-      _field_name_392: {
+      _field_name_961: {
         name: {}
       },
       ref: {},
@@ -1665,7 +1399,7 @@ export default {
           domain: [['payment_state', '=', 'reversed']]
         }
       },
-      _separator_805: {},
+      _separator_161: {},
       _filter_to_check: {
         _attr: {
           name: 'to_check',
@@ -1673,15 +1407,13 @@ export default {
           domain: [['to_check', '=', true]]
         }
       },
-      _separator_387: {},
+      _separator_717: {},
       _filter_sales: {
         _attr: {
           name: 'sales',
           string: 'Sales',
           domain: [['journal_id.type', '=', 'sale']],
-          context: {
-            default_journal_type: 'sale'
-          }
+          context: { default_journal_type: 'sale' }
         }
       },
       _filter_purchases: {
@@ -1689,9 +1421,7 @@ export default {
           name: 'purchases',
           string: 'Purchases',
           domain: [['journal_id.type', '=', 'purchase']],
-          context: {
-            default_journal_type: 'purchase'
-          }
+          context: { default_journal_type: 'purchase' }
         }
       },
       _filter_bankoperations: {
@@ -1699,9 +1429,7 @@ export default {
           name: 'bankoperations',
           string: 'Bank',
           domain: [['journal_id.type', '=', 'bank']],
-          context: {
-            default_journal_type: 'bank'
-          }
+          context: { default_journal_type: 'bank' }
         }
       },
       _filter_cashoperations: {
@@ -1709,9 +1437,7 @@ export default {
           name: 'cashoperations',
           string: 'Cash',
           domain: [['journal_id.type', '=', 'cash']],
-          context: {
-            default_journal_type: 'cash'
-          }
+          context: { default_journal_type: 'cash' }
         }
       },
       _filter_misc_filter: {
@@ -1719,12 +1445,10 @@ export default {
           name: 'misc_filter',
           string: 'Miscellaneous',
           domain: [['journal_id.type', '=', 'general']],
-          context: {
-            default_journal_type: 'general'
-          }
+          context: { default_journal_type: 'general' }
         }
       },
-      _separator_421: {},
+      _separator_100: {},
       _filter_date: {
         _attr: {
           name: 'date',
@@ -1732,19 +1456,15 @@ export default {
           date: 'date'
         }
       },
-      _separator_598: {},
+      _separator_293: {},
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_partner: {
           _attr: {
             name: 'partner',
             string: 'Partner',
             domain: [],
-            context: {
-              group_by: 'partner_id'
-            }
+            context: { group_by: 'partner_id' }
           }
         },
         _filter_journal: {
@@ -1752,9 +1472,7 @@ export default {
             name: 'journal',
             string: 'Journal',
             domain: [],
-            context: {
-              group_by: 'journal_id'
-            }
+            context: { group_by: 'journal_id' }
           }
         },
         _filter_status: {
@@ -1762,9 +1480,7 @@ export default {
             name: 'status',
             string: 'Status',
             domain: [],
-            context: {
-              group_by: 'state'
-            }
+            context: { group_by: 'state' }
           }
         },
         _filter_by_date: {
@@ -1773,9 +1489,7 @@ export default {
             string: 'Date',
             help: 'Journal Entries by Date',
             domain: [],
-            context: {
-              group_by: 'date'
-            }
+            context: { group_by: 'date' }
           }
         },
         _filter_by_company: {
@@ -1784,9 +1498,7 @@ export default {
             string: 'Company',
             groups: 'base.group_multi_company',
             domain: [],
-            context: {
-              group_by: 'company_id'
-            }
+            context: { group_by: 'company_id' }
           }
         }
       }
@@ -1800,31 +1512,21 @@ export default {
     arch: {
       name: {
         string: 'Invoice',
-        filter_domain: {
-          todo_ctx: "[                                 '|', '|' , '|', '|',                                 ('name', 'ilike', self), ('invoice_origin', 'ilike', self),                                 ('ref', 'ilike', self), ('payment_reference', 'ilike', self),                                 ('partner_id', 'child_of', self)]"
-        }
+        filter_domain: { todo_ctx: "[                                 '|', '|' , '|', '|',                                 ('name', 'ilike', self), ('invoice_origin', 'ilike', self),                                 ('ref', 'ilike', self), ('payment_reference', 'ilike', self),                                 ('partner_id', 'child_of', self)]" }
       },
       journal_id: {},
-      partner_id: {
-        operator: 'child_of'
-      },
+      partner_id: { operator: 'child_of' },
       invoice_user_id: {
         string: 'Salesperson',
         domain: [['share', '=', false]]
       },
-      date: {
-        string: 'Period'
-      },
-      line_ids: {
-        string: 'Invoice Line'
-      },
+      date: { string: 'Period' },
+      line_ids: { string: 'Invoice Line' },
       _filter_myinvoices: {
         _attr: {
           name: 'myinvoices',
           help: 'My Invoices',
-          domain: {
-            todo_ctx: "[('invoice_user_id', '=', uid)]"
-          }
+          domain: { todo_ctx: "[('invoice_user_id', '=', uid)]" }
         }
       },
       _separator: {},
@@ -1849,7 +1551,7 @@ export default {
           domain: [['state', '=', 'cancel']]
         }
       },
-      _separator_716: {},
+      _separator_182: {},
       _filter_to_check: {
         _attr: {
           name: 'to_check',
@@ -1857,7 +1559,7 @@ export default {
           domain: [['to_check', '=', true]]
         }
       },
-      _separator_532: {},
+      _separator_877: {},
       _filter_open: {
         _attr: {
           name: 'open',
@@ -1877,12 +1579,10 @@ export default {
           name: 'late',
           string: 'Overdue',
           help: 'Overdue invoices, maturity date passed',
-          domain: {
-            todo_ctx: "[                         ('invoice_date_due', '<', time.strftime('%Y-%m-%d')),                         ('state', '=', 'posted'),                         ('payment_state', 'in', ('not_paid', 'partial'))                     ]"
-          }
+          domain: { todo_ctx: "[                         ('invoice_date_due', '<', time.strftime('%Y-%m-%d')),                         ('state', '=', 'posted'),                         ('payment_state', 'in', ('not_paid', 'partial'))                     ]" }
         }
       },
-      _separator_605: {},
+      _separator_958: {},
       _filter_invoice_date: {
         _attr: {
           name: 'invoice_date',
@@ -1905,16 +1605,14 @@ export default {
           date: 'invoice_date_due'
         }
       },
-      _separator_258: {},
+      _separator_501: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
           string: 'Late Activities',
           help: 'Show all records which has next action date is before today',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
       _filter_activities_today: {
@@ -1922,9 +1620,7 @@ export default {
           name: 'activities_today',
           string: 'Today Activities',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
       _filter_activities_upcoming_all: {
@@ -1932,31 +1628,23 @@ export default {
           name: 'activities_upcoming_all',
           string: 'Future Activities',
           invisible: '1',
-          domain: {
-            todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))]"
-          }
+          domain: { todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_salesperson: {
           _attr: {
             name: 'salesperson',
             string: 'Salesperson',
-            context: {
-              group_by: 'invoice_user_id'
-            }
+            context: { group_by: 'invoice_user_id' }
           }
         },
         _filter_status: {
           _attr: {
             name: 'status',
             string: 'Status',
-            context: {
-              group_by: 'state'
-            }
+            context: { group_by: 'state' }
           }
         },
         _separator: {},
@@ -1964,18 +1652,14 @@ export default {
           _attr: {
             name: 'invoicedate',
             string: 'Invoice Date',
-            context: {
-              group_by: 'invoice_date'
-            }
+            context: { group_by: 'invoice_date' }
           }
         },
         _filter_duedate: {
           _attr: {
             name: 'duedate',
             string: 'Due Date',
-            context: {
-              group_by: 'invoice_date_due'
-            }
+            context: { group_by: 'invoice_date_due' }
           }
         },
         _filter_group_by_sequence_prefix: {
@@ -1983,9 +1667,7 @@ export default {
             name: 'group_by_sequence_prefix',
             string: 'Sequence Prefix',
             invisible: '1',
-            context: {
-              group_by: 'sequence_prefix'
-            }
+            context: { group_by: 'sequence_prefix' }
           }
         }
       }
@@ -2014,9 +1696,7 @@ export default {
     res_model: 'account.move',
     search_view_id: 'view_account_invoice_filter',
     domain: "[['move_type', '=', 'out_invoice']]",
-    context: {
-      default_move_type: 'out_invoice'
-    },
+    context: { default_move_type: 'out_invoice' },
     views: {
       tree: 'view_out_invoice_tree',
       form: '=======todo=========='
@@ -2029,9 +1709,7 @@ export default {
     res_model: 'account.move',
     search_view_id: 'view_account_invoice_filter',
     domain: "[['move_type', '=', 'out_refund']]",
-    context: {
-      default_move_type: 'out_refund'
-    },
+    context: { default_move_type: 'out_refund' },
     views: {
       tree: 'view_out_credit_note_tree',
       form: '=======todo=========='
@@ -2044,9 +1722,7 @@ export default {
     res_model: 'account.move',
     search_view_id: 'view_account_invoice_filter',
     domain: "[['move_type', '=', 'in_invoice']]",
-    context: {
-      default_move_type: 'in_invoice'
-    },
+    context: { default_move_type: 'in_invoice' },
     views: {
       tree: 'view_in_invoice_bill_tree',
       form: '=======todo=========='
@@ -2059,9 +1735,7 @@ export default {
     res_model: 'account.move',
     search_view_id: 'view_account_invoice_filter',
     domain: "[['move_type', '=', 'in_refund']]",
-    context: {
-      default_move_type: 'in_refund'
-    },
+    context: { default_move_type: 'in_refund' },
     views: {
       tree: 'view_in_invoice_refund_tree',
       form: '=======todo=========='
@@ -2074,9 +1748,7 @@ export default {
     res_model: 'account.move',
     search_view_id: 'view_account_invoice_filter',
     domain: "[['move_type', '=', 'out_receipt']]",
-    context: {
-      default_move_type: 'out_receipt'
-    },
+    context: { default_move_type: 'out_receipt' },
     views: {
       tree: 'view_invoice_tree',
       form: '=======todo=========='
@@ -2089,9 +1761,7 @@ export default {
     res_model: 'account.move',
     search_view_id: 'view_account_invoice_filter',
     domain: "[['move_type', '=', 'in_receipt']]",
-    context: {
-      default_move_type: 'in_receipt'
-    },
+    context: { default_move_type: 'in_receipt' },
     views: {
       tree: 'view_in_invoice_receipt_tree',
       form: '=======todo=========='
@@ -2122,9 +1792,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'account.move',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      default_move_type: 'out_invoice'
-    },
+    context: { default_move_type: 'out_invoice' },
     views: {
       tree: 'account.view_move_form',
       form: '=======todo=========='

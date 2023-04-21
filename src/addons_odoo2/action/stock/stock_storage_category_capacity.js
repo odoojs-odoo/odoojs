@@ -23,13 +23,9 @@ export default {
           no_create: true,
           no_open: true
         },
-        company_id: {
-          invisible: '1'
-        },
-        _field_package_type_id_438: {
-          package_type_id: {
-            invisible: '1'
-          }
+        company_id: { invisible: '1' },
+        _field_package_type_id_288: {
+          package_type_id: { invisible: '1' }
         }
       }
     }

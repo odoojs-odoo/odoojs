@@ -1,10 +1,7 @@
 const ModelFields = {
   account_id: {},
   amount: {},
-  company_id: {
-    groups: 'base.group_multi_company'
-  },
-
+  company_id: { groups: 'base.group_multi_company' },
   currency_id: {},
   date: {},
   name: {},

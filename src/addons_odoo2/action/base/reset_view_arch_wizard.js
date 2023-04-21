@@ -7,12 +7,8 @@ export default {
       sheet: {
         _group: {
           _group: {
-            has_diff: {
-              invisible: '1'
-            },
-            view_id: {
-              invisible: '1'
-            },
+            has_diff: { invisible: '1' },
+            view_id: { invisible: '1' },
             view_name: {},
             compare_view_id: {
               invisible: [['reset_mode', '!=', 'other_view']],
@@ -20,15 +16,11 @@ export default {
               no_open: true
             }
           },
-          _group_886: {
-            reset_mode: {
-              widget: 'radio'
-            }
+          _group_515: {
+            reset_mode: { widget: 'radio' }
           }
         },
-        arch_diff: {
-          invisible: [['arch_diff', '=', false]]
-        },
+        arch_diff: { invisible: [['arch_diff', '=', false]] },
         _div: {
           _attr: {
             invisible: [['arch_diff', '!=', false]],
@@ -40,13 +32,13 @@ export default {
               text: 'This view has no previous version.'
             }
           },
-          _span_111: {
+          _span_161: {
             _attr: {
               invisible: [['reset_mode', '!=', 'hard']],
               text: 'This view is not coming from a file.'
             }
           },
-          _span_260: {
+          _span_691: {
             _attr: {
               invisible: [['reset_mode', '!=', 'other_view']],
               text: 'You need two views to compare.'

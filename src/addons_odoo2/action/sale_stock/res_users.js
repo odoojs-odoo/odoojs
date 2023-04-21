@@ -11,12 +11,8 @@ export default {
             position: 'after'
           },
           _group_Warehouses: {
-            _attr: {
-              name: 'Warehouses'
-            },
-            property_warehouse_id: {
-              groups: 'stock.group_stock_multi_warehouses'
-            }
+            _attr: { name: 'Warehouses' },
+            property_warehouse_id: { groups: 'stock.group_stock_multi_warehouses' }
           }
         }
       }
@@ -35,12 +31,8 @@ export default {
             position: 'after'
           },
           _group_Warehouses: {
-            _attr: {
-              name: 'Warehouses'
-            },
-            property_warehouse_id: {
-              groups: 'stock.group_stock_multi_warehouses'
-            }
+            _attr: { name: 'Warehouses' },
+            property_warehouse_id: { groups: 'stock.group_stock_multi_warehouses' }
           }
         }
       }
@@ -64,9 +56,7 @@ export default {
               string: 'Inventory',
               groups: 'stock.group_stock_multi_warehouses'
             },
-            property_warehouse_id: {
-              groups: 'stock.group_stock_multi_warehouses'
-            }
+            property_warehouse_id: { groups: 'stock.group_stock_multi_warehouses' }
           }
         }
       }

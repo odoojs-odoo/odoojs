@@ -8,9 +8,7 @@ export default {
         _group: {
           name: {},
           full_name: {},
-          active: {
-            widget: 'boolean_toggle'
-          }
+          active: { widget: 'boolean_toggle' }
         }
       }
     }
@@ -24,9 +22,7 @@ export default {
       sheet: {
         name: {},
         full_name: {},
-        active: {
-          invisible: '1'
-        }
+        active: { invisible: '1' }
       }
     }
   },

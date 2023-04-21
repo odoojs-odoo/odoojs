@@ -9,9 +9,7 @@ export default {
           user_id: {},
           ref_id: {},
           _separator: {
-            _attr: {
-              string: 'View Architecture'
-            }
+            _attr: { string: 'View Architecture' }
           },
           arch: {}
         }

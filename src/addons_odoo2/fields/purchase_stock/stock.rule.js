@@ -1,7 +1,5 @@
 const ModelFields = {
-  location_src_id: {
-    required: [['action', 'in', ['pull', 'push', 'pull_push']]]
-  }
+  location_src_id: { required: [['action', 'in', ['pull', 'push', 'pull_push']]] }
 }
 
 const AddonsFields = {

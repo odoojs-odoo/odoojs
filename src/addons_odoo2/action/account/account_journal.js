@@ -12,9 +12,7 @@ export default {
     res_model: 'account.journal',
     search_view_id: 'tooooooodoooooo',
     domain: '[]',
-    context: {
-      search_default_dashboard: 1
-    },
+    context: { search_default_dashboard: 1 },
     views: {
       tree: 'account_journal_dashboard_kanban_view',
       form: '=======todo=========='
@@ -50,9 +48,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {},
         type: {},
         journal_group_ids: {
@@ -64,15 +60,9 @@ export default {
           groups: 'base.group_multi_currency',
           optional: 'hide'
         },
-        code: {
-          optional: 'show'
-        },
-        default_account_id: {
-          optional: 'show'
-        },
-        active: {
-          optional: 'hide'
-        },
+        code: { optional: 'show' },
+        default_account_id: { optional: 'show' },
+        active: { optional: 'hide' },
         company_id: {
           groups: 'base.group_multi_company',
           optional: 'hide'
@@ -87,12 +77,8 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        company_id: {
-          invisible: '1'
-        },
-        bank_statements_source: {
-          invisible: '1'
-        },
+        company_id: { invisible: '1' },
+        bank_statements_source: { invisible: '1' },
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -104,9 +90,7 @@ export default {
               type: 'action',
               string: 'Journal Entries',
               icon: 'fa-book',
-              context: {
-                todo_ctx: "{'search_default_journal_id':active_id}"
-              },
+              context: { todo_ctx: "{'search_default_journal_id':active_id}" },
               class: 'oe_stat_button'
             }
           }
@@ -120,33 +104,23 @@ export default {
           }
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
-          _label_name: {
-            for: 'name'
-          },
+          _attr: { class: 'oe_title' },
+          _label_name: { for: 'name' },
           _h1: {
-            name: {
-              placeholder: 'e.g. Customer Invoices'
-            }
+            name: { placeholder: 'e.g. Customer Invoices' }
           }
         },
         _group: {
           _group: {
-            active: {
-              invisible: '1'
-            },
+            active: { invisible: '1' },
             type: {}
           },
-          _group_761: {
+          _group_944: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
             },
-            country_code: {
-              invisible: '1'
-            }
+            country_code: { invisible: '1' }
           }
         },
         _notebook: {
@@ -157,37 +131,33 @@ export default {
             },
             _group: {
               _group: {
-                _attr: {
-                  string: 'Accounting Information'
-                },
-                default_account_type: {
-                  invisible: '1'
-                },
+                _attr: { string: 'Accounting Information' },
+                default_account_type: { invisible: '1' },
                 _label_default_account_id: {
                   for: 'default_account_id',
                   string: 'Bank Account',
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'bank']]
                 },
-                _label_default_account_id_432: {
+                _label_default_account_id_603: {
                   for: 'default_account_id',
                   string: 'Cash Account',
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'cash']]
                 },
-                _label_default_account_id_255: {
+                _label_default_account_id_896: {
                   for: 'default_account_id',
                   string: 'Default Income Account',
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'sale']]
                 },
-                _label_default_account_id_982: {
+                _label_default_account_id_835: {
                   for: 'default_account_id',
                   string: 'Default Expense Account',
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'purchase']]
                 },
-                _label_default_account_id_152: {
+                _label_default_account_id_790: {
                   for: 'default_account_id',
                   string: 'Default Account',
                   groups: 'account.group_account_readonly',
@@ -205,21 +175,11 @@ export default {
                   invisible: [['type', 'not in', ('bank', 'cash')]],
                   no_quick_create: true
                 },
-                profit_account_id: {
-                  invisible: ['!', ['type', 'in', ('cash', 'bank')]]
-                },
-                loss_account_id: {
-                  invisible: ['!', ['type', 'in', ('cash', 'bank')]]
-                },
-                refund_sequence: {
-                  invisible: [['type', 'not in', ['sale', 'purchase']]]
-                },
-                payment_sequence: {
-                  invisible: [['type', 'not in', ('bank', 'cash')]]
-                },
-                code: {
-                  placeholder: 'e.g. INV'
-                },
+                profit_account_id: { invisible: ['!', ['type', 'in', ('cash', 'bank')]] },
+                loss_account_id: { invisible: ['!', ['type', 'in', ('cash', 'bank')]] },
+                refund_sequence: { invisible: [['type', 'not in', ['sale', 'purchase']]] },
+                payment_sequence: { invisible: [['type', 'not in', ('bank', 'cash')]] },
+                code: { placeholder: 'e.g. INV' },
                 currency_id: {
                   groups: 'base.group_multi_currency',
                   no_create: true
@@ -231,18 +191,12 @@ export default {
                   string: 'Bank Account Number',
                   invisible: [['type', '!=', 'bank']]
                 },
-                company_partner_id: {
-                  invisible: '1'
-                },
+                company_partner_id: { invisible: '1' },
                 bank_account_id: {
                   string: 'Account Number',
-                  context: {
-                    todo_ctx: "{'default_partner_id': company_partner_id}"
-                  }
+                  context: { todo_ctx: "{'default_partner_id': company_partner_id}" }
                 },
-                bank_id: {
-                  invisible: [['bank_account_id', '=', false]]
-                },
+                bank_id: { invisible: [['bank_account_id', '=', false]] },
                 bank_statements_source: {
                   widget: 'radio',
                   groups: 'account.group_account_readonly',
@@ -256,32 +210,18 @@ export default {
               string: 'Incoming Payments',
               invisible: [['type', 'not in', ['cash', 'bank']]]
             },
-            available_payment_method_ids: {
-              invisible: '1'
-            },
+            available_payment_method_ids: { invisible: '1' },
             inbound_payment_method_line_ids: {
-              context: {
-                default_payment_type: 'inbound'
-              },
+              context: { default_payment_type: 'inbound' },
               views: {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Payment Methods'
-                      },
-                      available_payment_method_ids: {
-                        invisible: '1'
-                      },
-                      payment_type: {
-                        invisible: '1'
-                      },
-                      company_id: {
-                        invisible: '1'
-                      },
-                      sequence: {
-                        widget: 'handle'
-                      },
+                      _attr: { string: 'Payment Methods' },
+                      available_payment_method_ids: { invisible: '1' },
+                      payment_type: { invisible: '1' },
+                      company_id: { invisible: '1' },
+                      sequence: { widget: 'handle' },
                       payment_method_id: {
                         no_create: true,
                         no_open: true
@@ -300,34 +240,22 @@ export default {
               }
             }
           },
-          _page_908: {
+          _page_978: {
             _attr: {
               string: 'Outgoing Payments',
               invisible: [['type', 'not in', ['cash', 'bank']]]
             },
             outbound_payment_method_line_ids: {
-              context: {
-                default_payment_type: 'outbound'
-              },
+              context: { default_payment_type: 'outbound' },
               views: {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Payment Methods'
-                      },
-                      available_payment_method_ids: {
-                        invisible: '1'
-                      },
-                      payment_type: {
-                        invisible: '1'
-                      },
-                      company_id: {
-                        invisible: '1'
-                      },
-                      sequence: {
-                        widget: 'handle'
-                      },
+                      _attr: { string: 'Payment Methods' },
+                      available_payment_method_ids: { invisible: '1' },
+                      payment_type: { invisible: '1' },
+                      company_id: { invisible: '1' },
+                      sequence: { widget: 'handle' },
                       payment_method_id: {
                         no_create: true,
                         no_open: true
@@ -345,13 +273,9 @@ export default {
                 }
               }
             },
-            selected_payment_method_codes: {
-              invisible: '1'
-            },
+            selected_payment_method_codes: { invisible: '1' },
             _group_outgoing_payment: {
-              _attr: {
-                name: 'outgoing_payment'
-              }
+              _attr: { name: 'outgoing_payment' }
             }
           },
           _page_advanced_settings: {
@@ -396,9 +320,7 @@ export default {
                   invisible: ['|', ['type', 'not in', ('sale', 'purchase')], ['alias_domain', '!=', false]]
                 },
                 _div: {
-                  _attr: {
-                    class: 'content-group'
-                  },
+                  _attr: { class: 'content-group' },
                   _a_action_open_settings: {
                     _attr: {
                       name: '%(action_open_settings)d',
@@ -406,9 +328,7 @@ export default {
                       class: 'btn btn-link'
                     },
                     _i: {
-                      _attr: {
-                        class: 'fa fa-fw o_button_icon fa-arrow-right'
-                      }
+                      _attr: { class: 'fa fa-fw o_button_icon fa-arrow-right' }
                     }
                   }
                 }
@@ -429,33 +349,27 @@ export default {
                     name: 'edit_alias',
                     class: 'oe_inline'
                   },
-                  alias_name: {
-                    class: 'oe_inline'
-                  },
+                  alias_name: { class: 'oe_inline' },
                   alias_domain: {
                     class: 'oe_inline',
                     readonly: '1'
                   }
                 }
               },
-              _group_200: {
+              _group_566: {
                 _attr: {
                   string: 'Payment Communications',
                   invisible: [['type', '!=', 'sale']]
                 },
                 invoice_reference_type: {},
-                invoice_reference_model: {
-                  invisible: [['invoice_reference_type', '=', 'none']]
-                }
+                invoice_reference_model: { invisible: [['invoice_reference_type', '=', 'none']] }
               },
-              _group_963: {
+              _group_137: {
                 _attr: {
                   string: 'Follow Customer Payments',
                   invisible: [['type', '!=', 'sale']]
                 },
-                sale_activity_type_id: {
-                  no_quick_create: true
-                },
+                sale_activity_type_id: { no_quick_create: true },
                 sale_activity_user_id: {
                   invisible: [['sale_activity_type_id', '=', false]],
                   no_quick_create: true
@@ -486,9 +400,7 @@ export default {
     arch: {
       name: {
         string: 'Journal',
-        filter_domain: {
-          todo_ctx: "['|', ('name', 'ilike', self), ('code', 'ilike', self)]"
-        }
+        filter_domain: { todo_ctx: "['|', ('name', 'ilike', self), ('code', 'ilike', self)]" }
       },
       _filter_dashboard: {
         _attr: {
@@ -526,7 +438,7 @@ export default {
           domain: [['type', 'not in', ['sale', 'purchase', 'cash', 'bank']]]
         }
       },
-      _separator_325: {},
+      _separator_186: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',

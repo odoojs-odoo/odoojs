@@ -22,14 +22,10 @@ export default {
           }
         },
         _p: {
-          _attr: {
-            text: 'Send your email to'
-          },
-          email_alias: {
-            class: 'oe_inline'
-          }
+          _attr: { text: 'Send your email to' },
+          email_alias: { class: 'oe_inline' }
         },
-        _p_657: 'Once done, press continue.'
+        _p_373: 'Once done, press continue.'
       }
     }
   }

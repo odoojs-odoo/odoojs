@@ -5,9 +5,7 @@ export default {
     type: 'form',
     arch: {
       header: {
-        binding_model_id: {
-          invisible: '1'
-        },
+        binding_model_id: { invisible: '1' },
         _button_create_action: {
           _attr: {
             name: 'create_action',
@@ -40,54 +38,32 @@ export default {
       },
       sheet: {
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
-          _label_name: {
-            for: 'name'
-          },
+          _attr: { class: 'oe_title' },
+          _label_name: { for: 'name' },
           _h1: {
-            name: {
-              placeholder: 'e.g. Update order quantity'
-            }
+            name: { placeholder: 'e.g. Update order quantity' }
           }
         },
         _group_action_wrapper: {
-          _attr: {
-            name: 'action_wrapper'
-          },
+          _attr: { name: 'action_wrapper' },
           _group_action_content: {
-            _attr: {
-              name: 'action_content'
-            },
-            model_id: {
-              no_create: true
-            },
-            model_name: {
-              invisible: '1'
-            }
+            _attr: { name: 'action_content' },
+            model_id: { no_create: true },
+            model_name: { invisible: '1' }
           },
           _group: {
             state: {},
-            type: {
-              invisible: '1'
-            },
+            type: { invisible: '1' },
             crud_model_id: {
               invisible: [['state', '!=', 'object_create']],
               required: [['state', '=', 'object_create']],
               no_create: true
             },
-            crud_model_name: {
-              invisible: '1'
-            },
+            crud_model_name: { invisible: '1' },
             link_field_id: {
-              domain: {
-                todo_ctx: "[('model_id', '=', model_id), ('relation', '=', crud_model_name),                                     ('ttype', 'in', ['many2one', 'one2many', 'many2many'])]"
-              },
+              domain: { todo_ctx: "[('model_id', '=', model_id), ('relation', '=', crud_model_name),                                     ('ttype', 'in', ['many2one', 'one2many', 'many2many'])]" },
               invisible: [['state', '!=', 'object_create']],
-              context: {
-                todo_ctx: "{'default_model_id': model_id, 'default_relation': crud_model_name}"
-              },
+              context: { todo_ctx: "{'default_model_id': model_id, 'default_relation': crud_model_name}" },
               no_create: true
             }
           }
@@ -122,13 +98,9 @@ export default {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Field Mappings'
-                      },
+                      _attr: { string: 'Field Mappings' },
                       col1: {
-                        domain: {
-                          todo_ctx: "['|', ('model_id', '=', parent.crud_model_id), ('model_id', '=', parent.model_id)]"
-                        },
+                        domain: { todo_ctx: "['|', ('model_id', '=', parent.crud_model_id), ('model_id', '=', parent.model_id)]" },
                         no_create: true
                       },
                       evaluation_type: {},
@@ -168,9 +140,7 @@ export default {
               }
             },
             child_ids: {
-              domain: {
-                todo_ctx: "[('model_id', '=', model_id)]"
-              }
+              domain: { todo_ctx: "[('model_id', '=', model_id)]" }
             }
           },
           _page_help_info: {
@@ -183,46 +153,32 @@ export default {
               _h3: 'Help with Python expressions',
               _p: 'Various fields may use Python code or Python expressions. The following variables can be used:',
               _ul: {
-                _li: {
-                  _code: 'env'
-                },
-                _li_658: {
-                  _code: 'model'
-                },
-                _li_804: {
-                  _code: 'record'
-                },
-                _li_206: {
-                  _code: 'records'
-                },
-                _li_397: {
+                _li: { _code: 'env' },
+                _li_905: { _code: 'model' },
+                _li_685: { _code: 'record' },
+                _li_192: { _code: 'records' },
+                _li_751: {
                   _code: 'time',
-                  _code_455: 'datetime',
-                  _code_742: 'dateutil',
-                  _code_131: 'timezone'
+                  _code_429: 'datetime',
+                  _code_682: 'dateutil',
+                  _code_148: 'timezone'
                 },
-                _li_524: {
+                _li_649: {
                   _code: "log(message, level='info')",
-                  _code_184: 'ir.logging'
+                  _code_931: 'ir.logging'
                 },
-                _li_447: {
+                _li_148: {
                   _code: 'UserError',
-                  _code_631: 'raise'
+                  _code_633: 'raise'
                 },
-                _li_618: {
-                  _code: 'Command'
-                },
-                _li_156: {
-                  _attr: {
-                    text: 'To return an action, assign:'
-                  },
+                _li_638: { _code: 'Command' },
+                _li_941: {
+                  _attr: { text: 'To return an action, assign:' },
                   _code: 'action = {...}'
                 }
               },
               _div: {
-                _attr: {
-                  invisible: [['state', '!=', 'code']]
-                },
+                _attr: { invisible: [['state', '!=', 'code']] },
                 _p: 'Example of Python code',
                 _code: "partner_name = record.name + '_code' \n\nenv['res.partner'].create({'name': partner_name})"
               }
@@ -239,9 +195,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {},
         state: {},
         model_id: {},
@@ -255,23 +209,17 @@ export default {
     model: 'ir.actions.server',
     type: 'search',
     arch: {
-      name: {
-        string: 'Server Action'
-      },
+      name: { string: 'Server Action' },
       model_id: {},
       state: {},
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_action_type: {
           _attr: {
             name: 'action_type',
             string: 'Action Type',
             domain: [],
-            context: {
-              group_by: 'state'
-            }
+            context: { group_by: 'state' }
           }
         },
         _filter_model: {
@@ -279,9 +227,7 @@ export default {
             name: 'model',
             string: 'Model',
             domain: [],
-            context: {
-              group_by: 'model_id'
-            }
+            context: { group_by: 'model_id' }
           }
         },
         _filter_usage: {
@@ -289,9 +235,7 @@ export default {
             name: 'usage',
             string: 'Usage',
             domain: [],
-            context: {
-              group_by: 'usage'
-            }
+            context: { group_by: 'usage' }
           }
         }
       }
@@ -304,9 +248,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'ir.actions.server',
     search_view_id: 'view_server_action_search',
-    context: {
-      key: 'server_action'
-    },
+    context: { key: 'server_action' },
     views: {
       tree: 'view_server_action_tree',
       form: '=======todo=========='

@@ -21,20 +21,16 @@ export default {
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_field_widget o_stat_info'
-              },
+              _attr: { class: 'o_field_widget o_stat_info' },
               _span: {
-                _attr: {
-                  class: 'o_stat_value'
-                },
+                _attr: { class: 'o_stat_value' },
                 sales_count: {
                   widget: 'statinfo',
                   class: 'mr4'
                 },
                 uom_name: {}
               },
-              _span_102: {
+              _span_597: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Sold'
@@ -49,9 +45,7 @@ export default {
             position: 'after'
           },
           _t: {
-            _attr: {
-              groups: 'sales_team.group_sale_salesman'
-            },
+            _attr: { groups: 'sales_team.group_sale_salesman' },
             _group: {
               _attr: {
                 string: 'Warning when Selling this Product',

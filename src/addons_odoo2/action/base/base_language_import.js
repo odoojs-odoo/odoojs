@@ -6,20 +6,14 @@ export default {
     arch: {
       sheet: {
         _group: {
-          name: {
-            placeholder: 'e.g. English'
-          },
+          name: { placeholder: 'e.g. English' },
           code: {
             string: 'Code',
             placeholder: 'e.g. en_US'
           },
           data: {},
-          filename: {
-            invisible: '1'
-          },
-          overwrite: {
-            groups: 'base.group_no_one'
-          }
+          filename: { invisible: '1' },
+          overwrite: { groups: 'base.group_no_one' }
         },
         _footer: {
           _button_import_lang: {

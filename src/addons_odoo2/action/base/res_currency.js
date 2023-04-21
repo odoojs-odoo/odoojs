@@ -6,9 +6,7 @@ export default {
     arch: {
       name: {
         string: 'Currency',
-        filter_domain: {
-          todo_ctx: "('|','|','|','|',                                                                         ('name', 'ilike', self),                                                                         ('full_name', 'ilike', self),                                                                         ('symbol', 'ilike', self),                                                                         ('currency_unit_label', 'ilike', self),                                                                         ('currency_subunit_label', 'ilike', self),                                                                         )"
-        }
+        filter_domain: { todo_ctx: "('|','|','|','|',                                                                         ('name', 'ilike', self),                                                                         ('full_name', 'ilike', self),                                                                         ('symbol', 'ilike', self),                                                                         ('currency_unit_label', 'ilike', self),                                                                         ('currency_subunit_label', 'ilike', self),                                                                         )" }
       },
       _filter_active: {
         _attr: {
@@ -41,19 +39,13 @@ export default {
           string: 'Name',
           optional: 'show'
         },
-        date: {
-          string: 'Last Update'
-        },
-        rate: {
-          digits: '[12,6]'
-        },
+        date: { string: 'Last Update' },
+        rate: { digits: '[12,6]' },
         inverse_rate: {
           optional: 'hide',
           digits: '[12,6]'
         },
-        active: {
-          widget: 'boolean_toggle'
-        }
+        active: { widget: 'boolean_toggle' }
       }
     }
   },
@@ -71,9 +63,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        is_current_company_currency: {
-          invisible: '1'
-        },
+        is_current_company_currency: { invisible: '1' },
         _div: {
           _attr: {
             groups: 'base.group_no_one',
@@ -81,7 +71,7 @@ export default {
             text: 'You cannot reduce the number of decimal places of a currency already used on an accounting entry.'
           }
         },
-        _div_854: {
+        _div_778: {
           _attr: {
             invisible: [['is_current_company_currency', '=', false]],
             class: 'alert alert-info text-center',
@@ -91,33 +81,23 @@ export default {
         _group: {
           _group: {
             name: {},
-            full_name: {
-              string: 'Name'
-            },
-            active: {
-              widget: 'boolean_toggle'
-            }
+            full_name: { string: 'Name' },
+            active: { widget: 'boolean_toggle' }
           },
-          _group_947: {
+          _group_706: {
             currency_unit_label: {},
             currency_subunit_label: {}
           }
         },
-        _group_424: {
-          _attr: {
-            groups: 'base.group_no_one'
-          },
+        _group_765: {
+          _attr: { groups: 'base.group_no_one' },
           _group: {
-            _attr: {
-              string: 'Price Accuracy'
-            },
+            _attr: { string: 'Price Accuracy' },
             rounding: {},
             decimal_places: {}
           },
-          _group_924: {
-            _attr: {
-              string: 'Display'
-            },
+          _group_317: {
+            _attr: { string: 'Display' },
             symbol: {},
             position: {}
           }
@@ -138,26 +118,16 @@ export default {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Rates'
-                      },
+                      _attr: { string: 'Rates' },
                       name: {},
-                      company_id: {
-                        groups: 'base.group_multi_company'
-                      },
-                      company_rate: {
-                        digits: '[12,12]'
-                      },
-                      inverse_company_rate: {
-                        digits: '[12,12]'
-                      },
+                      company_id: { groups: 'base.group_multi_company' },
+                      company_rate: { digits: '[12,12]' },
+                      inverse_company_rate: { digits: '[12,12]' },
                       rate: {
                         optional: 'hide',
                         digits: '[12,12]'
                       },
-                      write_date: {
-                        optional: 'hide'
-                      }
+                      write_date: { optional: 'hide' }
                     }
                   }
                 }
@@ -174,9 +144,7 @@ export default {
     name: 'Currencies',
     res_model: 'res.currency',
     search_view_id: 'view_currency_search',
-    context: {
-      active_test: false
-    },
+    context: { active_test: false },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

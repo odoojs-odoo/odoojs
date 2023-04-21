@@ -5,38 +5,24 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        mail_message_id: {
-          invisible: '1'
-        },
-        can_resend: {
-          invisible: '1'
-        },
-        has_insufficient_credit: {
-          invisible: '1'
-        },
-        has_unregistered_account: {
-          invisible: '1'
-        },
+        mail_message_id: { invisible: '1' },
+        can_resend: { invisible: '1' },
+        has_insufficient_credit: { invisible: '1' },
+        has_unregistered_account: { invisible: '1' },
         recipient_ids: {
           views: {
             tree: {
               arch: {
                 sheet: {
-                  _attr: {
-                    string: 'Recipient'
-                  },
+                  _attr: { string: 'Recipient' },
                   partner_name: {},
                   sms_number: {},
                   failure_type: {
                     string: 'Reason',
                     class: 'text-wrap'
                   },
-                  resend: {
-                    widget: 'boolean_toggle'
-                  },
-                  notification_id: {
-                    invisible: '1'
-                  }
+                  resend: { widget: 'boolean_toggle' },
+                  notification_id: { invisible: '1' }
                 }
               }
             }
@@ -52,7 +38,7 @@ export default {
               class: 'btn-primary o_mail_send'
             }
           },
-          _button_action_buy_credits_473: {
+          _button_action_buy_credits_850: {
             _attr: {
               name: 'action_buy_credits',
               type: 'object',
@@ -79,7 +65,7 @@ export default {
               class: 'btn-primary'
             }
           },
-          _button_action_cancel_436: {
+          _button_action_cancel_160: {
             _attr: {
               name: 'action_cancel',
               type: 'object',

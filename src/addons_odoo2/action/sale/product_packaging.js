@@ -25,9 +25,7 @@ export default {
         product_uom_id: {
           position: 'after',
           __todo__after: {
-            sales: {
-              optional: 'show'
-            }
+            sales: { optional: 'show' }
           }
         }
       }

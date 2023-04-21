@@ -15,12 +15,8 @@ export default {
               string: 'Accounting Information',
               invisible: [['usage', 'not in', ('inventory', 'production')]]
             },
-            valuation_in_account_id: {
-              no_create: true
-            },
-            valuation_out_account_id: {
-              no_create: true
-            }
+            valuation_in_account_id: { no_create: true },
+            valuation_out_account_id: { no_create: true }
           }
         }
       }

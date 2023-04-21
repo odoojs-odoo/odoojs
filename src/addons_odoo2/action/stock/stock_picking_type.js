@@ -38,17 +38,13 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_groupby_code: {
           _attr: {
             name: 'groupby_code',
             string: 'Type of Operation',
             domain: [],
-            context: {
-              group_by: 'code'
-            }
+            context: { group_by: 'code' }
           }
         },
         _filter_groupby_warehouse_id: {
@@ -56,9 +52,7 @@ export default {
             name: 'groupby_warehouse_id',
             string: 'Warehouse',
             domain: [],
-            context: {
-              group_by: 'warehouse_id'
-            }
+            context: { group_by: 'warehouse_id' }
           }
         }
       }
@@ -71,22 +65,12 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {},
-        active: {
-          invisible: '1'
-        },
-        warehouse_id: {
-          groups: 'stock.group_stock_multi_warehouses'
-        },
-        sequence_id: {
-          groups: 'base.group_no_one'
-        },
-        company_id: {
-          groups: 'base.group_multi_company'
-        }
+        active: { invisible: '1' },
+        warehouse_id: { groups: 'stock.group_stock_multi_warehouses' },
+        sequence_id: { groups: 'base.group_no_one' },
+        company_id: { groups: 'base.group_multi_company' }
       }
     }
   },
@@ -105,32 +89,18 @@ export default {
             invisible: [['active', '=', true]]
           }
         },
-        _label_name: {
-          for: 'name'
-        },
+        _label_name: { for: 'name' },
         _h1: {
-          name: {
-            placeholder: 'e.g. Receptions'
-          }
+          name: { placeholder: 'e.g. Receptions' }
         },
         _group_first: {
-          _attr: {
-            name: 'first'
-          },
+          _attr: { name: 'first' },
           _group: {
             code: {},
-            active: {
-              invisible: '1'
-            },
-            company_id: {
-              invisible: '1'
-            },
-            hide_reservation_method: {
-              invisible: '1'
-            },
-            sequence_id: {
-              groups: 'base.group_no_one'
-            },
+            active: { invisible: '1' },
+            company_id: { invisible: '1' },
+            hide_reservation_method: { invisible: '1' },
+            sequence_id: { groups: 'base.group_no_one' },
             sequence_code: {},
             warehouse_id: {
               groups: 'stock.group_stock_multi_warehouses',
@@ -157,12 +127,12 @@ export default {
               _span: {
                 reservation_days_before: {}
               },
-              _span_900: {
+              _span_255: {
                 reservation_days_before_priority: {}
               }
             }
           },
-          _group_401: {
+          _group_935: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
@@ -173,15 +143,11 @@ export default {
             },
             create_backorder: {},
             show_operations: {},
-            show_reserved: {
-              invisible: [['code', '!=', 'incoming']]
-            }
+            show_reserved: { invisible: [['code', '!=', 'incoming']] }
           }
         },
         _group_second: {
-          _attr: {
-            name: 'second'
-          },
+          _attr: { name: 'second' },
           _group_stock_picking_type_lot: {
             _attr: {
               name: 'stock_picking_type_lot',
@@ -189,12 +155,8 @@ export default {
               groups: 'stock.group_production_lot',
               invisible: [['code', 'not in', ['incoming', 'outgoing', 'internal']]]
             },
-            use_create_lots: {
-              string: 'Create New'
-            },
-            use_existing_lots: {
-              string: 'Use Existing ones'
-            }
+            use_create_lots: { string: 'Create New' },
+            use_existing_lots: { string: 'Use Existing ones' }
           },
           _group: {
             _attr: {

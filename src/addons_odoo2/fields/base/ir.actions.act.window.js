@@ -6,23 +6,15 @@ const ModelFields = {
   help: {},
   limit: {},
   name: {},
-  res_model: {
-    string: 'Object'
-  },
-
+  res_model: { string: 'Object' },
   search_view_id: {},
   target: {},
-  type: {
-    readonly: '1'
-  },
-
+  type: { readonly: '1' },
   usage: {},
   view_id: {},
   view_ids: {},
   view_mode: {},
-  xml_id: {
-    string: 'External ID'
-  }
+  xml_id: { string: 'External ID' }
 }
 
 const AddonsFields = {

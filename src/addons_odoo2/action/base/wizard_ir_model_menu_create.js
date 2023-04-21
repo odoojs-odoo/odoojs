@@ -34,9 +34,7 @@ export default {
     name: 'Create Menu',
     res_model: 'wizard.ir.model.menu.create',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      todo_ctx: "{'model_id': active_id}"
-    },
+    context: { todo_ctx: "{'model_id': active_id}" },
     views: {
       tree: '=======todo==========',
       form: '=======todo=========='

@@ -16,15 +16,9 @@ export default {
               groups: 'purchase.group_purchase_manager',
               class: 'app_settings_block'
             },
-            po_double_validation: {
-              invisible: '1'
-            },
-            company_currency_id: {
-              invisible: '1'
-            },
-            po_lock: {
-              invisible: '1'
-            },
+            po_double_validation: { invisible: '1' },
+            company_currency_id: { invisible: '1' },
+            po_lock: { invisible: '1' },
             _h2: 'Orders',
             _div_purchase_setting_container: {
               _attr: {
@@ -32,22 +26,14 @@ export default {
                 class: 'row mt16 o_settings_container'
               },
               _div: {
-                _attr: {
-                  class: 'col-12 col-lg-6 o_setting_box'
-                },
+                _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
-                  _attr: {
-                    class: 'o_setting_left_pane'
-                  },
+                  _attr: { class: 'o_setting_left_pane' },
                   po_order_approval: {}
                 },
-                _div_125: {
-                  _attr: {
-                    class: 'o_setting_right_pane'
-                  },
-                  _label_po_order_approval: {
-                    for: 'po_order_approval'
-                  },
+                _div_973: {
+                  _attr: { class: 'o_setting_right_pane' },
+                  _label_po_order_approval: { for: 'po_order_approval' },
                   _span: {
                     _attr: {
                       title: 'Values set here are company-specific.',
@@ -61,15 +47,13 @@ export default {
                       text: 'Request managers to approve orders above a minimum amount'
                     }
                   },
-                  _div_511: {
+                  _div_317: {
                     _attr: {
                       invisible: [['po_order_approval', '=', false]],
                       class: 'content-group'
                     },
                     _div: {
-                      _attr: {
-                        class: 'row mt16'
-                      },
+                      _attr: { class: 'row mt16' },
                       _label_po_double_validation_amount: {
                         for: 'po_double_validation_amount',
                         class: 'col-lg-4 o_light_label'
@@ -79,23 +63,15 @@ export default {
                   }
                 }
               },
-              _div_126: {
-                _attr: {
-                  class: 'col-12 col-lg-6 o_setting_box'
-                },
+              _div_643: {
+                _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
-                  _attr: {
-                    class: 'o_setting_left_pane'
-                  },
+                  _attr: { class: 'o_setting_left_pane' },
                   lock_confirmed_po: {}
                 },
-                _div_450: {
-                  _attr: {
-                    class: 'o_setting_right_pane'
-                  },
-                  _label_lock_confirmed_po: {
-                    for: 'lock_confirmed_po'
-                  },
+                _div_925: {
+                  _attr: { class: 'o_setting_right_pane' },
+                  _label_lock_confirmed_po: { for: 'lock_confirmed_po' },
                   _div: {
                     _attr: {
                       class: 'text-muted',
@@ -104,20 +80,14 @@ export default {
                   }
                 }
               },
-              _div_635: {
-                _attr: {
-                  class: 'col-12 col-lg-6 o_setting_box'
-                },
+              _div_668: {
+                _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
-                  _attr: {
-                    class: 'o_setting_left_pane'
-                  },
+                  _attr: { class: 'o_setting_left_pane' },
                   group_warning_purchase: {}
                 },
-                _div_637: {
-                  _attr: {
-                    class: 'o_setting_right_pane'
-                  },
+                _div_375: {
+                  _attr: { class: 'o_setting_right_pane' },
                   _label_group_warning_purchase: {
                     for: 'group_warning_purchase',
                     string: 'Warnings'
@@ -130,24 +100,18 @@ export default {
                   }
                 }
               },
-              _div_581: {
+              _div_599: {
                 _attr: {
                   title: 'Calls for tenders are when you want to generate requests for quotations with several vendors for a given set of products to compare offers.',
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
                 _div: {
-                  _attr: {
-                    class: 'o_setting_left_pane'
-                  },
+                  _attr: { class: 'o_setting_left_pane' },
                   module_purchase_requisition: {}
                 },
-                _div_829: {
-                  _attr: {
-                    class: 'o_setting_right_pane'
-                  },
-                  _label_module_purchase_requisition: {
-                    for: 'module_purchase_requisition'
-                  },
+                _div_867: {
+                  _attr: { class: 'o_setting_right_pane' },
+                  _label_module_purchase_requisition: { for: 'module_purchase_requisition' },
                   _a: {
                     _attr: {
                       title: 'Documentation',
@@ -160,7 +124,7 @@ export default {
                       text: 'Manage your purchase agreements (call for tenders, blanket orders)'
                     }
                   },
-                  _div_972: {
+                  _div_389: {
                     _attr: {
                       invisible: [['module_purchase_requisition', '=', false]],
                       class: 'content-group'
@@ -169,23 +133,15 @@ export default {
                   }
                 }
               },
-              _div_788: {
-                _attr: {
-                  class: 'col-12 col-lg-6 o_setting_box'
-                },
+              _div_403: {
+                _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
-                  _attr: {
-                    class: 'o_setting_left_pane'
-                  },
+                  _attr: { class: 'o_setting_left_pane' },
                   group_send_reminder: {}
                 },
-                _div_782: {
-                  _attr: {
-                    class: 'o_setting_right_pane'
-                  },
-                  _label_group_send_reminder: {
-                    for: 'group_send_reminder'
-                  },
+                _div_962: {
+                  _attr: { class: 'o_setting_right_pane' },
+                  _label_group_send_reminder: { for: 'group_send_reminder' },
                   _div: {
                     _attr: {
                       class: 'text-muted',
@@ -195,7 +151,7 @@ export default {
                 }
               }
             },
-            _h2_809: 'Invoicing',
+            _h2_975: 'Invoicing',
             _div_invoicing_settings_container: {
               _attr: {
                 name: 'invoicing_settings_container',
@@ -207,17 +163,11 @@ export default {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
                 _div: {
-                  _attr: {
-                    class: 'o_setting_left_pane'
-                  }
+                  _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_871: {
-                  _attr: {
-                    class: 'o_setting_right_pane'
-                  },
-                  _label_default_purchase_method: {
-                    for: 'default_purchase_method'
-                  },
+                _div_598: {
+                  _attr: { class: 'o_setting_right_pane' },
+                  _label_default_purchase_method: { for: 'default_purchase_method' },
                   _a: {
                     _attr: {
                       title: 'Documentation',
@@ -230,14 +180,10 @@ export default {
                       text: 'Quantities billed by vendors'
                     }
                   },
-                  _div_103: {
-                    _attr: {
-                      class: 'content-group'
-                    },
+                  _div_541: {
+                    _attr: { class: 'content-group' },
                     _div: {
-                      _attr: {
-                        class: 'mt16'
-                      },
+                      _attr: { class: 'mt16' },
                       default_purchase_method: {
                         widget: 'radio',
                         class: 'o_light_label'
@@ -246,27 +192,21 @@ export default {
                   }
                 }
               },
-              _div_494: {
+              _div_675: {
                 _attr: {
                   title: 'If enabled, activates 3-way matching on vendor bills : the items must be received in order to pay the invoice.',
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
                 _div: {
-                  _attr: {
-                    class: 'o_setting_left_pane'
-                  },
+                  _attr: { class: 'o_setting_left_pane' },
                   module_account_3way_match: {
                     string: '3-way matching',
                     widget: 'upgrade_boolean'
                   }
                 },
-                _div_548: {
-                  _attr: {
-                    class: 'o_setting_right_pane'
-                  },
-                  _label_module_account_3way_match: {
-                    for: 'module_account_3way_match'
-                  },
+                _div_216: {
+                  _attr: { class: 'o_setting_right_pane' },
+                  _label_module_account_3way_match: { for: 'module_account_3way_match' },
                   _a: {
                     _attr: {
                       title: 'Documentation',
@@ -282,29 +222,21 @@ export default {
                 }
               }
             },
-            _h2_245: 'Products',
+            _h2_169: 'Products',
             _div_matrix_setting_container: {
               _attr: {
                 name: 'matrix_setting_container',
                 class: 'row mt16 o_settings_container'
               },
               _div: {
-                _attr: {
-                  class: 'col-12 col-lg-6 o_setting_box'
-                },
+                _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
-                  _attr: {
-                    class: 'o_setting_left_pane'
-                  },
+                  _attr: { class: 'o_setting_left_pane' },
                   group_product_variant: {}
                 },
-                _div_289: {
-                  _attr: {
-                    class: 'o_setting_right_pane'
-                  },
-                  _label_group_product_variant: {
-                    for: 'group_product_variant'
-                  },
+                _div_135: {
+                  _attr: { class: 'o_setting_right_pane' },
+                  _label_group_product_variant: { for: 'group_product_variant' },
                   _a: {
                     _attr: {
                       title: 'Documentation',
@@ -317,15 +249,13 @@ export default {
                       text: 'Purchase variants of a product using attributes (size, color, etc.)'
                     }
                   },
-                  _div_707: {
+                  _div_681: {
                     _attr: {
                       invisible: [['group_product_variant', '=', false]],
                       class: 'content-group'
                     },
                     _div: {
-                      _attr: {
-                        class: 'mt8'
-                      },
+                      _attr: { class: 'mt8' },
                       _button_product__attribute_action: {
                         _attr: {
                           name: 'product.attribute_action',
@@ -339,21 +269,17 @@ export default {
                   }
                 }
               },
-              _div_472: {
+              _div_464: {
                 _attr: {
                   title: 'If installed, the product variants will be added to purchase orders through a grid entry.',
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
                 _div: {
-                  _attr: {
-                    class: 'o_setting_left_pane'
-                  },
+                  _attr: { class: 'o_setting_left_pane' },
                   module_purchase_product_matrix: {}
                 },
-                _div_863: {
-                  _attr: {
-                    class: 'o_setting_right_pane'
-                  },
+                _div_919: {
+                  _attr: { class: 'o_setting_right_pane' },
                   _label_module_purchase_product_matrix: {
                     for: 'module_purchase_product_matrix',
                     string: 'Variant Grid Entry'
@@ -366,24 +292,18 @@ export default {
                   }
                 }
               },
-              _div_382: {
+              _div_866: {
                 _attr: {
                   title: 'Ability to select a package type in purchase orders and to force a quantity that is a multiple of the number of units per package.',
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
                 _div: {
-                  _attr: {
-                    class: 'o_setting_left_pane'
-                  },
+                  _attr: { class: 'o_setting_left_pane' },
                   group_stock_packaging: {}
                 },
-                _div_912: {
-                  _attr: {
-                    class: 'o_setting_right_pane'
-                  },
-                  _label_group_stock_packaging: {
-                    for: 'group_stock_packaging'
-                  },
+                _div_849: {
+                  _attr: { class: 'o_setting_right_pane' },
+                  _label_group_stock_packaging: { for: 'group_stock_packaging' },
                   _div: {
                     _attr: {
                       class: 'text-muted',

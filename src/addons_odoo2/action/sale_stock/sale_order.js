@@ -25,7 +25,7 @@ export default {
             }
           }
         },
-        _xpath_822: {
+        _xpath_468: {
           _attr: {
             expr: "//group[@name='sale_shipping']",
             position: 'attributes'
@@ -44,15 +44,13 @@ export default {
             }
           }
         },
-        _xpath_796: {
+        _xpath_643: {
           _attr: {
             expr: "//label[@for='commitment_date']",
             position: 'before'
           },
-          warehouse_id: {
-            invisible: '1'
-          },
-          _field_warehouse_id_343: {
+          warehouse_id: { invisible: '1' },
+          _field_warehouse_id_239: {
             warehouse_id: {
               groups: 'stock.group_stock_multi_warehouses',
               force_save: '1',
@@ -64,14 +62,10 @@ export default {
             no_open: true,
             no_create: true
           },
-          incoterm_location: {
-            groups: 'sale_stock.group_display_incoterm'
-          },
-          picking_policy: {
-            required: 'True'
-          }
+          incoterm_location: { groups: 'sale_stock.group_display_incoterm' },
+          picking_policy: { required: 'True' }
         },
-        _xpath_515: {
+        _xpath_316: {
           _attr: {
             expr: "//span[@name='expected_date_span']",
             position: 'attributes'
@@ -84,15 +78,13 @@ export default {
             }
           }
         },
-        _xpath_123: {
+        _xpath_494: {
           _attr: {
             expr: "//div[@name='commitment_date_div']",
             position: 'replace'
           },
           _div: {
-            _attr: {
-              class: 'o_row'
-            },
+            _attr: { class: 'o_row' },
             commitment_date: {},
             _span: {
               _attr: {
@@ -106,33 +98,27 @@ export default {
               }
             }
           },
-          effective_date: {
-            invisible: [['effective_date', '=', false]]
-          }
+          effective_date: { invisible: [['effective_date', '=', false]] }
         },
         effective_date: {
           position: 'after',
           __todo__after: {
-            delivery_status: {
-              invisible: [['state', 'not in', ['sale', 'done']]]
-            }
+            delivery_status: { invisible: [['state', 'not in', ['sale', 'done']]] }
           }
         },
-        _xpath_413: {
+        _xpath_324: {
           _attr: {
             expr: "//page[@name='other_information']//field[@name='expected_date']",
             position: 'after'
           },
-          show_json_popover: {
-            invisible: '1'
-          },
+          show_json_popover: { invisible: '1' },
           json_popover: {
             string: ' ',
             widget: 'stock_rescheduling_popover',
             invisible: [['show_json_popover', '=', false]]
           }
         },
-        _xpath_387: {
+        _xpath_831: {
           _attr: {
             expr: "//field[@name='order_line']/form/group/group/field[@name='analytic_distribution']",
             position: 'before'
@@ -142,7 +128,7 @@ export default {
             no_create: true
           }
         },
-        _xpath_827: {
+        _xpath_207: {
           _attr: {
             expr: "//field[@name='order_line']/tree/field[@name='analytic_distribution']",
             position: 'after'
@@ -198,9 +184,7 @@ export default {
         invoice_status: {
           position: 'before',
           __todo__before: {
-            effective_date: {
-              invisible: '1'
-            },
+            effective_date: { invisible: '1' },
             delivery_status: {
               widget: 'badge',
               optional: 'hide'
@@ -222,81 +206,37 @@ export default {
             expr: "//page/field[@name='order_line']/form/group/group/div[@name='ordered_qty']/field[@name='product_uom']",
             position: 'after'
           },
-          virtual_available_at_date: {
-            invisible: '1'
-          },
-          qty_available_today: {
-            invisible: '1'
-          },
-          free_qty_today: {
-            invisible: '1'
-          },
-          scheduled_date: {
-            invisible: '1'
-          },
-          forecast_expected_date: {
-            invisible: '1'
-          },
-          warehouse_id: {
-            invisible: '1'
-          },
-          move_ids: {
-            invisible: '1'
-          },
-          qty_to_deliver: {
-            invisible: '1'
-          },
-          is_mto: {
-            invisible: '1'
-          },
-          display_qty_widget: {
-            invisible: '1'
-          },
+          virtual_available_at_date: { invisible: '1' },
+          qty_available_today: { invisible: '1' },
+          free_qty_today: { invisible: '1' },
+          scheduled_date: { invisible: '1' },
+          forecast_expected_date: { invisible: '1' },
+          warehouse_id: { invisible: '1' },
+          move_ids: { invisible: '1' },
+          qty_to_deliver: { invisible: '1' },
+          is_mto: { invisible: '1' },
+          display_qty_widget: { invisible: '1' },
           _widget_qty_at_date_widget: {
-            _attr: {
-              name: 'qty_at_date_widget'
-            }
+            _attr: { name: 'qty_at_date_widget' }
           }
         },
-        _xpath_867: {
+        _xpath_555: {
           _attr: {
             expr: "//page/field[@name='order_line']/tree/field[@name='qty_delivered']",
             position: 'after'
           },
-          virtual_available_at_date: {
-            invisible: '1'
-          },
-          qty_available_today: {
-            invisible: '1'
-          },
-          free_qty_today: {
-            invisible: '1'
-          },
-          scheduled_date: {
-            invisible: '1'
-          },
-          forecast_expected_date: {
-            invisible: '1'
-          },
-          warehouse_id: {
-            invisible: '1'
-          },
-          move_ids: {
-            invisible: '1'
-          },
-          qty_to_deliver: {
-            invisible: '1'
-          },
-          is_mto: {
-            invisible: '1'
-          },
-          display_qty_widget: {
-            invisible: '1'
-          },
+          virtual_available_at_date: { invisible: '1' },
+          qty_available_today: { invisible: '1' },
+          free_qty_today: { invisible: '1' },
+          scheduled_date: { invisible: '1' },
+          forecast_expected_date: { invisible: '1' },
+          warehouse_id: { invisible: '1' },
+          move_ids: { invisible: '1' },
+          qty_to_deliver: { invisible: '1' },
+          is_mto: { invisible: '1' },
+          display_qty_widget: { invisible: '1' },
           _widget_qty_at_date_widget: {
-            _attr: {
-              name: 'qty_at_date_widget'
-            }
+            _attr: { name: 'qty_at_date_widget' }
           }
         }
       }

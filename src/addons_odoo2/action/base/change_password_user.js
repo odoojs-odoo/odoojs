@@ -5,13 +5,9 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        user_id: {
-          invisible: '1'
-        },
+        user_id: { invisible: '1' },
         user_login: {},
-        new_passwd: {
-          required: 'True'
-        }
+        new_passwd: { required: 'True' }
       }
     }
   }

@@ -13,9 +13,7 @@ export default {
           _div: {
             _h2: 'Statistics',
             _div: {
-              _attr: {
-                class: 'row mt16 o_settings_container'
-              },
+              _attr: { class: 'row mt16 o_settings_container' },
               _div_digest_email_setting_container: {
                 _attr: {
                   name: 'digest_email_setting_container',
@@ -23,15 +21,11 @@ export default {
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
                 _div: {
-                  _attr: {
-                    class: 'o_setting_left_pane'
-                  },
+                  _attr: { class: 'o_setting_left_pane' },
                   digest_emails: {}
                 },
-                _div_313: {
-                  _attr: {
-                    class: 'o_setting_right_pane'
-                  },
+                _div_838: {
+                  _attr: { class: 'o_setting_right_pane' },
                   _label_digest_emails: {
                     for: 'digest_emails',
                     string: 'Digest Email'
@@ -48,27 +42,21 @@ export default {
                       text: 'Add new users as recipient of a periodic email with key metrics'
                     }
                   },
-                  _div_468: {
+                  _div_400: {
                     _attr: {
                       invisible: [['digest_emails', '=', false]],
                       class: 'content-group'
                     },
                     _div: {
-                      _attr: {
-                        class: 'mt16'
-                      },
+                      _attr: { class: 'mt16' },
                       _label_digest_id: {
                         for: 'digest_id',
                         class: 'o_light_label'
                       },
-                      digest_id: {
-                        class: 'oe_inline'
-                      }
+                      digest_id: { class: 'oe_inline' }
                     },
-                    _div_960: {
-                      _attr: {
-                        class: 'mt8'
-                      },
+                    _div_334: {
+                      _attr: { class: 'mt8' },
                       _button_digest__digest_digest_action: {
                         _attr: {
                           name: 'digest.digest_digest_action',

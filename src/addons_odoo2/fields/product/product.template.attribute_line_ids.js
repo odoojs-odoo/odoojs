@@ -1,13 +1,8 @@
 const ModelFields = {
-  attribute_id: {
-    readonly: [['id', '!=', false]]
-  },
-
+  attribute_id: { readonly: [['id', '!=', false]] },
   value_count: {},
   value_ids: {
-    context: {
-      todo_ctx: "{'default_attribute_id': attribute_id, 'show_attribute': False}"
-    }
+    context: { todo_ctx: "{'default_attribute_id': attribute_id, 'show_attribute': False}" }
   }
 }
 

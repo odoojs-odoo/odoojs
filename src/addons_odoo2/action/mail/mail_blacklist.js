@@ -5,9 +5,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        create_date: {
-          string: 'Blacklist Date'
-        },
+        create_date: { string: 'Blacklist Date' },
         email: {}
       }
     }
@@ -25,9 +23,7 @@ export default {
             type: 'object',
             string: 'Unblacklist',
             invisible: ['|', ['active', '=', false], ['email', '=', false]],
-            context: {
-              todo_ctx: "{'default_email': email}"
-            },
+            context: { todo_ctx: "{'default_email': email}" },
             class: 'oe_highlight'
           }
         },
@@ -53,9 +49,7 @@ export default {
         _group: {
           _group: {
             email: {},
-            active: {
-              readonly: '1'
-            },
+            active: { readonly: '1' },
             _br: {}
           }
         }

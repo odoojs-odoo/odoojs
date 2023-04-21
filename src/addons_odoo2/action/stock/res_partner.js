@@ -41,18 +41,12 @@ export default {
             position: 'inside'
           },
           _group: {
-            _attr: {
-              groups: 'stock.group_warning_stock'
-            },
+            _attr: { groups: 'stock.group_warning_stock' },
             _group: {
               _separator: {
-                _attr: {
-                  string: 'Warning on the Picking'
-                }
+                _attr: { string: 'Warning on the Picking' }
               },
-              picking_warn: {
-                required: '1'
-              },
+              picking_warn: { required: '1' },
               picking_warn_msg: {
                 required: [['picking_warn', '!=', false], ['picking_warn', '!=', 'no-message']],
                 invisible: [['picking_warn', 'in', (false, 'no-message')]],

@@ -15,33 +15,21 @@ export default {
             }
           },
           _button: {
-            _attr: {
-              string: 'Cancel'
-            }
+            _attr: { string: 'Cancel' }
           }
         },
         _group: {
           _group: {
-            _attr: {
-              string: 'Fiscal Years'
-            },
-            opening_move_posted: {
-              invisible: '1'
-            },
-            opening_date: {
-              readonly: [['opening_move_posted', '=', true]]
-            },
+            _attr: { string: 'Fiscal Years' },
+            opening_move_posted: { invisible: '1' },
+            opening_date: { readonly: [['opening_move_posted', '=', true]] },
             _label_fiscalyear_last_month: {
               for: 'fiscalyear_last_month',
               string: 'Fiscal Year End'
             },
             _div: {
-              fiscalyear_last_day: {
-                class: 'text-center me-2'
-              },
-              fiscalyear_last_month: {
-                class: 'w-75'
-              }
+              fiscalyear_last_day: { class: 'text-center me-2' },
+              fiscalyear_last_month: { class: 'w-75' }
             }
           }
         }

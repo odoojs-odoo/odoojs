@@ -1,10 +1,7 @@
 const ModelFields = {
   display_type: {},
   html_color: {},
-  is_custom: {
-    groups: 'product.group_product_variant'
-  },
-
+  is_custom: { groups: 'product.group_product_variant' },
   name: {},
   sequence: {}
 }

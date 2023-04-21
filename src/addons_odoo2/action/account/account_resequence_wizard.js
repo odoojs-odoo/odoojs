@@ -5,33 +5,23 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        move_ids: {
-          invisible: '1'
-        },
-        new_values: {
-          invisible: '1'
-        },
-        sequence_number_reset: {
-          invisible: '1'
-        },
+        move_ids: { invisible: '1' },
+        new_values: { invisible: '1' },
+        sequence_number_reset: { invisible: '1' },
         _group: {
           _group: {
-            ordering: {
-              widget: 'radio'
-            }
+            ordering: { widget: 'radio' }
           },
-          _group_767: {
+          _group_462: {
             first_name: {}
           }
         },
-        _group_503: {
+        _group_538: {
           _label_preview_moves: {
             for: 'preview_moves',
             string: 'Preview Modifications'
           },
-          preview_moves: {
-            widget: 'account_resequence_widget'
-          }
+          preview_moves: { widget: 'account_resequence_widget' }
         },
         _footer: {
           _button_resequence: {

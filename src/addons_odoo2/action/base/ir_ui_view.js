@@ -11,21 +11,15 @@ export default {
             type: {},
             model: {},
             priority: {},
-            active: {
-              widget: 'boolean_toggle'
-            }
+            active: { widget: 'boolean_toggle' }
           },
-          _group_990: {
-            _attr: {
-              groups: 'base.group_no_one'
-            },
+          _group_220: {
+            _attr: { groups: 'base.group_no_one' },
             field_parent: {},
             inherit_id: {},
             mode: {},
             model_data_id: {},
-            xml_id: {
-              class: 'text-break'
-            }
+            xml_id: { class: 'text-break' }
           }
         },
         _div: {
@@ -41,9 +35,7 @@ export default {
               name: 'architecture',
               string: 'Architecture'
             },
-            arch_db: {
-              class: 'oe_no_translation_content'
-            },
+            arch_db: { class: 'oe_no_translation_content' },
             arch_base: {
               string: 'View Architecture',
               widget: 'ace',
@@ -64,16 +56,12 @@ export default {
               string: 'Inherited Views'
             },
             inherit_children_ids: {
-              context: {
-                todo_ctx: "{'default_model':model,'default_type':type,'default_inherit_id':active_id,'default_mode':'extension', 'active_test': False}"
-              },
+              context: { todo_ctx: "{'default_model':model,'default_type':type,'default_inherit_id':active_id,'default_mode':'extension', 'active_test': False}" },
               views: {
                 tree: {
                   arch: {
                     sheet: {
-                      active: {
-                        invisible: '1'
-                      },
+                      active: { invisible: '1' },
                       id: {},
                       priority: {},
                       name: {},
@@ -102,9 +90,7 @@ export default {
         name: {},
         type: {},
         model: {},
-        xml_id: {
-          groups: 'base.group_no_one'
-        },
+        xml_id: { groups: 'base.group_no_one' },
         inherit_id: {}
       }
     }
@@ -117,17 +103,13 @@ export default {
     arch: {
       name: {
         string: 'View',
-        filter_domain: {
-          todo_ctx: "['|', '|', ('name','ilike',self), ('model','ilike',self), ('model_data_id','ilike',self)]"
-        }
+        filter_domain: { todo_ctx: "['|', '|', ('name','ilike',self), ('model','ilike',self), ('model_data_id','ilike',self)]" }
       },
       key: {},
       model: {},
       inherit_id: {},
       type: {},
-      arch_db: {
-        string: 'View Architecture'
-      },
+      arch_db: { string: 'View Architecture' },
       _filter_form: {
         _attr: {
           name: 'form',
@@ -171,7 +153,7 @@ export default {
           domain: [['arch_updated', '=', true]]
         }
       },
-      _separator_738: {},
+      _separator_423: {},
       _filter_active: {
         _attr: {
           name: 'active',
@@ -187,17 +169,13 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_object: {
           _attr: {
             name: 'object',
             string: 'Model',
             domain: [],
-            context: {
-              group_by: 'model'
-            }
+            context: { group_by: 'model' }
           }
         },
         _filter_type: {
@@ -205,9 +183,7 @@ export default {
             name: 'type',
             string: 'Type',
             domain: [],
-            context: {
-              group_by: 'type'
-            }
+            context: { group_by: 'type' }
           }
         },
         _filter_inherit: {
@@ -215,9 +191,7 @@ export default {
             name: 'inherit',
             string: 'Inherit',
             domain: [],
-            context: {
-              group_by: 'inherit_id'
-            }
+            context: { group_by: 'inherit_id' }
           }
         }
       }
@@ -230,9 +204,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'ir.ui.view',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      search_default_active: 1
-    },
+    context: { search_default_active: 1 },
     views: {
       tree: 'view_view_tree',
       form: '=======todo=========='

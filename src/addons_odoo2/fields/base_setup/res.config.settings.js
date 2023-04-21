@@ -4,10 +4,7 @@ const ModelFields = {
   company_id: {},
   company_informations: {},
   company_name: {},
-  external_report_layout_id: {
-    domain: [['type', '=', 'qweb']]
-  },
-
+  external_report_layout_id: { domain: [['type', '=', 'qweb']] },
   language_count: {},
   module_account_inter_company_rules: {},
   module_auth_ldap: {},

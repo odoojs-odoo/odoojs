@@ -21,9 +21,7 @@ export default {
               position: 'before'
             },
             _widget_notification_alert: {
-              _attr: {
-                name: 'notification_alert'
-              }
+              _attr: { name: 'notification_alert' }
             }
           }
         }

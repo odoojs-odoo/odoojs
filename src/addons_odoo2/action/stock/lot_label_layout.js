@@ -6,12 +6,8 @@ export default {
     arch: {
       sheet: {
         _group: {
-          label_quantity: {
-            widget: 'radio'
-          },
-          print_format: {
-            widget: 'radio'
-          }
+          label_quantity: { widget: 'radio' },
+          print_format: { widget: 'radio' }
         },
         _footer: {
           _button_process: {

@@ -14,25 +14,19 @@ export default {
           }
         },
         _group_bank_details: {
-          _attr: {
-            name: 'bank_details'
-          },
+          _attr: { name: 'bank_details' },
           name: {},
           bic: {}
         },
         _group: {
           _group_address_details: {
-            _attr: {
-              name: 'address_details'
-            },
+            _attr: { name: 'address_details' },
             _label_street: {
               for: 'street',
               string: 'Bank Address'
             },
             _div: {
-              _attr: {
-                class: 'o_address_format'
-              },
+              _attr: { class: 'o_address_format' },
               street: {
                 class: 'o_address_street',
                 placeholder: 'Street...'
@@ -63,18 +57,10 @@ export default {
             }
           },
           _group_communication_details: {
-            _attr: {
-              name: 'communication_details'
-            },
-            phone: {
-              class: 'o_force_ltr'
-            },
-            email: {
-              widget: 'email'
-            },
-            active: {
-              invisible: '1'
-            }
+            _attr: { name: 'communication_details' },
+            phone: { class: 'o_force_ltr' },
+            email: { widget: 'email' },
+            active: { invisible: '1' }
           }
         }
       }

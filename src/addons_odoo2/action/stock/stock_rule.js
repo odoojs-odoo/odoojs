@@ -13,16 +13,12 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group by...'
-        },
+        _attr: { string: 'Group by...' },
         _filter_groupby_route: {
           _attr: {
             name: 'groupby_route',
             string: 'Route',
-            context: {
-              group_by: 'route_id'
-            }
+            context: { group_by: 'route_id' }
           }
         },
         _filter_groupby_warehouse: {
@@ -30,9 +26,7 @@ export default {
             name: 'groupby_warehouse',
             string: 'Warehouse',
             groups: 'stock.group_stock_multi_warehouses',
-            context: {
-              group_by: 'warehouse_id'
-            }
+            context: { group_by: 'warehouse_id' }
           }
         }
       }
@@ -46,16 +40,10 @@ export default {
     arch: {
       sheet: {
         action: {},
-        location_src_id: {
-          no_create: true
-        },
-        location_dest_id: {
-          no_create: true
-        },
+        location_src_id: { no_create: true },
+        location_dest_id: { no_create: true },
         route_id: {},
-        company_id: {
-          groups: 'base.group_multi_company'
-        }
+        company_id: { groups: 'base.group_multi_company' }
       }
     }
   },
@@ -75,58 +63,40 @@ export default {
           }
         },
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
-          _label_name: {
-            for: 'name'
-          },
+          _attr: { class: 'oe_title' },
+          _label_name: { for: 'name' },
           _h1: {
             name: {}
           }
         },
         _group: {
           _group: {
-            active: {
-              invisible: '1'
-            },
-            company_id: {
-              invisible: '1'
-            },
-            picking_type_code_domain: {
-              invisible: '1'
-            },
+            active: { invisible: '1' },
+            company_id: { invisible: '1' },
+            picking_type_code_domain: { invisible: '1' },
             action: {},
             picking_type_id: {},
             location_src_id: {
               required: [['action', 'in', ['pull', 'push', 'pull_push']]],
               no_create: true
             },
-            location_dest_id: {
-              no_create: true
-            },
-            auto: {
-              invisible: [['action', 'not in', ['push', 'pull_push']]]
-            },
-            procure_method: {
-              invisible: [['action', 'not in', ['pull', 'pull_push']]]
-            }
+            location_dest_id: { no_create: true },
+            auto: { invisible: [['action', 'not in', ['push', 'pull_push']]] },
+            procure_method: { invisible: [['action', 'not in', ['pull', 'pull_push']]] }
           },
-          _group_750: {
+          _group_509: {
             _div: {
               _label_rule_message: {
                 for: 'rule_message',
                 invisible: '1'
               },
               _div: {
-                rule_message: {
-                  readonly: '1'
-                }
+                rule_message: { readonly: '1' }
               }
             }
           }
         },
-        _group_116: {
+        _group_966: {
           _group_apply_on: {
             _attr: {
               name: 'apply_on',
@@ -137,9 +107,7 @@ export default {
               groups: 'base.group_no_one',
               invisible: [['action', '=', 'push']]
             },
-            route_company_id: {
-              invisible: '1'
-            },
+            route_company_id: { invisible: '1' },
             company_id: {
               groups: 'base.group_multi_company',
               required: [['action', '=', 'push']],
@@ -170,16 +138,10 @@ export default {
               string: 'Options',
               invisible: [['action', 'not in', ['pull', 'push', 'pull_push']]]
             },
-            partner_address_id: {
-              invisible: [['action', '=', 'push']]
-            },
-            _label_delay: {
-              for: 'delay'
-            },
+            partner_address_id: { invisible: [['action', '=', 'push']] },
+            _label_delay: { for: 'delay' },
             _div: {
-              delay: {
-                class: 'oe_inline'
-              }
+              delay: { class: 'oe_inline' }
             }
           }
         }
@@ -199,7 +161,7 @@ export default {
             position: 'replace'
           }
         },
-        _xpath_789: {
+        _xpath_159: {
           _attr: {
             expr: "//group[@name='apply_on']",
             position: 'attributes'
@@ -212,14 +174,12 @@ export default {
             }
           }
         },
-        _xpath_204: {
+        _xpath_216: {
           _attr: {
             expr: '//form',
             position: 'inside'
           },
-          route_company_id: {
-            invisible: '1'
-          }
+          route_company_id: { invisible: '1' }
         }
       }
     }

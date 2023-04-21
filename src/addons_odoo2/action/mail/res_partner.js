@@ -10,17 +10,13 @@ export default {
             expr: "//field[@name='email']",
             position: 'replace'
           },
-          is_blacklisted: {
-            invisible: '1'
-          },
+          is_blacklisted: { invisible: '1' },
           _label_email: {
             for: 'email',
             class: 'oe_inline'
           },
           _div: {
-            _attr: {
-              class: 'o_row o_row_readonly'
-            },
+            _attr: { class: 'o_row o_row_readonly' },
             _button_mail_action_blacklist_remove: {
               _attr: {
                 name: 'mail_action_blacklist_remove',
@@ -28,30 +24,24 @@ export default {
                 title: 'This email is blacklisted for mass mailings. Click to unblacklist.',
                 groups: 'base.group_user',
                 invisible: [['is_blacklisted', '=', false]],
-                context: {
-                  todo_ctx: "{'default_email': email}"
-                },
+                context: { todo_ctx: "{'default_email': email}" },
                 class: 'fa fa-ban text-danger'
               }
             },
             email: {
               widget: 'email',
               required: [['user_ids', '!=', []]],
-              context: {
-                gravatar_image: true
-              }
+              context: { gravatar_image: true }
             }
           }
         },
-        _xpath_323: {
+        _xpath_787: {
           _attr: {
             expr: '//sheet',
             position: 'after'
           },
           _div: {
-            _attr: {
-              class: 'oe_chatter'
-            },
+            _attr: { class: 'oe_chatter' },
             message_follower_ids: {},
             activity_ids: {},
             message_ids: {}
@@ -78,9 +68,7 @@ export default {
             expr: "//div[hasclass('oe_kanban_bottom_right')]",
             position: 'inside'
           },
-          activity_ids: {
-            widget: 'kanban_activity'
-          }
+          activity_ids: { widget: 'kanban_activity' }
         }
       }
     }
@@ -103,9 +91,7 @@ export default {
               string: 'Late Activities',
               help: 'Show all records which has next action date is before today',
               invisible: '1',
-              domain: {
-                todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]"
-              }
+              domain: { todo_ctx: "[('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))]" }
             }
           },
           _filter_activities_today: {
@@ -113,9 +99,7 @@ export default {
               name: 'activities_today',
               string: 'Today Activities',
               invisible: '1',
-              domain: {
-                todo_ctx: "[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"
-              }
+              domain: { todo_ctx: "[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]" }
             }
           },
           _filter_activities_upcoming_all: {
@@ -123,9 +107,7 @@ export default {
               name: 'activities_upcoming_all',
               string: 'Future Activities',
               invisible: '1',
-              domain: {
-                todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))]"
-              }
+              domain: { todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))]" }
             }
           },
           _separator: {}

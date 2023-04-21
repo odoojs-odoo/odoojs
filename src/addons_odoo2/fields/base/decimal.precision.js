@@ -1,8 +1,6 @@
 const ModelFields = {
   digits: {},
-  name: {
-    readonly: [['id', '!=', false]]
-  }
+  name: { readonly: [['id', '!=', false]] }
 }
 
 const AddonsFields = {

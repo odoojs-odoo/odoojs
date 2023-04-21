@@ -6,9 +6,7 @@ export default {
     arch: {
       sheet: {
         _group_sale: {
-          _attr: {
-            name: 'sale'
-          },
+          _attr: { name: 'sale' },
           property_product_pricelist: {
             groups: 'product.group_product_pricelist',
             invisible: [['is_company', '=', false], ['parent_id', '!=', false]]
@@ -20,9 +18,7 @@ export default {
               invisible: ['|', ['is_company', '=', true], ['parent_id', '=', false]]
             },
             _p: {
-              _attr: {
-                text: 'Pricelists are managed on'
-              },
+              _attr: { text: 'Pricelists are managed on' },
               _button_open_commercial_entity: {
                 _attr: {
                   name: 'open_commercial_entity',

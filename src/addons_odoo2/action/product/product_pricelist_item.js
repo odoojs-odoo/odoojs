@@ -19,12 +19,8 @@ export default {
       },
       _separator: {},
       pricelist_id: {},
-      company_id: {
-        groups: 'base.group_multi_company'
-      },
-      currency_id: {
-        groups: 'base.group_multi_currency'
-      },
+      company_id: { groups: 'base.group_multi_company' },
+      currency_id: { groups: 'base.group_multi_currency' },
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -33,17 +29,13 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_groupby_product: {
           _attr: {
             name: 'groupby_product',
             string: 'Product',
             domain: [],
-            context: {
-              group_by: 'product_tmpl_id'
-            }
+            context: { group_by: 'product_tmpl_id' }
           }
         },
         _filter_groupby_product_variant: {
@@ -52,9 +44,7 @@ export default {
             string: 'Variant',
             groups: 'product.group_product_variant',
             domain: [['applied_on', '=', '0_product_variant']],
-            context: {
-              group_by: 'product_tmpl_id'
-            }
+            context: { group_by: 'product_tmpl_id' }
           }
         },
         _filter_groupby_vendor: {
@@ -63,9 +53,7 @@ export default {
             string: 'Pricelist',
             groups: 'product.group_product_pricelist',
             domain: [],
-            context: {
-              group_by: 'pricelist_id'
-            }
+            context: { group_by: 'pricelist_id' }
           }
         }
       }
@@ -79,17 +67,11 @@ export default {
     arch: {
       sheet: {
         pricelist_id: {},
-        name: {
-          string: 'Applied On'
-        },
+        name: { string: 'Applied On' },
         price: {},
         min_quantity: {},
-        date_start: {
-          optional: 'hide'
-        },
-        date_end: {
-          optional: 'hide'
-        },
+        date_start: { optional: 'hide' },
+        date_end: { optional: 'hide' },
         company_id: {
           groups: 'base.group_multi_company',
           optional: 'show'
@@ -109,20 +91,12 @@ export default {
           no_create_edit: 1,
           no_open: 1
         },
-        name: {
-          string: 'Applied On'
-        },
-        company_id: {
-          invisible: '1'
-        },
-        categ_id: {
-          invisible: '1'
-        },
+        name: { string: 'Applied On' },
+        company_id: { invisible: '1' },
+        categ_id: { invisible: '1' },
         product_tmpl_id: {
           invisible: "context.get['active_model']!='product.category'",
-          domain: {
-            todo_ctx: "[('categ_id', '=', context.get('default_categ_id', True)), '|', ('company_id', '=', company_id), ('company_id', '=', False)]"
-          },
+          domain: { todo_ctx: "[('categ_id', '=', context.get('default_categ_id', True)), '|', ('company_id', '=', company_id), ('company_id', '=', False)]" },
           required: [['applied_on', '=', '1_product']],
           no_create_edit: 1,
           no_open: 1
@@ -130,32 +104,22 @@ export default {
         product_id: {
           groups: 'product.group_product_variant',
           invisible: "context.get['product_without_variants', False]",
-          domain: {
-            todo_ctx: "['|', '|',                     ('id', '=', context.get('default_product_id', 0)),                     ('product_tmpl_id', '=', context.get('default_product_tmpl_id', 0)),                     ('categ_id', '=', context.get('default_categ_id', 0)), '|', ('company_id', '=', company_id), ('company_id', '=', False)                   ]"
-          },
+          domain: { todo_ctx: "['|', '|',                     ('id', '=', context.get('default_product_id', 0)),                     ('product_tmpl_id', '=', context.get('default_product_tmpl_id', 0)),                     ('categ_id', '=', context.get('default_categ_id', 0)), '|', ('company_id', '=', company_id), ('company_id', '=', False)                   ]" },
           required: [['applied_on', '=', '0_product_variant']],
           readonly: "context.get['active_model']=='product.product'",
           no_create_edit: 1,
           no_open: 1
         },
         min_quantity: {},
-        currency_id: {
-          invisible: '1'
-        },
+        currency_id: { invisible: '1' },
         fixed_price: {
           string: 'Price',
           required: '1'
         },
-        date_start: {
-          optional: 'show'
-        },
-        date_end: {
-          optional: 'show'
-        },
-        applied_on: {
-          invisible: '1'
-        },
-        _field_company_id_606: {
+        date_start: { optional: 'show' },
+        date_end: { optional: 'show' },
+        applied_on: { invisible: '1' },
+        _field_company_id_326: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'show',
@@ -173,12 +137,8 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        name: {
-          invisible: '1'
-        },
-        company_id: {
-          invisible: '1'
-        },
+        name: { invisible: '1' },
+        company_id: { invisible: '1' },
         _group_pricelist_rule_computation: {
           _attr: {
             name: 'pricelist_rule_computation',
@@ -186,9 +146,7 @@ export default {
             groups: 'product.group_sale_pricelist'
           },
           _group_pricelist_rule_method: {
-            _attr: {
-              name: 'pricelist_rule_method'
-            },
+            _attr: { name: 'pricelist_rule_method' },
             compute_price: {
               string: 'Computation',
               widget: 'radio'
@@ -208,9 +166,7 @@ export default {
             groups: 'product.group_sale_pricelist'
           },
           _group: {
-            price: {
-              invisible: '1'
-            },
+            price: { invisible: '1' },
             fixed_price: {
               widget: 'monetary',
               invisible: [['compute_price', '!=', 'fixed']]
@@ -230,9 +186,7 @@ export default {
                 class: 'oe_inline'
               }
             },
-            base: {
-              invisible: [['compute_price', '!=', 'formula']]
-            },
+            base: { invisible: [['compute_price', '!=', 'formula']] },
             base_pricelist_id: {
               invisible: ['|', ['compute_price', '!=', 'formula'], ['base', '!=', 'pricelist']],
               required: [['compute_price', '=', 'formula'], ['base', '=', 'pricelist']],
@@ -243,7 +197,7 @@ export default {
               string: 'Discount',
               invisible: [['compute_price', '!=', 'formula']]
             },
-            _div_701: {
+            _div_582: {
               _attr: {
                 invisible: [['compute_price', '!=', 'formula']],
                 class: 'o_row'
@@ -265,7 +219,7 @@ export default {
               string: 'Margins',
               invisible: [['compute_price', '!=', 'formula']]
             },
-            _div_136: {
+            _div_599: {
               _attr: {
                 invisible: [['compute_price', '!=', 'formula']],
                 class: 'o_row'
@@ -297,16 +251,10 @@ export default {
           }
         },
         _group: {
-          _attr: {
-            string: 'Conditions'
-          },
+          _attr: { string: 'Conditions' },
           _group_pricelist_rule_target: {
-            _attr: {
-              name: 'pricelist_rule_target'
-            },
-            applied_on: {
-              widget: 'radio'
-            },
+            _attr: { name: 'pricelist_rule_target' },
+            applied_on: { widget: 'radio' },
             categ_id: {
               invisible: [['applied_on', '!=', '2_product_category']],
               required: [['applied_on', '=', '2_product_category']],
@@ -324,18 +272,14 @@ export default {
             }
           },
           _group_pricelist_rule_limits: {
-            _attr: {
-              name: 'pricelist_rule_limits'
-            },
+            _attr: { name: 'pricelist_rule_limits' },
             min_quantity: {},
             _label_date_start: {
               for: 'date_start',
               string: 'Validity'
             },
             _div: {
-              _attr: {
-                class: 'o_row'
-              },
+              _attr: { class: 'o_row' },
               date_start: {
                 widget: 'daterange',
                 related_end_date: 'date_end'
@@ -357,15 +301,9 @@ export default {
               name: 'pricelist_rule_related',
               groups: 'base.group_no_one'
             },
-            pricelist_id: {
-              invisible: '1'
-            },
-            currency_id: {
-              groups: 'base.group_multi_currency'
-            },
-            company_id: {
-              groups: 'base.group_multi_company'
-            }
+            pricelist_id: { invisible: '1' },
+            currency_id: { groups: 'base.group_multi_currency' },
+            company_id: { groups: 'base.group_multi_company' }
           }
         }
       }

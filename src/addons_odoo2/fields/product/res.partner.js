@@ -1,7 +1,5 @@
 const ModelFields = {
-  property_product_pricelist: {
-    groups: 'product.group_product_pricelist'
-  }
+  property_product_pricelist: { groups: 'product.group_product_pricelist' }
 }
 
 const AddonsFields = {

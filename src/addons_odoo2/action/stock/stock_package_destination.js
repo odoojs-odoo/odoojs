@@ -6,7 +6,7 @@ export default {
     arch: {
       sheet: {
         _div: 'You are trying to put products going to different locations into the same package',
-        _div_726: {
+        _div_775: {
           move_line_ids: {
             views: {
               tree: {
@@ -15,9 +15,7 @@ export default {
                     product_id: {},
                     location_dest_id: {},
                     qty_done: {},
-                    lot_id: {
-                      groups: 'stock.group_production_lot'
-                    }
+                    lot_id: { groups: 'stock.group_production_lot' }
                   }
                 }
               },
@@ -30,34 +28,22 @@ export default {
                     _templates: {
                       _t: {
                         _div: {
-                          _attr: {
-                            class: 'container o_kanban_card_content'
-                          },
+                          _attr: { class: 'container o_kanban_card_content' },
                           _div: {
-                            _attr: {
-                              class: 'row'
-                            },
+                            _attr: { class: 'row' },
                             _div: {
-                              _attr: {
-                                class: 'col-6 o_kanban_primary_left'
-                              },
+                              _attr: { class: 'col-6 o_kanban_primary_left' },
                               product_id: {}
                             },
-                            _div_129: {
-                              _attr: {
-                                class: 'col-6 o_kanban_primary_right'
-                              },
+                            _div_145: {
+                              _attr: { class: 'col-6 o_kanban_primary_right' },
                               qty_done: {}
                             }
                           },
-                          _div_951: {
-                            _attr: {
-                              class: 'row'
-                            },
+                          _div_972: {
+                            _attr: { class: 'row' },
                             _div: {
-                              _attr: {
-                                class: 'col-12'
-                              },
+                              _attr: { class: 'col-12' },
                               location_dest_id: {}
                             }
                           }
@@ -70,17 +56,11 @@ export default {
             }
           }
         },
-        _div_380: {
-          _strong: 'Where do you want to send the products ?'
-        },
-        _div_872: {
-          filtered_location: {
-            invisible: '1'
-          },
+        _div_505: { _strong: 'Where do you want to send the products ?' },
+        _div_351: {
+          filtered_location: { invisible: '1' },
           location_dest_id: {
-            domain: {
-              todo_ctx: "[('id', 'in', filtered_location)]"
-            },
+            domain: { todo_ctx: "[('id', 'in', filtered_location)]" },
             no_create: true,
             no_open: true
           }

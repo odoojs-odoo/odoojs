@@ -7,17 +7,13 @@ export default {
       sheet: {
         _group: {
           name: {},
-          user_id: {
-            string: 'Available for User'
-          },
+          user_id: { string: 'Available for User' },
           model_id: {},
           is_default: {},
           action_id: {},
-          active: {
-            widget: 'boolean_toggle'
-          }
+          active: { widget: 'boolean_toggle' }
         },
-        _group_976: {
+        _group_238: {
           domain: {
             widget: 'domain',
             model: 'model_id'
@@ -40,15 +36,9 @@ export default {
         user_id: {},
         is_default: {},
         action_id: {},
-        domain: {
-          groups: 'base.group_no_one'
-        },
-        context: {
-          groups: 'base.group_no_one'
-        },
-        sort: {
-          groups: 'base.group_no_one'
-        }
+        domain: { groups: 'base.group_no_one' },
+        context: { groups: 'base.group_no_one' },
+        sort: { groups: 'base.group_no_one' }
       }
     }
   },
@@ -58,9 +48,7 @@ export default {
     model: 'ir.filters',
     type: 'search',
     arch: {
-      name: {
-        string: 'Filter Name'
-      },
+      name: { string: 'Filter Name' },
       _filter_user: {
         _attr: {
           name: 'user',
@@ -82,9 +70,7 @@ export default {
           name: 'my_filters',
           string: 'My filters',
           help: 'Filters created by myself',
-          domain: {
-            todo_ctx: "[('user_id','=',uid)]"
-          }
+          domain: { todo_ctx: "[('user_id','=',uid)]" }
         }
       },
       _separator: {},
@@ -96,17 +82,13 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_user: {
           _attr: {
             name: 'user',
             string: 'User',
             domain: [],
-            context: {
-              group_by: 'user_id'
-            }
+            context: { group_by: 'user_id' }
           }
         },
         _filter_model: {
@@ -114,9 +96,7 @@ export default {
             name: 'model',
             string: 'Model',
             domain: [],
-            context: {
-              group_by: 'model_id'
-            }
+            context: { group_by: 'model_id' }
           }
         }
       },

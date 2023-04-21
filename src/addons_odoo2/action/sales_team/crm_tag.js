@@ -6,16 +6,10 @@ export default {
     arch: {
       sheet: {
         _div_title: {
-          _attr: {
-            class: 'oe_title'
-          },
-          _label_name: {
-            for: 'name'
-          },
+          _attr: { class: 'oe_title' },
+          _label_name: { for: 'name' },
           _h1: {
-            name: {
-              placeholder: 'e.g. Services'
-            }
+            name: { placeholder: 'e.g. Services' }
           }
         },
         _group: {
@@ -37,9 +31,7 @@ export default {
     arch: {
       sheet: {
         name: {},
-        color: {
-          widget: 'color_picker'
-        }
+        color: { widget: 'color_picker' }
       }
     }
   },

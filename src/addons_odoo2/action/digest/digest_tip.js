@@ -5,9 +5,7 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {},
         group_id: {}
       }
@@ -24,9 +22,7 @@ export default {
           name: {},
           tip_description: {},
           group_id: {},
-          user_ids: {
-            widget: 'many2many_tags'
-          }
+          user_ids: { widget: 'many2many_tags' }
         }
       }
     }

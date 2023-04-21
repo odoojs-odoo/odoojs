@@ -41,16 +41,12 @@ export default {
       name: {},
       country_id: {},
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_groupby_country: {
           _attr: {
             name: 'groupby_country',
             string: 'Country',
-            context: {
-              group_by: 'country_id'
-            }
+            context: { group_by: 'country_id' }
           }
         }
       }

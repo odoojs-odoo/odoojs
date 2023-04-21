@@ -6,9 +6,7 @@ const ModelFields = {
   analytic_account_id: {
     groups: 'analytic.group_analytic_accounting',
     readonly: [['invoice_count', '!=', 0], ['state', '=', 'sale']],
-    context: {
-      todo_ctx: "{'default_partner_id':partner_invoice_id, 'default_name':name}"
-    }
+    context: { todo_ctx: "{'default_partner_id':partner_invoice_id, 'default_name':name}" }
   },
 
   campaign_id: {},
@@ -19,10 +17,7 @@ const ModelFields = {
     readonly: '1'
   },
 
-  create_date: {
-    string: 'Creation Date'
-  },
-
+  create_date: { string: 'Creation Date' },
   currency_id: {},
   date_order: {
     groups: 'base.group_no_one',
@@ -31,22 +26,10 @@ const ModelFields = {
 
   expected_date: {},
   fiscal_position_id: {},
-  invoice_count: {
-    string: 'Invoices'
-  },
-
-  invoice_status: {
-    groups: '===todo=='
-  },
-
-  invoice_status_$_form_$$_333: {
-    groups: 'base.group_no_one'
-  },
-
-  invoice_status_$_form_$$_406: {
-    groups: '!base.group_no_one'
-  },
-
+  invoice_count: { string: 'Invoices' },
+  invoice_status: { groups: '===todo==' },
+  invoice_status_$_form_$$_671: { groups: 'base.group_no_one' },
+  invoice_status_$_form_$$_787: { groups: '!base.group_no_one' },
   medium_id: {},
   message_needaction: {},
   name: {
@@ -54,14 +37,8 @@ const ModelFields = {
     string: 'Number'
   },
 
-  note: {
-    placeholder: 'Terms and conditions...'
-  },
-
-  order_line: {
-    readonly: [['state', 'in', ('done', 'cancel')]]
-  },
-
+  note: { placeholder: 'Terms and conditions...' },
+  order_line: { readonly: [['state', 'in', ('done', 'cancel')]] },
   origin: {},
   partner_credit_warning: {},
   partner_id: {
@@ -75,27 +52,17 @@ const ModelFields = {
 
   partner_invoice_id: {
     groups: 'account.group_delivery_invoice_address',
-    context: {
-      default_type: 'invoice'
-    }
+    context: { default_type: 'invoice' }
   },
 
   partner_shipping_id: {
     groups: 'account.group_delivery_invoice_address',
-    context: {
-      default_type: 'delivery'
-    }
+    context: { default_type: 'delivery' }
   },
 
   payment_term_id: {},
-  pricelist_id: {
-    groups: '!product.group_product_pricelist'
-  },
-
-  reference: {
-    readonly: '1'
-  },
-
+  pricelist_id: { groups: '!product.group_product_pricelist' },
+  reference: { readonly: '1' },
   require_payment: {},
   require_signature: {},
   show_update_fpos: {},
@@ -107,10 +74,7 @@ const ModelFields = {
   state: {},
   tag_ids: {},
   tax_country_id: {},
-  tax_totals: {
-    readonly: '1'
-  },
-
+  tax_totals: { readonly: '1' },
   team_id: {},
   user_id: {},
   validity_date: {}

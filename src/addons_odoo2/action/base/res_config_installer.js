@@ -6,9 +6,7 @@ export default {
     arch: {
       sheet: {
         _separator: {
-          _attr: {
-            string: 'title'
-          }
+          _attr: { string: 'title' }
         },
         _footer: {
           _button_action_next: {

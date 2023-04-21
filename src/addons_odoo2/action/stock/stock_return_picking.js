@@ -16,31 +16,21 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        move_dest_exists: {
-          invisible: '1'
-        },
+        move_dest_exists: { invisible: '1' },
         picking_id: {
           invisible: '1',
           force_save: '1'
         },
-        parent_location_id: {
-          invisible: '1'
-        },
-        original_location_id: {
-          invisible: '1'
-        },
-        company_id: {
-          invisible: '1'
-        },
+        parent_location_id: { invisible: '1' },
+        original_location_id: { invisible: '1' },
+        company_id: { invisible: '1' },
         _div: {
           _attr: {
             invisible: [['move_dest_exists', '=', false]],
             class: 'oe_grey'
           },
           _p: {
-            _attr: {
-              text: 'This picking appears to be chained with another operation. Later, if you receive the goods you are returning now, make sure to'
-            },
+            _attr: { text: 'This picking appears to be chained with another operation. Later, if you receive the goods you are returning now, make sure to' },
             _b: 'reverse'
           }
         },
@@ -55,12 +45,8 @@ export default {
                     no_open: true
                   },
                   quantity: {},
-                  uom_id: {
-                    groups: 'uom.group_uom'
-                  },
-                  move_id: {
-                    invisible: '1'
-                  }
+                  uom_id: { groups: 'uom.group_uom' },
+                  move_id: { invisible: '1' }
                 }
               }
             }

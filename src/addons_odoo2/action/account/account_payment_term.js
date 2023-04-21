@@ -4,9 +4,7 @@ export default {
     model: 'account.payment.term',
     type: 'search',
     arch: {
-      name: {
-        string: 'Payment Terms'
-      },
+      name: { string: 'Payment Terms' },
       active: {},
       _separator: {},
       _filter_archived: {
@@ -25,13 +23,9 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
+        sequence: { widget: 'handle' },
         name: {},
-        company_id: {
-          groups: 'base.group_multi_company'
-        }
+        company_id: { groups: 'base.group_multi_company' }
       }
     }
   },
@@ -42,9 +36,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        active: {
-          invisible: '1'
-        },
+        active: { invisible: '1' },
         _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
@@ -57,26 +49,20 @@ export default {
           _group: {
             name: {}
           },
-          _group_461: {
+          _group_203: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
             }
           }
         },
-        _group_800: {
-          note: {
-            placeholder: 'Payment term explanation for the customer...'
-          }
+        _group_161: {
+          note: { placeholder: 'Payment term explanation for the customer...' }
         },
-        _label_display_on_invoice: {
-          for: 'display_on_invoice'
-        },
+        _label_display_on_invoice: { for: 'display_on_invoice' },
         display_on_invoice: {},
         _separator: {
-          _attr: {
-            string: 'Terms'
-          }
+          _attr: { string: 'Terms' }
         },
         _p: {
           _attr: {
@@ -89,24 +75,16 @@ export default {
             tree: {
               arch: {
                 sheet: {
-                  _attr: {
-                    string: 'Payment Terms'
-                  },
-                  value: {
-                    string: 'Due Type'
-                  },
+                  _attr: { string: 'Payment Terms' },
+                  value: { string: 'Due Type' },
                   value_amount: {
                     invisible: [['value', '=', 'balance']],
                     digits: '[2, 2]'
                   },
                   months: {},
                   days: {},
-                  end_month: {
-                    widget: 'boolean_toggle'
-                  },
-                  days_after: {
-                    invisible: [['end_month', '=', false]]
-                  },
+                  end_month: { widget: 'boolean_toggle' },
+                  days_after: { invisible: [['end_month', '=', false]] },
                   discount_percentage: {},
                   discount_days: {}
                 }
@@ -115,52 +93,36 @@ export default {
           }
         },
         _div: {
-          _attr: {
-            class: 'oe_edit_only'
-          },
+          _attr: { class: 'oe_edit_only' },
           _separator: {
-            _attr: {
-              string: 'Example'
-            }
+            _attr: { string: 'Example' }
           },
-          example_invalid: {
-            invisible: '1'
-          },
+          example_invalid: { invisible: '1' },
           _div: {
             _attr: {
               invisible: [['example_invalid', '=', false]],
               text: 'The Payment Term must have one Balance line.'
             }
           },
-          _div_497: {
+          _div_188: {
             _attr: {
               invisible: [['example_invalid', '=', true]],
               class: 'd-flex',
               text: 'For any invoice of'
             },
             _span: {
-              _attr: {
-                class: 'mx-1'
-              }
+              _attr: { class: 'mx-1' }
             },
             example_amount: {},
-            _span_898: {
-              _attr: {
-                class: 'mx-1'
-              }
+            _span_330: {
+              _attr: { class: 'mx-1' }
             },
-            _span_802: {
-              _attr: {
-                class: 'mx-1'
-              }
+            _span_592: {
+              _attr: { class: 'mx-1' }
             },
-            example_date: {
-              class: 'oe_inline'
-            }
+            example_date: { class: 'oe_inline' }
           },
-          example_preview: {
-            invisible: [['example_invalid', '=', true]]
-          }
+          example_preview: { invisible: [['example_invalid', '=', true]] }
         }
       }
     }

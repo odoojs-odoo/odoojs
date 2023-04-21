@@ -20,16 +20,12 @@ export default {
               class: 'oe_stat_button'
             },
             _div: {
-              _attr: {
-                class: 'o_field_widget o_stat_info'
-              },
+              _attr: { class: 'o_field_widget o_stat_info' },
               _span: {
-                _attr: {
-                  class: 'o_stat_value'
-                },
+                _attr: { class: 'o_stat_value' },
                 sale_order_count: {}
               },
-              _span_566: {
+              _span_772: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Sale'

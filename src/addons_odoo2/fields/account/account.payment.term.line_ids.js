@@ -5,10 +5,7 @@ const ModelFields = {
   discount_percentage: {},
   end_month: {},
   months: {},
-  value: {
-    string: 'Due Type'
-  },
-
+  value: { string: 'Due Type' },
   value_amount: {}
 }
 

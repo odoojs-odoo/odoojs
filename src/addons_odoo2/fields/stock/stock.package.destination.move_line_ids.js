@@ -1,9 +1,6 @@
 const ModelFields = {
   location_dest_id: {},
-  lot_id: {
-    groups: 'stock.group_production_lot'
-  },
-
+  lot_id: { groups: 'stock.group_production_lot' },
   product_id: {},
   qty_done: {}
 }

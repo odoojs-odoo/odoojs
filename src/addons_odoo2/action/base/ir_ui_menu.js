@@ -5,23 +5,15 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        active: {
-          invisible: '1'
-        },
+        active: { invisible: '1' },
         _group: {
           _group: {
             name: {},
-            parent_id: {
-              groups: 'base.group_no_one'
-            },
-            sequence: {
-              groups: 'base.group_no_one'
-            }
+            parent_id: { groups: 'base.group_no_one' },
+            sequence: { groups: 'base.group_no_one' }
           },
-          _group_497: {
-            _attr: {
-              groups: 'base.group_no_one'
-            },
+          _group_695: {
+            _attr: { groups: 'base.group_no_one' },
             complete_name: {},
             action: {},
             web_icon: {},
@@ -43,20 +35,14 @@ export default {
               groups: 'base.group_no_one'
             },
             child_id: {
-              context: {
-                todo_ctx: "{'default_parent_id': active_id}"
-              },
+              context: { todo_ctx: "{'default_parent_id': active_id}" },
               views: {
                 tree: {
                   arch: {
                     sheet: {
-                      _attr: {
-                        string: 'Menu'
-                      },
+                      _attr: { string: 'Menu' },
                       sequence: {},
-                      name: {
-                        string: 'Menu'
-                      }
+                      name: { string: 'Menu' }
                     }
                   }
                 }
@@ -74,12 +60,8 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        sequence: {
-          widget: 'handle'
-        },
-        complete_name: {
-          string: 'Menu'
-        }
+        sequence: { widget: 'handle' },
+        complete_name: { string: 'Menu' }
       }
     }
   },
@@ -89,9 +71,7 @@ export default {
     model: 'ir.ui.menu',
     type: 'search',
     arch: {
-      name: {
-        string: 'Menu'
-      },
+      name: { string: 'Menu' },
       parent_id: {},
       _separator: {},
       _filter_inactive: {
@@ -109,9 +89,7 @@ export default {
     name: 'Menu Items',
     res_model: 'ir.ui.menu',
     search_view_id: 'edit_menu_access_search',
-    context: {
-      ir.ui.menu.full_list: true
-    },
+    context: { ir.ui.menu.full_list: true },
     views: {
       tree: 'edit_menu',
       form: '=======todo=========='

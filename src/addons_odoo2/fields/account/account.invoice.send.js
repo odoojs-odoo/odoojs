@@ -1,8 +1,5 @@
 const ModelFields = {
-  attachment_ids: {
-    string: 'Attach a file'
-  },
-
+  attachment_ids: { string: 'Attach a file' },
   body: {},
   composition_mode: {},
   email_from: {},
@@ -26,9 +23,7 @@ const ModelFields = {
   },
 
   template_id: {
-    context: {
-      default_model: 'account.move'
-    }
+    context: { default_model: 'account.move' }
   }
 }
 

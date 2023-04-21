@@ -1,8 +1,5 @@
 const ModelFields = {
-  name: {
-    string: 'Menu'
-  },
-
+  name: { string: 'Menu' },
   sequence: {}
 }
 

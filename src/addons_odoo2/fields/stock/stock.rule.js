@@ -8,16 +8,10 @@ const ModelFields = {
   },
 
   delay: {},
-  group_id: {
-    required: [['group_propagation_option', '=', 'fixed']]
-  },
-
+  group_id: { required: [['group_propagation_option', '=', 'fixed']] },
   group_propagation_option: {},
   location_dest_id: {},
-  location_src_id: {
-    required: [['action', 'in', ['pull', 'push', 'pull_push']]]
-  },
-
+  location_src_id: { required: [['action', 'in', ['pull', 'push', 'pull_push']]] },
   name: {},
   partner_address_id: {},
   picking_type_code_domain: {},
@@ -27,18 +21,13 @@ const ModelFields = {
   propagate_warehouse_id: {},
   route_company_id: {},
   route_id: {},
-  rule_message: {
-    readonly: '1'
-  },
-
+  rule_message: { readonly: '1' },
   sequence: {
     string: 'Sequence',
     groups: 'base.group_no_one'
   },
 
-  warehouse_id: {
-    groups: 'base.group_no_one'
-  }
+  warehouse_id: { groups: 'base.group_no_one' }
 }
 
 const AddonsFields = {

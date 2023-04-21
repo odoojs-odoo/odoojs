@@ -10,15 +10,10 @@ const ModelFields = {
   account_storno: {},
   account_use_credit_limit: {},
   chart_template_id: {},
-  country_code: {
-    groups: 'account.group_account_manager'
-  },
-
+  country_code: { groups: 'account.group_account_manager' },
   currency_exchange_journal_id: {},
   currency_id: {
-    context: {
-      active_test: false
-    }
+    context: { active_test: false }
   },
 
   early_pay_discount_computation: {},
@@ -38,10 +33,7 @@ const ModelFields = {
   incoterm_id: {},
   invoice_is_email: {},
   invoice_is_print: {},
-  invoice_terms: {
-    placeholder: 'Insert your terms & conditions here...'
-  },
-
+  invoice_terms: { placeholder: 'Insert your terms & conditions here...' },
   module_account_bank_statement_import_camt: {},
   module_account_bank_statement_import_csv: {},
   module_account_bank_statement_import_ofx: {},
@@ -62,20 +54,13 @@ const ModelFields = {
   module_snailmail_account: {},
   preview_ready: {},
   purchase_tax_id: {
-    domain: {
-      todo_ctx: "[('type_tax_use', 'in', ('purchase', 'all')), ('company_id', '=', company_id)]"
-    }
+    domain: { todo_ctx: "[('type_tax_use', 'in', ('purchase', 'all')), ('company_id', '=', company_id)]" }
   },
 
   qr_code: {},
-  quick_edit_mode: {
-    placeholder: 'Disabled'
-  },
-
+  quick_edit_mode: { placeholder: 'Disabled' },
   sale_tax_id: {
-    domain: {
-      todo_ctx: "[('type_tax_use', 'in', ('sale', 'all')), ('company_id', '=', company_id)]"
-    }
+    domain: { todo_ctx: "[('type_tax_use', 'in', ('sale', 'all')), ('company_id', '=', company_id)]" }
   },
 
   show_line_subtotals_tax_selection: {},

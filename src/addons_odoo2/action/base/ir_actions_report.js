@@ -16,9 +16,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        binding_model_id: {
-          invisible: '1'
-        },
+        binding_model_id: { invisible: '1' },
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -61,11 +59,9 @@ export default {
           _group: {
             name: {},
             report_type: {},
-            paperformat_id: {
-              invisible: [['report_type', 'not in', ['qweb-pdf']]]
-            }
+            paperformat_id: { invisible: [['report_type', 'not in', ['qweb-pdf']]] }
           },
-          _group_548: {
+          _group_258: {
             model: {},
             report_name: {},
             print_report_name: {}
@@ -117,28 +113,20 @@ export default {
     arch: {
       name: {
         string: 'Report',
-        filter_domain: {
-          todo_ctx: "['|', '|', '|', '|', ('name','ilike',self), ('model','ilike',self), ('type','ilike',self), ('report_name','ilike',self), ('report_type','ilike',self)]"
-        }
+        filter_domain: { todo_ctx: "['|', '|', '|', '|', ('name','ilike',self), ('model','ilike',self), ('type','ilike',self), ('report_name','ilike',self), ('report_type','ilike',self)]" }
       },
       model: {
         string: 'Model',
-        filter_domain: {
-          todo_ctx: "[('model','=', self)]"
-        }
+        filter_domain: { todo_ctx: "[('model','=', self)]" }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_report_type: {
           _attr: {
             name: 'report_type',
             string: 'Report Type',
             domain: [],
-            context: {
-              group_by: 'report_type'
-            }
+            context: { group_by: 'report_type' }
           }
         },
         _filter_report_model: {
@@ -146,9 +134,7 @@ export default {
             name: 'report_model',
             string: 'Report Model',
             domain: [],
-            context: {
-              group_by: 'model'
-            }
+            context: { group_by: 'model' }
           }
         }
       }

@@ -13,27 +13,15 @@ export default {
           },
           move_types: {}
         },
-        composition_mode: {
-          invisible: '1'
-        },
-        invoice_ids: {
-          invisible: '1'
-        },
-        email_from: {
-          invisible: '1'
-        },
-        mail_server_id: {
-          invisible: '1'
-        },
+        composition_mode: { invisible: '1' },
+        invoice_ids: { invisible: '1' },
+        email_from: { invisible: '1' },
+        mail_server_id: { invisible: '1' },
         _div_option_print: {
-          _attr: {
-            name: 'option_print'
-          },
+          _attr: { name: 'option_print' },
           is_print: {},
           _b: {
-            _label_is_print: {
-              for: 'is_print'
-            }
+            _label_is_print: { for: 'is_print' }
           },
           _div_info_form: {
             _attr: {
@@ -45,24 +33,18 @@ export default {
           }
         },
         _div_option_email: {
-          _attr: {
-            name: 'option_email'
-          },
+          _attr: { name: 'option_email' },
           is_email: {},
           _b: {
-            _label_is_email: {
-              for: 'is_email'
-            }
+            _label_is_email: { for: 'is_email' }
           }
         },
-        _div_401: {
+        _div_617: {
           _attr: {
             invisible: ['|', ['is_email', '=', false], ['invoice_without_email', '=', false]],
             class: 'text-start d-inline-block mr8'
           },
-          invoice_without_email: {
-            class: 'mr4'
-          }
+          invoice_without_email: { class: 'mr4' }
         },
         _div_mail_form: {
           _attr: {
@@ -70,9 +52,7 @@ export default {
             invisible: [['is_email', '=', false]]
           },
           _div: {
-            _attr: {
-              invisible: [['composition_mode', '=', 'mass_mail']]
-            },
+            _attr: { invisible: [['composition_mode', '=', 'mass_mail']] },
             _group: {
               _label_partner_ids: {
                 for: 'partner_ids',
@@ -80,17 +60,13 @@ export default {
                 groups: 'base.group_user'
               },
               _div: {
-                _attr: {
-                  groups: 'base.group_user'
-                },
+                _attr: { groups: 'base.group_user' },
                 _span: {
-                  _attr: {
-                    invisible: [['composition_mode', '!=', 'mass_mail']]
-                  },
+                  _attr: { invisible: [['composition_mode', '!=', 'mass_mail']] },
                   _strong: 'Email mass mailing',
                   _span: 'the selected records'
                 },
-                _span_487: 'Followers of the document and',
+                _span_355: 'Followers of the document and',
                 partner_ids: {
                   widget: 'many2many_tags_email',
                   invisible: [['composition_mode', '=', 'mass_mail']],
@@ -113,20 +89,16 @@ export default {
           },
           _group: {
             _group: {
-              _attr: {
-                invisible: [['composition_mode', '=', 'mass_mail']]
-              },
+              _attr: { invisible: [['composition_mode', '=', 'mass_mail']] },
               attachment_ids: {
                 string: 'Attach a file',
                 widget: 'many2many_binary',
                 invisible: [['composition_mode', '=', 'mass_mail']]
               }
             },
-            _group_358: {
+            _group_959: {
               template_id: {
-                context: {
-                  default_model: 'account.move'
-                },
+                context: { default_model: 'account.move' },
                 no_create: true,
                 no_edit: true
               }
@@ -143,7 +115,7 @@ export default {
               class: 'send_and_print btn-primary o_mail_send'
             }
           },
-          _button_send_and_print_action_401: {
+          _button_send_and_print_action_500: {
             _attr: {
               name: 'send_and_print_action',
               type: 'object',
@@ -152,7 +124,7 @@ export default {
               class: 'send btn-primary o_mail_send'
             }
           },
-          _button_send_and_print_action_966: {
+          _button_send_and_print_action_288: {
             _attr: {
               name: 'send_and_print_action',
               type: 'object',

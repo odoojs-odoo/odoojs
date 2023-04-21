@@ -11,9 +11,7 @@ export default {
             position: 'inside'
           },
           _span: {
-            _attr: {
-              class: 'oe_kanban_list_many2many'
-            },
+            _attr: { class: 'oe_kanban_list_many2many' },
             category_id: {
               widget: 'many2many_tags',
               color_field: 'color'

@@ -8,14 +8,10 @@ const ModelFields = {
   rule_groups: {},
   share: {},
   users: {
-    context: {
-      search_default_filter_no_share: 1
-    }
+    context: { search_default_filter_no_share: 1 }
   },
 
-  view_access: {
-    groups: 'base.group_system'
-  }
+  view_access: { groups: 'base.group_system' }
 }
 
 const AddonsFields = {

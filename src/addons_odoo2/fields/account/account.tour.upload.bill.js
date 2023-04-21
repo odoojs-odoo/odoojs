@@ -1,8 +1,5 @@
 const ModelFields = {
-  attachment_ids: {
-    string: 'Attach a file'
-  },
-
+  attachment_ids: { string: 'Attach a file' },
   preview_invoice: {},
   selection: {}
 }

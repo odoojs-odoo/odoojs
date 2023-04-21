@@ -12,15 +12,9 @@ export default {
           }
         },
         _group: {
-          sale_order_ids: {
-            invisible: '1'
-          },
-          has_down_payments: {
-            invisible: '1'
-          },
-          count: {
-            invisible: [['count', '=', 1]]
-          },
+          sale_order_ids: { invisible: '1' },
+          has_down_payments: { invisible: '1' },
+          count: { invisible: [['count', '=', 1]] },
           advance_payment_method: {
             widget: 'radio',
             invisible: [['count', '>', 1]],
@@ -31,13 +25,9 @@ export default {
             invisible: ['|', ['has_down_payments', '=', false], ['advance_payment_method', '!=', 'delivered']]
           },
           _div: {
-            _attr: {
-              invisible: ['|', ['has_down_payments', '=', false], ['advance_payment_method', '!=', 'delivered']]
-            },
+            _attr: { invisible: ['|', ['has_down_payments', '=', false], ['advance_payment_method', '!=', 'delivered']] },
             deduct_down_payments: {},
-            _label_deduct_down_payments: {
-              for: 'deduct_down_payments'
-            }
+            _label_deduct_down_payments: { for: 'deduct_down_payments' }
           }
         },
         _group_down_payment_specification: {
@@ -45,19 +35,11 @@ export default {
             name: 'down_payment_specification',
             invisible: [['advance_payment_method', 'not in', ('fixed', 'percentage')]]
           },
-          company_id: {
-            invisible: '1'
-          },
-          product_id: {
-            invisible: '1'
-          },
-          _label_amount: {
-            for: 'amount'
-          },
+          company_id: { invisible: '1' },
+          product_id: { invisible: '1' },
+          _label_amount: { for: 'amount' },
           _div: {
-            currency_id: {
-              invisible: '1'
-            },
+            currency_id: { invisible: '1' },
             fixed_amount: {
               required: [['advance_payment_method', '=', 'fixed']],
               invisible: [['advance_payment_method', '!=', 'fixed']],
@@ -92,13 +74,11 @@ export default {
               name: 'create_invoices',
               type: 'object',
               string: 'Create and View Invoice',
-              context: {
-                open_invoices: true
-              },
+              context: { open_invoices: true },
               class: 'btn-primary'
             }
           },
-          _button_create_invoices_505: {
+          _button_create_invoices_127: {
             _attr: {
               name: 'create_invoices',
               type: 'object',

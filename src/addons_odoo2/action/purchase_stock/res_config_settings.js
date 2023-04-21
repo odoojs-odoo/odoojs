@@ -10,9 +10,7 @@ export default {
             expr: "//div[@data-key='purchase']",
             position: 'inside'
           },
-          is_installed_sale: {
-            invisible: '1'
-          },
+          is_installed_sale: { invisible: '1' },
           _h2: {
             _attr: {
               invisible: [['is_installed_sale', '=', false]],
@@ -31,18 +29,12 @@ export default {
                 class: 'col-12 col-lg-6 o_setting_box'
               },
               _div: {
-                _attr: {
-                  class: 'o_setting_left_pane'
-                },
+                _attr: { class: 'o_setting_left_pane' },
                 module_stock_dropshipping: {}
               },
-              _div_827: {
-                _attr: {
-                  class: 'o_setting_right_pane'
-                },
-                _label_module_stock_dropshipping: {
-                  for: 'module_stock_dropshipping'
-                },
+              _div_132: {
+                _attr: { class: 'o_setting_right_pane' },
+                _label_module_stock_dropshipping: { for: 'module_stock_dropshipping' },
                 _a: {
                   _attr: {
                     title: 'Documentation',
@@ -83,9 +75,7 @@ export default {
           }
         },
         _div: {
-          _attr: {
-            position: 'replace'
-          },
+          _attr: { position: 'replace' },
           _div_schedule_receivings_setting_container: {
             _attr: {
               name: 'schedule_receivings_setting_container',
@@ -93,18 +83,12 @@ export default {
               class: 'col-12 col-lg-6 o_setting_box'
             },
             _div: {
-              _attr: {
-                class: 'o_setting_left_pane'
-              },
+              _attr: { class: 'o_setting_left_pane' },
               use_po_lead: {}
             },
-            _div_742: {
-              _attr: {
-                class: 'o_setting_right_pane'
-              },
-              _label_use_po_lead: {
-                for: 'use_po_lead'
-              },
+            _div_130: {
+              _attr: { class: 'o_setting_right_pane' },
+              _label_use_po_lead: { for: 'use_po_lead' },
               _a: {
                 _attr: {
                   title: 'Documentation',
@@ -124,38 +108,26 @@ export default {
                   text: 'Schedule request for quotations earlier to avoid delays'
                 }
               },
-              _div_977: {
-                _attr: {
-                  class: 'content-group'
-                },
+              _div_792: {
+                _attr: { class: 'content-group' },
                 _div: {
                   _attr: {
                     invisible: [['use_po_lead', '=', false]],
                     class: 'mt16'
                   },
                   _span: {
-                    _attr: {
-                      text: 'Move forward expected request creation date by'
-                    },
-                    po_lead: {
-                      class: 'oe_inline'
-                    }
+                    _attr: { text: 'Move forward expected request creation date by' },
+                    po_lead: { class: 'oe_inline' }
                   }
                 }
               }
             }
           },
           _div: {
-            _attr: {
-              class: 'col-12 col-lg-6 o_setting_box'
-            },
+            _attr: { class: 'col-12 col-lg-6 o_setting_box' },
             _div: {
-              _attr: {
-                class: 'o_setting_right_pane'
-              },
-              _label_days_to_purchase: {
-                for: 'days_to_purchase'
-              },
+              _attr: { class: 'o_setting_right_pane' },
+              _label_days_to_purchase: { for: 'days_to_purchase' },
               _span: {
                 _attr: {
                   title: 'Values set here are company-specific.',
@@ -169,18 +141,12 @@ export default {
                   text: 'Days needed to confirm a PO'
                 }
               },
-              _div_721: {
-                _attr: {
-                  class: 'content-group'
-                },
+              _div_169: {
+                _attr: { class: 'content-group' },
                 _div: {
-                  _attr: {
-                    class: 'mt16'
-                  },
+                  _attr: { class: 'mt16' },
                   _span: {
-                    days_to_purchase: {
-                      class: 'oe_inline'
-                    }
+                    days_to_purchase: { class: 'oe_inline' }
                   }
                 }
               }

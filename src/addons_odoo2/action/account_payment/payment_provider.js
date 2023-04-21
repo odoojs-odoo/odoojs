@@ -18,16 +18,14 @@ export default {
             }
           }
         },
-        _group_payment_followup_355: {
+        _group_payment_followup_133: {
           _attr: {
             name: 'payment_followup',
             position: 'inside'
           },
           journal_id: {
             required: [['state', '!=', 'disabled'], ['code', 'not in', ['none', 'custom']]],
-            context: {
-              default_type: 'bank'
-            }
+            context: { default_type: 'bank' }
           }
         }
       }

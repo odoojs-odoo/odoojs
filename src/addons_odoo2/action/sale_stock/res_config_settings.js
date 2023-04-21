@@ -11,37 +11,27 @@ export default {
             position: 'after'
           },
           _div: {
-            _attr: {
-              class: 'col-12 col-lg-6 o_setting_box'
-            },
+            _attr: { class: 'col-12 col-lg-6 o_setting_box' },
             _div: {
-              _attr: {
-                class: 'o_setting_left_pane'
-              },
+              _attr: { class: 'o_setting_left_pane' },
               group_display_incoterm: {}
             },
-            _div_435: {
-              _attr: {
-                class: 'o_setting_right_pane'
-              },
-              _label_group_display_incoterm: {
-                for: 'group_display_incoterm'
-              },
+            _div_504: {
+              _attr: { class: 'o_setting_right_pane' },
+              _label_group_display_incoterm: { for: 'group_display_incoterm' },
               _div: {
                 _attr: {
                   class: 'text-muted',
                   text: 'Display incoterms on orders & invoices'
                 }
               },
-              _div_689: {
+              _div_202: {
                 _attr: {
                   invisible: [['group_display_incoterm', '=', false]],
                   class: 'content-group'
                 },
                 _div: {
-                  _attr: {
-                    class: 'mt8'
-                  },
+                  _attr: { class: 'mt8' },
                   _button_account__action_incoterms_tree: {
                     _attr: {
                       name: 'account.action_incoterms_tree',
@@ -67,34 +57,22 @@ export default {
     arch: {
       sheet: {
         _div: {
-          _attr: {
-            position: 'after'
-          },
+          _attr: { position: 'after' },
           _div: {
-            _attr: {
-              class: 'col-12 col-lg-6 o_setting_box'
-            },
+            _attr: { class: 'col-12 col-lg-6 o_setting_box' },
             _div: {
-              _attr: {
-                class: 'o_setting_right_pane'
-              },
-              _label_default_picking_policy: {
-                for: 'default_picking_policy'
-              },
+              _attr: { class: 'o_setting_right_pane' },
+              _label_default_picking_policy: { for: 'default_picking_policy' },
               _div: {
                 _attr: {
                   class: 'text-muted',
                   text: 'When to start shipping'
                 }
               },
-              _div_247: {
-                _attr: {
-                  class: 'content-group'
-                },
+              _div_904: {
+                _attr: { class: 'content-group' },
                 _div: {
-                  _attr: {
-                    class: 'mt16'
-                  },
+                  _attr: { class: 'mt16' },
                   default_picking_policy: {
                     widget: 'selection',
                     class: 'o_light_label'
@@ -117,28 +95,20 @@ export default {
             }
           }
         },
-        _div_154: {
-          _attr: {
-            position: 'replace'
-          },
+        _div_716: {
+          _attr: { position: 'replace' },
           _div: {
             _attr: {
               title: 'Margin of error for dates promised to customers. Products will be scheduled for procurement and delivery that many days earlier than the actual promised date, to cope with unexpected delays in the supply chain.',
               class: 'col-12 col-lg-6 o_setting_box'
             },
             _div: {
-              _attr: {
-                class: 'o_setting_left_pane'
-              },
+              _attr: { class: 'o_setting_left_pane' },
               use_security_lead: {}
             },
-            _div_169: {
-              _attr: {
-                class: 'o_setting_right_pane'
-              },
-              _label_use_security_lead: {
-                for: 'use_security_lead'
-              },
+            _div_990: {
+              _attr: { class: 'o_setting_right_pane' },
+              _label_use_security_lead: { for: 'use_security_lead' },
               _a: {
                 _attr: {
                   title: 'Documentation',
@@ -158,22 +128,16 @@ export default {
                   text: 'Schedule deliveries earlier to avoid delays'
                 }
               },
-              _div_936: {
-                _attr: {
-                  class: 'content-group'
-                },
+              _div_778: {
+                _attr: { class: 'content-group' },
                 _div: {
                   _attr: {
                     invisible: [['use_security_lead', '=', false]],
                     class: 'mt16'
                   },
                   _span: {
-                    _attr: {
-                      text: 'Move forward expected delivery dates by'
-                    },
-                    security_lead: {
-                      class: 'oe_inline'
-                    }
+                    _attr: { text: 'Move forward expected delivery dates by' },
+                    security_lead: { class: 'oe_inline' }
                   }
                 }
               }

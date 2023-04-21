@@ -11,7 +11,7 @@ export default {
           module: {},
           model: {}
         },
-        _group_684: {
+        _group_990: {
           message: {}
         }
       }
@@ -41,34 +41,26 @@ export default {
       name: {},
       message: {},
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_module: {
           _attr: {
             name: 'module',
             string: 'Module',
-            context: {
-              group_by: 'module'
-            }
+            context: { group_by: 'module' }
           }
         },
         _filter_model: {
           _attr: {
             name: 'model',
             string: 'Model',
-            context: {
-              group_by: 'model'
-            }
+            context: { group_by: 'model' }
           }
         },
         _filter_type: {
           _attr: {
             name: 'type',
             string: 'Constraint type',
-            context: {
-              group_by: 'type'
-            }
+            context: { group_by: 'type' }
           }
         }
       }

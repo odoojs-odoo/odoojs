@@ -5,49 +5,33 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _div: {
-          _strong: 'Due to some stock moves done between your initial update of the quantity and now, the difference of quantity is not consistent anymore.'
-        },
-        _div_967: {
-          _attr: {
-            text: 'You can either :'
-          },
+        _div: { _strong: 'Due to some stock moves done between your initial update of the quantity and now, the difference of quantity is not consistent anymore.' },
+        _div_975: {
+          _attr: { text: 'You can either :' },
           _ul: {
             _li: {
-              _attr: {
-                text: 'Keep the'
-              },
+              _attr: { text: 'Keep the' },
               _strong: 'Counted Quantity'
             },
-            _li_327: {
-              _attr: {
-                text: 'Keep the'
-              },
+            _li_453: {
+              _attr: { text: 'Keep the' },
               _strong: 'Difference'
             },
-            _li_956: 'Discard and manually resolve the conflict'
+            _li_717: 'Discard and manually resolve the conflict'
           }
         },
-        _div_713: {
+        _div_801: {
           _br: {},
-          quant_ids: {
-            invisible: '1'
-          },
+          quant_ids: { invisible: '1' },
           quant_to_fix_ids: {
             readonly: '1',
             views: {
               tree: {
                 arch: {
                   sheet: {
-                    id: {
-                      invisible: '1'
-                    },
-                    tracking: {
-                      invisible: '1'
-                    },
-                    company_id: {
-                      invisible: '1'
-                    },
+                    id: { invisible: '1' },
+                    tracking: { invisible: '1' },
+                    company_id: { invisible: '1' },
                     product_id: {
                       invisible: "context.get['single_product', False]",
                       readonly: "context.get['single_product', False]",
@@ -64,9 +48,7 @@ export default {
                       invisible: "context.get['hide_lot', False]",
                       readonly: ['|', ['id', '!=', false], ['tracking', 'not in', ['serial', 'lot']]],
                       required: [['tracking', '!=', 'none']],
-                      context: {
-                        todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}"
-                      }
+                      context: { todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}" }
                     },
                     package_id: {
                       groups: 'stock.group_tracking_lot',
@@ -77,20 +59,14 @@ export default {
                       readonly: [['id', '!=', false]],
                       no_create: true
                     },
-                    quantity: {
-                      string: 'Quantity'
-                    },
+                    quantity: { string: 'Quantity' },
                     inventory_quantity: {
                       string: 'Counted Quantity',
                       readonly: '0'
                     },
-                    inventory_diff_quantity: {
-                      string: 'Difference'
-                    },
-                    product_uom_id: {
-                      groups: 'uom.group_uom'
-                    },
-                    _field_company_id_908: {
+                    inventory_diff_quantity: { string: 'Difference' },
+                    product_uom_id: { groups: 'uom.group_uom' },
+                    _field_company_id_134: {
                       company_id: {
                         groups: 'base.group_multi_company',
                         optional: 'show'

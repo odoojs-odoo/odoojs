@@ -2,9 +2,7 @@ const ModelFields = {
   activity_ids: {},
   email: {
     required: [['user_ids', '!=', []]],
-    context: {
-      gravatar_image: true
-    }
+    context: { gravatar_image: true }
   },
 
   is_blacklisted: {},

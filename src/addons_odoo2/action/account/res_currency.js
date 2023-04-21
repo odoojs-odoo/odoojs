@@ -10,9 +10,7 @@ export default {
             expr: '//sheet',
             position: 'before'
           },
-          display_rounding_warning: {
-            invisible: '1'
-          },
+          display_rounding_warning: { invisible: '1' },
           _div: {
             _attr: {
               invisible: [['display_rounding_warning', '=', false]],

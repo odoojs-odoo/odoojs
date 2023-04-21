@@ -5,9 +5,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        active: {
-          invisible: '1'
-        },
+        active: { invisible: '1' },
         _div_button_box: {
           _attr: {
             name: 'button_box',
@@ -33,21 +31,15 @@ export default {
         },
         _group: {
           _group_general_information: {
-            _attr: {
-              name: 'general_information'
-            },
+            _attr: { name: 'general_information' },
             payment_details: {},
             partner_id: {}
           },
           _group_technical_information: {
-            _attr: {
-              name: 'technical_information'
-            },
+            _attr: { name: 'technical_information' },
             provider_id: {},
             provider_ref: {},
-            company_id: {
-              groups: 'base.group_multi_company'
-            }
+            company_id: { groups: 'base.group_multi_company' }
           }
         }
       }
@@ -62,12 +54,8 @@ export default {
       sheet: {
         payment_details: {},
         partner_id: {},
-        provider_id: {
-          readonly: '1'
-        },
-        provider_ref: {
-          readonly: '1'
-        },
+        provider_id: { readonly: '1' },
+        provider_ref: { readonly: '1' },
         company_id: {
           groups: 'base.group_multi_company',
           optional: 'show'
@@ -91,25 +79,19 @@ export default {
         }
       },
       _group: {
-        _attr: {
-          string: 'Group By'
-        },
+        _attr: { string: 'Group By' },
         _filter_provider_id: {
           _attr: {
             name: 'provider_id',
             string: 'Provider',
-            context: {
-              group_by: 'provider_id'
-            }
+            context: { group_by: 'provider_id' }
           }
         },
         _filter_partner_id: {
           _attr: {
             name: 'partner_id',
             string: 'Partner',
-            context: {
-              group_by: 'partner_id'
-            }
+            context: { group_by: 'partner_id' }
           }
         },
         _filter_company: {
@@ -117,9 +99,7 @@ export default {
             name: 'company',
             string: 'Company',
             groups: 'base.group_multi_company',
-            context: {
-              group_by: 'company_id'
-            }
+            context: { group_by: 'company_id' }
           }
         }
       }

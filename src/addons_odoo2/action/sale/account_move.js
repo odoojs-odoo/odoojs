@@ -21,9 +21,7 @@ export default {
               name: 'sales_channel',
               string: 'Sales Team',
               domain: [],
-              context: {
-                group_by: 'team_id'
-              }
+              context: { group_by: 'team_id' }
             }
           }
         }
@@ -63,7 +61,7 @@ export default {
           },
           team_id: {}
         },
-        _xpath_981: {
+        _xpath_568: {
           _attr: {
             expr: "//group[@id='other_tab_group']",
             position: 'inside'
@@ -83,7 +81,7 @@ export default {
             source_id: {}
           }
         },
-        _xpath_224: {
+        _xpath_206: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'
@@ -112,9 +110,7 @@ export default {
     res_model: 'account.move',
     search_view_id: 'account.view_account_invoice_filter',
     domain: "[\n            ['state', '=', 'posted'],\n            ['move_type', 'in', ['out_invoice', 'out_refund']]]",
-    context: {
-      todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n                'default_move_type':'out_invoice',\n                'move_type':'out_invoice',\n                'journal_type': 'sale',\n            }\n        "
-    },
+    context: { todo_ctx: "{\n                'search_default_team_id': [active_id],\n                'default_team_id': active_id,\n                'default_move_type':'out_invoice',\n                'move_type':'out_invoice',\n                'journal_type': 'sale',\n            }\n        " },
     views: {
       tree: 'account.view_move_tree',
       form: '=======todo=========='

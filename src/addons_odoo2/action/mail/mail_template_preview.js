@@ -6,9 +6,7 @@ export default {
     arch: {
       sheet: {
         _h3: {
-          _attr: {
-            text: 'Preview of'
-          },
+          _attr: { text: 'Preview of' },
           mail_template_id: {
             readonly: '1',
             no_open: true
@@ -21,30 +19,20 @@ export default {
           },
           error_msg: {}
         },
-        no_record: {
-          invisible: '1'
-        },
-        _div_311: {
-          _attr: {
-            class: 'container'
-          },
+        no_record: { invisible: '1' },
+        _div_575: {
+          _attr: { class: 'container' },
           _div: {
-            _attr: {
-              class: 'row'
-            },
+            _attr: { class: 'row' },
             _span: {
               _attr: {
                 class: 'col-md-5 col-lg-4 col-sm-12 ps-0',
                 text: 'Choose an example'
               },
-              model_id: {
-                readonly: '1'
-              }
+              model_id: { readonly: '1' }
             },
             _div: {
-              _attr: {
-                class: 'col-md-7 col-lg-6 col-sm-12 ps-0'
-              },
+              _attr: { class: 'col-md-7 col-lg-6 col-sm-12 ps-0' },
               resource_ref: {
                 invisible: [['no_record', '=', true]],
                 class: 'w-100',
@@ -62,10 +50,8 @@ export default {
               }
             }
           },
-          _div_927: {
-            _attr: {
-              class: 'row'
-            },
+          _div_386: {
+            _attr: { class: 'row' },
             _span: {
               _attr: {
                 class: 'col-md-5 col-lg-4 col-sm-12 ps-0',
@@ -73,9 +59,7 @@ export default {
               }
             },
             _div: {
-              _attr: {
-                class: 'col-md-7 col-lg-6 col-sm-12 ps-0'
-              },
+              _attr: { class: 'col-md-7 col-lg-6 col-sm-12 ps-0' },
               lang: {
                 class: 'w-100',
                 placeholder: 'Select a language'
@@ -85,33 +69,21 @@ export default {
         },
         _group: {
           subject: {},
-          email_from: {
-            invisible: [['email_from', '=', false]]
-          },
+          email_from: { invisible: [['email_from', '=', false]] },
           partner_ids: {
             widget: 'many2many_tags',
             invisible: [['partner_ids', '=', []]]
           },
-          email_to: {
-            invisible: [['email_to', '=', false]]
-          },
-          email_cc: {
-            invisible: [['email_cc', '=', false]]
-          },
-          reply_to: {
-            invisible: [['reply_to', '=', false]]
-          },
-          scheduled_date: {
-            invisible: [['scheduled_date', '=', false]]
-          }
+          email_to: { invisible: [['email_to', '=', false]] },
+          email_cc: { invisible: [['email_cc', '=', false]] },
+          reply_to: { invisible: [['reply_to', '=', false]] },
+          scheduled_date: { invisible: [['scheduled_date', '=', false]] }
         },
         body_html: {
           widget: 'html',
           safe: true
         },
-        attachment_ids: {
-          widget: 'many2many_binary'
-        },
+        attachment_ids: { widget: 'many2many_binary' },
         _footer: {
           _button: {
             _attr: {
@@ -130,9 +102,7 @@ export default {
     type: 'ir.actions.act_window',
     res_model: 'mail.template.preview',
     search_view_id: 'tooooooodoooooo',
-    context: {
-      todo_ctx: "{'default_mail_template_id':active_id}"
-    },
+    context: { todo_ctx: "{'default_mail_template_id':active_id}" },
     views: {
       tree: 'mail_template_preview_view_form',
       form: '=======todo=========='

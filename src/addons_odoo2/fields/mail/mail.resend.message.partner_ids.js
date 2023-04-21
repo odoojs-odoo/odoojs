@@ -1,16 +1,7 @@
 const ModelFields = {
-  email: {
-    readonly: [['parent.partner_readonly', '=', true]]
-  },
-
-  message: {
-    readonly: '1'
-  },
-
-  name: {
-    readonly: '1'
-  },
-
+  email: { readonly: [['parent.partner_readonly', '=', true]] },
+  message: { readonly: '1' },
+  name: { readonly: '1' },
   partner_id: {},
   resend: {}
 }
