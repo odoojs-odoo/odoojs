@@ -31,7 +31,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   use_mailgateway: {}
                 },
-                _div_650: {
+                _div_148: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_use_mailgateway: {
                     for: 'use_mailgateway',
@@ -43,7 +43,7 @@ export default {
                       text: 'Create expenses from incoming emails'
                     }
                   },
-                  _div_547: {
+                  _div_173: {
                     _attr: {
                       invisible: ['|', ['use_mailgateway', '=', false], ['alias_domain', 'in', ['localhost', '', false]]],
                       class: 'content-group'
@@ -64,7 +64,7 @@ export default {
                       }
                     }
                   },
-                  _div_815: {
+                  _div_452: {
                     _attr: {
                       invisible: ['|', ['use_mailgateway', '=', false], ['alias_domain', 'not in', ['localhost', '', false]]],
                       class: 'content-group'
@@ -84,13 +84,13 @@ export default {
                   }
                 }
               },
-              _div_854: {
+              _div_609: {
                 _attr: { class: 'col-lg-6 col-12 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_hr_payroll_expense: { widget: 'upgrade_boolean' }
                 },
-                _div_449: {
+                _div_592: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_hr_payroll_expense: {
                     for: 'module_hr_payroll_expense',
@@ -104,7 +104,7 @@ export default {
                   }
                 }
               },
-              _div_855: {
+              _div_296: {
                 _attr: {
                   title: 'use OCR to fill data from a picture of the bill',
                   class: 'col-xs-12 col-md-6 o_setting_box'
@@ -113,7 +113,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_hr_expense_extract: { widget: 'upgrade_boolean' }
                 },
-                _div_570: {
+                _div_571: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_hr_expense_extract: {
                     for: 'module_hr_expense_extract',
@@ -134,7 +134,7 @@ export default {
                 }
               }
             },
-            _h2_812: 'Default Journals',
+            _h2_162: 'Default Journals',
             _div: {
               _attr: { class: 'row mt16 o_settings_container' },
               _div: {
@@ -142,7 +142,7 @@ export default {
                 _div: {
                   _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_103: {
+                _div_740: {
                   _attr: { class: 'o_setting_right_pane' },
                   _span: {
                     _attr: {
@@ -150,7 +150,7 @@ export default {
                       text: 'Employee Expense Journal'
                     }
                   },
-                  _span_425: {
+                  _span_775: {
                     _attr: {
                       title: 'Values set here are company-specific.',
                       groups: 'base.group_multi_company',
@@ -163,18 +163,18 @@ export default {
                       text: 'Default accounting journal for expenses paid by employees.'
                     }
                   },
-                  _div_788: {
+                  _div_943: {
                     _attr: { class: 'row mt8' },
                     expense_journal_id: {}
                   }
                 }
               },
-              _div_178: {
+              _div_337: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_870: {
+                _div_412: {
                   _attr: { class: 'o_setting_right_pane' },
                   _span: {
                     _attr: {
@@ -182,7 +182,7 @@ export default {
                       text: 'Company Expense Journal'
                     }
                   },
-                  _span_706: {
+                  _span_441: {
                     _attr: {
                       title: 'Values set here are company-specific.',
                       groups: 'base.group_multi_company',
@@ -195,7 +195,7 @@ export default {
                       text: 'Default accounting journal for expenses paid by the company.'
                     }
                   },
-                  _div_894: {
+                  _div_390: {
                     _attr: { class: 'row mt8' },
                     company_expense_journal_id: {}
                   }

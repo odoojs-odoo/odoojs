@@ -103,7 +103,7 @@ export default {
                 class: 'oe_highlight'
               }
             },
-            _button_132: {
+            _button_661: {
               _attr: { string: 'Discard' }
             }
           }

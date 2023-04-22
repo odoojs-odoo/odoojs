@@ -53,7 +53,10 @@ export default {
               no_create: true
             },
             _div: {
-              _attr: { class: 'alert alert-info mt16' },
+              _attr: {
+                class: 'alert alert-info mt16',
+                text: '.'
+              },
               _b: 'Set other input/output accounts on specific',
               _button_stock__action_prod_inv_location_form: {
                 _attr: {

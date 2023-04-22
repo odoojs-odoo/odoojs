@@ -51,7 +51,7 @@ export default {
           group_id: {},
           active: { widget: 'boolean_toggle' }
         },
-        _group_670: {
+        _group_756: {
           _attr: { string: 'Access' },
           perm_read: {},
           perm_write: {},
@@ -97,7 +97,7 @@ export default {
           domain: [['perm_write', '=', true]]
         }
       },
-      _separator_456: {},
+      _separator_611: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',

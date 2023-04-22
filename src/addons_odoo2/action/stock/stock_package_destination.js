@@ -6,7 +6,7 @@ export default {
     arch: {
       sheet: {
         _div: 'You are trying to put products going to different locations into the same package',
-        _div_775: {
+        _div_535: {
           move_line_ids: {
             views: {
               tree: {
@@ -35,12 +35,12 @@ export default {
                               _attr: { class: 'col-6 o_kanban_primary_left' },
                               product_id: {}
                             },
-                            _div_145: {
+                            _div_842: {
                               _attr: { class: 'col-6 o_kanban_primary_right' },
                               qty_done: {}
                             }
                           },
-                          _div_972: {
+                          _div_561: {
                             _attr: { class: 'row' },
                             _div: {
                               _attr: { class: 'col-12' },
@@ -56,8 +56,8 @@ export default {
             }
           }
         },
-        _div_505: { _strong: 'Where do you want to send the products ?' },
-        _div_351: {
+        _div_161: { _strong: 'Where do you want to send the products ?' },
+        _div_248: {
           filtered_location: { invisible: '1' },
           location_dest_id: {
             domain: { todo_ctx: "[('id', 'in', filtered_location)]" },

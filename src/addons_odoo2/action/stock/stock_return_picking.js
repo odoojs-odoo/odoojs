@@ -30,7 +30,7 @@ export default {
             class: 'oe_grey'
           },
           _p: {
-            _attr: { text: 'This picking appears to be chained with another operation. Later, if you receive the goods you are returning now, make sure to' },
+            _attr: { text: ['This picking appears to be chained with another operation. Later, if you receive the goods you are returning now, make sure to', 'the returned picking in order to avoid logistic rules to be applied again (which would create duplicated operations)'] },
             _b: 'reverse'
           }
         },

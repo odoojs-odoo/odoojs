@@ -199,7 +199,7 @@ export default {
                 },
                 summary: {}
               },
-              _group_821: {
+              _group_354: {
                 name: {},
                 license: {},
                 installed_version: {}
@@ -216,7 +216,7 @@ export default {
               application: {},
               state: {}
             },
-            _group_903: {
+            _group_731: {
               _attr: {
                 string: 'Created Views',
                 invisible: [['state', '!=', 'installed']]
@@ -230,14 +230,14 @@ export default {
               }
             },
             views_by_module: {},
-            _group_301: {
+            _group_808: {
               _attr: { string: 'Dependencies' }
             },
-            _p_413: {
+            _p_452: {
               _attr: {
-                invisible: [['exclusion_ids', 'not in', [None, false]]],
+                invisible: [['dependencies_id', 'not in', [None, false]]],
                 class: 'oe_grey',
-                text: '-This module does not exclude any other module.'
+                text: '-This module does not depends on any other module.'
               }
             },
             dependencies_id: {
@@ -253,8 +253,15 @@ export default {
                 }
               }
             },
-            _group_685: {
+            _group_109: {
               _attr: { string: 'Exclusions' }
+            },
+            _p_214: {
+              _attr: {
+                invisible: [['exclusion_ids', 'not in', [None, false]]],
+                class: 'oe_grey',
+                text: '-This module does not exclude any other module.'
+              }
             },
             exclusion_ids: {
               views: {
@@ -287,10 +294,10 @@ export default {
               }
             },
             menus_by_module: {},
-            _group_360: {
+            _group_832: {
               _attr: { string: 'Defined Reports' }
             },
-            _p_782: {
+            _p_980: {
               _attr: {
                 invisible: [['reports_by_module', 'not in', [None, false]]],
                 class: 'oe_grey',

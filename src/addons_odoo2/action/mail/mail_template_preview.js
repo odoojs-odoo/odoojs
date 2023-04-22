@@ -20,14 +20,14 @@ export default {
           error_msg: {}
         },
         no_record: { invisible: '1' },
-        _div_575: {
+        _div_163: {
           _attr: { class: 'container' },
           _div: {
             _attr: { class: 'row' },
             _span: {
               _attr: {
                 class: 'col-md-5 col-lg-4 col-sm-12 ps-0',
-                text: 'Choose an example'
+                text: ['Choose an example', 'record:']
               },
               model_id: { readonly: '1' }
             },
@@ -50,7 +50,7 @@ export default {
               }
             }
           },
-          _div_386: {
+          _div_733: {
             _attr: { class: 'row' },
             _span: {
               _attr: {

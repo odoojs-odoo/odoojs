@@ -19,7 +19,7 @@ export default {
             },
             mimetype: { groups: 'base.group_no_one' }
           },
-          _group_527: {
+          _group_384: {
             _attr: {
               string: 'Attached To',
               groups: 'base.group_no_one'
@@ -34,7 +34,7 @@ export default {
             },
             public: {}
           },
-          _group_445: {
+          _group_693: {
             _attr: {
               string: 'History',
               groups: 'base.group_no_one',
@@ -45,7 +45,10 @@ export default {
               string: 'Creation'
             },
             _div_creation_div: {
-              _attr: { name: 'creation_div' },
+              _attr: {
+                name: 'creation_div',
+                text: 'on'
+              },
               create_uid: {
                 class: 'oe_inline',
                 readonly: '1'
@@ -64,7 +67,7 @@ export default {
             },
             description: {}
           },
-          _group_926: {
+          _group_463: {
             _attr: {
               string: 'Indexed Content',
               groups: 'base.group_no_one'

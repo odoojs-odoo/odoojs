@@ -131,7 +131,7 @@ export default {
           domain: [['stock_move_id.location_id.usage', 'in', ('internal', 'transit')], ['stock_move_id.location_dest_id.usage', 'not in', ('internal', 'transit')]]
         }
       },
-      _separator_840: {},
+      _separator_131: {},
       _filter_has_remaining_qty: {
         _attr: {
           name: 'has_remaining_qty',

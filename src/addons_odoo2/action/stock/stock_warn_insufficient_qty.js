@@ -11,14 +11,14 @@ export default {
             _attr: {
               groups: 'stock.group_stock_multi_locations',
               class: 'oe_inline',
-              text: 'in'
+              text: ['in', '.']
             },
             _strong: {
               location_id: { readonly: 'True' }
             }
           }
         },
-        _div_422: {
+        _div_377: {
           _attr: { invisible: [['quant_ids', '=', []]] },
           _br: {},
           _strong: 'Current Inventory:',

@@ -31,6 +31,7 @@ export default {
           }
         },
         _h2: {
+          _attr: { text: '@' },
           alias_name: { class: 'oe_inline' },
           alias_domain: { class: 'oe_inline' }
         },

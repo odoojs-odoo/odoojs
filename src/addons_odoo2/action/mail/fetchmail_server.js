@@ -64,7 +64,7 @@ export default {
               readonly: [['state', '=', 'done']]
             }
           },
-          _group_988: {
+          _group_737: {
             date: { invisible: [['date', '=', false]] },
             _div: {
               _attr: {
@@ -94,7 +94,7 @@ export default {
                 },
                 is_ssl: {}
               },
-              _group_707: {
+              _group_169: {
                 _attr: {
                   string: 'Login Information',
                   invisible: [['server_type', '=', 'local']]
@@ -105,11 +105,11 @@ export default {
                   invisible: [['server_type', 'not in', ('imap', 'pop')]]
                 }
               },
-              _group_450: {
+              _group_785: {
                 _attr: { string: 'Actions to Perform on Incoming Mails' },
                 object_id: {}
               },
-              _group_873: {
+              _group_993: {
                 _attr: {
                   string: 'Configuration',
                   invisible: [['server_type', '!=', 'local']]
@@ -171,7 +171,7 @@ export default {
           domain: [['is_ssl', '=', true]]
         }
       },
-      _separator_576: {},
+      _separator_143: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',

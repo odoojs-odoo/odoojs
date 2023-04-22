@@ -19,6 +19,7 @@ export default {
             product_code: {},
             _label_delay: { for: 'delay' },
             _div: {
+              _attr: { text: 'days' },
               delay: { class: 'oe_inline' }
             }
           },
@@ -42,7 +43,7 @@ export default {
               for: 'price',
               string: 'Unit Price'
             },
-            _div_510: {
+            _div_275: {
               _attr: { class: 'o_row' },
               price: { class: 'oe_inline' },
               currency_id: { groups: 'base.group_multi_currency' }
@@ -51,8 +52,11 @@ export default {
               for: 'date_start',
               string: 'Validity'
             },
-            _div_633: {
-              _attr: { class: 'o_row' },
+            _div_236: {
+              _attr: {
+                class: 'o_row',
+                text: 'to'
+              },
               date_start: { class: 'oe_inline' },
               date_end: { class: 'oe_inline' }
             },

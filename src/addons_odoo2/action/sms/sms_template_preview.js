@@ -16,7 +16,7 @@ export default {
         _div: {
           _attr: { class: 'o_row' },
           _span: {
-            _attr: { text: 'Choose an example' },
+            _attr: { text: ['Choose an example', 'record:'] },
             model_id: { readonly: '1' }
           },
           _div: {
@@ -49,7 +49,7 @@ export default {
           readonly: '1',
           safe: true
         },
-        _hr_581: {},
+        _hr_793: {},
         _footer: {
           _button: {
             _attr: {

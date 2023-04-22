@@ -15,14 +15,17 @@ export default {
           }
         },
         module_id: { invisible: '1' },
-        _div_979: {
+        _div_491: {
           _attr: { class: 'd-flex bd-highlight' },
           _div: {
             _attr: { class: 'me-auto p-2 bd-highlight' },
             _h3: 'Apps to Uninstall'
           },
-          _div_234: {
-            _attr: { class: 'p-2 bd-highlight' },
+          _div_121: {
+            _attr: {
+              class: 'p-2 bd-highlight',
+              text: 'Show All'
+            },
             show_all: {}
           }
         },
@@ -47,7 +50,10 @@ export default {
                         _div: {
                           _attr: { class: 'oe_module_desc' },
                           _h4: {
-                            _attr: { class: 'o_kanban_record_title' },
+                            _attr: {
+                              class: 'o_kanban_record_title',
+                              text: '&nbsp;'
+                            },
                             shortdesc: {}
                           },
                           _p: {

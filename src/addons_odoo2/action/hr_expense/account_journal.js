@@ -17,12 +17,13 @@ export default {
               _a_open_expenses_action: {
                 _attr: {
                   name: 'open_expenses_action',
-                  type: 'object'
+                  type: 'object',
+                  text: 'Expenses to Process'
                 },
                 _t: {}
               }
             },
-            _div_776: {
+            _div_599: {
               _attr: { class: 'col-auto text-end' },
               _span: {
                 _t: {}

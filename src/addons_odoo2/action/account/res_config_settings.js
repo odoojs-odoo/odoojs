@@ -39,7 +39,7 @@ export default {
                 _div: {
                   _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_728: {
+                _div_206: {
                   _attr: { class: 'o_setting_right_pane' },
                   _span: {
                     _attr: {
@@ -47,7 +47,7 @@ export default {
                       text: 'Fiscal Localization'
                     }
                   },
-                  _span_882: {
+                  _span_109: {
                     _attr: {
                       title: 'Values set here are company-specific.',
                       groups: 'base.group_multi_company',
@@ -60,7 +60,7 @@ export default {
                       text: 'Taxes, fiscal positions, chart of accounts & legal statements for your country'
                     }
                   },
-                  _div_227: {
+                  _div_681: {
                     _attr: { class: 'content-group' },
                     _div: {
                       _attr: { class: 'row mt16' },
@@ -74,7 +74,7 @@ export default {
                         no_create: true
                       }
                     },
-                    _div_169: {
+                    _div_653: {
                       _attr: { class: 'mt8' },
                       _button_account__open_account_charts_modules: {
                         _attr: {
@@ -90,7 +90,7 @@ export default {
                 }
               }
             },
-            _h2_680: 'Taxes',
+            _h2_402: 'Taxes',
             _div_default_taxes_setting_container: {
               _attr: {
                 name: 'default_taxes_setting_container',
@@ -104,7 +104,7 @@ export default {
                 _div: {
                   _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_728: {
+                _div_877: {
                   _attr: { class: 'o_setting_right_pane' },
                   _span: {
                     _attr: {
@@ -112,7 +112,7 @@ export default {
                       text: 'Default Taxes'
                     }
                   },
-                  _span_827: {
+                  _span_954: {
                     _attr: {
                       title: 'Values set here are company-specific.',
                       groups: 'base.group_multi_company',
@@ -125,7 +125,7 @@ export default {
                       text: 'Default taxes applied to local transactions'
                     }
                   },
-                  _div_300: {
+                  _div_101: {
                     _attr: { class: 'content-group' },
                     _div: {
                       _attr: { class: 'row mt16' },
@@ -138,7 +138,7 @@ export default {
                         domain: { todo_ctx: "[('type_tax_use', 'in', ('sale', 'all')), ('company_id', '=', company_id)]" }
                       }
                     },
-                    _div_882: {
+                    _div_972: {
                       _attr: { class: 'row' },
                       _label_purchase_tax_id: {
                         for: 'purchase_tax_id',
@@ -152,7 +152,7 @@ export default {
                   }
                 }
               },
-              _div_290: {
+              _div_459: {
                 _attr: {
                   title: 'A rounding per line is advised if your prices are tax-included. That way, the sum of line subtotals equals the total with taxes.',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -160,7 +160,7 @@ export default {
                 _div: {
                   _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_490: {
+                _div_196: {
                   _attr: { class: 'o_setting_right_pane' },
                   _span: {
                     _attr: {
@@ -168,7 +168,7 @@ export default {
                       text: 'Rounding Method'
                     }
                   },
-                  _span_886: {
+                  _span_559: {
                     _attr: {
                       title: 'Values set here are company-specific.',
                       groups: 'base.group_multi_company',
@@ -181,7 +181,7 @@ export default {
                       text: 'How total tax amount is computed in orders and invoices'
                     }
                   },
-                  _div_509: {
+                  _div_519: {
                     _attr: { class: 'content-group' },
                     tax_calculation_rounding_method: {
                       widget: 'radio',
@@ -190,12 +190,12 @@ export default {
                   }
                 }
               },
-              _div_122: {
+              _div_245: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_993: {
+                _div_430: {
                   _attr: { class: 'o_setting_right_pane' },
                   _span: {
                     _attr: {
@@ -203,7 +203,7 @@ export default {
                       text: 'Cash Discount Tax Reduction'
                     }
                   },
-                  _span_519: {
+                  _span_353: {
                     _attr: {
                       title: 'Values set here are company-specific.',
                       groups: 'base.group_multi_company',
@@ -216,13 +216,13 @@ export default {
                       text: 'When will the tax be reduced when offering a cash discount'
                     }
                   },
-                  _div_950: {
+                  _div_818: {
                     _attr: { class: 'content-group' },
                     early_pay_discount_computation: {}
                   }
                 }
               },
-              _div_193: {
+              _div_933: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
@@ -245,7 +245,7 @@ export default {
                   }
                 }
               },
-              _div_474: {
+              _div_782: {
                 _attr: {
                   title: 'If you sell goods and services to customers in a foreign EU country, you must charge VAT based on the delivery address. This rule applies regardless of where you are located.',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -274,7 +274,7 @@ export default {
                   }
                 }
               },
-              _div_838: {
+              _div_992: {
                 _attr: {
                   title: 'Select this if the taxes should use cash basis, which will create an entry for such taxes on a given account during reconciliation.',
                   groups: 'account.group_account_user',
@@ -284,7 +284,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   tax_exigibility: {}
                 },
-                _div_946: {
+                _div_947: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_tax_exigibility: { for: 'tax_exigibility' },
                   _span: {
@@ -300,7 +300,7 @@ export default {
                       text: 'Allow to configure taxes using cash basis'
                     }
                   },
-                  _div_408: {
+                  _div_655: {
                     _attr: {
                       invisible: [['tax_exigibility', '=', false]],
                       class: 'content-group'
@@ -313,7 +313,7 @@ export default {
                       },
                       tax_cash_basis_journal_id: {}
                     },
-                    _div_724: {
+                    _div_815: {
                       _attr: { class: 'row mt16' },
                       _label_account_cash_basis_base_account_id: {
                         for: 'account_cash_basis_base_account_id',
@@ -324,12 +324,12 @@ export default {
                   }
                 }
               },
-              _div_240: {
+              _div_280: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_412: {
+                _div_886: {
                   _attr: { class: 'o_setting_right_pane' },
                   _span: {
                     _attr: {
@@ -337,7 +337,7 @@ export default {
                       text: 'Fiscal Country'
                     }
                   },
-                  _span_593: {
+                  _span_785: {
                     _attr: {
                       title: 'Values set here are company-specific.',
                       groups: 'base.group_multi_company',
@@ -350,7 +350,7 @@ export default {
                       text: 'Domestic country of your accounting'
                     }
                   },
-                  _div_418: {
+                  _div_580: {
                     _attr: { class: 'text-muted' },
                     account_fiscal_country_id: {
                       no_create: true,
@@ -360,7 +360,7 @@ export default {
                 }
               }
             },
-            _h2_739: 'Currencies',
+            _h2_808: 'Currencies',
             _div_main_currency_setting_container: {
               _attr: {
                 name: 'main_currency_setting_container',
@@ -371,7 +371,7 @@ export default {
                 _div: {
                   _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_945: {
+                _div_866: {
                   _attr: { class: 'o_setting_right_pane' },
                   _span: {
                     _attr: {
@@ -379,7 +379,7 @@ export default {
                       text: 'Main Currency'
                     }
                   },
-                  _span_564: {
+                  _span_983: {
                     _attr: {
                       title: 'Values set here are company-specific.',
                       groups: 'base.group_multi_company',
@@ -392,7 +392,7 @@ export default {
                       text: 'Main currency of your company'
                     }
                   },
-                  _div_674: {
+                  _div_254: {
                     _attr: { class: 'content-group' },
                     _div: {
                       _attr: { class: 'row mt16' },
@@ -407,7 +407,7 @@ export default {
                       },
                       group_multi_currency: { invisible: '1' }
                     },
-                    _div_719: {
+                    _div_982: {
                       _attr: { class: 'mt8' },
                       _button_base__action_currency_form: {
                         _attr: {
@@ -422,7 +422,7 @@ export default {
                   }
                 }
               },
-              _div_868: {
+              _div_818: {
                 _attr: {
                   invisible: [['group_multi_currency', '=', false]],
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -431,7 +431,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_currency_rate_live: { widget: 'upgrade_boolean' }
                 },
-                _div_999: {
+                _div_948: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_currency_rate_live: { for: 'module_currency_rate_live' },
                   _div: {
@@ -443,7 +443,7 @@ export default {
                 }
               }
             },
-            _h2_563: 'Customer Invoices',
+            _h2_176: 'Customer Invoices',
             _div: {
               _attr: { class: 'row mt16 o_settings_container' },
               _div: {
@@ -451,7 +451,7 @@ export default {
                 _div: {
                   _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_694: {
+                _div_830: {
                   _attr: { class: 'o_setting_right_pane' },
                   _span: {
                     _attr: {
@@ -465,7 +465,7 @@ export default {
                       text: 'Those options will be selected by default when clicking "Send & Print" on invoices'
                     }
                   },
-                  _div_717: {
+                  _div_577: {
                     _attr: { class: 'mt16' },
                     _div: {
                       _attr: { class: 'content-group' },
@@ -479,7 +479,7 @@ export default {
                           }
                         }
                       },
-                      _div_689: {
+                      _div_493: {
                         invoice_is_email: {},
                         _label_invoice_is_email: { for: 'invoice_is_email' },
                         _span: {
@@ -493,13 +493,13 @@ export default {
                   }
                 }
               },
-              _div_311: {
+              _div_276: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_snailmail_account: {}
                 },
-                _div_410: {
+                _div_880: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_snailmail_account: { for: 'module_snailmail_account' },
                   _div: {
@@ -510,13 +510,13 @@ export default {
                   }
                 }
               },
-              _div_904: {
+              _div_295: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   group_sale_delivery_address: {}
                 },
-                _div_277: {
+                _div_618: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_sale_delivery_address: { for: 'group_sale_delivery_address' },
                   _a: {
@@ -533,12 +533,12 @@ export default {
                   }
                 }
               },
-              _div_307: {
+              _div_223: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_466: {
+                _div_401: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_show_line_subtotals_tax_selection: { for: 'show_line_subtotals_tax_selection' },
                   _div: {
@@ -547,7 +547,7 @@ export default {
                       text: 'Line subtotals tax display'
                     }
                   },
-                  _div_843: {
+                  _div_740: {
                     _attr: { class: 'mt16' },
                     show_line_subtotals_tax_selection: {
                       widget: 'radio',
@@ -558,13 +558,13 @@ export default {
                   }
                 }
               },
-              _div_143: {
+              _div_750: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   group_warning_account: {}
                 },
-                _div_477: {
+                _div_187: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_warning_account: {
                     for: 'group_warning_account',
@@ -578,13 +578,13 @@ export default {
                   }
                 }
               },
-              _div_905: {
+              _div_778: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   group_cash_rounding: {}
                 },
-                _div_786: {
+                _div_728: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_cash_rounding: { for: 'group_cash_rounding' },
                   _div: {
@@ -593,7 +593,7 @@ export default {
                       text: 'Define the smallest coinage of the currency used to pay by cash'
                     }
                   },
-                  _div_537: {
+                  _div_954: {
                     _attr: { class: 'mt8' },
                     _button_account__rounding_list_action: {
                       _attr: {
@@ -608,7 +608,7 @@ export default {
                   }
                 }
               },
-              _div_159: {
+              _div_895: {
                 _attr: { class: 'col-xs-12 col-md-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
@@ -628,12 +628,12 @@ export default {
                   }
                 }
               },
-              _div_366: {
+              _div_659: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_747: {
+                _div_586: {
                   _attr: { class: 'o_setting_right_pane' },
                   _span: {
                     _attr: {
@@ -647,13 +647,13 @@ export default {
                       text: 'Default Incoterm of your company'
                     }
                   },
-                  _div_539: {
+                  _div_334: {
                     _attr: { class: 'text-muted' },
                     incoterm_id: {}
                   }
                 }
               },
-              _div_303: {
+              _div_847: {
                 _attr: { class: 'col-xs-12 col-md-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
@@ -673,13 +673,13 @@ export default {
                   }
                 }
               },
-              _div_267: {
+              _div_180: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   use_invoice_terms: {}
                 },
-                _div_320: {
+                _div_708: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_use_invoice_terms: { for: 'use_invoice_terms' },
                   _span: {
@@ -695,7 +695,7 @@ export default {
                       text: 'Add your terms & conditions at the bottom of invoices/orders/quotations'
                     }
                   },
-                  _div_659: {
+                  _div_860: {
                     _attr: {
                       invisible: [['use_invoice_terms', '=', false]],
                       class: 'content-group'
@@ -713,7 +713,7 @@ export default {
                           placeholder: 'Insert your terms & conditions here...'
                         }
                       },
-                      _div_783: {
+                      _div_518: {
                         _attr: {
                           invisible: [['terms_type', '!=', 'html']],
                           class: 'mt8'
@@ -729,13 +729,16 @@ export default {
                         }
                       },
                       preview_ready: { invisible: '1' },
-                      _div_737: {
+                      _div_470: {
                         _attr: {
                           invisible: [['preview_ready', '=', false]],
                           class: 'mt4 ms-1'
                         },
                         _a: {
-                          _attr: { class: 'btn-link' },
+                          _attr: {
+                            class: 'btn-link',
+                            text: 'Preview'
+                          },
                           _i: {
                             _attr: { class: 'fa fa-arrow-right' }
                           }
@@ -745,13 +748,13 @@ export default {
                   }
                 }
               },
-              _div_229: {
+              _div_120: {
                 _attr: { class: 'col-xs-12 col-md-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   account_use_credit_limit: {}
                 },
-                _div_743: {
+                _div_669: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_account_use_credit_limit: { for: 'account_use_credit_limit' },
                   _span: {
@@ -766,7 +769,7 @@ export default {
                       text: 'Trigger alerts when creating Invoices and Sales Orders for Partners with a Total Receivable amount exceeding a limit.'
                     }
                   },
-                  _div_173: {
+                  _div_827: {
                     _attr: {
                       invisible: [['account_use_credit_limit', '=', false]],
                       class: 'content-group mt-2'
@@ -783,8 +786,8 @@ export default {
                 }
               }
             },
-            _h2_933: 'Customer Payments',
-            _div_185: {
+            _h2_346: 'Customer Payments',
+            _div_235: {
               _attr: { class: 'row mt16 o_settings_container' },
               _div: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
@@ -792,7 +795,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_account_payment: {}
                 },
-                _div_484: {
+                _div_406: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_account_payment: { for: 'module_account_payment' },
                   _div: {
@@ -803,13 +806,13 @@ export default {
                   }
                 }
               },
-              _div_739: {
+              _div_382: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_account_batch_payment: { widget: 'upgrade_boolean' }
                 },
-                _div_255: {
+                _div_400: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_account_batch_payment: {
                     for: 'module_account_batch_payment',
@@ -823,7 +826,7 @@ export default {
                   }
                 }
               },
-              _div_439: {
+              _div_225: {
                 _attr: {
                   title: 'If you check this box, you will be able to collect payments using SEPA Direct Debit mandates.',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -857,7 +860,7 @@ export default {
                       text: 'Collect customer payments in one-click using Euro SEPA Service'
                     }
                   },
-                  _div_789: {
+                  _div_889: {
                     _attr: {
                       invisible: [['module_account_sepa_direct_debit', '=', false]],
                       class: 'content-group'
@@ -871,7 +874,7 @@ export default {
                   }
                 }
               },
-              _div_245: {
+              _div_552: {
                 _attr: {
                   title: 'Add a QR-code to your invoices so that your customers can pay instantly with their mobile banking application.',
                   class: 'col-xs-12 col-md-6 o_setting_box'
@@ -905,8 +908,8 @@ export default {
                 }
               }
             },
-            _h2_464: 'Vendor Bills',
-            _div_186: {
+            _h2_338: 'Vendor Bills',
+            _div_100: {
               _attr: { class: 'row mt16 o_settings_container' },
               _div: {
                 _attr: { class: 'col-xs-12 col-md-6 o_setting_box' },
@@ -929,8 +932,8 @@ export default {
                 }
               }
             },
-            _h2_301: 'Vendor Payments',
-            _div_356: {
+            _h2_622: 'Vendor Payments',
+            _div_937: {
               _attr: { class: 'row mt16 o_settings_container' },
               _div: {
                 _attr: {
@@ -941,7 +944,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_account_check_printing: {}
                 },
-                _div_477: {
+                _div_133: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_account_check_printing: {
                     for: 'module_account_check_printing',
@@ -962,7 +965,7 @@ export default {
                   }
                 }
               },
-              _div_655: {
+              _div_295: {
                 _attr: {
                   title: 'If you check this box, you will be able to register your payment using SEPA.',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -993,8 +996,8 @@ export default {
                 }
               }
             },
-            _h2_426: 'Digitization',
-            _div_138: {
+            _h2_408: 'Digitization',
+            _div_888: {
               _attr: { class: 'row mt16 o_settings_container' },
               _div: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
@@ -1002,7 +1005,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_account_invoice_extract: { widget: 'upgrade_boolean' }
                 },
-                _div_861: {
+                _div_773: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_account_invoice_extract: { for: 'module_account_invoice_extract' },
                   _div: {
@@ -1011,7 +1014,7 @@ export default {
                       text: 'Digitize your PDF or scanned documents with OCR and Artificial Intelligence'
                     }
                   },
-                  _div_564: {
+                  _div_944: {
                     _attr: {
                       invisible: [['module_account_invoice_extract', '=', false]],
                       class: 'content-group'
@@ -1039,7 +1042,7 @@ export default {
                   _div: {
                     _attr: { class: 'o_setting_left_pane' }
                   },
-                  _div_785: {
+                  _div_202: {
                     _attr: { class: 'o_setting_right_pane' },
                     _div: {
                       _attr: { class: 'content-group' },
@@ -1051,7 +1054,7 @@ export default {
                           }
                         }
                       },
-                      _div_913: {
+                      _div_900: {
                         _attr: { class: 'row mt8' },
                         _label_currency_exchange_journal_id: {
                           for: 'currency_exchange_journal_id',
@@ -1060,7 +1063,7 @@ export default {
                         },
                         currency_exchange_journal_id: {}
                       },
-                      _div_194: {
+                      _div_583: {
                         _attr: { class: 'row mt8' },
                         _label_income_currency_exchange_account_id: {
                           for: 'income_currency_exchange_account_id',
@@ -1068,7 +1071,7 @@ export default {
                         },
                         income_currency_exchange_account_id: {}
                       },
-                      _div_266: {
+                      _div_663: {
                         _attr: { class: 'row mt8' },
                         _label_expense_currency_exchange_account_id: {
                           for: 'expense_currency_exchange_account_id',
@@ -1079,12 +1082,12 @@ export default {
                     }
                   }
                 },
-                _div_629: {
+                _div_184: {
                   _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                   _div: {
                     _attr: { class: 'o_setting_left_panel' }
                   },
-                  _div_985: {
+                  _div_596: {
                     _attr: { class: 'o_setting_right_pane' },
                     _span: {
                       _attr: {
@@ -1102,7 +1105,7 @@ export default {
                         },
                         account_journal_suspense_account_id: {}
                       },
-                      _div_762: {
+                      _div_696: {
                         _attr: { class: 'row mt8' },
                         _label_account_journal_payment_debit_account_id: {
                           for: 'account_journal_payment_debit_account_id',
@@ -1110,7 +1113,7 @@ export default {
                         },
                         account_journal_payment_debit_account_id: {}
                       },
-                      _div_535: {
+                      _div_512: {
                         _attr: { class: 'row mt8' },
                         _label_account_journal_payment_credit_account_id: {
                           for: 'account_journal_payment_credit_account_id',
@@ -1118,7 +1121,7 @@ export default {
                         },
                         account_journal_payment_credit_account_id: {}
                       },
-                      _div_605: {
+                      _div_146: {
                         _attr: { class: 'row mt8' },
                         _label_transfer_account_id: {
                           for: 'transfer_account_id',
@@ -1126,7 +1129,7 @@ export default {
                         },
                         transfer_account_id: {}
                       },
-                      _div_966: {
+                      _div_716: {
                         _attr: { class: 'row mt8' },
                         _label_account_journal_early_pay_discount_gain_account_id: {
                           for: 'account_journal_early_pay_discount_gain_account_id',
@@ -1134,7 +1137,7 @@ export default {
                         },
                         account_journal_early_pay_discount_gain_account_id: {}
                       },
-                      _div_643: {
+                      _div_564: {
                         _attr: { class: 'row mt8' },
                         _label_account_journal_early_pay_discount_loss_account_id: {
                           for: 'account_journal_early_pay_discount_loss_account_id',
@@ -1147,7 +1150,7 @@ export default {
                 }
               }
             },
-            _t_393: {
+            _t_134: {
               _attr: { groups: 'account.group_account_user' },
               _h2: 'Bank & Cash',
               _div: {
@@ -1161,7 +1164,7 @@ export default {
                     _attr: { class: 'o_setting_left_pane' },
                     module_account_bank_statement_import_csv: { widget: 'upgrade_boolean' }
                   },
-                  _div_155: {
+                  _div_806: {
                     _attr: { class: 'o_setting_right_pane' },
                     _label_module_account_bank_statement_import_csv: {
                       for: 'module_account_bank_statement_import_csv',
@@ -1175,7 +1178,7 @@ export default {
                     }
                   }
                 },
-                _div_430: {
+                _div_639: {
                   _attr: {
                     title: "Once installed, set 'Bank Feeds' to 'File Import' in bank account settings.This adds a button to import from the Accounting dashboard.",
                     class: 'col-12 col-lg-6 o_setting_box'
@@ -1184,7 +1187,7 @@ export default {
                     _attr: { class: 'o_setting_left_pane' },
                     module_account_bank_statement_import_qif: { widget: 'upgrade_boolean' }
                   },
-                  _div_168: {
+                  _div_199: {
                     _attr: { class: 'o_setting_right_pane' },
                     _label_module_account_bank_statement_import_qif: {
                       for: 'module_account_bank_statement_import_qif',
@@ -1198,7 +1201,7 @@ export default {
                     }
                   }
                 },
-                _div_343: {
+                _div_831: {
                   _attr: {
                     title: "Once installed, set 'Bank Feeds' to 'File Import' in bank account settings.This adds a button to import from the Accounting dashboard.",
                     class: 'col-12 col-lg-6 o_setting_box'
@@ -1207,7 +1210,7 @@ export default {
                     _attr: { class: 'o_setting_left_pane' },
                     module_account_bank_statement_import_ofx: { widget: 'upgrade_boolean' }
                   },
-                  _div_333: {
+                  _div_334: {
                     _attr: { class: 'o_setting_right_pane' },
                     _label_module_account_bank_statement_import_ofx: {
                       for: 'module_account_bank_statement_import_ofx',
@@ -1221,7 +1224,7 @@ export default {
                     }
                   }
                 },
-                _div_676: {
+                _div_977: {
                   _attr: {
                     title: "Once installed, set 'Bank Feeds' to 'File Import' in bank account settings.This adds a button to import from the Accounting dashboard.",
                     class: 'col-12 col-lg-6 o_setting_box'
@@ -1230,7 +1233,7 @@ export default {
                     _attr: { class: 'o_setting_left_pane' },
                     module_account_bank_statement_import_camt: { widget: 'upgrade_boolean' }
                   },
-                  _div_341: {
+                  _div_962: {
                     _attr: { class: 'o_setting_right_pane' },
                     _label_module_account_bank_statement_import_camt: {
                       for: 'module_account_bank_statement_import_camt',
@@ -1246,7 +1249,7 @@ export default {
                 }
               }
             },
-            _t_728: {
+            _t_507: {
               _attr: { groups: 'account.group_account_user' },
               _h2: 'Fiscal Periods',
               _div: {
@@ -1258,7 +1261,7 @@ export default {
                     class: 'col-12 col-lg-6 o_setting_box'
                   }
                 },
-                _div_371: {
+                _div_159: {
                   _attr: {
                     groups: 'account.group_account_user',
                     invisible: '1',
@@ -1268,7 +1271,7 @@ export default {
                     _attr: { class: 'o_setting_left_pane' },
                     module_account_reports: { widget: 'upgrade_boolean' }
                   },
-                  _div_306: {
+                  _div_873: {
                     _attr: { class: 'o_setting_right_pane' },
                     _label_module_account_reports: { for: 'module_account_reports' },
                     _div: {
@@ -1281,8 +1284,8 @@ export default {
                 }
               }
             },
-            _h2_162: 'Analytics',
-            _div_439: {
+            _h2_594: 'Analytics',
+            _div_725: {
               _attr: { class: 'row mt16 o_settings_container' },
               _div: {
                 _attr: {
@@ -1294,7 +1297,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   group_analytic_accounting: {}
                 },
-                _div_360: {
+                _div_843: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_analytic_accounting: { for: 'group_analytic_accounting' },
                   _div: {
@@ -1305,7 +1308,7 @@ export default {
                   }
                 }
               },
-              _div_822: {
+              _div_297: {
                 _attr: {
                   title: 'This allows accountants to manage analytic and crossovered budgets. Once the master budgets and the budgets are defined, the project managers can set the planned amount on each analytic account.',
                   groups: 'account.group_account_user',
@@ -1315,7 +1318,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_account_budget: { widget: 'upgrade_boolean' }
                 },
-                _div_293: {
+                _div_964: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_account_budget: { for: 'module_account_budget' },
                   _div: {
@@ -1326,13 +1329,13 @@ export default {
                   }
                 }
               },
-              _div_372: {
+              _div_510: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_product_margin: {}
                 },
-                _div_366: {
+                _div_676: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_product_margin: {
                     for: 'module_product_margin',
@@ -1347,8 +1350,8 @@ export default {
                 }
               }
             },
-            _h2_522: 'Storno Accounting',
-            _div_817: {
+            _h2_666: 'Storno Accounting',
+            _div_268: {
               _attr: { class: 'row mt16 o_settings_container' },
               _div: {
                 _attr: {
@@ -1359,7 +1362,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   account_storno: {}
                 },
-                _div_816: {
+                _div_667: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_account_storno: { for: 'account_storno' },
                   _span: {
@@ -1378,19 +1381,19 @@ export default {
                 }
               }
             },
-            _h2_908: 'Accounting Firms mode',
-            _div_554: {
+            _h2_975: 'Accounting Firms mode',
+            _div_620: {
               _attr: { class: 'row mt16 o_settings_container' },
               _div: {
                 _attr: { class: 'col-12 col-lg-12 o_setting_box' },
                 _div: {
                   _attr: { class: 'text-muted' },
                   _p: 'Accounting firm mode will change invoice/bill encoding:',
-                  _p_826: "- The document's sequence becomes editable on all documents.",
-                  _p_910: '- A new field « Total (tax inc.) » to speed up and control the encoding by automating line creation with the right account & tax.',
-                  _p_440: '- A default Customer Invoice / Vendor Bill date will be suggested.'
+                  _p_155: "- The document's sequence becomes editable on all documents.",
+                  _p_404: '- A new field « Total (tax inc.) » to speed up and control the encoding by automating line creation with the right account & tax.',
+                  _p_115: '- A default Customer Invoice / Vendor Bill date will be suggested.'
                 },
-                _div_773: {
+                _div_112: {
                   _attr: { class: 'o_setting_right_pane mt16' },
                   _label_quick_edit_mode: { for: 'quick_edit_mode' },
                   _span: {

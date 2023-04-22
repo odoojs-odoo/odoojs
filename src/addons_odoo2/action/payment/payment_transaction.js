@@ -97,7 +97,7 @@ export default {
             partner_lang: {}
           }
         },
-        _group_414: {
+        _group_893: {
           _attr: {
             string: 'Message',
             invisible: [['state_message', '=', false]]

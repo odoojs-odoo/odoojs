@@ -1,10 +1,9 @@
 const ModelFields = {
   account_id: {
     groups: 'account.group_account_readonly',
-
     domain({ record }) {
       // domain: {
-      //     "[('account_type', 'not in',
+      // "[('account_type', 'not in',
       // ('asset_receivable','liability_payable','asset_cash','liability_credit_card')),
       // ('company_id', '=', company_id)]"
       // },
@@ -75,6 +74,11 @@ const ModelFields = {
   duplicate_expense_ids: {},
   employee_id: {
     groups: 'hr_expense.group_hr_expense_team_approver',
+    domain({ record }) {
+      // ['|', ('company_id', '=', False), ('company_id', '=', company_id)]
+      const { company_id } = record
+      return ['|', ['company_id', '=', false], ['company_id', '=', company_id]]
+    },
     context({ record }) {
       // context: "{'default_company_id': company_id}"
       const { company_id } = record
@@ -99,6 +103,19 @@ const ModelFields = {
   product_has_cost: {},
   product_has_tax: {},
   product_id: {
+    domain({ record }) {
+      // domain="[('can_be_expensed', '=', True),
+      //   '|', ('company_id', '=', False),
+      //   ('company_id', '=', company_id)]",
+      const { company_id } = record
+      return [
+        ['can_be_expensed', '=', true],
+        '|',
+        ['company_id', '=', false],
+        ['company_id', '=', company_id]
+      ]
+    },
+
     readonly({ record }) {
       //  readonly: [['sheet_is_editable', '=', false]]
       const { sheet_is_editable } = record
@@ -114,6 +131,7 @@ const ModelFields = {
 
   product_uom_category_id: {},
   product_uom_id: {
+    // domain="[('category_id', '=', product_uom_category_id)]"
     groups: 'uom.group_uom',
     required: '1'
   },
@@ -135,10 +153,23 @@ const ModelFields = {
   },
 
   same_currency: {},
-  sheet_id: { readonly: '1' },
+  sheet_id: {
+    readonly: '1'
+    //   domain="[('employee_id', '=', employee_id), ('company_id', '=', company_id)]",
+  },
   sheet_is_editable: {},
-  state: { readonly: '1' },
+  state: {
+    readonly: '1',
+    selection: [
+      ['draft', 'To Submit'],
+      ['reported', 'Submitted'],
+      ['approved', 'Approved'],
+      ['done', 'Paid'],
+      ['refused', 'Refused']
+    ]
+  },
   tax_ids: {
+    // domain="[('company_id', '=', company_id), ('type_tax_use', '=', 'purchase')]",
     readonly({ record }) {
       // readonly: [
       //   '|',
@@ -166,8 +197,7 @@ const ModelFields = {
       const { sheet_is_editable } = record
       return !sheet_is_editable
     },
-    currency_field: 'currency_id',
-    groups: 'base.group_multi_currency'
+    currency_field: 'currency_id'
   },
 
   total_amount_company: {},

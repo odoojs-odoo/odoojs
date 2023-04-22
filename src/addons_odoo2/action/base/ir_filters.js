@@ -13,7 +13,7 @@ export default {
           action_id: {},
           active: { widget: 'boolean_toggle' }
         },
-        _group_238: {
+        _group_642: {
           domain: {
             widget: 'domain',
             model: 'model_id'

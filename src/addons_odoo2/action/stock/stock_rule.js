@@ -84,7 +84,7 @@ export default {
             auto: { invisible: [['action', 'not in', ['push', 'pull_push']]] },
             procure_method: { invisible: [['action', 'not in', ['pull', 'pull_push']]] }
           },
-          _group_509: {
+          _group_239: {
             _div: {
               _label_rule_message: {
                 for: 'rule_message',
@@ -96,7 +96,7 @@ export default {
             }
           }
         },
-        _group_966: {
+        _group_208: {
           _group_apply_on: {
             _attr: {
               name: 'apply_on',
@@ -141,6 +141,7 @@ export default {
             partner_address_id: { invisible: [['action', '=', 'push']] },
             _label_delay: { for: 'delay' },
             _div: {
+              _attr: { text: 'days' },
               delay: { class: 'oe_inline' }
             }
           }
@@ -161,7 +162,7 @@ export default {
             position: 'replace'
           }
         },
-        _xpath_159: {
+        _xpath_227: {
           _attr: {
             expr: "//group[@name='apply_on']",
             position: 'attributes'
@@ -174,7 +175,7 @@ export default {
             }
           }
         },
-        _xpath_216: {
+        _xpath_137: {
           _attr: {
             expr: '//form',
             position: 'inside'

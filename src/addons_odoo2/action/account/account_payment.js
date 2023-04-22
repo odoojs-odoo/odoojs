@@ -108,7 +108,7 @@ export default {
           domain: [['is_internal_transfer', '=', true]]
         }
       },
-      _separator_721: {},
+      _separator_542: {},
       _filter_state_draft: {
         _attr: {
           name: 'state_draft',
@@ -123,7 +123,7 @@ export default {
           domain: [['state', '=', 'posted']]
         }
       },
-      _separator_247: {},
+      _separator_515: {},
       _filter_state_sent: {
         _attr: {
           name: 'state_sent',
@@ -145,7 +145,7 @@ export default {
           domain: [['is_reconciled', '=', true]]
         }
       },
-      _separator_536: {},
+      _separator_190: {},
       _filter_date: {
         _attr: {
           name: 'date',
@@ -153,7 +153,7 @@ export default {
           date: 'date'
         }
       },
-      _separator_929: {},
+      _separator_423: {},
       company_id: { groups: 'base.group_multi_company' },
       _filter_partner: {
         _attr: {
@@ -213,7 +213,7 @@ export default {
           context: { group_by: 'company_id' }
         }
       },
-      _separator_610: {},
+      _separator_773: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
@@ -304,11 +304,11 @@ export default {
             text: 'A second payment will be created automatically in the destination journal.'
           }
         },
-        _div_896: {
+        _div_260: {
           _attr: {
             invisible: ['|', '|', ['is_internal_transfer', '=', false], ['require_partner_bank_account', '=', false], ['partner_bank_id', '!=', false]],
             class: 'alert alert-warning text-center',
-            text: 'The selected payment method requires a bank account but none is set on'
+            text: ['The selected payment method requires a bank account but none is set on', '.']
           },
           _button_action_open_destination_journal: {
             _attr: {
@@ -319,7 +319,7 @@ export default {
             }
           }
         },
-        _div_248: {
+        _div_863: {
           _attr: { class: 'o_attachment_preview' }
         },
         id: { invisible: '1' },
@@ -363,7 +363,7 @@ export default {
                     text: 'Invoice'
                   }
                 },
-                _span_862: {
+                _span_338: {
                   _attr: {
                     invisible: [['reconciled_invoices_type', '=', 'invoice']],
                     text: 'Credit Note'
@@ -434,7 +434,7 @@ export default {
             _attr: { invisible: [['state', '!=', 'draft']] },
             _span: 'Draft'
           },
-          _h1_908: {
+          _h1_260: {
             _attr: { invisible: [['state', '=', 'draft']] },
             name: { readonly: '1' }
           }
@@ -455,7 +455,7 @@ export default {
               context: { default_is_company: true },
               no_quick_create: true
             },
-            _field_partner_id_783: {
+            _field_partner_id_857: {
               partner_id: {
                 string: 'Vendor',
                 readonly: [['state', '!=', 'draft']],
@@ -500,7 +500,7 @@ export default {
               required: [['require_partner_bank_account', '=', true], ['is_internal_transfer', '=', false]],
               context: { todo_ctx: "{'default_partner_id': partner_id, 'default_allow_out_payment': True}" }
             },
-            _field_partner_bank_id_719: {
+            _field_partner_bank_id_188: {
               partner_bank_id: {
                 string: 'Vendor Bank Account',
                 invisible: ['|', '|', '|', ['show_partner_bank_account', '=', false], ['partner_type', '!=', 'supplier'], ['is_internal_transfer', '=', true], ['payment_type', '=', 'inbound']],
@@ -508,7 +508,7 @@ export default {
                 context: { todo_ctx: "{'default_partner_id': partner_id, 'default_allow_out_payment': True}" }
               }
             },
-            _field_partner_bank_id_612: {
+            _field_partner_bank_id_770: {
               partner_bank_id: {
                 string: 'Company Bank Account',
                 invisible: ['|', '|', ['show_partner_bank_account', '=', false], ['is_internal_transfer', '=', true], ['payment_type', '=', 'outbound']],

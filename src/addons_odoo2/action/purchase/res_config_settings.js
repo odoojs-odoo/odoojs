@@ -31,7 +31,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   po_order_approval: {}
                 },
-                _div_973: {
+                _div_609: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_po_order_approval: { for: 'po_order_approval' },
                   _span: {
@@ -47,7 +47,7 @@ export default {
                       text: 'Request managers to approve orders above a minimum amount'
                     }
                   },
-                  _div_317: {
+                  _div_929: {
                     _attr: {
                       invisible: [['po_order_approval', '=', false]],
                       class: 'content-group'
@@ -63,13 +63,13 @@ export default {
                   }
                 }
               },
-              _div_643: {
+              _div_604: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   lock_confirmed_po: {}
                 },
-                _div_925: {
+                _div_207: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_lock_confirmed_po: { for: 'lock_confirmed_po' },
                   _div: {
@@ -80,13 +80,13 @@ export default {
                   }
                 }
               },
-              _div_668: {
+              _div_420: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   group_warning_purchase: {}
                 },
-                _div_375: {
+                _div_331: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_warning_purchase: {
                     for: 'group_warning_purchase',
@@ -100,7 +100,7 @@ export default {
                   }
                 }
               },
-              _div_599: {
+              _div_690: {
                 _attr: {
                   title: 'Calls for tenders are when you want to generate requests for quotations with several vendors for a given set of products to compare offers.',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -109,7 +109,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_purchase_requisition: {}
                 },
-                _div_867: {
+                _div_151: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_purchase_requisition: { for: 'module_purchase_requisition' },
                   _a: {
@@ -124,7 +124,7 @@ export default {
                       text: 'Manage your purchase agreements (call for tenders, blanket orders)'
                     }
                   },
-                  _div_389: {
+                  _div_833: {
                     _attr: {
                       invisible: [['module_purchase_requisition', '=', false]],
                       class: 'content-group'
@@ -133,13 +133,13 @@ export default {
                   }
                 }
               },
-              _div_403: {
+              _div_611: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   group_send_reminder: {}
                 },
-                _div_962: {
+                _div_401: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_send_reminder: { for: 'group_send_reminder' },
                   _div: {
@@ -151,7 +151,7 @@ export default {
                 }
               }
             },
-            _h2_975: 'Invoicing',
+            _h2_266: 'Invoicing',
             _div_invoicing_settings_container: {
               _attr: {
                 name: 'invoicing_settings_container',
@@ -165,7 +165,7 @@ export default {
                 _div: {
                   _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_598: {
+                _div_853: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_default_purchase_method: { for: 'default_purchase_method' },
                   _a: {
@@ -180,7 +180,7 @@ export default {
                       text: 'Quantities billed by vendors'
                     }
                   },
-                  _div_541: {
+                  _div_621: {
                     _attr: { class: 'content-group' },
                     _div: {
                       _attr: { class: 'mt16' },
@@ -192,7 +192,7 @@ export default {
                   }
                 }
               },
-              _div_675: {
+              _div_430: {
                 _attr: {
                   title: 'If enabled, activates 3-way matching on vendor bills : the items must be received in order to pay the invoice.',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -204,7 +204,7 @@ export default {
                     widget: 'upgrade_boolean'
                   }
                 },
-                _div_216: {
+                _div_891: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_account_3way_match: { for: 'module_account_3way_match' },
                   _a: {
@@ -222,7 +222,7 @@ export default {
                 }
               }
             },
-            _h2_169: 'Products',
+            _h2_598: 'Products',
             _div_matrix_setting_container: {
               _attr: {
                 name: 'matrix_setting_container',
@@ -234,7 +234,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   group_product_variant: {}
                 },
-                _div_135: {
+                _div_892: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_product_variant: { for: 'group_product_variant' },
                   _a: {
@@ -249,7 +249,7 @@ export default {
                       text: 'Purchase variants of a product using attributes (size, color, etc.)'
                     }
                   },
-                  _div_681: {
+                  _div_913: {
                     _attr: {
                       invisible: [['group_product_variant', '=', false]],
                       class: 'content-group'
@@ -269,7 +269,7 @@ export default {
                   }
                 }
               },
-              _div_464: {
+              _div_131: {
                 _attr: {
                   title: 'If installed, the product variants will be added to purchase orders through a grid entry.',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -278,7 +278,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_purchase_product_matrix: {}
                 },
-                _div_919: {
+                _div_623: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_purchase_product_matrix: {
                     for: 'module_purchase_product_matrix',
@@ -292,7 +292,7 @@ export default {
                   }
                 }
               },
-              _div_866: {
+              _div_670: {
                 _attr: {
                   title: 'Ability to select a package type in purchase orders and to force a quantity that is a multiple of the number of units per package.',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -301,7 +301,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   group_stock_packaging: {}
                 },
-                _div_849: {
+                _div_494: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_stock_packaging: { for: 'group_stock_packaging' },
                   _div: {

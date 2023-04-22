@@ -122,7 +122,7 @@ export default {
                                   _attr: { class: 'o_kanban_image o_image_64_cover' }
                                 }
                               },
-                              _div_968: {
+                              _div_612: {
                                 _attr: { class: 'oe_kanban_details d-flex flex-column ms-3' },
                                 _strong: {
                                   _attr: { class: 'o_kanban_record_title oe_partner_heading' },

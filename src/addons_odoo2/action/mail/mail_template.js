@@ -41,7 +41,7 @@ export default {
                   text: 'Add'
                 }
               },
-              _span_412: {
+              _span_419: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Context Action'
@@ -67,7 +67,7 @@ export default {
                   text: 'Remove'
                 }
               },
-              _span_371: {
+              _span_291: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Context Action'

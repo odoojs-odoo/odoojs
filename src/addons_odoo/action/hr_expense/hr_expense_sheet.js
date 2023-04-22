@@ -1,3 +1,89 @@
+const expense_line_ids_tree_sheet = {
+  _attr: { class: 'o_expense_line_list' },
+  date: { optional: 'show' },
+  product_id: {},
+  name: {},
+  description: { optional: 'hide' },
+  employee_id: { invisible: '1' },
+  state: { invisible: '1' },
+  attachment_number: { invisible: '1' },
+  _button_action_get_attachment_view: {
+    _attr: {
+      name: 'action_get_attachment_view',
+      type: 'object',
+      title: 'View Attachments',
+      icon: 'fa-paperclip',
+      // invisible: [['attachment_number', '=', 0]],
+      class: 'float-end pe-0'
+    }
+  },
+  reference: { readonly: 'True', optional: 'hide' },
+  analytic_distribution: {
+    widget: 'analytic_distribution',
+    optional: 'show'
+  },
+  account_id: { readonly: 'True', optional: 'hide' },
+  product_has_cost: { invisible: 'True' },
+  unit_amount: {
+    widget: 'monetary',
+    readonly({ record }) {
+      // readonly: [['product_has_cost', '=', false]],
+      const { product_has_cost } = record
+      return !product_has_cost
+    },
+    optional: 'hide'
+  },
+  currency_id: { readonly: 'True', optional: 'hide' },
+  quantity: {
+    // readonly: [['product_has_cost', '=', false]],
+    optional: 'hide'
+  },
+  company_id: { invisible: '1' },
+  tax_ids: {
+    string: 'Taxes',
+    widget: 'many2many_tags',
+    optional: 'show',
+    context({ record }) {
+      const { company_id } = record
+      return {
+        default_company_id: company_id
+      }
+    }
+  },
+  amount_tax: {
+    groups: 'base.group_multi_currency',
+    context({ record }) {
+      const { company_id } = record
+      return {
+        default_company_id: company_id
+      }
+    },
+    readonly: 'True',
+    optional: 'hide'
+  },
+  total_amount: {
+    readonly({ record }) {
+      // readonly: [['product_has_cost', '=', true]],
+      const { product_has_cost } = record
+      return product_has_cost
+    },
+    optional: 'show'
+  },
+  amount_tax_company: { groups: '', readonly: 'True', optional: 'hide' },
+  company_currency_id: { invisible: '1' },
+  total_amount_company: {
+    groups: 'base.group_multi_currency',
+    readonly: 'True',
+    optional: 'show'
+  },
+  is_refused: { invisible: 'True' }
+}
+
+const expense_line_ids_form_sheet = {
+  product_id: {},
+  name: {}
+}
+
 export default {
   view_hr_expense_sheet_tree: {
     _odoo_model: 'ir.ui.view',
@@ -36,88 +122,113 @@ export default {
     type: 'form',
     arch: {
       header: {
-        _button_action_submit_sheet: {
-          _attr: {
+        buttons: {
+          _button_action_submit_sheet: {
             name: 'action_submit_sheet',
             type: 'object',
             string: 'Submit to Manager',
-            // states: 'draft',
-            class: 'oe_highlight o_expense_sheet_submit'
-          }
-        },
-        _button_approve_expense_sheets: {
-          _attr: {
+            class: 'oe_highlight o_expense_sheet_submit',
+            invisible({ record }) {
+              // states: 'draft',
+              const { state } = record
+              return ['draft'].includes(state)
+            }
+          },
+          _button_approve_expense_sheets: {
             name: 'approve_expense_sheets',
             type: 'object',
             string: 'Approve',
-            // invisible: [
-            //   '|',
-            //   ['can_approve', '=', false],
-            //   ['state', '!=', 'submit']
-            // ],
+
+            invisible({ record }) {
+              // invisible: [
+              //   '|',
+              //   ['can_approve', '=', false],
+              //   ['state', '!=', 'submit']
+              // ],
+              const { can_approve, state } = record
+              return !can_approve || state != 'submit'
+            },
             context: { validate_analytic: true },
             class: 'oe_highlight o_expense_sheet_approve'
-          }
-        },
-        _button_action_sheet_move_create: {
-          _attr: {
+          },
+          _button_action_sheet_move_create: {
             name: 'action_sheet_move_create',
             type: 'object',
             string: 'Post Journal Entries',
             groups: 'account.group_account_invoice',
-            // invisible: [['state', '!=', 'approve']],
+            invisible({ record }) {
+              // invisible: [['state', '!=', 'approve']],
+              const { state } = record
+              return state != 'approve'
+            },
             class: 'oe_highlight o_expense_sheet_post'
-          }
-        },
-        _button_action_register_payment: {
-          _attr: {
+          },
+          _button_action_register_payment: {
             name: 'action_register_payment',
             type: 'object',
             string: 'Register Payment',
             groups: 'account.group_account_invoice',
-            // invisible: [['state', '!=', 'post']],
+            invisible({ record }) {
+              // invisible: [['state', '!=', 'post']],
+              const { state } = record
+              return state != 'post'
+            },
             context: { dont_redirect_to_payments: true },
             class: 'oe_highlight o_expense_sheet_pay'
-          }
-        },
-        _button_action_unpost: {
-          _attr: {
+          },
+          _button_action_unpost: {
             name: 'action_unpost',
             type: 'object',
             string: 'Cancel',
             groups:
-              'account.group_account_readonly,account.group_account_invoice'
-            // invisible: [['state', '!=', 'post']]
-          }
-        },
-        _button_hr_expense__hr_expense_refuse_wizard_action: {
-          _attr: {
+              'account.group_account_readonly,account.group_account_invoice',
+            invisible({ record }) {
+              // invisible: [['state', '!=', 'post']],
+              const { state } = record
+              return state != 'post'
+            }
+          },
+          _button_hr_expense__hr_expense_refuse_wizard_action: {
             name: 'hr_expense.hr_expense_refuse_wizard_action',
             type: 'action',
             string: 'Refuse',
             groups: 'hr_expense.group_hr_expense_team_approver',
-            // states: 'submit,approve',
+
+            invisible({ record }) {
+              // states: 'submit,approve',
+              const { state } = record
+              return ['submit', 'approve'].includes(state)
+            },
             context: { hr_expense_refuse_model: 'hr.expense.sheet' }
-          }
-        },
-        _button_reset_expense_sheets: {
-          _attr: {
+          },
+          _button_reset_expense_sheets: {
             name: 'reset_expense_sheets',
             type: 'object',
-            string: 'Reset to Draft'
-            // invisible: [
-            //   '|',
-            //   ['can_reset', '=', false],
-            //   ['state', 'not in', ['submit', 'cancel', 'approve']]
-            // ]
+            string: 'Reset to Draft',
+
+            invisible({ record }) {
+              // invisible: [
+              //   '|',
+              //   ['can_reset', '=', false],
+              //   ['state', 'not in', ['submit', 'cancel', 'approve']]
+              // ]
+              const { can_reset, state } = record
+              return (
+                !can_reset || !['submit', 'cancel', 'approve'].includes(state)
+              )
+            }
           }
         },
-        state: {
-          widget: 'statusbar',
-          statusbar_visible: 'draft,submit,approve,post,done',
-          force_save: '1'
+
+        fields: {
+          state: {
+            widget: 'statusbar',
+            statusbar_visible: 'draft,submit,approve,post,done',
+            force_save: '1'
+          }
         }
       },
+
       sheet: {
         can_reset: { invisible: '1' },
         can_approve: { invisible: '1' },
@@ -132,11 +243,16 @@ export default {
               icon: 'fa-file-text-o',
               groups:
                 'account.group_account_user,account.group_account_readonly',
-              // invisible: [
-              //   '|',
-              //   ['state', 'not in', ['post', 'done']],
-              //   ['account_move_id', '=', false]
-              // ],
+
+              invisible({ record }) {
+                // invisible: [
+                //   '|',
+                //   ['state', 'not in', ['post', 'done']],
+                //   ['account_move_id', '=', false]
+                // ],
+                const { account_move_id, state } = record
+                return !account_move_id || !['post', 'done'].includes(state)
+              },
               class: 'oe_stat_button',
               text: 'Journal Entry'
             }
@@ -148,6 +264,11 @@ export default {
               type: 'object',
               icon: 'fa-file-text-o',
               // invisible: [['expense_number', '=', 0]],
+              invisible({ record }) {
+                // invisible: [['expense_number', '=', 0]],
+                const { expense_number } = record
+                return !expense_number
+              },
               class: 'oe_stat_button'
             },
             expense_number: { string: 'Expenses', widget: 'statinfo' }
@@ -158,103 +279,99 @@ export default {
           _attr: {
             name: 'web_ribbon',
             title: 'Posted',
-            bg_color: 'bg-success'
-            // invisible: [
-            //   '|',
-            //   ['payment_state', '!=', 'paid'],
-            //   ['payment_mode', '==', 'own_account']
-            // ]
+            bg_color: 'bg-success',
+            invisible({ record }) {
+              // invisible: [
+              //   '|',
+              //   ['payment_state', '!=', 'paid'],
+              //   ['payment_mode', '==', 'own_account']
+              // ]
+              const { payment_state, payment_mode } = record
+              return payment_state != 'paid' || payment_mode == 'own_account'
+            }
           }
         },
         _widget_web_ribbon_964: {
           _attr: {
             name: 'web_ribbon',
             title: 'Paid',
-            bg_color: 'bg-success'
-            // invisible: [
-            //   '|',
-            //   ['payment_state', '!=', 'paid'],
-            //   ['payment_mode', '==', 'company_account']
-            // ]
+            bg_color: 'bg-success',
+            invisible({ record }) {
+              // invisible: [
+              //   '|',
+              //   ['payment_state', '!=', 'paid'],
+              //   ['payment_mode', '==', 'company_account']
+              // ]
+              const { payment_state, payment_mode } = record
+              return (
+                payment_state != 'paid' || payment_mode == 'company_account'
+              )
+            }
           }
         },
         _widget_web_ribbon_417: {
           _attr: {
             name: 'web_ribbon',
             title: 'Partial',
-            bg_color: 'bg-info'
-            // invisible: [['payment_state', '!=', 'partial']]
+            bg_color: 'bg-info',
+            invisible({ record }) {
+              // invisible: [['payment_state', '!=', 'partial']]
+              const { payment_state } = record
+              return payment_state != 'partial'
+            }
           }
         },
         _widget_web_ribbon_830: {
           _attr: {
             name: 'web_ribbon',
-            title: 'In Payment'
-            // invisible: [['payment_state', '!=', 'in_payment']]
+            title: 'In Payment',
+            invisible({ record }) {
+              // invisible: [['payment_state', '!=', 'in_payment']]
+              const { payment_state } = record
+              return payment_state != 'in_payment'
+            }
           }
         },
         _div_title: {
           _attr: { class: 'oe_title' },
           _label_name: { for: 'name', class: 'oe_edit_only' },
           _h1: {
-            name: {
-              readonly: [['is_editable', '=', false]],
-              placeholder: 'e.g. Trip to NY',
-              force_save: '1'
-            }
+            name: { force_save: '1' }
           }
         },
         _group: {
           _group_employee_details: {
             _attr: { name: 'employee_details' },
-            employee_id: {
-              widget: 'many2one_avatar_employee',
-              context: {
-                // todo_ctx: "{'default_company_id': company_id}"
-              }
-            },
+            employee_id: { widget: 'many2one_avatar_employee' },
             payment_mode: {},
             journal_id: {
-              groups:
-                'account.group_account_invoice,account.group_account_readonly',
-              // invisible: [['payment_mode', '!=', 'own_account']],
-              context: {
-                // todo_ctx: "{'default_company_id': company_id}"
-              },
               no_open: true,
               no_create: true
             },
             bank_journal_id: {
-              groups:
-                'account.group_account_invoice,account.group_account_readonly',
-              // invisible: [['payment_mode', '!=', 'company_account']],
-              context: {
-                // todo_ctx: "{'default_company_id': company_id}"
+              invisible({ record }) {
+                // invisible: [['payment_mode', '!=', 'company_account']],
+                const { payment_mode } = record
+                return payment_mode != 'company_account'
               },
+
               no_open: true,
               no_create: true
             },
-            address_id: {
-              invisible: '1',
-              context: {
-                // todo_ctx: "{'default_company_id': company_id}"
-              }
-            },
-            department_id: {
-              invisible: '1',
-              context: {
-                // todo_ctx: "{'default_company_id': company_id}"
-              }
-            }
+            address_id: { invisible: '1' },
+            department_id: { invisible: '1' }
           },
           _group: {
-            company_id: { groups: 'base.group_multi_company' },
+            company_id: {},
             user_id: { widget: 'many2one_avatar_user' },
             accounting_date: {
               groups:
                 'account.group_account_invoice,account.group_account_readonly',
-              // invisible: [['state', 'not in', ['approve', 'post', 'done']]],
-              readonly: [['state', 'in', ['post', 'done']]]
+              invisible({ record }) {
+                // invisible: [['state', 'not in', ['approve', 'post', 'done']]],
+                const { state } = record
+                return !['approve', 'post', 'done'].includes(state)
+              }
             }
           }
         },
@@ -264,96 +381,12 @@ export default {
             is_editable: { invisible: '1' },
             expense_line_ids: {
               widget: 'many2many',
-              // domain: {
-              //   todo_ctx:
-              //     "[('state', '=', 'draft'), ('employee_id', '=', employee_id), ('company_id', '=', company_id)]"
-              // },
-              // readonly: [['is_editable', '=', false]],
-              context: {
-                // todo_ctx:
-                //   "{'form_view_ref' : 'hr_expense.hr_expense_view_form_without_header', 'default_company_id': company_id, 'default_employee_id': employee_id}"
-              },
+
               force_save: '1',
               reload_on_button: true,
               views: {
-                tree: {
-                  arch: {
-                    sheet: {
-                      _attr: { class: 'o_expense_line_list' },
-                      date: { optional: 'show' },
-                      product_id: {},
-                      name: {},
-                      description: { optional: 'hide' },
-                      employee_id: { invisible: '1' },
-                      state: { invisible: '1' },
-                      attachment_number: { invisible: '1' },
-                      _button_action_get_attachment_view: {
-                        _attr: {
-                          name: 'action_get_attachment_view',
-                          type: 'object',
-                          title: 'View Attachments',
-                          icon: 'fa-paperclip',
-                          // invisible: [['attachment_number', '=', 0]],
-                          class: 'float-end pe-0'
-                        }
-                      },
-                      reference: { readonly: 'True', optional: 'hide' },
-                      analytic_distribution: {
-                        widget: 'analytic_distribution',
-                        groups: 'analytic.group_analytic_accounting',
-                        optional: 'show',
-                        product_field: 'product_id',
-                        account_field: 'account_id',
-                        business_domain: 'expense'
-                      },
-                      account_id: { readonly: 'True', optional: 'hide' },
-                      product_has_cost: { invisible: 'True' },
-                      unit_amount: {
-                        widget: 'monetary',
-                        // readonly: [['product_has_cost', '=', false]],
-                        optional: 'hide',
-                        currency_field: 'currency_id'
-                      },
-                      currency_id: { readonly: 'True', optional: 'hide' },
-                      quantity: {
-                        // readonly: [['product_has_cost', '=', false]],
-                        optional: 'hide'
-                      },
-                      company_id: { invisible: '1' },
-                      tax_ids: {
-                        string: 'Taxes',
-                        widget: 'many2many_tags',
-                        context: {
-                          // todo_ctx: "{'default_company_id': company_id}"
-                        },
-                        optional: 'show'
-                      },
-                      amount_tax: {
-                        groups: 'base.group_multi_currency',
-                        context: {
-                          // todo_ctx: "{'default_company_id': company_id}"
-                        },
-                        readonly: 'True',
-                        optional: 'hide'
-                      },
-                      total_amount: {
-                        // readonly: [['product_has_cost', '=', true]],
-                        optional: 'show'
-                      },
-                      amount_tax_company: {
-                        readonly: 'True',
-                        optional: 'hide'
-                      },
-                      company_currency_id: { invisible: '1' },
-                      total_amount_company: {
-                        groups: 'base.group_multi_currency',
-                        readonly: 'True',
-                        optional: 'show'
-                      },
-                      is_refused: { invisible: 'True' }
-                    }
-                  }
-                }
+                tree: { arch: { sheet: { ...expense_line_ids_tree_sheet } } },
+                form: { arch: { sheet: { ...expense_line_ids_form_sheet } } }
               }
             },
             currency_id: { invisible: '1' },
@@ -374,7 +407,11 @@ export default {
               },
               total_amount: { class: 'oe_subtotal_footer_separator' },
               amount_residual: {
-                invisible: [['state', 'not in', ('post', 'done')]],
+                invisible({ record }) {
+                  // invisible: [['state', 'not in', ('post', 'done')]],
+                  const { state } = record
+                  return !['post', 'done'].includes(state)
+                },
                 class: 'oe_subtotal_footer_separator'
               }
             }

@@ -15,7 +15,7 @@ export default {
               _div: {
                 _attr: { class: 'o_setting_left_pane' }
               },
-              _div_602: {
+              _div_283: {
                 _attr: { class: 'o_setting_right_pane' },
                 _span: {
                   _attr: {
@@ -29,7 +29,7 @@ export default {
                     text: 'Configure your activity types'
                   }
                 },
-                _div_446: {
+                _div_736: {
                   _attr: { class: 'content-group' },
                   _div: {
                     _attr: { class: 'mt8' },
@@ -46,7 +46,7 @@ export default {
                 }
               }
             },
-            _div_491: {
+            _div_483: {
               _attr: {
                 title: 'Using your own email server is required to send/receive emails in Community and Enterprise versions. Online users already benefit from a ready-to-use email server (@mycompany.odoo.com).',
                 class: 'col-12 col-lg-6 o_setting_box'
@@ -55,7 +55,7 @@ export default {
                 _attr: { class: 'o_setting_left_pane' },
                 external_email_server_default: {}
               },
-              _div_940: {
+              _div_772: {
                 _attr: { class: 'o_setting_right_pane' },
                 _label_external_email_server_default: { for: 'external_email_server_default' },
                 _a: {
@@ -70,7 +70,7 @@ export default {
                     text: 'Configure your own email servers'
                   }
                 },
-                _div_858: {
+                _div_128: {
                   _attr: {
                     invisible: [['external_email_server_default', '=', false]],
                     class: 'content-group mb-3'
@@ -84,7 +84,7 @@ export default {
                     _span: '@',
                     alias_domain: { placeholder: 'e.g. "mycompany.com"' }
                   },
-                  _div_547: {
+                  _div_213: {
                     _attr: { class: 'mt8' },
                     _button_action_email_server_tree: {
                       _attr: {
@@ -96,7 +96,7 @@ export default {
                       }
                     }
                   },
-                  _div_631: {
+                  _div_472: {
                     _attr: { class: 'mt8' },
                     _button_base__action_ir_mail_server_list: {
                       _attr: {
@@ -109,7 +109,7 @@ export default {
                     }
                   }
                 },
-                _div_157: {
+                _div_481: {
                   _attr: {
                     invisible: [['external_email_server_default', '=', false]],
                     class: 'mt-3 d-flex'
@@ -132,19 +132,22 @@ export default {
                         text: 'Send and receive emails through your Gmail account.'
                       }
                     },
-                    _div_823: {
+                    _div_995: {
                       _attr: {
                         invisible: [['module_google_gmail', '=', false]],
                         class: 'content-group'
                       },
                       _div: {
-                        _attr: { class: 'mt16 text-warning' },
+                        _attr: {
+                          class: 'mt16 text-warning',
+                          text: 'this page and come back here to set up the feature.'
+                        },
                         _strong: 'Save'
                       }
                     }
                   }
                 },
-                _div_821: {
+                _div_416: {
                   _attr: {
                     invisible: [['external_email_server_default', '=', false]],
                     class: 'mt-3 d-flex'
@@ -167,13 +170,16 @@ export default {
                         text: 'Send and receive emails through your Outlook account.'
                       }
                     },
-                    _div_218: {
+                    _div_445: {
                       _attr: {
                         invisible: [['module_microsoft_outlook', '=', false]],
                         class: 'content-group'
                       },
                       _div: {
-                        _attr: { class: 'mt16 text-warning' },
+                        _attr: {
+                          class: 'mt16 text-warning',
+                          text: 'this page and come back here to set up the feature.'
+                        },
                         _strong: 'Save'
                       }
                     }
@@ -181,13 +187,13 @@ export default {
                 }
               }
             },
-            _div_997: {
+            _div_961: {
               _attr: { class: 'col-12 col-lg-6 o_setting_box' },
               _div: {
                 _attr: { class: 'o_setting_left_pane' },
                 use_twilio_rtc_servers: {}
               },
-              _div_364: {
+              _div_805: {
                 _attr: { class: 'o_setting_right_pane' },
                 _label_use_twilio_rtc_servers: { for: 'use_twilio_rtc_servers' },
                 _div: {
@@ -196,7 +202,7 @@ export default {
                     text: 'Add your twilio credentials for ICE servers'
                   }
                 },
-                _div_917: {
+                _div_420: {
                   _attr: {
                     invisible: [['use_twilio_rtc_servers', '=', false]],
                     class: 'content-group'
@@ -209,7 +215,7 @@ export default {
                     },
                     twilio_account_sid: { placeholder: 'e.g. ACd5543a0b450ar4c7t95f1b6e8a39t543' }
                   },
-                  _div_708: {
+                  _div_694: {
                     _attr: { class: 'row mt16' },
                     _label_twilio_account_token: {
                       for: 'twilio_account_token',
@@ -220,7 +226,7 @@ export default {
                 }
               }
             },
-            _div_470: {
+            _div_341: {
               _attr: { class: 'col-12 col-lg-6 o_setting_box' },
               _div: {
                 _attr: { class: 'o_setting_right_pane' },
@@ -239,7 +245,7 @@ export default {
                     }
                   }
                 },
-                _div_706: {
+                _div_707: {
                   _attr: { class: 'content-group' },
                   _div: {
                     _attr: { class: 'row col-lg-4' },
@@ -256,13 +262,13 @@ export default {
                 }
               }
             },
-            _div_631: {
+            _div_121: {
               _attr: { class: 'col-12 col-lg-6 o_setting_box' },
               _div: {
                 _attr: { class: 'o_setting_left_pane' },
                 restrict_template_rendering: {}
               },
-              _div_852: {
+              _div_910: {
                 _attr: { class: 'o_setting_right_pane' },
                 _label_restrict_template_rendering: { for: 'restrict_template_rendering' },
                 _div: {
@@ -275,7 +281,7 @@ export default {
             }
           }
         },
-        _div_192: {
+        _div_558: {
           _attr: { position: 'inside' },
           _br: {},
           _div: {
@@ -295,7 +301,7 @@ export default {
                 text: 'Customize the look and feel of automated emails'
               }
             },
-            _div_466: {
+            _div_512: {
               _attr: { class: 'w-50 row' },
               _span: {
                 _attr: {
@@ -308,7 +314,7 @@ export default {
                 class: 'd-block w-25 p-0 m-0'
               }
             },
-            _div_977: {
+            _div_267: {
               _attr: { class: 'w-50 row mt-1' },
               _span: {
                 _attr: {

@@ -6,6 +6,7 @@ export default {
     arch: {
       sheet: {
         _div: {
+          _attr: { text: 'has been successfully installed.\n                            Users can choose their favorite language in their preferences.' },
           _strong: {
             first_lang_id: {
               readonly: 'True',
@@ -27,7 +28,7 @@ export default {
               name: 'switch_lang',
               type: 'object',
               class: 'btn-primary ms-1',
-              text: 'Switch to'
+              text: ['Switch to', '& Close']
             },
             first_lang_id: {
               readonly: 'True',

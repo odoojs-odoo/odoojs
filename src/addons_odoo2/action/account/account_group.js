@@ -12,7 +12,7 @@ export default {
             string: 'Code Prefix'
           },
           _div: {
-            _attr: { text: 'From' },
+            _attr: { text: ['From', 'to'] },
             code_prefix_start: { class: 'oe_inline' },
             code_prefix_end: { class: 'oe_inline' }
           },

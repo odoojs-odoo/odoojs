@@ -24,7 +24,7 @@ export default {
             position: 'replace'
           }
         },
-        _xpath_610: {
+        _xpath_896: {
           _attr: {
             expr: "//field[@name='company_id']",
             position: 'attributes'
@@ -51,7 +51,7 @@ export default {
           position: 'attributes',
           __todo__required: '1'
         },
-        _field_tz_469: {
+        _field_tz_785: {
           tz: {
             position: 'after',
             __todo__after: {
@@ -112,7 +112,7 @@ export default {
           _header: {},
           _sheet: '$0'
         },
-        _notebook_699: {
+        _notebook_105: {
           _attr: { position: 'before' },
           _div_button_box: {
             _attr: {
@@ -131,21 +131,21 @@ export default {
                   class: 'fa fa-fw fa-circle text-success o_button_icon'
                 }
               },
-              _div_106: {
+              _div_424: {
                 _attr: {
                   title: 'Away',
                   invisible: [['hr_presence_state', '!=', 'to_define']],
                   class: 'fa fa-fw fa-circle text-warning o_button_icon'
                 }
               },
-              _div_206: {
+              _div_478: {
                 _attr: {
                   title: 'Not available',
                   invisible: [['hr_presence_state', '!=', 'absent']],
                   class: 'fa fa-fw fa-circle text-danger o_button_icon'
                 }
               },
-              _div_160: {
+              _div_221: {
                 _attr: {
                   invisible: [['hr_presence_state', '=', 'present']],
                   class: 'o_stat_info'
@@ -157,7 +157,7 @@ export default {
                   }
                 }
               },
-              _div_112: {
+              _div_182: {
                 _attr: {
                   invisible: [['hr_presence_state', '!=', 'present']],
                   class: 'o_stat_info'
@@ -169,14 +169,14 @@ export default {
                   },
                   last_activity_time: {}
                 },
-                _span_804: {
+                _span_128: {
                   _attr: {
                     invisible: [['last_activity_time', '!=', false]],
                     class: 'o_stat_value'
                   },
                   last_activity: {}
                 },
-                _span_173: {
+                _span_232: {
                   _attr: {
                     class: 'o_stat_text',
                     text: 'Connected Since'
@@ -226,7 +226,7 @@ export default {
                 options: "{'enable_sms': false}"
               }
             },
-            _group_779: {
+            _group_322: {
               work_email: {
                 widget: 'email',
                 readonly: [['can_edit', '=', false]]
@@ -234,13 +234,13 @@ export default {
               work_location_id: { readonly: [['can_edit', '=', false]] },
               company_id: { invisible: '1' }
             },
-            _group_413: {
+            _group_339: {
               employee_parent_id: { readonly: [['can_edit', '=', false]] },
               coach_id: { readonly: [['can_edit', '=', false]] }
             }
           }
         },
-        _notebook_876: {
+        _notebook_361: {
           _attr: { position: 'inside' },
           _page_public: {
             _attr: {
@@ -337,7 +337,7 @@ export default {
                 employee_bank_account_id: { readonly: [['can_edit', '=', false]] },
                 km_home_work: { readonly: [['can_edit', '=', false]] }
               },
-              _group_984: {
+              _group_302: {
                 _attr: { string: 'Citizenship' },
                 employee_country_id: {
                   readonly: [['can_edit', '=', false]],
@@ -351,7 +351,7 @@ export default {
                 place_of_birth: { readonly: [['can_edit', '=', false]] },
                 country_of_birth: { readonly: [['can_edit', '=', false]] }
               },
-              _group_744: {
+              _group_276: {
                 _attr: { string: 'Marital Status' },
                 marital: { readonly: [['can_edit', '=', false]] },
                 spouse_complete_name: {
@@ -363,17 +363,17 @@ export default {
                   readonly: [['can_edit', '=', false]]
                 }
               },
-              _group_318: {
+              _group_194: {
                 _attr: { string: 'Education' },
                 certificate: { readonly: [['can_edit', '=', false]] },
                 study_field: { readonly: [['can_edit', '=', false]] },
                 study_school: { readonly: [['can_edit', '=', false]] }
               },
-              _group_702: {
+              _group_589: {
                 _attr: { string: 'Dependant' },
                 children: { readonly: [['can_edit', '=', false]] }
               },
-              _group_341: {
+              _group_271: {
                 _attr: { string: 'Emergency' },
                 emergency_contact: { readonly: [['can_edit', '=', false]] },
                 emergency_phone: {
@@ -461,7 +461,7 @@ export default {
                 class: 'btn btn-primary'
               }
             },
-            _button_406: {
+            _button_983: {
               _attr: {
                 string: 'Cancel',
                 class: 'btn btn-secondary'
@@ -508,7 +508,7 @@ export default {
             }
           }
         },
-        _xpath_678: {
+        _xpath_522: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'

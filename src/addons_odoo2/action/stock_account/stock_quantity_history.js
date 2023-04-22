@@ -9,7 +9,7 @@ export default {
           position: 'attributes',
           invisible: "context.get['active_model'] != 'stock.quant'"
         },
-        _field_inventory_datetime_659: {
+        _field_inventory_datetime_288: {
           inventory_datetime: {
             position: 'after',
             __todo__after: {

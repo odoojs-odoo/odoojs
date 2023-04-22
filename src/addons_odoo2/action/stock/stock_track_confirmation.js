@@ -8,7 +8,7 @@ export default {
         product_ids: { invisible: '1' },
         quant_ids: { invisible: '1' },
         _p: {
-          _attr: { text: "Those products you added are tracked but lots/serials were not defined. Once applied those can't be changed." },
+          _attr: { text: ["Those products you added are tracked but lots/serials were not defined. Once applied those can't be changed.", 'Apply anyway?'] },
           _br: {}
         },
         _strong: 'Tracked product(s):',

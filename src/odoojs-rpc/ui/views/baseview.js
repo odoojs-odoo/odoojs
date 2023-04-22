@@ -184,8 +184,11 @@ export class BaseView {
     const fields_raw_get_from_sheet = () => {
       const { view } = this.view_info
       const { arch = {} } = view
-      const { sheet = {} } = arch
-      return this.get_fields_from_sheet(sheet)
+      const { sheet = {}, header = {} } = arch
+      const { fields = {} } = header
+      const sheet2 = { ...fields, ...sheet }
+      console.log(view, arch)
+      return this.get_fields_from_sheet(sheet2)
     }
 
     const fields_raw_get = () => {

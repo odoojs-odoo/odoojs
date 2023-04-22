@@ -13,7 +13,7 @@ export default {
             priority: {},
             active: { widget: 'boolean_toggle' }
           },
-          _group_220: {
+          _group_507: {
             _attr: { groups: 'base.group_no_one' },
             field_parent: {},
             inherit_id: {},
@@ -25,7 +25,7 @@ export default {
         _div: {
           _attr: {
             class: 'oe_edit_only alert alert-info',
-            text: 'Be aware that editing the architecture of a standard view is not advised, since the changes will be overwritten during future module updates.'
+            text: ['Be aware that editing the architecture of a standard view is not advised, since the changes will be overwritten during future module updates.', 'We recommend applying modifications to standard views through inherited views or customization with Odoo Studio.']
           },
           _br: {}
         },
@@ -153,7 +153,7 @@ export default {
           domain: [['arch_updated', '=', true]]
         }
       },
-      _separator_423: {},
+      _separator_629: {},
       _filter_active: {
         _attr: {
           name: 'active',

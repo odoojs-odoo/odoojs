@@ -149,26 +149,26 @@ export default {
               _span: {
                 product_uom_qty: { readonly: '1' }
               },
-              _span_554: {
+              _span_213: {
                 product_uom: { readonly: '1' }
               }
             },
             _label_quantity_done: { for: 'quantity_done' },
-            _div_324: {
+            _div_339: {
               _attr: { class: 'o_row' },
               _span: {
                 quantity_done: { readonly: '1' }
               },
-              _span_905: {
+              _span_914: {
                 _attr: {
                   invisible: ['|', ['state', '=', 'done'], ['from_immediate_transfer', '=', true]],
                   text: '/'
                 }
               },
-              _span_405: {
+              _span_685: {
                 reserved_availability: { invisible: ['|', ['state', '=', 'done'], ['from_immediate_transfer', '=', true]] }
               },
-              _span_882: {
+              _span_412: {
                 product_uom: {
                   invisible: [['from_immediate_transfer', '=', true]],
                   readonly: '1'
@@ -180,7 +180,7 @@ export default {
               for: 'next_serial_count',
               invisible: [['display_assign_serial', '=', false]]
             },
-            _div_148: {
+            _div_122: {
               _attr: {
                 invisible: [['display_assign_serial', '=', false]],
                 class: 'o_row'
@@ -225,11 +225,11 @@ export default {
               class: 'oe_highlight'
             }
           },
-          _button_540: {
+          _button_335: {
             _attr: { string: 'Discard' }
           }
         },
-        _footer_449: {
+        _footer_757: {
           _attr: {
             invisible: ['|', '&', ['state', '!=', 'cancel'], ['state', '!=', 'done'], '&', ['state', '=', 'done'], ['is_locked', '!=', true]],
             class: 'oe_edit_only'
@@ -305,14 +305,14 @@ export default {
                 }
               },
               name: { invisible: '1' },
-              _div_359: {
+              _div_961: {
                 _attr: { class: 'o_td_label' },
                 _label_date: {
                   for: 'date',
                   string: 'Date Scheduled',
                   invisible: [['state', '=', 'done']]
                 },
-                _label_date_500: {
+                _label_date_110: {
                   for: 'date',
                   string: 'Date Processing',
                   invisible: [['state', '!=', 'done']]
@@ -454,7 +454,7 @@ export default {
           domain: [['is_inventory', '=', true]]
         }
       },
-      _separator_315: {},
+      _separator_613: {},
       _filter_today: {
         _attr: {
           name: 'today',

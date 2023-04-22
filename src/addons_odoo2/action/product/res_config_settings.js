@@ -18,7 +18,7 @@ export default {
               _div: {
                 _attr: { class: 'o_setting_left_pane' }
               },
-              _div_261: {
+              _div_767: {
                 _attr: { class: 'o_setting_right_pane' },
                 _label_product_weight_in_lbs: {
                   for: 'product_weight_in_lbs',
@@ -30,7 +30,7 @@ export default {
                     text: 'Define your weight unit of measure'
                   }
                 },
-                _div_386: {
+                _div_610: {
                   _attr: { class: 'content-group' },
                   _div: {
                     _attr: { class: 'mt16' },
@@ -43,7 +43,7 @@ export default {
                 }
               }
             },
-            _div_334: {
+            _div_613: {
               _attr: { class: 'col-12 col-lg-6 o_setting_box' },
               _div: {
                 _attr: { class: 'o_setting_right_pane' },
@@ -57,7 +57,7 @@ export default {
                     text: 'Define your volume unit of measure'
                   }
                 },
-                _div_582: {
+                _div_673: {
                   _attr: { class: 'content-group' },
                   _div: {
                     _attr: { class: 'mt16' },
@@ -72,7 +72,7 @@ export default {
             }
           }
         },
-        _xpath_860: {
+        _xpath_912: {
           _attr: {
             expr: "//div[@id='product_get_pic_setting']",
             position: 'replace'
@@ -83,7 +83,7 @@ export default {
               _attr: { class: 'o_setting_left_pane' },
               module_product_images: {}
             },
-            _div_651: {
+            _div_312: {
               _attr: { class: 'o_setting_right_pane' },
               _label_module_product_images: {
                 for: 'module_product_images',
@@ -101,13 +101,16 @@ export default {
                   text: 'Get product pictures using Barcode'
                 }
               },
-              _div_618: {
+              _div_178: {
                 _attr: {
                   invisible: [['module_product_images', '=', false]],
                   class: 'content-group mt16'
                 },
                 _div: {
-                  _attr: { class: 'mt16 text-warning' },
+                  _attr: {
+                    class: 'mt16 text-warning',
+                    text: 'this page and come back\n                                    here to set up the feature.'
+                  },
                   _strong: 'Save'
                 }
               }

@@ -18,7 +18,7 @@ export default {
             }
           }
         },
-        _xpath_278: {
+        _xpath_962: {
           _attr: {
             expr: "//button[@id='account_invoice_payment_btn']",
             position: 'after'
@@ -44,7 +44,7 @@ export default {
             }
           }
         },
-        _xpath_337: {
+        _xpath_255: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'

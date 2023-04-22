@@ -98,7 +98,7 @@ export default {
           domain: [['tax_scope', '=', 'consu']]
         }
       },
-      _separator_986: {},
+      _separator_141: {},
       _filter_active: {
         _attr: {
           name: 'active',
@@ -134,7 +134,7 @@ export default {
             context: { group_by: 'type_tax_use' }
           }
         },
-        _filter_taxapp_520: {
+        _filter_taxapp_242: {
           _attr: {
             name: 'taxapp',
             string: 'Tax Scope',
@@ -172,7 +172,7 @@ export default {
             amount_type: {},
             active: { widget: 'boolean_toggle' }
           },
-          _group_913: {
+          _group_669: {
             type_tax_use: {},
             tax_scope: {},
             _label_amount: {
@@ -205,7 +205,7 @@ export default {
                 _attr: { string: 'Distribution for Invoices' },
                 invoice_repartition_line_ids: {}
               },
-              _group_157: {
+              _group_587: {
                 _attr: { string: 'Distribution for Refunds' },
                 refund_repartition_line_ids: {}
               }

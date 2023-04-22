@@ -112,7 +112,7 @@ export default {
             }
           }
         },
-        _xpath_494: {
+        _xpath_575: {
           _attr: {
             expr: "//page[@name='general_information']",
             position: 'after'
@@ -154,7 +154,10 @@ export default {
               }
             },
             _p: {
-              _attr: { class: 'oe_grey oe_edit_only' },
+              _attr: {
+                class: 'oe_grey oe_edit_only',
+                text: ': adding or deleting attributes\n                        will delete and recreate existing variants and lead\n                        to the loss of their possible customizations.'
+              },
               _strong: 'Warning'
             }
           }
@@ -236,13 +239,13 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 pricelist_item_count: {}
               },
-              _span_590: {
+              _span_990: {
                 _attr: {
                   invisible: [['pricelist_item_count', '=', 1]],
                   text: 'Extra Prices'
                 }
               },
-              _span_363: {
+              _span_633: {
                 _attr: {
                   invisible: [['pricelist_item_count', '!=', 1]],
                   text: 'Extra Price'
@@ -293,7 +296,7 @@ export default {
             sale_ok: {},
             _label_sale_ok: { for: 'sale_ok' }
           },
-          _span_567: {
+          _span_692: {
             _attr: { class: 'd-inline-block' },
             purchase_ok: {},
             _label_purchase_ok: { for: 'purchase_ok' }
@@ -369,7 +372,7 @@ export default {
                 product_variant_id: { invisible: '1' }
               }
             },
-            _group_598: {
+            _group_547: {
               _attr: { string: 'Internal Notes' },
               description: { placeholder: 'This note is only for internal purposes.' }
             }
@@ -506,7 +509,7 @@ export default {
           domain: [['type', 'in', ['consu', 'product']]]
         }
       },
-      _separator_221: {},
+      _separator_516: {},
       _filter_filter_to_sell: {
         _attr: {
           name: 'filter_to_sell',
@@ -521,7 +524,7 @@ export default {
           domain: [['purchase_ok', '=', true]]
         }
       },
-      _separator_695: {},
+      _separator_233: {},
       attribute_line_ids: {
         string: 'Attributes',
         groups: 'product.group_product_variant'
@@ -551,7 +554,7 @@ export default {
           domain: { todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))                     ]" }
         }
       },
-      _separator_914: {},
+      _separator_239: {},
       _filter_favorites: {
         _attr: {
           name: 'favorites',
@@ -559,7 +562,7 @@ export default {
           domain: [['priority', '=', '1']]
         }
       },
-      _separator_598: {},
+      _separator_804: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',
@@ -567,7 +570,7 @@ export default {
           domain: [['activity_exception_decoration', '!=', false]]
         }
       },
-      _separator_607: {},
+      _separator_992: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',

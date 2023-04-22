@@ -33,7 +33,7 @@ export default {
           domain: [['employee_id.active', '=', true]]
         }
       },
-      _separator_648: {},
+      _separator_949: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -41,7 +41,7 @@ export default {
           domain: [['active', '=', false]]
         }
       },
-      _separator_474: {},
+      _separator_651: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
@@ -128,7 +128,7 @@ export default {
           widget: 'statusbar',
           groups: '!hr_contract.group_hr_contract_manager'
         },
-        _field_state_259: {
+        _field_state_306: {
           state: {
             widget: 'statusbar',
             groups: 'hr_contract.group_hr_contract_manager',
@@ -168,7 +168,7 @@ export default {
               class: 'd-flex align-items-center',
               readonly: '1'
             },
-            _field_kanban_state_566: {
+            _field_kanban_state_883: {
               kanban_state: {
                 widget: 'state_selection',
                 groups: 'hr_contract.group_hr_contract_manager',
@@ -201,7 +201,7 @@ export default {
               no_open: true,
               no_create: true
             },
-            _field_structure_type_id_656: {
+            _field_structure_type_id_367: {
               structure_type_id: {
                 groups: 'hr_contract.group_hr_contract_manager',
                 domain: { todo_ctx: "['|', ('country_id', '=', False), ('country_id', '=', company_country_id)]" }
@@ -216,7 +216,7 @@ export default {
                 no_open: true,
                 no_create: true
               },
-              _field_resource_calendar_id_700: {
+              _field_resource_calendar_id_316: {
                 resource_calendar_id: {
                   groups: 'hr_contract.group_hr_contract_manager',
                   required: '1'
@@ -237,7 +237,7 @@ export default {
               no_open: true,
               no_create: true
             },
-            _field_department_id_947: {
+            _field_department_id_288: {
               department_id: { groups: 'hr_contract.group_hr_contract_manager' }
             },
             job_id: {
@@ -245,7 +245,7 @@ export default {
               no_open: true,
               no_create: true
             },
-            _field_job_id_129: {
+            _field_job_id_623: {
               job_id: { groups: 'hr_contract.group_hr_contract_manager' }
             },
             contract_type_id: {
@@ -253,7 +253,7 @@ export default {
               no_open: true,
               no_create: true
             },
-            _field_contract_type_id_184: {
+            _field_contract_type_id_185: {
               contract_type_id: { groups: 'hr_contract.group_hr_contract_manager' }
             },
             hr_responsible_id: { required: '1' }
@@ -334,7 +334,7 @@ export default {
         state: { widget: 'badge' },
         wage: { invisible: '1' },
         message_needaction: { invisible: '1' },
-        _field_company_id_109: {
+        _field_company_id_287: {
           company_id: {
             groups: 'base.group_multi_company',
             readonly: '1',

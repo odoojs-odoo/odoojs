@@ -26,23 +26,23 @@ export default {
             _attr: { text: 'Here is the exported translation file:' },
             data: { readonly: '1' }
           },
-          _p_981: {
-            _attr: { text: 'This file was generated using the universal' },
+          _p_145: {
+            _attr: { text: ['This file was generated using the universal', 'file encoding, please be sure to view and edit\n                           using the same encoding.'] },
             _strong: 'Unicode/UTF-8'
           },
-          _p_213: {
+          _p_155: {
             _attr: { text: 'The next step depends on the file format:' },
             _ul: {
               _li: 'CSV format: you may edit it directly with your favorite spreadsheet software,\n                                the rightmost column (value) contains the translations',
-              _li_668: {
-                _attr: { text: 'PO(T) format: you should edit it with a PO editor such as' },
+              _li_737: {
+                _attr: { text: ['PO(T) format: you should edit it with a PO editor such as', ', or your preferred text editor'] },
                 _a: 'POEdit'
               },
-              _li_659: 'TGZ format: bundles multiple PO(T) files as a single archive'
+              _li_133: 'TGZ format: bundles multiple PO(T) files as a single archive'
             }
           },
-          _p_676: {
-            _attr: { text: 'For more details about translating Odoo in your language, please refer to the' },
+          _p_451: {
+            _attr: { text: ['For more details about translating Odoo in your language, please refer to the', '.'] },
             _a: 'documentation'
           }
         },
@@ -64,7 +64,7 @@ export default {
             }
           }
         },
-        _footer_933: {
+        _footer_344: {
           _attr: { states: 'get' },
           _button: {
             _attr: {

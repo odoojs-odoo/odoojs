@@ -52,11 +52,11 @@ export default {
                 text: 'You can invoice them before they are delivered.'
               }
             },
-            _label_product_tooltip_747: {
+            _label_product_tooltip_934: {
               for: 'product_tooltip',
               invisible: ['|', ['type', 'not in', ('product', 'consu')], ['invoice_policy', '!=', 'delivery']]
             },
-            _div_521: {
+            _div_405: {
               _attr: {
                 invisible: ['|', ['type', 'not in', ('product', 'consu')], ['invoice_policy', '!=', 'delivery']],
                 class: 'fst-italic text-muted',
@@ -100,7 +100,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_810: {
+              _span_247: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Sold'

@@ -49,7 +49,7 @@ export default {
               }
             }
           },
-          _button_action_toggle_is_published_401: {
+          _button_action_toggle_is_published_465: {
             _attr: {
               name: 'action_toggle_is_published',
               type: 'object',
@@ -81,7 +81,7 @@ export default {
             invisible: ['|', ['module_state', '!=', 'installed'], ['state', '!=', 'disabled']]
           }
         },
-        _widget_web_ribbon_765: {
+        _widget_web_ribbon_148: {
           _attr: {
             name: 'web_ribbon',
             title: 'Test Mode',
@@ -117,11 +117,12 @@ export default {
         _div: {
           _attr: {
             invisible: [['id', '!=', false]],
-            class: 'alert alert-warning'
+            class: 'alert alert-warning',
+            text: ['Creating a payment provider from the', 'button is not supported.\n                        Please use the', 'action instead.']
           },
           _strong: 'Warning',
           _em: 'CREATE',
-          _em_452: 'Duplicate'
+          _em_481: 'Duplicate'
         },
         _group: {
           _group_payment_state: {

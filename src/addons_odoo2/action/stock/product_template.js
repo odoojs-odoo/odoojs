@@ -55,7 +55,7 @@ export default {
             filter_domain: [],
             context: { todo_ctx: "{'warehouse': self}" }
           },
-          _separator_524: {},
+          _separator_801: {},
           _filter_real_stock_available: {
             _attr: {
               name: 'real_stock_available',
@@ -91,11 +91,14 @@ export default {
             invisible: [['sale_ok', '=', false]]
           },
           _div: {
-            _attr: { invisible: [['sale_ok', '=', false]] },
+            _attr: {
+              invisible: [['sale_ok', '=', false]],
+              text: 'days'
+            },
             sale_delay: { class: 'oe_inline' }
           }
         },
-        _xpath_368: {
+        _xpath_247: {
           _attr: {
             expr: "//group[@name='group_lots_and_weight']",
             position: 'before'
@@ -134,7 +137,7 @@ export default {
             }
           }
         },
-        _xpath_201: {
+        _xpath_730: {
           _attr: {
             expr: "//group[@name='group_lots_and_weight']",
             position: 'after'
@@ -171,11 +174,11 @@ export default {
               _attr: { string: 'Description for Receipts' },
               description_pickingin: { placeholder: 'This note is added to receipt orders (e.g. where to store the product in the warehouse).' }
             },
-            _group_221: {
+            _group_654: {
               _attr: { string: 'Description for Delivery Orders' },
               description_pickingout: { placeholder: 'This note is added to delivery orders.' }
             },
-            _group_424: {
+            _group_809: {
               _attr: {
                 string: 'Description for Internal Transfers',
                 groups: 'stock.group_stock_multi_locations'
@@ -184,7 +187,7 @@ export default {
             }
           }
         },
-        _page_inventory_117: {
+        _page_inventory_661: {
           _attr: {
             name: 'inventory',
             position: 'attributes'
@@ -215,7 +218,7 @@ export default {
           type: {},
           show_on_hand_qty_status_button: {}
         },
-        _xpath_207: {
+        _xpath_405: {
           _attr: {
             expr: "//div[@name='product_lst_price']",
             position: 'after'
@@ -287,7 +290,7 @@ export default {
                     },
                     uom_name: {}
                   },
-                  _span_216: {
+                  _span_674: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'On Hand'
@@ -314,7 +317,7 @@ export default {
                     },
                     uom_name: {}
                   },
-                  _span_273: {
+                  _span_717: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'Forecasted'
@@ -339,20 +342,20 @@ export default {
                       text: 'In:'
                     }
                   },
-                  _span_831: {
+                  _span_712: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'Out:'
                     }
                   }
                 },
-                _div_548: {
+                _div_639: {
                   _attr: { class: 'o_field_widget o_stat_info' },
                   _span: {
                     _attr: { class: 'o_stat_value' },
                     nbr_moves_in: {}
                   },
-                  _span_851: {
+                  _span_572: {
                     _attr: { class: 'o_stat_value' },
                     nbr_moves_out: {}
                   }
@@ -374,26 +377,26 @@ export default {
                       text: 'Min:'
                     }
                   },
-                  _span_156: {
+                  _span_121: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'Max:'
                     }
                   }
                 },
-                _div_997: {
+                _div_456: {
                   _attr: { class: 'o_field_widget o_stat_info' },
                   _span: {
                     _attr: { class: 'o_stat_value' },
                     reordering_min_qty: {}
                   },
-                  _span_302: {
+                  _span_424: {
                     _attr: { class: 'o_stat_value' },
                     reordering_max_qty: {}
                   }
                 }
               },
-              _button_action_view_orderpoints_829: {
+              _button_action_view_orderpoints_428: {
                 _attr: {
                   name: 'action_view_orderpoints',
                   type: 'object',

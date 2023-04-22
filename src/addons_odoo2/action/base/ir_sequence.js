@@ -10,7 +10,7 @@ export default {
             name: {},
             implementation: {}
           },
-          _group_504: {
+          _group_465: {
             code: {},
             active: { widget: 'boolean_toggle' },
             company_id: { groups: 'base.group_multi_company' }
@@ -28,7 +28,7 @@ export default {
                 suffix: {},
                 use_date_range: {}
               },
-              _group_617: {
+              _group_248: {
                 padding: {},
                 number_increment: {},
                 number_next_actual: {
@@ -52,27 +52,27 @@ export default {
                 }
               }
             },
-            _group_834: {
+            _group_251: {
               _attr: { string: 'Legend (for prefix, suffix)' },
               _group: {
                 _span: 'Current Year with Century: %%(year)s',
-                _span_574: 'Current Year without Century: %%(y)s',
-                _span_369: 'Month: %%(month)s',
-                _span_381: 'Day: %%(day)s'
+                _span_713: 'Current Year without Century: %%(y)s',
+                _span_525: 'Month: %%(month)s',
+                _span_287: 'Day: %%(day)s'
               },
-              _group_758: {
+              _group_556: {
                 _span: 'Day of the Year: %%(doy)s',
-                _span_241: 'Week of the Year: %%(woy)s',
-                _span_663: 'Day of the Week (0:Monday): %%(weekday)s'
+                _span_440: 'Week of the Year: %%(woy)s',
+                _span_610: 'Day of the Week (0:Monday): %%(weekday)s'
               },
-              _group_474: {
+              _group_419: {
                 _span: 'Hour 00->24: %%(h24)s',
-                _span_422: 'Hour 00->12: %%(h12)s',
-                _span_271: 'Minute: %%(min)s',
-                _span_983: 'Second: %%(sec)s'
+                _span_725: 'Hour 00->12: %%(h12)s',
+                _span_550: 'Minute: %%(min)s',
+                _span_862: 'Second: %%(sec)s'
               }
             },
-            _group_933: {
+            _group_431: {
               _attr: { invisible: [['use_date_range', '=', false]] },
               _div: "When subsequences per date range are used, you can prefix variables with 'range_'\n                                to use the beginning of the range instead of the current date, e.g. %%(range_year)s instead of %%(year)s."
             }

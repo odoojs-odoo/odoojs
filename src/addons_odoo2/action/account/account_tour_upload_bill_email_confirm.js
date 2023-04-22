@@ -22,10 +22,10 @@ export default {
           }
         },
         _p: {
-          _attr: { text: 'Send your email to' },
+          _attr: { text: ['Send your email to', 'with a pdf of an invoice as attachment.'] },
           email_alias: { class: 'oe_inline' }
         },
-        _p_373: 'Once done, press continue.'
+        _p_641: 'Once done, press continue.'
       }
     }
   }

@@ -119,7 +119,7 @@ export default {
               }
             }
           },
-          _group_306: {
+          _group_131: {
             company_id: { invisible: '1' },
             lot_id: {
               groups: 'stock.group_production_lot',
@@ -145,7 +145,7 @@ export default {
             origin: {},
             date_done: { invisible: [['state', '=', 'draft']] },
             picking_id: { invisible: [['picking_id', '=', false]] },
-            _field_company_id_161: {
+            _field_company_id_407: {
               company_id: { groups: 'base.group_multi_company' }
             }
           }
@@ -182,7 +182,7 @@ export default {
           groups: 'stock.group_stock_multi_locations',
           no_create: true
         },
-        _field_company_id_233: {
+        _field_company_id_837: {
           company_id: {
             groups: 'base.group_multi_company',
             readonly: '1'
@@ -226,7 +226,7 @@ export default {
               product_uom_id: { groups: 'uom.group_uom' }
             }
           },
-          _group_374: {
+          _group_614: {
             picking_id: { invisible: '1' },
             tracking: { invisible: '1' },
             lot_id: {

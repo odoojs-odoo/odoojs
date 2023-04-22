@@ -15,7 +15,7 @@ export default {
         unit_amount: { optional: 'hide' },
         product_uom_id: { optional: 'hide' },
         partner_id: { optional: 'hide' },
-        _field_company_id_218: {
+        _field_company_id_716: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'show'

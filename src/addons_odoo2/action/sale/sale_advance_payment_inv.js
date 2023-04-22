@@ -78,7 +78,7 @@ export default {
               class: 'btn-primary'
             }
           },
-          _button_create_invoices_127: {
+          _button_create_invoices_266: {
             _attr: {
               name: 'create_invoices',
               type: 'object',

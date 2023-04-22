@@ -24,7 +24,7 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 related_taxes_amount: {}
               },
-              _span_931: {
+              _span_134: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Taxes'
@@ -45,7 +45,7 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 current_balance: {}
               },
-              _span_906: {
+              _span_303: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Balance'
@@ -72,7 +72,7 @@ export default {
                   }
                 }
               },
-              _div_200: {
+              _div_456: {
                 _attr: { class: 'col col-md-8' },
                 _label_name: {
                   for: 'name',
@@ -116,7 +116,7 @@ export default {
                   no_create_edit: true
                 }
               },
-              _group_710: {
+              _group_712: {
                 internal_group: {
                   invisible: '1',
                   readonly: '1'
@@ -176,7 +176,7 @@ export default {
           groups: 'base.group_multi_currency',
           no_create: true
         },
-        _field_company_id_864: {
+        _field_company_id_460: {
           company_id: {
             groups: 'base.group_multi_company',
             no_create: true
@@ -274,7 +274,7 @@ export default {
           domain: [['deprecated', '=', false]]
         }
       },
-      _separator_125: {},
+      _separator_157: {},
       account_type: {},
       _group: {
         _attr: { string: 'Group By' },

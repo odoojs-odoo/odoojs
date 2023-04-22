@@ -25,7 +25,7 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 sale_order_count: {}
               },
-              _span_772: {
+              _span_850: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Sale'

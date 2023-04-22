@@ -31,7 +31,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   group_stock_tracking_lot: {}
                 },
-                _div_545: {
+                _div_737: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_stock_tracking_lot: { for: 'group_stock_tracking_lot' },
                   _a: {
@@ -48,13 +48,13 @@ export default {
                   }
                 }
               },
-              _div_352: {
+              _div_868: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_stock_picking_batch: {}
                 },
-                _div_128: {
+                _div_149: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_stock_picking_batch: { for: 'module_stock_picking_batch' },
                   _div: {
@@ -63,7 +63,7 @@ export default {
                       text: 'Process transfers in batch per worker'
                     }
                   },
-                  _div_977: {
+                  _div_324: {
                     _attr: {
                       invisible: [['module_stock_picking_batch', '=', false]],
                       class: 'row mt-2'
@@ -82,13 +82,13 @@ export default {
                   }
                 }
               },
-              _div_617: {
+              _div_418: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   group_warning_stock: {}
                 },
-                _div_355: {
+                _div_320: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_warning_stock: {
                     for: 'group_warning_stock',
@@ -102,13 +102,13 @@ export default {
                   }
                 }
               },
-              _div_603: {
+              _div_604: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_quality_control: { widget: 'upgrade_boolean' }
                 },
-                _div_611: {
+                _div_690: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_quality_control: { for: 'module_quality_control' },
                   _div: {
@@ -117,7 +117,7 @@ export default {
                       text: 'Add quality checks to your transfer operations'
                     }
                   },
-                  _div_462: {
+                  _div_634: {
                     _attr: {
                       invisible: [['module_quality_control', '=', false]],
                       class: 'row mt-2'
@@ -139,7 +139,7 @@ export default {
                   }
                 }
               },
-              _div_949: {
+              _div_216: {
                 _attr: {
                   groups: 'stock.group_stock_manager',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -156,20 +156,20 @@ export default {
                       text: 'Day and month that annual inventory counts should occur.'
                     }
                   },
-                  _div_900: {
+                  _div_512: {
                     _attr: { class: 'content-group' },
                     annual_inventory_day: { class: 'o_light_label' },
                     annual_inventory_month: { class: 'o_light_label' }
                   }
                 }
               },
-              _div_244: {
+              _div_996: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   group_stock_reception_report: {}
                 },
-                _div_365: {
+                _div_280: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_stock_reception_report: { for: 'group_stock_reception_report' },
                   _div: {
@@ -181,7 +181,7 @@ export default {
                 }
               }
             },
-            _h2_901: 'Barcode',
+            _h2_439: 'Barcode',
             _div_barcode_setting_container: {
               _attr: {
                 name: 'barcode_setting_container',
@@ -193,7 +193,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_stock_barcode: { widget: 'upgrade_boolean' }
                 },
-                _div_891: {
+                _div_975: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_stock_barcode: { for: 'module_stock_barcode' },
                   _a: {
@@ -223,7 +223,7 @@ export default {
                 }
               }
             },
-            _h2_666: 'Shipping',
+            _h2_295: 'Shipping',
             _div_shipping_setting_container: {
               _attr: {
                 name: 'shipping_setting_container',
@@ -235,7 +235,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   stock_move_email_validation: {}
                 },
-                _div_918: {
+                _div_113: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_stock_move_email_validation: {
                     for: 'stock_move_email_validation',
@@ -256,13 +256,13 @@ export default {
                   }
                 }
               },
-              _div_120: {
+              _div_776: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_stock_sms: {}
                 },
-                _div_536: {
+                _div_124: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_stock_sms: { for: 'module_stock_sms' },
                   _span: {
@@ -278,19 +278,19 @@ export default {
                       text: 'Send an automatic confirmation SMS Text Message when Delivery Orders are done'
                     }
                   },
-                  _div_773: {
+                  _div_628: {
                     _attr: { class: 'content-group' },
                     _div: {}
                   }
                 }
               },
-              _div_755: {
+              _div_340: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   group_stock_sign_delivery: {}
                 },
-                _div_115: {
+                _div_388: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_stock_sign_delivery: { for: 'group_stock_sign_delivery' },
                   _div: {
@@ -301,7 +301,7 @@ export default {
                   }
                 }
               },
-              _div_400: {
+              _div_325: {
                 _attr: {
                   title: 'Shipping connectors allow to compute accurate shipping costs, print shipping labels and request carrier picking at your warehouse to ship to the customer. Apply shipping connector from delivery methods.',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -310,7 +310,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_delivery: {}
                 },
-                _div_592: {
+                _div_312: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_delivery: { for: 'module_delivery' },
                   _div: {
@@ -322,7 +322,7 @@ export default {
                 }
               }
             },
-            _h2_571: 'Shipping Connectors',
+            _h2_221: 'Shipping Connectors',
             _div_product_setting_container: {
               _attr: {
                 name: 'product_setting_container',
@@ -334,7 +334,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_delivery_ups: { widget: 'upgrade_boolean' }
                 },
-                _div_650: {
+                _div_615: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_delivery_ups: { for: 'module_delivery_ups' },
                   _a: {
@@ -349,19 +349,19 @@ export default {
                       text: 'Compute shipping costs and ship with UPS'
                     }
                   },
-                  _div_421: {
+                  _div_778: {
                     _attr: { class: 'content-group' },
                     _div: {}
                   }
                 }
               },
-              _div_288: {
+              _div_568: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_delivery_dhl: { widget: 'upgrade_boolean' }
                 },
-                _div_291: {
+                _div_306: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_delivery_dhl: { for: 'module_delivery_dhl' },
                   _a: {
@@ -376,19 +376,19 @@ export default {
                       text: 'Compute shipping costs and ship with DHL'
                     }
                   },
-                  _div_561: {
+                  _div_903: {
                     _attr: { class: 'content-group' },
                     _div: {}
                   }
                 }
               },
-              _div_338: {
+              _div_452: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_delivery_fedex: { widget: 'upgrade_boolean' }
                 },
-                _div_949: {
+                _div_992: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_delivery_fedex: { for: 'module_delivery_fedex' },
                   _a: {
@@ -403,19 +403,19 @@ export default {
                       text: 'Compute shipping costs and ship with FedEx'
                     }
                   },
-                  _div_755: {
+                  _div_359: {
                     _attr: { class: 'content-group' },
                     _div: {}
                   }
                 }
               },
-              _div_822: {
+              _div_629: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_delivery_usps: { widget: 'upgrade_boolean' }
                 },
-                _div_726: {
+                _div_300: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_delivery_usps: { for: 'module_delivery_usps' },
                   _a: {
@@ -430,19 +430,19 @@ export default {
                       text: 'Compute shipping costs and ship with USPS'
                     }
                   },
-                  _div_476: {
+                  _div_408: {
                     _attr: { class: 'content-group' },
                     _div: {}
                   }
                 }
               },
-              _div_322: {
+              _div_882: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_delivery_bpost: { widget: 'upgrade_boolean' }
                 },
-                _div_670: {
+                _div_768: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_delivery_bpost: { for: 'module_delivery_bpost' },
                   _a: {
@@ -457,19 +457,19 @@ export default {
                       text: 'Compute shipping costs and ship with bpost'
                     }
                   },
-                  _div_333: {
+                  _div_336: {
                     _attr: { class: 'content-group' },
                     _div: {}
                   }
                 }
               },
-              _div_253: {
+              _div_639: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_delivery_easypost: { widget: 'upgrade_boolean' }
                 },
-                _div_274: {
+                _div_505: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_delivery_easypost: { for: 'module_delivery_easypost' },
                   _a: {
@@ -484,19 +484,19 @@ export default {
                       text: 'Compute shipping costs and ship with Easypost'
                     }
                   },
-                  _div_456: {
+                  _div_379: {
                     _attr: { class: 'content-group' },
                     _div: {}
                   }
                 }
               },
-              _div_146: {
+              _div_268: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_delivery_sendcloud: { widget: 'upgrade_boolean' }
                 },
-                _div_792: {
+                _div_641: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_delivery_sendcloud: { for: 'module_delivery_sendcloud' },
                   _a: {
@@ -511,15 +511,15 @@ export default {
                       text: 'Compute shipping costs and ship with Sendcloud'
                     }
                   },
-                  _div_537: {
+                  _div_584: {
                     _attr: { class: 'content-group' },
                     _div: {}
                   }
                 }
               }
             },
-            _h2_336: 'Products',
-            _div_product_setting_container_118: {
+            _h2_977: 'Products',
+            _div_product_setting_container_242: {
               _attr: {
                 name: 'product_setting_container',
                 class: 'row mt16 o_settings_container'
@@ -530,7 +530,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   group_product_variant: {}
                 },
-                _div_264: {
+                _div_109: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_product_variant: { for: 'group_product_variant' },
                   _a: {
@@ -545,7 +545,7 @@ export default {
                       text: 'Set product attributes (e.g. color, size) to manage variants'
                     }
                   },
-                  _div_901: {
+                  _div_542: {
                     _attr: { class: 'content-group' },
                     _div: {
                       _attr: {
@@ -565,13 +565,13 @@ export default {
                   }
                 }
               },
-              _div_986: {
+              _div_112: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   group_uom: {}
                 },
-                _div_943: {
+                _div_905: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_uom: { for: 'group_uom' },
                   _a: {
@@ -586,7 +586,7 @@ export default {
                       text: 'Sell and purchase products in different units of measure'
                     }
                   },
-                  _div_433: {
+                  _div_519: {
                     _attr: { class: 'content-group' },
                     _div: {
                       _attr: {
@@ -606,7 +606,7 @@ export default {
                   }
                 }
               },
-              _div_309: {
+              _div_981: {
                 _attr: {
                   title: 'Manage product packagings (e.g. pack of 6 bottles, box of 10 pieces)',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -615,7 +615,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   group_stock_packaging: {}
                 },
-                _div_982: {
+                _div_610: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_stock_packaging: { for: 'group_stock_packaging' },
                   _a: {
@@ -630,7 +630,7 @@ export default {
                       text: 'Manage product packagings (e.g. pack of 6 bottles, box of 10 pieces)'
                     }
                   },
-                  _div_729: {
+                  _div_358: {
                     _attr: { class: 'content-group' },
                     _div: {
                       _attr: {
@@ -651,7 +651,7 @@ export default {
                 }
               }
             },
-            _h2_348: 'Traceability',
+            _h2_838: 'Traceability',
             _div: {
               _attr: { class: 'row mt16 o_settings_container' },
               _div: {
@@ -660,7 +660,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   group_stock_production_lot: {}
                 },
-                _div_587: {
+                _div_298: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_stock_production_lot: { for: 'group_stock_production_lot' },
                   _a: {
@@ -675,7 +675,7 @@ export default {
                       text: 'Get a full traceability from vendors to customers'
                     }
                   },
-                  _div_413: {
+                  _div_568: {
                     _attr: {
                       invisible: [['group_stock_production_lot', '=', false]],
                       class: 'row mt-2'
@@ -694,7 +694,7 @@ export default {
                   }
                 }
               },
-              _div_663: {
+              _div_723: {
                 _attr: {
                   title: 'Track following dates on lots & serial numbers: best before, removal, end of life, alert. Such dates are set automatically at lot/serial number creation based on values set on the product (in days).',
                   invisible: [['group_stock_production_lot', '=', false]],
@@ -704,7 +704,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_product_expiry: {}
                 },
-                _div_802: {
+                _div_789: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_product_expiry: { for: 'module_product_expiry' },
                   _div: {
@@ -715,7 +715,7 @@ export default {
                   }
                 }
               },
-              _div_599: {
+              _div_701: {
                 _attr: {
                   invisible: [['group_stock_production_lot', '=', false]],
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -724,7 +724,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   group_lot_on_delivery_slip: {}
                 },
-                _div_760: {
+                _div_513: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_lot_on_delivery_slip: { for: 'group_lot_on_delivery_slip' },
                   _div: {
@@ -735,13 +735,13 @@ export default {
                   }
                 }
               },
-              _div_209: {
+              _div_619: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   group_stock_tracking_owner: {}
                 },
-                _div_230: {
+                _div_370: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_stock_tracking_owner: { for: 'group_stock_tracking_owner' },
                   _a: {
@@ -759,7 +759,7 @@ export default {
                 }
               }
             },
-            _h2_717: {
+            _h2_582: {
               _attr: {
                 class: 'mt32',
                 text: 'Warehouse'
@@ -779,7 +779,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   group_stock_multi_locations: {}
                 },
-                _div_852: {
+                _div_797: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_stock_multi_locations: { for: 'group_stock_multi_locations' },
                   _a: {
@@ -794,7 +794,7 @@ export default {
                       text: 'Track product location in your warehouse'
                     }
                   },
-                  _div_672: {
+                  _div_447: {
                     _attr: { class: 'content-group' },
                     _div: {
                       _attr: {
@@ -824,7 +824,7 @@ export default {
                   }
                 }
               },
-              _div_226: {
+              _div_561: {
                 _attr: {
                   title: 'Add and customize route operations to process product moves in your warehouse(s): e.g. unload > quality control > stock for incoming products, pick > pack > ship for outgoing products. You can also set putaway strategies on warehouse locations in order to send incoming products into specific child locations straight away (e.g. specific bins, racks).',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -833,7 +833,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   group_stock_adv_location: {}
                 },
-                _div_888: {
+                _div_618: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_stock_adv_location: { for: 'group_stock_adv_location' },
                   _a: {
@@ -848,7 +848,7 @@ export default {
                       text: 'Use your own routes'
                     }
                   },
-                  _div_750: {
+                  _div_236: {
                     _attr: { class: 'content-group' },
                     _div: {
                       _attr: {
@@ -868,7 +868,7 @@ export default {
                   }
                 }
               },
-              _div_164: {
+              _div_617: {
                 _attr: {
                   invisible: [['group_stock_multi_locations', '=', false]],
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -877,7 +877,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   group_stock_storage_categories: {}
                 },
-                _div_175: {
+                _div_607: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_stock_storage_categories: { for: 'group_stock_storage_categories' },
                   _div: {
@@ -886,7 +886,7 @@ export default {
                       text: 'Categorize your locations for smarter putaway rules'
                     }
                   },
-                  _div_355: {
+                  _div_131: {
                     _attr: {
                       invisible: [['group_stock_storage_categories', '=', false]],
                       class: 'content-group'
@@ -903,7 +903,7 @@ export default {
                         }
                       }
                     },
-                    _div_859: {
+                    _div_293: {
                       _attr: {
                         groups: 'base.group_no_one',
                         class: 'mt4'
@@ -922,16 +922,16 @@ export default {
                 }
               }
             },
-            _h2_686: {
+            _h2_846: {
               _attr: {
                 invisible: '1',
                 text: 'Advanced Scheduling'
               }
             },
-            _div_338: {
+            _div_472: {
               _attr: { class: 'row mt16 o_settings_container' },
               _div: {},
-              _div_468: {}
+              _div_212: {}
             }
           }
         }

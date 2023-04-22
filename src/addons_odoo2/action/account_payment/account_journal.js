@@ -23,7 +23,7 @@ export default {
             }
           }
         },
-        _xpath_540: {
+        _xpath_944: {
           _attr: {
             expr: "//field[@name='inbound_payment_method_line_ids']/tree",
             position: 'attributes'

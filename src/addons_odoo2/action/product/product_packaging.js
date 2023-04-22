@@ -35,7 +35,7 @@ export default {
             position: 'replace'
           }
         },
-        _xpath_289: {
+        _xpath_873: {
           _attr: {
             expr: "//tree[@name='packaging']",
             position: 'attributes'
@@ -110,7 +110,7 @@ export default {
             position: 'replace'
           }
         },
-        _xpath_930: {
+        _xpath_706: {
           _attr: {
             expr: "//field[@name='id']",
             position: 'replace'

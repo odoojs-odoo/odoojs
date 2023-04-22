@@ -6,7 +6,10 @@ export default {
     arch: {
       sheet: {
         _div: {
-          _attr: { class: 'alert alert-warning' },
+          _attr: {
+            class: 'alert alert-warning',
+            text: 'Profiling is a developer feature that should be used with caution on production database.\n                    It may add some load on the server, and potentially make it less responsive.\n                    Enabling the profiling here allows all users to activate profiling on their session.\n                    Profiling can be disabled at any moment in the settings.'
+          },
           _h3: 'Profiling is currently disabled.'
         },
         _group: {

@@ -80,7 +80,7 @@ export default {
               no_create: true
             }
           },
-          _group_303: {
+          _group_631: {
             next_run_date: { groups: 'base.group_system' }
           }
         },
@@ -115,6 +115,7 @@ export default {
                     _attr: { text: 'Want to add your own KPIs?' },
                     _br: {},
                     _a: {
+                      _attr: { text: 'Check our Documentation' },
                       _i: {
                         _attr: { class: 'fa fa-arrow-right' }
                       }

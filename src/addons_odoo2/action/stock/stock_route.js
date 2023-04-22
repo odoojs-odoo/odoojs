@@ -68,7 +68,7 @@ export default {
               groups: 'product.group_stock_packaging'
             }
           },
-          _group_777: {
+          _group_198: {
             _label_warehouse_selectable: {
               for: 'warehouse_selectable',
               string: 'Warehouses'
@@ -84,7 +84,7 @@ export default {
             }
           }
         },
-        _group_470: {
+        _group_822: {
           _attr: { string: 'Rules' },
           rule_ids: {
             context: { todo_ctx: "{'default_company_id': company_id, 'form_view_ref':'stock.view_route_rule_form'}" },

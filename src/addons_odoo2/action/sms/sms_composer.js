@@ -38,19 +38,22 @@ export default {
             _attr: { class: 'my-0' },
             _strong: 'Invalid number:',
             _span: 'make sure to set a country on the',
-            _span_721: {
+            _span_138: {
               res_model_description: {}
             },
-            _span_297: 'or to specify the country code.'
+            _span_469: 'or to specify the country code.'
           }
         },
-        _div_351: {
+        _div_170: {
           _attr: {
             invisible: ['|', ['comment_single_recipient', '=', true], ['recipient_invalid_count', '=', 0]],
             class: 'alert alert-info text-center mb-0'
           },
           _p: {
-            _attr: { class: 'my-0' },
+            _attr: {
+              class: 'my-0',
+              text: ['out of', 'recipients have an invalid phone number and will not receive this text message.']
+            },
             recipient_invalid_count: { class: 'oe_inline fw-bold' },
             res_ids_count: { class: 'oe_inline fw-bold' }
           }
@@ -65,7 +68,7 @@ export default {
               class: 'oe_highlight'
             }
           },
-          _button_action_send_sms_307: {
+          _button_action_send_sms_619: {
             _attr: {
               name: 'action_send_sms',
               type: 'object',
@@ -74,7 +77,7 @@ export default {
               class: 'oe_highlight'
             }
           },
-          _button_action_send_sms_362: {
+          _button_action_send_sms_961: {
             _attr: {
               name: 'action_send_sms',
               type: 'object',
@@ -128,7 +131,7 @@ export default {
             widget: 'sms_widget',
             invisible: ['|', ['comment_single_recipient', '=', false], ['recipient_single_valid', '=', true]]
           },
-          _field_body_757: {
+          _field_body_488: {
             body: {
               widget: 'sms_widget',
               invisible: [['comment_single_recipient', '=', true], ['recipient_single_valid', '=', false]]

@@ -12,7 +12,7 @@ export default {
           },
           picking_quantity: {}
         },
-        _xpath_448: {
+        _xpath_133: {
           _attr: {
             expr: '//field[@name="custom_quantity"]',
             position: 'attributes'

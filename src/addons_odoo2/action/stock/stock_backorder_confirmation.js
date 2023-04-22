@@ -16,7 +16,7 @@ export default {
               }
             }
           },
-          _group_752: {
+          _group_933: {
             _div: {
               _attr: {
                 class: 'text-muted',

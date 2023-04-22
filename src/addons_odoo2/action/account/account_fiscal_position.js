@@ -14,7 +14,7 @@ export default {
           _div: {
             _attr: {
               invisible: [['foreign_vat_header_mode', '!=', 'templates_found']],
-              text: 'Click'
+              text: ['Click', 'to create the taxes for this country.']
             },
             _button_action_create_foreign_taxes: {
               _attr: {
@@ -63,14 +63,14 @@ export default {
             company_country_id: { invisible: '1' },
             foreign_vat_header_mode: { invisible: '1' },
             name: {},
-            _field_company_id_774: {
+            _field_company_id_598: {
               company_id: {
                 groups: 'base.group_multi_company',
                 no_create: true
               }
             }
           },
-          _group_320: {
+          _group_547: {
             auto_apply: {},
             vat_required: { invisible: [['auto_apply', '!=', true]] },
             foreign_vat: {},
@@ -97,7 +97,7 @@ export default {
               _div: {
                 _attr: { class: 'oe_edit_only' }
               },
-              _span_171: 'To',
+              _span_935: 'To',
               zip_to: { class: 'oe_inline' }
             }
           }

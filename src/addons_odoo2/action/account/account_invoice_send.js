@@ -39,7 +39,7 @@ export default {
             _label_is_email: { for: 'is_email' }
           }
         },
-        _div_617: {
+        _div_514: {
           _attr: {
             invisible: ['|', ['is_email', '=', false], ['invoice_without_email', '=', false]],
             class: 'text-start d-inline-block mr8'
@@ -62,11 +62,14 @@ export default {
               _div: {
                 _attr: { groups: 'base.group_user' },
                 _span: {
-                  _attr: { invisible: [['composition_mode', '!=', 'mass_mail']] },
+                  _attr: {
+                    invisible: [['composition_mode', '!=', 'mass_mail']],
+                    text: 'on'
+                  },
                   _strong: 'Email mass mailing',
                   _span: 'the selected records'
                 },
-                _span_355: 'Followers of the document and',
+                _span_374: 'Followers of the document and',
                 partner_ids: {
                   widget: 'many2many_tags_email',
                   invisible: [['composition_mode', '=', 'mass_mail']],
@@ -96,7 +99,7 @@ export default {
                 invisible: [['composition_mode', '=', 'mass_mail']]
               }
             },
-            _group_959: {
+            _group_855: {
               template_id: {
                 context: { default_model: 'account.move' },
                 no_create: true,
@@ -115,7 +118,7 @@ export default {
               class: 'send_and_print btn-primary o_mail_send'
             }
           },
-          _button_send_and_print_action_500: {
+          _button_send_and_print_action_395: {
             _attr: {
               name: 'send_and_print_action',
               type: 'object',
@@ -124,7 +127,7 @@ export default {
               class: 'send btn-primary o_mail_send'
             }
           },
-          _button_send_and_print_action_288: {
+          _button_send_and_print_action_518: {
             _attr: {
               name: 'send_and_print_action',
               type: 'object',

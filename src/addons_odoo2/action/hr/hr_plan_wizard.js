@@ -16,7 +16,7 @@ export default {
               class: 'oe_highlight'
             }
           },
-          _button_action_launch_304: {
+          _button_action_launch_151: {
             _attr: {
               name: 'action_launch',
               type: 'object',

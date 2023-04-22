@@ -12,13 +12,16 @@ export default {
           }
         },
         _p: 'Here is your new API key, use it instead of a password for RPC access.\n                            Your login is still necessary for interactive usage.',
-        _p_282: {
+        _p_365: {
           _code: {
             key: { readonly: 'True' }
           }
         },
-        _p_165: {
-          _attr: { class: 'alert alert-warning' },
+        _p_301: {
+          _attr: {
+            class: 'alert alert-warning',
+            text: ['The key cannot be retrieved later and provides', 'to your user account, it is very important to store it securely.']
+          },
           _strong: 'Important:',
           _b: 'full access'
         },

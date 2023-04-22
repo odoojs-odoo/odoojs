@@ -30,7 +30,7 @@ export default {
           }
         },
         _label_: {},
-        _field_invoice_vendor_bill_id_617: {
+        _field_invoice_vendor_bill_id_420: {
           invoice_vendor_bill_id: {
             position: 'attributes',
             __todo__groups: '!purchase.group_purchase_user'
@@ -51,7 +51,7 @@ export default {
             optional: 'hide'
           }
         },
-        _xpath_260: {
+        _xpath_744: {
           _attr: {
             expr: "//field[@name='line_ids']/tree/field[@name='company_id']",
             position: 'after'
@@ -61,7 +61,7 @@ export default {
             invisible: '1'
           }
         },
-        _xpath_763: {
+        _xpath_711: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'

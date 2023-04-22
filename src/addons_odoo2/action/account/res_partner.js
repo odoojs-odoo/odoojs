@@ -29,7 +29,7 @@ export default {
                   currency_field: 'currency_id'
                 }
               },
-              _span_336: {
+              _span_660: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Invoiced'
@@ -79,7 +79,7 @@ export default {
               groups: 'account.group_account_invoice,account.group_account_readonly',
               invisible: [['duplicated_bank_account_partners_count', '=', 0]],
               class: 'alert alert-warning',
-              text: 'One or more Bank Accounts set on this partner are also used by other'
+              text: ['One or more Bank Accounts set on this partner are also used by other', '. Please make sure that this is a wanted behavior.']
             },
             _bold: {
               _button_action_view_partner_with_same_bank: {
@@ -192,7 +192,7 @@ export default {
             }
           }
         },
-        _xpath_373: {
+        _xpath_123: {
           _attr: {
             expr: "//group[@name='misc']",
             position: 'before'

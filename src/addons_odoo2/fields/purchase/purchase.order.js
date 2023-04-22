@@ -9,8 +9,8 @@ const ModelFields = {
   },
 
   currency_id: { groups: '===todo==' },
-  currency_id_$_form_$$_454: { groups: 'base.group_multi_currency' },
-  currency_id_$_form_$$_864: { groups: '!base.group_multi_currency' },
+  currency_id_$_form_$$_120: { groups: '!base.group_multi_currency' },
+  currency_id_$_form_$$_887: { groups: 'base.group_multi_currency' },
   date_approve: {},
   date_order: {},
   date_planned: { readonly: [['state', 'not in', ('draft', 'sent', 'to approve', 'purchase')]] },

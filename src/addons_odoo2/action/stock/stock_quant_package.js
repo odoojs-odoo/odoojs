@@ -79,7 +79,7 @@ export default {
             owner_id: { groups: 'stock.group_tracking_owner' },
             location_id: { no_create: true }
           },
-          _group_282: {
+          _group_791: {
             pack_date: {}
           }
         },

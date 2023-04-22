@@ -32,12 +32,12 @@ export default {
             }
           }
         },
-        _group_663: {
+        _group_822: {
           _attr: { invisible: [['num_journals_without_account', '=', 0]] },
           _group: {
             linked_journal_id: { no_create: true }
           },
-          _group_444: {
+          _group_331: {
             _span: {
               _attr: {
                 class: 'text-muted',

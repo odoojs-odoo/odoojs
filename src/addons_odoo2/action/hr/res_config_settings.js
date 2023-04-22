@@ -48,7 +48,7 @@ export default {
                         class: 'o_light_label'
                       }
                     },
-                    _div_964: {
+                    _div_933: {
                       _attr: { class: 'd-flex' },
                       hr_presence_control_login: { class: 'ml16' },
                       _label_hr_presence_control_login: {
@@ -59,7 +59,7 @@ export default {
                   }
                 }
               },
-              _div_239: {
+              _div_460: {
                 _attr: {
                   title: 'Advanced presence of employees',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -68,7 +68,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_hr_presence: {}
                 },
-                _div_853: {
+                _div_954: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_hr_presence: { for: 'module_hr_presence' },
                   _div_hr_presence_options_advanced: {
@@ -89,7 +89,7 @@ export default {
                       class: 'o_light_label'
                     }
                   },
-                  _div_895: {
+                  _div_656: {
                     _attr: {
                       invisible: ['|', ['module_hr_presence', '=', false], ['hr_presence_control_email', '=', false]],
                       class: 'd-flex ml32'
@@ -102,7 +102,7 @@ export default {
                     },
                     hr_presence_control_email_amount: { class: 'ms-2 oe_inline' }
                   },
-                  _div_267: {
+                  _div_632: {
                     _attr: {
                       invisible: [['module_hr_presence', '=', false]],
                       class: 'd-flex'
@@ -113,7 +113,7 @@ export default {
                       class: 'o_light_label'
                     }
                   },
-                  _div_128: {
+                  _div_381: {
                     _attr: {
                       invisible: ['|', ['module_hr_presence', '=', false], ['hr_presence_control_ip', '=', false]],
                       class: 'd-flex ml32'
@@ -128,13 +128,13 @@ export default {
                   }
                 }
               },
-              _div_226: {
+              _div_833: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_hr_skills: {}
                 },
-                _div_972: {
+                _div_285: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_hr_skills: { for: 'module_hr_skills' },
                   _div: {
@@ -146,7 +146,7 @@ export default {
                 }
               }
             },
-            _h2_590: 'Work Organization',
+            _h2_876: 'Work Organization',
             _div_work_organization_setting_container: {
               _attr: {
                 name: 'work_organization_setting_container',
@@ -173,7 +173,7 @@ export default {
                       }
                     }
                   },
-                  _div_989: {
+                  _div_534: {
                     _attr: { class: 'content-group' },
                     _div: {
                       _attr: { class: 'mt16' },
@@ -188,7 +188,7 @@ export default {
                 }
               }
             },
-            _h2_414: 'Employee Update Rights',
+            _h2_402: 'Employee Update Rights',
             _div_employee_rights_setting_container: {
               _attr: {
                 name: 'employee_rights_setting_container',
@@ -203,7 +203,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   hr_employee_self_edit: {}
                 },
-                _div_766: {
+                _div_496: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_hr_employee_self_edit: { for: 'hr_employee_self_edit' },
                   _div: {

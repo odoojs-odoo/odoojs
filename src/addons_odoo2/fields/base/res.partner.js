@@ -9,8 +9,8 @@ const ModelFields = {
   },
 
   city: {
-    readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]],
-    placeholder: 'City'
+    placeholder: 'City',
+    readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]]
   },
 
   comment: { placeholder: 'Internal notes...' },
@@ -20,18 +20,18 @@ const ModelFields = {
     readonly: '===todo=='
   },
 
-  company_id_$_form_$$_413: { readonly: [['parent_id', '!=', false]] },
+  company_id_$_form_$$_504: { readonly: [['parent_id', '!=', false]] },
   company_id_$_tree: { readonly: '1' },
   company_name: {},
   company_registry: {},
   company_type: { groups: 'base.group_no_one' },
   country_code: {},
   country_id: {
-    readonly: '===todo==',
-    placeholder: 'Country'
+    placeholder: 'Country',
+    readonly: '===todo=='
   },
 
-  country_id_$_form_$$_255: { readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]] },
+  country_id_$_form_$$_824: { readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]] },
   country_id_$_tree: { readonly: '1' },
   display_name: { string: 'Name' },
   email: {
@@ -39,8 +39,8 @@ const ModelFields = {
     context: { gravatar_image: true }
   },
 
-  email_$_form_$$_724: { required: [['user_ids', '!=', []]] },
-  email_$_form_$$_791: { required: "context.get['force_email', False]" },
+  email_$_form_$$_344: { required: [['user_ids', '!=', []]] },
+  email_$_form_$$_607: { required: "context.get['force_email', False]" },
   function: { placeholder: 'e.g. Sales Director' },
   image_1920: { readonly: '1' },
   industry_id: {},
@@ -53,27 +53,27 @@ const ModelFields = {
     readonly: '1'
   },
 
-  name_$_form_$$_233: {
+  name_$_form_$$_181: {
     required: [['type', '=', 'contact'], ['is_company', '=', true]],
     placeholder: 'e.g. Lumber Inc'
   },
 
-  name_$_form_$$_677: {
+  name_$_form_$$_700: {
     required: [['type', '=', 'contact']],
     placeholder: 'e.g. Lumber Inc'
   },
 
-  name_$_form_$$_694: {
+  name_$_form_$$_777: {
     required: [['type', '=', 'contact']],
     placeholder: 'e.g. Brandom Freeman'
   },
 
-  name_$_form_$$_783: { required: '0' },
-  name_$_form_$$_881: {
+  name_$_form_$$_814: {
     required: [['type', '=', 'contact'], ['is_company', '=', false]],
     placeholder: 'e.g. Brandom Freeman'
   },
 
+  name_$_form_$$_973: { required: '0' },
   parent_id: {
     domain: [['is_company', '=', true]],
     context: { todo_ctx: "{'default_is_company': True, 'show_vat': True, 'default_user_id': user_id}" },
@@ -91,17 +91,17 @@ const ModelFields = {
     placeholder: 'State'
   },
 
-  state_id_$_form_$$_392: {
+  state_id_$_form_$$_200: {
     readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]],
     context: { todo_ctx: "{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}" }
   },
 
   state_id_$_tree: { readonly: '1' },
-  state_id_$_form_$$_433: {
+  state_id_$_form_$$_622: {
     context: { todo_ctx: "{'default_country_id': country_id}" }
   },
 
-  state_id_$_form_$$_692: {
+  state_id_$_form_$$_685: {
     context: { todo_ctx: "{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}" }
   },
 
@@ -111,8 +111,8 @@ const ModelFields = {
   },
 
   street: {
-    readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]],
-    placeholder: 'Street...'
+    placeholder: 'Street...',
+    readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]]
   },
 
   title: { placeholder: 'e.g. Mister' },
@@ -136,8 +136,8 @@ const ModelFields = {
   },
 
   zip: {
-    readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]],
-    placeholder: 'ZIP'
+    placeholder: 'ZIP',
+    readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]]
   }
 }
 

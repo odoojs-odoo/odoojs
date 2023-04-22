@@ -12,7 +12,7 @@ export default {
           },
           stock_move_sms_validation: {}
         },
-        _xpath_587: {
+        _xpath_673: {
           _attr: {
             expr: "//label[@for='module_stock_sms']",
             position: 'replace'
@@ -22,7 +22,7 @@ export default {
             string: 'SMS Confirmation'
           }
         },
-        _xpath_862: {
+        _xpath_273: {
           _attr: {
             expr: "//div[@id='stock_confirmation_sms']",
             position: 'replace'

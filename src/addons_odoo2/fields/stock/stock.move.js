@@ -52,8 +52,8 @@ const ModelFields = {
     required: '1'
   },
 
-  product_id_$_form_$$_944: { readonly: '1' },
-  product_id_$_tree_$$_228: { readonly: ['|', '&', ['state', '!=', 'draft'], ['additional', '=', false], ['move_lines_count', '>', 0]] },
+  product_id_$_form_$$_567: { readonly: '1' },
+  product_id_$_tree_$$_178: { readonly: ['|', '&', ['state', '!=', 'draft'], ['additional', '=', false], ['move_lines_count', '>', 0]] },
   product_packaging_id: { groups: 'product.group_stock_packaging' },
   product_type: {},
   product_uom: {
@@ -62,28 +62,28 @@ const ModelFields = {
     string: '===todo=='
   },
 
-  product_uom_$_form_$$_297: { readonly: '1' },
-  product_uom_$_form_$$_564: { readonly: '1' },
-  product_uom_$_tree_$$_517: {
+  product_uom_$_form_$$_361: { readonly: '1' },
+  product_uom_$_form_$$_474: { readonly: '1' },
+  product_uom_$_tree_$$_260: {
     readonly: [['state', '!=', 'draft'], ['id', '!=', false]],
     string: 'Unit of Measure'
   },
 
-  product_uom_$_tree_$$_278: { string: 'Unit of Measure' },
-  product_uom_$_tree_$$_401: { string: 'Unit' },
+  product_uom_$_tree_$$_298: { string: 'Unit of Measure' },
+  product_uom_$_tree_$$_731: { string: 'Unit' },
   product_uom_category_id: {},
   product_uom_qty: {
     readonly: '===todo==',
     string: '===todo=='
   },
 
-  product_uom_qty_$_form_$$_253: { readonly: '1' },
-  product_uom_qty_$_tree_$$_436: {
+  product_uom_qty_$_form_$$_962: { readonly: '1' },
+  product_uom_qty_$_tree_$$_738: {
     readonly: [['is_initial_demand_editable', '=', false]],
     string: 'Demand'
   },
 
-  product_uom_qty_$_tree_$$_605: { string: 'Quantity' },
+  product_uom_qty_$_tree_$$_616: { string: 'Quantity' },
   quantity_done: {
     readonly: '===todo==',
     string: 'Done'

@@ -51,7 +51,7 @@ export default {
           _group: {
             rule_type: { widget: 'radio' }
           },
-          _group_813: {
+          _group_761: {
             auto_reconcile: { invisible: [['rule_type', '=', 'writeoff_button']] },
             to_check: { invisible: [['rule_type', '!=', 'writeoff_button']] },
             past_months_limit: { invisible: [['rule_type', '!=', 'invoice_matching']] },
@@ -76,7 +76,7 @@ export default {
                   for: 'match_amount',
                   invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_415: {
+                _div_849: {
                   _attr: {
                     invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-2'
@@ -102,7 +102,7 @@ export default {
                   for: 'allow_payment_tolerance',
                   invisible: [['rule_type', '!=', 'invoice_matching']]
                 },
-                _div_158: {
+                _div_528: {
                   _attr: {
                     invisible: [['rule_type', '!=', 'invoice_matching']],
                     class: 'd-flex gap-2'
@@ -119,7 +119,7 @@ export default {
                 },
                 match_same_currency: { invisible: [['rule_type', '!=', 'invoice_matching']] }
               },
-              _group_363: {
+              _group_378: {
                 _attr: { class: 'col-6' },
                 _span: {
                   _attr: {
@@ -153,7 +153,7 @@ export default {
                   for: 'match_label',
                   invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_414: {
+                _div_989: {
                   _attr: {
                     invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-3'
@@ -168,7 +168,7 @@ export default {
                   for: 'match_note',
                   invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_930: {
+                _div_807: {
                   _attr: {
                     invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-3'
@@ -183,7 +183,7 @@ export default {
                   for: 'match_transaction_type',
                   invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_572: {
+                _div_761: {
                   _attr: {
                     invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-3'
@@ -216,7 +216,7 @@ export default {
                 }
               }
             },
-            _group_612: {
+            _group_814: {
               _attr: {
                 string: 'Counterpart Entries',
                 invisible: [['rule_type', '=', 'invoice_matching'], '|', ['allow_payment_tolerance', '=', false], '&', ['allow_payment_tolerance', '=', true], ['payment_tolerance_param', '=', 0.0]],
@@ -267,7 +267,7 @@ export default {
               }
             }
           },
-          _page_599: {
+          _page_778: {
             _attr: {
               string: 'Partner Mapping',
               invisible: [['rule_type', 'not in', ('invoice_matching', 'writeoff_suggestion')]]

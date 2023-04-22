@@ -29,6 +29,7 @@ export default {
           _div: {
             _attr: { class: 'o_row' },
             _span: {
+              _attr: { text: 'for' },
               current_value_svl: {
                 widget: 'monetary',
                 class: 'oe_inline'
@@ -41,9 +42,10 @@ export default {
             for: 'added_value',
             string: 'Added Value'
           },
-          _div_187: {
+          _div_341: {
             _attr: { class: 'o_row' },
             _span: {
+              _attr: { text: ['=', '(', 'by', ')'] },
               added_value: { class: 'oe_inline' },
               new_value: { class: 'oe_inline' },
               new_value_by_qty: { class: 'oe_inline ms-1' },
@@ -60,7 +62,7 @@ export default {
           currency_id: { invisible: '1' },
           product_id: { invisible: '1' }
         },
-        _group_933: {
+        _group_937: {
           property_valuation: { invisible: '1' },
           _group: {
             reason: {},
@@ -69,7 +71,7 @@ export default {
               required: [['property_valuation', '=', 'real_time']]
             }
           },
-          _group_613: {
+          _group_329: {
             account_id: {
               invisible: [['property_valuation', '!=', 'real_time']],
               required: [['property_valuation', '=', 'real_time']]

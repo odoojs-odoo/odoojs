@@ -120,7 +120,7 @@ export default {
         company_id: { invisible: '1' },
         name: {},
         user_id: {},
-        _field_company_id_823: {
+        _field_company_id_542: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'show'

@@ -33,14 +33,14 @@ export default {
                     widget: 'integer'
                   }
                 },
-                _span_784: {
+                _span_421: {
                   _attr: {
                     class: 'o_stat_value',
                     text: '%'
                   }
                 }
               },
-              _div_854: {
+              _div_619: {
                 _attr: {
                   invisible: [['on_time_rate', '>=', 0]],
                   class: 'o_stat_value',

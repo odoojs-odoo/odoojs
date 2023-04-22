@@ -12,7 +12,7 @@ export default {
             parent_id: { groups: 'base.group_no_one' },
             sequence: { groups: 'base.group_no_one' }
           },
-          _group_695: {
+          _group_739: {
             _attr: { groups: 'base.group_no_one' },
             complete_name: {},
             action: {},

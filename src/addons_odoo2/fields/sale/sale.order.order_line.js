@@ -55,10 +55,10 @@ const ModelFields = {
     context: { todo_ctx: "{'company_id': parent.company_id}" }
   },
 
-  product_uom_$_form_$$_248: { groups: 'uom.group_uom' },
-  product_uom_$_form_$$_690: { groups: '!uom.group_uom' },
-  product_uom_$_tree_$$_185: { groups: 'uom.group_uom' },
-  product_uom_$_tree_$$_650: { groups: '!uom.group_uom' },
+  product_uom_$_form_$$_411: { groups: 'uom.group_uom' },
+  product_uom_$_form_$$_699: { groups: '!uom.group_uom' },
+  product_uom_$_tree_$$_679: { groups: 'uom.group_uom' },
+  product_uom_$_tree_$$_823: { groups: '!uom.group_uom' },
   product_uom_category_id: {},
   product_uom_qty: { context: '===todo==' },
   product_uom_qty_$_form: {

@@ -66,7 +66,7 @@ export default {
             domain: [['priority', '=', 1]]
           }
         },
-        _separator_247: {},
+        _separator_363: {},
         _filter_negative: {
           _attr: {
             name: 'negative',
@@ -81,14 +81,14 @@ export default {
             domain: [['reserved_quantity', '>', 0.0]]
           }
         },
-        _separator_737: {},
+        _separator_768: {},
         _filter_filter_in_date: {
           _attr: {
             name: 'filter_in_date',
             date: 'in_date'
           }
         },
-        _separator_819: {},
+        _separator_418: {},
         _filter_my_count: {
           _attr: {
             name: 'my_count',
@@ -97,7 +97,7 @@ export default {
           }
         }
       },
-      _group_292: {
+      _group_437: {
         _attr: { string: 'Group by...' },
         _filter_productgroup: {
           _attr: {
@@ -193,11 +193,11 @@ export default {
               readonly: '0',
               no_create: true
             },
-            _field_company_id_396: {
+            _field_company_id_615: {
               company_id: { groups: 'base.group_multi_company' }
             }
           },
-          _group_879: {
+          _group_306: {
             _label_quantity: {
               for: 'quantity',
               string: 'Quantity On Hand'
@@ -211,7 +211,7 @@ export default {
               for: 'available_quantity',
               string: 'Available Quantity'
             },
-            _div_820: {
+            _div_746: {
               _attr: { class: 'o_row' },
               available_quantity: {},
               product_uom_id: { groups: 'uom.group_uom' }
@@ -220,7 +220,7 @@ export default {
               for: 'reserved_quantity',
               string: 'Quantity Reserved'
             },
-            _div_865: {
+            _div_119: {
               _attr: { class: 'o_row' },
               reserved_quantity: {},
               product_uom_id: { groups: 'uom.group_uom' }
@@ -255,7 +255,7 @@ export default {
           no_create: true
         },
         product_categ_id: { optional: 'hide' },
-        _field_company_id_298: {
+        _field_company_id_780: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'hidden'
@@ -527,7 +527,7 @@ export default {
           string: 'User',
           optional: 'show'
         },
-        _field_company_id_100: {
+        _field_company_id_630: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'hide'

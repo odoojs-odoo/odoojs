@@ -32,7 +32,7 @@ export default {
           no_create: true,
           no_open: true
         },
-        _field_package_type_ids_417: {
+        _field_package_type_ids_945: {
           package_type_ids: {
             string: 'Package type',
             widget: 'many2many_tags',
@@ -53,7 +53,7 @@ export default {
           optional: 'show',
           no_create: true
         },
-        _field_company_id_401: {
+        _field_company_id_358: {
           company_id: {
             groups: 'stock.group_stock_multi_locations',
             readonly: "context.get['fixed_location', False]",
@@ -104,7 +104,7 @@ export default {
           }
         }
       },
-      _group_742: {
+      _group_488: {
         _attr: { string: 'Group By' },
         _filter_location_in: {
           _attr: {

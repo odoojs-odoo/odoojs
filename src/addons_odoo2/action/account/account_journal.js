@@ -115,7 +115,7 @@ export default {
             active: { invisible: '1' },
             type: {}
           },
-          _group_944: {
+          _group_819: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
@@ -139,25 +139,25 @@ export default {
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'bank']]
                 },
-                _label_default_account_id_603: {
+                _label_default_account_id_236: {
                   for: 'default_account_id',
                   string: 'Cash Account',
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'cash']]
                 },
-                _label_default_account_id_896: {
+                _label_default_account_id_186: {
                   for: 'default_account_id',
                   string: 'Default Income Account',
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'sale']]
                 },
-                _label_default_account_id_835: {
+                _label_default_account_id_515: {
                   for: 'default_account_id',
                   string: 'Default Expense Account',
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'purchase']]
                 },
-                _label_default_account_id_790: {
+                _label_default_account_id_639: {
                   for: 'default_account_id',
                   string: 'Default Account',
                   groups: 'account.group_account_readonly',
@@ -240,7 +240,7 @@ export default {
               }
             }
           },
-          _page_978: {
+          _page_255: {
             _attr: {
               string: 'Outgoing Payments',
               invisible: [['type', 'not in', ['cash', 'bank']]]
@@ -325,7 +325,8 @@ export default {
                     _attr: {
                       name: '%(action_open_settings)d',
                       type: 'action',
-                      class: 'btn btn-link'
+                      class: 'btn btn-link',
+                      text: 'Configure Email Servers'
                     },
                     _i: {
                       _attr: { class: 'fa fa-fw o_button_icon fa-arrow-right' }
@@ -347,7 +348,8 @@ export default {
                 _div_edit_alias: {
                   _attr: {
                     name: 'edit_alias',
-                    class: 'oe_inline'
+                    class: 'oe_inline',
+                    text: '@'
                   },
                   alias_name: { class: 'oe_inline' },
                   alias_domain: {
@@ -356,7 +358,7 @@ export default {
                   }
                 }
               },
-              _group_566: {
+              _group_470: {
                 _attr: {
                   string: 'Payment Communications',
                   invisible: [['type', '!=', 'sale']]
@@ -364,7 +366,7 @@ export default {
                 invoice_reference_type: {},
                 invoice_reference_model: { invisible: [['invoice_reference_type', '=', 'none']] }
               },
-              _group_137: {
+              _group_892: {
                 _attr: {
                   string: 'Follow Customer Payments',
                   invisible: [['type', '!=', 'sale']]
@@ -438,7 +440,7 @@ export default {
           domain: [['type', 'not in', ['sale', 'purchase', 'cash', 'bank']]]
         }
       },
-      _separator_186: {},
+      _separator_617: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',

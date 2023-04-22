@@ -14,7 +14,8 @@ export default {
           _div: {
             _attr: {
               invisible: [['display_rounding_warning', '=', false]],
-              class: 'alert alert-warning'
+              class: 'alert alert-warning',
+              text: 'Changing its rounding factor now will not change the rounding made on previous entries; possibly causing an inconsistency with the new ones.'
             },
             _strong: 'This currency has already been used to generate accounting entries.',
             _br: {}

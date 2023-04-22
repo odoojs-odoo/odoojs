@@ -28,26 +28,13 @@ export default {
           readonly: '0',
           optional: 'hide'
         },
-        reference: {
-          groups: 'account.group_account_readonly',
-          optional: 'hide'
-        },
+        reference: { optional: 'hide' },
         analytic_distribution: {
           widget: 'analytic_distribution',
-          groups: 'analytic.group_analytic_accounting',
-          optional: 'show',
-          product_field: 'product_id',
-          business_domain: 'expense'
-        },
-        account_id: {
-          groups: 'account.group_account_readonly',
-          optional: 'hide'
-        },
-        company_id: {
-          groups: 'base.group_multi_company',
-          readonly: '1',
           optional: 'show'
         },
+        account_id: { optional: 'hide' },
+        company_id: { optional: 'show' },
         unit_amount_display: {
           string: 'Unit Price',
           widget: 'monetary',
@@ -55,19 +42,14 @@ export default {
           currency_field: 'company_currency_id'
         },
         quantity: { optional: 'hide' },
-        tax_ids: {
-          widget: 'many2many_tags',
-          groups:
-            'account.group_account_invoice,account.group_account_readonly',
-          optional: 'hide'
-        },
-        amount_tax_company: {
-          groups:
-            'account.group_account_invoice,account.group_account_readonly',
-          optional: 'hide'
-        },
+        tax_ids: { widget: 'many2many_tags', optional: 'hide' },
+        amount_tax_company: { optional: 'hide' },
         attachment_number: {
-          //   invisible: [['attachment_number', '=', 0]],
+          invisible({ record }) {
+            // invisible: [['attachment_number', '=', 0]],
+            const { attachment_number } = record
+            return !attachment_number
+          },
           class: 'fa fa-paperclip pe-0'
         },
         total_amount_company: {
@@ -76,7 +58,7 @@ export default {
           currency_field: 'company_currency_id'
         },
         total_amount: { groups: 'base.group_multi_currency', optional: 'hide' },
-        currency_id: { groups: 'base.group_multi_currency', optional: 'hide' },
+        currency_id: { optional: 'hide' },
         state: { widget: 'badge', readonly: '1', optional: 'show' }
       }
     }
@@ -88,69 +70,85 @@ export default {
     type: 'form',
     arch: {
       header: {
-        _button_action_submit_expenses: {
-          _attr: {
+        buttons: {
+          _button_action_submit_expenses: {
             name: 'action_submit_expenses',
             type: 'object',
             string: 'Create Report',
-            // invisible: [
-            //   '|',
-            //   ['attachment_number', '<=', 0],
-            //   ['sheet_id', '!=', false]
-            // ],
+            invisible({ record }) {
+              // invisible: [
+              //   '|',
+              //   ['attachment_number', '<=', 0],
+              //   ['sheet_id', '!=', false]
+              // ],
+              const { attachment_number, sheet_id } = record
+              return attachment_number <= 0 || !sheet_id
+            },
             class: 'oe_highlight o_expense_submit'
-          }
-        },
-        // _widget_attach_document: {
-        //   _attr: {
-        //     name: 'attach_document',
-        //     string: 'Attach Receipt'
-        //     // invisible: [['attachment_number', '<', 1]]
-        //   }
-        // },
-        // _widget_attach_document_778: {
-        //   _attr: {
-        //     name: 'attach_document',
-        //     string: 'Attach Receipt'
-        //     // invisible: [['attachment_number', '>=', 1]]
-        //   }
-        // },
-        _button_action_submit_expenses_129: {
-          _attr: {
+          },
+          // _widget_attach_document: {
+          //   _attr: {
+          //     name: 'attach_document',
+          //     string: 'Attach Receipt'
+          //     // invisible: [['attachment_number', '<', 1]]
+          //   }
+          // },
+          // _widget_attach_document_778: {
+          //   _attr: {
+          //     name: 'attach_document',
+          //     string: 'Attach Receipt'
+          //     // invisible: [['attachment_number', '>=', 1]]
+          //   }
+          // },
+          _button_action_submit_expenses_129: {
             name: 'action_submit_expenses',
             type: 'object',
             string: 'Create Report',
-            // invisible: [
-            //   '|',
-            //   ['attachment_number', '>=', 1],
-            //   ['sheet_id', '!=', false]
-            // ],
+
+            invisible({ record }) {
+              // invisible: [
+              //   '|',
+              //   ['attachment_number', '>=', 1],
+              //   ['sheet_id', '!=', false]
+              // ],
+              const { attachment_number, sheet_id } = record
+              return attachment_number >= 1 || !sheet_id
+            },
             class: 'o_expense_submit'
-          }
-        },
-        state: {
-          widget: 'statusbar',
-          statusbar_visible: 'draft,reported,approved,done,refused'
-        },
-        _button_action_view_sheet: {
-          _attr: {
+          },
+
+          _button_action_view_sheet: {
             name: 'action_view_sheet',
             type: 'object',
             string: 'View Report',
-            // invisible: [['sheet_id', '=', false]],
+            invisible({ record }) {
+              // invisible: [['sheet_id', '=', false]],
+              const { sheet_id } = record
+              return !sheet_id
+            },
             class: 'oe_highlight'
-          }
-        },
-        _button_action_split_wizard: {
-          _attr: {
+          },
+          _button_action_split_wizard: {
             name: 'action_split_wizard',
             type: 'object',
-            string: 'Split Expense'
-            // invisible: [
-            //   '|',
-            //   ['sheet_id', '!=', false],
-            //   ['product_has_cost', '=', true]
-            // ]
+            string: 'Split Expense',
+
+            invisible({ record }) {
+              // invisible: [
+              //   '|',
+              //   ['sheet_id', '!=', false],
+              //   ['product_has_cost', '=', true]
+              // ]
+              const { sheet_id, product_has_cost } = record
+              return !sheet_id || product_has_cost
+            }
+          }
+        },
+
+        fields: {
+          state: {
+            widget: 'statusbar',
+            statusbar_visible: 'draft,reported,approved,done,refused'
           }
         }
       },
@@ -161,12 +159,7 @@ export default {
         _div_title: {
           _attr: { class: 'oe_title' },
           _label_name: { for: 'name' },
-          _h1: {
-            name: {
-              //   readonly: [['sheet_is_editable', '=', false]],
-              placeholder: 'e.g. Lunch with Customer'
-            }
-          }
+          _h1: { name: {} }
         },
         _group: {
           _group: {
@@ -187,23 +180,18 @@ export default {
             currency_rate: { invisible: '1' },
             _label_product_id: { for: 'product_id' },
             _div: {
-              product_id: {
-                // readonly: [['sheet_is_editable', '=', false]],
-                context: {
-                  default_can_be_expensed: 1
-                  //   tree_view_ref: 'hr_expense.product_product_expense_tree_view',
-                  //   form_view_ref: 'hr_expense.product_product_expense_form_view'
-                },
-                class: 'w-100',
-                required: '1'
-              },
+              product_id: { class: 'w-100' },
               _div: {
                 _attr: {
-                  //   invisible: [
-                  //     '|',
-                  //     ['product_description', '=', false],
-                  //     ['product_id', '=', false]
-                  //   ],
+                  invisible({ record }) {
+                    //   invisible: [
+                    //     '|',
+                    //     ['product_description', '=', false],
+                    //     ['product_id', '=', false]
+                    //   ],
+                    const { product_description, product_id } = record
+                    return !product_description || !product_id
+                  },
                   class: 'fst-italic'
                 },
                 product_description: {}
@@ -212,36 +200,35 @@ export default {
             _field_unit_amount_527: {
               unit_amount: {
                 widget: 'monetary',
-                // invisible: [['product_has_cost', '=', false]],
-                // readonly: [
-                //   '|',
-                //   ['sheet_is_editable', '=', false],
-                //   ['product_has_cost', '=', true]
-                // ],
-                required: '1',
-                force_save: '1',
-                currency_field: 'currency_id',
-                field_digits: true
+                invisible({ record }) {
+                  // invisible: [['product_has_cost', '=', false]],
+                  const { product_has_cost } = record
+                  return !product_has_cost
+                },
+                force_save: '1'
               }
             },
             product_uom_category_id: { invisible: '1' },
             _label_quantity: {
-              for: 'quantity'
-              //   invisible: [['product_has_cost', '=', false]]
+              for: 'quantity',
+              invisible({ record }) {
+                // invisible: [['product_has_cost', '=', false]],
+                const { product_has_cost } = record
+                return !product_has_cost
+              }
             },
             _div_866: {
               _attr: {
-                // invisible: [['product_has_cost', '=', false]]
+                invisible({ record }) {
+                  // invisible: [['product_has_cost', '=', false]],
+                  const { product_has_cost } = record
+                  return !product_has_cost
+                }
               },
               _div: {
                 _attr: { class: 'o_row' },
-                quantity: {
-                  readonly: [['sheet_is_editable', '=', false]],
-                  class: 'oe_inline'
-                },
+                quantity: {},
                 product_uom_id: {
-                  groups: 'uom.group_uom',
-                  required: '1',
                   force_save: '1',
                   no_open: true,
                   no_create: true
@@ -254,30 +241,43 @@ export default {
             },
             _label_total_amount: {
               for: 'total_amount',
-              string: 'Total'
-              //   invisible: [['product_has_cost', '=', true]]
+              string: 'Total',
+              invisible({ record }) {
+                // invisible: [['product_has_cost', '=', true]]
+                const { product_has_cost } = record
+                return product_has_cost
+              }
             },
             _div_133: {
-              _attr: { invisible: [['product_has_cost', '=', true]] },
+              _attr: {
+                invisible({ record }) {
+                  // invisible: [['product_has_cost', '=', true]]
+                  const { product_has_cost } = record
+                  return product_has_cost
+                }
+              },
               _div: {
                 _attr: {
-                  //   invisible: [['product_has_cost', '=', true]],
+                  invisible({ record }) {
+                    // invisible: [['product_has_cost', '=', true]]
+                    const { product_has_cost } = record
+                    return product_has_cost
+                  },
                   class: 'o_row'
                 },
-                total_amount: {
-                  widget: 'monetary',
-                  readonly: [['sheet_is_editable', '=', false]],
-                  class: 'oe_inline',
-                  currency_field: 'currency_id'
-                },
-                currency_id: { groups: 'base.group_multi_currency' }
+                total_amount: { widget: 'monetary', class: 'oe_inline' },
+                currency_id: {}
               },
               _div_300: {
                 _attr: {
-                  //   invisible: [
-                  //     ['same_currency', '=', true],
-                  //     ['product_has_cost', '=', false]
-                  //   ],
+                  invisible({ record }) {
+                    //   invisible: [
+                    //     ['same_currency', '=', true],
+                    //     ['product_has_cost', '=', false]
+                    //   ],
+                    const { same_currency, product_has_cost } = record
+                    return same_currency && !product_has_cost
+                  },
                   class: 'o_row'
                 },
                 total_amount_company: {
@@ -289,28 +289,32 @@ export default {
               }
             },
             _label_tax_ids: {
-              for: 'tax_ids'
-              //   invisible: [['product_has_tax', '=', false]]
+              for: 'tax_ids',
+              invisible({ record }) {
+                //   invisible: [['product_has_tax', '=', false]]
+                const { product_has_tax } = record
+                return !product_has_tax
+              }
             },
             _div_776: {
               _attr: {
-                // invisible: [['product_has_tax', '=', false]],
+                invisible({ record }) {
+                  //   invisible: [['product_has_tax', '=', false]]
+                  const { product_has_tax } = record
+                  return !product_has_tax
+                },
                 class: 'd-flex o_row'
               },
               _div: {
                 _attr: { class: 'p-2' },
                 tax_ids: {
                   widget: 'many2many_tags',
-                  //   readonly: [
-                  //     '|',
-                  //     ['is_editable', '=', false],
-                  //     ['product_has_cost', '=', true]
-                  //   ],
-                  //   invisible: [['product_has_tax', '=', false]],
-                  context: {
-                    // todo_ctx:
-                    //   "{'default_company_id': company_id, 'default_type_tax_use': 'purchase', 'default_price_include': 1}"
+                  invisible({ record }) {
+                    //   invisible: [['product_has_tax', '=', false]]
+                    const { product_has_tax } = record
+                    return !product_has_tax
                   },
+
                   force_save: '1',
                   no_create: true
                 }
@@ -319,78 +323,80 @@ export default {
                 _attr: { class: 'd-flex pt-2' },
                 _span: {
                   _attr: {
-                    invisible: [['product_has_tax', '=', false]],
+                    invisible({ record }) {
+                      //   invisible: [['product_has_tax', '=', false]]
+                      const { product_has_tax } = record
+                      return !product_has_tax
+                    },
                     class: 'oe_inline o_form_label ms-1 me-1',
                     text: '('
                   }
                 },
                 amount_tax: {
-                  invisible: [['product_has_tax', '=', false]],
+                  invisible({ record }) {
+                    //   invisible: [['product_has_tax', '=', false]]
+                    const { product_has_tax } = record
+                    return !product_has_tax
+                  },
                   class: 'ps-0'
                 },
                 _span_852: {
                   _attr: {
-                    invisible: [['product_has_tax', '=', false]],
+                    invisible({ record }) {
+                      //   invisible: [['product_has_tax', '=', false]]
+                      const { product_has_tax } = record
+                      return !product_has_tax
+                    },
                     class: 'oe_inline o_form_label ms-1 me-3',
                     text: ')'
                   }
                 }
               }
             },
-            employee_id: {
-              widget: 'many2one_avatar_employee',
-              groups: 'hr_expense.group_hr_expense_team_approver',
-              context: { todo_ctx: "{'default_company_id': company_id}" }
-            },
+            employee_id: { widget: 'many2one_avatar_employee' },
             _label_payment_mode: {
               for: 'payment_mode',
-              invisible: [['product_has_cost', '=', true]]
+              invisible({ record }) {
+                // invisible: [['product_has_cost', '=', true]]
+                const { product_has_cost } = record
+                return product_has_cost
+              }
             },
             _div_193: {
               _attr: {
-                invisible: [['product_has_cost', '=', true]]
+                invisible({ record }) {
+                  // invisible: [['product_has_cost', '=', true]]
+                  const { product_has_cost } = record
+                  return product_has_cost
+                }
               },
               payment_mode: { widget: 'radio' }
             }
           },
           _group_261: {
             reference: {
-              groups: 'account.group_account_readonly',
-              readonly: [['is_ref_editable', '=', false]],
-              invisible: [['product_has_cost', '=', true]]
+              invisible({ record }) {
+                // invisible: [['product_has_cost', '=', true]]
+                const { product_has_cost } = record
+                return product_has_cost
+              }
             },
-            date: { readonly: [['sheet_is_editable', '=', false]] },
+            date: {},
             accounting_date: {
-              invisible: [
-                '|',
-                ['accounting_date', '=', false],
-                ['state', 'not in', ['approved', 'done']]
-              ]
+              invisible({ record }) {
+                // invisible: [
+                //   '|',
+                //   ['accounting_date', '=', false],
+                //   ['state', 'not in', ['approved', 'done']]
+                // ],
+                const { accounting_date, state } = record
+                return !accounting_date || !['approved', 'done'].includes(state)
+              }
             },
-            account_id: {
-              groups: 'account.group_account_readonly',
-              domain: {
-                todo_ctx:
-                  "[('account_type', 'not in', ('asset_receivable','liability_payable','asset_cash','liability_credit_card')), ('company_id', '=', company_id)]"
-              },
-              readonly: [
-                '|',
-                ['is_editable', '=', false],
-                ['sheet_is_editable', '=', false]
-              ],
-              context: { todo_ctx: "{'default_company_id': company_id}" },
-              no_create: true
-            },
+            account_id: { no_create: true },
             sheet_id: { invisible: '1' },
-            analytic_distribution: {
-              widget: 'analytic_distribution',
-              groups: 'analytic.group_analytic_accounting',
-              readonly: [['is_editable', '=', false]],
-              product_field: 'product_id',
-              account_field: 'account_id',
-              business_domain: 'expense'
-            },
-            company_id: { groups: 'base.group_multi_company' }
+            analytic_distribution: { widget: 'analytic_distribution' },
+            company_id: {}
           }
         }
       }
@@ -424,15 +430,18 @@ export default {
           my_expenses: {
             name: 'my_expenses',
             string: 'My Expenses',
-            domain: { todo_ctx: "[('employee_id.user_id', '=', uid)]" }
+            domain({ env }) {
+              return [['employee_id.user_id', '=', env.uid]]
+            }
           },
           my_team_expenses: {
             name: 'my_team_expenses',
             string: 'My Team',
             help: 'Expenses of Your Team Member',
             groups: 'hr_expense.group_hr_expense_team_approver',
-            domain: {
-              todo_ctx: "[('employee_id.parent_id.user_id', '=', uid)]"
+
+            domain({ env }) {
+              return [['employee_id.parent_id.user_id', '=', env.uid]]
             }
           }
         },

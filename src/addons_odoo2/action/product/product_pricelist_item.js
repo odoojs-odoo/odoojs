@@ -119,7 +119,7 @@ export default {
         date_start: { optional: 'show' },
         date_end: { optional: 'show' },
         applied_on: { invisible: '1' },
-        _field_company_id_326: {
+        _field_company_id_323: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'show',
@@ -179,7 +179,8 @@ export default {
             _div: {
               _attr: {
                 invisible: [['compute_price', '!=', 'percentage']],
-                class: 'o_row'
+                class: 'o_row',
+                text: '%'
               },
               percent_price: {
                 invisible: [['compute_price', '!=', 'percentage']],
@@ -197,7 +198,7 @@ export default {
               string: 'Discount',
               invisible: [['compute_price', '!=', 'formula']]
             },
-            _div_582: {
+            _div_723: {
               _attr: {
                 invisible: [['compute_price', '!=', 'formula']],
                 class: 'o_row'
@@ -219,7 +220,7 @@ export default {
               string: 'Margins',
               invisible: [['compute_price', '!=', 'formula']]
             },
-            _div_599: {
+            _div_544: {
               _attr: {
                 invisible: [['compute_price', '!=', 'formula']],
                 class: 'o_row'

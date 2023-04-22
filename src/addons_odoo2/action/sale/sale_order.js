@@ -283,7 +283,7 @@ export default {
             class: 'btn-primary'
           }
         },
-        _button_sale__action_view_sale_advance_payment_inv_189: {
+        _button_sale__action_view_sale_advance_payment_inv_276: {
           _attr: {
             name: 'sale.action_view_sale_advance_payment_inv',
             type: 'action',
@@ -302,7 +302,7 @@ export default {
             class: 'btn-primary'
           }
         },
-        _button_action_quotation_send_290: {
+        _button_action_quotation_send_636: {
           _attr: {
             name: 'action_quotation_send',
             type: 'object',
@@ -326,7 +326,7 @@ export default {
             class: 'btn-primary'
           }
         },
-        _button_action_confirm_324: {
+        _button_action_confirm_655: {
           _attr: {
             name: 'action_confirm',
             type: 'object',
@@ -335,7 +335,7 @@ export default {
             context: { validate_analytic: true }
           }
         },
-        _button_action_quotation_send_865: {
+        _button_action_quotation_send_507: {
           _attr: {
             name: 'action_quotation_send',
             type: 'object',
@@ -348,7 +348,7 @@ export default {
             }
           }
         },
-        _button_action_quotation_send_534: {
+        _button_action_quotation_send_871: {
           _attr: {
             name: 'action_quotation_send',
             type: 'object',
@@ -420,7 +420,7 @@ export default {
                   text: 'Customer'
                 }
               },
-              _span_334: {
+              _span_534: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Preview'
@@ -477,7 +477,7 @@ export default {
               groups: 'base.group_no_one',
               invisible: [['state', 'in', ['sale', 'done', 'cancel']]]
             },
-            _div_552: {
+            _div_959: {
               _attr: {
                 invisible: [['state', 'in', ['draft', 'sent']]],
                 class: 'o_td_label'
@@ -487,7 +487,7 @@ export default {
                 string: 'Order Date'
               }
             },
-            _field_date_order_121: {
+            _field_date_order_200: {
               date_order: { invisible: [['state', 'in', ['draft', 'sent']]] }
             },
             show_update_pricelist: { invisible: '1' },
@@ -495,7 +495,7 @@ export default {
               for: 'pricelist_id',
               groups: 'product.group_product_pricelist'
             },
-            _div_182: {
+            _div_720: {
               _attr: {
                 groups: 'product.group_product_pricelist',
                 class: 'o_row'
@@ -578,7 +578,7 @@ export default {
                               groups: '!uom.group_uom',
                               invisible: '1'
                             },
-                            _field_product_uom_400: {
+                            _field_product_uom_570: {
                               product_uom: {
                                 groups: 'uom.group_uom',
                                 readonly: [['product_uom_readonly', '=', true]],
@@ -632,17 +632,21 @@ export default {
                           _div_discount: {
                             _attr: {
                               name: 'discount',
-                              groups: 'product.group_discount_per_so_line'
+                              groups: 'product.group_discount_per_so_line',
+                              text: '%'
                             },
                             discount: { class: 'oe_inline' }
                           },
                           sequence: { invisible: '1' }
                         },
-                        _group_884: {
+                        _group_170: {
                           _attr: { invisible: [['display_type', '!=', false]] },
                           _label_customer_lead: { for: 'customer_lead' },
                           _div_lead: {
-                            _attr: { name: 'lead' },
+                            _attr: {
+                              name: 'lead',
+                              text: 'days'
+                            },
                             customer_lead: { class: 'oe_inline' }
                           },
                           analytic_distribution: {
@@ -658,12 +662,12 @@ export default {
                         string: 'Description',
                         invisible: [['display_type', '!=', false]]
                       },
-                      _label_name_569: {
+                      _label_name_304: {
                         for: 'name',
                         string: 'Section Name (eg. Products, Services)',
                         invisible: [['display_type', '!=', 'line_section']]
                       },
-                      _label_name_760: {
+                      _label_name_523: {
                         for: 'name',
                         string: 'Note',
                         invisible: [['display_type', '!=', 'line_note']]
@@ -765,7 +769,7 @@ export default {
                         groups: '!uom.group_uom',
                         invisible: '1'
                       },
-                      _field_product_uom_656: {
+                      _field_product_uom_251: {
                         product_uom: {
                           string: 'UoM',
                           groups: 'uom.group_uom',
@@ -837,7 +841,7 @@ export default {
                       price_subtotal: {},
                       price_total: {},
                       price_tax: { invisible: '1' },
-                      _field_price_total_490: {
+                      _field_price_total_728: {
                         price_total: { invisible: '1' }
                       },
                       price_unit: {},
@@ -854,7 +858,7 @@ export default {
                                   _attr: { class: 'col-2 pe-3' },
                                   _img: {}
                                 },
-                                _div_787: {
+                                _div_221: {
                                   _attr: { class: 'col-10' },
                                   _div: {
                                     _attr: { class: 'row' },
@@ -862,12 +866,12 @@ export default {
                                       _attr: { class: 'col' },
                                       _strong: {}
                                     },
-                                    _div_250: {
+                                    _div_507: {
                                       _attr: { class: 'col-auto' },
                                       _t: {
                                         _attr: { groups: 'account.group_show_line_subtotals_tax_excluded' }
                                       },
-                                      _t_609: {
+                                      _t_978: {
                                         _attr: { groups: 'account.group_show_line_subtotals_tax_included' }
                                       },
                                       _strong: {
@@ -875,7 +879,7 @@ export default {
                                       }
                                     }
                                   },
-                                  _div_449: {
+                                  _div_159: {
                                     _attr: { class: 'row' },
                                     _div: {
                                       _attr: {
@@ -883,10 +887,10 @@ export default {
                                         text: 'Quantity:'
                                       },
                                       _t: {},
-                                      _t_594: {}
+                                      _t_559: {}
                                     }
                                   },
-                                  _div_607: {
+                                  _div_719: {
                                     _attr: { class: 'row' },
                                     _div: {
                                       _attr: {
@@ -899,7 +903,7 @@ export default {
                                 }
                               }
                             },
-                            _t_617: {
+                            _t_419: {
                               _div: {
                                 _attr: { class: 'row' },
                                 _div: {
@@ -964,7 +968,7 @@ export default {
                   require_signature: { class: 'oe_inline' },
                   _span: 'Signature',
                   require_payment: { class: 'oe_inline ms-3' },
-                  _span_201: 'Payment'
+                  _span_863: 'Payment'
                 },
                 reference: {
                   invisible: [['reference', '=', false]],
@@ -1010,7 +1014,7 @@ export default {
                   groups: 'base.group_no_one',
                   states: 'sale,done'
                 },
-                _field_invoice_status_355: {
+                _field_invoice_status_699: {
                   invoice_status: {
                     groups: '!base.group_no_one',
                     invisible: '1'
@@ -1018,7 +1022,7 @@ export default {
                 }
               }
             },
-            _group_682: {
+            _group_612: {
               _group_sale_shipping: {
                 _attr: { name: 'sale_shipping' },
                 _label_commitment_date: {
@@ -1226,7 +1230,7 @@ export default {
               domain: { todo_ctx: "[('user_id', '=', uid)]" }
             }
           },
-          _separator_910: {},
+          _separator_889: {},
           _filter_draft: {
             _attr: {
               name: 'draft',
@@ -1241,7 +1245,7 @@ export default {
               domain: [['state', 'in', ('sale', 'done')]]
             }
           },
-          _separator_858: {},
+          _separator_362: {},
           _filter_filter_create_date: {
             _attr: {
               name: 'filter_create_date',
@@ -1280,7 +1284,7 @@ export default {
               domain: [['invoice_status', '=', 'upselling']]
             }
           },
-          _separator_369: {},
+          _separator_358: {},
           _filter_order_date: {
             _attr: {
               name: 'order_date',

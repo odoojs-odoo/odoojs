@@ -90,7 +90,7 @@ export default {
         origin: { optional: 'show' },
         backorder_id: { optional: 'hide' },
         picking_type_id: { optional: 'hide' },
-        _field_company_id_307: {
+        _field_company_id_477: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'show'
@@ -145,7 +145,7 @@ export default {
             class: 'oe_highlight'
           }
         },
-        _button_button_validate_872: {
+        _button_button_validate_332: {
           _attr: {
             name: 'button_validate',
             type: 'object',
@@ -183,7 +183,7 @@ export default {
             invisible: ['|', '|', ['id', '=', false], ['picking_type_code', '!=', 'outgoing'], ['state', '!=', 'done']]
           }
         },
-        _widget_signature_489: {
+        _widget_signature_247: {
           _attr: {
             name: 'signature',
             string: 'Sign',
@@ -252,7 +252,7 @@ export default {
             invisible: ['|', ['state', 'in', ('draft', 'cancel')], ['is_locked', '=', false]]
           }
         },
-        _button_action_toggle_is_locked_577: {
+        _button_action_toggle_is_locked_401: {
           _attr: {
             name: 'action_toggle_is_locked',
             type: 'object',
@@ -393,12 +393,12 @@ export default {
                 string: 'Delivery Address',
                 invisible: [['picking_type_code', '!=', 'outgoing']]
               },
-              _label_partner_id_733: {
+              _label_partner_id_936: {
                 for: 'partner_id',
                 string: 'Receive From',
                 invisible: [['picking_type_code', '!=', 'incoming']]
               },
-              _label_partner_id_861: {
+              _label_partner_id_161: {
                 for: 'partner_id',
                 string: 'Contact',
                 invisible: [['picking_type_code', 'in', ['incoming', 'outgoing']]]
@@ -417,14 +417,14 @@ export default {
               groups: '!stock.group_stock_multi_locations',
               invisible: '1'
             },
-            _field_location_id_406: {
+            _field_location_id_275: {
               location_id: {
                 groups: 'stock.group_stock_multi_locations',
                 invisible: [['picking_type_code', '=', 'incoming']],
                 no_create: true
               }
             },
-            _field_location_dest_id_943: {
+            _field_location_dest_id_154: {
               location_dest_id: {
                 groups: 'stock.group_stock_multi_locations',
                 invisible: [['picking_type_code', '=', 'outgoing']],
@@ -433,7 +433,7 @@ export default {
             },
             backorder_id: { invisible: [['backorder_id', '=', false]] }
           },
-          _group_946: {
+          _group_430: {
             _label_scheduled_date: { for: 'scheduled_date' },
             _div: {
               _attr: { class: 'o_row' },
@@ -557,7 +557,7 @@ export default {
                           invisible: ['|', ['forecast_availability', '<', 0], '|', ['parent.immediate_transfer', '=', true], '&', ['parent.picking_type_code', '=', 'outgoing'], ['state', '!=', 'draft']]
                         }
                       },
-                      _button_action_product_forecast_report_814: {
+                      _button_action_product_forecast_report_732: {
                         _attr: {
                           name: 'action_product_forecast_report',
                           type: 'object',
@@ -813,7 +813,7 @@ export default {
           domain: [['state', '=', 'cancel']]
         }
       },
-      _separator_852: {},
+      _separator_445: {},
       _filter_late: {
         _attr: {
           name: 'late',
@@ -830,7 +830,7 @@ export default {
           domain: { todo_ctx: "['|', ('delay_alert_date', '!=', False), '&', ('scheduled_date','<', time.strftime('%Y-%m-%d %H:%M:%S')), ('state', 'in', ('assigned', 'waiting', 'confirmed'))]" }
         }
       },
-      _separator_528: {},
+      _separator_566: {},
       _filter_backorder: {
         _attr: {
           name: 'backorder',
@@ -839,7 +839,7 @@ export default {
           domain: [['backorder_id', '!=', false], ['state', 'in', ('assigned', 'waiting', 'confirmed')]]
         }
       },
-      _separator_639: {},
+      _separator_829: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
@@ -865,7 +865,7 @@ export default {
           domain: { todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
-      _separator_104: {},
+      _separator_180: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',

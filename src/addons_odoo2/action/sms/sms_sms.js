@@ -41,7 +41,7 @@ export default {
               readonly: '1'
             }
           },
-          _group_455: {
+          _group_812: {
             number: { required: '1' },
             failure_type: {
               invisible: [['failure_type', '=', false]],
@@ -49,7 +49,7 @@ export default {
             }
           }
         },
-        _group_807: {
+        _group_171: {
           body: {
             string: 'Message',
             widget: 'sms_widget',

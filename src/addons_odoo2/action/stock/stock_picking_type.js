@@ -125,14 +125,16 @@ export default {
                 class: 'o_row'
               },
               _span: {
+                _attr: { text: 'days before/' },
                 reservation_days_before: {}
               },
-              _span_255: {
+              _span_555: {
+                _attr: { text: 'days before when starred' },
                 reservation_days_before_priority: {}
               }
             }
           },
-          _group_935: {
+          _group_428: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true

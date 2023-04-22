@@ -18,7 +18,7 @@ export default {
           widget: 'many2one_avatar_user',
           optional: 'hide'
         },
-        _field_company_id_734: {
+        _field_company_id_698: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'show'
@@ -193,7 +193,7 @@ export default {
             invisible: ['|', ['payment_state', '!=', 'paid'], ['payment_mode', '==', 'own_account']]
           }
         },
-        _widget_web_ribbon_964: {
+        _widget_web_ribbon_770: {
           _attr: {
             name: 'web_ribbon',
             title: 'Paid',
@@ -201,7 +201,7 @@ export default {
             invisible: ['|', ['payment_state', '!=', 'paid'], ['payment_mode', '==', 'company_account']]
           }
         },
-        _widget_web_ribbon_417: {
+        _widget_web_ribbon_892: {
           _attr: {
             name: 'web_ribbon',
             title: 'Partial',
@@ -209,7 +209,7 @@ export default {
             invisible: [['payment_state', '!=', 'partial']]
           }
         },
-        _widget_web_ribbon_830: {
+        _widget_web_ribbon_774: {
           _attr: {
             name: 'web_ribbon',
             title: 'In Payment',
@@ -383,7 +383,7 @@ export default {
                 _label_total_amount_taxes: { for: 'total_amount_taxes' }
               },
               total_amount_taxes: {},
-              _div_321: {
+              _div_943: {
                 _attr: { class: 'oe_inline o_td_label' },
                 _label_total_amount: { for: 'total_amount' }
               },
@@ -496,7 +496,7 @@ export default {
           domain: { todo_ctx: "[('employee_id.parent_id.user_id', '=', uid)]" }
         }
       },
-      _separator_757: {},
+      _separator_349: {},
       _filter_filter_accounting_date: {
         _attr: {
           name: 'filter_accounting_date',
@@ -504,7 +504,7 @@ export default {
           date: 'accounting_date'
         }
       },
-      _separator_249: {},
+      _separator_852: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',

@@ -20,19 +20,19 @@ export default {
             }
           }
         },
-        _xpath_589: {
+        _xpath_887: {
           _attr: {
             expr: "//button[@name='unlink_action']",
             position: 'replace'
           }
         },
-        _xpath_273: {
+        _xpath_369: {
           _attr: {
             expr: "//button[@name='run']",
             position: 'replace'
           }
         },
-        _xpath_565: {
+        _xpath_806: {
           _attr: {
             expr: "//group[@name='action_content']",
             position: 'inside'
@@ -104,7 +104,7 @@ export default {
           domain: ['|', ['active', '=', false], ['active', '=', true]]
         }
       },
-      _separator_599: {},
+      _separator_241: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',

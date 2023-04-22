@@ -36,7 +36,7 @@ export default {
               required: [['account_type', '=', 'income'], ['action', '=', 'change_period']]
             }
           },
-          _group_833: {
+          _group_964: {
             _attr: { invisible: [['action', '!=', 'change_account']] },
             date: { string: 'Transfer Date' },
             destination_account_id: {
@@ -44,14 +44,17 @@ export default {
               required: [['action', '=', 'change_account']]
             }
           },
-          _group_744: {
+          _group_889: {
             _label_total_amount: {
               for: 'total_amount',
               string: 'Adjusting Amount',
               invisible: [['action', '!=', 'change_period']]
             },
             _div: {
-              _attr: { invisible: [['action', '!=', 'change_period']] },
+              _attr: {
+                invisible: [['action', '!=', 'change_period']],
+                text: ['%', '(', ')']
+              },
               percentage: { readonly: [['action', '!=', 'change_period']] },
               _span: {
                 _attr: { class: 'px-3' }

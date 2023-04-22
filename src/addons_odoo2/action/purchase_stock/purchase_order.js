@@ -21,7 +21,7 @@ export default {
             }
           }
         },
-        _xpath_851: {
+        _xpath_719: {
           _attr: {
             expr: "//header/button[@name='confirm_reminder_mail']",
             position: 'attributes'
@@ -34,7 +34,7 @@ export default {
             }
           }
         },
-        _xpath_952: {
+        _xpath_495: {
           _attr: {
             expr: "//div[hasclass('oe_button_box')]",
             position: 'inside'
@@ -55,21 +55,21 @@ export default {
             }
           }
         },
-        _xpath_626: {
+        _xpath_408: {
           _attr: {
             expr: "//field[@name='currency_id']",
             position: 'after'
           },
           is_shipped: { invisible: '1' }
         },
-        _xpath_440: {
+        _xpath_845: {
           _attr: {
             expr: "//field[@name='order_line']/tree//field[@name='date_planned']",
             position: 'after'
           },
           move_dest_ids: { invisible: '1' }
         },
-        _xpath_619: {
+        _xpath_100: {
           _attr: {
             expr: "//page/field[@name='order_line']/tree/field[@name='product_qty']",
             position: 'after'
@@ -85,7 +85,7 @@ export default {
               class: 'text-danger'
             }
           },
-          _button_action_product_forecast_report_637: {
+          _button_action_product_forecast_report_591: {
             _attr: {
               name: 'action_product_forecast_report',
               type: 'object',
@@ -95,7 +95,7 @@ export default {
             }
           }
         },
-        _xpath_286: {
+        _xpath_534: {
           _attr: {
             expr: "//div[@name='date_planned_div']",
             position: 'inside'
@@ -109,13 +109,16 @@ export default {
               class: 'oe_link'
             },
             _span: {
-              _attr: { invisible: [['on_time_rate', '<', 0]] },
+              _attr: {
+                invisible: [['on_time_rate', '<', 0]],
+                text: '% On-Time Delivery'
+              },
               on_time_rate: {
                 widget: 'integer',
                 class: 'oe_inline'
               }
             },
-            _span_403: {
+            _span_156: {
               _attr: {
                 invisible: [['on_time_rate', '>=', 0]],
                 text: 'No On-time Delivery Data'
@@ -123,7 +126,7 @@ export default {
             }
           }
         },
-        _xpath_799: {
+        _xpath_261: {
           _attr: {
             expr: "//label[@for='receipt_reminder_email']",
             position: 'attributes'
@@ -136,7 +139,7 @@ export default {
             }
           }
         },
-        _xpath_591: {
+        _xpath_130: {
           _attr: {
             expr: "//div[@name='reminder']",
             position: 'attributes'
@@ -149,14 +152,14 @@ export default {
             }
           }
         },
-        _xpath_876: {
+        _xpath_519: {
           _attr: {
             expr: "//div[@name='reminder']",
             position: 'after'
           },
           effective_date: { invisible: [['effective_date', '=', false]] }
         },
-        _xpath_460: {
+        _xpath_252: {
           _attr: {
             expr: "//field[@name='order_line']/form//field[@name='invoice_lines']",
             position: 'after'
@@ -169,14 +172,14 @@ export default {
             receipt_status: { invisible: [['state', 'not in', ('purchase', 'done')]] }
           }
         },
-        _xpath_145: {
+        _xpath_404: {
           _attr: {
             expr: "//field[@name='order_line']/form//field[@name='analytic_distribution']",
             position: 'before'
           },
           propagate_cancel: { groups: 'base.group_no_one' }
         },
-        _xpath_375: {
+        _xpath_878: {
           _attr: {
             expr: "//field[@name='order_line']/tree//field[@name='qty_received']",
             position: 'attributes'
@@ -189,7 +192,7 @@ export default {
             }
           }
         },
-        _xpath_636: {
+        _xpath_400: {
           _attr: {
             expr: "//page[@name='purchase_delivery_invoice']/group/group",
             position: 'inside'
@@ -198,7 +201,7 @@ export default {
           incoterm_id: {},
           incoterm_location: {}
         },
-        _xpath_382: {
+        _xpath_924: {
           _attr: {
             expr: "//div[@name='reminder']",
             position: 'after'

@@ -44,18 +44,18 @@ const ModelFields = {
     context: { todo_ctx: "{'default_partner_id': partner_id, 'default_allow_out_payment': True}" }
   },
 
-  partner_bank_id_$_form_$$_259: { string: 'Vendor Bank Account' },
-  partner_bank_id_$_form_$$_636: { string: 'Company Bank Account' },
-  partner_bank_id_$_form_$$_701: { string: 'Customer Bank Account' },
+  partner_bank_id_$_form_$$_341: { string: 'Company Bank Account' },
+  partner_bank_id_$_form_$$_501: { string: 'Vendor Bank Account' },
+  partner_bank_id_$_form_$$_628: { string: 'Customer Bank Account' },
   partner_id: {
     string: '===todo==',
     readonly: [['state', '!=', 'draft']],
     context: { default_is_company: true }
   },
 
-  partner_id_$_form_$$_317: { string: 'Customer' },
-  partner_id_$_form_$$_475: { string: 'Vendor' },
-  partner_id_$_tree_$$_671: { string: 'Customer' },
+  partner_id_$_form_$$_409: { string: 'Vendor' },
+  partner_id_$_form_$$_582: { string: 'Customer' },
+  partner_id_$_tree_$$_942: { string: 'Customer' },
   partner_type: {},
   payment_method_code: {},
   payment_method_line_id: {

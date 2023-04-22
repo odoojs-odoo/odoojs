@@ -11,7 +11,7 @@ export default {
           _group: {
             json_lead_days: { widget: 'lead_days_widget' }
           },
-          _group_908: {
+          _group_924: {
             json_replenishment_history: { widget: 'replenishment_history_widget' }
           }
         },

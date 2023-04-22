@@ -43,7 +43,7 @@ export default {
           position: 'attributes',
           __todo__optional: 'hide'
         },
-        _field_delay_913: {
+        _field_delay_155: {
           delay: {
             position: 'attributes',
             __todo__optional: 'show'

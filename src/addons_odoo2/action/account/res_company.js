@@ -13,7 +13,7 @@ export default {
           country_code: { invisible: '1' },
           account_enabled_tax_country_ids: { invisible: '1' }
         },
-        _xpath_123: {
+        _xpath_158: {
           _attr: {
             expr: '//sheet',
             position: 'after'
@@ -42,7 +42,7 @@ export default {
               class: 'btn-primary'
             }
           },
-          _button_555: {
+          _button_331: {
             _attr: {
               string: 'Discard',
               class: 'btn-secondary'

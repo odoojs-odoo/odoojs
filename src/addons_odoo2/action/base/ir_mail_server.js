@@ -28,16 +28,16 @@ export default {
             name: { placeholder: 'e.g. My Outgoing Server' },
             from_filter: {}
           },
-          _group_610: {
+          _group_672: {
             sequence: {},
             active: { invisible: '1' }
           }
         },
-        _group_884: {
+        _group_848: {
           _group: {
             smtp_authentication: { widget: 'radio' }
           },
-          _group_655: {
+          _group_334: {
             _div: {
               _attr: {
                 invisible: [['smtp_authentication_info', '=', false]],
@@ -60,7 +60,7 @@ export default {
                 smtp_port: { options: "{'format': false}" },
                 smtp_debug: { groups: 'base.group_no_one' }
               },
-              _group_111: {
+              _group_664: {
                 smtp_user: {
                   invisible: [['smtp_authentication', '=', 'certificate']],
                   force_save: '1'

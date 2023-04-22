@@ -18,7 +18,7 @@ export default {
             }
           }
         },
-        _xpath_399: {
+        _xpath_348: {
           _attr: {
             expr: "//div[@id='activities']",
             position: 'attributes'
@@ -31,14 +31,14 @@ export default {
             }
           }
         },
-        _xpath_505: {
+        _xpath_923: {
           _attr: {
             expr: "//field[@name='departure_date']",
             position: 'replace'
           },
           departure_date: { string: 'Contract End Date' }
         },
-        _xpath_332: {
+        _xpath_979: {
           _attr: {
             expr: "//div[@id='activities']",
             position: 'inside'

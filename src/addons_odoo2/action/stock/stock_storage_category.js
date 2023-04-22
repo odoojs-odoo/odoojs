@@ -26,7 +26,7 @@ export default {
             name: {},
             allow_new_product: {}
           },
-          _group_862: {
+          _group_140: {
             _label_max_weight: { for: 'max_weight' },
             _div: {
               _attr: { class: 'o_row' },

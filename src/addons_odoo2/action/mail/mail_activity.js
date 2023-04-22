@@ -43,7 +43,7 @@ export default {
           previous_activity_type_id: {},
           has_recommended_activities: {}
         },
-        _group_319: {
+        _group_835: {
           _attr: { invisible: [['has_recommended_activities', '=', false]] },
           recommended_activity_type_id: {
             string: 'Recommended Activities',
@@ -51,7 +51,7 @@ export default {
             domain: { todo_ctx: "[('previous_type_ids', '=', previous_activity_type_id)]" }
           }
         },
-        _group_496: {
+        _group_701: {
           _group: {
             activity_type_id: {
               required: '1',
@@ -60,7 +60,7 @@ export default {
             },
             summary: { placeholder: 'e.g. Discuss proposal' }
           },
-          _group_900: {
+          _group_554: {
             date_deadline: {},
             user_id: {}
           }
@@ -80,7 +80,7 @@ export default {
               class: 'btn-primary'
             }
           },
-          _button_action_close_dialog_208: {
+          _button_action_close_dialog_126: {
             _attr: {
               name: 'action_close_dialog',
               type: 'object',
@@ -109,7 +109,7 @@ export default {
               class: 'btn-secondary'
             }
           },
-          _button_action_done_schedule_next_823: {
+          _button_action_done_schedule_next_950: {
             _attr: {
               name: 'action_done_schedule_next',
               type: 'object',

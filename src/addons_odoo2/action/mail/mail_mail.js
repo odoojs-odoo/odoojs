@@ -66,7 +66,7 @@ export default {
           subject: {}
         },
         _div: {
-          _attr: { text: 'by' },
+          _attr: { text: ['by', 'on'] },
           author_id: {
             string: 'User',
             class: 'oe_inline'
@@ -125,7 +125,7 @@ export default {
                 model: {},
                 res_id: {}
               },
-              _group_530: {
+              _group_803: {
                 _attr: { string: 'Headers' },
                 message_id: {},
                 references: {},
@@ -143,7 +143,7 @@ export default {
               _attr: {
                 invisible: [['restricted_attachment_count', '=', 0]],
                 class: 'alert alert-warning',
-                text: 'You do not have access to'
+                text: ['You do not have access to', 'attachment(s) of this email.']
               },
               restricted_attachment_count: {}
             },
@@ -286,7 +286,7 @@ export default {
         model: {},
         res_id: {}
       },
-      _group_520: {
+      _group_999: {
         _attr: { string: 'Group By' },
         _filter_status: {
           _attr: {

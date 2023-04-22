@@ -43,7 +43,10 @@ export default {
             string: 'Hours'
           },
           _div: {
-            _attr: { class: 'o_row' },
+            _attr: {
+              class: 'o_row',
+              text: '-'
+            },
             hour_from: { widget: 'float_time' },
             hour_to: { widget: 'float_time' }
           },

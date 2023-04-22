@@ -72,7 +72,7 @@ const ModelFields = {
   },
 
   partner_id_$_form: { readonly: '1' },
-  partner_id_$_tree_$$_972: { readonly: [['move_type', '!=', 'entry']] },
+  partner_id_$_tree_$$_824: { readonly: [['move_type', '!=', 'entry']] },
   product_id: { readonly: '1' },
   quantity: { readonly: '1' },
   ref: { readonly: 'False' },

@@ -153,26 +153,44 @@ export default {
               _h3: 'Help with Python expressions',
               _p: 'Various fields may use Python code or Python expressions. The following variables can be used:',
               _ul: {
-                _li: { _code: 'env' },
-                _li_905: { _code: 'model' },
-                _li_685: { _code: 'record' },
-                _li_192: { _code: 'records' },
-                _li_751: {
+                _li: {
+                  _attr: { text: ': Odoo Environment on which the action is triggered' },
+                  _code: 'env'
+                },
+                _li_759: {
+                  _attr: { text: ': Odoo Model of the record on which the action is triggered; is a void recordset' },
+                  _code: 'model'
+                },
+                _li_236: {
+                  _attr: { text: ': record on which the action is triggered; may be be void' },
+                  _code: 'record'
+                },
+                _li_804: {
+                  _attr: { text: ': recordset of all records on which the action is triggered in multi mode; may be void' },
+                  _code: 'records'
+                },
+                _li_642: {
+                  _attr: { text: [',', ',', ',', ': useful Python libraries'] },
                   _code: 'time',
-                  _code_429: 'datetime',
-                  _code_682: 'dateutil',
-                  _code_148: 'timezone'
+                  _code_772: 'datetime',
+                  _code_811: 'dateutil',
+                  _code_630: 'timezone'
                 },
-                _li_649: {
+                _li_680: {
+                  _attr: { text: [': logging function to record debug information in', 'table'] },
                   _code: "log(message, level='info')",
-                  _code_931: 'ir.logging'
+                  _code_376: 'ir.logging'
                 },
-                _li_148: {
+                _li_359: {
+                  _attr: { text: ': Warning Exception to use with' },
                   _code: 'UserError',
-                  _code_633: 'raise'
+                  _code_825: 'raise'
                 },
-                _li_638: { _code: 'Command' },
-                _li_941: {
+                _li_532: {
+                  _attr: { text: ': x2Many commands namespace' },
+                  _code: 'Command'
+                },
+                _li_395: {
                   _attr: { text: 'To return an action, assign:' },
                   _code: 'action = {...}'
                 }

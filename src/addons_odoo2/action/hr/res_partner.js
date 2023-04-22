@@ -25,7 +25,7 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 employees_count: {}
               },
-              _span_174: {
+              _span_366: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Employee(s)'

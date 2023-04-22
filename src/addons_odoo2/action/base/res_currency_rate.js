@@ -43,7 +43,7 @@ export default {
             company_rate: { digits: '[12,12]' },
             inverse_company_rate: { digits: '[12,12]' }
           },
-          _group_596: {
+          _group_605: {
             currency_id: {},
             company_id: { groups: 'base.group_multi_company' }
           }

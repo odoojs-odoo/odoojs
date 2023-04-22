@@ -16,7 +16,7 @@ export default {
             write_date: {},
             create_date: {}
           },
-          _group_381: {
+          _group_199: {
             display_name: {},
             model: {},
             res_id: {},

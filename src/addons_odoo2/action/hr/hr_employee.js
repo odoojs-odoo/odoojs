@@ -31,7 +31,7 @@ export default {
           domain: [['message_needaction', '=', true]]
         }
       },
-      _separator_665: {},
+      _separator_363: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
@@ -56,7 +56,7 @@ export default {
           domain: { todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
-      _separator_645: {},
+      _separator_388: {},
       _filter_my_team: {
         _attr: {
           name: 'my_team',
@@ -71,7 +71,7 @@ export default {
           domain: [['member_of_department', '=', true]]
         }
       },
-      _separator_991: {},
+      _separator_328: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -241,7 +241,7 @@ export default {
             company_country_id: { invisible: '1' },
             company_country_code: { invisible: '1' }
           },
-          _group_824: {
+          _group_280: {
             department_id: {},
             parent_id: {},
             coach_id: {}
@@ -289,7 +289,7 @@ export default {
                   departure_description: {},
                   departure_date: {}
                 },
-                _group_667: {
+                _group_454: {
                   _attr: { string: 'Schedule' },
                   resource_calendar_id: { required: '1' },
                   id: { invisible: '1' },
@@ -336,7 +336,7 @@ export default {
                   _span: 'Km'
                 }
               },
-              _group_600: {
+              _group_327: {
                 _attr: { string: 'Family Status' },
                 marital: {},
                 spouse_complete_name: { invisible: [['marital', 'not in', ['married', 'cohabitant']]] },
@@ -351,7 +351,7 @@ export default {
                 emergency_contact: {},
                 emergency_phone: { class: 'o_force_ltr' }
               },
-              _group_459: {
+              _group_292: {
                 _attr: { string: 'Education' },
                 certificate: {},
                 study_field: {},
@@ -368,7 +368,7 @@ export default {
                 work_permit_expiration_date: {},
                 has_work_permit: { widget: 'work_permit_upload' }
               },
-              _group_189: {
+              _group_513: {
                 _attr: { string: 'Citizenship' },
                 country_id: {
                   no_open: true,
@@ -478,7 +478,7 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 related_contacts_count: {}
               },
-              _span_531: {
+              _span_669: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Contacts'
@@ -531,7 +531,7 @@ export default {
         job_id: {},
         parent_id: {},
         address_id: { invisible: '1' },
-        _field_company_id_992: {
+        _field_company_id_925: {
           company_id: { invisible: '1' }
         },
         work_location_id: { optional: 'hide' },

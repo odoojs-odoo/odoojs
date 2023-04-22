@@ -67,7 +67,7 @@ export default {
           string: 'UoM',
           groups: 'uom.group_uom'
         },
-        _field_company_id_755: {
+        _field_company_id_261: {
           company_id: {
             groups: 'base.group_multi_company',
             readonly: '1',
@@ -136,7 +136,7 @@ export default {
           domain: [['qty_to_order', '>', 0.0]]
         }
       },
-      _separator_845: {},
+      _separator_329: {},
       _filter_filter_not_snoozed: {
         _attr: {
           name: 'filter_not_snoozed',
@@ -248,7 +248,10 @@ export default {
     arch: {
       sheet: {
         _div: {
-          _attr: { class: 'alert alert-info' },
+          _attr: {
+            class: 'alert alert-info',
+            text: 'manually to trigger the reordering rules right now.'
+          },
           _a_action_procurement_compute: {
             _attr: {
               name: '%(action_procurement_compute)d',
@@ -294,14 +297,14 @@ export default {
               }
             },
             _label_product_max_qty: { for: 'product_max_qty' },
-            _div_548: {
+            _div_954: {
               _attr: { class: 'o_row' },
               product_max_qty: {},
               product_uom_name: {}
             },
             qty_multiple: { string: 'Quantity Multiple' }
           },
-          _group_294: {
+          _group_574: {
             allowed_location_ids: { invisible: '1' },
             warehouse_id: {
               groups: 'stock.group_stock_multi_locations',

@@ -199,7 +199,7 @@ export default {
                     },
                     uom_name: {}
                   },
-                  _span_409: {
+                  _span_817: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'On Hand'
@@ -226,7 +226,7 @@ export default {
                     },
                     uom_name: {}
                   },
-                  _span_255: {
+                  _span_575: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'Forecasted'
@@ -251,20 +251,20 @@ export default {
                       text: 'In:'
                     }
                   },
-                  _span_941: {
+                  _span_943: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'Out:'
                     }
                   }
                 },
-                _div_501: {
+                _div_163: {
                   _attr: { class: 'o_field_widget o_stat_info' },
                   _span: {
                     _attr: { class: 'o_stat_value' },
                     nbr_moves_in: {}
                   },
-                  _span_822: {
+                  _span_799: {
                     _attr: { class: 'o_stat_value' },
                     nbr_moves_out: {}
                   }
@@ -286,26 +286,26 @@ export default {
                       text: 'Min:'
                     }
                   },
-                  _span_401: {
+                  _span_168: {
                     _attr: {
                       class: 'o_stat_text',
                       text: 'Max:'
                     }
                   }
                 },
-                _div_658: {
+                _div_952: {
                   _attr: { class: 'o_field_widget o_stat_info' },
                   _span: {
                     _attr: { class: 'o_stat_value' },
                     reordering_min_qty: {}
                   },
-                  _span_279: {
+                  _span_898: {
                     _attr: { class: 'o_stat_value' },
                     reordering_max_qty: {}
                   }
                 }
               },
-              _button_action_view_orderpoints_621: {
+              _button_action_view_orderpoints_648: {
                 _attr: {
                   name: 'action_view_orderpoints',
                   type: 'object',
