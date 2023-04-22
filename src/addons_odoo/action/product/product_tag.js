@@ -1,15 +1,4 @@
 export default {
-  product_tag_tree_view: {
-    _odoo_model: 'ir.ui.view',
-    model: 'product.tag',
-    type: 'tree',
-    arch: {
-      sheet: {
-        name: {},
-        color: { widget: 'color_picker' }
-      }
-    }
-  },
   product_tag_form_view: {
     _odoo_model: 'ir.ui.view',
     model: 'product.tag',
@@ -20,9 +9,23 @@ export default {
           _group_name: {
             name: {},
             color: { widget: 'color_picker' }
-          },
+          }
+        },
+        _group_611: {
           product_ids: { widget: 'many2many_tags' }
         }
+      }
+    }
+  },
+
+  product_tag_tree_view: {
+    _odoo_model: 'ir.ui.view',
+    model: 'product.tag',
+    type: 'tree',
+    arch: {
+      sheet: {
+        name: {},
+        color: { widget: 'color_picker' }
       }
     }
   },

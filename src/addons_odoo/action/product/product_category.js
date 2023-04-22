@@ -1,15 +1,4 @@
 export default {
-  product_category_list_view: {
-    _odoo_model: 'ir.ui.view',
-    model: 'product.category',
-    type: 'tree',
-    arch: {
-      sheet: {
-        display_name: { string: 'Product Category' }
-      }
-    }
-  },
-
   product_category_form_view: {
     _odoo_model: 'ir.ui.view',
     model: 'product.category',
@@ -17,11 +6,12 @@ export default {
     arch: {
       sheet: {
         _div_button_box: {
+          _attr: { name: 'button_box', class: 'oe_button_box' },
           _button_product_template_action_all: {
             _attr: {
               name: 'product_template_action_all',
-              icon: 'fa-th-list',
               type: 'action',
+              icon: 'fa-th-list',
               context({ active_id }) {
                 return {
                   search_default_categ_id: active_id,
@@ -35,14 +25,28 @@ export default {
         },
 
         _div_title: {
+          _attr: { class: 'oe_title' },
+          _label_name: { for: 'name', string: 'Category' },
           _h1: {
-            name: { string: 'Category', placeholder: 'e.g. Lamps' }
+            name: {}
           }
         },
 
         _group_first: {
+          _attr: { name: 'first' },
           parent_id: {}
         }
+      }
+    }
+  },
+
+  product_category_list_view: {
+    _odoo_model: 'ir.ui.view',
+    model: 'product.category',
+    type: 'tree',
+    arch: {
+      sheet: {
+        display_name: {}
       }
     }
   },
@@ -53,7 +57,7 @@ export default {
     type: 'search',
     arch: {
       fields: {
-        name: {},
+        name: { string: 'Product Categories' },
         parent_id: {}
       }
     }
@@ -61,7 +65,7 @@ export default {
 
   product_category_action_form: {
     _odoo_model: 'ir.actions.act_window',
-    name: '产品类别',
+    name: 'Product Categories',
     type: 'ir.actions.act_window',
     res_model: 'product.category',
     search_view_id: 'product_category_search_view',
