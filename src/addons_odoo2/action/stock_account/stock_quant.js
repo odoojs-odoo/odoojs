@@ -49,7 +49,7 @@ export default {
           cost_method: { invisible: '1' },
           value: { optional: 'hidden' }
         },
-        _xpath_355: {
+        _xpath_316: {
           _attr: {
             expr: "//button[@name='action_view_orderpoints']",
             position: 'after'

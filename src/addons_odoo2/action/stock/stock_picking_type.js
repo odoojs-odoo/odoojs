@@ -128,13 +128,13 @@ export default {
                 _attr: { text: 'days before/' },
                 reservation_days_before: {}
               },
-              _span_555: {
+              _span_511: {
                 _attr: { text: 'days before when starred' },
                 reservation_days_before_priority: {}
               }
             }
           },
-          _group_428: {
+          _group_785: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true

@@ -30,9 +30,9 @@ export default {
               packaging_length: { placeholder: 'Length' },
               _span: '×',
               width: { placeholder: 'Width' },
-              _span_964: '×',
+              _span_931: '×',
               height: { placeholder: 'Height' },
-              _span_358: {
+              _span_197: {
                 length_uom_name: { help: 'Size: Length × Width × Height' }
               }
             },

@@ -80,7 +80,7 @@ export default {
             last_inventory_date: {},
             next_inventory_date: { invisible: [['active', '=', false]] }
           },
-          _group_925: {
+          _group_820: {
             _attr: {
               string: 'Logistics',
               groups: 'stock.group_adv_location'
@@ -180,7 +180,7 @@ export default {
           groups: 'stock.group_stock_storage_categories',
           readonly: [['usage', '!=', 'internal']]
         },
-        _field_company_id_251: {
+        _field_company_id_375: {
           company_id: { groups: 'base.group_multi_company' }
         }
       }

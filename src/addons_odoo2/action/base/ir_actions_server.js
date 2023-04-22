@@ -157,40 +157,36 @@ export default {
                   _attr: { text: ': Odoo Environment on which the action is triggered' },
                   _code: 'env'
                 },
-                _li_759: {
+                _li_967: {
                   _attr: { text: ': Odoo Model of the record on which the action is triggered; is a void recordset' },
                   _code: 'model'
                 },
-                _li_236: {
-                  _attr: { text: ': record on which the action is triggered; may be be void' },
-                  _code: 'record'
+                _li_455: {
+                  _attr: { text: [',', ',', ',', ': useful Python libraries'] },
+                  _code: 'time',
+                  _code_639: 'datetime',
+                  _code_887: 'dateutil',
+                  _code_650: 'timezone'
                 },
-                _li_804: {
+                _li_160: {
                   _attr: { text: ': recordset of all records on which the action is triggered in multi mode; may be void' },
                   _code: 'records'
                 },
-                _li_642: {
-                  _attr: { text: [',', ',', ',', ': useful Python libraries'] },
-                  _code: 'time',
-                  _code_772: 'datetime',
-                  _code_811: 'dateutil',
-                  _code_630: 'timezone'
-                },
-                _li_680: {
+                _li_511: {
                   _attr: { text: [': logging function to record debug information in', 'table'] },
                   _code: "log(message, level='info')",
-                  _code_376: 'ir.logging'
+                  _code_257: 'ir.logging'
                 },
-                _li_359: {
+                _li_136: {
                   _attr: { text: ': Warning Exception to use with' },
                   _code: 'UserError',
-                  _code_825: 'raise'
+                  _code_541: 'raise'
                 },
-                _li_532: {
+                _li_810: {
                   _attr: { text: ': x2Many commands namespace' },
                   _code: 'Command'
                 },
-                _li_395: {
+                _li_975: {
                   _attr: { text: 'To return an action, assign:' },
                   _code: 'action = {...}'
                 }

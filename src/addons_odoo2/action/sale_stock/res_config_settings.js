@@ -16,7 +16,7 @@ export default {
               _attr: { class: 'o_setting_left_pane' },
               group_display_incoterm: {}
             },
-            _div_785: {
+            _div_326: {
               _attr: { class: 'o_setting_right_pane' },
               _label_group_display_incoterm: { for: 'group_display_incoterm' },
               _div: {
@@ -25,7 +25,7 @@ export default {
                   text: 'Display incoterms on orders & invoices'
                 }
               },
-              _div_638: {
+              _div_825: {
                 _attr: {
                   invisible: [['group_display_incoterm', '=', false]],
                   class: 'content-group'
@@ -69,7 +69,7 @@ export default {
                   text: 'When to start shipping'
                 }
               },
-              _div_701: {
+              _div_372: {
                 _attr: { class: 'content-group' },
                 _div: {
                   _attr: { class: 'mt16' },
@@ -95,7 +95,7 @@ export default {
             }
           }
         },
-        _div_338: {
+        _div_118: {
           _attr: { position: 'replace' },
           _div: {
             _attr: {
@@ -106,7 +106,7 @@ export default {
               _attr: { class: 'o_setting_left_pane' },
               use_security_lead: {}
             },
-            _div_236: {
+            _div_464: {
               _attr: { class: 'o_setting_right_pane' },
               _label_use_security_lead: { for: 'use_security_lead' },
               _a: {
@@ -128,7 +128,7 @@ export default {
                   text: 'Schedule deliveries earlier to avoid delays'
                 }
               },
-              _div_569: {
+              _div_552: {
                 _attr: { class: 'content-group' },
                 _div: {
                   _attr: {

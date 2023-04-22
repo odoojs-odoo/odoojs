@@ -25,7 +25,7 @@ export default {
             partner_id: {},
             acc_holder_name: {}
           },
-          _group_685: {
+          _group_855: {
             bank_id: {},
             currency_id: {
               groups: 'base.group_multi_currency',

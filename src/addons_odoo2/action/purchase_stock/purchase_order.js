@@ -21,7 +21,7 @@ export default {
             }
           }
         },
-        _xpath_719: {
+        _xpath_114: {
           _attr: {
             expr: "//header/button[@name='confirm_reminder_mail']",
             position: 'attributes'
@@ -34,7 +34,7 @@ export default {
             }
           }
         },
-        _xpath_495: {
+        _xpath_664: {
           _attr: {
             expr: "//div[hasclass('oe_button_box')]",
             position: 'inside'
@@ -55,21 +55,21 @@ export default {
             }
           }
         },
-        _xpath_408: {
+        _xpath_745: {
           _attr: {
             expr: "//field[@name='currency_id']",
             position: 'after'
           },
           is_shipped: { invisible: '1' }
         },
-        _xpath_845: {
+        _xpath_308: {
           _attr: {
             expr: "//field[@name='order_line']/tree//field[@name='date_planned']",
             position: 'after'
           },
           move_dest_ids: { invisible: '1' }
         },
-        _xpath_100: {
+        _xpath_903: {
           _attr: {
             expr: "//page/field[@name='order_line']/tree/field[@name='product_qty']",
             position: 'after'
@@ -85,7 +85,7 @@ export default {
               class: 'text-danger'
             }
           },
-          _button_action_product_forecast_report_591: {
+          _button_action_product_forecast_report_207: {
             _attr: {
               name: 'action_product_forecast_report',
               type: 'object',
@@ -95,7 +95,7 @@ export default {
             }
           }
         },
-        _xpath_534: {
+        _xpath_549: {
           _attr: {
             expr: "//div[@name='date_planned_div']",
             position: 'inside'
@@ -118,7 +118,7 @@ export default {
                 class: 'oe_inline'
               }
             },
-            _span_156: {
+            _span_910: {
               _attr: {
                 invisible: [['on_time_rate', '>=', 0]],
                 text: 'No On-time Delivery Data'
@@ -126,7 +126,7 @@ export default {
             }
           }
         },
-        _xpath_261: {
+        _xpath_957: {
           _attr: {
             expr: "//label[@for='receipt_reminder_email']",
             position: 'attributes'
@@ -139,7 +139,7 @@ export default {
             }
           }
         },
-        _xpath_130: {
+        _xpath_249: {
           _attr: {
             expr: "//div[@name='reminder']",
             position: 'attributes'
@@ -152,14 +152,14 @@ export default {
             }
           }
         },
-        _xpath_519: {
+        _xpath_792: {
           _attr: {
             expr: "//div[@name='reminder']",
             position: 'after'
           },
           effective_date: { invisible: [['effective_date', '=', false]] }
         },
-        _xpath_252: {
+        _xpath_626: {
           _attr: {
             expr: "//field[@name='order_line']/form//field[@name='invoice_lines']",
             position: 'after'
@@ -172,14 +172,14 @@ export default {
             receipt_status: { invisible: [['state', 'not in', ('purchase', 'done')]] }
           }
         },
-        _xpath_404: {
+        _xpath_238: {
           _attr: {
             expr: "//field[@name='order_line']/form//field[@name='analytic_distribution']",
             position: 'before'
           },
           propagate_cancel: { groups: 'base.group_no_one' }
         },
-        _xpath_878: {
+        _xpath_410: {
           _attr: {
             expr: "//field[@name='order_line']/tree//field[@name='qty_received']",
             position: 'attributes'
@@ -192,7 +192,7 @@ export default {
             }
           }
         },
-        _xpath_400: {
+        _xpath_311: {
           _attr: {
             expr: "//page[@name='purchase_delivery_invoice']/group/group",
             position: 'inside'
@@ -201,7 +201,7 @@ export default {
           incoterm_id: {},
           incoterm_location: {}
         },
-        _xpath_924: {
+        _xpath_115: {
           _attr: {
             expr: "//div[@name='reminder']",
             position: 'after'

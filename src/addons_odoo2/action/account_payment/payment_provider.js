@@ -18,7 +18,7 @@ export default {
             }
           }
         },
-        _group_payment_followup_983: {
+        _group_payment_followup_579: {
           _attr: {
             name: 'payment_followup',
             position: 'inside'

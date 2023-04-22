@@ -25,7 +25,7 @@ export default {
               }
             }
           },
-          _div_865: {
+          _div_506: {
             _attr: {
               title: 'Quotations',
               groups: 'sales_team.group_sale_salesman',

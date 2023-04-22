@@ -11,7 +11,7 @@ export default {
             color: { widget: 'color_picker' }
           }
         },
-        _group_869: {
+        _group_611: {
           product_ids: { widget: 'many2many_tags' }
         }
       }

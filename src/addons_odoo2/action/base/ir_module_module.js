@@ -199,7 +199,7 @@ export default {
                 },
                 summary: {}
               },
-              _group_354: {
+              _group_555: {
                 name: {},
                 license: {},
                 installed_version: {}
@@ -216,7 +216,7 @@ export default {
               application: {},
               state: {}
             },
-            _group_731: {
+            _group_880: {
               _attr: {
                 string: 'Created Views',
                 invisible: [['state', '!=', 'installed']]
@@ -230,10 +230,10 @@ export default {
               }
             },
             views_by_module: {},
-            _group_808: {
+            _group_877: {
               _attr: { string: 'Dependencies' }
             },
-            _p_452: {
+            _p_972: {
               _attr: {
                 invisible: [['dependencies_id', 'not in', [None, false]]],
                 class: 'oe_grey',
@@ -253,10 +253,10 @@ export default {
                 }
               }
             },
-            _group_109: {
+            _group_267: {
               _attr: { string: 'Exclusions' }
             },
-            _p_214: {
+            _p_278: {
               _attr: {
                 invisible: [['exclusion_ids', 'not in', [None, false]]],
                 class: 'oe_grey',
@@ -294,10 +294,10 @@ export default {
               }
             },
             menus_by_module: {},
-            _group_832: {
+            _group_662: {
               _attr: { string: 'Defined Reports' }
             },
-            _p_980: {
+            _p_550: {
               _attr: {
                 invisible: [['reports_by_module', 'not in', [None, false]]],
                 class: 'oe_grey',

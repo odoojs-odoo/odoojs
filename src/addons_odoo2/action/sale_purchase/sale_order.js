@@ -25,7 +25,7 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 purchase_order_count: {}
               },
-              _span_882: {
+              _span_684: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Purchase'

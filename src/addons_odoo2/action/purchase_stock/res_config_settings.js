@@ -32,7 +32,7 @@ export default {
                 _attr: { class: 'o_setting_left_pane' },
                 module_stock_dropshipping: {}
               },
-              _div_110: {
+              _div_497: {
                 _attr: { class: 'o_setting_right_pane' },
                 _label_module_stock_dropshipping: { for: 'module_stock_dropshipping' },
                 _a: {
@@ -86,7 +86,7 @@ export default {
               _attr: { class: 'o_setting_left_pane' },
               use_po_lead: {}
             },
-            _div_902: {
+            _div_992: {
               _attr: { class: 'o_setting_right_pane' },
               _label_use_po_lead: { for: 'use_po_lead' },
               _a: {
@@ -108,7 +108,7 @@ export default {
                   text: 'Schedule request for quotations earlier to avoid delays'
                 }
               },
-              _div_920: {
+              _div_599: {
                 _attr: { class: 'content-group' },
                 _div: {
                   _attr: {
@@ -141,7 +141,7 @@ export default {
                   text: 'Days needed to confirm a PO'
                 }
               },
-              _div_778: {
+              _div_723: {
                 _attr: { class: 'content-group' },
                 _div: {
                   _attr: { class: 'mt16' },

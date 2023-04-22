@@ -52,14 +52,14 @@ export default {
                     text: 'In Contract Since'
                   }
                 },
-                _span_294: {
+                _span_532: {
                   _attr: {
                     invisible: [['contract_warning', '=', true]],
                     class: 'o_stat_value text-success'
                   },
                   first_contract_date: { readonly: '1' }
                 },
-                _span_396: {
+                _span_309: {
                   _attr: {
                     title: 'In Contract Since',
                     invisible: [['contract_warning', '=', false]],
@@ -67,7 +67,7 @@ export default {
                     text: 'In Contract Since'
                   }
                 },
-                _span_592: {
+                _span_757: {
                   _attr: {
                     invisible: [['contract_warning', '=', false]],
                     class: 'o_stat_value text-danger'
@@ -75,7 +75,7 @@ export default {
                   first_contract_date: { readonly: '1' }
                 }
               },
-              _div_609: {
+              _div_232: {
                 _attr: {
                   invisible: [['first_contract_date', '!=', false]],
                   class: 'o_stat_info'
@@ -84,14 +84,14 @@ export default {
                   _attr: { class: 'o_stat_value text-danger' },
                   contracts_count: {}
                 },
-                _span_200: {
+                _span_348: {
                   _attr: {
                     invisible: [['contracts_count', '!=', 1]],
                     class: 'o_stat_text text-danger',
                     text: 'Contract'
                   }
                 },
-                _span_394: {
+                _span_856: {
                   _attr: {
                     invisible: [['contracts_count', '=', 1]],
                     class: 'o_stat_text text-danger',
@@ -111,7 +111,7 @@ export default {
               readonly: '1'
             }
           },
-          _xpath_988: {
+          _xpath_895: {
             _attr: {
               expr: "//field[@name='bank_account_id']",
               position: 'replace'
@@ -121,7 +121,7 @@ export default {
               context: { display_partner: true }
             }
           },
-          _xpath_759: {
+          _xpath_720: {
             _attr: {
               expr: "//field[@name='resource_calendar_id']",
               position: 'replace'

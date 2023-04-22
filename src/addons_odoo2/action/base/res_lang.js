@@ -32,7 +32,7 @@ export default {
             invisible: [['active', '=', true]]
           }
         },
-        _button_base__action_view_base_language_install_688: {
+        _button_base__action_view_base_language_install_842: {
           _attr: {
             name: 'base.action_view_base_language_install',
             type: 'action',
@@ -96,7 +96,7 @@ export default {
             },
             active: { widget: 'boolean_toggle' }
           },
-          _group_243: {
+          _group_851: {
             direction: {},
             grouping: {},
             decimal_point: {},
@@ -119,29 +119,29 @@ export default {
                 }
               }
             },
-            _div_250: {
+            _div_594: {
               _attr: { class: 'col-sm' },
               _div: '%a - Abbreviated day of the week.',
-              _div_471: '%A - Full day of the week.',
-              _div_167: '%b - Abbreviated month name.',
-              _div_302: '%B - Full month name."',
-              _div_900: '%d - Day of the month [01,31]."',
-              _div_762: '%j - Day of the year [001,366]."',
-              _div_162: '%H - Hour (24-hour clock) [00,23]."',
-              _div_180: '%I - Hour (12-hour clock) [01,12]."'
+              _div_794: '%A - Full day of the week.',
+              _div_121: '%b - Abbreviated month name.',
+              _div_154: '%B - Full month name."',
+              _div_958: '%d - Day of the month [01,31]."',
+              _div_824: '%j - Day of the year [001,366]."',
+              _div_487: '%H - Hour (24-hour clock) [00,23]."',
+              _div_407: '%I - Hour (12-hour clock) [01,12]."'
             },
-            _div_103: {
+            _div_349: {
               _attr: { class: 'col-sm' },
               _div: '%M - Minute [00,59]."',
-              _div_867: '%p - Equivalent of either AM or PM."',
-              _div_927: '%S - Seconds [00,61]."',
-              _div_288: '%w - Day of the week number [0(Sunday),6]."',
-              _div_467: '%y - Year without century [00,99]."',
-              _div_613: '%Y - Year with century."',
-              _div_691: '%m - Month number [01,12]."'
+              _div_127: '%p - Equivalent of either AM or PM."',
+              _div_433: '%S - Seconds [00,61]."',
+              _div_762: '%w - Day of the week number [0(Sunday),6]."',
+              _div_608: '%y - Year without century [00,99]."',
+              _div_845: '%Y - Year with century."',
+              _div_770: '%m - Month number [01,12]."'
             }
           },
-          _div_698: {
+          _div_735: {
             _attr: { class: 'col-md-4 text-info' },
             _div: {
               _attr: {
@@ -149,15 +149,15 @@ export default {
                 text: 'Examples'
               }
             },
-            _div_620: '1. %b, %B         ==> Dec, December',
-            _div_830: '2. %a ,%A         ==> Fri, Friday',
-            _div_993: '3. %y, %Y         ==> 08, 2008',
-            _div_260: '4. %d, %m         ==> 05, 12',
-            _div_120: '5. %H:%M:%S      ==> 18:25:20',
-            _div_437: '6. %I:%M:%S %p  ==> 06:25:20 PM',
-            _div_147: '7. %j              ==> 340',
-            _div_744: '8. %S              ==> 20',
-            _div_115: '9. %w              ==> 5 ( Friday is the 6th day)'
+            _div_929: '1. %b, %B         ==> Dec, December',
+            _div_620: '2. %a ,%A         ==> Fri, Friday',
+            _div_144: '3. %y, %Y         ==> 08, 2008',
+            _div_276: '4. %d, %m         ==> 05, 12',
+            _div_318: '5. %H:%M:%S      ==> 18:25:20',
+            _div_973: '6. %I:%M:%S %p  ==> 06:25:20 PM',
+            _div_472: '7. %j              ==> 340',
+            _div_576: '8. %S              ==> 20',
+            _div_979: '9. %w              ==> 5 ( Friday is the 6th day)'
           }
         }
       }

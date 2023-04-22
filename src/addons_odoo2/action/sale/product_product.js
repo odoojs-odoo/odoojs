@@ -30,7 +30,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_413: {
+              _span_721: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Sold'

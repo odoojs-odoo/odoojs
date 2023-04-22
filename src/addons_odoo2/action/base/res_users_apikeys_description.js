@@ -24,7 +24,7 @@ export default {
         },
         _p: 'Enter a description of and purpose for the key.',
         name: { placeholder: "What's this key for?" },
-        _p_634: {
+        _p_966: {
           _attr: { text: ['It is very important that this description be clear\n                        and complete,', '.'] },
           _strong: 'it will be the only way to\n                        identify the key once created'
         },

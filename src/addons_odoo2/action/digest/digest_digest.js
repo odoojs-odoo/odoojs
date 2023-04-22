@@ -80,7 +80,7 @@ export default {
               no_create: true
             }
           },
-          _group_631: {
+          _group_960: {
             next_run_date: { groups: 'base.group_system' }
           }
         },

@@ -24,24 +24,24 @@ export default {
           menu_hr_work_location_action: {
             name: 'Work Locations',
             action: 'hr.hr_work_location_action'
+          },
+          menu_hr_department_tree_action: {
+            name: 'Departments',
+            action: 'hr.hr_department_tree_action'
+          },
+
+          menu_open_view_employee_list: {
+            name: 'Employees',
+            action: 'hr.open_view_employee_list'
+          },
+
+          menu_action_hr_contract: {
+            name: 'Contracts',
+            action: 'hr_contract.action_hr_contract'
           }
         }
       },
 
-      menu_hr_department_tree_action: {
-        name: 'Departments',
-        action: 'hr.hr_department_tree_action'
-      },
-
-      menu_open_view_employee_list: {
-        name: 'Employees',
-        action: 'hr.open_view_employee_list'
-      },
-
-      menu_action_hr_contract: {
-        name: 'Contracts',
-        action: 'hr_contract.action_hr_contract'
-      },
       menu_action_hr_expense_sheet_all_all: {
         name: 'All Expense Reports',
         action: 'hr_expense.action_hr_expense_sheet_all_all'

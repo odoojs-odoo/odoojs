@@ -8,7 +8,7 @@ export default {
         _p: {
           _attr: { text: ['You have not recorded', 'quantities yet, by clicking on', 'Odoo will process all the quantities.'] },
           _i: 'done',
-          _i_425: 'apply'
+          _i_581: 'apply'
         },
         pick_ids: { invisible: '1' },
         show_transfers: { invisible: '1' },

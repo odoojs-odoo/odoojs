@@ -31,7 +31,7 @@ export default {
             is_discuss_sidebar_category_channel_open: {},
             is_discuss_sidebar_category_chat_open: {}
           },
-          _group_365: {
+          _group_807: {
             _attr: { string: 'Voice' },
             use_push_to_talk: {},
             push_to_talk_key: {

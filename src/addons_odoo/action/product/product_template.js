@@ -5,43 +5,44 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        priority: {},
+        // _header: {
+        //   _button_action_open_label_layout: {
+        //     _attr: {
+        //       name: 'action_open_label_layout',
+        //       type: 'object',
+        //       string: 'Print Labels'
+        //     }
+        //   }
+        // },
+        product_variant_count: { invisible: '1' },
+        sale_ok: { invisible: '1' },
+        currency_id: { invisible: '1' },
+        cost_currency_id: { invisible: '1' },
+        priority: { widget: 'priority', optional: 'show' },
         name: {},
-        default_code: {},
-        product_tag_ids: { widget: 'many2many_tags' },
-        barcode: {},
-        company_id: {},
-        list_price: { widget: 'monetary' },
-        standard_price: { widget: 'monetary' },
-        categ_id: {},
-        detailed_type: {},
-        uom_id: {}
-      }
-    }
-  },
-
-  product_template_kanban_view: {
-    _odoo_model: 'ir.ui.view',
-    model: 'product.template',
-    type: 'kanban',
-    fields: {
-      priority: {},
-      name: {},
-      default_code: {},
-      barcode: {},
-      company_id: {},
-      list_price: {},
-      standard_price: {},
-      categ_id: {},
-      detailed_type: {},
-      uom_id: {}
-    },
-    templates: {
-      title({ record }) {
-        return record.name
-      },
-      label({ record }) {
-        return record.categ_id && record.categ_id[1]
+        default_code: { optional: 'show' },
+        product_tag_ids: {
+          widget: 'many2many_tags',
+          optional: 'show',
+          color_field: 'color'
+        },
+        barcode: { optional: 'hide' },
+        company_id: { optional: 'hide', no_create: true },
+        list_price: {
+          widget: 'monetary',
+          optional: 'show',
+          currency_field: 'currency_id'
+        },
+        standard_price: {
+          widget: 'monetary',
+          optional: 'show',
+          currency_field: 'cost_currency_id'
+        },
+        categ_id: { optional: 'hide' },
+        detailed_type: { optional: 'hide' },
+        type: { invisible: '1' },
+        uom_id: { optional: 'show' },
+        active: { invisible: '1' }
       }
     }
   },
@@ -162,6 +163,32 @@ export default {
     }
   },
 
+  product_template_kanban_view: {
+    _odoo_model: 'ir.ui.view',
+    model: 'product.template',
+    type: 'kanban',
+    fields: {
+      priority: {},
+      name: {},
+      default_code: {},
+      barcode: {},
+      company_id: {},
+      list_price: {},
+      standard_price: {},
+      categ_id: {},
+      detailed_type: {},
+      uom_id: {}
+    },
+    templates: {
+      title({ record }) {
+        return record.name
+      },
+      label({ record }) {
+        return record.categ_id && record.categ_id[1]
+      }
+    }
+  },
+
   product_template_form_view: {
     _odoo_model: 'ir.ui.view',
     model: 'product.template',
@@ -170,30 +197,31 @@ export default {
       header: {
         buttons: {
           action_open_label_layout: {
-            string: 'Print Labels',
             name: 'action_open_label_layout',
             type: 'object',
+            string: 'Print Labels',
             invisible({ record }) {
               // 'invisible': [('detailed_type', '==', 'service')]
               const { detailed_type } = record
               return detailed_type === 'service'
             }
           }
-        },
-        fields: {}
+        }
       },
       sheet: {
         product_variant_count: { invisible: 1 },
         is_product_variant: { invisible: 1 },
+        attribute_line_ids: { invisible: '1' },
         type: { invisible: 1 },
         company_id: { invisible: 1 },
         _div_button_box: {
+          _attr: { name: 'button_box', class: 'oe_button_box' },
           _button_open_pricelist_rules: {
             _attr: {
               name: 'open_pricelist_rules',
+              type: 'object',
               icon: 'fa-list-ul',
-              groups: 'product.group_product_pricelist',
-              type: 'object'
+              groups: 'product.group_product_pricelist'
             },
 
             _span_text: {
@@ -234,19 +262,18 @@ export default {
         },
 
         image_1920: { widget: 'image', preview_image: 'image_128' },
-        _group_image: {},
 
         _div_title: {
+          _label_name: { for: 'name' },
           _h1: {
             priority: { nolabel: 0, widget: 'priority' },
-            name: {
-              nolabel: 0,
-              string: 'Product Name',
-              placeholder: 'e.g. Cheese Burger'
-            }
+            name: { nolabel: 0 }
           }
         },
-        _div_options: { sale_ok: {}, purchase_ok: {} },
+        _div_options: {
+          sale_ok: {},
+          purchase_ok: {}
+        },
 
         _notebook: {
           _page_general_information: {
@@ -256,11 +283,12 @@ export default {
             },
             _group_general_information: {
               _group_group_general: {
+                _attr: { name: 'group_general' },
                 active: { invisible: 1 },
                 detailed_type: {},
                 product_tooltip: { string: '' },
-                uom_id: { groups: 'uom.group_uom' },
-                uom_po_id: { groups: 'uom.group_uom' }
+                uom_id: {},
+                uom_po_id: {}
               },
               _group_group_standard_price: {
                 _div_list_price: {
@@ -294,9 +322,12 @@ export default {
                   }
                 },
 
-                categ_id: { string: 'Product Category' },
-                product_tag_ids: { widget: 'many2many_tags' },
-                company_id: { groups: 'base.group_multi_company' },
+                categ_id: {},
+                product_tag_ids: {
+                  widget: 'many2many_tags',
+                  color_field: 'color'
+                },
+                company_id: {},
                 currency_id: { invisible: 1 },
                 cost_currency_id: { invisible: 1 },
                 product_variant_id: { invisible: 1 }
@@ -304,17 +335,14 @@ export default {
             },
             _group_note: {
               _attr: { string: 'Internal Notes' },
-              description: {
-                nolabel: '1',
-                placeholder: 'This note is only for internal purposes.'
-              }
+              description: { nolabel: '1' }
             }
           },
 
           _page_sales: {
             _attr: {
-              string: 'Sales',
               name: 'sales',
+              string: 'Sales',
               invisible({ record, invisible = 1 }) {
                 // 被 后续 覆盖 . 函数 需要一级级调用
                 // todo. 暂时 使用 直接覆盖的方式
@@ -325,8 +353,10 @@ export default {
               }
             },
             _group_sale: {
+              _attr: { name: 'sale' },
               _group_upsell: {
                 _attr: {
+                  name: 'upsell',
                   string: 'Upsell &amp; Cross-Sell',
                   invisible: '1'
                 }
@@ -335,22 +365,18 @@ export default {
             _group: {
               _group_description: {
                 _attr: {
-                  string: 'Sales Description',
-                  name: 'description'
+                  name: 'description',
+                  string: 'Sales Description'
                 },
-                description_sale: {
-                  nolabel: 1,
-                  placeholder:
-                    'This note is added to sales orders and invoices.'
-                }
+                description_sale: { nolabel: 1 }
               }
             }
           },
 
           _page_purchase: {
             _attr: {
-              string: 'Purchase',
               name: 'purchase',
+              string: 'Purchase',
               invisible({ record, invisible = 1 }) {
                 // 被 后续 覆盖 . 函数 需要一级级调用
                 // todo. 暂时 使用 直接覆盖的方式
@@ -361,10 +387,11 @@ export default {
               }
             },
             _group_purchase: {
+              _attr: { name: 'purchase' },
               _group_bill: {
                 _attr: {
-                  string: 'Vendor Bills',
-                  name: 'bill'
+                  name: 'bill',
+                  string: 'Vendor Bills'
                 }
               }
             }
@@ -372,8 +399,8 @@ export default {
 
           _page_inventory: {
             _attr: {
-              string: 'Inventory',
               name: 'inventory',
+              string: 'Inventory',
               groups: 'product.group_stock_packaging',
               invisible({ record }) {
                 // 'invisible':[('type', '=', 'service')]
@@ -416,16 +443,18 @@ export default {
                       return product_variant_count > 1 && !is_product_variant
                     }
                   },
-                  volume: { string: 'Volume' },
+                  volume: {},
                   volume_uom_name: {}
                 }
               }
             },
             _group_packaging: {
               _attr: {
-                _groups: 'product.group_stock_packaging',
+                name: 'packaging',
                 string: 'Packaging',
-                _invisible({ record }) {
+                groups: 'product.group_stock_packaging',
+
+                invisible({ record }) {
                   // 'invisible':[
                   // '|',
                   // ('type', 'not in', ['product', 'consu']),
@@ -443,14 +472,7 @@ export default {
 
               packaging_ids: {
                 nolabel: '1',
-                widget: 'x2many_tree',
-                context({ record }) {
-                  const { company_id } = record
-                  return {
-                    // tree_view_ref: 'product.product_packaging_tree_view2',
-                    default_company_id: company_id
-                  }
-                }
+                widget: 'x2many_tree'
               }
             }
           }
@@ -466,7 +488,7 @@ export default {
     arch: {
       fields: {
         name: {
-          _default: 1,
+          string: 'Product',
           filter_domain: self => {
             return [
               '|',
@@ -481,7 +503,6 @@ export default {
         },
 
         categ_id: {
-          _default: 1,
           filter_domain: raw_value => {
             return [['categ_id', 'child_of', raw_value]]
           }
@@ -490,8 +511,13 @@ export default {
 
       filters: {
         group_type: {
-          services: { string: 'Services', domain: [['type', '=', 'service']] },
+          services: {
+            name: 'services',
+            string: 'Services',
+            domain: [['type', '=', 'service']]
+          },
           consumable: {
+            name: 'consumable',
             string: 'Products',
             domain: [['type', 'in', ['consu', 'product']]]
           }
@@ -499,19 +525,29 @@ export default {
 
         group_sell_purchase: {
           filter_to_sell: {
+            name: 'filter_to_sell',
             string: 'Can be Sold',
             domain: [['sale_ok', '=', true]]
           },
           filter_to_purchase: {
+            name: 'filter_to_purchase',
             string: 'Can be Purchased',
             domain: [['purchase_ok', '=', true]]
           }
         },
         group_favorites: {
-          favorites: { string: 'Favorites', domain: [['priority', '=', '1']] }
+          favorites: {
+            name: 'favorites',
+            string: 'Favorites',
+            domain: [['priority', '=', '1']]
+          }
         },
         group_active: {
-          inactive: { string: 'Archived', domain: [['active', '=', false]] }
+          inactive: {
+            name: 'inactive',
+            string: 'Archived',
+            domain: [['active', '=', false]]
+          }
         }
       }
     }

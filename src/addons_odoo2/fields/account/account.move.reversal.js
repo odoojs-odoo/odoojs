@@ -2,8 +2,8 @@ const ModelFields = {
   available_journal_ids: {},
   company_id: {},
   date: {
-    string: 'Refund Date',
-    required: [['date_mode', '=', 'custom']]
+    required: [['date_mode', '=', 'custom']],
+    string: 'Refund Date'
   },
 
   date_mode: { string: 'Reversal Date' },

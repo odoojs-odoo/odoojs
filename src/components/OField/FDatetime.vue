@@ -41,7 +41,7 @@ const props = defineProps([
 ])
 
 const emit = defineEmits(['update:modelValue', 'change'])
-const widget_nodo = ['date']
+const widget_nodo = ['date', 'remaining_days']
 const { mVal, dVal, readonly, onChange } = useFDatetime(props, { emit })
 </script>
 

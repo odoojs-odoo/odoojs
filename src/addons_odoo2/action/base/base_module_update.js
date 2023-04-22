@@ -21,7 +21,7 @@ export default {
             }
           }
         },
-        _group_639: {
+        _group_682: {
           _attr: { states: 'done' },
           updated: {},
           added: {}
@@ -44,7 +44,7 @@ export default {
               }
             }
           },
-          _div_257: {
+          _div_459: {
             _attr: { states: 'done' },
             _button_action_module_open: {
               _attr: {

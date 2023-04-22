@@ -61,7 +61,7 @@ export default {
             report_type: {},
             paperformat_id: { invisible: [['report_type', 'not in', ['qweb-pdf']]] }
           },
-          _group_213: {
+          _group_728: {
             model: {},
             report_name: {},
             print_report_name: {}

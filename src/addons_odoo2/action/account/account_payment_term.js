@@ -49,14 +49,14 @@ export default {
           _group: {
             name: {}
           },
-          _group_868: {
+          _group_446: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
             }
           }
         },
-        _group_795: {
+        _group_498: {
           note: { placeholder: 'Payment term explanation for the customer...' }
         },
         _label_display_on_invoice: { for: 'display_on_invoice' },
@@ -104,7 +104,7 @@ export default {
               text: 'The Payment Term must have one Balance line.'
             }
           },
-          _div_735: {
+          _div_366: {
             _attr: {
               invisible: [['example_invalid', '=', true]],
               class: 'd-flex',
@@ -114,10 +114,10 @@ export default {
               _attr: { class: 'mx-1' }
             },
             example_amount: {},
-            _span_355: {
+            _span_782: {
               _attr: { class: 'mx-1' }
             },
-            _span_181: {
+            _span_800: {
               _attr: { class: 'mx-1' }
             },
             example_date: { class: 'oe_inline' }

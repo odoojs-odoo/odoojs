@@ -16,7 +16,7 @@ export default {
               readonly: [['id', '!=', false]]
             }
           },
-          _group_161: {
+          _group_924: {
             state: {
               groups: 'base.group_no_one',
               readonly: '1'
@@ -55,7 +55,7 @@ export default {
                           name: {},
                           field_description: {}
                         },
-                        _group_189: {
+                        _group_297: {
                           ttype: {},
                           help: {}
                         }
@@ -75,7 +75,7 @@ export default {
                               index: { groups: 'base.group_no_one' },
                               copied: { groups: 'base.group_no_one' }
                             },
-                            _group_908: {
+                            _group_544: {
                               translate: {
                                 readonly: [['ttype', 'not in', ['char', 'text', 'html']]],
                                 invisible: [['ttype', 'not in', ['char', 'text', 'html']]]
@@ -122,7 +122,7 @@ export default {
                               }
                             }
                           },
-                          _group_343: {
+                          _group_633: {
                             _attr: {
                               readonly: [['ttype', 'not in', ['selection', 'reference']]],
                               invisible: [['ttype', 'not in', ['selection', 'reference']]]
@@ -141,7 +141,7 @@ export default {
                               }
                             }
                           },
-                          _group_120: {
+                          _group_191: {
                             _attr: {
                               string: 'Advanced Properties',
                               groups: 'base.group_no_one'
@@ -159,42 +159,42 @@ export default {
                             _p: {
                               _attr: { text: ['Computed fields are defined with the fields', 'and', '.'] },
                               _strong: 'Dependencies',
-                              _strong_630: 'Compute'
+                              _strong_266: 'Compute'
                             },
-                            _p_889: {
+                            _p_613: {
                               _attr: { text: ['The field', 'lists the fields that\n                                                the current field depends on. It is a comma-separated list of\n                                                field names, like', '. You can also refer to\n                                                fields accessible through other relational fields, for instance', '.'] },
                               _strong: 'Dependencies',
                               _code: 'name, size',
-                              _code_134: 'partner_id.company_id.name'
+                              _code_146: 'partner_id.company_id.name'
                             },
-                            _p_137: {
+                            _p_140: {
                               _attr: { text: ['The field', 'is the Python code to\n                                                compute the value of the field on a set of records. The value of\n                                                the field must be assigned to each record with a dictionary-like\n                                                assignment.'] },
                               _strong: 'Compute'
                             },
                             _pre: "for record in self:\n        record['size'] = len(record.name)",
-                            _p_462: 'The only predefined variables are',
+                            _p_438: 'The only predefined variables are',
                             _ul: {
                               _li: {
                                 _attr: { text: '(the set of records to compute)' },
                                 _code: 'self'
                               },
-                              _li_538: {
+                              _li_514: {
                                 _attr: { text: '(Python module)' },
                                 _code: 'datetime'
                               },
-                              _li_583: {
+                              _li_635: {
                                 _attr: { text: '(Python module)' },
                                 _code: 'dateutil'
                               },
-                              _li_578: {
+                              _li_447: {
                                 _attr: { text: '(Python module)' },
                                 _code: 'time'
                               }
                             },
-                            _p_169: {
+                            _p_801: {
                               _attr: { text: ['Other features are accessible through', ', like', ', etc.'] },
                               _code: 'self',
-                              _code_934: 'self.env'
+                              _code_749: 'self.env'
                             }
                           }
                         },

@@ -18,7 +18,7 @@ export default {
               _div: {
                 _attr: { class: 'o_setting_left_pane' }
               },
-              _div_767: {
+              _div_190: {
                 _attr: { class: 'o_setting_right_pane' },
                 _label_product_weight_in_lbs: {
                   for: 'product_weight_in_lbs',
@@ -30,7 +30,7 @@ export default {
                     text: 'Define your weight unit of measure'
                   }
                 },
-                _div_610: {
+                _div_412: {
                   _attr: { class: 'content-group' },
                   _div: {
                     _attr: { class: 'mt16' },
@@ -43,7 +43,7 @@ export default {
                 }
               }
             },
-            _div_613: {
+            _div_221: {
               _attr: { class: 'col-12 col-lg-6 o_setting_box' },
               _div: {
                 _attr: { class: 'o_setting_right_pane' },
@@ -57,7 +57,7 @@ export default {
                     text: 'Define your volume unit of measure'
                   }
                 },
-                _div_673: {
+                _div_790: {
                   _attr: { class: 'content-group' },
                   _div: {
                     _attr: { class: 'mt16' },
@@ -72,7 +72,7 @@ export default {
             }
           }
         },
-        _xpath_912: {
+        _xpath_520: {
           _attr: {
             expr: "//div[@id='product_get_pic_setting']",
             position: 'replace'
@@ -83,7 +83,7 @@ export default {
               _attr: { class: 'o_setting_left_pane' },
               module_product_images: {}
             },
-            _div_312: {
+            _div_797: {
               _attr: { class: 'o_setting_right_pane' },
               _label_module_product_images: {
                 for: 'module_product_images',
@@ -101,7 +101,7 @@ export default {
                   text: 'Get product pictures using Barcode'
                 }
               },
-              _div_178: {
+              _div_618: {
                 _attr: {
                   invisible: [['module_product_images', '=', false]],
                   class: 'content-group mt16'

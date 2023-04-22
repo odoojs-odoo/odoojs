@@ -28,7 +28,7 @@ export default {
                   class: 'mr4'
                 }
               },
-              _span_441: {
+              _span_479: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Sales'
@@ -37,7 +37,7 @@ export default {
             }
           }
         },
-        _xpath_881: {
+        _xpath_679: {
           _attr: {
             expr: "//group[@name='main_group']",
             position: 'after'

@@ -157,6 +157,7 @@ export default {
     arch: {
       fields: {
         location_id: {
+          _default: 1,
           string: 'Location',
           groups: 'stock.group_stock_multi_locations',
           filter_domain(self) {

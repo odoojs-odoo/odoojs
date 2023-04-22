@@ -62,7 +62,7 @@ export default {
             }
           },
           _label_address_format: { for: 'address_format' },
-          _div_356: {
+          _div_527: {
             _attr: { class: 'o_row' },
             address_format: { placeholder: 'Address format...' },
             _div_div_address_format$space$ms$dash$2: {

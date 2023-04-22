@@ -42,7 +42,7 @@ export default {
             uri: { class: 'oe_inline' }
           }
         },
-        _group_718: {
+        _group_195: {
           username: {},
           credential: {}
         }

@@ -47,7 +47,7 @@ export default {
               class: 'btn-primary'
             }
           },
-          _button_cancel_mail_action_641: {
+          _button_cancel_mail_action_495: {
             _attr: {
               name: 'cancel_mail_action',
               type: 'object',

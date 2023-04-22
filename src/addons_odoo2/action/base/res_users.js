@@ -155,7 +155,7 @@ export default {
             }
           },
           _div: { _strong: 'The contact linked to this user is still active' },
-          _div_303: {
+          _div_272: {
             _attr: { text: 'You can archive the contact' },
             partner_id: {
               required: '0',
@@ -411,7 +411,7 @@ export default {
                   readonly: '0'
                 }
               },
-              _group_202: {
+              _group_376: {
                 _label_lang: { for: 'lang' },
                 _div: {
                   _attr: { class: 'o_row' },
@@ -496,7 +496,7 @@ export default {
                   }
                 }
               },
-              _div_325: {
+              _div_446: {
                 _attr: { invisible: [['api_key_ids', '=', []]] },
                 api_key_ids: {
                   readonly: '0',
@@ -521,7 +521,7 @@ export default {
                   }
                 }
               },
-              _div_205: {
+              _div_508: {
                 _button_api_key_wizard: {
                   _attr: {
                     name: 'api_key_wizard',

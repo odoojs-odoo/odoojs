@@ -49,7 +49,7 @@ export default {
               }
             }
           },
-          _button_action_toggle_is_published_465: {
+          _button_action_toggle_is_published_270: {
             _attr: {
               name: 'action_toggle_is_published',
               type: 'object',
@@ -81,7 +81,7 @@ export default {
             invisible: ['|', ['module_state', '!=', 'installed'], ['state', '!=', 'disabled']]
           }
         },
-        _widget_web_ribbon_148: {
+        _widget_web_ribbon_911: {
           _attr: {
             name: 'web_ribbon',
             title: 'Test Mode',
@@ -122,7 +122,7 @@ export default {
           },
           _strong: 'Warning',
           _em: 'CREATE',
-          _em_481: 'Duplicate'
+          _em_937: 'Duplicate'
         },
         _group: {
           _group_payment_state: {

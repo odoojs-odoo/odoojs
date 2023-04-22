@@ -36,7 +36,7 @@ export default {
             },
             company_id: { invisible: '1' }
           },
-          _group_260: {
+          _group_106: {
             label: {},
             _label_amount_string: { for: 'amount_string' },
             _div: {

@@ -125,7 +125,7 @@ export default {
                 model: {},
                 res_id: {}
               },
-              _group_803: {
+              _group_440: {
                 _attr: { string: 'Headers' },
                 message_id: {},
                 references: {},
@@ -286,7 +286,7 @@ export default {
         model: {},
         res_id: {}
       },
-      _group_999: {
+      _group_156: {
         _attr: { string: 'Group By' },
         _filter_status: {
           _attr: {

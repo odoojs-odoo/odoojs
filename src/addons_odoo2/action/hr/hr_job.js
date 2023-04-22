@@ -111,7 +111,7 @@ export default {
           domain: [['message_needaction', '=', true]]
         }
       },
-      _separator_478: {},
+      _separator_195: {},
       _filter_archived: {
         _attr: {
           name: 'archived',

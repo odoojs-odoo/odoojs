@@ -15,7 +15,7 @@ export default {
             invisible: '1'
           }
         },
-        _xpath_633: {
+        _xpath_385: {
           _attr: {
             expr: "//field[@name='phone']",
             position: 'replace'
@@ -42,7 +42,7 @@ export default {
             phone: { widget: 'phone' }
           }
         },
-        _xpath_801: {
+        _xpath_725: {
           _attr: {
             expr: "//field[@name='mobile']",
             position: 'replace'

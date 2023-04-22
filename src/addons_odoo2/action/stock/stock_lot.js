@@ -31,7 +31,7 @@ export default {
                   class: 'mr4'
                 }
               },
-              _span_186: {
+              _span_302: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Transfers'
@@ -92,7 +92,7 @@ export default {
             ref: {},
             company_id: { groups: 'base.group_multi_company' }
           },
-          _group_324: {}
+          _group_203: {}
         },
         _notebook: {
           _attr: { invisible: [['display_complete', '=', false]] },

@@ -31,7 +31,7 @@ export default {
                     }
                   }
                 },
-                _div_291: {
+                _div_351: {
                   _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                   _div: {
                     _attr: { class: 'o_setting_right_pane' },
@@ -39,14 +39,14 @@ export default {
                       _attr: { class: 'fa fa-lg fa-users' }
                     },
                     active_user_count: { class: 'w-auto ps-3 fw-bold' },
-                    _span_447: {
+                    _span_460: {
                       _attr: {
                         invisible: [['active_user_count', '>', '1']],
                         class: 'o_form_label',
                         text: 'Active User'
                       }
                     },
-                    _span_948: {
+                    _span_972: {
                       _attr: {
                         invisible: [['active_user_count', '<=', '1']],
                         class: 'o_form_label',
@@ -73,7 +73,7 @@ export default {
                 }
               }
             },
-            _div_519: {
+            _div_642: {
               _h2: 'Languages',
               _div_languages_setting_container: {
                 _attr: {
@@ -94,7 +94,7 @@ export default {
                           text: 'Language'
                         }
                       },
-                      _span_703: {
+                      _span_571: {
                         _attr: {
                           invisible: [['language_count', '<=', '1']],
                           class: 'o_form_label',
@@ -102,7 +102,7 @@ export default {
                         }
                       }
                     },
-                    _div_318: {
+                    _div_976: {
                       _attr: { class: 'mt8' },
                       _button_base__action_view_base_language_install: {
                         _attr: {
@@ -114,7 +114,7 @@ export default {
                         }
                       }
                     },
-                    _div_220: {
+                    _div_666: {
                       _attr: {
                         groups: 'base.group_no_one',
                         class: 'mt8'
@@ -133,7 +133,7 @@ export default {
                 }
               }
             },
-            _div_100: {
+            _div_548: {
               _h2: 'Companies',
               _div_companies_setting_container: {
                 _attr: {
@@ -148,7 +148,7 @@ export default {
                     company_name: { class: 'fw-bold' },
                     _br: {},
                     company_informations: { class: 'text-muted' },
-                    _br_246: {},
+                    _br_464: {},
                     _button_open_company: {
                       _attr: {
                         name: 'open_company',
@@ -160,7 +160,7 @@ export default {
                     }
                   },
                   _br: {},
-                  _div_978: {
+                  _div_461: {
                     _attr: { class: 'o_setting_right_pane' },
                     _span: {
                       _attr: {
@@ -168,7 +168,7 @@ export default {
                         text: 'Document Layout'
                       }
                     },
-                    _span_684: {
+                    _span_576: {
                       _attr: {
                         title: 'Values set here are company-specific.',
                         groups: 'base.group_multi_company',
@@ -181,7 +181,7 @@ export default {
                         text: 'Choose the layout of your documents'
                       }
                     },
-                    _div_392: {
+                    _div_323: {
                       _attr: { class: 'content-group' },
                       _div: {
                         _attr: {
@@ -198,7 +198,7 @@ export default {
                           class: 'oe_inline'
                         }
                       },
-                      _div_128: {
+                      _div_563: {
                         _attr: { class: 'mt8' },
                         _button_web__action_base_document_layout_configurator: {
                           _attr: {
@@ -230,9 +230,9 @@ export default {
                       }
                     }
                   },
-                  _br_823: {}
+                  _br_133: {}
                 },
-                _div_831: {
+                _div_109: {
                   _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                   _div: {
                     _attr: { class: 'o_setting_right_pane' },
@@ -244,7 +244,7 @@ export default {
                         text: 'Company'
                       }
                     },
-                    _span_227: {
+                    _span_388: {
                       _attr: {
                         invisible: [['company_count', '<=', '1']],
                         class: 'o_form_label',
@@ -266,7 +266,7 @@ export default {
                     }
                   }
                 },
-                _div_838: {
+                _div_361: {
                   _attr: {
                     title: 'Configure company rules to automatically create SO/PO when one of your company sells/buys to another of your company.',
                     groups: 'base.group_multi_company',
@@ -277,7 +277,7 @@ export default {
                     _attr: { class: 'o_setting_left_pane' },
                     module_account_inter_company_rules: { widget: 'upgrade_boolean' }
                   },
-                  _div_628: {
+                  _div_291: {
                     _attr: { class: 'o_setting_right_pane' },
                     _label_module_account_inter_company_rules: {
                       for: 'module_account_inter_company_rules',
@@ -296,7 +296,7 @@ export default {
                         text: 'Automatically generate counterpart documents for orders/invoices between companies'
                       }
                     },
-                    _div_429: {
+                    _div_869: {
                       _attr: {
                         invisible: [['module_account_inter_company_rules', '=', false]],
                         class: 'content-group'
@@ -313,8 +313,8 @@ export default {
                 }
               }
             },
-            _div_361: {},
-            _div_805: {
+            _div_199: {},
+            _div_928: {
               _h2: 'Contacts',
               _div_contacts_setting_container: {
                 _attr: {
@@ -337,7 +337,7 @@ export default {
                         }
                       }
                     },
-                    _div_258: {
+                    _div_636: {
                       _attr: {
                         class: 'text-muted',
                         text: 'Send texts to your contacts'
@@ -345,7 +345,7 @@ export default {
                     }
                   }
                 },
-                _div_348: {
+                _div_217: {
                   _attr: {
                     title: 'When populating your address book, Odoo provides a list of matching companies. When selecting one item, the company data and logo are auto-filled.',
                     class: 'col-xs-12 col-md-6 o_setting_box'
@@ -354,7 +354,7 @@ export default {
                     _attr: { class: 'o_setting_left_pane' },
                     module_partner_autocomplete: {}
                   },
-                  _div_984: {
+                  _div_564: {
                     _attr: { class: 'o_setting_right_pane' },
                     _label_module_partner_autocomplete: { for: 'module_partner_autocomplete' },
                     _div: {
@@ -368,7 +368,7 @@ export default {
               }
             },
             _h2: 'Permissions',
-            _div_740: {
+            _div_627: {
               _attr: { class: 'row mt16 o_settings_container' },
               _div: {
                 _attr: {
@@ -379,7 +379,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   user_default_rights: {}
                 },
-                _div_989: {
+                _div_690: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_user_default_rights: {
                     for: 'user_default_rights',
@@ -391,7 +391,7 @@ export default {
                       text: 'Set custom access rights for new users'
                     }
                   },
-                  _div_991: {
+                  _div_771: {
                     _attr: {
                       invisible: [['user_default_rights', '=', false]],
                       class: 'content-group'
@@ -411,7 +411,7 @@ export default {
                   }
                 }
               },
-              _div_822: {
+              _div_996: {
                 _attr: {
                   groups: 'base.group_system',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -419,7 +419,7 @@ export default {
                 _div: {
                   _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_959: {
+                _div_751: {
                   _attr: { class: 'o_setting_right_pane' },
                   _button_base__action_apikeys_admin: {
                     _attr: {
@@ -432,7 +432,7 @@ export default {
                   }
                 }
               },
-              _div_436: {
+              _div_162: {
                 _attr: {
                   groups: 'base.group_no_one',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -441,7 +441,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_base_import: {}
                 },
-                _div_495: {
+                _div_631: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_base_import: {
                     for: 'module_base_import',
@@ -461,7 +461,7 @@ export default {
                   }
                 }
               },
-              _div_841: {
+              _div_864: {
                 _attr: {
                   groups: 'base.group_no_one',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -470,7 +470,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   show_effect: {}
                 },
-                _div_663: {
+                _div_508: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_show_effect: { for: 'show_effect' },
                   _div: {
@@ -482,7 +482,7 @@ export default {
                 }
               }
             },
-            _h2_189: 'Integrations',
+            _h2_293: 'Integrations',
             _div_integration: {
               _attr: {
                 name: 'integration',
@@ -494,7 +494,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_mail_plugin: {}
                 },
-                _div_144: {
+                _div_889: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_mail_plugin: {
                     for: 'module_mail_plugin',
@@ -514,13 +514,13 @@ export default {
                   }
                 }
               },
-              _div_546: {
+              _div_308: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_microsoft_calendar: {}
                 },
-                _div_359: {
+                _div_669: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_microsoft_calendar: {
                     for: 'module_microsoft_calendar',
@@ -538,7 +538,7 @@ export default {
                       text: 'Synchronize your calendar with Outlook'
                     }
                   },
-                  _div_985: {
+                  _div_765: {
                     _attr: {
                       invisible: [['module_microsoft_calendar', '=', false]],
                       class: 'content-group'
@@ -553,13 +553,13 @@ export default {
                   }
                 }
               },
-              _div_897: {
+              _div_554: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_google_calendar: {}
                 },
-                _div_395: {
+                _div_347: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_google_calendar: {
                     for: 'module_google_calendar',
@@ -577,7 +577,7 @@ export default {
                       text: 'Synchronize your calendar with Google Calendar'
                     }
                   },
-                  _div_495: {
+                  _div_725: {
                     _attr: {
                       invisible: [['module_google_calendar', '=', false]],
                       class: 'content-group'
@@ -592,14 +592,14 @@ export default {
                   }
                 }
               },
-              _div_607: {},
-              _div_145: {
+              _div_808: {},
+              _div_690: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_auth_oauth: {}
                 },
-                _div_588: {
+                _div_685: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_auth_oauth: {
                     for: 'module_auth_oauth',
@@ -611,7 +611,7 @@ export default {
                       text: 'Use external accounts to log in (Google, Facebook, etc.)'
                     }
                   },
-                  _div_644: {
+                  _div_854: {
                     _attr: {
                       invisible: [['module_auth_oauth', '=', false]],
                       class: 'content-group mt16'
@@ -626,7 +626,7 @@ export default {
                   }
                 }
               },
-              _div_278: {
+              _div_226: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
@@ -653,7 +653,7 @@ export default {
                       text: 'Use LDAP credentials to log in'
                     }
                   },
-                  _div_911: {
+                  _div_370: {
                     _attr: {
                       invisible: [['module_auth_ldap', '=', false]],
                       class: 'content-group'
@@ -668,13 +668,13 @@ export default {
                   }
                 }
               },
-              _div_494: {
+              _div_568: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_web_unsplash: {}
                 },
-                _div_740: {
+                _div_132: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_web_unsplash: { for: 'module_web_unsplash' },
                   _a: {
@@ -689,7 +689,7 @@ export default {
                       text: 'Find free high-resolution images from Unsplash'
                     }
                   },
-                  _div_781: {
+                  _div_814: {
                     _attr: {
                       invisible: [['module_web_unsplash', '=', false]],
                       class: 'content-group'
@@ -704,13 +704,13 @@ export default {
                   }
                 }
               },
-              _div_303: {
+              _div_536: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_base_geolocalize: {}
                 },
-                _div_899: {
+                _div_114: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_base_geolocalize: {
                     for: 'module_base_geolocalize',
@@ -738,13 +738,13 @@ export default {
                   }
                 }
               },
-              _div_374: {
+              _div_270: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_google_recaptcha: {}
                 },
-                _div_897: {
+                _div_507: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_google_recaptcha: { for: 'module_google_recaptcha' },
                   _div: {
@@ -753,7 +753,7 @@ export default {
                       text: 'Protect your forms from spam and abuse.'
                     }
                   },
-                  _div_161: {
+                  _div_314: {
                     _attr: {
                       invisible: [['module_google_recaptcha', '=', false]],
                       class: 'content-group'
@@ -769,7 +769,7 @@ export default {
                 }
               }
             },
-            _h2_256: {
+            _h2_496: {
               _attr: {
                 groups: 'base.group_no_one',
                 text: 'Performance'
@@ -796,7 +796,7 @@ export default {
             _widget_res_config_dev_tool: {
               _attr: { name: 'res_config_dev_tool' }
             },
-            _div_139: {
+            _div_379: {
               _h2: 'About',
               _div_about_setting_container: {
                 _attr: {
@@ -816,7 +816,7 @@ export default {
                         }
                       }
                     },
-                    _div_988: {
+                    _div_136: {
                       _a: {
                         _attr: { class: 'd-block mx-auto' },
                         _img: {

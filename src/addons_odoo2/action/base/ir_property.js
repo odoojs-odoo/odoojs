@@ -32,7 +32,7 @@ export default {
           type: {},
           res_id: {}
         },
-        _group_581: {
+        _group_224: {
           value_integer: {
             string: 'Value',
             invisible: [['type', 'not in', ('integer', 'boolean')]]

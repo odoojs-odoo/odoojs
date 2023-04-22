@@ -55,7 +55,7 @@ export default {
             invisible: [['split_possible', '=', true]],
             class: 'text-danger'
           },
-          _field_total_amount_527: {
+          _field_total_amount_299: {
             total_amount: { invisible: [['split_possible', '=', false]] }
           },
           total_amount_original: {
@@ -78,7 +78,7 @@ export default {
               class: 'oe_highlight disabled'
             }
           },
-          _button_action_split_expense_873: {
+          _button_action_split_expense_565: {
             _attr: {
               name: 'action_split_expense',
               type: 'object',

@@ -27,7 +27,7 @@ export default {
           domain: [['member_of_department', '=', true]]
         }
       },
-      _separator_438: {},
+      _separator_408: {},
       _filter_archived: {
         _attr: {
           name: 'archived',
@@ -136,7 +136,7 @@ export default {
             },
             work_email: { widget: 'email' }
           },
-          _group_836: {
+          _group_265: {
             department_id: {
               context: { open_employees_kanban: 1 }
             },

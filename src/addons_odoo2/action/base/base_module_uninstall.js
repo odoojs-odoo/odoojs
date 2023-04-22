@@ -15,13 +15,13 @@ export default {
           }
         },
         module_id: { invisible: '1' },
-        _div_491: {
+        _div_360: {
           _attr: { class: 'd-flex bd-highlight' },
           _div: {
             _attr: { class: 'me-auto p-2 bd-highlight' },
             _h3: 'Apps to Uninstall'
           },
-          _div_121: {
+          _div_300: {
             _attr: {
               class: 'p-2 bd-highlight',
               text: 'Show All'

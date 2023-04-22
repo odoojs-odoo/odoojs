@@ -6,8 +6,8 @@ export default {
     arch: {
       sheet: {
         _p: 'This module will trigger the uninstallation of below modules.',
-        _p_996: { _strong: 'This operation will permanently erase all data currently stored by the modules!' },
-        _p_424: 'If you wish to cancel the process, press the cancel button below',
+        _p_916: { _strong: 'This operation will permanently erase all data currently stored by the modules!' },
+        _p_752: 'If you wish to cancel the process, press the cancel button below',
         _separator: {
           _attr: { string: 'Impacted Apps' }
         },
@@ -60,7 +60,7 @@ export default {
             }
           }
         },
-        _div_158: {
+        _div_396: {
           _span: {
             _attr: {
               class: 'o_form_label',

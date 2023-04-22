@@ -39,7 +39,7 @@ export default {
             _label_is_email: { for: 'is_email' }
           }
         },
-        _div_514: {
+        _div_916: {
           _attr: {
             invisible: ['|', ['is_email', '=', false], ['invoice_without_email', '=', false]],
             class: 'text-start d-inline-block mr8'
@@ -69,7 +69,7 @@ export default {
                   _strong: 'Email mass mailing',
                   _span: 'the selected records'
                 },
-                _span_374: 'Followers of the document and',
+                _span_541: 'Followers of the document and',
                 partner_ids: {
                   widget: 'many2many_tags_email',
                   invisible: [['composition_mode', '=', 'mass_mail']],
@@ -99,7 +99,7 @@ export default {
                 invisible: [['composition_mode', '=', 'mass_mail']]
               }
             },
-            _group_855: {
+            _group_641: {
               template_id: {
                 context: { default_model: 'account.move' },
                 no_create: true,
@@ -118,7 +118,7 @@ export default {
               class: 'send_and_print btn-primary o_mail_send'
             }
           },
-          _button_send_and_print_action_395: {
+          _button_send_and_print_action_618: {
             _attr: {
               name: 'send_and_print_action',
               type: 'object',
@@ -127,7 +127,7 @@ export default {
               class: 'send btn-primary o_mail_send'
             }
           },
-          _button_send_and_print_action_518: {
+          _button_send_and_print_action_804: {
             _attr: {
               name: 'send_and_print_action',
               type: 'object',

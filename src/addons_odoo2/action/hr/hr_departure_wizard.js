@@ -36,7 +36,7 @@ export default {
             },
             departure_date: {}
           },
-          _group_208: {
+          _group_943: {
             _div: {
               _attr: {
                 invisible: '1',
@@ -49,14 +49,14 @@ export default {
                 }
               }
             },
-            _div_629: {
+            _div_707: {
               _attr: {
                 invisible: '1',
                 class: 'column'
               }
             },
             _separator: {},
-            _div_794: {
+            _div_993: {
               _attr: { class: 'o_td_label' },
               _span: {
                 _attr: {
@@ -65,7 +65,7 @@ export default {
                 }
               }
             },
-            _div_737: {
+            _div_352: {
               _attr: { class: 'column' },
               _div: {
                 archive_private_address: {},
@@ -74,7 +74,7 @@ export default {
             }
           }
         },
-        _group_709: {
+        _group_772: {
           _div: {
             _span: {
               _attr: {

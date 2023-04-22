@@ -46,7 +46,7 @@ export default {
             subtype_id: {},
             is_internal: {}
           },
-          _group_429: {
+          _group_662: {
             model: {},
             res_id: {},
             record_name: {},
@@ -71,7 +71,7 @@ export default {
                 reply_to: {},
                 reply_to_force_new: {}
               },
-              _group_303: {
+              _group_668: {
                 message_id: {},
                 mail_server_id: {}
               }
@@ -86,12 +86,12 @@ export default {
               _group: {
                 partner_ids: { widget: 'many2many_tags' }
               },
-              _group_837: {
+              _group_680: {
                 notified_partner_ids: { widget: 'many2many_tags' },
                 starred_partner_ids: { widget: 'many2many_tags' }
               }
             },
-            _group_781: {
+            _group_593: {
               notification_ids: {
                 views: {
                   tree: {
@@ -152,7 +152,7 @@ export default {
           domain: [['needaction', '=', true]]
         }
       },
-      _separator_286: {}
+      _separator_749: {}
     }
   },
 

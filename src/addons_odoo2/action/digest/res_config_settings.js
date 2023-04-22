@@ -24,7 +24,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   digest_emails: {}
                 },
-                _div_922: {
+                _div_550: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_digest_emails: {
                     for: 'digest_emails',
@@ -42,7 +42,7 @@ export default {
                       text: 'Add new users as recipient of a periodic email with key metrics'
                     }
                   },
-                  _div_150: {
+                  _div_133: {
                     _attr: {
                       invisible: [['digest_emails', '=', false]],
                       class: 'content-group'
@@ -55,7 +55,7 @@ export default {
                       },
                       digest_id: { class: 'oe_inline' }
                     },
-                    _div_164: {
+                    _div_900: {
                       _attr: { class: 'mt8' },
                       _button_digest__digest_digest_action: {
                         _attr: {

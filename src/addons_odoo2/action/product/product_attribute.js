@@ -39,7 +39,7 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 number_related_products: {}
               },
-              _span_111: {
+              _span_721: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Related Products'

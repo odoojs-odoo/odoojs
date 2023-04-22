@@ -735,7 +735,7 @@ export default {
           // decoration-success="state == 'done'"
           // decoration-warning="state not in ('draft','cancel','done','assigned')"/>
         },
-        activity_exception_decoration: { widget: 'activity_exception' },
+        // activity_exception_decoration: { widget: 'activity_exception' },
         json_popover: {
           widget: 'stock_rescheduling_popover',
           nolabel: '1',

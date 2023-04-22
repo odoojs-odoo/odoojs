@@ -40,11 +40,11 @@ export default {
               partner_id: {},
               partner_category_id: {}
             },
-            _group_205: {
+            _group_942: {
               company_id: { groups: 'base.group_multi_company' }
             }
           },
-          _group_394: {
+          _group_804: {
             _attr: { string: 'Analytic distribution to apply' },
             analytic_distribution: {
               widget: 'analytic_distribution',

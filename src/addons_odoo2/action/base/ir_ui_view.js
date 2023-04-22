@@ -13,7 +13,7 @@ export default {
             priority: {},
             active: { widget: 'boolean_toggle' }
           },
-          _group_507: {
+          _group_278: {
             _attr: { groups: 'base.group_no_one' },
             field_parent: {},
             inherit_id: {},
@@ -153,7 +153,7 @@ export default {
           domain: [['arch_updated', '=', true]]
         }
       },
-      _separator_629: {},
+      _separator_640: {},
       _filter_active: {
         _attr: {
           name: 'active',

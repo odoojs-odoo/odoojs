@@ -3,7 +3,7 @@ export default {
     _odoo_model: 'ir.ui.menu',
     parent: 'menu_web_root',
     name: 'Inventory',
-    sequence: 60,
+    sequence: 47,
     children: {
       menu_stock_setting: {
         name: 'Config',
@@ -34,19 +34,27 @@ export default {
         }
       },
 
-      menu_dashboard_open_quants: {
-        name: 'Locations',
-        action: 'stock.dashboard_open_quants'
-      },
+      menu_stock_analytic: {
+        name: 'Analytic',
+        children: {
+          menu_dashboard_open_quants: {
+            name: 'Locations',
+            action: 'stock.dashboard_open_quants'
+          },
+          menu_action_product_stock_view: {
+            name: 'Stock',
+            action: 'stock.action_product_stock_view'
+          },
+          menu_stock_move_action: {
+            name: 'Stock Moves',
+            action: 'stock.stock_move_action'
+          },
 
-      menu_stock_move_action: {
-        name: 'Stock Moves',
-        action: 'stock.stock_move_action'
-      },
-
-      menu_stock_move_line_action: {
-        name: 'Moves History',
-        action: 'stock.stock_move_line_action'
+          menu_stock_move_line_action: {
+            name: 'Moves History',
+            action: 'stock.stock_move_line_action'
+          }
+        }
       },
 
       menu_action_picking_tree_all: {

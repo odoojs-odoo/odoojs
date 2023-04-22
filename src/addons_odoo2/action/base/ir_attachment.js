@@ -19,7 +19,7 @@ export default {
             },
             mimetype: { groups: 'base.group_no_one' }
           },
-          _group_384: {
+          _group_916: {
             _attr: {
               string: 'Attached To',
               groups: 'base.group_no_one'
@@ -34,7 +34,7 @@ export default {
             },
             public: {}
           },
-          _group_693: {
+          _group_864: {
             _attr: {
               string: 'History',
               groups: 'base.group_no_one',
@@ -67,7 +67,7 @@ export default {
             },
             description: {}
           },
-          _group_463: {
+          _group_401: {
             _attr: {
               string: 'Indexed Content',
               groups: 'base.group_no_one'

@@ -10,7 +10,7 @@ export default {
           _group: {
             name: {}
           },
-          _group_500: {
+          _group_530: {
             type_tax_use: {}
           }
         },

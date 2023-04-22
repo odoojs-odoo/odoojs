@@ -70,7 +70,7 @@ export default {
             },
             company_id: { groups: 'base.group_multi_company' }
           },
-          _group_502: {
+          _group_868: {
             _attr: { string: 'Accounting' },
             property_account_expense_id: { groups: 'account.group_account_readonly' },
             supplier_taxes_id: {

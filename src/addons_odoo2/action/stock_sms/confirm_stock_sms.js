@@ -6,7 +6,7 @@ export default {
     arch: {
       sheet: {
         _br: {},
-        _br_241: {},
+        _br_919: {},
         _footer: {
           _button_send_sms: {
             _attr: {

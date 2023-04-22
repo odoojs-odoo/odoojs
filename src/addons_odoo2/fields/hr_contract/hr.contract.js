@@ -8,8 +8,8 @@ const ModelFields = {
   },
 
   contract_type_id: { groups: '===todo==' },
-  contract_type_id_$_form_$$_318: { groups: 'hr_contract.group_hr_contract_manager' },
-  contract_type_id_$_form_$$_796: { groups: '!hr_contract.group_hr_contract_manager' },
+  contract_type_id_$_form_$$_270: { groups: '!hr_contract.group_hr_contract_manager' },
+  contract_type_id_$_form_$$_450: { groups: 'hr_contract.group_hr_contract_manager' },
   country_code: {},
   date_end: {
     string: 'Contract End Date',
@@ -22,26 +22,26 @@ const ModelFields = {
   },
 
   department_id: { groups: '===todo==' },
-  department_id_$_form_$$_213: { groups: 'hr_contract.group_hr_contract_manager' },
-  department_id_$_form_$$_942: { groups: '!hr_contract.group_hr_contract_manager' },
+  department_id_$_form_$$_281: { groups: 'hr_contract.group_hr_contract_manager' },
+  department_id_$_form_$$_491: { groups: '!hr_contract.group_hr_contract_manager' },
   employee_id: { readonly: '1' },
   hr_responsible_id: { required: '1' },
   job_id: { groups: '===todo==' },
-  job_id_$_form_$$_358: { groups: '!hr_contract.group_hr_contract_manager' },
-  job_id_$_form_$$_762: { groups: 'hr_contract.group_hr_contract_manager' },
+  job_id_$_form_$$_537: { groups: 'hr_contract.group_hr_contract_manager' },
+  job_id_$_form_$$_695: { groups: '!hr_contract.group_hr_contract_manager' },
   kanban_state: {
     groups: '===todo==',
     readonly: '===todo=='
   },
 
-  kanban_state_$_form_$$_171: {
-    groups: 'hr_contract.group_hr_contract_manager',
-    readonly: '0'
-  },
-
-  kanban_state_$_form_$$_495: {
+  kanban_state_$_form_$$_569: {
     groups: '!hr_contract.group_hr_contract_manager',
     readonly: '1'
+  },
+
+  kanban_state_$_form_$$_800: {
+    groups: 'hr_contract.group_hr_contract_manager',
+    readonly: '0'
   },
 
   message_needaction: {},
@@ -56,16 +56,16 @@ const ModelFields = {
     required: '1'
   },
 
-  resource_calendar_id_$_form_$$_540: { groups: 'hr_contract.group_hr_contract_manager' },
-  resource_calendar_id_$_form_$$_954: { groups: '!hr_contract.group_hr_contract_manager' },
+  resource_calendar_id_$_form_$$_649: { groups: '!hr_contract.group_hr_contract_manager' },
+  resource_calendar_id_$_form_$$_855: { groups: 'hr_contract.group_hr_contract_manager' },
   state: {},
   structure_type_id: {
     groups: '===todo==',
     domain: { todo_ctx: "['|', ('country_id', '=', False), ('country_id', '=', company_country_id)]" }
   },
 
-  structure_type_id_$_form_$$_455: { groups: '!hr_contract.group_hr_contract_manager' },
-  structure_type_id_$_form_$$_857: { groups: 'hr_contract.group_hr_contract_manager' },
+  structure_type_id_$_form_$$_176: { groups: '!hr_contract.group_hr_contract_manager' },
+  structure_type_id_$_form_$$_268: { groups: 'hr_contract.group_hr_contract_manager' },
   wage: {}
 }
 

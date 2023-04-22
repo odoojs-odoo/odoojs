@@ -42,7 +42,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_318: {
+              _span_586: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Purchased'

@@ -11,7 +11,7 @@ export default {
             position: 'after'
           },
           team_id: { invisible: '1' },
-          _field_team_id_393: {
+          _field_team_id_146: {
             team_id: { groups: 'base.group_no_one' }
           }
         },

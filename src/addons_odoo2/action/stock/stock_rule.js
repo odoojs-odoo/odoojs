@@ -84,7 +84,7 @@ export default {
             auto: { invisible: [['action', 'not in', ['push', 'pull_push']]] },
             procure_method: { invisible: [['action', 'not in', ['pull', 'pull_push']]] }
           },
-          _group_239: {
+          _group_753: {
             _div: {
               _label_rule_message: {
                 for: 'rule_message',
@@ -96,7 +96,7 @@ export default {
             }
           }
         },
-        _group_208: {
+        _group_918: {
           _group_apply_on: {
             _attr: {
               name: 'apply_on',
@@ -162,7 +162,7 @@ export default {
             position: 'replace'
           }
         },
-        _xpath_227: {
+        _xpath_988: {
           _attr: {
             expr: "//group[@name='apply_on']",
             position: 'attributes'
@@ -175,7 +175,7 @@ export default {
             }
           }
         },
-        _xpath_137: {
+        _xpath_652: {
           _attr: {
             expr: '//form',
             position: 'inside'

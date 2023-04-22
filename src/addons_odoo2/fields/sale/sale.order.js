@@ -28,8 +28,8 @@ const ModelFields = {
   fiscal_position_id: {},
   invoice_count: { string: 'Invoices' },
   invoice_status: { groups: '===todo==' },
-  invoice_status_$_form_$$_172: { groups: '!base.group_no_one' },
-  invoice_status_$_form_$$_541: { groups: 'base.group_no_one' },
+  invoice_status_$_form_$$_111: { groups: '!base.group_no_one' },
+  invoice_status_$_form_$$_190: { groups: 'base.group_no_one' },
   medium_id: {},
   message_needaction: {},
   name: {

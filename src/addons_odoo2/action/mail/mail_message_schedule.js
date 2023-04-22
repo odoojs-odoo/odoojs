@@ -18,7 +18,7 @@ export default {
           mail_message_id: {},
           scheduled_datetime: {}
         },
-        _group_502: {
+        _group_977: {
           notification_parameters: {}
         }
       }

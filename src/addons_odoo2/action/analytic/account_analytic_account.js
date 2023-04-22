@@ -26,7 +26,7 @@ export default {
                   text: 'Gross Margin'
                 }
               },
-              _span_970: {
+              _span_264: {
                 _attr: { class: 'o_stat_value' },
                 balance: { widget: 'monetary' }
               }
@@ -61,7 +61,7 @@ export default {
             partner_id: {},
             code: {}
           },
-          _group_443: {
+          _group_527: {
             plan_id: { no_quick_create: true },
             company_id: {
               groups: 'base.group_multi_company',
@@ -89,7 +89,7 @@ export default {
         partner_id: {},
         plan_id: {},
         active: { invisible: '1' },
-        _field_company_id_236: {
+        _field_company_id_340: {
           company_id: { groups: 'base.group_multi_company' }
         },
         debit: {},
