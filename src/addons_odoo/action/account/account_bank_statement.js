@@ -13,7 +13,7 @@ export default {
 
         _group: {
           _group_name: {
-            company_id: { groups: 'base.group_multi_company' },
+            company_id: {},
             journal_id: {},
             name: {}
           },
@@ -27,6 +27,7 @@ export default {
       }
     }
   },
+
   view_bank_statement_tree: {
     _odoo_model: 'ir.ui.view',
     model: 'account.bank.statement',
@@ -36,7 +37,7 @@ export default {
         name: {},
         date: {},
         journal_id: {},
-        company_id: { groups: 'base.group_multi_company' },
+        company_id: {},
         balance_start: {},
         balance_end_real: {},
         balance_end: { invisible: '1' },
@@ -53,23 +54,29 @@ export default {
     type: 'search',
     arch: {
       fields: {
-        name: {},
-        journal_id: {
-          domain: [['type', 'in', ['bank', 'cash']]]
-        }
+        name: { string: 'Bank Statement' },
+        journal_id: { domain: [['type', 'in', ['bank', 'cash']]] }
       },
 
       filters: {
         group_active: {
-          empty: { string: 'Empty', domain: [['line_ids', '=', []]] },
+          empty: {
+            name: 'empty',
+            string: 'Empty',
+            domain: [['line_ids', '=', []]]
+          },
           invalid: {
+            name: 'invalid',
             string: 'Invalid',
             domain: ['|', ['is_valid', '=', false], ['is_complete', '=', false]]
           }
         },
 
         group_date: {
-          filter_date: { string: '已归档', date: 'date' }
+          filter_date: {
+            name: 'filter_date',
+            date: 'date'
+          }
         }
       }
     }

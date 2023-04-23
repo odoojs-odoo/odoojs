@@ -187,7 +187,7 @@ export class BaseView {
       const { sheet = {}, header = {} } = arch
       const { fields = {} } = header
       const sheet2 = { ...fields, ...sheet }
-      console.log(view, arch)
+      // console.log(view, arch)
       return this.get_fields_from_sheet(sheet2)
     }
 

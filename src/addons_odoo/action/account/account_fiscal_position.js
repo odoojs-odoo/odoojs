@@ -1,17 +1,4 @@
 export default {
-  view_account_position_tree: {
-    _odoo_model: 'ir.ui.view',
-    model: 'account.fiscal.position',
-    type: 'tree',
-    arch: {
-      sheet: {
-        sequence: { widget: 'handle' },
-        name: {},
-        company_id: { groups: 'base.group_multi_company' }
-      }
-    }
-  },
-
   view_account_position_form: {
     _odoo_model: 'ir.ui.view',
     model: 'account.fiscal.position',
@@ -70,9 +57,11 @@ export default {
           }
         },
 
-        _div_button_box: {},
+        _div_button_box: {
+          _attr: { name: 'button_box', class: 'oe_button_box' }
+        },
 
-        _widget: {
+        _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
             title: 'Archived',
@@ -87,14 +76,14 @@ export default {
 
         _group: {
           _group: {
+            // active: { invisible: '1' },
             sequence: { invisible: '1' },
-            active: { invisible: '1' },
             // company_id: { invisible: '1' },
             states_count: { invisible: '1' },
             company_country_id: { invisible: '1' },
             foreign_vat_header_mode: { invisible: '1' },
             name: {},
-            company_id: { groups: 'base.group_multi_company' }
+            company_id: {}
           },
           _group_name2: {
             auto_apply: {},
@@ -125,38 +114,43 @@ export default {
                 return (
                   (!auto_apply && !foreign_vat) || !country_id || !states_count
                 )
-              },
-              domain: ({ record }) => {
-                // domain="[('country_id', '=', country_id)]
-                const { country_id } = record
-                return [['country_id', '=', country_id]]
+              }
+            },
+
+            _label_zip_from: {
+              for: 'zip_from',
+              string: 'Zip Range',
+              invisible: ({ record }) => {
+                // invisible: [
+                //   '|',
+                //   ['auto_apply', '!=', true],
+                //   ['country_id', '=', false]
+                // ]
+                const { auto_apply, country_id } = record
+                return !auto_apply || !country_id
               }
             },
 
             _div_zip: {
-              _label: { for: 'zip_from', string: 'Zip Range' },
-              _span: {
-                _attr: { text: 'From ' }
-              },
-              zip_from: {
+              _attr: {
                 invisible: ({ record }) => {
-                  // 'invisible': ['|', ('auto_apply', '!=', True),
-                  // ('country_id', '=', False)]
+                  // invisible: [
+                  //   '|',
+                  //   ['auto_apply', '!=', true],
+                  //   ['country_id', '=', false]
+                  // ]
                   const { auto_apply, country_id } = record
                   return !auto_apply || !country_id
                 }
               },
-              _span_to: {
-                _attr: { text: 'To ' }
+
+              _span: 'From',
+              zip_from: {},
+              _div: {
+                _attr: { class: 'oe_edit_only' }
               },
-              zip_to: {
-                invisible: ({ record }) => {
-                  // 'invisible': ['|', ('auto_apply', '!=', True),
-                  // ('country_id', '=', False)]
-                  const { auto_apply, country_id } = record
-                  return !auto_apply || !country_id
-                }
-              }
+              _span_to: 'To ',
+              zip_to: {}
             }
           }
         },
@@ -166,59 +160,12 @@ export default {
             _attr: { name: 'tax_mapping', string: 'Tax Mapping' },
             tax_ids: {
               widget: 'x2many_tree',
-              context: { append_type_to_tax_name: true },
               views: {
                 tree: {
                   arch: {
                     sheet: {
-                      tax_src_id: {
-                        context: { append_type_to_tax_name: true },
-                        domain: ({ record }) => {
-                          // domain="[
-                          //  ('type_tax_use', '!=', 'none'),
-                          //  ('country_id', '=', parent.company_country_id),
-                          //  '|',
-                          //  ('company_id', '=', False),
-                          //  ('company_id', '=', parent.company_id)
-                          // ]"
-                          const { parent: parent2 } = record
-                          return [
-                            ['type_tax_use', '!=', 'none'],
-                            ['country_id', '=', parent2.company_country_id],
-                            '|',
-                            ['company_id', '=', false],
-                            ['company_id', '=', parent2.company_id]
-                          ]
-                        }
-                      },
-                      tax_dest_id: {
-                        context: { append_type_to_tax_name: true },
-                        domain: ({ record }) => {
-                          // domain="[
-                          // ('type_tax_use', '!=', 'none'),
-                          // ('country_id', '=',
-                          //    parent.country_id if parent.foreign_vat
-                          //    else parent.company_country_id),
-                          // '|',
-                          // ('company_id', '=', False),
-                          // ('company_id', '=', parent.company_id)]"
-
-                          const { parent: parent2 } = record
-                          return [
-                            ['type_tax_use', '!=', 'none'],
-                            [
-                              'country_id',
-                              '=',
-                              parent2.foreign_vat
-                                ? parent2.country_id
-                                : parent2.company_country_id
-                            ],
-                            '|',
-                            ['company_id', '=', false],
-                            ['company_id', '=', parent2.company_id]
-                          ]
-                        }
-                      }
+                      tax_src_id: {},
+                      tax_dest_id: {}
                     }
                   }
                 },
@@ -226,18 +173,8 @@ export default {
                   arch: {
                     sheet: {
                       _group_name: {
-                        tax_src_id: {
-                          // domain="[('type_tax_use', '!=', 'none')]"
-                          // context="{'append_type_to_tax_name': True}"
-                          domain: [['type_tax_use', '!=', 'none']],
-                          context: { append_type_to_tax_name: true }
-                        },
-                        tax_dest_id: {
-                          // domain="[('type_tax_use', '!=', 'none')]"
-                          // context="{'append_type_to_tax_name': True}"
-                          domain: [['type_tax_use', '!=', 'none']],
-                          context: { append_type_to_tax_name: true }
-                        }
+                        tax_src_id: {},
+                        tax_dest_id: {}
                       }
                     }
                   }
@@ -253,30 +190,8 @@ export default {
                 tree: {
                   arch: {
                     sheet: {
-                      account_src_id: {
-                        domain: ({ record }) => {
-                          // domain="['|', ('company_id', '=', False),
-                          // ('company_id', '=', parent.company_id)]
-                          const { parent: parent2 } = record
-                          return [
-                            '|',
-                            ['company_id', '=', false],
-                            ['company_id', '=', parent2.company_id]
-                          ]
-                        }
-                      },
-                      account_dest_id: {
-                        domain: ({ record }) => {
-                          // domain="['|', ('company_id', '=', False),
-                          // ('company_id', '=', parent.company_id)]"
-                          const { parent: parent2 } = record
-                          return [
-                            '|',
-                            ['company_id', '=', false],
-                            ['company_id', '=', parent2.company_id]
-                          ]
-                        }
-                      }
+                      account_src_id: {},
+                      account_dest_id: {}
                     }
                   }
                 },
@@ -284,31 +199,8 @@ export default {
                   arch: {
                     sheet: {
                       _group_name: {
-                        account_src_id: {
-                          domain: ({ record }) => {
-                            // domain="['|', ('company_id', '=', False),
-                            // ('company_id', '=', parent.company_id)]"
-                            const { parent: parent2 } = record
-                            return [
-                              '|',
-                              ['company_id', '=', false],
-                              ['company_id', '=', parent2.company_id]
-                            ]
-                          }
-                        },
-
-                        account_dest_id: {
-                          domain: ({ record }) => {
-                            // domain="['|', ('company_id', '=', False),
-                            // ('company_id', '=', parent.company_id)]"
-                            const { parent: parent2 } = record
-                            return [
-                              '|',
-                              ['company_id', '=', false],
-                              ['company_id', '=', parent2.company_id]
-                            ]
-                          }
-                        }
+                        account_src_id: {},
+                        account_dest_id: {}
                       }
                     }
                   }
@@ -338,6 +230,19 @@ export default {
     }
   },
 
+  view_account_position_tree: {
+    _odoo_model: 'ir.ui.view',
+    model: 'account.fiscal.position',
+    type: 'tree',
+    arch: {
+      sheet: {
+        sequence: { widget: 'handle' },
+        name: {},
+        company_id: { groups: 'base.group_multi_company' }
+      }
+    }
+  },
+
   action_account_fiscal_position_form: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Fiscal Positions',
@@ -349,114 +254,6 @@ export default {
     views: {
       tree: 'view_account_position_tree',
       form: 'view_account_position_form'
-    }
-  },
-
-  view_account_position_template_tree: {
-    _odoo_model: 'ir.ui.view',
-    model: 'account.fiscal.position.template',
-    type: 'tree',
-    arch: {
-      sheet: {
-        name: {}
-      }
-    }
-  },
-
-  view_account_position_template_form: {
-    _odoo_model: 'ir.ui.view',
-    model: 'account.fiscal.position.template',
-    type: 'form',
-    arch: {
-      sheet: {
-        _group_name: {
-          name: {},
-          chart_template_id: {}
-        },
-
-        tax_ids: {
-          widget: 'x2many_tree',
-          views: {
-            tree: {
-              arch: {
-                sheet: {
-                  tax_src_id: {
-                    // domain="[('type_tax_use', '!=', None)]"
-                    domain: [['type_tax_use', '!=', null]]
-                  },
-                  tax_dest_id: {
-                    // domain="[('type_tax_use', '!=', None)]"
-                    domain: [['type_tax_use', '!=', null]]
-                  }
-                }
-              }
-            },
-            form: {
-              arch: {
-                sheet: {
-                  _group_name: {
-                    tax_src_id: {
-                      // domain="[('type_tax_use', '!=', 'none')]"
-                      domain: [['type_tax_use', '!=', 'none']]
-                    },
-                    tax_dest_id: {
-                      // domain="[('type_tax_use', '!=', 'none')]"
-                      domain: [['type_tax_use', '!=', 'none']]
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-
-        account_ids: {
-          widget: 'x2many_tree',
-          views: {
-            tree: {
-              arch: {
-                sheet: {
-                  account_src_id: {},
-                  account_dest_id: {}
-                }
-              }
-            },
-            form: {
-              arch: {
-                sheet: {
-                  _group_name: {
-                    account_src_id: {},
-                    account_dest_id: {}
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-
-  view_account_position_template_search: {
-    _odoo_model: 'ir.ui.view',
-    model: 'account.fiscal.position.template',
-    type: 'search',
-    arch: {
-      fields: { name: {} }
-    }
-  },
-
-  action_account_fiscal_position_template: {
-    _odoo_model: 'ir.actions.act_window',
-    name: 'Fiscal Position Templates',
-    type: 'ir.actions.act_window',
-    res_model: 'account.fiscal.position.template',
-    search_view_id: 'view_account_position_template_search',
-    domain: [],
-    context: {},
-    views: {
-      tree: 'view_account_position_template_tree',
-      form: 'view_account_position_template_form'
     }
   }
 }

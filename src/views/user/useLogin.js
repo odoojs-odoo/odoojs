@@ -1,30 +1,35 @@
 import { inject, ref, reactive } from 'vue'
 import api from '@/odoorpc'
 
-// const randInt = (min, max) => {
-//   return Math.floor(Math.random() * (max - min)) + min
-// }
-
-// const default_codenum = String(randInt(1000, 9999))
-
 const randInt = (min, max) => {
   return Math.floor(Math.random() * (max - min)) + min
 }
 
 const username_env = process.env.VUE_APP_ODOO_USER
 const password_env = process.env.VUE_APP_ODOO_PASSWORD
-const base_api = process.env.VUE_APP_BASE_API
+const process_env = process.env.NODE_ENV
+// const process_env = 'production'
 
-const is_dev = base_api === '/dev-api'
-
+// console.log(process_env)
+// console.log(for_demo)
+// console.log(username_env)
+// console.log(password_env)
 const default_database = process.env.VUE_APP_ODOO_DB
+
+const is_dev = process_env === 'development' || default_database === 'odoojs'
+
+const default_show_db = process_env === 'development'
+
 const default_username = is_dev ? username_env : ''
 const default_password = is_dev ? password_env : ''
+
 const default_codenum = String(randInt(1000, 9999))
 const default_vcode = is_dev ? default_codenum : ''
 
 export function useLogin() {
   const lang = inject('lang')
+
+  const show_db = default_show_db
 
   const formState = reactive({
     database: default_database,
@@ -32,8 +37,6 @@ export function useLogin() {
     password: default_password,
     verificationCode: default_vcode
   })
-
-  // console.log(formState)
 
   const databaseOptions = ref([])
   async function load_databaseOptions() {
@@ -75,6 +78,7 @@ export function useLogin() {
   }
 
   return {
+    show_db,
     lang,
     formState,
     databaseOptions,

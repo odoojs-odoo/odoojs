@@ -1,54 +1,4 @@
 export default {
-  view_account_list: {
-    _odoo_model: 'ir.ui.view',
-    model: 'account.account',
-    type: 'tree',
-    buttons: { create: false, edit: false, delete: false },
-    arch: {
-      sheet: {
-        // company_id: { invisible: 1 },
-        code: {},
-        name: {},
-        account_type: { widget: 'account_type_selection' },
-        group_id: { optional: 'hide' },
-        internal_group: { invisible: 1 },
-        reconcile: {
-          widget: 'boolean_toggle',
-
-          invisible({ record }) {
-            // 'invisible':
-            // ['|', ('account_type', 'in',
-            // ('asset_cash', 'liability_credit_card')),
-            // ('internal_group', '=', 'off_balance')]
-            const { account_type, internal_group } = record
-            return (
-              ['asset_cash', 'liability_credit_card'].includes(account_type) ||
-              internal_group === 'off_balance'
-            )
-          }
-        },
-        non_trade: {
-          widget: 'boolean_toggle',
-          optional: 'hide',
-          invisible({ record }) {
-            // 'invisible':
-            // [('account_type', 'not in',
-            // ('liability_payable', 'asset_receivable'))]
-            const { account_type } = record
-            return ['liability_payable', 'asset_receivable'].includes(
-              account_type
-            )
-          }
-        },
-        tax_ids: { optional: 'hide', widget: 'many2many_tags' },
-        tag_ids: { optional: 'hide', widget: 'many2many_tags' },
-        allowed_journal_ids: { optional: 'hide', widget: 'many2many_tags' },
-        currency_id: { groups: 'base.group_multi_currency' },
-        company_id: { groups: 'base.group_multi_company' }
-      }
-    }
-  },
-
   view_account_form: {
     _odoo_model: 'ir.ui.view',
     model: 'account.account',
@@ -57,6 +7,7 @@ export default {
     arch: {
       sheet: {
         _div_button_box: {
+          _attr: { name: 'button_box', class: 'oe_button_box' },
           _button_action_open_related_taxes: {
             _attr: {
               name: 'action_open_related_taxes',
@@ -108,21 +59,68 @@ export default {
                     return internal_group === 'off_balance'
                   }
                 },
-                tag_ids: {
-                  widget: 'many2many_tags'
-                },
+                tag_ids: { widget: 'many2many_tags' },
                 allowed_journal_ids: { widget: 'many2many_tags' }
               },
               _group_type2: {
                 internal_group: { invisible: 1, readonly: '1' },
-                currency_id: { groups: 'base.group_multi_currency' },
+                currency_id: {},
                 deprecated: {},
                 group_id: {},
-                company_id: { groups: 'base.group_multi_company' }
+                company_id: {}
               }
             }
           }
         }
+      }
+    }
+  },
+
+  view_account_list: {
+    _odoo_model: 'ir.ui.view',
+    model: 'account.account',
+    type: 'tree',
+    buttons: { create: false, edit: false, delete: false },
+    arch: {
+      sheet: {
+        // company_id: { invisible: 1 },
+        code: {},
+        name: {},
+        account_type: { widget: 'account_type_selection' },
+        group_id: { optional: 'hide' },
+        internal_group: { invisible: 1 },
+        reconcile: {
+          widget: 'boolean_toggle',
+          invisible({ record }) {
+            // 'invisible':
+            // ['|', ('account_type', 'in',
+            // ('asset_cash', 'liability_credit_card')),
+            // ('internal_group', '=', 'off_balance')]
+            const { account_type, internal_group } = record
+            return (
+              ['asset_cash', 'liability_credit_card'].includes(account_type) ||
+              internal_group === 'off_balance'
+            )
+          }
+        },
+        non_trade: {
+          widget: 'boolean_toggle',
+          optional: 'hide',
+          invisible({ record }) {
+            // 'invisible':
+            // [('account_type', 'not in',
+            // ('liability_payable', 'asset_receivable'))]
+            const { account_type } = record
+            return ['liability_payable', 'asset_receivable'].includes(
+              account_type
+            )
+          }
+        },
+        tax_ids: { optional: 'hide', widget: 'many2many_tags' },
+        tag_ids: { optional: 'hide', widget: 'many2many_tags' },
+        allowed_journal_ids: { optional: 'hide', widget: 'many2many_tags' },
+        currency_id: {},
+        company_id: {}
       }
     }
   },
@@ -134,6 +132,7 @@ export default {
     arch: {
       fields: {
         name: {
+          string: 'Account',
           filter_domain: self => {
             // ['|', ('name','ilike',self), ('code','ilike',self)]
             return ['|', ['name', 'ilike', self], ['code', '=like', `${self}%`]]
@@ -144,45 +143,54 @@ export default {
       filters: {
         group_type: {
           receivableacc: {
-            string: '应收科目',
+            name: 'receivableacc',
+            string: 'Receivable',
             domain: [['account_type', '=', 'asset_receivable']]
           },
 
           payableacc: {
-            string: '应付科目',
+            name: 'payableacc',
+            string: 'Payable',
             domain: [['account_type', '=', 'liability_payable']]
           },
 
           equityacc: {
-            string: '权益',
+            name: 'equityacc',
+            string: 'Equity',
             domain: [['internal_group', '=', 'equity']]
           },
 
           assetsacc: {
-            string: '资产',
+            name: 'assetsacc',
+            string: 'Assets',
             domain: [['internal_group', '=', 'asset']]
           },
           liabilityacc: {
-            string: '负债',
+            name: 'liabilityacc',
+            string: 'Liability',
             domain: [['internal_group', '=', 'liability']]
           },
           incomeacc: {
-            string: '收入',
+            name: 'incomeacc',
+            string: 'Income',
             domain: [['internal_group', '=', 'income']]
           },
           expensesacc: {
-            string: '费用',
+            name: 'expensesacc',
+            string: 'Expenses',
             domain: [['internal_group', '=', 'expense']]
           }
         },
 
         group_active: {
           used: {
-            string: '有分录的会计科目',
+            name: 'used',
+            string: 'Account with Entries',
             domain: [['used', '=', true]]
           },
           activeacc: {
-            string: '可用的会计科目',
+            name: 'activeacc',
+            string: 'Active Account',
             domain: [['deprecated', '=', false]]
           }
         }

@@ -1,5 +1,3 @@
-// ok
-
 export default {
   action_contacts: {
     _odoo_model: 'ir.actions.act_window',

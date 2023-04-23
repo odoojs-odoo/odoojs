@@ -3,7 +3,6 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.account.tag',
     type: 'form',
-
     arch: {
       sheet: {
         _widget: {
@@ -18,7 +17,6 @@ export default {
             }
           }
         },
-        _div_title: { display_name: {} },
 
         _group_name: {
           active: { invisible: '1' },
@@ -67,7 +65,8 @@ export default {
       filters: {
         group_active: {
           archived: {
-            string: '已归档',
+            name: 'archived',
+            string: 'Archived',
             domain: [['active', '=', false]]
           }
         }

@@ -12,8 +12,7 @@
         @finish="onFinish"
         @finishFailed="onFinishFailed"
       >
-        <!-- v-show="is_dev" -->
-        <a-form-item name="database" label="数据库">
+        <a-form-item v-show="show_db" name="database" label="数据库">
           <a-select
             v-model:value="formState.database"
             :options="databaseOptions"
@@ -75,7 +74,7 @@ import { useLogin } from './useLogin'
 
 const router = useRouter()
 const useData = useLogin()
-const { lang, formState, databaseOptions, codeNum } = useData
+const { show_db, lang, formState, databaseOptions, codeNum } = useData
 const { load_databaseOptions, onClickCodeNum, handleLogin } = useData
 
 async function onFinish(values) {

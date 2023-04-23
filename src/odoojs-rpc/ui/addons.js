@@ -261,6 +261,8 @@ export class Addons {
       l10n: { ...l10n, en_US: { actions_views, models_for_fields, app } }
     }
 
+    console.log('addons_register', todo)
+
     this.addons_register = todo
   }
 

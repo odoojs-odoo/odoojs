@@ -3,10 +3,8 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'account.tax.template',
     type: 'form',
-
     arch: {
       sheet: {
-        // active: { invisible: '1', widget: 'web_ribbon' },
         _group_main_group: {
           _group: {
             name: {}
@@ -17,24 +15,45 @@ export default {
         },
 
         _notebook: {
-          _page_tax_definitions: {
+          _page_definition: {
             _attr: { name: 'definition', string: 'Definition' },
             _group_tax_definitions: {
               _group: {
                 amount_type: {},
-                amount: {
-                  readonly: '1',
-                  // 'invisible':[('amount_type','=', 'group')]
-                  invisible: [['amount_type', '=', 'group']]
+
+                _label_amount: {
+                  for: 'amount',
+                  invisible({ record }) {
+                    // invisible: [['amount_type', '=', 'group']]
+                    const { amount_type } = record
+                    return amount_type == 'group'
+                  }
                 },
-                _span: {
+
+                _div: {
                   _attr: {
                     invisible({ record }) {
-                      // 'invisible':[('amount_type','=','fixed')]
+                      // invisible: [['amount_type', '=', 'group']]
                       const { amount_type } = record
-                      return amount_type === 'fixed'
-                    },
-                    text: '%'
+                      return amount_type == 'group'
+                    }
+                  },
+                  amount: {
+                    invisible({ record }) {
+                      // invisible: [['amount_type', '=', 'group']]
+                      const { amount_type } = record
+                      return amount_type == 'group'
+                    }
+                  },
+                  _span: {
+                    _attr: {
+                      invisible({ record }) {
+                        // 'invisible':[('amount_type','=','fixed')]
+                        const { amount_type } = record
+                        return amount_type === 'fixed'
+                      },
+                      text: '%'
+                    }
                   }
                 }
               }
@@ -46,15 +65,6 @@ export default {
                 // ('type_tax_use','=','none')]}"
                 const { amount_type, type_tax_use } = record
                 return amount_type !== 'group' || type_tax_use === 'none'
-              },
-              domain({ record }) {
-                // domain="[('type_tax_use','in',('none',type_tax_use)),
-                // ('amount_type','!=','group')]">
-                const { type_tax_use } = record
-                return [
-                  ['type_tax_use', 'in', ['none', type_tax_use]],
-                  ['amount_type', '!=', 'group']
-                ]
               },
 
               views: {
@@ -85,6 +95,7 @@ export default {
           _page_advanced_options: {
             _attr: { name: 'advanced_options', string: 'Advanced Options' },
             _group_advanced_definitions: {
+              _attr: { name: 'advanced_definitions' },
               _group: {
                 description: {
                   invisible({ record }) {
@@ -94,7 +105,6 @@ export default {
                   }
                 },
                 analytic: {
-                  groups: 'analytic.group_analytic_accounting',
                   invisible({ record }) {
                     // 'invisible':[('amount_type','=', 'group')]
                     const { amount_type } = record
@@ -103,6 +113,7 @@ export default {
                 }
               },
               _group_price_definitions: {
+                _attr: { name: 'price_definitions' },
                 price_include: {
                   invisible({ record }) {
                     // 'invisible':[('amount_type','=', 'group')]
@@ -127,7 +138,8 @@ export default {
                 }
               },
               _group_tax_configuration: {
-                active: { groups: 'base.group_no_one' },
+                _attr: { name: 'tax_configuration' },
+                active: {},
                 tax_exigibility: {
                   widget: 'radio',
                   invisible({ record }) {
@@ -169,6 +181,7 @@ export default {
     type: 'search',
     arch: {
       fields: {
+        string: 'Tax Template',
         name: {
           filter_domain(self) {
             return [
@@ -184,10 +197,12 @@ export default {
       filters: {
         group_sale_purchase: {
           sale: {
+            name: 'sale',
             string: 'Sale',
             domain: [['type_tax_use', '=', 'sale']]
           },
           purchase: {
+            name: 'purchase',
             string: 'Purchase',
             domain: [['type_tax_use', '=', 'purchase']]
           }
@@ -195,7 +210,8 @@ export default {
 
         group_active: {
           inactive: {
-            string: '已归档',
+            name: 'inactive',
+            string: 'Archived',
             domain: [['active', '=', false]]
           }
         }

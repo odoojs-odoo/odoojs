@@ -4,15 +4,14 @@ export default {
     model: 'account.analytic.account',
     type: 'form',
     inherit_id: 'analytic.view_account_analytic_account_form',
-    buttons: { create: false, edit: false, delete: false },
-
     arch: {
       sheet: {
         _div_button_box: {
+          _attr: { name: 'button_box', position: 'inside' },
           _button_action_view_invoice: {
             _attr: {
-              type: 'object',
               name: 'action_view_invoice',
+              type: 'object',
               icon: 'fa-pencil-square-o',
               invisible({ record }) {
                 // 'invisible': [('invoice_count', '=', 0)]

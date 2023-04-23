@@ -35,7 +35,7 @@ export class Menus {
     this._addons = addons_data
     this._menus = menus_load(addons_data)
 
-    console.log(this._menus)
+    // console.log(this._menus)
   }
 
   get menus() {

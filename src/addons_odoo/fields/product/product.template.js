@@ -21,7 +21,7 @@ const ModelFields = {
   description_sale: {
     placeholder: 'This note is added to sales orders and invoices.'
   },
-  detailed_type: { readonly: '1' },
+  detailed_type: {},
   id: {},
   image_1920: {},
   is_product_variant: {},

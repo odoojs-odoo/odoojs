@@ -32,23 +32,38 @@ export class RPC {
     JsonRequest.messageError = messageError
 
     this.baseURL = baseURL
+    this.addons_dict = addons_dict
+    this.modules_installed = modules_installed
 
     ui.Addons.load_addons(addons_dict, modules_installed)
+    // ui.Addons.load_addons(addons_dict, ['base'])
+  }
+
+  static after_session() {
+    const modules_odoo = this.web.modules.map(item => item.name)
+    const modules = this.modules_installed.filter(item => {
+      return modules_odoo.includes(
+        item[0] == '_' ? item.slice(1, item.length) : item
+      )
+    })
+    console.log(modules, this.modules_installed)
+
+    ui.Addons.load_addons(this.addons_dict, modules)
+    const lang = this.web.session.context.lang
+    ui.Addons.set_lang(lang, true)
   }
 
   static async session_check() {
     const info = await this.web.session_check()
     if (info) {
-      const lang = this.web.session.context.lang
-      ui.Addons.set_lang(lang)
+      this.after_session()
     }
     return info
   }
 
   static async login(...args) {
     const info = await this.web.login(...args)
-    const lang = this.web.session.context.lang
-    ui.Addons.set_lang(lang, true)
+
     return info
   }
 

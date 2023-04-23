@@ -491,8 +491,12 @@ class Home extends FileRequest {
     return Session.session_info
   }
 
+  static get modules() {
+    return (this._login_info || {}).modules
+  }
+
   static get groups() {
-    return (this._login_info || {}).groups
+    return (this._login_info || {}).groups || []
   }
 
   static get is_user() {
@@ -645,6 +649,17 @@ class Home extends FileRequest {
 
     return for_odoo_15(menus)
   }
+  static async _check_modules() {
+    const modules = await Dataset.call_kw({
+      model: 'ir.module.module',
+      method: 'search_read',
+      args: [],
+
+      kwargs: { domain: [['state', '!=', 'uninstalled']], fields: ['name'] }
+    })
+
+    return modules
+  }
 
   static async _check_groups() {
     const context = Session.user_context
@@ -685,8 +700,12 @@ class Home extends FileRequest {
     const is_user = grp.length ? true : false
     // console.log(grp, is_user2, is_user)
 
-    this._login_info = { is_user, groups }
-    return { is_user, groups }
+    const modules = await this._check_modules()
+
+    // console.log(modules)
+
+    this._login_info = { is_user, groups, modules }
+    return { is_user, groups, modules }
   }
 
   static async get_session() {

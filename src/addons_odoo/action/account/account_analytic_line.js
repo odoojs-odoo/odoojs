@@ -1,26 +1,4 @@
 export default {
-  view_account_analytic_line_tree_inherit_account: {
-    _odoo_model: 'ir.ui.view',
-    model: 'account.analytic.line',
-    type: 'tree',
-    inherit_id: 'analytic.view_account_analytic_line_tree',
-    arch: {
-      sheet: {
-        account_id: {},
-        ref: {
-          optional: 'hide',
-          invisible({ context }) {
-            // invisible="context.get('to_invoice', False)"
-            return !context.to_invoice
-          }
-        },
-        general_account_id: { optional: 'hide' },
-        move_line_id: { widget: 'line_open_move_widget', optional: 'hide' },
-        product_id: { optional: 'hide' }
-      }
-    }
-  },
-
   view_account_analytic_line_form_inherit_account: {
     _odoo_model: 'ir.ui.view',
     model: 'account.analytic.line',
@@ -45,6 +23,28 @@ export default {
             general_account_id: {}
           }
         }
+      }
+    }
+  },
+
+  view_account_analytic_line_tree_inherit_account: {
+    _odoo_model: 'ir.ui.view',
+    model: 'account.analytic.line',
+    type: 'tree',
+    inherit_id: 'analytic.view_account_analytic_line_tree',
+    arch: {
+      sheet: {
+        account_id: {},
+        ref: {
+          optional: 'hide',
+          invisible({ context }) {
+            // invisible="context.get('to_invoice', False)"
+            return !context.to_invoice
+          }
+        },
+        general_account_id: { optional: 'hide' },
+        move_line_id: { widget: 'line_open_move_widget', optional: 'hide' },
+        product_id: { optional: 'hide' }
       }
     }
   },
