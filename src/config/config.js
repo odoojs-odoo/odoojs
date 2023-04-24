@@ -26,8 +26,8 @@ const all_menus = {
   odoodemo_addons
 }
 
-// const switch_menus_addons = 'minierp_addons'
-const switch_menus_addons = 'odoodemo_addons'
+const switch_menus_addons = 'minierp_addons'
+// const switch_menus_addons = 'odoodemo_addons'
 
 const addons_for_extend = all_menus[switch_menus_addons]
 
@@ -42,17 +42,17 @@ const modules_installed_odoo = [
   'uom',
   'product',
   'analytic',
-  'account'
-  // 'account_wizard',
-  // 'sales_team',
-  // 'sale',
-  // 'purchase',
-  // 'stock',
-  // 'stock_wizard',
-  // 'stock_sms',
-  // 'hr',
-  // 'hr_contract',
-  // 'hr_expense'
+  'account',
+  'account_wizard',
+  'sales_team',
+  'sale',
+  'purchase',
+  'stock',
+  'stock_wizard',
+  'stock_sms',
+  'hr',
+  'hr_contract',
+  'hr_expense'
   //
 ]
 
