@@ -31,7 +31,7 @@ export default {
             mail_mail_id: {},
             res_partner_id: {}
           },
-          _group_119: {
+          _group_770: {
             _attr: { string: 'Status' },
             is_read: {},
             read_date: {},

@@ -43,7 +43,7 @@ export default {
           previous_activity_type_id: {},
           has_recommended_activities: {}
         },
-        _group_235: {
+        _group_383: {
           _attr: { invisible: [['has_recommended_activities', '=', false]] },
           recommended_activity_type_id: {
             string: 'Recommended Activities',
@@ -51,7 +51,7 @@ export default {
             domain: { todo_ctx: "[('previous_type_ids', '=', previous_activity_type_id)]" }
           }
         },
-        _group_531: {
+        _group_343: {
           _group: {
             activity_type_id: {
               required: '1',
@@ -60,7 +60,7 @@ export default {
             },
             summary: { placeholder: 'e.g. Discuss proposal' }
           },
-          _group_612: {
+          _group_903: {
             date_deadline: {},
             user_id: {}
           }
@@ -76,15 +76,17 @@ export default {
               name: 'action_close_dialog',
               type: 'object',
               string: 'Schedule',
+              id: 'mail_activity_schedule',
               invisible: [['id', '!=', false]],
               class: 'btn-primary'
             }
           },
-          _button_action_close_dialog_999: {
+          _button_action_close_dialog_701: {
             _attr: {
               name: 'action_close_dialog',
               type: 'object',
               string: 'Save',
+              id: 'mail_activity_save',
               invisible: [['id', '=', false]],
               class: 'btn-primary'
             }
@@ -109,7 +111,7 @@ export default {
               class: 'btn-secondary'
             }
           },
-          _button_action_done_schedule_next_382: {
+          _button_action_done_schedule_next_410: {
             _attr: {
               name: 'action_done_schedule_next',
               type: 'object',

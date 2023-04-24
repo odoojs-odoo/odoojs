@@ -49,7 +49,7 @@ export default {
               }
             }
           },
-          _button_action_toggle_is_published_270: {
+          _button_action_toggle_is_published_847: {
             _attr: {
               name: 'action_toggle_is_published',
               type: 'object',
@@ -81,7 +81,7 @@ export default {
             invisible: ['|', ['module_state', '!=', 'installed'], ['state', '!=', 'disabled']]
           }
         },
-        _widget_web_ribbon_911: {
+        _widget_web_ribbon_137: {
           _attr: {
             name: 'web_ribbon',
             title: 'Test Mode',
@@ -98,6 +98,7 @@ export default {
             _attr: { invisible: ['|', ['module_state', '=', 'installed'], ['module_id', '=', false]] },
             _a: {
               _attr: {
+                href: 'https://odoo.com/pricing?utm_source=db&utm_medium=module',
                 invisible: [['module_to_buy', '=', false]],
                 class: 'btn btn-info',
                 text: 'Upgrade'
@@ -116,13 +117,14 @@ export default {
         },
         _div: {
           _attr: {
+            id: 'provider_creation_warning',
             invisible: [['id', '!=', false]],
             class: 'alert alert-warning',
             text: ['Creating a payment provider from the', 'button is not supported.\n                        Please use the', 'action instead.']
           },
           _strong: 'Warning',
           _em: 'CREATE',
-          _em_937: 'Duplicate'
+          _em_659: 'Duplicate'
         },
         _group: {
           _group_payment_state: {

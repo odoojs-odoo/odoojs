@@ -41,8 +41,8 @@ const ModelFields = {
 
   product_uom_$_form: { groups: 'uom.group_uom' },
   product_uom_$_kanban: { groups: 'uom.group_uom' },
-  product_uom_$_tree_$$_152: { groups: '!uom.group_uom' },
-  product_uom_$_tree_$$_727: { groups: 'uom.group_uom' },
+  product_uom_$_tree_$$_565: { groups: '!uom.group_uom' },
+  product_uom_$_tree_$$_773: { groups: 'uom.group_uom' },
   product_uom_category_id: {},
   qty_invoiced: { string: '===todo==' },
   qty_invoiced_$_form: { string: 'Billed Quantity' },

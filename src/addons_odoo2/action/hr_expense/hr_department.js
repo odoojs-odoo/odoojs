@@ -13,7 +13,7 @@ export default {
             },
             expense_sheets_to_approve_count: { groups: 'hr_expense.group_hr_expense_team_approver' }
           },
-          _xpath_439: {
+          _xpath_169: {
             _attr: {
               expr: "//div[hasclass('o_kanban_primary_right')]",
               position: 'inside'
@@ -36,7 +36,7 @@ export default {
               }
             }
           },
-          _xpath_178: {
+          _xpath_852: {
             _attr: {
               expr: "//div[hasclass('o_kanban_manage_reports')]",
               position: 'inside'

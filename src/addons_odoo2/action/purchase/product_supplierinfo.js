@@ -18,14 +18,14 @@ export default {
             }
           }
         },
-        _xpath_581: {
+        _xpath_943: {
           _attr: {
             expr: '//tree',
             position: 'inside'
           },
           company_id: { invisible: '1' }
         },
-        _xpath_508: {
+        _xpath_439: {
           _attr: {
             expr: "//field[@name='company_id']",
             position: 'attributes'
@@ -45,7 +45,7 @@ export default {
             }
           }
         },
-        _xpath_345: {
+        _xpath_429: {
           _attr: {
             expr: "//field[@name='partner_id']",
             position: 'attributes'
@@ -58,7 +58,7 @@ export default {
             }
           }
         },
-        _xpath_518: {
+        _xpath_883: {
           _attr: {
             expr: "//field[@name='product_id']",
             position: 'attributes'
@@ -78,7 +78,7 @@ export default {
             }
           }
         },
-        _xpath_881: {
+        _xpath_409: {
           _attr: {
             expr: "//field[@name='delay']",
             position: 'attributes'

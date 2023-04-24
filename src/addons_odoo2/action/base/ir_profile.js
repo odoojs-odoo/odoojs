@@ -46,7 +46,7 @@ export default {
           sql_count: { invisible: [['sql_count', '=', 0]] },
           speedscope_url: { widget: 'url' }
         },
-        _group_635: {
+        _group_854: {
           _attr: { invisible: [['qweb', '=', false]] },
           qweb: { widget: 'profiling_qweb_view' }
         }

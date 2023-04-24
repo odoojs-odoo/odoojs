@@ -45,7 +45,7 @@ export default {
               for: 'factor_inv',
               invisible: [['uom_type', '!=', 'bigger']]
             },
-            _div_146: {
+            _div_496: {
               _attr: { invisible: [['uom_type', '!=', 'bigger']] },
               factor_inv: {
                 readonly: [['uom_type', '!=', 'bigger']],

@@ -11,10 +11,10 @@ const ModelFields = {
   avatar_128: {},
   companies_count: { string: 'Companies count' },
   company_id: {
-    string: 'Default Company',
-    context: { user_preference: 0 },
     groups: 'base.group_multi_company',
-    readonly: '0'
+    readonly: '0',
+    string: 'Default Company',
+    context: { user_preference: 0 }
   },
 
   company_ids: { string: 'Allowed Companies' },
@@ -38,9 +38,9 @@ const ModelFields = {
   },
 
   partner_id: {
-    groups: 'base.group_no_one',
     required: '0',
-    readonly: '1'
+    readonly: '1',
+    groups: 'base.group_no_one'
   },
 
   phone: {},

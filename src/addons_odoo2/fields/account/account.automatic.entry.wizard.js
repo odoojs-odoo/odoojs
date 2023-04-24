@@ -3,8 +3,8 @@ const ModelFields = {
   action: {},
   company_id: {},
   date: { string: '===todo==' },
-  date_$_form_$$_449: { string: 'Recognition Date' },
-  date_$_form_$$_912: { string: 'Transfer Date' },
+  date_$_form_$$_168: { string: 'Transfer Date' },
+  date_$_form_$$_209: { string: 'Recognition Date' },
   destination_account_id: {
     domain: { todo_ctx: "[('company_id', '=', company_id)]" },
     required: [['action', '=', 'change_account']]

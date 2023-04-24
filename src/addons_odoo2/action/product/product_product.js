@@ -133,7 +133,7 @@ export default {
               }
             },
             _label_standard_price: { for: 'standard_price' },
-            _div_402: {
+            _div_480: {
               _attr: { class: 'o_row' },
               standard_price: {
                 widget: 'monetary',
@@ -145,7 +145,7 @@ export default {
             cost_currency_id: { invisible: '1' }
           }
         },
-        _group_987: {
+        _group_360: {
           _group_weight: {
             _attr: {
               name: 'weight',
@@ -161,7 +161,7 @@ export default {
               }
             },
             _label_weight: { for: 'weight' },
-            _div_550: {
+            _div_446: {
               _attr: { class: 'o_row' },
               weight: { class: 'oe_inline' },
               _span: {
@@ -188,7 +188,7 @@ export default {
             }
           }
         },
-        _group_964: {
+        _group_259: {
           _group_packaging: {
             _attr: {
               name: 'packaging',
@@ -318,7 +318,7 @@ export default {
           default_code: {},
           barcode: {}
         },
-        _xpath_485: {
+        _xpath_864: {
           _attr: {
             expr: "//field[@name='priority']",
             position: 'attributes'
@@ -336,14 +336,14 @@ export default {
           readonly: [['product_variant_count', '>', 1]],
           invisible: '1'
         },
-        _xpath_915: {
+        _xpath_724: {
           _attr: {
             expr: "//label[@for='list_price']",
             position: 'replace'
           },
           _label_lst_price: { for: 'lst_price' }
         },
-        _field_list_price_915: {
+        _field_list_price_602: {
           list_price: {
             position: 'after',
             __todo__after: {
@@ -380,7 +380,7 @@ export default {
             }
           }
         },
-        _xpath_649: {
+        _xpath_294: {
           _attr: {
             expr: "//div[hasclass('oe_title')]",
             position: 'inside'
@@ -395,7 +395,7 @@ export default {
           position: 'attributes',
           __todo__options: "{'no_open': true}"
         },
-        _field_product_tag_ids_994: {
+        _field_product_tag_ids_160: {
           product_tag_ids: {
             position: 'after',
             __todo__after: {

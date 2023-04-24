@@ -91,7 +91,6 @@ export default {
     model: 'res.partner',
     type: 'form',
     inherit_id: 'base.view_partner_form',
-    buttons: { create: false, edit: true, delete: false },
 
     arch: {
       sheet: {
@@ -112,10 +111,12 @@ export default {
         },
         _notebook: {
           _page_sales_purchases: {
-            _group_sales_purchases: {
-              _group_sale: {
-                user_id: {},
-                team_id: { groups: 'base.group_no_one' }
+            _group_container_row_2: {
+              _group_sales_purchases: {
+                _group_sale: {
+                  user_id: {},
+                  team_id: { groups: 'base.group_no_one' }
+                }
               }
             }
           }

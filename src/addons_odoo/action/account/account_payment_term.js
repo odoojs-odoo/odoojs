@@ -1,4 +1,24 @@
 export default {
+  view_payment_term_search: {
+    _odoo_model: 'ir.ui.view',
+    model: 'account.payment.term',
+    type: 'search',
+    arch: {
+      fields: {
+        name: { string: 'Payment Terms' }
+      },
+
+      filters: {
+        group_active: {
+          inactive: {
+            name: 'archived',
+            string: 'Archived',
+            domain: [['active', '=', false]]
+          }
+        }
+      }
+    }
+  },
   view_payment_term_tree: {
     _odoo_model: 'ir.ui.view',
     model: 'account.payment.term',
@@ -7,7 +27,7 @@ export default {
       sheet: {
         sequence: { widget: 'handle' },
         name: {},
-        company_id: { groups: 'base.group_multi_company' }
+        company_id: {}
       }
     }
   },
@@ -37,12 +57,12 @@ export default {
           },
 
           _group_company_id: {
-            company_id: { groups: 'base.group_multi_company' }
+            company_id: {}
           }
         },
 
         _group_note: {
-          note: {}
+          note: { placeholder: 'Payment term explanation for the customer...' }
         },
 
         _label_display_on_invoice: { for: 'display_on_invoice' },
@@ -156,24 +176,6 @@ export default {
               return example_invalid
             }
           }
-        }
-      }
-    },
-    fields: {}
-  },
-
-  view_payment_term_search: {
-    _odoo_model: 'ir.ui.view',
-    model: 'account.payment.term',
-    type: 'search',
-    arch: {
-      fields: {
-        name: {}
-      },
-
-      filters: {
-        group_active: {
-          inactive: { string: '已归档', domain: [['active', '=', false]] }
         }
       }
     }

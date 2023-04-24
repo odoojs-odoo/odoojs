@@ -9,7 +9,7 @@ const invoice_line_ids_form_sheet = {
     product_uom_category_id: { invisible: '1' },
     product_uom_id: {},
     price_unit: {},
-    discount: {}
+    discount: { string: 'Disc.%' }
   },
 
   _group_account: {
@@ -70,8 +70,8 @@ const invoice_line_ids_form_sheet = {
     }
   },
   _group_amount: {
-    price_subtotal: {},
-    price_total: {}
+    price_subtotal: { string: 'Subtotal' },
+    price_total: { string: 'Total' }
   }
 }
 
@@ -88,7 +88,10 @@ const line_ids_form_sheet = {
     debit: {},
     credit: {},
     balance: { invisible: 1 },
-    tax_ids: { widget: 'autosave_many2many_tags' },
+    tax_ids: {
+      string: 'Taxes Applied',
+      widget: 'autosave_many2many_tags'
+    },
     date_maturity: {
       required: 0,
       invisible({ context }) {
@@ -100,54 +103,268 @@ const line_ids_form_sheet = {
 }
 
 const view_move_form_sheet = {
-  _div_alert: {
-    _attr: { help: 'alert todo', invisible: 1 }
-    // open_duplicated_ref_bill_view
-    // tax_lock_date_message: {
+  _div_open_duplicated_ref_bill_view: {
+    _attr: {
+      class: 'alert alert-warning mb-0',
+      text: 'Warning: this bill might be a duplicate of',
+      invisible({ record }) {
+        // invisible: [
+        //   '|',
+        //   ['state', '!=', 'draft'],
+        //   ['duplicated_ref_ids', '=', []]
+        // ],
+        const { state, duplicated_ref_ids = [] } = record
+        return state !== 'draft' || !duplicated_ref_ids.length
+      }
+    },
+    _button_open_duplicated_ref_bill_view: {
+      _attr: {
+        name: 'open_duplicated_ref_bill_view',
+        type: 'object',
+        string: 'one of those bills',
+        class: 'btn btn-link p-0'
+      }
+    }
+  },
+  _div_tax_lock_date_message: {
+    _attr: {
+      groups: 'account.group_account_invoice,account.group_account_readonly',
 
-    //   invisible({ record }) {
-    //     // 'invisible': [
-    //     // '|', ('state', '!=', 'draft'),
-    //     // ('tax_lock_date_message', '=', False)]
-    //     const { state, tax_lock_date_message } = record
-    //     return state !== 'draft' || !tax_lock_date_message
-    //   }
-    // },
-    // date: {
-    //   readonly: '1',
-    //   invisible({ record }) {
-    //     // {'invisible': ['|', ('state', '!=', 'draft'),
-    //     // ('auto_post', '!=', 'at_date')]}">
-    //     const { state, auto_post } = record
-    //     return state !== 'draft' || auto_post !== 'at_date'
-    //   }
-    // },
-    // auto_post: {
-    //   readonly: '1',
-    //   invisible({ record }) {
-    //     // {'invisible': ['|', '|',
-    //     // ('state', '!=', 'draft'), ('auto_post', '=', 'no'),
-    //     //  ('auto_post', '=', 'at_date')]
-    //     const { state, auto_post } = record
-    //     return (
-    //       state !== 'draft' ||
-    //       auto_post === 'no' ||
-    //       auto_post === 'at_date'
-    //     )
-    //   }
-    // },
+      class: 'alert alert-warning mb-0',
+      invisible({ record }) {
+        // invisible: [
+        //   '|',
+        //   ['state', '!=', 'draft'],
+        //   ['tax_lock_date_message', '=', false]
+        // ],
+        const { state, tax_lock_date_message } = record
+        return state !== 'draft' || !tax_lock_date_message
+      }
+    },
+    tax_lock_date_message: {}
+  },
+  _div_customer_outstanding_credits: {
+    _attr: {
+      groups: 'account.group_account_invoice,account.group_account_readonly',
+      invisible: [
+        '|',
+        '|',
+        ['move_type', '!=', 'out_invoice'],
+        ['invoice_has_outstanding', '=', false],
+        ['payment_state', 'not in', ('not_paid', 'partial')]
+      ],
+      class: 'alert alert-info mb-0',
+      text: [
+        'You have',
+        'for this customer. You can allocate them to mark this invoice as paid.'
+      ]
+    },
+    _bold: {
+      _a: {
+        _attr: {
+          href: '#outstanding',
+          class: 'alert-link',
+          text: 'outstanding credits'
+        }
+      }
+    }
+  },
+  _div_vendor_outstanding_debits: {
+    _attr: {
+      groups: 'account.group_account_invoice,account.group_account_readonly',
+      invisible: [
+        '|',
+        '|',
+        ['move_type', '!=', 'in_invoice'],
+        ['invoice_has_outstanding', '=', false],
+        ['payment_state', 'not in', ('not_paid', 'partial')]
+      ],
+      class: 'alert alert-info mb-0',
+      text: [
+        'You have',
+        'for this vendor. You can allocate them to mark this bill as paid.'
+      ]
+    },
+    _bold: {
+      _a: {
+        _attr: {
+          href: '#outstanding',
+          class: 'alert-link',
+          text: 'outstanding debits'
+        }
+      }
+    }
+  },
+  _div_customer_outstanding_debits: {
+    _attr: {
+      groups: 'account.group_account_invoice,account.group_account_readonly',
+      invisible: [
+        '|',
+        '|',
+        ['move_type', '!=', 'out_refund'],
+        ['invoice_has_outstanding', '=', false],
+        ['payment_state', 'not in', ('not_paid', 'partial')]
+      ],
+      class: 'alert alert-info mb-0',
+      text: [
+        'You have',
+        'for this customer. You can allocate them to mark this credit note as paid.'
+      ]
+    },
+    _bold: {
+      _a: {
+        _attr: {
+          href: '#outstanding',
+          class: 'alert-link',
+          text: 'outstanding debits'
+        }
+      }
+    }
+  },
+  _div_vendor_outstanding_credits: {
+    _attr: {
+      groups: 'account.group_account_invoice,account.group_account_readonly',
+      invisible: [
+        '|',
+        '|',
+        ['move_type', '!=', 'in_refund'],
+        ['invoice_has_outstanding', '=', false],
+        ['payment_state', 'not in', ('not_paid', 'partial')]
+      ],
+      class: 'alert alert-info mb-0',
+      text: [
+        'You have',
+        'for this vendor. You can allocate them to mark this credit note as paid.'
+      ]
+    },
+    _bold: {
+      _a: {
+        _attr: {
+          href: '#outstanding',
+          class: 'alert-link',
+          text: 'outstanding credits'
+        }
+      }
+    }
+  },
+  _div_date: {
+    _attr: {
+      class: 'alert alert-info mb-0',
+      text: [
+        'This move is configured to be posted automatically at the accounting date:',
+        '.'
+      ],
+      invisible({ record }) {
+        // invisible: ['|', ['state', '!=', 'draft'],
+        // ['auto_post', '!=', 'at_date']],
+        const { state, auto_post } = record
+        return state !== 'draft' || auto_post !== 'at_date'
+      }
+    },
+    date: { readonly: '1' }
+  },
+  _div_auto_post: {
+    _attr: {
+      invisible({ record }) {
+        // invisible: [
+        //   '|',
+        //   '|',
+        //   ['state', '!=', 'draft'],
+        //   ['auto_post', '=', 'no'],
+        //   ['auto_post', '=', 'at_date']
+        // ],
+        const { state, auto_post } = record
+        return (
+          state !== 'draft' || auto_post === 'no' || auto_post === 'at_date'
+        )
+      },
+      class: 'alert alert-info mb-0',
+      text: ['auto-posting enabled. Next accounting date:', '.']
+    },
+    auto_post: { readonly: '1' },
+    date: { readonly: '1' },
+    _span: {
+      _attr: {
+        invisible: [['auto_post_until', '=', false]],
+        text: ['The recurrence will end on', '(included).']
+      },
+      auto_post_until: { readonly: '1' }
+    }
+  },
+  _div_partner_credit_warning: {
+    _attr: {
+      groups: 'account.group_account_invoice,account.group_account_readonly',
+      class: 'alert alert-warning mb-0',
+      invisible({ record }) {
+        // invisible: [['partner_credit_warning', '=', '']],
+        const { partner_credit_warning } = record
+        return !partner_credit_warning
+      }
+    },
+    partner_credit_warning: {}
+  },
+  _div_bill_action_activate_currency: {
+    _attr: {
+      invisible: [
+        '|',
+        ['display_inactive_currency_warning', '=', false],
+        ['move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt')]
+      ],
+      class: 'alert alert-warning mb-0',
+      text: [
+        'In order to validate this bill, you must',
+        ". The journal entries need to be computed by Odoo before being posted in your company's currency."
+      ]
+    },
+    _button_action_activate_currency: {
+      _attr: {
+        name: 'action_activate_currency',
+        type: 'object',
+        class: 'oe_link',
+        text: 'activate the currency of the bill'
+      }
+    }
+  },
 
-    // partner_credit_warning: {
-    //   readonly: '1',
-    //   invisible({ record }) {
-    //     // 'invisible': [('partner_credit_warning', '=', '')]
-    //     const { partner_credit_warning } = record
-    //     return !partner_credit_warning
-    //   }
-    // }
+  _div_invoice_action_activate_currency: {
+    _attr: {
+      invisible: [
+        '|',
+        ['display_inactive_currency_warning', '=', false],
+        ['move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt')]
+      ],
+      class: 'alert alert-warning mb-0',
+      text: [
+        'In order to validate this invoice, you must',
+        ". The journal entries need to be computed by Odoo before being posted in your company's currency."
+      ]
+    },
+    _button_action_activate_currency: {
+      _attr: {
+        name: 'action_activate_currency',
+        type: 'object',
+        class: 'oe_link',
+        text: 'activate the currency of the invoice'
+      }
+    }
+  },
+  _div_o_attachment_preview: {
+    _attr: {
+      invisible: [
+        '|',
+        [
+          'move_type',
+          'not in',
+          ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')
+        ],
+        ['state', '!=', 'draft']
+      ],
+      class: 'o_attachment_preview'
+    }
   },
 
   _div_button_box: {
+    _attr: { name: 'button_box', class: 'oe_button_box' },
     _button_action_open_business_doc: {
       _attr: {
         string: '1 Payment',
@@ -193,9 +410,6 @@ const view_move_form_sheet = {
       }
     }
   },
-
-  // <widget name="web_ribbon" title="Paid"
-  //         attrs="{'invisible': ['|', ('payment_state', '!=', 'paid'), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}"/>
 
   _widget_web_ribbon_paid: {
     _attr: {
@@ -295,7 +509,7 @@ const view_move_form_sheet = {
     }
   },
 
-  state: { invisible: 1 },
+  // state: { invisible: 1 },
 
   company_id: { invisible: 1 },
   journal_id: { invisible: 1 },
@@ -448,7 +662,7 @@ const view_move_form_sheet = {
         }
       },
 
-      _field_ref: {
+      _field_ref_in: {
         _attr: {
           invisible({ record }) {
             // 'invisible':[('move_type', 'not in',
@@ -488,6 +702,7 @@ const view_move_form_sheet = {
       },
 
       invoice_vendor_bill_id: {
+        string: 'Auto-Complete',
         invisible({ record, editable }) {
           // class="oe_edit_only"
           // 'invisible':
@@ -500,6 +715,7 @@ const view_move_form_sheet = {
     },
 
     _group_header_right_group: {
+      _attr: { id: 'header_right_group' },
       _field_invoice_date: {
         _attr: {
           invisible({ record }) {
@@ -548,6 +764,7 @@ const view_move_form_sheet = {
       },
 
       date: {
+        string: 'Accounting Date',
         invisible({ record }) {
           // 'invisible':
           // [('move_type', 'in', (
@@ -592,6 +809,8 @@ const view_move_form_sheet = {
       },
 
       invoice_date_due: {
+        string: 'Due Date',
+        placeholder: 'Date',
         invisible({ record }) {
           // 'invisible': [('move_type', 'not in',
           // ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]
@@ -608,7 +827,11 @@ const view_move_form_sheet = {
           return !move_types.includes(move_type) || invoice_payment_term_id
         }
       },
+
+      _span_payment: 'or',
       invoice_payment_term_id: {
+        string: 'Payment terms',
+        placeholder: 'Terms',
         invisible({ record }) {
           // 'invisible': [('move_type', 'not in',
           // ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]
@@ -637,6 +860,7 @@ const view_move_form_sheet = {
           )
         }
       },
+      _span_journal_id: 'in',
       currency_id: {
         groups: 'base.group_multi_currency',
         invisible({ record }) {
@@ -678,12 +902,12 @@ const view_move_form_sheet = {
                 },
                 quantity: { optional: 'show' },
                 product_uom_category_id: { invisible: '1' },
-                product_uom_id: { optional: 'show' },
-                price_unit: {},
-                discount: { optional: 'hide' },
+                product_uom_id: { string: 'UoM', optional: 'show' },
+                price_unit: { string: 'Price' },
+                discount: { string: 'Disc.%', optional: 'hide' },
                 tax_ids: { widget: 'many2many_tags', optional: 'show' },
-                price_subtotal: {},
-                price_total: {},
+                price_subtotal: { string: 'Subtotal' },
+                price_total: { string: 'Total' },
 
                 partner_id: { invisible: '1' },
                 currency_id: { invisible: '1' },
@@ -700,14 +924,10 @@ const view_move_form_sheet = {
 
       _group_oe_invoice_lines_tab: {
         _group_narration_8: {
-          narration: {
-            label: 'Terms and Conditions',
-            string: '',
-            placeholder: 'Terms and Conditions'
-          }
+          narration: { nolabel: 1, placeholder: 'Terms and Conditions' }
         },
 
-        _group__4: {
+        _group__footer: {
           _div_oe_subtotal_footer: {
             _attr: {
               invisible({ record }) {
@@ -764,8 +984,6 @@ const view_move_form_sheet = {
 
       line_ids: {
         widget: 'x2many_tree',
-        string: '',
-        label: '会计分录',
         invisible: ({ record }) => {
           // attrs="{'invisible':
           // [('payment_state', '=', 'invoicing_legacy'),
@@ -779,7 +997,6 @@ const view_move_form_sheet = {
           tree: {
             arch: {
               sheet: {
-                // sequence: {},
                 account_id: {
                   invisible: ({ record }) => {
                     // 'invisible': [('display_type', 'in', ('line_section', 'line_note'))],
@@ -863,7 +1080,7 @@ const view_move_form_sheet = {
 
                 tax_line_id: { invisible: '1' },
                 company_currency_id: { invisible: '1' },
-                display_type: { invisible: '1' },
+                display_type: { invisible: '1', force_save: '1' },
                 company_id: { invisible: '1' },
                 sequence: { invisible: '1' },
                 account_internal_group: { invisible: '1' },
@@ -876,7 +1093,16 @@ const view_move_form_sheet = {
       },
 
       _div_alert: {
-        // todo
+        _attr: {
+          invisible: [
+            '|',
+            ['payment_state', '!=', 'invoicing_legacy'],
+            ['move_type', '=', 'entry']
+          ],
+          class: 'alert alert-info text-center mb-0'
+        },
+        _span:
+          'This entry has been generated through the Invoicing app, before installing Accounting. Its balance has been imported separately.'
       }
     },
 
@@ -900,8 +1126,11 @@ const view_move_form_sheet = {
         }
       },
       _group_other_tab_group: {
+        _attr: { id: 'other_tab_group' },
         _group_sale_info_group: {
           _attr: {
+            name: 'sale_info_group',
+            string: 'Invoice',
             invisible({ record }) {
               // 'invisible': [('move_type', 'not in',
               // ('out_invoice', 'out_refund'))]
@@ -909,10 +1138,10 @@ const view_move_form_sheet = {
               return !['out_invoice', 'out_refund'].includes(move_type)
             }
           },
-          ref: {},
+          ref: { string: 'Customer Reference' },
           user_id: { invisible: '1' },
           invoice_user_id: { widget: 'many2one_avatar_user' },
-          invoice_origin: { invisible: '1' },
+          invoice_origin: { invisible: '1', string: 'Source Document' },
           partner_bank_id: {},
           qr_code_method: {
             invisible({ record }) {
@@ -924,6 +1153,8 @@ const view_move_form_sheet = {
         },
         _group_accounting_info_group: {
           _attr: {
+            name: 'accounting_info_group',
+            string: 'Accounting',
             invisible({ record }) {
               // attrs="{'invisible':
               // [('move_type', 'not in',
@@ -981,12 +1212,22 @@ const view_move_form_sheet = {
         }
       },
       _group_other_tab_entry_group: {
+        _attr: { id: 'other_tab_entry_group' },
         _group_misc_group: {
+          _attr: { name: 'misc_group' },
           auto_post: {
-            // 'invisible': [('move_type', '!=', 'entry')],
+            invisible: ({ record }) => {
+              // invisible: [['move_type', '!=', 'entry']],
+              const { move_type } = record
+              return move_type !== 'entry'
+            }
           },
           reversed_entry_id: {
-            // invisible: [('move_type', '!=', 'entry')]
+            invisible: ({ record }) => {
+              // invisible: [['move_type', '!=', 'entry']],
+              const { move_type } = record
+              return move_type !== 'entry'
+            }
           },
           auto_post_until: {
             invisible({ record }) {
@@ -996,15 +1237,19 @@ const view_move_form_sheet = {
             }
           },
           to_check: {
-            // invisible: [('move_type', '!=', 'entry')]
+            invisible: ({ record }) => {
+              // invisible: [['move_type', '!=', 'entry']],
+              const { move_type } = record
+              return move_type !== 'entry'
+            }
           }
         },
         _group_other_tab_entry_group__2: {
           fiscal_position_id: {},
-          company_id: {}
+          company_id: { required: '1' }
         }
       },
-      narration: { placeholder: 'Add an internal note...' }
+      narration: { nolabel: 1, placeholder: 'Add an internal note...' }
     }
   }
 }
@@ -1034,7 +1279,6 @@ export default {
     }
   },
 
-  // 561 行
   view_move_form: {
     _odoo_model: 'ir.ui.view',
     model: 'account.move',
@@ -1063,7 +1307,6 @@ export default {
             type: 'object',
             groups: 'account.group_account_invoice',
             btn_type: 'primary',
-            // context="{'validate_analytic': True}"
             context: { validate_analytic: true },
             invisible: ({ record }) => {
               // attrs="{'invisible':
@@ -1081,7 +1324,6 @@ export default {
             type: 'object',
             groups: 'account.group_account_invoice',
             btn_type: 'primary',
-            // context="{'validate_analytic': True}"
             context: { validate_analytic: true },
             invisible: ({ record }) => {
               // 'invisible':
@@ -1274,8 +1516,8 @@ export default {
     type: 'search',
     arch: {
       fields: {
-        name: {
-          string: '分录',
+        display_name: {
+          string: 'Journal Entry',
           filter_domain: self => {
             return [
               '|',
@@ -1286,58 +1528,77 @@ export default {
             ]
           }
         },
-        partner_id: {},
+        name: {},
         ref: {},
         // date: {},
+        partner_id: {},
         journal_id: {}
       },
       filters: {
         group_state: {
-          __title: '过账状态',
-          unposted: { string: '未过账', domain: [['state', '=', 'draft']] },
-          posted: { string: '已过账', domain: [['state', '=', 'posted']] }
+          __title: 'State',
+          unposted: {
+            name: 'unposted',
+            string: 'Unposted',
+            domain: [['state', '=', 'draft']]
+          },
+          posted: {
+            name: 'posted',
+            string: 'Posted',
+            domain: [['state', '=', 'posted']]
+          }
         },
         group_payment: {
-          __title: '支付状态',
+          __title: 'payment_state',
           reversed: {
-            string: '保留',
+            name: 'reversed',
+            string: 'Reversed',
             domain: [['payment_state', '=', 'reversed']]
           }
         },
         group_to_check: {
-          __title: '检查',
-          to_check: { string: '检查', domain: [['to_check', '=', true]] }
+          __title: 'to_check',
+          to_check: {
+            name: 'to_check',
+            string: 'To Check',
+            domain: [['to_check', '=', true]]
+          }
         },
         group_type: {
-          __title: '日记账类型',
+          __title: 'journal_id.type',
           sales: {
-            string: '销售',
+            name: 'sales',
+            string: 'Sales',
             domain: [['journal_id.type', '=', 'sale']],
             context: { default_journal_type: 'sale' }
           },
           purchases: {
-            string: '采购',
+            name: 'purchases',
+            string: 'Purchases',
             domain: [['journal_id.type', '=', 'purchase']],
             context: { default_journal_type: 'purchase' }
           },
           bankoperations: {
-            string: '银行',
+            name: 'bankoperations',
+            string: 'Bank',
             domain: [['journal_id.type', '=', 'bank']],
             context: { default_journal_type: 'bank' }
           },
           cashoperations: {
-            string: '现金',
+            name: 'cashoperations',
+            string: 'Cash',
             domain: [['journal_id.type', '=', 'cash']],
             context: { default_journal_type: 'cash' }
           },
           misc_filter: {
-            string: '其他',
+            name: 'misc_filter',
+            string: 'Miscellaneous',
             domain: [['journal_id.type', '=', 'general']],
             context: { default_journal_type: 'general' }
           }
         },
         group_date: {
-          date: { string: '日期', date: 'date' }
+          date: { name: 'date', string: 'Date', date: 'date' }
         }
       }
     }

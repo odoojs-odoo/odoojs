@@ -12,7 +12,7 @@ export default {
           },
           has_kits: { invisible: '1' }
         },
-        _xpath_345: {
+        _xpath_348: {
           _attr: {
             expr: "//field[@name='description_picking']",
             position: 'after'

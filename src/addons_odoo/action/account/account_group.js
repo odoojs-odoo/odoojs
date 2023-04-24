@@ -1,18 +1,4 @@
 export default {
-  view_account_group_tree: {
-    _odoo_model: 'ir.ui.view',
-    model: 'account.group',
-    type: 'tree',
-    arch: {
-      sheet: {
-        code_prefix_start: {},
-        code_prefix_end: {},
-        name: {},
-        company_id: { groups: 'base.group_multi_company' }
-      }
-    }
-  },
-
   view_account_group_form: {
     _odoo_model: 'ir.ui.view',
     model: 'account.group',
@@ -21,9 +7,16 @@ export default {
       sheet: {
         _group_name: {
           name: {},
-          code_prefix_start: {},
-          code_prefix_end: {},
-          company_id: { groups: 'base.group_multi_company' }
+          _label_code_prefix_start: {
+            for: 'code_prefix_start',
+            string: 'Code Prefix'
+          },
+          _div: {
+            _attr: { text: ['From', 'to'] },
+            code_prefix_start: { class: 'oe_inline' },
+            code_prefix_end: { class: 'oe_inline' }
+          },
+          company_id: {}
         }
       }
     }
@@ -35,6 +28,7 @@ export default {
     type: 'search',
     arch: {
       fields: {
+        string: 'Account group',
         name: {
           filter_domain(self) {
             // "['|', ('code_prefix_start', '=like', self + '%'), ('name', 'ilike', self)]"
@@ -48,6 +42,20 @@ export default {
       },
 
       filters: {}
+    }
+  },
+
+  view_account_group_tree: {
+    _odoo_model: 'ir.ui.view',
+    model: 'account.group',
+    type: 'tree',
+    arch: {
+      sheet: {
+        code_prefix_start: {},
+        code_prefix_end: {},
+        name: {},
+        company_id: {}
+      }
     }
   },
 

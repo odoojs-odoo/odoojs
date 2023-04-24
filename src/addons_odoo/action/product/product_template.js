@@ -291,7 +291,7 @@ export default {
                 uom_po_id: {}
               },
               _group_group_standard_price: {
-                _div_list_price: {
+                _div_pricing: {
                   _attr: { name: 'pricing' },
                   list_price: {
                     widget: 'monetary',

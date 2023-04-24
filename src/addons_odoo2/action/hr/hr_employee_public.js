@@ -27,7 +27,7 @@ export default {
           domain: [['member_of_department', '=', true]]
         }
       },
-      _separator_408: {},
+      _separator_352: {},
       _filter_archived: {
         _attr: {
           name: 'archived',
@@ -136,7 +136,7 @@ export default {
             },
             work_email: { widget: 'email' }
           },
-          _group_265: {
+          _group_187: {
             department_id: {
               context: { open_employees_kanban: 1 }
             },
@@ -153,9 +153,15 @@ export default {
               string: 'Work Information'
             },
             _div: {
-              _attr: { class: 'd-lg-flex' },
+              _attr: {
+                id: 'o_work_employee_container',
+                class: 'd-lg-flex'
+              },
               _div: {
-                _attr: { class: 'flex-grow-1' },
+                _attr: {
+                  id: 'o_work_employee_main',
+                  class: 'flex-grow-1'
+                },
                 _group_location: {
                   _attr: {
                     name: 'location',

@@ -8,11 +8,11 @@ export default {
         _group: {
           production_id: { readonly: 'True' }
         },
-        _group_239: {
+        _group_302: {
           _group: {
             next_serial_number: {}
           },
-          _group_474: {
+          _group_603: {
             _label_next_serial_count: { for: 'next_serial_count' },
             _div: {
               _attr: { class: 'o_row' },
@@ -31,11 +31,11 @@ export default {
             }
           }
         },
-        _group_834: {
+        _group_874: {
           serial_numbers: { placeholder: 'copy paste a list and/or use Generate' }
         },
         multiple_lot_components_names: { invisible: '1' },
-        _group_391: {
+        _group_467: {
           _p: {
             _attr: {
               invisible: [['multiple_lot_components_names', '=', false]],
@@ -48,14 +48,14 @@ export default {
         },
         show_apply: { invisible: '1' },
         show_backorders: { invisible: '1' },
-        _group_274: {
+        _group_765: {
           _group: {
             produced_qty: {
               readonly: 'True',
               force_save: 'True'
             }
           },
-          _group_242: {
+          _group_149: {
             expected_qty: { readonly: 'True' }
           },
           _p: {
@@ -65,7 +65,7 @@ export default {
               text: ['You have entered less serial numbers than the quantity to produce.', 'Create a backorder if you expect to process the remaining quantities later.', 'Do not create a backorder if you will not process the remaining products.']
             },
             _br: {},
-            _br_534: {}
+            _br_703: {}
           }
         },
         _footer: {

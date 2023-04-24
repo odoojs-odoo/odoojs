@@ -25,7 +25,7 @@ export default {
             }
           }
         },
-        _xpath_628: {
+        _xpath_858: {
           _attr: {
             expr: "//group[@name='sale_shipping']",
             position: 'attributes'
@@ -44,13 +44,13 @@ export default {
             }
           }
         },
-        _xpath_195: {
+        _xpath_187: {
           _attr: {
             expr: "//label[@for='commitment_date']",
             position: 'before'
           },
           warehouse_id: { invisible: '1' },
-          _field_warehouse_id_831: {
+          _field_warehouse_id_195: {
             warehouse_id: {
               groups: 'stock.group_stock_multi_warehouses',
               force_save: '1',
@@ -65,7 +65,7 @@ export default {
           incoterm_location: { groups: 'sale_stock.group_display_incoterm' },
           picking_policy: { required: 'True' }
         },
-        _xpath_793: {
+        _xpath_673: {
           _attr: {
             expr: "//span[@name='expected_date_span']",
             position: 'attributes'
@@ -78,7 +78,7 @@ export default {
             }
           }
         },
-        _xpath_576: {
+        _xpath_986: {
           _attr: {
             expr: "//div[@name='commitment_date_div']",
             position: 'replace'
@@ -106,7 +106,7 @@ export default {
             delivery_status: { invisible: [['state', 'not in', ['sale', 'done']]] }
           }
         },
-        _xpath_975: {
+        _xpath_748: {
           _attr: {
             expr: "//page[@name='other_information']//field[@name='expected_date']",
             position: 'after'
@@ -118,7 +118,7 @@ export default {
             invisible: [['show_json_popover', '=', false]]
           }
         },
-        _xpath_176: {
+        _xpath_714: {
           _attr: {
             expr: "//field[@name='order_line']/form/group/group/field[@name='analytic_distribution']",
             position: 'before'
@@ -128,7 +128,7 @@ export default {
             no_create: true
           }
         },
-        _xpath_414: {
+        _xpath_121: {
           _attr: {
             expr: "//field[@name='order_line']/tree/field[@name='analytic_distribution']",
             position: 'after'
@@ -220,7 +220,7 @@ export default {
             _attr: { name: 'qty_at_date_widget' }
           }
         },
-        _xpath_299: {
+        _xpath_821: {
           _attr: {
             expr: "//page/field[@name='order_line']/tree/field[@name='qty_delivered']",
             position: 'after'

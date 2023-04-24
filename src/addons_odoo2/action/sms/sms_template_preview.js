@@ -49,7 +49,7 @@ export default {
           readonly: '1',
           safe: true
         },
-        _hr_425: {},
+        _hr_761: {},
         _footer: {
           _button: {
             _attr: {

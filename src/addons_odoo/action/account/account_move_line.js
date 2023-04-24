@@ -1,60 +1,4 @@
 export default {
-  view_move_line_tree: {
-    _odoo_model: 'ir.ui.view',
-    model: 'account.move.line',
-    type: 'tree',
-    buttons: { create: false, edit: false, delete: false },
-    arch: {
-      sheet: {
-        move_id: { invisible: '1' },
-        date: { readonly: '1' },
-        company_id: {
-          groups: 'base.group_multi_company',
-          readonly: '1',
-          optional: 'hide'
-        },
-        journal_id: { optional: 'hide' },
-        move_name: {
-          string: 'Journal Entry',
-          widget: 'open_move_widget',
-          ellipsis: true
-        },
-        account_id: { ellipsis: true },
-        partner_id: { optional: 'show' },
-        ref: { optional: 'hide' },
-        product_id: { optional: 'hide' },
-        name: { invisible: 'odoojs', optional: 'show', ellipsis: true },
-        tax_ids: { widget: 'many2many_tags', optional: 'hide' },
-        amount_currency: { invisible: 'odoojs', optional: 'show' },
-        currency_id: { optional: 'hide' },
-        debit: {},
-        credit: {},
-        tax_tag_ids: { widget: 'many2many_tags', optional: 'hide' },
-        discount_date: { optional: 'hide' },
-        discount_amount_currency: { optional: 'hide' },
-        tax_line_id: { optional: 'hide' },
-        date_maturity: { optional: 'hide' },
-        balance: { optional: 'hide' },
-        matching_number: { optional: 'show' },
-        amount_residual: { optional: 'hide' },
-        amount_residual_currency: { optional: 'hide' },
-        analytic_distribution: {
-          widget: 'analytic_distribution',
-          groups: 'analytic.group_analytic_accounting',
-          optional: 'show'
-        },
-        move_type: { invisible: '1' },
-        parent_state: { invisible: '1' },
-        account_type: { invisible: '1' },
-        statement_line_id: { invisible: '1' },
-        company_currency_id: { invisible: '1' },
-        is_same_currency: { invisible: '1' },
-        is_account_reconcile: { invisible: '1' },
-        sequence: { invisible: '1' }
-      }
-    }
-  },
-
   view_move_line_form: {
     _odoo_model: 'ir.ui.view',
     model: 'account.move.line',
@@ -64,19 +8,18 @@ export default {
       sheet: {
         company_id: { invisible: 1 },
         parent_state: { invisible: 1 },
-
         _group_name: {
           name: {},
           partner_id: {
-            readonly: '1',
-            // domain="['|', ('parent_id', '=', False), ('is_company', '=', True)]"
-            domain: ['|', ['parent_id', '=', false], ['is_company', '=', true]]
+            // readonly: '1',
+            // // domain="['|', ('parent_id', '=', False), ('is_company', '=', True)]"
+            // domain: ['|', ['parent_id', '=', false], ['is_company', '=', true]]
           }
         },
 
         _notebook: {
           _page_information: {
-            _attr: { string: 'Information', name: 'information' },
+            _attr: { name: 'information', string: 'Information' },
             _group: {
               _group_Amount: {
                 _attr: { string: 'Amount' },
@@ -150,35 +93,39 @@ export default {
                   }
                 },
 
-                full_reconcile_id: {
-                  invisible: ({ record }) => {
-                    // 'invisible':[('full_reconcile_id','=',False)]
-                    const { full_reconcile_id } = record
-                    return !full_reconcile_id
-                  }
-                },
-                matched_debit_ids: { invisible: 1 },
-                matched_credit_ids: { invisible: 1 },
-                _button: {
-                  _attr: {
-                    string: '-> View partially reconciled entries',
-                    name: 'open_reconcile_view',
-                    type: 'object',
+                _label_full_reconcile_id: { for: 'full_reconcile_id' },
+
+                _div: {
+                  full_reconcile_id: {
                     invisible: ({ record }) => {
-                      // 'invisible': ['|',
-                      // ('full_reconcile_id', '!=', False),
-                      // '&amp;', ('matched_debit_ids', '=', []),
-                      // ('matched_credit_ids', '=', [])]
-                      const {
-                        full_reconcile_id,
-                        matched_debit_ids,
-                        matched_credit_ids
-                      } = record
-                      return (
-                        full_reconcile_id ||
-                        (!matched_debit_ids.length &&
-                          !matched_credit_ids.length)
-                      )
+                      // 'invisible':[('full_reconcile_id','=',False)]
+                      const { full_reconcile_id } = record
+                      return !full_reconcile_id
+                    }
+                  },
+                  matched_debit_ids: { invisible: 1 },
+                  matched_credit_ids: { invisible: 1 },
+                  _button_open_reconcile_view: {
+                    _attr: {
+                      name: 'open_reconcile_view',
+                      type: 'object',
+                      string: '-> View partially reconciled entries',
+                      invisible: ({ record }) => {
+                        // 'invisible': ['|',
+                        // ('full_reconcile_id', '!=', False),
+                        // '&amp;', ('matched_debit_ids', '=', []),
+                        // ('matched_credit_ids', '=', [])]
+                        const {
+                          full_reconcile_id,
+                          matched_debit_ids,
+                          matched_credit_ids
+                        } = record
+                        return (
+                          full_reconcile_id ||
+                          (!matched_debit_ids.length &&
+                            !matched_credit_ids.length)
+                        )
+                      }
                     }
                   }
                 }
@@ -244,15 +191,259 @@ export default {
       }
     }
   },
+  view_move_line_tree: {
+    _odoo_model: 'ir.ui.view',
+    model: 'account.move.line',
+    type: 'tree',
+    buttons: { create: false, edit: false, delete: false },
+    arch: {
+      sheet: {
+        move_id: { invisible: '1' },
+        date: { readonly: '1' },
+        company_id: { readonly: '1', optional: 'hide' },
+        journal_id: { optional: 'hide' },
+        move_name: {
+          string: 'Journal Entry',
+          widget: 'open_move_widget',
+          ellipsis: true
+        },
+        account_id: { ellipsis: true },
+        partner_id: { optional: 'show' },
+        ref: { optional: 'hide' },
+        product_id: { optional: 'hide' },
+        name: { invisible: 'odoojs', optional: 'show', ellipsis: true },
+        tax_ids: { widget: 'many2many_tags', optional: 'hide' },
+        amount_currency: { invisible: 'odoojs', optional: 'show' },
+        currency_id: { string: 'Currency', optional: 'hide' },
+        debit: {},
+        credit: {},
+        tax_tag_ids: { widget: 'many2many_tags', optional: 'hide' },
+        discount_date: { optional: 'hide' },
+        discount_amount_currency: { optional: 'hide' },
+        tax_line_id: { optional: 'hide' },
+        date_maturity: { optional: 'hide' },
+        balance: { optional: 'hide' },
+        matching_number: { optional: 'show' },
+        amount_residual: { optional: 'hide' },
+        amount_residual_currency: { optional: 'hide' },
+        analytic_distribution: {
+          widget: 'analytic_distribution',
+          groups: 'analytic.group_analytic_accounting',
+          optional: 'show'
+        },
+        move_type: { invisible: '1' },
+        parent_state: { invisible: '1' },
+        account_type: { invisible: '1' },
+        statement_line_id: { invisible: '1' },
+        company_currency_id: { invisible: '1' },
+        is_same_currency: { invisible: '1' },
+        is_account_reconcile: { invisible: '1' },
+        sequence: { invisible: '1' }
+      }
+    }
+  },
 
-  // 302
-  // view_account_move_line_filter
+  view_account_move_line_filter: {
+    _odoo_model: 'ir.ui.view',
+    model: 'account.move.line',
+    type: 'search',
+    arch: {
+      fields: {
+        display_name: {
+          string: 'Journal Item',
+          filter_domain(self) {
+            // filter_domain: {
+            //   // "['|', '|', '|',
+            //   // ('name', 'ilike', self),
+            //   // ('ref', 'ilike', self),
+            //   // ('account_id', 'ilike', self),
+            //   // ('partner_id', 'ilike', self)]"
+            // }
+            return [
+              '|',
+              '|',
+              '|',
+              ['name', 'ilike', self],
+              ['ref', 'ilike', self],
+              ['account_id', 'ilike', self],
+              ['partner_id', 'ilike', self]
+            ]
+          }
+        },
+        name: {},
+        ref: {},
+        // date: {},
+        account_id: {},
+        account_root_id: {},
+        account_type: {},
+        partner_id: {},
+        journal_id: {},
+        move_id: {
+          string: 'Journal Entry',
+          filter_domain(self) {
+            // filter_domain: {
+            // "[ '|', '|', ('move_id.name', 'ilike', self),
+            // ('move_id.ref', 'ilike', self),
+            // ('move_id.partner_id', 'ilike', self)]"
+            // }
+            return [
+              '|',
+              '|',
+              ['move_id.name', 'ilike', self],
+              ['move_id.ref', 'ilike', self],
+              ['move_id.partner_id', 'ilike', self]
+            ]
+          }
+        },
+        tax_ids: {},
+        tax_line_id: { string: 'Originator Tax' },
+        reconcile_model_id: {}
+      },
+      filters: {
+        group_parent_state: {
+          unposted: {
+            name: 'unposted',
+            string: 'Unposted',
+            help: 'Unposted Journal Items',
+            domain: [['parent_state', '=', 'draft']]
+          },
+          posted: {
+            name: 'posted',
+            string: 'Posted',
+            help: 'Posted Journal Items',
+            domain: [['parent_state', '=', 'posted']]
+          }
+        },
+        group_to_check: {
+          to_check: {
+            name: 'to_check',
+            string: 'To Check',
+            domain: [['move_id.to_check', '=', true]]
+          }
+        },
+        group_unreconciled: {
+          unreconciled: {
+            name: 'unreconciled',
+            string: 'Unreconciled',
+            help: "Journal items where matching number isn't set",
+            domain: [
+              ['amount_residual', '!=', 0],
+              ['account_id.reconcile', '=', true]
+            ]
+          }
+        },
+        group_journal_id_type: {
+          sales: {
+            name: 'sales',
+            string: 'Sales',
+            domain: [['journal_id.type', '=', 'sale']],
+            context: { default_journal_type: 'sale' }
+          },
+          purchases: {
+            name: 'purchases',
+            string: 'Purchases',
+            domain: [['journal_id.type', '=', 'purchase']],
+            context: { default_journal_type: 'purchase' }
+          },
+          bank: {
+            name: 'bank',
+            string: 'Bank',
+            domain: [['journal_id.type', '=', 'bank']],
+            context: { default_journal_type: 'bank' }
+          },
+          cash: {
+            name: 'cash',
+            string: 'Cash',
+            domain: [['journal_id.type', '=', 'cash']],
+            context: { default_journal_type: 'cash' }
+          },
+          misc_filter: {
+            name: 'misc_filter',
+            string: 'Miscellaneous',
+            domain: [['journal_id.type', '=', 'general']],
+            context: { default_journal_type: 'general' }
+          }
+        },
+        group_trade: {
+          trade_payable: {
+            name: 'trade_payable',
+            string: 'Payable',
+            help: 'From Trade Payable accounts',
+            domain: [
+              ['account_id.account_type', '=', 'liability_payable'],
+              ['account_id.non_trade', '=', false]
+            ]
+          },
+          trade_receivable: {
+            name: 'trade_receivable',
+            string: 'Receivable',
+            help: 'From Trade Receivable accounts',
+            domain: [
+              ['account_id.account_type', '=', 'asset_receivable'],
+              ['account_id.non_trade', '=', false]
+            ]
+          },
+          non_trade_payable: {
+            name: 'non_trade_payable',
+            string: 'Non Trade Payable',
+            help: 'From Non Trade Receivable accounts',
+            invisible: '1',
+            domain: [
+              ['account_id.account_type', '=', 'liability_payable'],
+              ['account_id.non_trade', '=', true]
+            ]
+          },
+          non_trade_receivable: {
+            name: 'non_trade_receivable',
+            string: 'Non Trade Receivable',
+            help: 'From Non Trade Receivable accounts',
+            invisible: '1',
+            domain: [
+              ['account_id.account_type', '=', 'asset_receivable'],
+              ['account_id.non_trade', '=', true]
+            ]
+          },
+          pl_accounts: {
+            name: 'pl_accounts',
+            string: 'P&L Accounts',
+            help: 'From P&L accounts',
+            domain: [['account_id.internal_group', 'in', ('income', 'expense')]]
+          }
+        },
+        group_date: {
+          date: {
+            name: 'date',
+            string: 'Date',
+            date: 'date'
+          }
+        }
+        // group_date_between: {
+        //   date_between: {
+        //     name: 'date_between',
+        //     string: 'Report Dates',
+        //     invisible: '1',
+        //     domain: {
+        //       todo_ctx:
+        //         "[('date', '>=', context.get('date_from')), ('date', '<=', context.get('date_to'))]"
+        //     }
+        //   },
+        //   date_before: {
+        //     name: 'date_before',
+        //     string: 'Report Dates',
+        //     invisible: '1',
+        //     domain: { todo_ctx: "[('date', '<=', context.get('date_to'))]" }
+        //   }
+        // }
+      }
+    }
+  },
 
   action_account_moves_all: {
     _odoo_model: 'ir.actions.act_window',
     name: 'Journal Items',
     type: 'ir.actions.act_window',
     res_model: 'account.move.line',
+    search_view_id: 'view_account_move_line_filter',
     domain: [
       ['display_type', 'not in', ['line_section', 'line_note']],
       ['parent_state', '!=', 'cancel']

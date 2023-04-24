@@ -12,12 +12,12 @@ const ModelFields = {
     context: '===todo=='
   },
 
-  lot_id_$_form_$$_222: {
-    context: { todo_ctx: "{'default_company_id': company_id, 'default_product_id': product_id}" }
+  lot_id_$_form_$$_198: {
+    context: { todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}" }
   },
 
-  lot_id_$_form_$$_380: {
-    context: { todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}" }
+  lot_id_$_form_$$_488: {
+    context: { todo_ctx: "{'default_company_id': company_id, 'default_product_id': product_id}" }
   },
 
   move_id: {},
@@ -27,8 +27,8 @@ const ModelFields = {
   package_id: { groups: 'stock.group_tracking_lot' },
   picking_id: {},
   product_id: {
-    domain: { todo_ctx: "[('id', 'in', context.get('product_ids', []))]" },
     context: { default_detailed_type: 'product' },
+    domain: { todo_ctx: "[('id', 'in', context.get('product_ids', []))]" },
     readonly: '1'
   },
 

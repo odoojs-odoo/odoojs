@@ -80,7 +80,7 @@ export default {
               no_create: true
             }
           },
-          _group_960: {
+          _group_417: {
             next_run_date: { groups: 'base.group_system' }
           }
         },
@@ -115,7 +115,10 @@ export default {
                     _attr: { text: 'Want to add your own KPIs?' },
                     _br: {},
                     _a: {
-                      _attr: { text: 'Check our Documentation' },
+                      _attr: {
+                        href: 'https://www.odoo.com/documentation/16.0/applications/general/digest_emails.html#custom-digest-emails',
+                        text: 'Check our Documentation'
+                      },
                       _i: {
                         _attr: { class: 'fa fa-arrow-right' }
                       }

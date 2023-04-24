@@ -36,7 +36,7 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 all_account_count: {}
               },
-              _span_870: {
+              _span_877: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Analytic Accounts'
@@ -57,7 +57,7 @@ export default {
             default_applicability: { invisible: [['parent_id', '!=', false]] },
             color: { widget: 'color_picker' }
           },
-          _group_324: {
+          _group_992: {
             company_id: { groups: 'base.group_multi_company' }
           }
         },

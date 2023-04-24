@@ -99,7 +99,7 @@ export default {
           invisible: [['production_real_duration', '=', 0]],
           optional: 'show'
         },
-        _field_company_id_578: {
+        _field_company_id_977: {
           company_id: {
             groups: 'base.group_multi_company',
             readonly: '1',
@@ -156,7 +156,7 @@ export default {
             class: 'oe_highlight'
           }
         },
-        _button_button_mark_done_373: {
+        _button_button_mark_done_221: {
           _attr: {
             name: 'button_mark_done',
             type: 'object',
@@ -165,7 +165,7 @@ export default {
             class: 'oe_highlight'
           }
         },
-        _button_button_mark_done_206: {
+        _button_button_mark_done_838: {
           _attr: {
             name: 'button_mark_done',
             type: 'object',
@@ -174,7 +174,7 @@ export default {
             class: 'oe_highlight'
           }
         },
-        _button_button_mark_done_865: {
+        _button_button_mark_done_459: {
           _attr: {
             name: 'button_mark_done',
             type: 'object',
@@ -247,7 +247,7 @@ export default {
             invisible: ['|', ['show_lock', '=', false], ['is_locked', '=', false]]
           }
         },
-        _button_action_toggle_is_locked_999: {
+        _button_action_toggle_is_locked_278: {
           _attr: {
             name: 'action_toggle_is_locked',
             type: 'object',
@@ -274,7 +274,7 @@ export default {
             invisible: ['|', '|', ['id', '=', false], ['state', 'in', ('done', 'cancel')], ['confirm_cancel', '=', true]]
           }
         },
-        _button_action_cancel_621: {
+        _button_action_cancel_329: {
           _attr: {
             name: 'action_cancel',
             type: 'object',
@@ -332,7 +332,7 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 mrp_production_child_count: {}
               },
-              _span_484: {
+              _span_306: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Child MO'
@@ -354,7 +354,7 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 mrp_production_source_count: {}
               },
-              _span_331: {
+              _span_525: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Source MO'
@@ -376,7 +376,7 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 mrp_production_backorder_count: {}
               },
-              _span_701: {
+              _span_840: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Backorders'
@@ -398,7 +398,7 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 unbuild_count: {}
               },
-              _span_883: {
+              _span_306: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Unbuilds'
@@ -420,7 +420,7 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 scrap_count: {}
               },
-              _span_853: {
+              _span_644: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Scraps'
@@ -547,7 +547,7 @@ export default {
                 groups: '!uom.group_uom',
                 invisible: '1'
               },
-              _field_product_uom_id_371: {
+              _field_product_uom_id_346: {
                 product_uom_id: {
                   groups: 'uom.group_uom',
                   readonly: [['state', '!=', 'draft']],
@@ -570,7 +570,7 @@ export default {
                   invisible: [['forecasted_issue', '=', true]]
                 }
               },
-              _button_action_product_forecast_report_392: {
+              _button_action_product_forecast_report_609: {
                 _attr: {
                   name: 'action_product_forecast_report',
                   type: 'object',
@@ -585,7 +585,7 @@ export default {
               for: 'lot_producing_id',
               invisible: ['|', ['state', '=', 'draft'], ['product_tracking', 'in', ('none', false)]]
             },
-            _div_470: {
+            _div_109: {
               _attr: {
                 invisible: ['|', ['state', '=', 'draft'], ['product_tracking', 'in', ('none', false)]],
                 class: 'o_row'
@@ -731,7 +731,7 @@ export default {
                         readonly: ['&', ['parent.state', '!=', 'draft'], '|', '&', ['parent.state', 'not in', ('confirmed', 'progress', 'to_close')], ['parent.is_planned', '!=', true], ['parent.is_locked', '=', true]],
                         force_save: '1'
                       },
-                      _field_product_uom_129: {
+                      _field_product_uom_819: {
                         product_uom: {
                           groups: 'uom.group_uom',
                           readonly: [['state', '!=', 'draft'], ['id', '!=', false]],
@@ -756,7 +756,7 @@ export default {
                           invisible: [['forecast_availability', '<', 0]]
                         }
                       },
-                      _button_action_product_forecast_report_112: {
+                      _button_action_product_forecast_report_427: {
                         _attr: {
                           name: 'action_product_forecast_report',
                           type: 'object',
@@ -807,7 +807,7 @@ export default {
                           context: { default_product_uom_qty: 0 }
                         }
                       },
-                      _button_action_show_details_244: {
+                      _button_action_show_details_626: {
                         _attr: {
                           name: 'action_show_details',
                           type: 'object',
@@ -915,7 +915,7 @@ export default {
                           invisible: ['|', ['has_tracking', '=', 'none'], ['show_details_visible', '=', false]]
                         }
                       },
-                      _button_action_show_details_537: {
+                      _button_action_show_details_214: {
                         _attr: {
                           name: 'action_show_details',
                           type: 'object',
@@ -944,7 +944,7 @@ export default {
                   readonly: [['state', '!=', 'draft']],
                   no_create: true
                 },
-                _field_location_src_id_405: {
+                _field_location_src_id_952: {
                   location_src_id: {
                     groups: '!stock.group_stock_multi_locations',
                     invisible: '1'
@@ -956,14 +956,14 @@ export default {
                   readonly: [['state', '!=', 'draft']],
                   no_create: true
                 },
-                _field_location_dest_id_533: {
+                _field_location_dest_id_591: {
                   location_dest_id: {
                     groups: '!stock.group_stock_multi_locations',
                     invisible: '1'
                   }
                 }
               },
-              _group_571: {
+              _group_623: {
                 origin: {},
                 date_deadline: { invisible: ['|', ['state', 'in', ('done', 'cancel')], ['date_deadline', '=', false]] }
               }
@@ -1017,7 +1017,7 @@ export default {
         string: 'Component',
         filter_domain: { todo_ctx: "[('move_raw_ids.product_id', 'ilike', self)]" }
       },
-      _field_name_237: {
+      _field_name_993: {
         name: {
           string: 'Work Center',
           filter_domain: { todo_ctx: "[('bom_id.operation_ids.workcenter_id', 'ilike', self)]" }
@@ -1097,7 +1097,7 @@ export default {
           domain: [['state', '=', 'cancel']]
         }
       },
-      _separator_481: {},
+      _separator_700: {},
       _filter_waiting: {
         _attr: {
           name: 'waiting',
@@ -1112,7 +1112,7 @@ export default {
           domain: [['reservation_state', '=', 'assigned']]
         }
       },
-      _separator_270: {},
+      _separator_328: {},
       _filter_planning_issues: {
         _attr: {
           name: 'planning_issues',
@@ -1121,7 +1121,7 @@ export default {
           domain: { todo_ctx: "['|', ('delay_alert_date', '!=', False), '&', ('date_deadline', '<', current_date), ('state', '=', 'confirmed')]" }
         }
       },
-      _separator_752: {},
+      _separator_933: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
@@ -1162,7 +1162,7 @@ export default {
           domain: { todo_ctx: "[('date_planned_start', '>', (datetime.datetime.now() + relativedelta(days=-365)).to_utc().strftime('%Y-%m-%d %H:%M:%S'))]" }
         }
       },
-      _separator_901: {},
+      _separator_594: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',

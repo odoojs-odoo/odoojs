@@ -34,6 +34,16 @@ export default {
             name: 'Tax Templates',
             action: 'account.action_account_tax_template_form'
           },
+
+          menu_action_tax_group: {
+            name: 'Tax Groups',
+            action: 'account.action_tax_group'
+          },
+          menu_action_tax_form: {
+            name: 'Taxes',
+            action: 'account.action_tax_form'
+          },
+
           menu_action_account_journal_group_list: {
             name: 'Journal Groups',
             action: 'account.action_account_journal_group_list'

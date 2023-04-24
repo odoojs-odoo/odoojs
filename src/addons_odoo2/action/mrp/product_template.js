@@ -31,7 +31,7 @@ export default {
             for: 'days_to_prepare_mo',
             invisible: [['type', '=', 'service']]
           },
-          _div_752: {
+          _div_431: {
             _attr: {
               invisible: [['type', '=', 'service']],
               text: 'days'
@@ -50,7 +50,7 @@ export default {
             }
           }
         },
-        _xpath_356: {
+        _xpath_767: {
           _attr: {
             expr: "//field[@name='product_variant_count']",
             position: 'after'
@@ -166,7 +166,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_566: {
+              _span_440: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Manufactured'

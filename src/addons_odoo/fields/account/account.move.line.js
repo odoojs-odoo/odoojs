@@ -1,8 +1,4 @@
 const ModelFields = {
-  name: {},
-
-  date: { groups: 'account.group_account_readonly' },
-
   account_id: {
     groups: 'account.group_account_readonly',
     required({ record }) {
@@ -56,17 +52,109 @@ const ModelFields = {
       return [['company_id', '=', company_id]]
     }
   },
+  account_type: {},
+  amount_currency: { groups: 'base.group_multi_currency', readonly: '1' },
+  amount_residual: { string: 'Residual', readonly: '1' },
+
+  amount_residual_currency: { string: 'Residual in Currency', readonly: '1' },
 
   analytic_distribution: {
-    groups: 'analytic.group_analytic_accounting'
+    groups: 'analytic.group_analytic_accounting',
+    readonly: '1'
   },
 
+  analytic_line_ids: {
+    // context: {
+    //   todo_ctx:
+    //     "{'tree_view_ref':'analytic.view_account_analytic_line_tree', 'default_general_account_id':account_id, 'default_name': name, 'default_date':date, 'amount': (debit or 0.0)-(credit or 0.0)}"
+    // }
+  },
+
+  balance: { readonly: '1' },
+  blocked: {},
+  company_currency_id: {},
+  company_id: { groups: 'base.group_multi_company', readonly: '1' },
+
+  credit: {
+    readonly({ record }) {
+      // 'readonly':
+      //   [('parent.move_type', 'in', (
+      // 'out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'
+      //   )),
+      //   ('display_type', 'in', ('line_section', 'line_note', 'product'))]}"/>
+
+      const move_types = [
+        'out_invoice',
+        'out_refund',
+        'in_invoice',
+        'in_refund',
+        'out_receipt',
+        'in_receipt'
+      ]
+      const { parent: prt, display_type } = record
+      return (
+        move_types.includes(prt.move_type) &&
+        ['line_section', 'line_note', 'product'].includes(display_type)
+      )
+    }
+  },
+
+  currency_id: { groups: 'base.group_multi_currency' },
+
+  date: { groups: 'account.group_account_readonly' },
+
+  date_maturity: { readonly: '1' },
+  debit: {
+    readonly({ record }) {
+      // 'readonly':
+      //   [('parent.move_type', 'in', (
+      // 'out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'
+      //   )),
+      //   ('display_type', 'in', ('line_section', 'line_note', 'product'))]
+
+      const move_types = [
+        'out_invoice',
+        'out_refund',
+        'in_invoice',
+        'in_refund',
+        'out_receipt',
+        'in_receipt'
+      ]
+      const { parent: prt, display_type } = record
+      return (
+        move_types.includes(prt.move_type) &&
+        ['line_section', 'line_note', 'product'].includes(display_type)
+      )
+    }
+  },
+
+  discount: { string: 'Disc.%' },
+  discount_amount_currency: { string: 'Discount Amount' },
+  discount_date: { string: 'Discount Date' },
+  full_reconcile_id: {},
+  is_account_reconcile: {},
+  is_same_currency: {},
+  journal_id: { readonly: '1' },
+  matched_credit_ids: {},
+  matched_debit_ids: {},
+  matching_number: { readonly: '1' },
+  move_id: { readonly: '1' },
+  move_name: { string: 'Journal Entry' },
+  move_type: {},
+  name: {},
   partner_id: {
     // 'readonly':[('move_type', '!=', 'entry')]
     domain: () => {
       // domain="['|', ('parent_id', '=', False), ('is_company', '=', True)]
       return ['|', ['parent_id', '=', false], ['is_company', '=', true]]
     }
+  },
+
+  price_subtotal: {
+    groups: 'account.group_show_line_subtotals_tax_excluded'
+  },
+  price_total: {
+    groups: 'account.group_show_line_subtotals_tax_included'
   },
 
   product_id: {
@@ -105,7 +193,11 @@ const ModelFields = {
       return [['category_id', '=', product_uom_category_id]]
     }
   },
-
+  quantity: { readonly: '1' },
+  ref: { readonly: 'False' },
+  sequence: {},
+  statement_line_id: { readonly: 'True' },
+  tax_audit: {},
   tax_ids: {
     // for account.move.line_ids
 
@@ -175,8 +267,12 @@ const ModelFields = {
       }
     }
   },
-
+  tax_line_id: {
+    readonly: '1',
+    string: 'Originator Tax'
+  },
   tax_tag_ids: {
+    string: 'Tax Grids',
     domain: ({ record }) => {
       // domain="[
       //     ('applicability', '=', 'taxes'),
@@ -193,66 +289,7 @@ const ModelFields = {
     }
   },
 
-  tax_tag_invert: { readonly: '1', groups: 'base.group_no_one' },
-
-  debit: {
-    readonly({ record }) {
-      // 'readonly':
-      //   [('parent.move_type', 'in', (
-      // 'out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'
-      //   )),
-      //   ('display_type', 'in', ('line_section', 'line_note', 'product'))]
-
-      const move_types = [
-        'out_invoice',
-        'out_refund',
-        'in_invoice',
-        'in_refund',
-        'out_receipt',
-        'in_receipt'
-      ]
-      const { parent: prt, display_type } = record
-      return (
-        move_types.includes(prt.move_type) &&
-        ['line_section', 'line_note', 'product'].includes(display_type)
-      )
-    }
-  },
-
-  credit: {
-    readonly({ record }) {
-      // 'readonly':
-      //   [('parent.move_type', 'in', (
-      // 'out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'
-      //   )),
-      //   ('display_type', 'in', ('line_section', 'line_note', 'product'))]}"/>
-
-      const move_types = [
-        'out_invoice',
-        'out_refund',
-        'in_invoice',
-        'in_refund',
-        'out_receipt',
-        'in_receipt'
-      ]
-      const { parent: prt, display_type } = record
-      return (
-        move_types.includes(prt.move_type) &&
-        ['line_section', 'line_note', 'product'].includes(display_type)
-      )
-    }
-  },
-
-  discount: { string: 'Disc.%' },
-  price_subtotal: {
-    groups: 'account.group_show_line_subtotals_tax_excluded'
-  },
-  price_total: {
-    groups: 'account.group_show_line_subtotals_tax_included'
-  },
-
-  amount_currency: { groups: 'base.group_multi_currency' },
-  currency_id: { groups: 'base.group_multi_currency' }
+  tax_tag_invert: { readonly: '1', groups: 'base.group_no_one' }
 }
 
 const AddonsFields = {

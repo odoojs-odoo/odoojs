@@ -38,7 +38,7 @@ export default {
             company_id: { invisible: '1' },
             code: { placeholder: 'e.g. CW' }
           },
-          _group_146: {
+          _group_886: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
@@ -99,7 +99,7 @@ export default {
                 wh_pack_stock_loc_id: { readonly: '1' },
                 wh_output_stock_loc_id: { readonly: '1' }
               },
-              _group_762: {
+              _group_504: {
                 _attr: { string: 'Operation Types' },
                 in_type_id: { readonly: '1' },
                 int_type_id: { readonly: '1' },

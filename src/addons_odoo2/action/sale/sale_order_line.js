@@ -52,7 +52,7 @@ export default {
             display_type: { invisible: '1' },
             product_updatable: { invisible: '1' }
           },
-          _group_621: {
+          _group_670: {
             price_unit: { readonly: '1' },
             discount: {
               groups: 'product.group_discount_per_so_line',

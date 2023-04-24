@@ -18,7 +18,7 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _widget: {
+        _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
             title: 'Archived',
@@ -50,7 +50,11 @@ export default {
 
       filters: {
         group_active: {
-          inactive: { string: '已归档', domain: [['active', '=', false]] }
+          inactive: {
+            name: 'inactive',
+            string: 'Archived',
+            domain: [['active', '=', false]]
+          }
         }
       }
     }

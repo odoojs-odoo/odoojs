@@ -32,6 +32,7 @@ export default {
         },
         _a: {
           _attr: {
+            href: '/web/reset_password/',
             class: 'btn btn-link',
             text: 'Forgot password?'
           }

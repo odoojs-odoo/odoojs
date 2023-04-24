@@ -73,13 +73,19 @@ export default {
           },
           _h1: {
             name: {
-              required: [['type', '=', 'contact'], ['is_company', '=', true]],
+              required: [
+                ['type', '=', 'contact'],
+                ['is_company', '=', true]
+              ],
               invisible: [['is_company', '=', false]],
               placeholder: 'e.g. Lumber Inc'
             },
-            _field_name_882: {
+            _field_name_361: {
               name: {
-                required: [['type', '=', 'contact'], ['is_company', '=', false]],
+                required: [
+                  ['type', '=', 'contact'],
+                  ['is_company', '=', false]
+                ],
                 invisible: [['is_company', '=', true]],
                 placeholder: 'e.g. Brandom Freeman'
               }
@@ -89,7 +95,10 @@ export default {
             widget: 'res_partner_many2one',
             domain: [['is_company', '=', true]],
             invisible: [['is_company', '=', true]],
-            context: { todo_ctx: "{'default_is_company': True, 'show_vat': True, 'default_user_id': user_id}" },
+            context: {
+              todo_ctx:
+                "{'default_is_company': True, 'show_vat': True, 'default_user_id': user_id}"
+            },
             placeholder: 'Company Name...'
           }
         },
@@ -194,7 +203,7 @@ export default {
               placeholder: 'e.g. https://www.odoo.com'
             }
           },
-          _group_324: {}
+          _group_975: {}
         }
       }
     }
@@ -210,7 +219,11 @@ export default {
           _attr: {
             invisible: [['same_vat_partner_id', '=', false]],
             class: 'alert alert-warning oe_edit_only',
-            text: ['A partner with the same', 'already exists (', '), are you sure to create a new one?']
+            text: [
+              'A partner with the same',
+              'already exists (',
+              '), are you sure to create a new one?'
+            ]
           },
           _span: {
             _span: {
@@ -222,11 +235,15 @@ export default {
           },
           same_vat_partner_id: {}
         },
-        _div_293: {
+        _div_352: {
           _attr: {
             invisible: [['same_company_registry_partner_id', '=', false]],
             class: 'alert alert-warning oe_edit_only',
-            text: ['A partner with the same', 'already exists (', '), are you sure to create a new one?']
+            text: [
+              'A partner with the same',
+              'already exists (',
+              '), are you sure to create a new one?'
+            ]
           },
           _span: {
             _span: {
@@ -276,7 +293,7 @@ export default {
               class: 'text-break',
               placeholder: 'e.g. Lumber Inc'
             },
-            _field_name_760: {
+            _field_name_472: {
               name: {
                 required: [['type', '=', 'contact']],
                 invisible: [['is_company', '=', true]],
@@ -290,18 +307,42 @@ export default {
             parent_id: {
               widget: 'res_partner_many2one',
               domain: [['is_company', '=', true]],
-              invisible: ['|', '&', ['is_company', '=', true], ['parent_id', '=', false], ['company_name', '!=', false], ['company_name', '!=', '']],
-              context: { todo_ctx: "{'default_is_company': True, 'show_vat': True, 'default_user_id': user_id}" },
+              invisible: [
+                '|',
+                '&',
+                ['is_company', '=', true],
+                ['parent_id', '=', false],
+                ['company_name', '!=', false],
+                ['company_name', '!=', '']
+              ],
+              context: {
+                todo_ctx:
+                  "{'default_is_company': True, 'show_vat': True, 'default_user_id': user_id}"
+              },
               placeholder: 'Company Name...'
             },
-            company_name: { invisible: ['|', '|', ['company_name', '=', false], ['company_name', '=', ''], ['is_company', '=', true]] },
+            company_name: {
+              invisible: [
+                '|',
+                '|',
+                ['company_name', '=', false],
+                ['company_name', '=', ''],
+                ['is_company', '=', true]
+              ]
+            },
             _button_create_company: {
               _attr: {
                 name: 'create_company',
                 type: 'object',
                 string: 'Create company',
                 icon: 'fa-plus-square',
-                invisible: ['|', '|', ['is_company', '=', true], ['company_name', '=', ''], ['company_name', '=', false]],
+                invisible: [
+                  '|',
+                  '|',
+                  ['is_company', '=', true],
+                  ['company_name', '=', ''],
+                  ['company_name', '=', false]
+                ],
                 class: 'oe_edit_only btn-link'
               }
             }
@@ -330,30 +371,48 @@ export default {
             _div: {
               _attr: { class: 'o_address_format' },
               street: {
-                readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]],
+                readonly: [
+                  ['type', '=', 'contact'],
+                  ['parent_id', '!=', false]
+                ],
                 class: 'o_address_street',
                 placeholder: 'Street...'
               },
               street2: {
-                readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]],
+                readonly: [
+                  ['type', '=', 'contact'],
+                  ['parent_id', '!=', false]
+                ],
                 class: 'o_address_street',
                 placeholder: 'Street 2...'
               },
               city: {
-                readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]],
+                readonly: [
+                  ['type', '=', 'contact'],
+                  ['parent_id', '!=', false]
+                ],
                 class: 'o_address_city',
                 placeholder: 'City'
               },
               state_id: {
-                readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]],
-                context: { todo_ctx: "{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}" },
+                readonly: [
+                  ['type', '=', 'contact'],
+                  ['parent_id', '!=', false]
+                ],
+                context: {
+                  todo_ctx:
+                    "{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"
+                },
                 class: 'o_address_state',
                 placeholder: 'State',
                 no_open: true,
                 no_quick_create: true
               },
               zip: {
-                readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]],
+                readonly: [
+                  ['type', '=', 'contact'],
+                  ['parent_id', '!=', false]
+                ],
                 class: 'o_address_zip',
                 placeholder: 'ZIP'
               },
@@ -363,7 +422,10 @@ export default {
                   class: 'd-flex justify-content-between'
                 },
                 country_id: {
-                  readonly: [['type', '=', 'contact'], ['parent_id', '!=', false]],
+                  readonly: [
+                    ['type', '=', 'contact'],
+                    ['parent_id', '!=', false]
+                  ],
                   class: 'o_address_country',
                   placeholder: 'Country',
                   no_open: true,
@@ -376,7 +438,7 @@ export default {
               placeholder: 'e.g. BE0477472701'
             }
           },
-          _group_567: {
+          _group_381: {
             function: {
               invisible: [['is_company', '=', true]],
               placeholder: 'e.g. Sales Director'
@@ -416,7 +478,10 @@ export default {
               string: 'Contacts & Addresses'
             },
             child_ids: {
-              context: { todo_ctx: "{'default_parent_id': active_id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_lang': lang, 'default_user_id': user_id, 'default_type': 'other'}" },
+              context: {
+                todo_ctx:
+                  "{'default_parent_id': active_id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_lang': lang, 'default_user_id': user_id, 'default_type': 'other'}"
+              },
               views: {
                 kanban: {
                   arch: {
@@ -451,16 +516,16 @@ export default {
                               _attr: { class: 'o_kanban_image' },
                               _img: {}
                             },
-                            _div_925: {
+                            _div_596: {
                               _attr: { class: 'oe_kanban_details' },
                               name: {},
                               _div: {
                                 function: {}
                               },
-                              _div_471: {
+                              _div_168: {
                                 email: { widget: 'email' }
                               },
-                              _div_883: {
+                              _div_532: {
                                 _div: {
                                   zip: {},
                                   city: {}
@@ -468,11 +533,11 @@ export default {
                                 state_id: {},
                                 country_id: {}
                               },
-                              _div_519: {
+                              _div_403: {
                                 _attr: { text: 'Phone:' },
                                 _t: {}
                               },
-                              _div_736: {
+                              _div_197: {
                                 _attr: { text: 'Mobile:' },
                                 _t: {}
                               }
@@ -501,35 +566,40 @@ export default {
                               invisible: [['type', '!=', 'contact']],
                               class: 'mb-0'
                             },
-                            _span: 'Use this to organize the contact details of employees of a given company (e.g. CEO, CFO, ...).'
+                            _span:
+                              'Use this to organize the contact details of employees of a given company (e.g. CEO, CFO, ...).'
                           },
-                          _p_321: {
+                          _p_144: {
                             _attr: {
                               invisible: [['type', '!=', 'invoice']],
                               class: 'mb-0'
                             },
-                            _span: 'Preferred address for all invoices. Selected by default when you invoice an order that belongs to this company.'
+                            _span:
+                              'Preferred address for all invoices. Selected by default when you invoice an order that belongs to this company.'
                           },
-                          _p_201: {
+                          _p_727: {
                             _attr: {
                               invisible: [['type', '!=', 'delivery']],
                               class: 'mb-0'
                             },
-                            _span: 'Preferred address for all deliveries. Selected by default when you deliver an order that belongs to this company.'
+                            _span:
+                              'Preferred address for all deliveries. Selected by default when you deliver an order that belongs to this company.'
                           },
-                          _p_632: {
+                          _p_731: {
                             _attr: {
                               invisible: [['type', '!=', 'private']],
                               class: 'mb-0'
                             },
-                            _span: 'Private addresses are only visible by authorized users and contain sensitive data (employee home addresses, ...).'
+                            _span:
+                              'Private addresses are only visible by authorized users and contain sensitive data (employee home addresses, ...).'
                           },
-                          _p_380: {
+                          _p_615: {
                             _attr: {
                               invisible: [['type', '!=', 'other']],
                               class: 'mb-0'
                             },
-                            _span: 'Other address for the company (e.g. subsidiary, ...)'
+                            _span:
+                              'Other address for the company (e.g. subsidiary, ...)'
                           }
                         },
                         _hr: {},
@@ -550,7 +620,7 @@ export default {
                             },
                             _label_street: {
                               for: 'street',
-                              string: 'Address',
+                              text: 'Address',
                               invisible: [['type', '=', 'contact']]
                             },
                             _div: {
@@ -573,7 +643,10 @@ export default {
                                   placeholder: 'City'
                                 },
                                 state_id: {
-                                  context: { todo_ctx: "{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}" },
+                                  context: {
+                                    todo_ctx:
+                                      "{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"
+                                  },
                                   class: 'o_address_state',
                                   placeholder: 'State',
                                   no_open: true,
@@ -592,14 +665,14 @@ export default {
                               }
                             }
                           },
-                          _group_506: {
+                          _group_280: {
                             email: { widget: 'email' },
                             phone: { widget: 'phone' },
                             mobile: { widget: 'phone' },
                             company_id: { invisible: '1' }
                           }
                         },
-                        _group_532: {
+                        _group_345: {
                           comment: { placeholder: 'Internal notes...' }
                         },
                         lang: { invisible: 'True' },
@@ -704,7 +777,10 @@ export default {
                   placeholder: 'City'
                 },
                 state_id: {
-                  context: { todo_ctx: "{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}" },
+                  context: {
+                    todo_ctx:
+                      "{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"
+                  },
                   class: 'o_address_state',
                   placeholder: 'State',
                   no_open: true,
@@ -723,7 +799,7 @@ export default {
               }
             }
           },
-          _group_896: {
+          _group_180: {
             phone: {
               widget: 'phone',
               options: "{'enable_sms': false}"
@@ -736,7 +812,7 @@ export default {
             lang: {}
           }
         },
-        _group_387: {
+        _group_130: {
           _attr: { string: 'Bank Accounts' },
           bank_ids: {
             views: {
@@ -762,7 +838,10 @@ export default {
     type: 'search',
     arch: {
       name: {
-        filter_domain: { todo_ctx: "['|', '|', '|', '|', ('display_name', 'ilike', self), ('ref', '=', self), ('email', 'ilike', self), ('vat', 'ilike', self), ('company_registry', 'ilike', self)]" }
+        filter_domain: {
+          todo_ctx:
+            "['|', '|', '|', '|', ('display_name', 'ilike', self), ('ref', '=', self), ('email', 'ilike', self), ('vat', 'ilike', self), ('company_registry', 'ilike', self)]"
+        }
       },
       parent_id: {
         domain: [['is_company', '=', true]],
@@ -772,7 +851,9 @@ export default {
         filter_domain: { todo_ctx: "[('email', 'ilike', self)]" }
       },
       phone: {
-        filter_domain: { todo_ctx: "['|', ('phone', 'ilike', self), ('mobile', 'ilike', self)]" }
+        filter_domain: {
+          todo_ctx: "['|', ('phone', 'ilike', self), ('mobile', 'ilike', self)]"
+        }
       },
       category_id: {
         string: 'Tag',
@@ -794,7 +875,7 @@ export default {
           domain: [['is_company', '=', true]]
         }
       },
-      _separator_584: {},
+      _separator_440: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -802,7 +883,7 @@ export default {
           domain: [['active', '=', false]]
         }
       },
-      _separator_597: {},
+      _separator_133: {},
       _group_group_by: {
         _attr: {
           name: 'group_by',

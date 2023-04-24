@@ -61,7 +61,9 @@ export default {
           }
         },
 
-        _div_button_box: {},
+        _div_button_box: {
+          _attr: { name: 'button_box', class: 'oe_button_box' }
+        },
         _widget: {
           _attr: {
             name: 'web_ribbon',
@@ -162,6 +164,7 @@ export default {
         _group: {
           _group_address: {
             type: {
+              nolabel: 1,
               widget: 'radio',
               invisible: ({ record }) => {
                 // [('is_company','=', True)],
@@ -170,8 +173,10 @@ export default {
             },
 
             _label_address_type: {
-              // todo:  function . record.type
-              text: 'AddressTodo',
+              string({ record }) {
+                const { type } = record
+                return type
+              },
               invisible({ record }) {
                 const { is_company } = record
                 return is_company
@@ -179,7 +184,7 @@ export default {
             },
 
             _label_address: {
-              text: 'Address',
+              string: 'Address',
               invisible({ record }) {
                 const { is_company } = record
                 return !is_company
@@ -236,30 +241,7 @@ export default {
             child_ids: {
               nolabel: 1,
               widget: 'x2many_tree',
-              context({ record, active_id }) {
-                // context="{
-                // 'default_parent_id': active_id,
-                // 'default_street': street, 'default_street2': street2,
-                // 'default_city': city, 'default_state_id': state_id,
-                // 'default_zip': zip, 'default_country_id': country_id,
-                // 'default_lang': lang, 'default_user_id': user_id,
-                // 'default_type': 'other'}">
-                //
-                const { street, street2, city, state_id, zip } = record
-                const { country_id, lang, user_id } = record
-                return {
-                  default_parent_id: active_id,
-                  default_street: street,
-                  default_street2: street2,
-                  default_city: city,
-                  default_state_id: state_id,
-                  default_zip: zip,
-                  default_country_id: country_id,
-                  default_lang: lang,
-                  default_user_id: user_id,
-                  default_type: 'other'
-                }
-              },
+
               views: {
                 tree: {
                   arch: {
@@ -450,37 +432,41 @@ export default {
           },
           _page_sales_purchases: {
             _attr: { name: 'sales_purchases', string: 'Sales & Purchase' },
-            _group_sales_purchases: {
-              _group_sale: {
-                _attr: { name: 'sale', string: 'Sales' },
-                user_id: { widget: 'many2one_avatar_user' }
-              },
-              _group_purchase: {
-                _attr: { name: 'purchase', string: 'Purchase' }
-              },
-              _group_misc: {
-                _attr: { name: 'misc', string: 'Misc' },
-                company_registry: {
-                  invisible: ({ record }) => {
-                    // 'invisible': [('parent_id','!=',False)]
-                    const { parent_id } = record
-                    return parent_id
-                  }
+            _group_container_row_2: {
+              _attr: { name: 'container_row_2' },
+              _group_sales_purchases: {
+                _attr: { name: 'sales_purchases', string: 'Sales & Purchase' },
+                _group_sale: {
+                  _attr: { name: 'sale', string: 'Sales' },
+                  user_id: { widget: 'many2one_avatar_user' }
                 },
-                ref: { string: 'Reference' },
-                company_id: {},
-                industry_id: {
-                  invisible: ({ record }) => {
-                    // 'invisible': [('is_company', '=', False)]
-                    const { is_company } = record
-                    return !is_company
+                _group_purchase: {
+                  _attr: { name: 'purchase', string: 'Purchase' }
+                },
+                _group_misc: {
+                  _attr: { name: 'misc', string: 'Misc' },
+                  company_registry: {
+                    invisible: ({ record }) => {
+                      // 'invisible': [('parent_id','!=',False)]
+                      const { parent_id } = record
+                      return parent_id
+                    }
+                  },
+                  ref: { string: 'Reference' },
+                  company_id: {},
+                  industry_id: {
+                    invisible: ({ record }) => {
+                      // 'invisible': [('is_company', '=', False)]
+                      const { is_company } = record
+                      return !is_company
+                    }
                   }
                 }
               }
             }
           },
           _page_internal_notes: {
-            _attr: { string: 'Internal Notes' },
+            _attr: { name: 'internal_notes', string: 'Internal Notes' },
             comment: {
               placeholder: 'Internal notes...'
             }

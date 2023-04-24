@@ -26,7 +26,7 @@ export default {
         oee_target: { optional: 'show' },
         time_start: { optional: 'hide' },
         time_stop: { optional: 'hide' },
-        _field_company_id_687: {
+        _field_company_id_353: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'hide'
@@ -90,7 +90,7 @@ export default {
                 },
                 oee: { widget: 'statinfo' }
               },
-              _span_796: {
+              _span_945: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'OEE'
@@ -114,7 +114,7 @@ export default {
                 },
                 blocked_time: { widget: 'statinfo' }
               },
-              _span_693: {
+              _span_482: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Lost'
@@ -145,7 +145,7 @@ export default {
                 },
                 workcenter_load: { widget: 'statinfo' }
               },
-              _span_991: {
+              _span_168: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Load'
@@ -173,7 +173,7 @@ export default {
                 },
                 performance: { widget: 'statinfo' }
               },
-              _span_572: {
+              _span_471: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Performance'
@@ -204,7 +204,7 @@ export default {
             },
             alternative_workcenter_ids: { widget: 'many2many_tags' }
           },
-          _group_384: {
+          _group_145: {
             code: {},
             resource_calendar_id: { required: '1' },
             company_id: {
@@ -235,7 +235,7 @@ export default {
                 },
                 default_capacity: {},
                 _label_oee_target: { for: 'oee_target' },
-                _div_605: {
+                _div_789: {
                   _attr: {
                     class: 'o_row',
                     text: '%'
@@ -250,7 +250,10 @@ export default {
                 },
                 _label_costs_hour: { for: 'costs_hour' },
                 _div: {
-                  _attr: { text: 'per workcenter' },
+                  _attr: {
+                    id: 'costs_hour',
+                    text: 'per workcenter'
+                  },
                   costs_hour: {
                     widget: 'monetary',
                     class: 'oe_inline'
@@ -267,7 +270,7 @@ export default {
                   }
                 },
                 _label_time_stop: { for: 'time_stop' },
-                _div_515: {
+                _div_497: {
                   _attr: { text: 'minutes' },
                   time_stop: {
                     widget: 'float_time',

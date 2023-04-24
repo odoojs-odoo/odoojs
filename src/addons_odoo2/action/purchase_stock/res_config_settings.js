@@ -32,11 +32,12 @@ export default {
                 _attr: { class: 'o_setting_left_pane' },
                 module_stock_dropshipping: {}
               },
-              _div_497: {
+              _div_284: {
                 _attr: { class: 'o_setting_right_pane' },
                 _label_module_stock_dropshipping: { for: 'module_stock_dropshipping' },
                 _a: {
                   _attr: {
+                    href: 'https://www.odoo.com/documentation/16.0/applications/inventory_and_mrp/inventory/management/delivery/dropshipping.html',
                     title: 'Documentation',
                     class: 'o_doc_link'
                   }
@@ -75,7 +76,10 @@ export default {
           }
         },
         _div: {
-          _attr: { position: 'replace' },
+          _attr: {
+            id: 'purchase_po_lead',
+            position: 'replace'
+          },
           _div_schedule_receivings_setting_container: {
             _attr: {
               name: 'schedule_receivings_setting_container',
@@ -86,11 +90,12 @@ export default {
               _attr: { class: 'o_setting_left_pane' },
               use_po_lead: {}
             },
-            _div_992: {
+            _div_354: {
               _attr: { class: 'o_setting_right_pane' },
               _label_use_po_lead: { for: 'use_po_lead' },
               _a: {
                 _attr: {
+                  href: 'https://www.odoo.com/documentation/16.0/applications/inventory_and_mrp/inventory/management/planning/scheduled_dates.html',
                   title: 'Documentation',
                   class: 'me-2 o_doc_link'
                 }
@@ -108,7 +113,7 @@ export default {
                   text: 'Schedule request for quotations earlier to avoid delays'
                 }
               },
-              _div_599: {
+              _div_634: {
                 _attr: { class: 'content-group' },
                 _div: {
                   _attr: {
@@ -141,7 +146,7 @@ export default {
                   text: 'Days needed to confirm a PO'
                 }
               },
-              _div_723: {
+              _div_624: {
                 _attr: { class: 'content-group' },
                 _div: {
                   _attr: { class: 'mt16' },

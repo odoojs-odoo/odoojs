@@ -23,7 +23,7 @@ export default {
             res_model: {},
             partner_id: {}
           },
-          _group_465: {
+          _group_159: {
             res_id: {},
             subtype_ids: { widget: 'many2many_tags' }
           }

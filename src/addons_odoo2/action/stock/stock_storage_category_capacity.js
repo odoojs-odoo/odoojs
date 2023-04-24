@@ -24,7 +24,7 @@ export default {
           no_open: true
         },
         company_id: { invisible: '1' },
-        _field_package_type_id_997: {
+        _field_package_type_id_465: {
           package_type_id: { invisible: '1' }
         }
       }

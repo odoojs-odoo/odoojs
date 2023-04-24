@@ -25,7 +25,7 @@ export default {
               invisible: [['type', '=', 'binary']]
             }
           },
-          _group_947: {
+          _group_357: {
             _attr: {
               string: 'Attached To',
               groups: 'base.group_no_one'
@@ -36,7 +36,7 @@ export default {
               no_create: true
             }
           },
-          _group_544: {
+          _group_808: {
             _attr: {
               string: 'History',
               groups: 'base.group_no_one',

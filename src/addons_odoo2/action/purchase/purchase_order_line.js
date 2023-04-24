@@ -53,7 +53,7 @@ export default {
             },
             price_unit: {}
           },
-          _group_494: {
+          _group_730: {
             taxes_id: {
               widget: 'many2many_tags',
               domain: [['type_tax_use', '=', 'purchase']]

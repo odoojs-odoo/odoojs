@@ -43,7 +43,7 @@ export default {
               for: 'price',
               string: 'Unit Price'
             },
-            _div_968: {
+            _div_734: {
               _attr: { class: 'o_row' },
               price: { class: 'oe_inline' },
               currency_id: { groups: 'base.group_multi_currency' }
@@ -52,7 +52,7 @@ export default {
               for: 'date_start',
               string: 'Validity'
             },
-            _div_880: {
+            _div_584: {
               _attr: {
                 class: 'o_row',
                 text: 'to'

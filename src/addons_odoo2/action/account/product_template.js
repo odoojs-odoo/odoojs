@@ -96,7 +96,7 @@ export default {
             }
           }
         },
-        _xpath_646: {
+        _xpath_443: {
           _attr: {
             expr: "//div[@name='pricing']",
             position: 'after'
@@ -111,7 +111,7 @@ export default {
             }
           }
         },
-        _xpath_316: {
+        _xpath_713: {
           _attr: {
             expr: "//div[@name='pricing']",
             position: 'inside'

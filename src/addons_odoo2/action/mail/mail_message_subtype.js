@@ -31,7 +31,7 @@ export default {
             hidden: {},
             track_recipients: {}
           },
-          _group_406: {
+          _group_183: {
             _attr: { string: 'Auto subscription' },
             parent_id: {},
             relation_field: {}

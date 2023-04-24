@@ -37,7 +37,7 @@ export default {
                     _attr: { class: 'o_primary' },
                     name: {}
                   },
-                  _div_839: {
+                  _div_445: {
                     _attr: { class: 'o_secondary' },
                     warehouse_id: {
                       groups: 'stock.group_stock_multi_warehouses',
@@ -46,10 +46,13 @@ export default {
                     }
                   }
                 },
-                _div_683: {
+                _div_651: {
                   _attr: { class: 'o_kanban_manage_button_section' },
                   _a: {
-                    _attr: { class: 'o_kanban_manage_toggle_button' },
+                    _attr: {
+                      href: '#',
+                      class: 'o_kanban_manage_toggle_button'
+                    },
                     _i: {
                       _attr: {
                         title: 'Manage',
@@ -59,7 +62,7 @@ export default {
                   }
                 }
               },
-              _div_594: {
+              _div_108: {
                 _attr: { class: 'container o_kanban_card_content' },
                 _div: {
                   _attr: { class: 'row' },
@@ -78,7 +81,7 @@ export default {
                       }
                     }
                   },
-                  _div_812: {
+                  _div_331: {
                     _attr: { class: 'col-6 o_kanban_primary_right' },
                     _div: {
                       _attr: { class: 'row' },
@@ -93,12 +96,12 @@ export default {
                           }
                         }
                       },
-                      _div_888: {
+                      _div_590: {
                         _attr: { class: 'col-3' },
                         count_mo_waiting: {}
                       }
                     },
-                    _div_746: {
+                    _div_471: {
                       _attr: { class: 'row' },
                       _div: {
                         _attr: { class: 'col-9' },
@@ -112,7 +115,7 @@ export default {
                           }
                         }
                       },
-                      _div_799: {
+                      _div_421: {
                         _attr: { class: 'col-3' },
                         count_mo_late: {}
                       }
@@ -120,7 +123,7 @@ export default {
                   }
                 }
               },
-              _div_500: {
+              _div_231: {
                 _attr: { class: 'container o_kanban_card_manage_pane dropdown-menu' },
                 _div: {
                   _attr: { class: 'row' },
@@ -133,7 +136,7 @@ export default {
                       _attr: { class: 'o_kanban_card_manage_title' },
                       _span: 'Orders'
                     },
-                    _div_248: {
+                    _div_183: {
                       _a_mrp_production_action_picking_deshboard: {
                         _attr: {
                           name: '%(mrp_production_action_picking_deshboard)d',
@@ -142,7 +145,7 @@ export default {
                         }
                       }
                     },
-                    _div_381: {
+                    _div_855: {
                       _a_mrp_production_action_picking_deshboard: {
                         _attr: {
                           name: '%(mrp_production_action_picking_deshboard)d',
@@ -152,7 +155,7 @@ export default {
                         }
                       }
                     },
-                    _div_658: {
+                    _div_381: {
                       _a_mrp_production_action_picking_deshboard: {
                         _attr: {
                           name: '%(mrp_production_action_picking_deshboard)d',
@@ -169,7 +172,7 @@ export default {
                       _attr: { class: 'o_kanban_card_manage_title' },
                       _span: 'New'
                     },
-                    _div_699: {
+                    _div_452: {
                       _a_action_mrp_production_form: {
                         _attr: {
                           name: '%(action_mrp_production_form)d',
@@ -181,7 +184,7 @@ export default {
                     }
                   }
                 },
-                _div_533: {
+                _div_451: {
                   _attr: { class: 'o_kanban_card_manage_settings row' },
                   _div: {
                     _attr: { class: 'col-8' },
@@ -189,7 +192,7 @@ export default {
                       _attr: { class: 'oe_kanban_colorpicker' }
                     }
                   },
-                  _div_292: {
+                  _div_960: {
                     _attr: { class: 'col-4' },
                     _a: {
                       _attr: {

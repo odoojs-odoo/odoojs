@@ -110,7 +110,7 @@ export default {
               }
             }
           },
-          _page_767: {
+          _page_171: {
             _attr: { string: 'Settings' },
             reply_to_force_new: { invisible: '1' },
             reply_to_mode: {
@@ -137,7 +137,7 @@ export default {
               class: 'btn-primary o_mail_send'
             }
           },
-          _button_action_send_mail_411: {
+          _button_action_send_mail_186: {
             _attr: {
               name: 'action_send_mail',
               type: 'object',

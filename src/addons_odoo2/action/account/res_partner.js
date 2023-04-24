@@ -29,7 +29,7 @@ export default {
                   currency_field: 'currency_id'
                 }
               },
-              _span_168: {
+              _span_233: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Invoiced'
@@ -192,7 +192,7 @@ export default {
             }
           }
         },
-        _xpath_276: {
+        _xpath_223: {
           _attr: {
             expr: "//group[@name='misc']",
             position: 'before'

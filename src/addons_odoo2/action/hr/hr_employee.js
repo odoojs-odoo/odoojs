@@ -31,7 +31,7 @@ export default {
           domain: [['message_needaction', '=', true]]
         }
       },
-      _separator_251: {},
+      _separator_127: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
@@ -56,7 +56,7 @@ export default {
           domain: { todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
-      _separator_224: {},
+      _separator_508: {},
       _filter_my_team: {
         _attr: {
           name: 'my_team',
@@ -71,7 +71,7 @@ export default {
           domain: [['member_of_department', '=', true]]
         }
       },
-      _separator_700: {},
+      _separator_448: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -169,7 +169,10 @@ export default {
             options: '{"zoom": true, "preview_image":"avatar_128"}'
           },
           _div: {
-            _attr: { class: 'd-flex align-items-end fs-6 o_employee_availability' },
+            _attr: {
+              id: 'hr_presence_status',
+              class: 'd-flex align-items-end fs-6 o_employee_availability'
+            },
             _small: {
               _attr: {
                 title: 'Present',
@@ -241,7 +244,7 @@ export default {
             company_country_id: { invisible: '1' },
             company_country_code: { invisible: '1' }
           },
-          _group_255: {
+          _group_583: {
             department_id: {},
             parent_id: {},
             coach_id: {}
@@ -254,9 +257,15 @@ export default {
               string: 'Work Information'
             },
             _div: {
-              _attr: { class: 'd-lg-flex' },
+              _attr: {
+                id: 'o_work_employee_container',
+                class: 'd-lg-flex'
+              },
               _div: {
-                _attr: { class: 'flex-grow-1' },
+                _attr: {
+                  id: 'o_work_employee_main',
+                  class: 'flex-grow-1'
+                },
                 _group: {
                   _attr: { string: 'Location' },
                   address_id: {
@@ -289,7 +298,7 @@ export default {
                   departure_description: {},
                   departure_date: {}
                 },
-                _group_600: {
+                _group_982: {
                   _attr: { string: 'Schedule' },
                   resource_calendar_id: { required: '1' },
                   id: { invisible: '1' },
@@ -336,7 +345,7 @@ export default {
                   _span: 'Km'
                 }
               },
-              _group_887: {
+              _group_443: {
                 _attr: { string: 'Family Status' },
                 marital: {},
                 spouse_complete_name: { invisible: [['marital', 'not in', ['married', 'cohabitant']]] },
@@ -351,7 +360,7 @@ export default {
                 emergency_contact: {},
                 emergency_phone: { class: 'o_force_ltr' }
               },
-              _group_547: {
+              _group_551: {
                 _attr: { string: 'Education' },
                 certificate: {},
                 study_field: {},
@@ -368,7 +377,7 @@ export default {
                 work_permit_expiration_date: {},
                 has_work_permit: { widget: 'work_permit_upload' }
               },
-              _group_979: {
+              _group_317: {
                 _attr: { string: 'Citizenship' },
                 country_id: {
                   no_open: true,
@@ -478,7 +487,7 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 related_contacts_count: {}
               },
-              _span_929: {
+              _span_498: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Contacts'
@@ -531,7 +540,7 @@ export default {
         job_id: {},
         parent_id: {},
         address_id: { invisible: '1' },
-        _field_company_id_102: {
+        _field_company_id_281: {
           company_id: { invisible: '1' }
         },
         work_location_id: { optional: 'hide' },

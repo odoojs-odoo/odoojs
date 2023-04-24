@@ -10,3 +10,4 @@ const AddonsFields = {
 }
 
 export default AddonsFields
+

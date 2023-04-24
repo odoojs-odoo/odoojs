@@ -14,7 +14,7 @@ export default {
             ref: {},
             partner_id: {}
           },
-          _xpath_865: {
+          _xpath_918: {
             _attr: {
               expr: "//field[@name='product_uom_id']",
               position: 'before'
@@ -89,7 +89,7 @@ export default {
               filter_domain: { todo_ctx: "[('partner_id','child_of',self)]" }
             }
           },
-          _xpath_105: {
+          _xpath_303: {
             _attr: {
               expr: "//group[@name='groupby']",
               position: 'after'

@@ -27,7 +27,7 @@ export default {
             address_id: {},
             location_number: {}
           },
-          _group_255: {
+          _group_482: {
             company_id: { groups: 'base.group_multi_company' }
           }
         }

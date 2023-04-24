@@ -13,7 +13,7 @@ export default {
             },
             account_prefix: { optional: 'show' }
           },
-          _xpath_108: {
+          _xpath_757: {
             _attr: {
               expr: "//field[@name='company_id']",
               position: 'before'
@@ -40,7 +40,7 @@ export default {
             },
             account_prefix: {}
           },
-          _xpath_149: {
+          _xpath_304: {
             _attr: {
               expr: "//field[@name='company_id']",
               position: 'before'

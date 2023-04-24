@@ -16,8 +16,9 @@ export default {
               _attr: { text: 'Are you sure you want to cancel this order?' },
               _br: {}
             },
-            _span_167: {
+            _span_128: {
               _attr: {
+                id: 'display_invoice_alert',
                 invisible: [['display_invoice_alert', '=', false]],
                 text: 'Draft invoices for this order will be cancelled.'
               },
@@ -34,7 +35,7 @@ export default {
               }
             }
           },
-          _group_280: {
+          _group_232: {
             subject: { placeholder: 'Subject' }
           },
           body: {

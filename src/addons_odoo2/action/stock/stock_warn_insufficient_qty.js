@@ -18,7 +18,7 @@ export default {
             }
           }
         },
-        _div_870: {
+        _div_171: {
           _attr: { invisible: [['quant_ids', '=', []]] },
           _br: {},
           _strong: 'Current Inventory:',

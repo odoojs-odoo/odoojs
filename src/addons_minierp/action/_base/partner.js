@@ -333,30 +333,32 @@ export default {
           },
           _page_sales_purchases: {
             _attr: { name: 'sales_purchases', string: 'Sales & Purchase' },
-            _group_sales_purchases: {
-              _group_sale: {
-                _attr: { name: 'sale', string: 'Sales' },
-                user_id: { widget: 'many2one_avatar_user' }
-              },
-              _group_purchase: {
-                _attr: { name: 'purchase', string: 'Purchase' }
-              },
-              _group_misc: {
-                _attr: { name: 'misc', string: 'Misc' },
-                company_registry: {
-                  invisible: ({ record }) => {
-                    // 'invisible': [('parent_id','!=',False)]
-                    const { parent_id } = record
-                    return parent_id
-                  }
+            _group_container_row_2: {
+              _group_sales_purchases: {
+                _group_sale: {
+                  _attr: { name: 'sale', string: 'Sales' },
+                  user_id: { widget: 'many2one_avatar_user' }
                 },
-                ref: { string: 'Reference' },
-                company_id: {},
-                industry_id: {
-                  invisible: ({ record }) => {
-                    // 'invisible': [('is_company', '=', False)]
-                    const { is_company } = record
-                    return !is_company
+                _group_purchase: {
+                  _attr: { name: 'purchase', string: 'Purchase' }
+                },
+                _group_misc: {
+                  _attr: { name: 'misc', string: 'Misc' },
+                  company_registry: {
+                    invisible: ({ record }) => {
+                      // 'invisible': [('parent_id','!=',False)]
+                      const { parent_id } = record
+                      return parent_id
+                    }
+                  },
+                  ref: { string: 'Reference' },
+                  company_id: {},
+                  industry_id: {
+                    invisible: ({ record }) => {
+                      // 'invisible': [('is_company', '=', False)]
+                      const { is_company } = record
+                      return !is_company
+                    }
                   }
                 }
               }

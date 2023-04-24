@@ -9,7 +9,7 @@ export default {
           _p: {
             _attr: { text: ['You have not recorded', 'quantities yet, by clicking on', 'Odoo will produce all the finished products and consume all components.'] },
             _i: 'produced',
-            _i_226: 'apply'
+            _i_565: 'apply'
           }
         },
         show_productions: { invisible: '1' },

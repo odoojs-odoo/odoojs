@@ -100,7 +100,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_314: {
+              _span_183: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Manufactured'

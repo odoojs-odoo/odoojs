@@ -13,7 +13,7 @@ export default {
             sequence: {},
             active: { widget: 'boolean_toggle' }
           },
-          _group_511: {
+          _group_450: {
             target: { invisible: [['directive', '!=', 'replace']] },
             path: {}
           }

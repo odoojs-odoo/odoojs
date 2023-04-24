@@ -15,7 +15,7 @@ export default {
           string: 'Duration (minutes)',
           widget: 'float_time'
         },
-        _field_company_id_874: {
+        _field_company_id_745: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'hide'
@@ -56,7 +56,7 @@ export default {
             }
           }
         },
-        _xpath_731: {
+        _xpath_658: {
           _attr: {
             expr: '//tree',
             position: 'inside'
@@ -76,20 +76,20 @@ export default {
             }
           }
         },
-        _xpath_826: {
+        _xpath_357: {
           _attr: {
             expr: "//field[@name='name']",
             position: 'before'
           },
           sequence: { widget: 'handle' }
         },
-        _xpath_711: {
+        _xpath_753: {
           _attr: {
             expr: "//field[@name='bom_id']",
             position: 'replace'
           }
         },
-        _xpath_739: {
+        _xpath_226: {
           _attr: {
             expr: "//field[@name='time_cycle']",
             position: 'attributes'
@@ -102,7 +102,7 @@ export default {
             }
           }
         },
-        _xpath_356: {
+        _xpath_969: {
           _attr: {
             expr: "//field[@name='bom_product_template_attribute_value_ids']",
             position: 'attributes'
@@ -115,7 +115,7 @@ export default {
             }
           }
         },
-        _xpath_601: {
+        _xpath_771: {
           _attr: {
             expr: "//field[@name='bom_product_template_attribute_value_ids']",
             position: 'after'
@@ -129,13 +129,13 @@ export default {
             }
           }
         },
-        _xpath_771: {
+        _xpath_100: {
           _attr: {
             expr: "//field[@name='blocked_by_operation_ids']",
             position: 'replace'
           }
         },
-        _xpath_218: {
+        _xpath_876: {
           _attr: {
             expr: "//field[@name='name']",
             position: 'after'
@@ -191,7 +191,7 @@ export default {
             }
           }
         },
-        _xpath_499: {
+        _xpath_750: {
           _attr: {
             expr: "//field[@name='name']",
             position: 'before'
@@ -271,7 +271,7 @@ export default {
               string: 'Default Duration',
               invisible: [['time_mode', '=', 'auto'], ['workorder_count', '!=', 0]]
             },
-            _div_688: {
+            _div_566: {
               _attr: {
                 invisible: [['time_mode', '=', 'auto'], ['workorder_count', '!=', 0]],
                 text: 'minutes'

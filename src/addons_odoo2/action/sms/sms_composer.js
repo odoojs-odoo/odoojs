@@ -38,13 +38,13 @@ export default {
             _attr: { class: 'my-0' },
             _strong: 'Invalid number:',
             _span: 'make sure to set a country on the',
-            _span_329: {
+            _span_278: {
               res_model_description: {}
             },
-            _span_297: 'or to specify the country code.'
+            _span_800: 'or to specify the country code.'
           }
         },
-        _div_341: {
+        _div_867: {
           _attr: {
             invisible: ['|', ['comment_single_recipient', '=', true], ['recipient_invalid_count', '=', 0]],
             class: 'alert alert-info text-center mb-0'
@@ -68,7 +68,7 @@ export default {
               class: 'oe_highlight'
             }
           },
-          _button_action_send_sms_107: {
+          _button_action_send_sms_496: {
             _attr: {
               name: 'action_send_sms',
               type: 'object',
@@ -77,7 +77,7 @@ export default {
               class: 'oe_highlight'
             }
           },
-          _button_action_send_sms_112: {
+          _button_action_send_sms_508: {
             _attr: {
               name: 'action_send_sms',
               type: 'object',
@@ -131,7 +131,7 @@ export default {
             widget: 'sms_widget',
             invisible: ['|', ['comment_single_recipient', '=', false], ['recipient_single_valid', '=', true]]
           },
-          _field_body_456: {
+          _field_body_252: {
             body: {
               widget: 'sms_widget',
               invisible: [['comment_single_recipient', '=', true], ['recipient_single_valid', '=', false]]

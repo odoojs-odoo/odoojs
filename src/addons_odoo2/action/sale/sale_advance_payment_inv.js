@@ -25,7 +25,10 @@ export default {
             invisible: ['|', ['has_down_payments', '=', false], ['advance_payment_method', '!=', 'delivered']]
           },
           _div: {
-            _attr: { invisible: ['|', ['has_down_payments', '=', false], ['advance_payment_method', '!=', 'delivered']] },
+            _attr: {
+              id: 'down_payment_details',
+              invisible: ['|', ['has_down_payments', '=', false], ['advance_payment_method', '!=', 'delivered']]
+            },
             deduct_down_payments: {},
             _label_deduct_down_payments: { for: 'deduct_down_payments' }
           }
@@ -39,6 +42,7 @@ export default {
           product_id: { invisible: '1' },
           _label_amount: { for: 'amount' },
           _div: {
+            _attr: { id: 'payment_method_details' },
             currency_id: { invisible: '1' },
             fixed_amount: {
               required: [['advance_payment_method', '=', 'fixed']],
@@ -74,15 +78,17 @@ export default {
               name: 'create_invoices',
               type: 'object',
               string: 'Create and View Invoice',
+              id: 'create_invoice_open',
               context: { open_invoices: true },
               class: 'btn-primary'
             }
           },
-          _button_create_invoices_768: {
+          _button_create_invoices_281: {
             _attr: {
               name: 'create_invoices',
               type: 'object',
-              string: 'Create Invoice'
+              string: 'Create Invoice',
+              id: 'create_invoice'
             }
           },
           _button: {

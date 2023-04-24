@@ -21,8 +21,8 @@ const ModelFields = {
   },
 
   location_id_$_form: { readonly: '0' },
-  location_id_$_tree_$$_677: { readonly: [['id', '!=', false]] },
-  location_id_$_tree_$$_702: { readonly: [['id', '!=', false]] },
+  location_id_$_tree_$$_545: { readonly: [['id', '!=', false]] },
+  location_id_$_tree_$$_577: { readonly: [['id', '!=', false]] },
   lot_id: {
     groups: 'stock.group_production_lot',
     readonly: '===todo==',
@@ -31,37 +31,37 @@ const ModelFields = {
   },
 
   lot_id_$_form: { readonly: [['tracking', 'not in', ['serial', 'lot']]] },
-  lot_id_$_tree_$$_223: { readonly: ['|', ['tracking', 'not in', ['serial', 'lot']], '&', ['id', '!=', false], '|', ['lot_id', '!=', false], ['quantity', '!=', 0]] },
-  lot_id_$_tree_$$_436: { readonly: ['|', ['id', '!=', false], ['tracking', 'not in', ['serial', 'lot']]] },
+  lot_id_$_tree_$$_581: { readonly: ['|', ['id', '!=', false], ['tracking', 'not in', ['serial', 'lot']]] },
+  lot_id_$_tree_$$_802: { readonly: ['|', ['tracking', 'not in', ['serial', 'lot']], '&', ['id', '!=', false], '|', ['lot_id', '!=', false], ['quantity', '!=', 0]] },
   owner_id: {
     groups: 'stock.group_tracking_owner',
     readonly: '===todo=='
   },
 
   owner_id_$_form: { readonly: '0' },
-  owner_id_$_tree_$$_169: { readonly: [['id', '!=', false]] },
-  owner_id_$_tree_$$_468: { readonly: [['id', '!=', false]] },
+  owner_id_$_tree_$$_298: { readonly: [['id', '!=', false]] },
+  owner_id_$_tree_$$_616: { readonly: [['id', '!=', false]] },
   package_id: {
     groups: 'stock.group_tracking_lot',
     readonly: '===todo=='
   },
 
   package_id_$_form: { readonly: '0' },
-  package_id_$_tree_$$_278: { readonly: [['id', '!=', false]] },
-  package_id_$_tree_$$_510: { readonly: [['id', '!=', false]] },
+  package_id_$_tree_$$_770: { readonly: [['id', '!=', false]] },
+  package_id_$_tree_$$_961: { readonly: [['id', '!=', false]] },
   priority: {},
   product_categ_id: {},
   product_id: { readonly: '===todo==' },
   product_id_$_form: { readonly: '0' },
-  product_id_$_tree_$$_303: { readonly: "context.get['single_product', False]" },
-  product_id_$_tree_$$_346: { readonly: "context.get['single_product', False]" },
+  product_id_$_tree_$$_344: { readonly: "context.get['single_product', False]" },
+  product_id_$_tree_$$_473: { readonly: "context.get['single_product', False]" },
   product_uom_id: {
     groups: 'uom.group_uom',
     string: '===todo=='
   },
 
-  product_uom_id_$_tree_$$_430: { string: 'UoM' },
-  product_uom_id_$_tree_$$_848: { string: 'Unit' },
+  product_uom_id_$_tree_$$_613: { string: 'Unit' },
+  product_uom_id_$_tree_$$_746: { string: 'UoM' },
   quantity: { string: 'On Hand Quantity' },
   reserved_quantity: {},
   sn_duplicated: {},

@@ -69,7 +69,7 @@ export default {
               class: 'btn btn-secondary oe_inline'
             }
           },
-          _button_850: {
+          _button_688: {
             _attr: {
               type: 'object',
               string: 'Close',
@@ -97,12 +97,12 @@ export default {
             text: 'Select the list of fields used to search for\n                            duplicated records. If you select several fields,\n                            Odoo will propose you to merge only those having\n                            all these fields in common. (not one of the fields).'
           }
         },
-        _group_997: {
+        _group_661: {
           _attr: { invisible: ['|', ['state', 'not in', ('selection', 'finished')], ['number_group', '=', 0]] },
           state: { invisible: '1' },
           number_group: {}
         },
-        _group_230: {
+        _group_921: {
           _attr: {
             string: 'Search duplicates based on duplicated data in',
             invisible: [['state', 'not in', ('option',)]]
@@ -113,7 +113,7 @@ export default {
           group_by_vat: {},
           group_by_parent_id: {}
         },
-        _group_173: {
+        _group_564: {
           _attr: {
             string: 'Exclude contacts having',
             invisible: [['state', 'not in', ('option',)]]
@@ -127,17 +127,17 @@ export default {
             invisible: [['state', 'not in', ('option',)]]
           }
         },
-        _group_745: {
+        _group_293: {
           _attr: { invisible: [['state', 'not in', ('option', 'finished')]] },
           maximum_group: { readonly: [['state', 'in', 'finished']] }
         },
-        _separator_740: {
+        _separator_186: {
           _attr: {
             string: 'Merge the following contacts',
             invisible: [['state', 'in', ('option', 'finished')]]
           }
         },
-        _group_706: {
+        _group_584: {
           _attr: { invisible: [['state', 'in', ('option', 'finished')]] },
           _p: {
             _attr: {

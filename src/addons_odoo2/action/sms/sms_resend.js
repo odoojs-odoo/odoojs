@@ -38,7 +38,7 @@ export default {
               class: 'btn-primary o_mail_send'
             }
           },
-          _button_action_buy_credits_961: {
+          _button_action_buy_credits_477: {
             _attr: {
               name: 'action_buy_credits',
               type: 'object',
@@ -65,7 +65,7 @@ export default {
               class: 'btn-primary'
             }
           },
-          _button_action_cancel_191: {
+          _button_action_cancel_379: {
             _attr: {
               name: 'action_cancel',
               type: 'object',

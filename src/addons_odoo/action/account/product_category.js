@@ -8,6 +8,7 @@ export default {
       sheet: {
         _group_first: {},
         _group_account_property: {
+          _attr: { name: 'account_property' },
           _group_account_property: {
             _attr: {
               string: 'Account Properties',

@@ -29,20 +29,20 @@ const ModelFields = {
     context: { todo_ctx: "{'default_product_id': product_id, 'active_picking_id': picking_id, 'default_company_id': company_id}" }
   },
 
-  lot_id_$_tree_$$_589: {
-    context: { todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id, 'active_picking_id': picking_id}" }
+  lot_id_$_tree_$$_592: {
+    context: { todo_ctx: "{                             'active_picking_id': picking_id,                             'default_company_id': parent.company_id,                             'default_product_id': parent.product_id,                         }" }
   },
 
-  lot_id_$_tree_$$_932: {
-    context: { todo_ctx: "{                             'active_picking_id': picking_id,                             'default_company_id': parent.company_id,                             'default_product_id': parent.product_id,                         }" }
+  lot_id_$_tree_$$_727: {
+    context: { todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id, 'active_picking_id': picking_id}" }
   },
 
   lot_name: {
     groups: 'stock.group_production_lot',
-    context: { todo_ctx: "{'default_product_id': product_id}" },
     string: 'Lot/Serial Number',
     readonly: ['&', ['package_level_id', '!=', false], ['parent.picking_type_entire_packs', '=', true]],
-    placeholder: 'Write your SN/LN one by one or copy paste a list.'
+    placeholder: 'Write your SN/LN one by one or copy paste a list.',
+    context: { todo_ctx: "{'default_product_id': product_id}" }
   },
 
   lots_visible: {},
@@ -77,25 +77,25 @@ const ModelFields = {
     readonly: '===todo=='
   },
 
-  product_uom_id_$_form_$$_808: { string: 'Unit of Measure' },
-  product_uom_id_$_form_$$_942: { string: 'Unit of Measure' },
-  product_uom_id_$_tree_$$_716: { string: 'Unit of Measure' },
-  product_uom_id_$_tree_$$_732: {
+  product_uom_id_$_form_$$_304: { string: 'Unit of Measure' },
+  product_uom_id_$_form_$$_727: { string: 'Unit of Measure' },
+  product_uom_id_$_tree_$$_321: { string: 'Unit' },
+  product_uom_id_$_tree_$$_324: {
     string: 'Unit of Measure',
     readonly: ['|', '|', ['reserved_uom_qty', '!=', 0.0], '&', ['package_level_id', '!=', false], ['parent.picking_type_entire_packs', '=', true], '&', ['state', '=', 'done'], ['id', '!=', false]]
   },
 
-  product_uom_id_$_tree_$$_807: { string: 'Unit' },
-  product_uom_id_$_tree_$$_728: { readonly: [['state', '!=', 'draft'], ['id', '!=', false]] },
+  product_uom_id_$_tree_$$_788: { string: 'Unit of Measure' },
+  product_uom_id_$_tree_$$_816: { readonly: [['state', '!=', 'draft'], ['id', '!=', false]] },
   qty_done: {
-    string: '===todo==',
-    readonly: '===todo=='
+    readonly: '===todo==',
+    string: '===todo=='
   },
 
-  qty_done_$_tree_$$_347: { string: 'Quantity Done' },
-  qty_done_$_tree_$$_556: { string: 'Quantity' },
-  qty_done_$_tree_$$_352: { readonly: [['state', 'in', ('done', 'cancel')], ['is_locked', '=', true]] },
-  qty_done_$_tree_$$_490: { readonly: ['|', '&', ['state', '=', 'done'], ['is_locked', '=', true], '&', ['package_level_id', '!=', false], ['parent.picking_type_entire_packs', '=', true]] },
+  qty_done_$_tree_$$_429: { readonly: ['|', '&', ['state', '=', 'done'], ['is_locked', '=', true], '&', ['package_level_id', '!=', false], ['parent.picking_type_entire_packs', '=', true]] },
+  qty_done_$_tree_$$_512: { readonly: [['state', 'in', ('done', 'cancel')], ['is_locked', '=', true]] },
+  qty_done_$_tree_$$_733: { string: 'Quantity' },
+  qty_done_$_tree_$$_878: { string: 'Quantity Done' },
   reference: { string: 'Reference' },
   reserved_uom_qty: { readonly: '1' },
   result_package_id: {

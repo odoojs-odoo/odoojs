@@ -19,7 +19,7 @@ export default {
               text: 'Please confirm it has been done on purpose.'
             }
           },
-          _b_634: {
+          _b_293: {
             _attr: {
               invisible: [['consumption', '!=', 'strict']],
               text: ['Please review your component consumption or ask a manager to validate', '.']
@@ -30,7 +30,7 @@ export default {
                 text: 'this manufacturing order'
               }
             },
-            _span_149: {
+            _span_790: {
               _attr: {
                 invisible: [['mrp_production_count', '=', 1]],
                 text: 'these manufacturing orders'
@@ -74,7 +74,7 @@ export default {
               class: 'btn-primary'
             }
           },
-          _button_action_confirm_430: {
+          _button_action_confirm_489: {
             _attr: {
               name: 'action_confirm',
               type: 'object',

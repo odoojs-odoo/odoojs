@@ -18,7 +18,7 @@ export default {
               readonly: [['residual', '=', 0]]
             }
           },
-          _group_592: {
+          _group_198: {
             _attr: { invisible: ['|', ['move_type', 'not in', ('out_invoice', 'in_invoice', 'some_invoice')], ['residual', '=', 0]] },
             _div: {
               _attr: {
@@ -27,14 +27,14 @@ export default {
                 text: 'The credit note is created in draft and can be edited before being issued.'
               }
             },
-            _div_905: {
+            _div_277: {
               _attr: {
                 invisible: [['refund_method', '!=', 'cancel']],
                 class: 'oe_grey',
                 text: 'The credit note is auto-validated and reconciled with the invoice.'
               }
             },
-            _div_610: {
+            _div_803: {
               _attr: {
                 invisible: [['refund_method', '!=', 'modify']],
                 class: 'oe_grey',
@@ -43,7 +43,7 @@ export default {
             }
           }
         },
-        _group_964: {
+        _group_431: {
           _group: {
             reason: { invisible: [['move_type', '=', 'entry']] },
             date_mode: {
@@ -51,7 +51,7 @@ export default {
               widget: 'radio'
             }
           },
-          _group_979: {
+          _group_709: {
             journal_id: {
               domain: { todo_ctx: "[('id', 'in', available_journal_ids)]" }
             },
@@ -60,7 +60,7 @@ export default {
               invisible: ['|', ['move_type', 'not in', ('out_invoice', 'in_invoice')], ['date_mode', '!=', 'custom']],
               required: [['date_mode', '=', 'custom']]
             },
-            _field_date_606: {
+            _field_date_953: {
               date: {
                 invisible: ['|', ['move_type', 'in', ('out_invoice', 'in_invoice')], ['date_mode', '!=', 'custom']],
                 required: [['date_mode', '=', 'custom']]

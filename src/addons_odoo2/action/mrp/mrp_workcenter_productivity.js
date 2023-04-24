@@ -76,7 +76,7 @@ export default {
           date: 'date_start'
         }
       },
-      _separator_446: {},
+      _separator_160: {},
       _group: {
         _attr: { string: 'Group by...' },
         _filter_user: {
@@ -118,7 +118,7 @@ export default {
             loss_id: {},
             company_id: { invisible: '1' }
           },
-          _group_403: {
+          _group_721: {
             date_start: {},
             date_end: {},
             duration: {},

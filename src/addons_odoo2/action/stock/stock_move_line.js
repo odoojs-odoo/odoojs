@@ -137,7 +137,7 @@ export default {
               no_create: true
             }
           },
-          _group_529: {
+          _group_603: {
             _label_reserved_uom_qty: {
               for: 'reserved_uom_qty',
               string: 'Quantity Reserved',
@@ -159,7 +159,7 @@ export default {
               for: 'qty_done',
               string: 'Quantity Done'
             },
-            _div_526: {
+            _div_252: {
               _attr: { class: 'o_row' },
               qty_done: {},
               product_uom_id: {
@@ -245,7 +245,7 @@ export default {
           domain: [['state', '=', 'done']]
         }
       },
-      _separator_302: {},
+      _separator_108: {},
       _filter_incoming: {
         _attr: {
           name: 'incoming',
@@ -275,7 +275,7 @@ export default {
           domain: [['picking_id.picking_type_id.code', '=', 'mrp_operation']]
         }
       },
-      _separator_778: {},
+      _separator_552: {},
       _filter_date: {
         _attr: {
           name: 'date',
@@ -303,7 +303,7 @@ export default {
           domain: { todo_ctx: "[('date','>=', (context_today() - relativedelta(years=1)).strftime('%Y-%m-%d'))]" }
         }
       },
-      _separator_765: {},
+      _separator_389: {},
       _filter_inventory: {
         _attr: {
           name: 'inventory',
@@ -311,7 +311,7 @@ export default {
           domain: [['is_inventory', '=', true]]
         }
       },
-      _separator_795: {},
+      _separator_796: {},
       _group_groupby: {
         _attr: {
           name: 'groupby',
@@ -422,7 +422,7 @@ export default {
         location_id: { invisible: '1' },
         location_dest_id: { invisible: '1' },
         package_id: { invisible: '1' },
-        _field_location_id_380: {
+        _field_location_id_851: {
           location_id: {
             groups: 'stock.group_stock_multi_locations',
             invisible: "not context.get['show_source_location']",
@@ -431,7 +431,7 @@ export default {
             no_create: true
           }
         },
-        _field_location_dest_id_417: {
+        _field_location_dest_id_699: {
           location_dest_id: {
             groups: 'stock.group_stock_multi_locations',
             invisible: "not context.get['show_destination_location']",
@@ -454,7 +454,7 @@ export default {
           readonly: ['&', ['package_level_id', '!=', false], ['parent.picking_type_entire_packs', '=', true]],
           placeholder: 'Write your SN/LN one by one or copy paste a list.'
         },
-        _field_package_id_205: {
+        _field_package_id_382: {
           package_id: {
             groups: 'stock.group_tracking_lot',
             invisible: "not context.get['show_package']",
@@ -509,7 +509,7 @@ export default {
         result_package_id: { invisible: '1' },
         location_id: { invisible: '1' },
         location_dest_id: { invisible: '1' },
-        _field_location_id_773: {
+        _field_location_id_599: {
           location_id: {
             groups: 'stock.group_stock_multi_locations',
             domain: { todo_ctx: "[('id', 'child_of', parent.location_id), '|', ('company_id', '=', False), ('company_id', '=', company_id), ('usage', '!=', 'view')]" },
@@ -517,7 +517,7 @@ export default {
             no_create: true
           }
         },
-        _field_location_dest_id_551: {
+        _field_location_dest_id_194: {
           location_dest_id: {
             groups: 'stock.group_stock_multi_locations',
             domain: { todo_ctx: "[('id', 'child_of', parent.location_dest_id), '|', ('company_id', '=', False), ('company_id', '=', company_id), ('usage', '!=', 'view')]" },
@@ -525,10 +525,10 @@ export default {
             no_create: true
           }
         },
-        _field_package_id_972: {
+        _field_package_id_190: {
           package_id: { groups: 'stock.group_tracking_lot' }
         },
-        _field_result_package_id_784: {
+        _field_result_package_id_791: {
           result_package_id: { groups: 'stock.group_tracking_lot' }
         },
         lots_visible: { invisible: '1' },

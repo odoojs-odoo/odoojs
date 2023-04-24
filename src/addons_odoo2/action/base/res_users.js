@@ -150,12 +150,13 @@ export default {
           },
           _a: {
             _attr: {
+              href: '#',
               class: 'close',
               text: 'x'
             }
           },
           _div: { _strong: 'The contact linked to this user is still active' },
-          _div_272: {
+          _div_515: {
             _attr: { text: 'You can archive the contact' },
             partner_id: {
               required: '0',
@@ -411,7 +412,7 @@ export default {
                   readonly: '0'
                 }
               },
-              _group_376: {
+              _group_278: {
                 _label_lang: { for: 'lang' },
                 _div: {
                   _attr: { class: 'o_row' },
@@ -487,7 +488,10 @@ export default {
                   text: 'API Keys are used to connect to Odoo from external tools without the need for a password or Two-factor Authentication.'
                 },
                 _a: {
-                  _attr: { text: 'Learn more' },
+                  _attr: {
+                    href: 'https://www.odoo.com/documentation/16.0/developer/misc/api/external_api.html#api-keys',
+                    text: 'Learn more'
+                  },
                   _i: {
                     _attr: {
                       title: 'Documentation',
@@ -496,7 +500,7 @@ export default {
                   }
                 }
               },
-              _div_446: {
+              _div_145: {
                 _attr: { invisible: [['api_key_ids', '=', []]] },
                 api_key_ids: {
                   readonly: '0',
@@ -521,7 +525,7 @@ export default {
                   }
                 }
               },
-              _div_508: {
+              _div_336: {
                 _button_api_key_wizard: {
                   _attr: {
                     name: 'api_key_wizard',

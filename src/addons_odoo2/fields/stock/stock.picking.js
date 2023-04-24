@@ -23,16 +23,16 @@ const ModelFields = {
     string: 'To'
   },
 
-  location_dest_id_$_form_$$_830: { groups: '!stock.group_stock_multi_locations' },
-  location_dest_id_$_form_$$_864: { groups: 'stock.group_stock_multi_locations' },
+  location_dest_id_$_form_$$_430: { groups: '!stock.group_stock_multi_locations' },
+  location_dest_id_$_form_$$_662: { groups: 'stock.group_stock_multi_locations' },
   location_dest_id_$_tree: { groups: 'stock.group_stock_multi_locations' },
   location_id: {
     groups: '===todo==',
     string: 'From'
   },
 
-  location_id_$_form_$$_313: { groups: 'stock.group_stock_multi_locations' },
-  location_id_$_form_$$_314: { groups: '!stock.group_stock_multi_locations' },
+  location_id_$_form_$$_133: { groups: 'stock.group_stock_multi_locations' },
+  location_id_$_form_$$_492: { groups: '!stock.group_stock_multi_locations' },
   location_id_$_tree: { groups: 'stock.group_stock_multi_locations' },
   move_ids_without_package: {
     readonly: ['&', ['state', '=', 'done'], ['is_locked', '=', true]],

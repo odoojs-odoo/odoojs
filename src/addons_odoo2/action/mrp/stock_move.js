@@ -18,7 +18,7 @@ export default {
             }
           }
         },
-        _xpath_833: {
+        _xpath_395: {
           _attr: {
             expr: "//label[@for='quantity_done']",
             position: 'attributes'
@@ -54,7 +54,7 @@ export default {
             }
           }
         },
-        _xpath_703: {
+        _xpath_921: {
           _attr: {
             expr: "//label[@for='quantity_done']",
             position: 'attributes'

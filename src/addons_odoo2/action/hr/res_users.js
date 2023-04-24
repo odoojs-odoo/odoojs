@@ -24,7 +24,7 @@ export default {
             position: 'replace'
           }
         },
-        _xpath_864: {
+        _xpath_412: {
           _attr: {
             expr: "//field[@name='company_id']",
             position: 'attributes'
@@ -51,7 +51,7 @@ export default {
           position: 'attributes',
           __todo__required: '1'
         },
-        _field_tz_828: {
+        _field_tz_957: {
           tz: {
             position: 'after',
             __todo__after: {
@@ -112,7 +112,7 @@ export default {
           _header: {},
           _sheet: '$0'
         },
-        _notebook_398: {
+        _notebook_954: {
           _attr: { position: 'before' },
           _div_button_box: {
             _attr: {
@@ -121,6 +121,7 @@ export default {
             },
             _button: {
               _attr: {
+                id: 'hr_presence_button',
                 invisible: [['hr_presence_state', '=', 'absent']],
                 class: 'oe_stat_button'
               },
@@ -131,21 +132,21 @@ export default {
                   class: 'fa fa-fw fa-circle text-success o_button_icon'
                 }
               },
-              _div_982: {
+              _div_144: {
                 _attr: {
                   title: 'Away',
                   invisible: [['hr_presence_state', '!=', 'to_define']],
                   class: 'fa fa-fw fa-circle text-warning o_button_icon'
                 }
               },
-              _div_436: {
+              _div_482: {
                 _attr: {
                   title: 'Not available',
                   invisible: [['hr_presence_state', '!=', 'absent']],
                   class: 'fa fa-fw fa-circle text-danger o_button_icon'
                 }
               },
-              _div_765: {
+              _div_958: {
                 _attr: {
                   invisible: [['hr_presence_state', '=', 'present']],
                   class: 'o_stat_info'
@@ -157,7 +158,7 @@ export default {
                   }
                 }
               },
-              _div_369: {
+              _div_813: {
                 _attr: {
                   invisible: [['hr_presence_state', '!=', 'present']],
                   class: 'o_stat_info'
@@ -169,14 +170,14 @@ export default {
                   },
                   last_activity_time: {}
                 },
-                _span_966: {
+                _span_958: {
                   _attr: {
                     invisible: [['last_activity_time', '!=', false]],
                     class: 'o_stat_value'
                   },
                   last_activity: {}
                 },
-                _span_674: {
+                _span_196: {
                   _attr: {
                     class: 'o_stat_text',
                     text: 'Connected Since'
@@ -226,7 +227,7 @@ export default {
                 options: "{'enable_sms': false}"
               }
             },
-            _group_356: {
+            _group_380: {
               work_email: {
                 widget: 'email',
                 readonly: [['can_edit', '=', false]]
@@ -234,13 +235,13 @@ export default {
               work_location_id: { readonly: [['can_edit', '=', false]] },
               company_id: { invisible: '1' }
             },
-            _group_334: {
+            _group_533: {
               employee_parent_id: { readonly: [['can_edit', '=', false]] },
               coach_id: { readonly: [['can_edit', '=', false]] }
             }
           }
         },
-        _notebook_609: {
+        _notebook_781: {
           _attr: { position: 'inside' },
           _page_public: {
             _attr: {
@@ -248,9 +249,15 @@ export default {
               string: 'Work Information'
             },
             _div: {
-              _attr: { class: 'd-lg-flex' },
+              _attr: {
+                id: 'o_work_employee_container',
+                class: 'd-lg-flex'
+              },
               _div: {
-                _attr: { class: 'flex-grow-1' },
+                _attr: {
+                  id: 'o_work_employee_main',
+                  class: 'flex-grow-1'
+                },
                 _group: {
                   _attr: { string: 'Location' },
                   department_id: { readonly: [['can_edit', '=', false]] },
@@ -337,7 +344,7 @@ export default {
                 employee_bank_account_id: { readonly: [['can_edit', '=', false]] },
                 km_home_work: { readonly: [['can_edit', '=', false]] }
               },
-              _group_730: {
+              _group_240: {
                 _attr: { string: 'Citizenship' },
                 employee_country_id: {
                   readonly: [['can_edit', '=', false]],
@@ -351,7 +358,7 @@ export default {
                 place_of_birth: { readonly: [['can_edit', '=', false]] },
                 country_of_birth: { readonly: [['can_edit', '=', false]] }
               },
-              _group_306: {
+              _group_568: {
                 _attr: { string: 'Marital Status' },
                 marital: { readonly: [['can_edit', '=', false]] },
                 spouse_complete_name: {
@@ -363,17 +370,17 @@ export default {
                   readonly: [['can_edit', '=', false]]
                 }
               },
-              _group_622: {
+              _group_241: {
                 _attr: { string: 'Education' },
                 certificate: { readonly: [['can_edit', '=', false]] },
                 study_field: { readonly: [['can_edit', '=', false]] },
                 study_school: { readonly: [['can_edit', '=', false]] }
               },
-              _group_757: {
+              _group_295: {
                 _attr: { string: 'Dependant' },
                 children: { readonly: [['can_edit', '=', false]] }
               },
-              _group_878: {
+              _group_329: {
                 _attr: { string: 'Emergency' },
                 emergency_contact: { readonly: [['can_edit', '=', false]] },
                 emergency_phone: {
@@ -461,7 +468,7 @@ export default {
                 class: 'btn btn-primary'
               }
             },
-            _button_942: {
+            _button_194: {
               _attr: {
                 string: 'Cancel',
                 class: 'btn btn-secondary'
@@ -508,7 +515,7 @@ export default {
             }
           }
         },
-        _xpath_656: {
+        _xpath_186: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'

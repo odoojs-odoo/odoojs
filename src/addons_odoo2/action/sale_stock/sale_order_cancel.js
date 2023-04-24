@@ -6,7 +6,10 @@ export default {
     arch: {
       sheet: {
         _span: {
-          _attr: { position: 'after' },
+          _attr: {
+            id: 'display_invoice_alert',
+            position: 'after'
+          },
           display_delivery_alert: { invisible: '1' },
           _span: {
             _attr: {

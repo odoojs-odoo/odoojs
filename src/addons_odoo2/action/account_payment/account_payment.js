@@ -22,7 +22,7 @@ export default {
             }
           }
         },
-        _xpath_519: {
+        _xpath_265: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'
@@ -41,7 +41,7 @@ export default {
             }
           }
         },
-        _xpath_424: {
+        _xpath_762: {
           _attr: {
             expr: '//group[2]',
             position: 'inside'

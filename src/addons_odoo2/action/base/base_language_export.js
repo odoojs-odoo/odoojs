@@ -26,24 +26,34 @@ export default {
             _attr: { text: 'Here is the exported translation file:' },
             data: { readonly: '1' }
           },
-          _p_644: {
+          _p_559: {
             _attr: { text: ['This file was generated using the universal', 'file encoding, please be sure to view and edit\n                           using the same encoding.'] },
             _strong: 'Unicode/UTF-8'
           },
-          _p_903: {
+          _p_560: {
             _attr: { text: 'The next step depends on the file format:' },
             _ul: {
               _li: 'CSV format: you may edit it directly with your favorite spreadsheet software,\n                                the rightmost column (value) contains the translations',
-              _li_919: {
+              _li_892: {
                 _attr: { text: ['PO(T) format: you should edit it with a PO editor such as', ', or your preferred text editor'] },
-                _a: 'POEdit'
+                _a: {
+                  _attr: {
+                    href: 'http://www.poedit.net/',
+                    text: 'POEdit'
+                  }
+                }
               },
-              _li_616: 'TGZ format: bundles multiple PO(T) files as a single archive'
+              _li_950: 'TGZ format: bundles multiple PO(T) files as a single archive'
             }
           },
-          _p_144: {
+          _p_126: {
             _attr: { text: ['For more details about translating Odoo in your language, please refer to the', '.'] },
-            _a: 'documentation'
+            _a: {
+              _attr: {
+                href: 'https://github.com/odoo/odoo/wiki/Translations',
+                text: 'documentation'
+              }
+            }
           }
         },
         _footer: {
@@ -64,7 +74,7 @@ export default {
             }
           }
         },
-        _footer_934: {
+        _footer_945: {
           _attr: { states: 'get' },
           _button: {
             _attr: {

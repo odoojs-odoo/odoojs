@@ -24,6 +24,7 @@ export default {
               },
               _div: {
                 _attr: {
+                  id: 'work_order',
                   title: 'Work Order Operations allow you to create and manage the manufacturing operations that should be followed within your work centers in order to produce a product. They are attached to bills of materials that will define the required components.',
                   class: 'col-lg-6 col-12 o_setting_box'
                 },
@@ -32,14 +33,18 @@ export default {
                   group_mrp_routings: {},
                   module_mrp_workorder: { invisible: '1' }
                 },
-                _div_456: {
-                  _attr: { class: 'o_setting_right_pane' },
+                _div_789: {
+                  _attr: {
+                    id: 'workorder_settings',
+                    class: 'o_setting_right_pane'
+                  },
                   _label_group_mrp_routings: {
                     for: 'group_mrp_routings',
                     string: 'Work Orders'
                   },
                   _a: {
                     _attr: {
+                      href: 'https://www.odoo.com/documentation/16.0/applications/inventory_and_mrp/manufacturing/management/bill_configuration.html#adding-a-routing',
                       title: 'Documentation',
                       class: 'o_doc_link'
                     }
@@ -50,8 +55,9 @@ export default {
                       text: 'Process operations at specific work centers'
                     }
                   },
-                  _div_530: {
+                  _div_360: {
                     _attr: {
+                      id: 'workorder_settings_workcenters',
                       invisible: [['group_mrp_routings', '=', false]],
                       class: 'content-group'
                     },
@@ -70,8 +76,9 @@ export default {
                       }
                     }
                   },
-                  _div_345: {
+                  _div_625: {
                     _attr: {
+                      id: 'workorder_settings_dependencies',
                       invisible: [['group_mrp_routings', '=', false]],
                       class: 'row mt-2'
                     },
@@ -89,17 +96,18 @@ export default {
                   }
                 }
               },
-              _div_450: {
+              _div_108: {
                 _attr: { class: 'col-lg-6 col-12 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_mrp_subcontracting: {}
                 },
-                _div_495: {
+                _div_141: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_mrp_subcontracting: { for: 'module_mrp_subcontracting' },
                   _a: {
                     _attr: {
+                      href: 'https://www.odoo.com/documentation/16.0/applications/inventory_and_mrp/manufacturing/management/subcontracting.html',
                       title: 'Documentation',
                       class: 'o_doc_link'
                     }
@@ -112,13 +120,16 @@ export default {
                   }
                 }
               },
-              _div_645: {
-                _attr: { class: 'col-lg-6 col-12 o_setting_box' },
+              _div_907: {
+                _attr: {
+                  id: 'quality_control_mrp',
+                  class: 'col-lg-6 col-12 o_setting_box'
+                },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_quality_control: { widget: 'upgrade_boolean' }
                 },
-                _div_927: {
+                _div_237: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_quality_control: { for: 'module_quality_control' },
                   _div: {
@@ -127,7 +138,7 @@ export default {
                       text: 'Add quality checks to your work orders'
                     }
                   },
-                  _div_335: {
+                  _div_898: {
                     _attr: {
                       invisible: [['module_quality_control', '=', false]],
                       class: 'row mt-2'
@@ -149,13 +160,16 @@ export default {
                   }
                 }
               },
-              _div_806: {
-                _attr: { class: 'col-lg-6 col-12 o_setting_box' },
+              _div_652: {
+                _attr: {
+                  id: 'mrp_lock',
+                  class: 'col-lg-6 col-12 o_setting_box'
+                },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   group_unlocked_by_default: {}
                 },
-                _div_577: {
+                _div_630: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_unlocked_by_default: { for: 'group_unlocked_by_default' },
                   _div: {
@@ -166,8 +180,9 @@ export default {
                   }
                 }
               },
-              _div_655: {
+              _div_922: {
                 _attr: {
+                  id: 'mrp_byproduct',
                   title: 'Add by-products to bills of materials. This can be used to get several finished products as well. Without this option you only do: A + B = C. With the option: A + B = C + D.',
                   class: 'col-lg-6 col-12 o_setting_box'
                 },
@@ -175,7 +190,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   group_mrp_byproducts: {}
                 },
-                _div_539: {
+                _div_478: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_mrp_byproducts: { for: 'group_mrp_byproducts' },
                   _div: {
@@ -186,13 +201,16 @@ export default {
                   }
                 }
               },
-              _div_953: {
-                _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+              _div_592: {
+                _attr: {
+                  id: 'mrp_reception_report',
+                  class: 'col-12 col-lg-6 o_setting_box'
+                },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   group_mrp_reception_report: {}
                 },
-                _div_184: {
+                _div_615: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_group_mrp_reception_report: { for: 'group_mrp_reception_report' },
                   _div: {
@@ -204,11 +222,12 @@ export default {
                 }
               }
             },
-            _h2_976: 'Planning',
+            _h2_383: 'Planning',
             _div: {
               _attr: { class: 'row mt16 o_settings_container' },
               _div: {
                 _attr: {
+                  id: 'mrp_mps',
                   title: 'Using a MPS report to schedule your reordering and manufacturing operations is useful if you have long lead time and if you produce based on sales forecasts.',
                   class: 'col-lg-6 col-12 o_setting_box'
                 },
@@ -216,11 +235,12 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_mrp_mps: { widget: 'upgrade_boolean' }
                 },
-                _div_372: {
+                _div_343: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_mrp_mps: { for: 'module_mrp_mps' },
                   _a: {
                     _attr: {
+                      href: 'https://www.odoo.com/documentation/16.0/applications/inventory_and_mrp/manufacturing/management/use_mps.html',
                       title: 'Documentation',
                       class: 'o_doc_link'
                     }
@@ -231,18 +251,24 @@ export default {
                       text: 'Plan manufacturing or purchase orders based on forecasts'
                     }
                   },
-                  _div_550: {
-                    _attr: { class: 'content-group' }
+                  _div_760: {
+                    _attr: {
+                      id: 'content_mrp_mps',
+                      class: 'content-group'
+                    }
                   }
                 }
               },
-              _div_640: {
-                _attr: { class: 'col-lg-6 col-12 o_setting_box' },
+              _div_207: {
+                _attr: {
+                  id: 'security_lead_time',
+                  class: 'col-lg-6 col-12 o_setting_box'
+                },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   use_manufacturing_lead: {}
                 },
-                _div_992: {
+                _div_208: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_use_manufacturing_lead: {
                     for: 'use_manufacturing_lead',
@@ -250,6 +276,7 @@ export default {
                   },
                   _a: {
                     _attr: {
+                      href: 'https://www.odoo.com/documentation/16.0/applications/inventory_and_mrp/inventory/management/planning/scheduled_dates.html',
                       title: 'Documentation',
                       class: 'me-2 o_doc_link'
                     }
@@ -267,7 +294,7 @@ export default {
                       text: 'Schedule manufacturing orders earlier to avoid delays'
                     }
                   },
-                  _div_950: {
+                  _div_553: {
                     _attr: {
                       invisible: [['use_manufacturing_lead', '=', false]],
                       class: 'content-group'

@@ -72,7 +72,7 @@ export default {
                   no_open: true
                 }
               },
-              _group_327: {
+              _group_873: {
                 phone: { class: 'o_force_ltr' },
                 mobile: { class: 'o_force_ltr' },
                 email: {},

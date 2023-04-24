@@ -9,7 +9,7 @@ export default {
           _group: {
             production_id: { readonly: '1' }
           },
-          _group_339: {
+          _group_565: {
             product_id: {},
             _label_product_qty: { for: 'product_qty' },
             _div: {
@@ -17,22 +17,22 @@ export default {
               _span: {
                 product_qty: {}
               },
-              _span_826: {
+              _span_258: {
                 product_uom_id: { groups: 'uom.group_uom' }
               }
             }
           },
-          _group_384: {
+          _group_145: {
             counter: {}
           },
-          _group_280: {
+          _group_858: {
             _label_production_capacity: { for: 'production_capacity' },
             _div: {
               _attr: { class: 'o_row' },
               _span: {
                 production_capacity: {}
               },
-              _span_948: {
+              _span_466: {
                 product_uom_id: { groups: 'uom.group_uom' }
               }
             }

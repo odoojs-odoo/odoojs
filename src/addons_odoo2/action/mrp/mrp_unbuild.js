@@ -48,7 +48,7 @@ export default {
           }
         }
       },
-      _group_218: {
+      _group_871: {
         _attr: { string: 'Group by...' },
         _filter_productgroup: {
           _attr: {
@@ -145,7 +145,7 @@ export default {
               }
             }
           },
-          _group_240: {
+          _group_701: {
             mo_id: {},
             location_id: {
               groups: 'stock.group_stock_multi_locations',
@@ -210,7 +210,7 @@ export default {
               }
             }
           },
-          _group_433: {
+          _group_776: {
             mo_id: { invisible: '1' },
             location_id: {
               groups: 'stock.group_stock_multi_locations',

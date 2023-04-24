@@ -27,11 +27,11 @@ export default {
           _group: {
             selection: { widget: 'radio' }
           },
-          _group_703: {
+          _group_664: {
             _attr: { invisible: [['selection', '!=', 'sample']] },
             preview_invoice: { widget: 'html' }
           },
-          _group_365: {
+          _group_916: {
             _attr: { invisible: [['selection', '!=', 'upload']] },
             attachment_ids: {
               string: 'Attach a file',

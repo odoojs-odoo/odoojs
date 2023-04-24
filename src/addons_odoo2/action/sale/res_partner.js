@@ -18,6 +18,7 @@ export default {
           },
           _a: {
             _attr: {
+              href: '#',
               groups: 'sales_team.group_sale_salesman',
               class: 'oe_kanban_action oe_kanban_action_a me-1'
             },

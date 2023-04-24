@@ -1,21 +1,4 @@
 export default {
-  res_partner_view_search: {
-    _odoo_model: 'ir.ui.view',
-    model: 'res.partner',
-    inherit_id: 'base.view_res_partner_filter',
-    type: 'search',
-    arch: {
-      filters: {
-        group_type: {},
-
-        group_sell_purchase: {
-          customer: { string: '客户', domain: [['customer_rank', '>', 0]] },
-          supplier: { string: '供应商', domain: [['supplier_rank', '>', 0]] }
-        }
-      }
-    }
-  },
-
   partner_view_buttons: {
     _odoo_model: 'ir.ui.view',
     model: 'res.partner',
@@ -24,10 +7,7 @@ export default {
     arch: {
       sheet: {
         _div_first: {
-          _attr: {
-            invisible: 1,
-            help: '占位置用, 后续继承, 插入数据定位用'
-          }
+          _attr: { invisible: 1, help: '占位置用, 后续继承, 插入数据定位用' }
         },
 
         _div_button_box: {
@@ -62,7 +42,9 @@ export default {
                 _attr: {
                   groups: 'account.group_warning_account'
                 },
-                _separator: { _attr: { string: 'Warning on the Invoice' } },
+                _separator: {
+                  _attr: { string: 'Warning on the Invoice' }
+                },
                 invoice_warn: {},
                 invoice_warn_msg: {
                   nolabel: '1',
@@ -250,6 +232,23 @@ export default {
         //   }
         // },
         // _group_sales_purchases__misc: {},
+      }
+    }
+  },
+
+  res_partner_view_search: {
+    _odoo_model: 'ir.ui.view',
+    model: 'res.partner',
+    inherit_id: 'base.view_res_partner_filter',
+    type: 'search',
+    arch: {
+      filters: {
+        group_type: {},
+
+        group_sell_purchase: {
+          customer: { string: '客户', domain: [['customer_rank', '>', 0]] },
+          supplier: { string: '供应商', domain: [['supplier_rank', '>', 0]] }
+        }
       }
     }
   },

@@ -63,14 +63,14 @@ export default {
             }
           }
         },
-        _group_bill_224: {
+        _group_bill_665: {
           _attr: {
             name: 'bill',
             position: 'inside'
           },
           purchase_method: { widget: 'radio' }
         },
-        _group_purchase_811: {
+        _group_purchase_103: {
           _attr: {
             name: 'purchase',
             position: 'inside'
@@ -80,7 +80,7 @@ export default {
               _attr: { string: 'Purchase Description' },
               description_purchase: { placeholder: 'This note is added to purchase orders.' }
             },
-            _group_394: {
+            _group_487: {
               _attr: {
                 string: 'Warning when Purchasing this Product',
                 groups: 'purchase.group_warning_purchase'
@@ -154,7 +154,7 @@ export default {
                 },
                 uom_name: {}
               },
-              _span_778: {
+              _span_952: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Purchased'

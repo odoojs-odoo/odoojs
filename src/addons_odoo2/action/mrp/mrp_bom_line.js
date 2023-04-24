@@ -31,7 +31,7 @@ export default {
               no_create: true
             }
           },
-          _group_622: {
+          _group_602: {
             _attr: { string: 'Operation' },
             company_id: { invisible: '1' },
             sequence: { groups: 'base.group_no_one' },

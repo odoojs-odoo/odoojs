@@ -54,7 +54,7 @@ export default {
           use_quotations: {},
           invoiced_target: {}
         },
-        _xpath_666: {
+        _xpath_837: {
           _attr: {
             expr: "//t[@name='second_options']",
             position: 'after'
@@ -74,10 +74,10 @@ export default {
                 },
                 quotations_count: { class: 'me-1' },
                 _t: 'Quotation',
-                _t_548: 'Quotations'
+                _t_697: 'Quotations'
               }
             },
-            _div_203: {
+            _div_960: {
               _attr: { class: 'col-auto text-truncate' },
               quotations_amount: { widget: 'monetary' }
             }
@@ -96,12 +96,12 @@ export default {
                 },
                 sales_to_invoice_count: { class: 'me-1' },
                 _t: 'Order to Invoice',
-                _t_817: 'Orders to Invoice'
+                _t_560: 'Orders to Invoice'
               }
             }
           }
         },
-        _xpath_862: {
+        _xpath_376: {
           _attr: {
             expr: "//div[hasclass('o_kanban_primary_bottom')]",
             position: 'after'
@@ -117,7 +117,7 @@ export default {
             }
           }
         },
-        _xpath_165: {
+        _xpath_496: {
           _attr: {
             expr: "//div[hasclass('o_kanban_manage_view')]",
             position: 'inside'
@@ -132,7 +132,7 @@ export default {
               }
             }
           },
-          _div_981: {
+          _div_834: {
             _a_action_orders_salesteams: {
               _attr: {
                 name: '%(action_orders_salesteams)d',
@@ -141,7 +141,7 @@ export default {
               }
             }
           },
-          _div_285: {
+          _div_987: {
             _attr: { groups: 'account.group_account_invoice' },
             _a_action_invoice_salesteams: {
               _attr: {
@@ -152,7 +152,7 @@ export default {
             }
           }
         },
-        _xpath_740: {
+        _xpath_462: {
           _attr: {
             expr: "//div[hasclass('o_kanban_manage_new')]",
             position: 'inside'

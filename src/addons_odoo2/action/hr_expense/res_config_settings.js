@@ -24,6 +24,7 @@ export default {
               },
               _div: {
                 _attr: {
+                  id: 'create_expense_setting',
                   title: "Send an email to this email alias with the receipt in attachment to create an expense in one click. If the first word of the mail subject contains the category's internal reference or the category name, the corresponding category will automatically be set. Type the expense amount in the mail subject to set it on the expense too.",
                   class: 'col-xs-12 col-md-6 o_setting_box'
                 },
@@ -31,7 +32,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   use_mailgateway: {}
                 },
-                _div_786: {
+                _div_968: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_use_mailgateway: {
                     for: 'use_mailgateway',
@@ -43,7 +44,7 @@ export default {
                       text: 'Create expenses from incoming emails'
                     }
                   },
-                  _div_846: {
+                  _div_469: {
                     _attr: {
                       invisible: ['|', ['use_mailgateway', '=', false], ['alias_domain', 'in', ['localhost', '', false]]],
                       class: 'content-group'
@@ -64,7 +65,7 @@ export default {
                       }
                     }
                   },
-                  _div_535: {
+                  _div_383: {
                     _attr: {
                       invisible: ['|', ['use_mailgateway', '=', false], ['alias_domain', 'not in', ['localhost', '', false]]],
                       class: 'content-group'
@@ -84,13 +85,16 @@ export default {
                   }
                 }
               },
-              _div_814: {
-                _attr: { class: 'col-lg-6 col-12 o_setting_box' },
+              _div_394: {
+                _attr: {
+                  id: 'hr_payroll_accountant',
+                  class: 'col-lg-6 col-12 o_setting_box'
+                },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_hr_payroll_expense: { widget: 'upgrade_boolean' }
                 },
-                _div_767: {
+                _div_459: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_hr_payroll_expense: {
                     for: 'module_hr_payroll_expense',
@@ -104,7 +108,7 @@ export default {
                   }
                 }
               },
-              _div_281: {
+              _div_411: {
                 _attr: {
                   title: 'use OCR to fill data from a picture of the bill',
                   class: 'col-xs-12 col-md-6 o_setting_box'
@@ -113,8 +117,11 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_hr_expense_extract: { widget: 'upgrade_boolean' }
                 },
-                _div_279: {
-                  _attr: { class: 'o_setting_right_pane' },
+                _div_835: {
+                  _attr: {
+                    id: 'expense_extract_settings',
+                    class: 'o_setting_right_pane'
+                  },
                   _label_module_hr_expense_extract: {
                     for: 'module_hr_expense_extract',
                     string: 'Expense Digitalization (OCR)'
@@ -134,7 +141,7 @@ export default {
                 }
               }
             },
-            _h2_826: 'Default Journals',
+            _h2_796: 'Default Journals',
             _div: {
               _attr: { class: 'row mt16 o_settings_container' },
               _div: {
@@ -142,7 +149,7 @@ export default {
                 _div: {
                   _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_265: {
+                _div_355: {
                   _attr: { class: 'o_setting_right_pane' },
                   _span: {
                     _attr: {
@@ -150,7 +157,7 @@ export default {
                       text: 'Employee Expense Journal'
                     }
                   },
-                  _span_817: {
+                  _span_834: {
                     _attr: {
                       title: 'Values set here are company-specific.',
                       groups: 'base.group_multi_company',
@@ -163,18 +170,18 @@ export default {
                       text: 'Default accounting journal for expenses paid by employees.'
                     }
                   },
-                  _div_106: {
+                  _div_412: {
                     _attr: { class: 'row mt8' },
                     expense_journal_id: {}
                   }
                 }
               },
-              _div_784: {
+              _div_904: {
                 _attr: { class: 'col-12 col-lg-6 o_setting_box' },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_157: {
+                _div_538: {
                   _attr: { class: 'o_setting_right_pane' },
                   _span: {
                     _attr: {
@@ -182,7 +189,7 @@ export default {
                       text: 'Company Expense Journal'
                     }
                   },
-                  _span_182: {
+                  _span_677: {
                     _attr: {
                       title: 'Values set here are company-specific.',
                       groups: 'base.group_multi_company',
@@ -195,7 +202,7 @@ export default {
                       text: 'Default accounting journal for expenses paid by the company.'
                     }
                   },
-                  _div_232: {
+                  _div_511: {
                     _attr: { class: 'row mt8' },
                     company_expense_journal_id: {}
                   }

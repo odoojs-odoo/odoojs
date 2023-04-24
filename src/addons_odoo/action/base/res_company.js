@@ -9,29 +9,28 @@ export default {
         logo: { widget: 'image' },
 
         _div_title: {
-          _attr: { for: 'name' },
-          _h1: { name: { placeholder: 'e.g. My Company' } }
+          _attr: { class: 'oe_title' },
+          _label_name: { for: 'name' },
+          _h1: {
+            name: { placeholder: 'e.g. My Company' }
+          }
         },
 
         _notebook: {
           _page_general_info: {
-            _attr: { string: 'General Information' },
+            _attr: { name: 'general_info', string: 'General Information' },
             _group: {
               _group: {
-                partner_id: {
-                  string: 'Contact',
-                  readonly: '1',
-                  required: 0,
-                  groups: 'base.group_no_one'
-                },
-                _label: { for: 'street', string: 'Address' },
+                partner_id: {},
+                _label_street: { for: 'street', string: 'Address' },
+
                 _div: {
-                  street: { nolabel: 1, placeholder: 'Street...' },
-                  street2: { nolabel: 1, placeholder: 'Street 2...' },
-                  city: { nolabel: 1, placeholder: 'City' },
-                  state_id: { nolabel: 1, placeholder: 'State' },
-                  zip: { nolabel: 1, placeholder: 'ZIP' },
-                  country_id: { nolabel: 1, placeholder: 'Country' }
+                  street: {},
+                  street2: {},
+                  city: {},
+                  state_id: {},
+                  zip: {},
+                  country_id: {}
                 },
                 vat: {},
                 company_registry: {},
@@ -42,20 +41,12 @@ export default {
                 phone: {},
                 mobile: {},
                 email: {},
-                website: {
-                  string: 'Website',
-                  widget: 'url',
-                  placeholder: 'e.g. https://www.odoo.com'
-                },
-                parent_id: { groups: 'base.group_multi_company' },
+                website: { widget: 'url' },
+                parent_id: {},
                 sequence: { invisible: 1 },
-                favicon: {
-                  widget: 'image',
-                  size: 'small',
-                  groups: 'base.group_no_one'
-                }
+                favicon: { widget: 'image', size: 'small' }
               },
-              _group_social_media: {}
+              _group_social_media: { _attr: { name: 'social_media' } }
             }
           }
         }

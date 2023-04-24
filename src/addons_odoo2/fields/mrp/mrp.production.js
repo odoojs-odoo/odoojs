@@ -13,8 +13,8 @@ const ModelFields = {
     readonly: '===todo=='
   },
 
-  company_id_$_form_$$_417: { readonly: [['state', '!=', 'draft']] },
-  company_id_$_tree_$$_711: { readonly: '1' },
+  company_id_$_form_$$_222: { readonly: [['state', '!=', 'draft']] },
+  company_id_$_tree_$$_363: { readonly: '1' },
   components_availability: {},
   components_availability_state: {},
   consumption: {},
@@ -33,15 +33,15 @@ const ModelFields = {
     readonly: [['state', '!=', 'draft']]
   },
 
-  location_dest_id_$_form_$$_632: { groups: 'stock.group_stock_multi_locations' },
-  location_dest_id_$_form_$$_717: { groups: '!stock.group_stock_multi_locations' },
+  location_dest_id_$_form_$$_821: { groups: '!stock.group_stock_multi_locations' },
+  location_dest_id_$_form_$$_895: { groups: 'stock.group_stock_multi_locations' },
   location_src_id: {
     groups: '===todo==',
     readonly: [['state', '!=', 'draft']]
   },
 
-  location_src_id_$_form_$$_531: { groups: 'stock.group_stock_multi_locations' },
-  location_src_id_$_form_$$_708: { groups: '!stock.group_stock_multi_locations' },
+  location_src_id_$_form_$$_117: { groups: 'stock.group_stock_multi_locations' },
+  location_src_id_$_form_$$_183: { groups: '!stock.group_stock_multi_locations' },
   lot_producing_id: {
     context: { todo_ctx: "{'default_product_id': product_id, 'default_company_id': company_id}" }
   },
@@ -78,8 +78,8 @@ const ModelFields = {
     string: 'Quantity'
   },
 
-  product_qty_$_form_$$_632: { readonly: [['state', '!=', 'draft']] },
-  product_qty_$_form_$$_764: { readonly: [['state', '!=', 'draft']] },
+  product_qty_$_form_$$_292: { readonly: [['state', '!=', 'draft']] },
+  product_qty_$_form_$$_407: { readonly: [['state', '!=', 'draft']] },
   product_qty_$_tree: { readonly: '1' },
   product_tmpl_id: {},
   product_tracking: {},
@@ -90,12 +90,12 @@ const ModelFields = {
     string: 'UoM'
   },
 
-  product_uom_id_$_form_$$_114: {
+  product_uom_id_$_form_$$_621: {
     groups: 'uom.group_uom',
     readonly: [['state', '!=', 'draft']]
   },
 
-  product_uom_id_$_form_$$_828: { groups: '!uom.group_uom' },
+  product_uom_id_$_form_$$_813: { groups: '!uom.group_uom' },
   product_uom_id_$_tree: {
     groups: 'uom.group_uom',
     readonly: '1'

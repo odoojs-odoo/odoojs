@@ -74,7 +74,7 @@ export default {
               }
             }
           },
-          _group_340: {
+          _group_701: {
             code: {},
             type: { widget: 'radio' },
             _p: {
@@ -85,7 +85,7 @@ export default {
               _ul: {
                 _attr: { text: 'A BoM of type kit is used to split the product into its components.' },
                 _li: 'At the creation of a Manufacturing Order.',
-                _li_402: 'At the creation of a Stock Transfer.'
+                _li_407: 'At the creation of a Stock Transfer.'
               }
             },
             company_id: {
@@ -246,7 +246,7 @@ export default {
                 },
                 allow_operation_dependencies: { groups: 'mrp.group_mrp_workorder_dependencies' }
               },
-              _group_961: {
+              _group_736: {
                 picking_type_id: {
                   string: 'Operation',
                   groups: 'stock.group_adv_location',

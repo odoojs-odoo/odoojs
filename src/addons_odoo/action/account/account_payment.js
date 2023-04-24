@@ -5,7 +5,16 @@ export default {
     type: 'tree',
     arch: {
       sheet: {
-        // is_internal_transfer: { invisible: '1' },
+        // _header: {
+        //   _button_action_post: {
+        //     _attr: {
+        //       name: 'action_post',
+        //       type: 'object',
+        //       string: 'Confirm'
+        //     }
+        //   }
+        // },
+
         company_currency_id: { invisible: '1' },
         date: {},
         name: {},
@@ -29,16 +38,8 @@ export default {
           }
         },
 
-        amount_signed: {
-          string: 'Amount in Currency',
-          groups: 'base.group_multi_currency',
-          optional: 'hide'
-        },
-        currency_id: {
-          string: 'Payment Currency',
-          groups: 'base.group_multi_currency',
-          optional: 'hide'
-        },
+        amount_signed: { string: 'Amount in Currency', optional: 'hide' },
+        currency_id: { string: 'Payment Currency', optional: 'hide' },
         amount_company_currency_signed: {
           widget: 'monetary',
           string: 'Amount'
@@ -47,6 +48,109 @@ export default {
         state: {
           widget: 'badge'
           // decoration-info="state == 'draft'" decoration-success="state == 'posted'"
+        }
+      }
+    }
+  },
+
+  view_account_payment_search: {
+    _odoo_model: 'ir.ui.view',
+    model: 'account.payment',
+    type: 'search',
+    arch: {
+      fields: {
+        name: {
+          string: 'Payment',
+          filter_domain: self => {
+            // filter_domain="
+            // ['|', '|', '|', '|',
+            // ('name', 'ilike', self),
+            // ('partner_id', 'ilike', self),
+            // ('ref', 'ilike', self),
+            // ('amount_company_currency_signed' , 'ilike', self),
+            // ('amount', 'ilike', self)]"/>
+
+            return [
+              '|',
+              '|',
+              '|',
+              '|',
+              ['name', 'ilike', self],
+              ['partner_id', 'ilike', self],
+              ['ref', 'ilike', self],
+              ['partner_id', 'ilike', self],
+              ['amount_company_currency_signed', 'ilike', self],
+              ['amount', 'ilike', self]
+            ]
+          }
+        },
+        partner_id: { string: 'Customer/Vendor' },
+        journal_id: {},
+        // is_internal_transfer: {}
+        company_id: { groups: 'base.group_multi_company' }
+      },
+      filters: {
+        group_type: {
+          inbound_filter: {
+            name: 'inbound_filter',
+            string: 'Customer Payments',
+            domain: [
+              ['partner_type', '=', 'customer'],
+              ['is_internal_transfer', '=', false]
+            ]
+          },
+          outbound_filter: {
+            name: 'outbound_filter',
+            string: 'Vendor Payments',
+            domain: [
+              ['partner_type', '=', 'supplier'],
+              ['is_internal_transfer', '=', false]
+            ]
+          },
+          transfers_filter: {
+            name: 'transfers_filter',
+            string: 'Internal Transfers',
+            domain: [['is_internal_transfer', '=', true]]
+          }
+        },
+
+        group_state: {
+          __title: 'state',
+          state_draft: {
+            name: 'state_draft',
+            string: 'Draft',
+            domain: [['state', '=', 'draft']]
+          },
+          state_posted: {
+            name: 'state_posted',
+            string: 'Posted',
+            domain: [['state', '=', 'posted']]
+          }
+        },
+        group_status: {
+          state_sent: {
+            name: 'state_sent',
+            string: 'Sent',
+            domain: [['is_move_sent', '=', true]]
+          },
+          matched: {
+            name: 'matched',
+            string: 'Bank Matched',
+            domain: [['is_matched', '=', true]]
+          },
+          reconciled: {
+            name: 'reconciled',
+            string: 'Reconciled',
+            domain: [['is_reconciled', '=', true]]
+          }
+        },
+
+        group_date: {
+          date: {
+            name: 'date',
+            string: 'Payment Date',
+            date: 'date'
+          }
         }
       }
     }
@@ -77,8 +181,8 @@ export default {
         buttons: {
           action_post: {
             name: 'action_post',
-            string: '确认',
             type: 'object',
+            string: 'Confirm',
             btn_type: 'primary',
             invisible: ({ record }) => {
               // 'invisible': [('state', '!=', 'draft')]
@@ -88,8 +192,8 @@ export default {
           },
           action_draft: {
             name: 'action_draft',
-            string: '重置为草稿',
             type: 'object',
+            string: 'Reset To Draft',
             invisible: ({ record }) => {
               // 'invisible': [('state', 'not in', ('posted', 'cancel'))]
               const { state } = record
@@ -98,8 +202,8 @@ export default {
           },
           action_cancel: {
             name: 'action_cancel',
-            string: '取消',
             type: 'object',
+            string: 'Cancel',
             invisible: ({ record }) => {
               // 'invisible': [('state', '!=', 'draft')]
               const { state } = record
@@ -108,8 +212,8 @@ export default {
           },
           mark_as_sent: {
             name: 'mark_as_sent',
-            string: '标记为已发送',
             type: 'object',
+            string: 'Mark as Sent',
             invisible: ({ record }) => {
               // 'invisible': ['|', '|',
               // ('state', '!=', 'posted'),
@@ -125,8 +229,8 @@ export default {
           },
           unmark_as_sent: {
             name: 'unmark_as_sent',
-            string: '取消标记为已发送',
             type: 'object',
+            string: 'Unmark as Sent',
             invisible: ({ record }) => {
               // 'invisible': ['|', '|',
               // ('state', '!=', 'posted'),
@@ -147,6 +251,46 @@ export default {
         }
       },
       sheet: {
+        _div: {
+          _attr: {
+            invisible: [
+              '|',
+              '|',
+              ['paired_internal_transfer_payment_id', '!=', false],
+              ['is_internal_transfer', '=', false],
+              ['state', '!=', 'draft']
+            ],
+            class: 'alert alert-info text-center',
+            text: 'A second payment will be created automatically in the destination journal.'
+          }
+        },
+        _div_337: {
+          _attr: {
+            invisible: [
+              '|',
+              '|',
+              ['is_internal_transfer', '=', false],
+              ['require_partner_bank_account', '=', false],
+              ['partner_bank_id', '!=', false]
+            ],
+            class: 'alert alert-warning text-center',
+            text: [
+              'The selected payment method requires a bank account but none is set on',
+              '.'
+            ]
+          },
+          _button_action_open_destination_journal: {
+            _attr: {
+              name: 'action_open_destination_journal',
+              type: 'object',
+              class: 'oe_link alert-link',
+              text: 'the destination journal'
+            }
+          }
+        },
+        _div_101: {
+          _attr: { class: 'o_attachment_preview' }
+        },
         is_move_sent: { invisible: 1 },
         is_reconciled: { invisible: 1 },
         is_matched: { invisible: 1 },
@@ -164,9 +308,10 @@ export default {
         paired_internal_transfer_payment_id: { invisible: 1 },
         available_journal_ids: { invisible: 1 },
 
-        state: { invisible: 1 },
+        // state: { invisible: 1 },
 
         _div_button_box: {
+          _attr: { name: 'button_box', class: 'oe_button_box' },
           _button_button_open_invoices: {
             _attr: {
               name: 'button_open_invoices',
@@ -243,11 +388,16 @@ export default {
           }
         },
 
-        _widget: {
-          //
+        _widget_web_ribbon: {
+          _attr: {
+            name: 'web_ribbon',
+            bg_color: 'bg-info',
+            invisible: [['state', '!=', 'invoicing_legacy']]
+          }
         },
 
         _div_title: {
+          _attr: { class: 'oe_title' },
           _h1_name1: {
             _attr: {
               invisible: ({ record }) => {
@@ -273,9 +423,12 @@ export default {
 
         _group_name: {
           _group_group1: {
+            _attr: { name: 'group1' },
+
             partner_type: {
               readonly: '1',
               invisible: ({ record }) => {
+                console.log(record)
                 const { is_internal_transfer } = record
                 return is_internal_transfer
               },
@@ -311,12 +464,14 @@ export default {
               partner_id: { string: 'Vendor' }
             },
 
+            _label_amount: { for: 'amount' },
             amount: {},
             currency_id: {},
             date: {},
-            ref: {}
+            ref: { string: 'Memo' }
           },
           _group_group2: {
+            _attr: { name: 'group2' },
             journal_id: {},
             payment_method_line_id: {},
 
@@ -415,90 +570,6 @@ export default {
               return !qr_code
             }
           }
-        }
-      }
-    }
-  },
-
-  view_account_payment_search: {
-    _odoo_model: 'ir.ui.view',
-    model: 'account.payment',
-    type: 'search',
-    arch: {
-      fields: {
-        name: {
-          string: '付款单',
-          filter_domain: self => {
-            // filter_domain="
-            // ['|', '|', '|', '|',
-            // ('name', 'ilike', self),
-            // ('partner_id', 'ilike', self),
-            // ('ref', 'ilike', self),
-            // ('amount_company_currency_signed' , 'ilike', self),
-            // ('amount', 'ilike', self)]"/>
-
-            return [
-              '|',
-              '|',
-              '|',
-              '|',
-              ['name', 'ilike', self],
-              ['partner_id', 'ilike', self],
-              ['ref', 'ilike', self],
-              ['partner_id', 'ilike', self],
-              ['amount_company_currency_signed', 'ilike', self],
-              ['amount', 'ilike', self]
-            ]
-          }
-        },
-        partner_id: { string: 'Customer/Vendor' },
-        journal_id: {}
-        // is_internal_transfer: {}
-      },
-      filters: {
-        group_type: {
-          inbound_filter: {
-            string: '客户付款',
-            domain: [
-              ['partner_type', '=', 'customer'],
-              ['is_internal_transfer', '=', false]
-            ]
-          },
-          outbound_filter: {
-            string: '供应商付款',
-            domain: [
-              ['partner_type', '=', 'supplier'],
-              ['is_internal_transfer', '=', false]
-            ]
-          },
-          transfers_filter: {
-            string: '内部账户互转',
-            domain: [['is_internal_transfer', '=', true]]
-          }
-        },
-
-        group_state: {
-          __title: '状态',
-          state_draft: { string: '草稿', domain: [['state', '=', 'draft']] },
-          state_posted: { string: '已过账', domain: [['state', '=', 'posted']] }
-        },
-        group_status: {
-          state_sent: {
-            string: '已发送',
-            domain: [['is_move_sent', '=', true]]
-          },
-          matched: {
-            string: '银行匹配',
-            domain: [['is_matched', '=', true]]
-          },
-          reconciled: {
-            string: '已对账',
-            domain: [['is_reconciled', '=', true]]
-          }
-        },
-
-        group_date: {
-          date: { string: '付款日期', date: 'date' }
         }
       }
     }

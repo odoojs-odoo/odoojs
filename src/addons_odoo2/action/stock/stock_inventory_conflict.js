@@ -6,21 +6,21 @@ export default {
     arch: {
       sheet: {
         _div: { _strong: 'Due to some stock moves done between your initial update of the quantity and now, the difference of quantity is not consistent anymore.' },
-        _div_916: {
+        _div_550: {
           _attr: { text: 'You can either :' },
           _ul: {
             _li: {
               _attr: { text: ['Keep the', '(the Difference will be updated)'] },
               _strong: 'Counted Quantity'
             },
-            _li_777: {
+            _li_262: {
               _attr: { text: ['Keep the', '(the Counted Quantity will be updated to reflect the same difference as when you counted)'] },
               _strong: 'Difference'
             },
-            _li_721: 'Discard and manually resolve the conflict'
+            _li_397: 'Discard and manually resolve the conflict'
           }
         },
-        _div_791: {
+        _div_846: {
           _br: {},
           quant_ids: { invisible: '1' },
           quant_to_fix_ids: {
@@ -66,7 +66,7 @@ export default {
                     },
                     inventory_diff_quantity: { string: 'Difference' },
                     product_uom_id: { groups: 'uom.group_uom' },
-                    _field_company_id_742: {
+                    _field_company_id_914: {
                       company_id: {
                         groups: 'base.group_multi_company',
                         optional: 'show'

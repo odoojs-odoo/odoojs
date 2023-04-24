@@ -7,32 +7,34 @@ export default {
       sheet: {
         _notebook: {
           _page_sales_purchases: {
-            _group_sales_purchases: {
-              _group_purchase: {
-                _div_receipt_reminder: {
-                  _attr: {
-                    name: 'receipt_reminder',
-                    groups: 'purchase.group_send_reminder',
-                    class: 'o_checkbox_optional_field'
-                  },
-                  _label_receipt_reminder_email: {
-                    for: 'receipt_reminder_email'
-                  },
-                  receipt_reminder_email: {},
-                  _div: {
+            _group_container_row_2: {
+              _group_sales_purchases: {
+                _group_purchase: {
+                  _div_receipt_reminder: {
                     _attr: {
-                      invisible: [['receipt_reminder_email', '=', false]]
+                      name: 'receipt_reminder',
+                      groups: 'purchase.group_send_reminder',
+                      class: 'o_checkbox_optional_field'
                     },
-                    reminder_date_before_receipt: {
-                      class: 'oe_inline'
+                    _label_receipt_reminder_email: {
+                      for: 'receipt_reminder_email'
                     },
-                    _span: 'day(s) before'
+                    receipt_reminder_email: {},
+                    _div: {
+                      _attr: {
+                        invisible: [['receipt_reminder_email', '=', false]]
+                      },
+                      reminder_date_before_receipt: {
+                        class: 'oe_inline'
+                      },
+                      _span: 'day(s) before'
+                    }
+                  },
+                  property_purchase_currency_id: {
+                    groups: 'base.group_multi_currency',
+                    no_create: true,
+                    no_open: true
                   }
-                },
-                property_purchase_currency_id: {
-                  groups: 'base.group_multi_currency',
-                  no_create: true,
-                  no_open: true
                 }
               }
             }

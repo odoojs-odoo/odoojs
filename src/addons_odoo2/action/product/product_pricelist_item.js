@@ -119,7 +119,7 @@ export default {
         date_start: { optional: 'show' },
         date_end: { optional: 'show' },
         applied_on: { invisible: '1' },
-        _field_company_id_465: {
+        _field_company_id_529: {
           company_id: {
             groups: 'base.group_multi_company',
             optional: 'show',
@@ -198,7 +198,7 @@ export default {
               string: 'Discount',
               invisible: [['compute_price', '!=', 'formula']]
             },
-            _div_905: {
+            _div_138: {
               _attr: {
                 invisible: [['compute_price', '!=', 'formula']],
                 class: 'o_row'
@@ -220,7 +220,7 @@ export default {
               string: 'Margins',
               invisible: [['compute_price', '!=', 'formula']]
             },
-            _div_548: {
+            _div_816: {
               _attr: {
                 invisible: [['compute_price', '!=', 'formula']],
                 class: 'o_row'

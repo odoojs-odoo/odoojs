@@ -12,7 +12,7 @@ export default {
             field_description: {},
             model_id: { readonly: [['state', '!=', 'manual']] }
           },
-          _group_809: {
+          _group_190: {
             ttype: {},
             help: {}
           }
@@ -32,7 +32,7 @@ export default {
                 index: { groups: 'base.group_no_one' },
                 copied: { groups: 'base.group_no_one' }
               },
-              _group_129: {
+              _group_712: {
                 translate: {
                   readonly: [['ttype', 'not in', ['char', 'text', 'html']]],
                   invisible: [['ttype', 'not in', ['char', 'text', 'html']]]
@@ -84,7 +84,7 @@ export default {
                 }
               }
             },
-            _group_683: {
+            _group_860: {
               _attr: {
                 readonly: [['ttype', 'not in', ['selection', 'reference']]],
                 invisible: [['ttype', 'not in', ['selection', 'reference']]]
@@ -103,7 +103,7 @@ export default {
                 }
               }
             },
-            _group_324: {
+            _group_917: {
               _attr: {
                 string: 'Advanced Properties',
                 groups: 'base.group_no_one'
@@ -121,42 +121,42 @@ export default {
               _p: {
                 _attr: { text: ['Computed fields are defined with the fields', 'and', '.'] },
                 _strong: 'Dependencies',
-                _strong_690: 'Compute'
+                _strong_277: 'Compute'
               },
-              _p_985: {
+              _p_777: {
                 _attr: { text: ['The field', 'lists the fields that\n                                    the current field depends on. It is a comma-separated list of\n                                    field names, like', '. You can also refer to\n                                    fields accessible through other relational fields, for instance', '.'] },
                 _strong: 'Dependencies',
                 _code: 'name, size',
-                _code_519: 'partner_id.company_id.name'
+                _code_534: 'partner_id.company_id.name'
               },
-              _p_651: {
+              _p_244: {
                 _attr: { text: ['The field', 'is the Python code to\n                                    compute the value of the field on a set of records. The value of\n                                    the field must be assigned to each record with a dictionary-like\n                                    assignment.'] },
                 _strong: 'Compute'
               },
               _pre: "for record in self:\n        record['size'] = len(record.name)",
-              _p_399: 'The only predefined variables are',
+              _p_750: 'The only predefined variables are',
               _ul: {
                 _li: {
                   _attr: { text: '(the set of records to compute)' },
                   _code: 'self'
                 },
-                _li_451: {
+                _li_481: {
                   _attr: { text: '(Python module)' },
                   _code: 'datetime'
                 },
-                _li_975: {
+                _li_642: {
                   _attr: { text: '(Python module)' },
                   _code: 'dateutil'
                 },
-                _li_337: {
+                _li_939: {
                   _attr: { text: '(Python module)' },
                   _code: 'time'
                 }
               },
-              _p_929: {
+              _p_146: {
                 _attr: { text: ['Other features are accessible through', ', like', ', etc.'] },
                 _code: 'self',
-                _code_522: 'self.env'
+                _code_281: 'self.env'
               }
             }
           },
@@ -226,7 +226,7 @@ export default {
           domain: [['readonly', '=', true]]
         }
       },
-      _separator_682: {},
+      _separator_554: {},
       _filter_custom: {
         _attr: {
           name: 'custom',
@@ -241,7 +241,7 @@ export default {
           domain: [['state', '=', 'base']]
         }
       },
-      _separator_391: {},
+      _separator_944: {},
       _filter_translate: {
         _attr: {
           name: 'translate',

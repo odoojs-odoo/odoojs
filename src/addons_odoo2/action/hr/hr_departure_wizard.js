@@ -29,6 +29,7 @@ export default {
         },
         _group: {
           _group: {
+            _attr: { id: 'info' },
             departure_reason_id: {
               no_edit: true,
               no_create: true,
@@ -36,9 +37,11 @@ export default {
             },
             departure_date: {}
           },
-          _group_943: {
+          _group_301: {
+            _attr: { id: 'action' },
             _div: {
               _attr: {
+                id: 'activities_label',
                 invisible: '1',
                 class: 'o_td_label'
               },
@@ -49,15 +52,19 @@ export default {
                 }
               }
             },
-            _div_707: {
+            _div_255: {
               _attr: {
+                id: 'activities',
                 invisible: '1',
                 class: 'column'
               }
             },
             _separator: {},
-            _div_993: {
-              _attr: { class: 'o_td_label' },
+            _div_628: {
+              _attr: {
+                id: 'label_info',
+                class: 'o_td_label'
+              },
               _span: {
                 _attr: {
                   class: 'o_form_label o_hr_form_label cursor-default',
@@ -65,8 +72,11 @@ export default {
                 }
               }
             },
-            _div_352: {
-              _attr: { class: 'column' },
+            _div_162: {
+              _attr: {
+                id: 'info',
+                class: 'column'
+              },
               _div: {
                 archive_private_address: {},
                 _label_archive_private_address: { for: 'archive_private_address' }
@@ -74,8 +84,9 @@ export default {
             }
           }
         },
-        _group_772: {
+        _group_422: {
           _div: {
+            _attr: { id: 'detailed_reason' },
             _span: {
               _attr: {
                 class: 'o_form_label o_hr_form_label cursor-default',

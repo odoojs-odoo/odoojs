@@ -26,9 +26,8 @@ export default {
       sheet: {
         _notebook: {
           _page_purchase: {
-            _attr: {
-              invisible: 0
-            },
+            _attr: { invisible: 0 },
+
             seller_ids: {
               // invisible: [['product_variant_count', '>', 1]],
               readonly: [['product_variant_count', '>', 1]]
@@ -47,18 +46,12 @@ export default {
             },
             _group_purchase: {
               _group_bill: {
-                _attr: {
-                  groups: 'purchase.group_purchase_manager'
-                },
-                purchase_method: {
-                  widget: 'radio'
-                }
+                _attr: { groups: 'purchase.group_purchase_manager' },
+                purchase_method: { widget: 'radio' }
               },
               _group: {
                 _group: {
-                  _attr: {
-                    string: 'Purchase Description'
-                  },
+                  _attr: { string: 'Purchase Description' },
                   description_purchase: {
                     placeholder: 'This note is added to purchase orders.'
                   }
@@ -70,9 +63,9 @@ export default {
                   },
                   purchase_line_warn: {},
                   purchase_line_warn_msg: {
-                    required: [['purchase_line_warn', '!=', 'no-message']],
-                    readonly: [['purchase_line_warn', '=', 'no-message']],
-                    // invisible: [['purchase_line_warn', '=', 'no-message']],
+                    // required: [['purchase_line_warn', '!=', 'no-message']],
+                    // readonly: [['purchase_line_warn', '=', 'no-message']],
+                    invisible: [['purchase_line_warn', '=', 'no-message']],
                     placeholder: 'Type a message...'
                   }
                 }

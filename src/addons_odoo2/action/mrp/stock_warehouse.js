@@ -17,14 +17,14 @@ export default {
             invisible: [['manufacture_to_resupply', '=', false]]
           }
         },
-        _xpath_694: {
+        _xpath_806: {
           _attr: {
             expr: "//field[@name='out_type_id']",
             position: 'after'
           },
           manu_type_id: { readonly: 'True' }
         },
-        _xpath_972: {
+        _xpath_751: {
           _attr: {
             expr: "//group[@name='group_resupply']",
             position: 'attributes'
@@ -37,7 +37,7 @@ export default {
             }
           }
         },
-        _xpath_264: {
+        _xpath_547: {
           _attr: {
             expr: "//field[@name='wh_output_stock_loc_id']",
             position: 'after'
@@ -45,7 +45,7 @@ export default {
           sam_loc_id: {},
           pbm_loc_id: {}
         },
-        _xpath_770: {
+        _xpath_626: {
           _attr: {
             expr: "//field[@name='out_type_id']",
             position: 'after'

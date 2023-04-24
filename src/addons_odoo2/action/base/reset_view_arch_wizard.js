@@ -16,7 +16,7 @@ export default {
               no_open: true
             }
           },
-          _group_385: {
+          _group_740: {
             reset_mode: { widget: 'radio' }
           }
         },
@@ -32,13 +32,13 @@ export default {
               text: 'This view has no previous version.'
             }
           },
-          _span_427: {
+          _span_259: {
             _attr: {
               invisible: [['reset_mode', '!=', 'hard']],
               text: 'This view is not coming from a file.'
             }
           },
-          _span_951: {
+          _span_717: {
             _attr: {
               invisible: [['reset_mode', '!=', 'other_view']],
               text: 'You need two views to compare.'

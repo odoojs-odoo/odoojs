@@ -112,7 +112,7 @@ export default {
             }
           }
         },
-        _xpath_699: {
+        _xpath_734: {
           _attr: {
             expr: "//page[@name='general_information']",
             position: 'after'
@@ -239,13 +239,13 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 pricelist_item_count: {}
               },
-              _span_957: {
+              _span_772: {
                 _attr: {
                   invisible: [['pricelist_item_count', '=', 1]],
                   text: 'Extra Prices'
                 }
               },
-              _span_166: {
+              _span_557: {
                 _attr: {
                   invisible: [['pricelist_item_count', '!=', 1]],
                   text: 'Extra Price'
@@ -296,7 +296,7 @@ export default {
             sale_ok: {},
             _label_sale_ok: { for: 'sale_ok' }
           },
-          _span_991: {
+          _span_625: {
             _attr: { class: 'd-inline-block' },
             purchase_ok: {},
             _label_purchase_ok: { for: 'purchase_ok' }
@@ -372,7 +372,7 @@ export default {
                 product_variant_id: { invisible: '1' }
               }
             },
-            _group_695: {
+            _group_334: {
               _attr: { string: 'Internal Notes' },
               description: { placeholder: 'This note is only for internal purposes.' }
             }
@@ -509,7 +509,7 @@ export default {
           domain: [['type', 'in', ['consu', 'product']]]
         }
       },
-      _separator_656: {},
+      _separator_329: {},
       _filter_filter_to_sell: {
         _attr: {
           name: 'filter_to_sell',
@@ -524,7 +524,7 @@ export default {
           domain: [['purchase_ok', '=', true]]
         }
       },
-      _separator_242: {},
+      _separator_853: {},
       attribute_line_ids: {
         string: 'Attributes',
         groups: 'product.group_product_variant'
@@ -554,7 +554,7 @@ export default {
           domain: { todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))                     ]" }
         }
       },
-      _separator_547: {},
+      _separator_307: {},
       _filter_favorites: {
         _attr: {
           name: 'favorites',
@@ -562,7 +562,7 @@ export default {
           domain: [['priority', '=', '1']]
         }
       },
-      _separator_385: {},
+      _separator_141: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',
@@ -570,7 +570,7 @@ export default {
           domain: [['activity_exception_decoration', '!=', false]]
         }
       },
-      _separator_150: {},
+      _separator_368: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',

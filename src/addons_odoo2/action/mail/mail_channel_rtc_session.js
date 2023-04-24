@@ -58,7 +58,7 @@ export default {
             partner_id: {},
             guest_id: {}
           },
-          _group_368: {
+          _group_367: {
             _attr: { string: 'State' },
             is_screen_sharing_on: {},
             is_camera_on: {},

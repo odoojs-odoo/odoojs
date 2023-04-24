@@ -303,7 +303,7 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 scrap_count: {}
               },
-              _span_756: {
+              _span_326: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Scraps'
@@ -350,13 +350,13 @@ export default {
               }
             },
             _label_duration_expected: { for: 'duration_expected' },
-            _div_636: {
+            _div_574: {
               _attr: { class: 'o_row' },
               duration_expected: { widget: 'float_time' },
               _span: 'minutes'
             }
           },
-          _group_441: {
+          _group_771: {
             production_id: {}
           }
         },
@@ -427,7 +427,7 @@ export default {
                           duration: { widget: 'float_time' },
                           company_id: { invisible: '1' }
                         },
-                        _group_624: {
+                        _group_555: {
                           user_id: {},
                           workcenter_id: {},
                           company_id: { invisible: '1' },
@@ -471,7 +471,7 @@ export default {
                     sheet: {
                       company_id: { invisible: '1' },
                       name: { string: 'Operation' },
-                      _field_company_id_250: {
+                      _field_company_id_574: {
                         company_id: {
                           groups: 'base.group_multi_company',
                           optional: 'hide'

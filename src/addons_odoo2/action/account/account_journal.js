@@ -115,7 +115,7 @@ export default {
             active: { invisible: '1' },
             type: {}
           },
-          _group_219: {
+          _group_321: {
             company_id: {
               groups: 'base.group_multi_company',
               no_create: true
@@ -139,25 +139,25 @@ export default {
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'bank']]
                 },
-                _label_default_account_id_534: {
+                _label_default_account_id_881: {
                   for: 'default_account_id',
                   string: 'Cash Account',
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'cash']]
                 },
-                _label_default_account_id_157: {
+                _label_default_account_id_288: {
                   for: 'default_account_id',
                   string: 'Default Income Account',
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'sale']]
                 },
-                _label_default_account_id_787: {
+                _label_default_account_id_543: {
                   for: 'default_account_id',
                   string: 'Default Expense Account',
                   groups: 'account.group_account_readonly',
                   invisible: [['type', '!=', 'purchase']]
                 },
-                _label_default_account_id_639: {
+                _label_default_account_id_703: {
                   for: 'default_account_id',
                   string: 'Default Account',
                   groups: 'account.group_account_readonly',
@@ -208,6 +208,7 @@ export default {
           _page: {
             _attr: {
               string: 'Incoming Payments',
+              id: 'inbound_payment_settings',
               invisible: [['type', 'not in', ['cash', 'bank']]]
             },
             available_payment_method_ids: { invisible: '1' },
@@ -240,9 +241,10 @@ export default {
               }
             }
           },
-          _page_140: {
+          _page_270: {
             _attr: {
               string: 'Outgoing Payments',
+              id: 'outbound_payment_settings',
               invisible: [['type', 'not in', ['cash', 'bank']]]
             },
             outbound_payment_method_line_ids: {
@@ -358,7 +360,7 @@ export default {
                   }
                 }
               },
-              _group_235: {
+              _group_498: {
                 _attr: {
                   string: 'Payment Communications',
                   invisible: [['type', '!=', 'sale']]
@@ -366,7 +368,7 @@ export default {
                 invoice_reference_type: {},
                 invoice_reference_model: { invisible: [['invoice_reference_type', '=', 'none']] }
               },
-              _group_459: {
+              _group_307: {
                 _attr: {
                   string: 'Follow Customer Payments',
                   invisible: [['type', '!=', 'sale']]
@@ -440,7 +442,7 @@ export default {
           domain: [['type', 'not in', ['sale', 'purchase', 'cash', 'bank']]]
         }
       },
-      _separator_759: {},
+      _separator_330: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',

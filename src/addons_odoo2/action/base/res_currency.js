@@ -71,7 +71,7 @@ export default {
             text: 'You cannot reduce the number of decimal places of a currency already used on an accounting entry.'
           }
         },
-        _div_311: {
+        _div_713: {
           _attr: {
             invisible: [['is_current_company_currency', '=', false]],
             class: 'alert alert-info text-center',
@@ -84,19 +84,19 @@ export default {
             full_name: { string: 'Name' },
             active: { widget: 'boolean_toggle' }
           },
-          _group_810: {
+          _group_346: {
             currency_unit_label: {},
             currency_subunit_label: {}
           }
         },
-        _group_331: {
+        _group_930: {
           _attr: { groups: 'base.group_no_one' },
           _group: {
             _attr: { string: 'Price Accuracy' },
             rounding: {},
             decimal_places: {}
           },
-          _group_620: {
+          _group_738: {
             _attr: { string: 'Display' },
             symbol: {},
             position: {}

@@ -30,7 +30,7 @@ export default {
               class: 'btn-primary'
             }
           },
-          _button_action_backorder_421: {
+          _button_action_backorder_698: {
             _attr: {
               name: 'action_backorder',
               type: 'object',

@@ -20,7 +20,7 @@ export default {
             amount: { invisible: [['display_amount', '!=', true]] },
             display_amount: { invisible: '1' }
           },
-          _group_324: {
+          _group_397: {
             date: {},
             reversal_date: {}
           }

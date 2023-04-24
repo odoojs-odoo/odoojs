@@ -16,6 +16,7 @@ export default {
               class: 'app_settings_block'
             },
             _div: {
+              _attr: { id: 'invite_users' },
               _h2: 'Users',
               _div_users_setting_container: {
                 _attr: {
@@ -23,7 +24,10 @@ export default {
                   class: 'row mt16 o_settings_container'
                 },
                 _div: {
-                  _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+                  _attr: {
+                    id: 'invite_users_setting',
+                    class: 'col-12 col-lg-6 o_setting_box'
+                  },
                   _div: {
                     _attr: { class: 'o_setting_right_pane' },
                     _widget_res_config_invite_users: {
@@ -31,22 +35,25 @@ export default {
                     }
                   }
                 },
-                _div_351: {
-                  _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+                _div_173: {
+                  _attr: {
+                    id: 'active_user_setting',
+                    class: 'col-12 col-lg-6 o_setting_box'
+                  },
                   _div: {
                     _attr: { class: 'o_setting_right_pane' },
                     _span: {
                       _attr: { class: 'fa fa-lg fa-users' }
                     },
                     active_user_count: { class: 'w-auto ps-3 fw-bold' },
-                    _span_460: {
+                    _span_525: {
                       _attr: {
                         invisible: [['active_user_count', '>', '1']],
                         class: 'o_form_label',
                         text: 'Active User'
                       }
                     },
-                    _span_972: {
+                    _span_589: {
                       _attr: {
                         invisible: [['active_user_count', '<=', '1']],
                         class: 'o_form_label',
@@ -55,6 +62,7 @@ export default {
                     },
                     _a: {
                       _attr: {
+                        href: 'https://www.odoo.com/documentation/16.0/applications/general/users.html',
                         title: 'Documentation',
                         class: 'o_doc_link'
                       }
@@ -73,7 +81,8 @@ export default {
                 }
               }
             },
-            _div_642: {
+            _div_327: {
+              _attr: { id: 'languages' },
               _h2: 'Languages',
               _div_languages_setting_container: {
                 _attr: {
@@ -81,7 +90,10 @@ export default {
                   class: 'row mt16 o_settings_container'
                 },
                 _div: {
-                  _attr: { class: 'col-xs-12 col-md-6 o_setting_box' },
+                  _attr: {
+                    id: 'languages_setting',
+                    class: 'col-xs-12 col-md-6 o_setting_box'
+                  },
                   _div: {
                     _attr: { class: 'o_setting_right_pane' },
                     _div: {
@@ -94,7 +106,7 @@ export default {
                           text: 'Language'
                         }
                       },
-                      _span_571: {
+                      _span_672: {
                         _attr: {
                           invisible: [['language_count', '<=', '1']],
                           class: 'o_form_label',
@@ -102,7 +114,7 @@ export default {
                         }
                       }
                     },
-                    _div_976: {
+                    _div_223: {
                       _attr: { class: 'mt8' },
                       _button_base__action_view_base_language_install: {
                         _attr: {
@@ -114,7 +126,7 @@ export default {
                         }
                       }
                     },
-                    _div_666: {
+                    _div_407: {
                       _attr: {
                         groups: 'base.group_no_one',
                         class: 'mt8'
@@ -133,7 +145,8 @@ export default {
                 }
               }
             },
-            _div_548: {
+            _div_486: {
+              _attr: { id: 'companies' },
               _h2: 'Companies',
               _div_companies_setting_container: {
                 _attr: {
@@ -141,14 +154,17 @@ export default {
                   class: 'row mt16 o_settings_container'
                 },
                 _div: {
-                  _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+                  _attr: {
+                    id: 'company_details_settings',
+                    class: 'col-12 col-lg-6 o_setting_box'
+                  },
                   company_id: { invisible: '1' },
                   _div: {
                     _attr: { class: 'o_setting_right_pane' },
                     company_name: { class: 'fw-bold' },
                     _br: {},
                     company_informations: { class: 'text-muted' },
-                    _br_464: {},
+                    _br_945: {},
                     _button_open_company: {
                       _attr: {
                         name: 'open_company',
@@ -160,7 +176,7 @@ export default {
                     }
                   },
                   _br: {},
-                  _div_461: {
+                  _div_332: {
                     _attr: { class: 'o_setting_right_pane' },
                     _span: {
                       _attr: {
@@ -168,7 +184,7 @@ export default {
                         text: 'Document Layout'
                       }
                     },
-                    _span_576: {
+                    _span_360: {
                       _attr: {
                         title: 'Values set here are company-specific.',
                         groups: 'base.group_multi_company',
@@ -181,7 +197,7 @@ export default {
                         text: 'Choose the layout of your documents'
                       }
                     },
-                    _div_323: {
+                    _div_506: {
                       _attr: { class: 'content-group' },
                       _div: {
                         _attr: {
@@ -198,7 +214,7 @@ export default {
                           class: 'oe_inline'
                         }
                       },
-                      _div_563: {
+                      _div_237: {
                         _attr: { class: 'mt8' },
                         _button_web__action_base_document_layout_configurator: {
                           _attr: {
@@ -230,10 +246,13 @@ export default {
                       }
                     }
                   },
-                  _br_133: {}
+                  _br_403: {}
                 },
-                _div_109: {
-                  _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+                _div_534: {
+                  _attr: {
+                    id: 'companies_setting',
+                    class: 'col-12 col-lg-6 o_setting_box'
+                  },
                   _div: {
                     _attr: { class: 'o_setting_right_pane' },
                     company_count: { class: 'w-auto ps-1 fw-bold' },
@@ -244,7 +263,7 @@ export default {
                         text: 'Company'
                       }
                     },
-                    _span_388: {
+                    _span_235: {
                       _attr: {
                         invisible: [['company_count', '<=', '1']],
                         class: 'o_form_label',
@@ -266,8 +285,9 @@ export default {
                     }
                   }
                 },
-                _div_361: {
+                _div_457: {
                   _attr: {
+                    id: 'inter_company',
                     title: 'Configure company rules to automatically create SO/PO when one of your company sells/buys to another of your company.',
                     groups: 'base.group_multi_company',
                     class: 'col-12 col-lg-6 o_setting_box'
@@ -277,7 +297,7 @@ export default {
                     _attr: { class: 'o_setting_left_pane' },
                     module_account_inter_company_rules: { widget: 'upgrade_boolean' }
                   },
-                  _div_291: {
+                  _div_434: {
                     _attr: { class: 'o_setting_right_pane' },
                     _label_module_account_inter_company_rules: {
                       for: 'module_account_inter_company_rules',
@@ -296,8 +316,9 @@ export default {
                         text: 'Automatically generate counterpart documents for orders/invoices between companies'
                       }
                     },
-                    _div_869: {
+                    _div_207: {
                       _attr: {
+                        id: 'inter_companies_rules',
                         invisible: [['module_account_inter_company_rules', '=', false]],
                         class: 'content-group'
                       },
@@ -313,8 +334,11 @@ export default {
                 }
               }
             },
-            _div_199: {},
-            _div_928: {
+            _div_812: {
+              _attr: { id: 'emails' }
+            },
+            _div_292: {
+              _attr: { id: 'contacts_settings' },
               _h2: 'Contacts',
               _div_contacts_setting_container: {
                 _attr: {
@@ -322,9 +346,15 @@ export default {
                   class: 'row mt16 o_settings_container'
                 },
                 _div: {
-                  _attr: { class: 'col-xs-12 col-md-6 o_setting_box' },
+                  _attr: {
+                    id: 'sms',
+                    class: 'col-xs-12 col-md-6 o_setting_box'
+                  },
                   _div: {
-                    _attr: { class: 'o_setting_right_pane' },
+                    _attr: {
+                      id: 'sms_settings',
+                      class: 'o_setting_right_pane'
+                    },
                     _div: {
                       _attr: {
                         class: 'o_form_label',
@@ -332,12 +362,13 @@ export default {
                       },
                       _a: {
                         _attr: {
+                          href: 'https://www.odoo.com/documentation/16.0/applications/marketing/sms_marketing/pricing/pricing_and_faq.html',
                           title: 'Documentation',
                           class: 'ms-1 o_doc_link'
                         }
                       }
                     },
-                    _div_636: {
+                    _div_786: {
                       _attr: {
                         class: 'text-muted',
                         text: 'Send texts to your contacts'
@@ -345,8 +376,9 @@ export default {
                     }
                   }
                 },
-                _div_217: {
+                _div_327: {
                   _attr: {
+                    id: 'partner_autocomplete',
                     title: 'When populating your address book, Odoo provides a list of matching companies. When selecting one item, the company data and logo are auto-filled.',
                     class: 'col-xs-12 col-md-6 o_setting_box'
                   },
@@ -354,8 +386,11 @@ export default {
                     _attr: { class: 'o_setting_left_pane' },
                     module_partner_autocomplete: {}
                   },
-                  _div_564: {
-                    _attr: { class: 'o_setting_right_pane' },
+                  _div_171: {
+                    _attr: {
+                      id: 'partner_autocomplete_settings',
+                      class: 'o_setting_right_pane'
+                    },
                     _label_module_partner_autocomplete: { for: 'module_partner_autocomplete' },
                     _div: {
                       _attr: {
@@ -368,10 +403,14 @@ export default {
               }
             },
             _h2: 'Permissions',
-            _div_627: {
-              _attr: { class: 'row mt16 o_settings_container' },
+            _div_112: {
+              _attr: {
+                id: 'user_default_rights',
+                class: 'row mt16 o_settings_container'
+              },
               _div: {
                 _attr: {
+                  id: 'access_rights',
                   title: 'By default, new users get highest access rights for all installed apps.',
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -379,7 +418,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   user_default_rights: {}
                 },
-                _div_690: {
+                _div_575: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_user_default_rights: {
                     for: 'user_default_rights',
@@ -391,7 +430,7 @@ export default {
                       text: 'Set custom access rights for new users'
                     }
                   },
-                  _div_771: {
+                  _div_486: {
                     _attr: {
                       invisible: [['user_default_rights', '=', false]],
                       class: 'content-group'
@@ -411,7 +450,7 @@ export default {
                   }
                 }
               },
-              _div_996: {
+              _div_957: {
                 _attr: {
                   groups: 'base.group_system',
                   class: 'col-12 col-lg-6 o_setting_box'
@@ -419,7 +458,7 @@ export default {
                 _div: {
                   _attr: { class: 'o_setting_left_pane' }
                 },
-                _div_751: {
+                _div_929: {
                   _attr: { class: 'o_setting_right_pane' },
                   _button_base__action_apikeys_admin: {
                     _attr: {
@@ -432,8 +471,9 @@ export default {
                   }
                 }
               },
-              _div_162: {
+              _div_385: {
                 _attr: {
+                  id: 'allow_import',
                   groups: 'base.group_no_one',
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -441,7 +481,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   module_base_import: {}
                 },
-                _div_631: {
+                _div_497: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_base_import: {
                     for: 'module_base_import',
@@ -449,6 +489,7 @@ export default {
                   },
                   _a: {
                     _attr: {
+                      href: 'https://www.odoo.com/documentation/16.0/applications/general/export_import_data.html',
                       title: 'Documentation',
                       class: 'o_doc_link'
                     }
@@ -461,8 +502,9 @@ export default {
                   }
                 }
               },
-              _div_864: {
+              _div_642: {
                 _attr: {
+                  id: 'feedback_motivate_setting',
                   groups: 'base.group_no_one',
                   class: 'col-12 col-lg-6 o_setting_box'
                 },
@@ -470,7 +512,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   show_effect: {}
                 },
-                _div_508: {
+                _div_104: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_show_effect: { for: 'show_effect' },
                   _div: {
@@ -482,19 +524,22 @@ export default {
                 }
               }
             },
-            _h2_293: 'Integrations',
+            _h2_543: 'Integrations',
             _div_integration: {
               _attr: {
                 name: 'integration',
                 class: 'row mt16 o_settings_container'
               },
               _div: {
-                _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+                _attr: {
+                  id: 'mail_pluggin_setting',
+                  class: 'col-12 col-lg-6 o_setting_box'
+                },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_mail_plugin: {}
                 },
-                _div_889: {
+                _div_930: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_mail_plugin: {
                     for: 'module_mail_plugin',
@@ -502,6 +547,7 @@ export default {
                   },
                   _a: {
                     _attr: {
+                      href: 'https://www.odoo.com/documentation/16.0/applications/productivity/mail_plugins.html',
                       title: 'Documentation',
                       class: 'o_doc_link'
                     }
@@ -514,13 +560,16 @@ export default {
                   }
                 }
               },
-              _div_308: {
-                _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+              _div_323: {
+                _attr: {
+                  id: 'sync_outlook_calendar_setting',
+                  class: 'col-12 col-lg-6 o_setting_box'
+                },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_microsoft_calendar: {}
                 },
-                _div_669: {
+                _div_358: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_microsoft_calendar: {
                     for: 'module_microsoft_calendar',
@@ -528,6 +577,7 @@ export default {
                   },
                   _a: {
                     _attr: {
+                      href: 'https://www.odoo.com/documentation/16.0/applications/general/calendars/outlook/outlook_calendar.html',
                       title: 'Documentation',
                       class: 'o_doc_link'
                     }
@@ -538,8 +588,9 @@ export default {
                       text: 'Synchronize your calendar with Outlook'
                     }
                   },
-                  _div_765: {
+                  _div_128: {
                     _attr: {
+                      id: 'msg_module_microsoft_calendar',
                       invisible: [['module_microsoft_calendar', '=', false]],
                       class: 'content-group'
                     },
@@ -553,13 +604,16 @@ export default {
                   }
                 }
               },
-              _div_554: {
-                _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+              _div_594: {
+                _attr: {
+                  id: 'sync_google_calendar_setting',
+                  class: 'col-12 col-lg-6 o_setting_box'
+                },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_google_calendar: {}
                 },
-                _div_347: {
+                _div_356: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_google_calendar: {
                     for: 'module_google_calendar',
@@ -567,6 +621,7 @@ export default {
                   },
                   _a: {
                     _attr: {
+                      href: 'https://www.odoo.com/documentation/16.0/applications/general/calendars/google/google_calendar_credentials.html',
                       title: 'Documentation',
                       class: 'o_doc_link'
                     }
@@ -577,8 +632,9 @@ export default {
                       text: 'Synchronize your calendar with Google Calendar'
                     }
                   },
-                  _div_725: {
+                  _div_842: {
                     _attr: {
+                      id: 'msg_module_google_calendar',
                       invisible: [['module_google_calendar', '=', false]],
                       class: 'content-group'
                     },
@@ -592,14 +648,19 @@ export default {
                   }
                 }
               },
-              _div_808: {},
-              _div_690: {
-                _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+              _div_619: {
+                _attr: { id: 'product_get_pic_setting' }
+              },
+              _div_678: {
+                _attr: {
+                  id: 'module_auth_oauth',
+                  class: 'col-12 col-lg-6 o_setting_box'
+                },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_auth_oauth: {}
                 },
-                _div_685: {
+                _div_689: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_module_auth_oauth: {
                     for: 'module_auth_oauth',
@@ -611,8 +672,9 @@ export default {
                       text: 'Use external accounts to log in (Google, Facebook, etc.)'
                     }
                   },
-                  _div_854: {
+                  _div_340: {
                     _attr: {
+                      id: 'msg_module_auth_oauth',
                       invisible: [['module_auth_oauth', '=', false]],
                       class: 'content-group mt16'
                     },
@@ -626,8 +688,11 @@ export default {
                   }
                 }
               },
-              _div_226: {
-                _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+              _div_360: {
+                _attr: {
+                  id: 'oauth',
+                  class: 'col-12 col-lg-6 o_setting_box'
+                },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_auth_ldap: {}
@@ -643,6 +708,7 @@ export default {
                   },
                   _a: {
                     _attr: {
+                      href: 'https://www.odoo.com/documentation/16.0/applications/general/auth/ldap.html',
                       title: 'Documentation',
                       class: 'o_doc_link'
                     }
@@ -653,8 +719,9 @@ export default {
                       text: 'Use LDAP credentials to log in'
                     }
                   },
-                  _div_370: {
+                  _div_425: {
                     _attr: {
+                      id: 'auth_ldap_warning',
                       invisible: [['module_auth_ldap', '=', false]],
                       class: 'content-group'
                     },
@@ -668,17 +735,24 @@ export default {
                   }
                 }
               },
-              _div_568: {
-                _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+              _div_250: {
+                _attr: {
+                  id: 'unsplash',
+                  class: 'col-12 col-lg-6 o_setting_box'
+                },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_web_unsplash: {}
                 },
-                _div_132: {
-                  _attr: { class: 'o_setting_right_pane' },
+                _div_750: {
+                  _attr: {
+                    id: 'web_unsplash_settings',
+                    class: 'o_setting_right_pane'
+                  },
                   _label_module_web_unsplash: { for: 'module_web_unsplash' },
                   _a: {
                     _attr: {
+                      href: 'https://www.odoo.com/documentation/16.0/applications/websites/website/optimize/unsplash.html',
                       title: 'Documentation',
                       class: 'o_doc_link'
                     }
@@ -689,8 +763,9 @@ export default {
                       text: 'Find free high-resolution images from Unsplash'
                     }
                   },
-                  _div_814: {
+                  _div_504: {
                     _attr: {
+                      id: 'web_unsplash_warning',
                       invisible: [['module_web_unsplash', '=', false]],
                       class: 'content-group'
                     },
@@ -704,14 +779,20 @@ export default {
                   }
                 }
               },
-              _div_536: {
-                _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+              _div_723: {
+                _attr: {
+                  id: 'base_geolocalize',
+                  class: 'col-12 col-lg-6 o_setting_box'
+                },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_base_geolocalize: {}
                 },
-                _div_114: {
-                  _attr: { class: 'o_setting_right_pane' },
+                _div_464: {
+                  _attr: {
+                    id: 'web_geolocalize_settings',
+                    class: 'o_setting_right_pane'
+                  },
                   _label_module_base_geolocalize: {
                     for: 'module_base_geolocalize',
                     string: 'Geo Localization'
@@ -738,14 +819,20 @@ export default {
                   }
                 }
               },
-              _div_270: {
-                _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+              _div_965: {
+                _attr: {
+                  id: 'recaptcha',
+                  class: 'col-12 col-lg-6 o_setting_box'
+                },
                 _div: {
                   _attr: { class: 'o_setting_left_pane' },
                   module_google_recaptcha: {}
                 },
-                _div_507: {
-                  _attr: { class: 'o_setting_right_pane' },
+                _div_517: {
+                  _attr: {
+                    id: 'website_recaptcha_settings',
+                    class: 'o_setting_right_pane'
+                  },
                   _label_module_google_recaptcha: { for: 'module_google_recaptcha' },
                   _div: {
                     _attr: {
@@ -753,8 +840,9 @@ export default {
                       text: 'Protect your forms from spam and abuse.'
                     }
                   },
-                  _div_314: {
+                  _div_994: {
                     _attr: {
+                      id: 'recaptcha_warning',
                       invisible: [['module_google_recaptcha', '=', false]],
                       class: 'content-group'
                     },
@@ -769,7 +857,7 @@ export default {
                 }
               }
             },
-            _h2_496: {
+            _h2_696: {
               _attr: {
                 groups: 'base.group_no_one',
                 text: 'Performance'
@@ -782,7 +870,10 @@ export default {
                 class: 'row mt16 o_settings_container'
               },
               _div: {
-                _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+                _attr: {
+                  id: 'profiling_enabled_until',
+                  class: 'col-12 col-lg-6 o_setting_box'
+                },
                 _label_profiling_enabled_until: { for: 'profiling_enabled_until' },
                 profiling_enabled_until: {},
                 _div: {
@@ -796,7 +887,8 @@ export default {
             _widget_res_config_dev_tool: {
               _attr: { name: 'res_config_dev_tool' }
             },
-            _div_379: {
+            _div_893: {
+              _attr: { id: 'about' },
               _h2: 'About',
               _div_about_setting_container: {
                 _attr: {
@@ -804,21 +896,30 @@ export default {
                   class: 'row mt16 o_settings_container'
                 },
                 _div: {
-                  _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+                  _attr: {
+                    id: 'appstore',
+                    class: 'col-12 col-lg-6 o_setting_box'
+                  },
                   _div: {
                     _attr: { class: 'd-flex' },
                     _div: {
                       _attr: { class: 'o_setting_right_pane' },
                       _a: {
-                        _attr: { class: 'd-block mx-auto' },
+                        _attr: {
+                          href: 'https://play.google.com/store/apps/details?id=com.odoo.mobile',
+                          class: 'd-block mx-auto'
+                        },
                         _img: {
                           _attr: { class: 'd-block mx-auto img img-fluid' }
                         }
                       }
                     },
-                    _div_136: {
+                    _div_852: {
                       _a: {
-                        _attr: { class: 'd-block mx-auto' },
+                        _attr: {
+                          href: 'https://itunes.apple.com/us/app/odoo/id1272543640',
+                          class: 'd-block mx-auto'
+                        },
                         _img: {
                           _attr: { class: 'd-block mx-auto img img-fluid' }
                         }

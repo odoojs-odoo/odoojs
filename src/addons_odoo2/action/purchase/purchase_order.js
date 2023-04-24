@@ -63,6 +63,7 @@ export default {
             name: 'button_confirm',
             type: 'object',
             string: 'Confirm Order',
+            id: 'bid_confirm',
             states: 'sent',
             context: { validate_analytic: true },
             class: 'oe_highlight'
@@ -88,7 +89,7 @@ export default {
             class: 'oe_highlight'
           }
         },
-        _button_action_rfq_send_504: {
+        _button_action_rfq_send_819: {
           _attr: {
             name: 'action_rfq_send',
             type: 'object',
@@ -97,7 +98,7 @@ export default {
             context: { send_rfq: true }
           }
         },
-        _button_print_quotation_284: {
+        _button_print_quotation_701: {
           _attr: {
             name: 'print_quotation',
             type: 'object',
@@ -106,16 +107,17 @@ export default {
             states: 'sent'
           }
         },
-        _button_button_confirm_189: {
+        _button_button_confirm_659: {
           _attr: {
             name: 'button_confirm',
             type: 'object',
             string: 'Confirm Order',
+            id: 'draft_confirm',
             states: 'draft',
             context: { validate_analytic: true }
           }
         },
-        _button_action_rfq_send_147: {
+        _button_action_rfq_send_329: {
           _attr: {
             name: 'action_rfq_send',
             type: 'object',
@@ -133,7 +135,7 @@ export default {
             invisible: ['|', '|', ['state', 'not in', ('purchase', 'done')], ['mail_reminder_confirmed', '=', true], ['date_planned', '=', false]]
           }
         },
-        _button_action_create_invoice_455: {
+        _button_action_create_invoice_989: {
           _attr: {
             name: 'action_create_invoice',
             type: 'object',
@@ -211,7 +213,7 @@ export default {
               text: 'Request for Quotation'
             }
           },
-          _span_791: {
+          _span_130: {
             _attr: {
               invisible: [['state', 'in', ('draft', 'sent')]],
               class: 'o_form_label',
@@ -244,14 +246,14 @@ export default {
             },
             id: { invisible: '1' },
             company_id: { invisible: '1' },
-            _field_currency_id_149: {
+            _field_currency_id_978: {
               currency_id: {
                 groups: '!base.group_multi_currency',
                 invisible: '1'
               }
             }
           },
-          _group_687: {
+          _group_684: {
             date_order: { invisible: [['state', 'in', ('purchase', 'done')]] },
             _label_date_approve: {
               for: 'date_approve',
@@ -404,7 +406,7 @@ export default {
                         column_invisible: [['parent.state', 'not in', ('purchase', 'done')]],
                         optional: 'show'
                       },
-                      _field_product_uom_297: {
+                      _field_product_uom_215: {
                         product_uom: {
                           string: 'UoM',
                           groups: 'uom.group_uom',
@@ -497,7 +499,7 @@ export default {
                             no_create: true
                           }
                         },
-                        _group_511: {
+                        _group_144: {
                           date_planned: {
                             widget: 'date',
                             required: [['display_type', '=', false]]
@@ -509,7 +511,7 @@ export default {
                             business_domain: 'purchase_order'
                           }
                         },
-                        _group_887: {
+                        _group_507: {
                           _notebook: {
                             _page_notes: {
                               _attr: {
@@ -533,7 +535,7 @@ export default {
                         string: 'Section Name (eg. Products, Services)',
                         invisible: [['display_type', '!=', 'line_section']]
                       },
-                      _label_name_276: {
+                      _label_name_606: {
                         for: 'name',
                         string: 'Note',
                         invisible: [['display_type', '!=', 'line_note']]
@@ -568,7 +570,7 @@ export default {
                                     _span: {}
                                   }
                                 },
-                                _div_668: {
+                                _div_436: {
                                   _attr: { class: 'col-4' },
                                   _strong: {
                                     _span: {
@@ -577,20 +579,20 @@ export default {
                                   }
                                 }
                               },
-                              _div_898: {
+                              _div_494: {
                                 _attr: { class: 'row' },
                                 _div: {
                                   _attr: { class: 'col-12 text-muted' },
                                   _span: {
                                     _attr: { text: 'Quantity:' },
                                     _t: {},
-                                    _t_150: {
+                                    _t_444: {
                                       _attr: { groups: 'uom.group_uom' }
                                     }
                                   }
                                 }
                               },
-                              _div_949: {
+                              _div_281: {
                                 _attr: { class: 'row' },
                                 _div: {
                                   _attr: { class: 'col-12 text-muted' },
@@ -620,7 +622,7 @@ export default {
               _group: {
                 notes: { placeholder: 'Define your terms and conditions ...' }
               },
-              _group_748: {
+              _group_445: {
                 _attr: { class: 'oe_subtotal_footer oe_right' },
                 tax_totals: {
                   widget: 'account-tax-totals-field',
@@ -704,7 +706,7 @@ export default {
           domain: [['state', 'in', ('draft', 'sent', 'to approve')]]
         }
       },
-      _separator_145: {},
+      _separator_250: {},
       _filter_approved: {
         _attr: {
           name: 'approved',
@@ -719,7 +721,7 @@ export default {
           domain: [['state', '=', 'to approve']]
         }
       },
-      _separator_247: {},
+      _separator_409: {},
       _filter_order_date: {
         _attr: {
           name: 'order_date',
@@ -748,7 +750,7 @@ export default {
           domain: { todo_ctx: "[('state', 'in', ['draft', 'sent', 'to approve']),('date_order', '<', datetime.datetime.now())]" }
         }
       },
-      _separator_846: {},
+      _separator_415: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
@@ -774,7 +776,7 @@ export default {
           domain: { todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
-      _separator_901: {},
+      _separator_441: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',
@@ -862,7 +864,7 @@ export default {
           domain: [['invoice_status', '=', 'invoiced']]
         }
       },
-      _separator_424: {},
+      _separator_488: {},
       _filter_order_date: {
         _attr: {
           name: 'order_date',
@@ -870,7 +872,7 @@ export default {
           date: 'date_order'
         }
       },
-      _separator_799: {},
+      _separator_659: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
@@ -896,7 +898,7 @@ export default {
           domain: { todo_ctx: "[('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))]" }
         }
       },
-      _separator_596: {},
+      _separator_906: {},
       _filter_activities_exception: {
         _attr: {
           name: 'activities_exception',

@@ -12,13 +12,19 @@ export default {
           },
           _h2: 'Units of Measure',
           _div: {
-            _attr: { class: 'row mt16 o_settings_container' },
+            _attr: {
+              id: 'product_general_settings',
+              class: 'row mt16 o_settings_container'
+            },
             _div: {
-              _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+              _attr: {
+                id: 'weight_uom_setting',
+                class: 'col-12 col-lg-6 o_setting_box'
+              },
               _div: {
                 _attr: { class: 'o_setting_left_pane' }
               },
-              _div_190: {
+              _div_326: {
                 _attr: { class: 'o_setting_right_pane' },
                 _label_product_weight_in_lbs: {
                   for: 'product_weight_in_lbs',
@@ -30,7 +36,7 @@ export default {
                     text: 'Define your weight unit of measure'
                   }
                 },
-                _div_412: {
+                _div_432: {
                   _attr: { class: 'content-group' },
                   _div: {
                     _attr: { class: 'mt16' },
@@ -43,8 +49,11 @@ export default {
                 }
               }
             },
-            _div_221: {
-              _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+            _div_462: {
+              _attr: {
+                id: 'manage_volume_uom_setting',
+                class: 'col-12 col-lg-6 o_setting_box'
+              },
               _div: {
                 _attr: { class: 'o_setting_right_pane' },
                 _label_product_volume_volume_in_cubic_feet: {
@@ -57,7 +66,7 @@ export default {
                     text: 'Define your volume unit of measure'
                   }
                 },
-                _div_790: {
+                _div_695: {
                   _attr: { class: 'content-group' },
                   _div: {
                     _attr: { class: 'mt16' },
@@ -72,18 +81,21 @@ export default {
             }
           }
         },
-        _xpath_520: {
+        _xpath_289: {
           _attr: {
             expr: "//div[@id='product_get_pic_setting']",
             position: 'replace'
           },
           _div: {
-            _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+            _attr: {
+              id: 'product_get_pic_setting',
+              class: 'col-12 col-lg-6 o_setting_box'
+            },
             _div: {
               _attr: { class: 'o_setting_left_pane' },
               module_product_images: {}
             },
-            _div_797: {
+            _div_171: {
               _attr: { class: 'o_setting_right_pane' },
               _label_module_product_images: {
                 for: 'module_product_images',
@@ -91,6 +103,7 @@ export default {
               },
               _a: {
                 _attr: {
+                  href: 'https://www.odoo.com/documentation/16.0/applications/sales/sales/products_prices/products/product_images.html',
                   title: 'Documentation',
                   class: 'o_doc_link'
                 }
@@ -101,8 +114,9 @@ export default {
                   text: 'Get product pictures using Barcode'
                 }
               },
-              _div_618: {
+              _div_283: {
                 _attr: {
+                  id: 'msg_module_product_images',
                   invisible: [['module_product_images', '=', false]],
                   class: 'content-group mt16'
                 },

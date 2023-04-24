@@ -12,7 +12,7 @@ export default {
             custom_quantity: {},
             print_format: { widget: 'radio' }
           },
-          _group_638: {
+          _group_754: {
             extra_html: {
               widget: 'html',
               invisible: [['print_format', 'not in', ('dymo', '2x7xprice')]]

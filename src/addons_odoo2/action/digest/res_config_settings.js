@@ -11,9 +11,13 @@ export default {
             position: 'before'
           },
           _div: {
+            _attr: { id: 'statistics' },
             _h2: 'Statistics',
             _div: {
-              _attr: { class: 'row mt16 o_settings_container' },
+              _attr: {
+                id: 'statistics_div',
+                class: 'row mt16 o_settings_container'
+              },
               _div_digest_email_setting_container: {
                 _attr: {
                   name: 'digest_email_setting_container',
@@ -24,7 +28,7 @@ export default {
                   _attr: { class: 'o_setting_left_pane' },
                   digest_emails: {}
                 },
-                _div_550: {
+                _div_484: {
                   _attr: { class: 'o_setting_right_pane' },
                   _label_digest_emails: {
                     for: 'digest_emails',
@@ -32,17 +36,19 @@ export default {
                   },
                   _a: {
                     _attr: {
+                      href: 'https://www.odoo.com/documentation/16.0/applications/general/digest_emails.html',
                       title: 'Documentation',
                       class: 'ms-1 o_doc_link'
                     }
                   },
                   _div: {
                     _attr: {
+                      id: 'msg_module_digest',
                       class: 'text-muted',
                       text: 'Add new users as recipient of a periodic email with key metrics'
                     }
                   },
-                  _div_133: {
+                  _div_168: {
                     _attr: {
                       invisible: [['digest_emails', '=', false]],
                       class: 'content-group'
@@ -55,7 +61,7 @@ export default {
                       },
                       digest_id: { class: 'oe_inline' }
                     },
-                    _div_900: {
+                    _div_244: {
                       _attr: { class: 'mt8' },
                       _button_digest__digest_digest_action: {
                         _attr: {

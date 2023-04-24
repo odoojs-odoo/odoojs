@@ -29,7 +29,7 @@ export default {
           },
           sms_number: {}
         },
-        _xpath_393: {
+        _xpath_912: {
           _attr: {
             expr: "//field[@name='mail_mail_id']",
             position: 'after'

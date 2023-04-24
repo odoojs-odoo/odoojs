@@ -77,7 +77,9 @@ export default {
     type: 'form',
     arch: {
       sheet: {
-        _link: {},
+        _link: {
+          _attr: { href: '/base/static/src/css/description.css' }
+        },
         icon_image: {
           widget: 'image',
           class: 'oe_avatar'
@@ -113,6 +115,7 @@ export default {
             },
             _a: {
               _attr: {
+                href: 'https://odoo.com/pricing?utm_source=db&utm_medium=module#hosting=on_premise',
                 invisible: ['|', ['to_buy', '=', false], ['state', 'not in', ('uninstalled', 'uninstallable')]],
                 class: 'btn btn-primary me-1',
                 text: 'Upgrade'
@@ -199,7 +202,7 @@ export default {
                 },
                 summary: {}
               },
-              _group_555: {
+              _group_572: {
                 name: {},
                 license: {},
                 installed_version: {}
@@ -216,7 +219,7 @@ export default {
               application: {},
               state: {}
             },
-            _group_880: {
+            _group_246: {
               _attr: {
                 string: 'Created Views',
                 invisible: [['state', '!=', 'installed']]
@@ -230,10 +233,10 @@ export default {
               }
             },
             views_by_module: {},
-            _group_877: {
+            _group_210: {
               _attr: { string: 'Dependencies' }
             },
-            _p_972: {
+            _p_243: {
               _attr: {
                 invisible: [['dependencies_id', 'not in', [None, false]]],
                 class: 'oe_grey',
@@ -253,10 +256,10 @@ export default {
                 }
               }
             },
-            _group_267: {
+            _group_870: {
               _attr: { string: 'Exclusions' }
             },
-            _p_278: {
+            _p_560: {
               _attr: {
                 invisible: [['exclusion_ids', 'not in', [None, false]]],
                 class: 'oe_grey',
@@ -294,10 +297,10 @@ export default {
               }
             },
             menus_by_module: {},
-            _group_662: {
+            _group_416: {
               _attr: { string: 'Defined Reports' }
             },
-            _p_550: {
+            _p_967: {
               _attr: {
                 invisible: [['reports_by_module', 'not in', [None, false]]],
                 class: 'oe_grey',

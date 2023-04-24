@@ -34,7 +34,7 @@ export default {
             invisible: '1'
           }
         },
-        _xpath_504: {
+        _xpath_272: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'
@@ -65,7 +65,7 @@ export default {
             }
           }
         },
-        _xpath_254: {
+        _xpath_478: {
           _attr: {
             expr: "//page[@name='miscellaneous']//field[@name='date_deadline']",
             position: 'after'

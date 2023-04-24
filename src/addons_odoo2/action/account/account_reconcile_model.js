@@ -51,7 +51,7 @@ export default {
           _group: {
             rule_type: { widget: 'radio' }
           },
-          _group_299: {
+          _group_718: {
             auto_reconcile: { invisible: [['rule_type', '=', 'writeoff_button']] },
             to_check: { invisible: [['rule_type', '!=', 'writeoff_button']] },
             past_months_limit: { invisible: [['rule_type', '!=', 'invoice_matching']] },
@@ -60,10 +60,17 @@ export default {
         },
         _notebook: {
           _page: {
-            _attr: { string: 'Bank Transactions Conditions' },
+            _attr: {
+              string: 'Bank Transactions Conditions',
+              id: 'conditions_tab'
+            },
             _group: {
+              _attr: { id: 'conditions_tab_group' },
               _group: {
-                _attr: { class: 'col-6' },
+                _attr: {
+                  id: 'left_column',
+                  class: 'col-6'
+                },
                 _label_match_journal_ids: { for: 'match_journal_ids' },
                 _div: {
                   match_journal_ids: {
@@ -76,7 +83,7 @@ export default {
                   for: 'match_amount',
                   invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_237: {
+                _div_202: {
                   _attr: {
                     invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-2'
@@ -102,7 +109,7 @@ export default {
                   for: 'allow_payment_tolerance',
                   invisible: [['rule_type', '!=', 'invoice_matching']]
                 },
-                _div_379: {
+                _div_399: {
                   _attr: {
                     invisible: [['rule_type', '!=', 'invoice_matching']],
                     class: 'd-flex gap-2'
@@ -119,8 +126,11 @@ export default {
                 },
                 match_same_currency: { invisible: [['rule_type', '!=', 'invoice_matching']] }
               },
-              _group_949: {
-                _attr: { class: 'col-6' },
+              _group_680: {
+                _attr: {
+                  id: 'right column',
+                  class: 'col-6'
+                },
                 _span: {
                   _attr: {
                     invisible: [['rule_type', '!=', 'invoice_matching']],
@@ -153,7 +163,7 @@ export default {
                   for: 'match_label',
                   invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_605: {
+                _div_958: {
                   _attr: {
                     invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-3'
@@ -168,7 +178,7 @@ export default {
                   for: 'match_note',
                   invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_793: {
+                _div_326: {
                   _attr: {
                     invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-3'
@@ -183,7 +193,7 @@ export default {
                   for: 'match_transaction_type',
                   invisible: [['rule_type', '=', 'writeoff_button']]
                 },
-                _div_432: {
+                _div_470: {
                   _attr: {
                     invisible: [['rule_type', '=', 'writeoff_button']],
                     class: 'd-flex gap-3'
@@ -216,7 +226,7 @@ export default {
                 }
               }
             },
-            _group_834: {
+            _group_430: {
               _attr: {
                 string: 'Counterpart Entries',
                 invisible: [['rule_type', '=', 'invoice_matching'], '|', ['allow_payment_tolerance', '=', false], '&', ['allow_payment_tolerance', '=', true], ['payment_tolerance_param', '=', 0.0]],
@@ -267,9 +277,10 @@ export default {
               }
             }
           },
-          _page_882: {
+          _page_327: {
             _attr: {
               string: 'Partner Mapping',
+              id: 'partner_tab',
               invisible: [['rule_type', 'not in', ('invoice_matching', 'writeoff_suggestion')]]
             },
             partner_mapping_line_ids: {

@@ -63,14 +63,14 @@ export default {
             company_country_id: { invisible: '1' },
             foreign_vat_header_mode: { invisible: '1' },
             name: {},
-            _field_company_id_112: {
+            _field_company_id_461: {
               company_id: {
                 groups: 'base.group_multi_company',
                 no_create: true
               }
             }
           },
-          _group_207: {
+          _group_967: {
             auto_apply: {},
             vat_required: { invisible: [['auto_apply', '!=', true]] },
             foreign_vat: {},
@@ -97,7 +97,7 @@ export default {
               _div: {
                 _attr: { class: 'oe_edit_only' }
               },
-              _span_577: 'To',
+              _span_522: 'To',
               zip_to: { class: 'oe_inline' }
             }
           }

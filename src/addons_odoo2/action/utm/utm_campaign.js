@@ -47,6 +47,7 @@ export default {
           }
         },
         _group: {
+          _attr: { id: 'top-group' },
           title: {
             string: 'Campaign Name',
             class: 'text-break',

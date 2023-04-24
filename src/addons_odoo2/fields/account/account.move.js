@@ -11,13 +11,13 @@ const ModelFields = {
   amount_total_signed: { string: 'Total' },
   amount_untaxed_signed: { string: 'Tax Excluded' },
   auto_post: { readonly: '===todo==' },
-  auto_post_$_form_$$_196: { readonly: [['state', '!=', 'draft']] },
-  auto_post_$_form_$$_373: { readonly: [['state', '!=', 'draft']] },
-  auto_post_$_form_$$_949: { readonly: '1' },
+  auto_post_$_form_$$_120: { readonly: [['state', '!=', 'draft']] },
+  auto_post_$_form_$$_464: { readonly: '1' },
+  auto_post_$_form_$$_641: { readonly: [['state', '!=', 'draft']] },
   auto_post_until: { readonly: '===todo==' },
-  auto_post_until_$_form_$$_198: { readonly: [['state', '!=', 'draft']] },
-  auto_post_until_$_form_$$_429: { readonly: [['state', '!=', 'draft']] },
-  auto_post_until_$_form_$$_727: { readonly: '1' },
+  auto_post_until_$_form_$$_374: { readonly: [['state', '!=', 'draft']] },
+  auto_post_until_$_form_$$_403: { readonly: [['state', '!=', 'draft']] },
+  auto_post_until_$_form_$$_588: { readonly: '1' },
   bank_partner_id: {},
   commercial_partner_id: {},
   company_currency_id: {},
@@ -32,17 +32,17 @@ const ModelFields = {
     readonly: [['state', '!=', 'draft']]
   },
 
-  currency_id_$_form_$$_218: { groups: 'base.group_multi_currency' },
-  currency_id_$_form_$$_490: { groups: '!account.group_account_readonly,base.group_multi_currency' },
-  currency_id_$_tree_$$_519: { groups: 'base.group_multi_currency' },
+  currency_id_$_form_$$_227: { groups: 'base.group_multi_currency' },
+  currency_id_$_form_$$_990: { groups: '!account.group_account_readonly,base.group_multi_currency' },
+  currency_id_$_tree_$$_299: { groups: 'base.group_multi_currency' },
   date: {
     readonly: '===todo==',
     string: 'Accounting Date'
   },
 
-  date_$_form_$$_221: { readonly: '1' },
-  date_$_form_$$_485: { readonly: '1' },
-  date_$_form_$$_932: { readonly: [['state', '!=', 'draft']] },
+  date_$_form_$$_607: { readonly: '1' },
+  date_$_form_$$_785: { readonly: [['state', '!=', 'draft']] },
+  date_$_form_$$_793: { readonly: '1' },
   display_inactive_currency_warning: {},
   display_qr_code: {},
   duplicated_ref_ids: {},
@@ -53,8 +53,8 @@ const ModelFields = {
   id: {},
   invoice_cash_rounding_id: { groups: 'account.group_cash_rounding' },
   invoice_date: { string: '===todo==' },
-  invoice_date_$_tree_$$_109: { string: 'Bill Date' },
-  invoice_date_$_tree_$$_624: { string: 'Invoice Date' },
+  invoice_date_$_tree_$$_172: { string: 'Invoice Date' },
+  invoice_date_$_tree_$$_604: { string: 'Bill Date' },
   invoice_date_due: { placeholder: 'Date' },
   invoice_filter_type_domain: {},
   invoice_has_outstanding: {},
@@ -70,8 +70,8 @@ const ModelFields = {
     groups: 'base.group_user'
   },
 
-  invoice_partner_display_name_$_tree_$$_123: { string: 'Customer' },
-  invoice_partner_display_name_$_tree_$$_314: { string: 'Vendor' },
+  invoice_partner_display_name_$_tree_$$_744: { string: 'Vendor' },
+  invoice_partner_display_name_$_tree_$$_755: { string: 'Customer' },
   invoice_payment_term_id: {
     context: { todo_ctx: "{'example_date': invoice_date, 'example_amount': tax_totals['amount_total']}" },
     placeholder: 'Terms'
@@ -104,12 +104,12 @@ const ModelFields = {
   },
 
   narration: { placeholder: '===todo==' },
-  narration_$_form_$$_294: { placeholder: 'Add an internal note...' },
-  narration_$_form_$$_522: { placeholder: 'Terms and Conditions' },
+  narration_$_form_$$_635: { placeholder: 'Terms and Conditions' },
+  narration_$_form_$$_793: { placeholder: 'Add an internal note...' },
   partner_bank_id: {
     domain: { todo_ctx: "[('partner_id', '=', bank_partner_id)]" },
-    readonly: [['state', '!=', 'draft']],
-    context: { todo_ctx: "{'default_partner_id': bank_partner_id}" }
+    context: { todo_ctx: "{'default_partner_id': bank_partner_id}" },
+    readonly: [['state', '!=', 'draft']]
   },
 
   partner_credit_warning: {},

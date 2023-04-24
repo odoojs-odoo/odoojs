@@ -61,7 +61,7 @@ export default {
           },
           team_id: {}
         },
-        _xpath_842: {
+        _xpath_556: {
           _attr: {
             expr: "//group[@id='other_tab_group']",
             position: 'inside'
@@ -81,7 +81,7 @@ export default {
             source_id: {}
           }
         },
-        _xpath_940: {
+        _xpath_523: {
           _attr: {
             expr: "//div[@name='button_box']",
             position: 'inside'

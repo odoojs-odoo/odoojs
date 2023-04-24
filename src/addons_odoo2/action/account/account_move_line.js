@@ -33,7 +33,7 @@ export default {
                 balance: { readonly: '1' },
                 quantity: { readonly: '1' }
               },
-              _group_427: {
+              _group_268: {
                 _attr: { string: 'Accounting Documents' },
                 move_id: { readonly: '1' },
                 statement_line_id: {
@@ -41,12 +41,12 @@ export default {
                   readonly: 'True'
                 }
               },
-              _group_950: {
+              _group_198: {
                 _attr: { string: 'Dates' },
                 date: { groups: 'account.group_account_readonly' },
                 date_maturity: {}
               },
-              _group_265: {
+              _group_367: {
                 _attr: {
                   string: 'Taxes',
                   invisible: [['tax_line_id', '=', false], ['tax_ids', '=', []]]
@@ -66,7 +66,7 @@ export default {
                 },
                 tax_audit: {}
               },
-              _group_868: {
+              _group_741: {
                 _attr: {
                   string: 'Matching',
                   invisible: [['matched_debit_ids', '=', []], ['matched_credit_ids', '=', []]]
@@ -87,7 +87,7 @@ export default {
                   }
                 }
               },
-              _group_917: {
+              _group_395: {
                 _attr: {
                   string: 'Currency',
                   groups: 'base.group_multi_currency'
@@ -95,18 +95,18 @@ export default {
                 currency_id: { invisible: '1' },
                 amount_currency: {}
               },
-              _group_507: {
+              _group_671: {
                 _attr: {
                   string: 'Product',
                   invisible: [['product_id', '=', false]]
                 },
                 product_id: { readonly: '1' }
               },
-              _group_866: {
+              _group_446: {
                 _attr: { string: 'States' },
                 blocked: {}
               },
-              _group_862: {
+              _group_917: {
                 _attr: {
                   string: 'Analytic',
                   groups: 'analytic.group_analytic_accounting'
@@ -181,7 +181,7 @@ export default {
         move_id: { invisible: '1' },
         date: { readonly: '1' },
         company_id: { invisible: '1' },
-        _field_company_id_204: {
+        _field_company_id_524: {
           company_id: {
             groups: 'base.group_multi_company',
             readonly: '1',
@@ -445,7 +445,7 @@ export default {
         string: 'Journal Item',
         filter_domain: { todo_ctx: "[                         '|', '|', '|',                         ('name', 'ilike', self), ('ref', 'ilike', self), ('account_id', 'ilike', self), ('partner_id', 'ilike', self)]" }
       },
-      _field_name_476: {
+      _field_name_747: {
         name: {}
       },
       ref: {},
@@ -479,7 +479,7 @@ export default {
           domain: [['parent_state', '=', 'posted']]
         }
       },
-      _separator_151: {},
+      _separator_662: {},
       _filter_to_check: {
         _attr: {
           name: 'to_check',
@@ -487,7 +487,7 @@ export default {
           domain: [['move_id.to_check', '=', true]]
         }
       },
-      _separator_209: {},
+      _separator_594: {},
       _filter_unreconciled: {
         _attr: {
           name: 'unreconciled',
@@ -496,7 +496,7 @@ export default {
           domain: [['amount_residual', '!=', 0], ['account_id.reconcile', '=', true]]
         }
       },
-      _separator_885: {},
+      _separator_434: {},
       _filter_sales: {
         _attr: {
           name: 'sales',
@@ -537,7 +537,7 @@ export default {
           context: { default_journal_type: 'general' }
         }
       },
-      _separator_464: {},
+      _separator_282: {},
       _filter_trade_payable: {
         _attr: {
           name: 'trade_payable',
@@ -580,7 +580,7 @@ export default {
           domain: [['account_id.internal_group', 'in', ('income', 'expense')]]
         }
       },
-      _separator_251: {},
+      _separator_381: {},
       _filter_date: {
         _attr: {
           name: 'date',
@@ -588,7 +588,7 @@ export default {
           date: 'date'
         }
       },
-      _separator_421: {},
+      _separator_749: {},
       _filter_date_between: {
         _attr: {
           name: 'date_between',
@@ -605,7 +605,7 @@ export default {
           domain: { todo_ctx: "[('date', '<=', context.get('date_to'))]" }
         }
       },
-      _separator_302: {},
+      _separator_506: {},
       _group: {
         _attr: { string: 'Group By' },
         _filter_group_by_move: {

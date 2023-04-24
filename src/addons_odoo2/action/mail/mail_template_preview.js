@@ -20,7 +20,7 @@ export default {
           error_msg: {}
         },
         no_record: { invisible: '1' },
-        _div_556: {
+        _div_104: {
           _attr: { class: 'container' },
           _div: {
             _attr: { class: 'row' },
@@ -50,7 +50,7 @@ export default {
               }
             }
           },
-          _div_792: {
+          _div_498: {
             _attr: { class: 'row' },
             _span: {
               _attr: {

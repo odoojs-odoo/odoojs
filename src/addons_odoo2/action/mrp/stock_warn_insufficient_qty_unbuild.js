@@ -17,7 +17,7 @@ export default {
             class: 'mx-1',
             readonly: 'True'
           },
-          _strong_821: {
+          _strong_430: {
             location_id: { readonly: 'True' }
           }
         }

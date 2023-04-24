@@ -9,7 +9,7 @@ export default {
         sequence: { widget: 'handle' },
         name: {},
         excluded_journal_ids: { widget: 'many2many_tags' },
-        company_id: { groups: 'base.group_multi_company' }
+        company_id: {}
       }
     }
   },
@@ -22,10 +22,10 @@ export default {
       sheet: {
         _group_name: {
           // company_id: { invisible: '1' },
-          name: { placeholder: 'e.g. GAAP, IFRS, ...' },
+          name: {},
           excluded_journal_ids: { widget: 'many2many_tags' },
-          sequence: { groups: 'base.group_no_one' },
-          company_id: { groups: 'base.group_multi_company' }
+          sequence: {},
+          company_id: {}
         }
       }
     }

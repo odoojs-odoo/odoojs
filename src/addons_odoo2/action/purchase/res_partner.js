@@ -53,6 +53,7 @@ export default {
           },
           _a: {
             _attr: {
+              href: '#',
               groups: 'purchase.group_purchase_user',
               class: 'oe_kanban_action oe_kanban_action_a me-1'
             },

@@ -25,7 +25,7 @@ export default {
           _attr: { text: ['Send your email to', 'with a pdf of an invoice as attachment.'] },
           email_alias: { class: 'oe_inline' }
         },
-        _p_202: 'Once done, press continue.'
+        _p_679: 'Once done, press continue.'
       }
     }
   }

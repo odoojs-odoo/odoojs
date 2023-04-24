@@ -15,7 +15,7 @@ export default {
             context: { todo_ctx: "{'default_company_id': company_id}" }
           }
         },
-        _xpath_621: {
+        _xpath_700: {
           _attr: {
             expr: "//group[@name='managers']",
             position: 'attributes'

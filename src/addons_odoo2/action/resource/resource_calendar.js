@@ -31,7 +31,7 @@ export default {
             invisible: [['two_weeks_calendar', '=', true]]
           }
         },
-        _button_switch_calendar_type_104: {
+        _button_switch_calendar_type_935: {
           _attr: {
             name: 'switch_calendar_type',
             type: 'object',

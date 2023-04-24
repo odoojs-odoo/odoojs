@@ -256,7 +256,7 @@ export class ViewHelp {
     }
 
     function txf_button_box_child(oldnode) {
-      console.log('txf_button_box_child', oldnode)
+      // console.log('txf_button_box_child', oldnode)
 
       const children = oldnode.children
 
@@ -429,7 +429,7 @@ export class ViewHelp {
     const children = children_get(sheet)
 
     // console.log('sheet', sheet)
-    // console.log('children', children)
+    console.log('children', children)
 
     return { children }
   }

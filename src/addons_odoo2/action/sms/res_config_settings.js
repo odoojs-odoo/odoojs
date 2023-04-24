@@ -6,7 +6,10 @@ export default {
     arch: {
       sheet: {
         _div: {
-          _attr: { position: 'inside' },
+          _attr: {
+            id: 'sms_settings',
+            position: 'inside'
+          },
           _widget_iap_buy_more_credits: {
             _attr: { name: 'iap_buy_more_credits' }
           }

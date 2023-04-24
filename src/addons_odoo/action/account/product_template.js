@@ -3,7 +3,6 @@ export default {
     _odoo_model: 'ir.ui.view',
     model: 'product.template',
     type: 'tree',
-    buttons: { create: false, edit: true, delete: false },
     arch: {
       sheet: {
         default_code: {},
@@ -11,104 +10,6 @@ export default {
         list_price: { widget: 'monetary' },
         taxes_id: { widget: 'many2many_tags' },
         supplier_taxes_id: { widget: 'many2many_tags' }
-      }
-    }
-  },
-
-  product_template_form_view: {
-    _odoo_model: 'ir.ui.view',
-    model: 'product.template',
-    type: 'form',
-    inherit_id: 'product.product_template_form_view',
-
-    arch: {
-      sheet: {
-        _notebook: {
-          _page_general_information: {
-            _group_general_information: {
-              _group_group_standard_price: {
-                _div_list_price: {
-                  tax_string: {}
-                },
-                taxes_id: {
-                  widget: 'many2many_tags',
-                  context({ record }) {
-                    // context="{
-                    // 'default_type_tax_use':'sale',
-                    // 'search_default_sale': 1,
-                    // 'search_default_service': type == 'service',
-                    // 'search_default_goods': type == 'consu'}"
-                    const { type } = record
-                    return {
-                      default_type_tax_use: 'sale',
-                      search_default_sale: 1,
-                      search_default_service: type == 'service',
-                      search_default_goods: type == 'consu'
-                    }
-                  }
-                }
-              }
-            }
-          },
-
-          _page_purchase: {
-            _attr: {
-              invisible({ record }) {
-                //  覆盖上级的方法, 暂时只能重写
-                // invisible: '1'
-                //  attrs="{'invisible':[('purchase_ok','=',False)]}",
-                const { purchase_ok } = record
-                return !purchase_ok
-              }
-            },
-            _group_purchase: {
-              _group_bill: {
-                supplier_taxes_id: {
-                  widget: 'many2many_tags',
-                  context({ record }) {
-                    // context="{'default_type_tax_use':'purchase',
-                    // 'search_default_purchase': 1,
-                    // 'search_default_service': type == 'service',
-                    // 'search_default_goods': type == 'consu'}"
-
-                    const { type } = record
-                    return {
-                      default_type_tax_use: 'purchase',
-                      search_default_purchase: 1,
-                      search_default_service: type == 'service',
-                      search_default_goods: type == 'consu'
-                    }
-                  }
-                }
-              }
-            }
-          },
-
-          _page_inventory: {},
-
-          _page_invoicing: {
-            _attr: {
-              string: 'Accounting',
-              name: 'invoicing',
-              groups:
-                'account.group_account_readonly,account.group_account_invoice'
-            },
-            _group_properties: {
-              _attr: {
-                groups: 'account.group_account_readonly'
-              },
-
-              _group_receivables: {
-                _attr: { string: 'Receivables' },
-                property_account_income_id: {}
-              },
-              _group_payables: {
-                _attr: { name: 'payables', string: 'Payables' },
-                property_account_expense_id: {}
-              }
-            }
-          }
-        }
       }
     }
   },
@@ -138,6 +39,79 @@ export default {
     views: {
       tree: 'product_template_view_tree',
       form: 'product.product_template_form_view'
+    }
+  },
+  product_template_form_view: {
+    _odoo_model: 'ir.ui.view',
+    model: 'product.template',
+    type: 'form',
+    inherit_id: 'product.product_template_form_view',
+
+    arch: {
+      sheet: {
+        _notebook: {
+          _page_general_information: {
+            _group_general_information: {
+              _group_group_standard_price: {
+                _div_pricing: {
+                  tax_string: {}
+                },
+                taxes_id: { widget: 'many2many_tags' }
+              }
+            }
+          },
+
+          _page_purchase: {
+            _attr: {
+              invisible({ record }) {
+                //  覆盖上级的方法, 暂时只能重写
+                // invisible: '1'
+                //  attrs="{'invisible':[('purchase_ok','=',False)]}",
+                const { purchase_ok } = record
+                return !purchase_ok
+              }
+            },
+            _group_purchase: {
+              _group_bill: {
+                supplier_taxes_id: { widget: 'many2many_tags' }
+              }
+            }
+          },
+
+          _page_inventory: {},
+
+          _page_invoicing: {
+            _attr: {
+              string: 'Accounting',
+              name: 'invoicing',
+              groups:
+                'account.group_account_readonly,account.group_account_invoice'
+            },
+            _group_properties: {
+              _attr: {
+                name: 'properties',
+                groups: 'account.group_account_readonly'
+              },
+
+              _group_receivables: {
+                _attr: { string: 'Receivables' },
+                property_account_income_id: {}
+              },
+              _group_payables: {
+                _attr: { name: 'payables', string: 'Payables' },
+                property_account_expense_id: {}
+              }
+            },
+            _group_accounting: {
+              _attr: {
+                name: 'accounting',
+                groups:
+                  'account.group_account_readonly,account.group_account_invoice'
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

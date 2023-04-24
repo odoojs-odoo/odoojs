@@ -25,7 +25,7 @@ export default {
                 _attr: { class: 'o_stat_value' },
                 payment_token_count: { widget: 'statinfo' }
               },
-              _span_697: {
+              _span_269: {
                 _attr: {
                   class: 'o_stat_text',
                   text: 'Saved Payment Methods'

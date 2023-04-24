@@ -12,11 +12,11 @@ export default {
           _group: {
             ordering: { widget: 'radio' }
           },
-          _group_684: {
+          _group_989: {
             first_name: {}
           }
         },
-        _group_775: {
+        _group_689: {
           _label_preview_moves: {
             for: 'preview_moves',
             string: 'Preview Modifications'

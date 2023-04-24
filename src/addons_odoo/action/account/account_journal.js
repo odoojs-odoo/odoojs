@@ -14,14 +14,11 @@ export default {
           readonly: '1',
           optional: 'show'
         },
-        currency_id: { groups: 'base.group_multi_currency', optional: 'hide' },
+        currency_id: { optional: 'hide' },
         code: { optional: 'show' },
         default_account_id: { optional: 'show' },
         active: { optional: 'hide' },
-        company_id: {
-          groups: 'base.group_multi_company',
-          active: { optional: 'hide' }
-        }
+        company_id: { optional: 'hide' }
       }
     }
   },
@@ -33,11 +30,11 @@ export default {
     buttons: { create: false, edit: false, delete: false },
     arch: {
       sheet: {
-        type: { invisible: 1 },
         company_id: { invisible: '1' },
         bank_statements_source: { invisible: '1' },
 
         _div_button_box: {
+          _attr: { name: 'button_box', class: 'oe_button_box' },
           _button_action_account_moves_all_a: {
             _attr: {
               string: 'Journal Entries',
@@ -52,7 +49,7 @@ export default {
           }
         },
 
-        _widget: {
+        _widget_web_ribbon: {
           _attr: {
             name: 'web_ribbon',
             title: 'Archived',
@@ -66,7 +63,10 @@ export default {
         },
 
         _div_title: {
-          _h1: { name: { placeholder: 'e.g. Customer Invoices' } }
+          _label_name: { for: 'name' },
+          _h1: {
+            name: {}
+          }
         },
 
         _group: {
@@ -75,7 +75,7 @@ export default {
             type: {}
           },
           _group_country: {
-            company_id: { groups: 'base.group_multi_company' },
+            company_id: {},
             country_code: { invisible: '1' }
           }
         },
@@ -86,7 +86,7 @@ export default {
             _group: {
               _group_Accounting_Information: {
                 _attr: { string: 'Accounting Information' },
-
+                default_account_type: { invisible: '1' },
                 _field_default_account_id: {
                   _label_bank: {
                     for: 'default_account_id',
@@ -198,8 +198,6 @@ export default {
             available_payment_method_ids: { invisible: 1 },
             inbound_payment_method_line_ids: {
               widget: 'x2many_tree',
-
-              constext: { default_payment_type: 'inbound' },
               views: {
                 tree: {
                   arch: {
@@ -210,7 +208,14 @@ export default {
                       sequence: { widget: 'handle' },
                       payment_method_id: {},
                       name: {},
-                      payment_account_id: { optional: 'hide' }
+                      payment_account_id: {
+                        optional: 'hide',
+                        string: 'Outstanding Receipts accounts',
+                        groups: 'account.group_account_readonly',
+                        placeholder:
+                          'Leave empty to use the default outstanding account',
+                        no_quick_create: true
+                      }
                     }
                   }
                 },
@@ -243,8 +248,6 @@ export default {
             },
             outbound_payment_method_line_ids: {
               widget: 'x2many_tree',
-
-              constext: { default_payment_type: 'outbound' },
               views: {
                 tree: {
                   arch: {
@@ -255,7 +258,14 @@ export default {
                       sequence: { widget: 'handle' },
                       payment_method_id: {},
                       name: {},
-                      payment_account_id: { optional: 'hide' }
+                      payment_account_id: {
+                        optional: 'hide',
+                        string: 'Outstanding Payments accounts',
+                        groups: 'account.group_account_readonly',
+                        placeholder:
+                          'Leave empty to use the default outstanding account',
+                        no_quick_create: true
+                      }
                     }
                   }
                 },
@@ -276,7 +286,7 @@ export default {
             },
 
             selected_payment_method_codes: { invisible: 1 },
-            _group_outgoing_payment: {}
+            _group_outgoing_payment: { _attr: { name: 'outgoing_payment' } }
           },
           _page_advanced_settings: {
             _attr: { name: 'advanced_settings', string: 'Advanced Settings' },
@@ -287,7 +297,11 @@ export default {
                   groups: 'account.group_account_manager'
                 },
 
-                _div: { _attr: { text: 'Keep empty for no control' } },
+                _div: {
+                  _attr: {
+                    text: 'Keep empty for no control'
+                  }
+                },
                 account_control_ids: { widget: 'many2many_tags' },
                 restrict_mode_hash_table: {
                   invisible({ record }) {
@@ -335,14 +349,21 @@ export default {
                 _attr: {
                   name: 'group_alias_edit',
                   string: 'Create Invoices upon Emails',
-                  invisible({ record }) {
+                  invisible({ record, editable }) {
+                    // class: 'oe_edit_only',
                     // 'invisible': ['|', ('type', 'not in',  ('sale' ,'purchase')),
                     //  ('alias_domain', '!=', False)]
                     const { type, alias_domain } = record
-                    return ['sale', 'purchase'].includes(type) || !alias_domain
+                    return (
+                      !editable ||
+                      ['sale', 'purchase'].includes(type) ||
+                      !alias_domain
+                    )
                   }
                 },
-                _div: {
+                _label_alias_name: { for: 'alias_name', string: 'Email Alias' },
+                _div_edit_alias: {
+                  _attr: { name: 'edit_alias', class: 'oe_inline' },
                   alias_name: {},
                   _span: { _attr: { text: '@' } },
                   alias_domain: { readonly: '1' }
@@ -417,29 +438,41 @@ export default {
       filters: {
         group_dashboard: {
           dashboard: {
+            name: 'dashboard',
             string: 'Favorites',
             domain: [['show_on_dashboard', '=', true]]
           }
         },
 
         group_type: {
-          sales: { string: 'Sales', domain: [['type', '=', 'sale']] },
+          sales: {
+            name: 'sales',
+            string: 'Sales',
+            domain: [['type', '=', 'sale']]
+          },
           purchases: {
+            name: 'purchases',
             string: 'Purchases',
             domain: [['type', '=', 'purchase']]
           },
           liquidity: {
+            name: 'liquidity',
             string: 'Liquidity',
             domain: ['|', ['type', '=', 'cash'], ['type', '=', 'bank']]
           },
           miscellaneous: {
+            name: 'miscellaneous',
             string: 'Miscellaneous',
             domain: [['type', 'not in', ['sale', 'purchase', 'cash', 'bank']]]
           }
         },
 
         group_active: {
-          inactive: { string: 'Archived', domain: [['active', '=', false]] }
+          inactive: {
+            name: 'inactive',
+            string: 'Archived',
+            domain: [['active', '=', false]]
+          }
         }
       }
     }

@@ -8,16 +8,18 @@ export default {
       sheet: {
         _notebook: {
           _page_sales_purchases: {
-            _group_sales_purchases: {
-              _group_sale: {
-                user_id: {},
-                property_product_pricelist: {
-                  //   groups: 'product.group_product_pricelist',
-                  invisible: ({ record }) => {
-                    // 'invisible': [('is_company','=',False),
-                    // ('parent_id','!=',False)]
-                    const { is_company, parent_id } = record
-                    return !is_company && parent_id
+            _group_container_row_2: {
+              _group_sales_purchases: {
+                _group_sale: {
+                  user_id: {},
+                  property_product_pricelist: {
+                    //   groups: 'product.group_product_pricelist',
+                    invisible: ({ record }) => {
+                      // 'invisible': [('is_company','=',False),
+                      // ('parent_id','!=',False)]
+                      const { is_company, parent_id } = record
+                      return !is_company && parent_id
+                    }
                   }
                 }
               }

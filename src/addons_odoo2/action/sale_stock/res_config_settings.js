@@ -11,12 +11,15 @@ export default {
             position: 'after'
           },
           _div: {
-            _attr: { class: 'col-12 col-lg-6 o_setting_box' },
+            _attr: {
+              id: 'display_incoterms_setting',
+              class: 'col-12 col-lg-6 o_setting_box'
+            },
             _div: {
               _attr: { class: 'o_setting_left_pane' },
               group_display_incoterm: {}
             },
-            _div_326: {
+            _div_192: {
               _attr: { class: 'o_setting_right_pane' },
               _label_group_display_incoterm: { for: 'group_display_incoterm' },
               _div: {
@@ -25,7 +28,7 @@ export default {
                   text: 'Display incoterms on orders & invoices'
                 }
               },
-              _div_825: {
+              _div_362: {
                 _attr: {
                   invisible: [['group_display_incoterm', '=', false]],
                   class: 'content-group'
@@ -57,7 +60,10 @@ export default {
     arch: {
       sheet: {
         _div: {
-          _attr: { position: 'after' },
+          _attr: {
+            id: 'warning_info',
+            position: 'after'
+          },
           _div: {
             _attr: { class: 'col-12 col-lg-6 o_setting_box' },
             _div: {
@@ -69,7 +75,7 @@ export default {
                   text: 'When to start shipping'
                 }
               },
-              _div_372: {
+              _div_922: {
                 _attr: { class: 'content-group' },
                 _div: {
                   _attr: { class: 'mt16' },
@@ -95,8 +101,11 @@ export default {
             }
           }
         },
-        _div_118: {
-          _attr: { position: 'replace' },
+        _div_730: {
+          _attr: {
+            id: 'sale_security_lead',
+            position: 'replace'
+          },
           _div: {
             _attr: {
               title: 'Margin of error for dates promised to customers. Products will be scheduled for procurement and delivery that many days earlier than the actual promised date, to cope with unexpected delays in the supply chain.',
@@ -106,11 +115,12 @@ export default {
               _attr: { class: 'o_setting_left_pane' },
               use_security_lead: {}
             },
-            _div_464: {
+            _div_693: {
               _attr: { class: 'o_setting_right_pane' },
               _label_use_security_lead: { for: 'use_security_lead' },
               _a: {
                 _attr: {
+                  href: 'https://www.odoo.com/documentation/16.0/applications/inventory_and_mrp/inventory/management/planning/scheduled_dates.html',
                   title: 'Documentation',
                   class: 'me-2 o_doc_link'
                 }
@@ -128,7 +138,7 @@ export default {
                   text: 'Schedule deliveries earlier to avoid delays'
                 }
               },
-              _div_552: {
+              _div_908: {
                 _attr: { class: 'content-group' },
                 _div: {
                   _attr: {

@@ -34,7 +34,7 @@ export default {
           },
           package_type_id: { groups: 'stock.group_tracking_lot' }
         },
-        _xpath_406: {
+        _xpath_620: {
           _attr: {
             expr: "//group[@name='qty']",
             position: 'after'

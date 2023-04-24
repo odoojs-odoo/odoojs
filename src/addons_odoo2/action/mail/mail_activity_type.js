@@ -36,7 +36,7 @@ export default {
               no_create: true
             },
             res_model: { groups: 'base.group_no_one' },
-            _field_res_model_819: {
+            _field_res_model_580: {
               res_model: { invisible: '1' }
             },
             res_model_change: { invisible: '1' },

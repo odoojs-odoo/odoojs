@@ -42,7 +42,7 @@ export default {
           groups: 'account.group_account_readonly',
           optional: 'hide'
         },
-        _field_company_id_289: {
+        _field_company_id_124: {
           company_id: {
             groups: 'base.group_multi_company',
             readonly: '1',
@@ -65,7 +65,7 @@ export default {
           groups: 'account.group_account_invoice,account.group_account_readonly',
           optional: 'hide'
         },
-        _field_attachment_number_306: {
+        _field_attachment_number_616: {
           attachment_number: {
             invisible: [['attachment_number', '=', 0]],
             class: 'fa fa-paperclip pe-0'
@@ -168,14 +168,14 @@ export default {
             invisible: [['attachment_number', '<', 1]]
           }
         },
-        _widget_attach_document_311: {
+        _widget_attach_document_384: {
           _attr: {
             name: 'attach_document',
             string: 'Attach Receipt',
             invisible: [['attachment_number', '>=', 1]]
           }
         },
-        _button_action_submit_expenses_189: {
+        _button_action_submit_expenses_591: {
           _attr: {
             name: 'action_submit_expenses',
             type: 'object',
@@ -257,7 +257,7 @@ export default {
                 product_description: {}
               }
             },
-            _field_unit_amount_654: {
+            _field_unit_amount_597: {
               unit_amount: {
                 widget: 'monetary',
                 invisible: [['product_has_cost', '=', false]],
@@ -273,7 +273,7 @@ export default {
               for: 'quantity',
               invisible: [['product_has_cost', '=', false]]
             },
-            _div_220: {
+            _div_506: {
               _attr: { invisible: [['product_has_cost', '=', false]] },
               _div: {
                 _attr: { class: 'o_row' },
@@ -299,7 +299,7 @@ export default {
               string: 'Total',
               invisible: [['product_has_cost', '=', true]]
             },
-            _div_456: {
+            _div_804: {
               _attr: { invisible: [['product_has_cost', '=', true]] },
               _div: {
                 _attr: {
@@ -314,7 +314,7 @@ export default {
                 },
                 currency_id: { groups: 'base.group_multi_currency' }
               },
-              _div_301: {
+              _div_849: {
                 _attr: {
                   invisible: [['same_currency', '=', true], ['product_has_cost', '=', false]],
                   class: 'o_row'
@@ -331,7 +331,7 @@ export default {
               for: 'tax_ids',
               invisible: [['product_has_tax', '=', false]]
             },
-            _div_774: {
+            _div_226: {
               _attr: {
                 invisible: [['product_has_tax', '=', false]],
                 class: 'd-flex o_row'
@@ -347,7 +347,7 @@ export default {
                   no_create: true
                 }
               },
-              _div_280: {
+              _div_966: {
                 _attr: { class: 'd-flex pt-2' },
                 _span: {
                   _attr: {
@@ -360,7 +360,7 @@ export default {
                   invisible: [['product_has_tax', '=', false]],
                   class: 'ps-0'
                 },
-                _span_953: {
+                _span_886: {
                   _attr: {
                     invisible: [['product_has_tax', '=', false]],
                     class: 'oe_inline o_form_label ms-1 me-3',
@@ -378,12 +378,15 @@ export default {
               for: 'payment_mode',
               invisible: [['product_has_cost', '=', true]]
             },
-            _div_822: {
-              _attr: { invisible: [['product_has_cost', '=', true]] },
+            _div_273: {
+              _attr: {
+                id: 'payment_mode',
+                invisible: [['product_has_cost', '=', true]]
+              },
               payment_mode: { widget: 'radio' }
             }
           },
-          _group_271: {
+          _group_823: {
             reference: {
               groups: 'account.group_account_readonly',
               readonly: [['is_ref_editable', '=', false]],
@@ -555,7 +558,7 @@ export default {
           domain: [['state', '=', 'refused']]
         }
       },
-      _separator_384: {},
+      _separator_249: {},
       _filter_date: {
         _attr: {
           name: 'date',
@@ -563,7 +566,7 @@ export default {
           date: 'date'
         }
       },
-      _separator_225: {},
+      _separator_143: {},
       _filter_inactive: {
         _attr: {
           name: 'inactive',
@@ -572,7 +575,7 @@ export default {
           domain: [['employee_id.active', '=', false]]
         }
       },
-      _separator_649: {},
+      _separator_989: {},
       _filter_activities_overdue: {
         _attr: {
           name: 'activities_overdue',
