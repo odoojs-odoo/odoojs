@@ -115,7 +115,7 @@ export default {
         name: 'Accounting',
         children: {
           menu_action_move_journal_line: {
-            action: 'account.action_move_journal_line',
+            action: '_account.action_move_journal_line',
             name: 'Journal Entries'
           },
           menu_action_move_out_invoice_type: {

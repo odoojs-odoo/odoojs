@@ -101,8 +101,8 @@ export default {
           _group: {
             tracking: { invisible: '1' },
             // company_id: { invisible: '1' },
-            product_id: { readonly: '0', no_create: true },
-            location_id: { readonly: '0', no_create: true },
+            product_id: { readonly: 0, no_create: true },
+            location_id: { readonly: 0, no_create: true },
             lot_id: {
               groups: 'stock.group_production_lot'
               //   readonly: [['tracking', 'not in', ['serial', 'lot']]],
@@ -114,11 +114,11 @@ export default {
             },
             package_id: {
               groups: 'stock.group_tracking_lot',
-              readonly: '0'
+              readonly: 0
             },
             owner_id: {
               groups: 'stock.group_tracking_owner',
-              readonly: '0',
+              readonly: 0,
               no_create: true
             },
             company_id: { groups: 'base.group_multi_company' }
@@ -205,7 +205,7 @@ export default {
         },
         inventory_quantity_auto_apply: {
           string: 'On Hand Quantity',
-          readonly: '0'
+          readonly: 0
         },
         _button_action_view_inventory_tree: {
           _attr: {

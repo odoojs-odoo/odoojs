@@ -11,7 +11,7 @@ const ModelFields = {
   thousands_sep: {},
   time_format: {},
   url_code: {
-    required: '0',
+    required: 0,
     groups: 'base.group_no_one'
   },
 

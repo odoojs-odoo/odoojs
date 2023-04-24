@@ -91,10 +91,10 @@ export default {
                 _attr: { string: 'Locations' },
                 view_location_id: {
                   string: 'Warehouse view location',
-                  required: '0',
+                  required: 0,
                   readonly: '1'
                 },
-                lot_stock_id: { required: '0', readonly: '1' },
+                lot_stock_id: { required: 0, readonly: '1' },
                 wh_input_stock_loc_id: { readonly: '1' },
                 wh_qc_stock_loc_id: { readonly: '1' },
                 wh_pack_stock_loc_id: { readonly: '1' },

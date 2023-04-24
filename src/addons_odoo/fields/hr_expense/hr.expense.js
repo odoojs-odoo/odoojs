@@ -37,7 +37,7 @@ const ModelFields = {
 
   accounting_date: {
     // groups: 'account.group_account_invoice,account.group_account_readonly',
-    // readonly: '0'
+    // readonly: 0,
   },
 
   activity_ids: {},

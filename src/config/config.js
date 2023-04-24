@@ -56,6 +56,6 @@ const modules_installed_odoo = [
   //
 ]
 
-const modules_extend = ['_base', '_product']
+const modules_extend = ['_base', '_product', '_account']
 
 export const modules_installed = [...modules_installed_odoo, ...modules_extend]
