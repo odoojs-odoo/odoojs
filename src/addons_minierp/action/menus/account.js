@@ -119,11 +119,11 @@ export default {
             name: 'Journal Entries'
           },
           menu_action_move_out_invoice_type: {
-            action: 'account.action_move_out_invoice_type',
+            action: '_account.action_move_out_invoice_type',
             name: 'Invoices'
           },
           menu_action_move_in_invoice_type: {
-            action: 'account.action_move_in_invoice_type',
+            action: '_account.action_move_in_invoice_type',
             name: 'Bills'
           }
         }

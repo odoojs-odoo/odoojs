@@ -522,10 +522,10 @@ const view_move_form_sheet = {
                 product_id: { optional: 'show' },
                 name: { optional: 'show', widget: 'section_and_note_text' },
                 account_id: {},
-                analytic_distribution: {
-                  widget: 'analytic_distribution',
-                  optional: 'show'
-                },
+                // analytic_distribution: {
+                //   widget: 'analytic_distribution',
+                //   optional: 'show'
+                // },
                 quantity: { optional: 'show' },
                 product_uom_category_id: { invisible: '1' },
                 product_uom_id: { string: 'UoM', optional: 'show' },
@@ -624,10 +624,10 @@ const view_move_form_sheet = {
                   }
                 },
                 name: { optional: 'show', widget: 'section_and_note_text' },
-                analytic_distribution: {
-                  widget: 'analytic_distribution',
-                  optional: 'show'
-                },
+                // analytic_distribution: {
+                //   widget: 'analytic_distribution',
+                //   optional: 'show'
+                // },
                 date_maturity: {
                   optional: 'hide',
                   invisible: ({ record }) => {
@@ -658,7 +658,7 @@ const view_move_form_sheet = {
                 balance: { invisible: '1' },
                 discount_date: { optional: 'hide' },
                 discount_amount_currency: { optional: 'hide' },
-                tax_tag_ids: { widget: 'many2many_tags', optional: 'show' },
+                // tax_tag_ids: { widget: 'many2many_tags', optional: 'show' },
 
                 tax_line_id: { invisible: '1' },
                 company_currency_id: { invisible: '1' },

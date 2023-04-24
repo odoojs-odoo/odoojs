@@ -17,11 +17,11 @@ export default {
       },
       menu_action_quotations_with_onboarding: {
         name: 'Quotations',
-        action: 'sale.action_quotations_with_onboarding'
+        action: '_sale.action_quotations_with_onboarding'
       },
       menu_action_orders: {
         name: 'Sales Orders',
-        action: 'sale.action_orders'
+        action: '_sale.action_orders'
       }
     }
   }
