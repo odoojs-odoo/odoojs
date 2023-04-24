@@ -1,11 +1,18 @@
 const ModelFields = {
-  name: { string: 'Name' },
-  symbol: { string: 'Symbol' },
-  full_name: { string: 'Full Name' },
-  date: { string: 'Date' },
-  rate: { string: 'Rate' },
-  inverse_rate: { string: 'Inverse Rate' },
-  active: { string: 'Active' }
+  active: {},
+  currency_subunit_label: {},
+  currency_unit_label: {},
+  date: { string: 'Last Update' },
+  decimal_places: {},
+  full_name: { string: 'Name' },
+  inverse_rate: {},
+  is_current_company_currency: {},
+  name: {},
+  position: {},
+  rate: {},
+  rate_ids: {},
+  rounding: {},
+  symbol: {}
 }
 
 const AddonsFields = {

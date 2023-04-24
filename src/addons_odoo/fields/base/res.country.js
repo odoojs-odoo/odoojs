@@ -1,35 +1,20 @@
 const ModelFields = {
-  display_name: {},
-  image_url: {},
-  name: { string: 'Name' },
+  address_format: { placeholder: 'Address format...' },
+  address_view_id: {},
   code: {},
   currency_id: {},
-  phone_code: {},
-  vat_label: {},
-  zip_required: {},
-  state_required: {},
-  address_view_id: {},
-  address_format: {},
+  image_url: {},
+  name: {},
   name_position: {},
-  state_ids: {
-    // string: 'States'
-  }
-}
-
-const StateModelFields = {
-  name: { string: 'Name' },
-  code: { string: 'Code' }
-}
-
-const GroupModelFields = {
-  name: { string: 'Name' },
-  country_ids: { string: 'Countrys' }
+  phone_code: {},
+  state_ids: {},
+  state_required: {},
+  vat_label: {},
+  zip_required: {}
 }
 
 const AddonsFields = {
-  'res.country': ModelFields,
-  'res.country.state': StateModelFields,
-  'res.country.group': GroupModelFields
+  'res.country': ModelFields
 }
 
 export default AddonsFields

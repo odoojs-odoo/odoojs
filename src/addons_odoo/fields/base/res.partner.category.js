@@ -1,11 +1,9 @@
 const ModelFields = {
-  display_name: {
-    disable_field_onchange: 1
-    // string: 'Name'
-  },
-  name: { string: 'Name' },
-  parent_id: { string: 'Parent' },
-  active: { string: 'Active' }
+  active: {},
+  color: {},
+  display_name: { disable_field_onchange: 1 },
+  name: { placeholder: 'e.g. "Consulting Services"' },
+  parent_id: {}
 }
 
 const AddonsFields = {

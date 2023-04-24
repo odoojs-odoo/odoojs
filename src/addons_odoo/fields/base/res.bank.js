@@ -1,16 +1,14 @@
 const ModelFields = {
-  display_name: {
-    disable_field_onchange: 1,
-    string: 'Name'
-  },
-  name: { string: 'Name' },
-  bic: { string: 'Code' },
-
-  street: {},
-  street2: {},
-  city: {},
+  active: {},
+  bic: {},
+  city: { placeholder: 'City' },
+  country: { placeholder: 'Country' },
+  display_name: { disable_field_onchange: 1 },
+  email: {},
+  name: {},
+  phone: {},
   state: {
-    string: 'States',
+    placeholder: 'State',
     // domain="[('country_id', '=?', country_id)]"
     domain: ({ record }) => {
       const { country } = record
@@ -18,28 +16,13 @@ const ModelFields = {
       return [['country_id', '=?', country]]
     }
   },
-  zip: {},
-  country: {},
-
-  phone: {},
-  email: {},
-  active: {}
+  street: { placeholder: 'State' },
+  street2: { placeholder: 'Street 2...' },
+  zip: {}
 }
 
-const PartnerBankFields = {
-  display_name: {},
-  sequence: {},
-  acc_type: {},
-  acc_number: {},
-  partner_id: { string: 'Partner' },
-  company_id: { string: 'Company' },
-  bank_id: {},
-  acc_holder_name: {},
-  active: {}
-}
 const AddonsFields = {
-  'res.bank': ModelFields,
-  'res.partner.bank': PartnerBankFields
+  'res.bank': ModelFields
 }
 
 export default AddonsFields
