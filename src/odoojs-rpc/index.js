@@ -46,14 +46,25 @@ export class RPC {
         item[0] == '_' ? item.slice(1, item.length) : item
       )
     })
-    console.log(modules, this.modules_installed)
+    // console.log(modules, this.modules_installed)
 
     ui.Addons.load_addons(this.addons_dict, modules)
     const lang = this.web.session.context.lang
     ui.Addons.set_lang(lang, true)
   }
 
-  static async session_check() {
+  static async cas_session_check() {
+    const info = await this.web.cas_session_check()
+    if (info) {
+      this.after_session()
+    }
+    return info
+  }
+
+  static async session_check(sso_cas) {
+    if (sso_cas) {
+      return this.cas_session_check()
+    }
     const info = await this.web.session_check()
     if (info) {
       this.after_session()
@@ -61,8 +72,16 @@ export class RPC {
     return info
   }
 
+  static async cas_login(...args) {
+    const info = await this.web.cas_login(...args)
+    this.after_session()
+
+    return info
+  }
+
   static async login(...args) {
     const info = await this.web.login(...args)
+    this.after_session()
 
     return info
   }

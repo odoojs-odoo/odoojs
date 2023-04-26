@@ -63,7 +63,7 @@
         <Lang class="langSelect" />
         <a-dropdown>
           <a class="userInfo" @click.prevent>
-            {{ session_info.name }}
+            {{ session_info.name || 'to login' }}
             <DownOutlined />
           </a>
           <template #overlay>
@@ -71,7 +71,7 @@
               <a-menu-item key="user">
                 <span>
                   <span style="font-weight: bolder">用户:</span>
-                  {{ session_info.name }}
+                  {{ session_info.name || 'username' }}
                 </span>
               </a-menu-item>
               <a-menu-item key="company">

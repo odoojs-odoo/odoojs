@@ -7,6 +7,12 @@
       <div>注销再登录1</div>
       <div>注销再登录2</div>
     </a-button> -->
+
+    <!-- <TestChart2 />
+
+    <div>-----</div>
+
+    <TestChart /> -->
     <div>-----</div>
 
     <a-button type="primary" @click="onLogout">注销再登录</a-button>
@@ -17,10 +23,12 @@
 
 <script>
 import api from '@/odoorpc'
+import TestChart from '@/components/TestChart.vue'
+import TestChart2 from '@/components/TestChart2.vue'
 
 export default {
   name: 'HomePage',
-  components: {},
+  // components: { TestChart, TestChart2 },
 
   data() {
     return {
@@ -29,7 +37,7 @@ export default {
   },
   computed: {},
   async created() {
-    this.version_info = await api.web.webclient.version_info()
+    // this.version_info = await api.web.webclient.version_info()
   },
 
   methods: {
