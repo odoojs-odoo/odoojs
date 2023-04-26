@@ -185,7 +185,7 @@ function onSearchChange(item, value) {
 }
 </script>
 
-<style type="text/css">
+<style type="text/css" scoped>
 .searchDataComp {
   padding-top: 5px;
   display: inline-block;

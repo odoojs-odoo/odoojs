@@ -103,8 +103,4 @@ export default {
 }
 </script>
 
-<style scoped type="text/css">
-.float-div {
-  float: left;
-}
-</style>
+<style scoped type="text/css"></style>

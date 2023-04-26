@@ -135,19 +135,4 @@ export default {
 }
 </script>
 
-<style type="text/css">
-.resize-table-th {
-  position: relative;
-}
-.resize-table-th .table-draggable-handle {
-  height: 100% !important;
-  bottom: 0;
-  /* left: auto !important; */
-  /* right: -5px; */
-  left: 0;
-  cursor: col-resize;
-  /* touch-action: none; */
-  position: absolute;
-  background-color: pink;
-}
-</style>
+<style type="text/css" scoped></style>

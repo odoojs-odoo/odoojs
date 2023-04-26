@@ -68,24 +68,15 @@
 
 <script setup>
 import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+
 import LangMenu from '@/components/LangMenu.vue'
 import { useLogin } from './useLogin'
-
-// import api from '@/odoorpc'
-
+import { useRouter } from 'vue-router'
 const router = useRouter()
+
 const useData = useLogin()
 const { show_db, lang, formState, databaseOptions, codeNum } = useData
 const { load_databaseOptions, onClickCodeNum, handleLogin } = useData
-
-// function sleep(millisecond) {
-//   return new Promise(resolve => {
-//     setTimeout(() => {
-//       resolve()
-//     }, millisecond)
-//   })
-// }
 
 async function onFinish(values) {
   const info = await handleLogin(values)

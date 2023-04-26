@@ -15,14 +15,8 @@ const userRoutes = [
     children: [
       {
         path: '/user/login',
-        component: () => import('@/views/user/LoginPage2'),
-        // component: () => import('@/views/user/loginPage'),
+        component: () => import('@/views/user/LoginPage3'),
         name: 'user-login'
-      },
-      {
-        path: '/user/login2',
-        component: () => import('@/views/user/TestPage'),
-        name: 'user-login2'
       }
     ]
   }
@@ -66,9 +60,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const with_home = sso_cas ? ['/home'] : []
-
-  const whiteList = ['/user/login', '/user/login2', ...with_home]
+  const whiteList = ['/user/login']
 
   if (whiteList.includes(to.path)) {
     next()
@@ -81,11 +73,8 @@ router.beforeEach(async (to, from, next) => {
     next()
     return
   } else {
-    if (sso_cas) {
-      next(`/?redirect=${to.path}`)
-    } else {
-      next(`/user/login?redirect=${to.path}`)
-    }
+    next(`/user/login?redirect=${to.path}`)
+
     return
   }
 })

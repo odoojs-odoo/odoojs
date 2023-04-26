@@ -65,5 +65,4 @@ export const cascbUrl = 'https://einvoicetest.vwatj.ap.vwg/fapiao/vwatcb/'
 // export const myUrl = 'https://einvoicetest.vwatj.ap.vwg/fapiao/vwat2/'
 export const myUrl = 'http://localhost:8081'
 
-export const is_cas = 0
 export const sso_cas = true
