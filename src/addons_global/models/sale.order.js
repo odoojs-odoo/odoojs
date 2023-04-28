@@ -49,12 +49,14 @@ export class ExtendModel extends Model {
   }
 
   static async get_echart_option_rank() {
+    const delay = 1000
     return {
       odoojs_config: {
         dynamic: {
           fix_dimesion: 'product',
           dynamic_dimesion: 'date_year',
-          measure: 'amount'
+          measure: 'amount',
+          delay
         }
       },
 
@@ -69,8 +71,8 @@ export class ExtendModel extends Model {
       yAxis: {
         type: 'category',
         inverse: true,
-        animationDuration: 300,
-        animationDurationUpdate: 300,
+        animationDuration: delay,
+        animationDurationUpdate: delay,
         max: 8 // only the largest 3 bars will be displayed
       },
       series: [
@@ -88,8 +90,8 @@ export class ExtendModel extends Model {
       legend: {
         show: true
       },
-      animationDuration: 300,
-      animationDurationUpdate: 300,
+      animationDuration: delay,
+      animationDurationUpdate: delay,
       animationEasing: 'linear',
       animationEasingUpdate: 'linear'
     }
@@ -107,7 +109,7 @@ export class ExtendModel extends Model {
       '南京'
     ]
     const date_years = Array.from(
-      Array(1000),
+      Array(100),
       (_val, index) => `${index.toString().padStart(4, '0')}天`
     )
 

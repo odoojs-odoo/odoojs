@@ -14,67 +14,90 @@ function randInt() {
 
 onMounted(() => {
   var myChart = echarts.init(myCharts.value)
+  var data = [900, 345, 393, -108, -154, 135, 178, 286, -119, -361, -203]
+  var help = []
+  var positive = []
+  var negative = []
+
+  for (var i = 0, sum = 0; i < data.length; ++i) {
+    if (data[i] >= 0) {
+      positive.push(data[i])
+      negative.push('-')
+    } else {
+      positive.push('-')
+      negative.push(-data[i])
+    }
+
+    if (i === 0) {
+      help.push(0)
+    } else {
+      sum += data[i - 1]
+      if (data[i] < 0) {
+        help.push(sum + data[i])
+      } else {
+        help.push(sum)
+      }
+    }
+  }
 
   const option = {
-    dataset: {
-      dimensions: ['product', 'amount'],
-      source: [
-        { product: 'Matcha Latte', amount: randInt() },
-        { product: 'Milk Tea', amount: randInt() },
-        { product: 'Cheese Cocoa', amount: randInt() },
-        { product: 'Walnut Brownie', amount: randInt() }
-      ]
+    title: {
+      text: 'Waterfall'
     },
-
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true
+    },
     xAxis: {
-      max: 'dataMax'
+      type: 'category',
+      splitLine: { show: false },
+      data: (function () {
+        var list = []
+        for (var i = 1; i <= 11; i++) {
+          list.push('Oct/' + i)
+        }
+        return list
+      })()
     },
     yAxis: {
-      type: 'category',
-      // data: ['A', 'B', 'C', 'D', 'E'],
-      inverse: true,
-      animationDuration: 300,
-      animationDurationUpdate: 300,
-      max: 2 // only the largest 3 bars will be displayed
+      type: 'value'
     },
     series: [
       {
-        realtimeSort: true,
-        name: 'X',
         type: 'bar',
-        // data: data,
-        label: {
-          show: true,
-          position: 'right',
-          valueAnimation: true
+        stack: 'all',
+        itemStyle: {
+          normal: {
+            barBorderColor: 'rgba(0,0,0,0)',
+            color: 'rgba(0,0,0,0)'
+          },
+          emphasis: {
+            barBorderColor: 'rgba(0,0,0,0)',
+            color: 'rgba(0,0,0,0)'
+          }
+        },
+        data: help
+      },
+      {
+        name: 'positive',
+        type: 'bar',
+        stack: 'all',
+        data: positive
+      },
+      {
+        name: 'negative',
+        type: 'bar',
+        stack: 'all',
+        data: negative,
+        itemStyle: {
+          color: '#f33'
         }
       }
-    ],
-    legend: {
-      show: true
-    },
-    animationDuration: 3000,
-    animationDurationUpdate: 3000,
-    animationEasing: 'linear',
-    animationEasingUpdate: 'linear'
+    ]
   }
 
-  // function update() {
-  //   var data = option.series[0].data
-  //   for (var i = 0; i < data.length; ++i) {
-  //     if (Math.random() > 0.9) {
-  //       data[i] += Math.round(Math.random() * 2000)
-  //     } else {
-  //       data[i] += Math.round(Math.random() * 200)
-  //     }
-  //   }
-  //   myChart.setOption(option)
-  // }
-
   myChart.setOption(option)
-
-  setInterval(function () {
-    // update()
-  }, 3000)
 })
 </script>

@@ -67,11 +67,14 @@ export default function useChart(
   }
 
   async function resetEcharts(modelreport) {
-    timers.value.forEach(item => {
-      clearInterval(item)
-    })
+    function stop_timers() {
+      timers.value.forEach(item => {
+        clearInterval(item)
+      })
 
-    timers.value = []
+      timers.value = []
+    }
+    stop_timers()
 
     const currentValue = ref(0)
 
@@ -109,6 +112,8 @@ export default function useChart(
 
         optionRef.value.series[0].name = filter_val
         setDataSource(dataSource_one)
+      } else {
+        stop_timers()
       }
     }
 
@@ -122,7 +127,7 @@ export default function useChart(
     showLoading()
 
     setOption(option)
-    sleep(2000)
+    await sleep(2000)
 
     const dataSource = await getDataSource(modelreport)
 
@@ -133,6 +138,8 @@ export default function useChart(
     } else {
       const dynamic = option.odoojs_config.dynamic
       const dynamic_dimesion = dynamic.dynamic_dimesion
+
+      const delay = dynamic.delay
       const dynamic_datas = dataSource.reduce((acc, one) => {
         if (!acc.includes(one[dynamic_dimesion])) {
           acc.push(one[dynamic_dimesion])
@@ -145,7 +152,7 @@ export default function useChart(
       const timer = setInterval(function () {
         console.log('1')
         update(dataSource, dynamic, dynamic_datas)
-      }, 300)
+      }, delay)
 
       timers.value.push(timer)
     }
