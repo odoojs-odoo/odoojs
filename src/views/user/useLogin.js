@@ -61,18 +61,9 @@ export function useLogin() {
       return false
     } else {
       const { database, username, password } = values2
-
       const kw = { db: database, login: username, password: password }
-
-      // next for odoojs
       const info = await api.login(kw)
       await api.env.set_lang(lang.value)
-
-      // last for odoojs
-      // next for vwat
-      // const info = await api.web.login(kw)
-      // last for vwat
-
       return info
     }
   }

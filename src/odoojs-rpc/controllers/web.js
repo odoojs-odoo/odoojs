@@ -249,9 +249,9 @@ class Session extends JsonRequest {
     return { ...info, user_companies }
   }
 
-  static async cas_authenticate({ db, ticket }) {
+  static async cas_authenticate({ db, server, service, ticket }) {
     const url = '/web/session/cas_authenticate'
-    const payload = { db, ticket }
+    const payload = { db, server, service, ticket }
     const session_info = await this.json_call(url, payload)
     const info = this._session_info_get_after(session_info)
     this._session_info = info
@@ -531,10 +531,21 @@ class Home extends FileRequest {
     return await this.json_call(url, payload)
   }
 
-  static async cas_login({ db, ticket }) {
-    console.log('login by ticket', db, ticket)
+  static async cas_redirect({ server, service }) {
+    const url = '/web/session/cas_redirect'
+    const payload = { server, service }
+    return await this.json_call(url, payload)
+  }
 
-    const session = await Session.cas_authenticate({ db, ticket })
+  static async cas_login({ db, server, service, ticket }) {
+    console.log('login by ticket', db, server, service, ticket)
+
+    const session = await Session.cas_authenticate({
+      db,
+      server,
+      service,
+      ticket
+    })
     console.log('login by ticket', session)
 
     const info = await this._get_user_info(session)

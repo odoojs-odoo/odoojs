@@ -21,13 +21,6 @@ const userRoutes = [
     ]
   }
 ]
-// const RootRoutes = [
-//   {
-//     path: '/',
-//     component: () => import('@/views/home/HomePage'),
-//     name: 'home'
-//   }
-// ]
 
 const homeRoutes = [
   {
@@ -60,6 +53,8 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+  // console.log(to, from)
+
   const whiteList = ['/user/login']
 
   if (whiteList.includes(to.path)) {
@@ -73,7 +68,8 @@ router.beforeEach(async (to, from, next) => {
     next()
     return
   } else {
-    next(`/user/login?redirect=${to.path}`)
+    // next(`/user/login?redirect=${to.path}`)
+    next(`/user/login`)
 
     return
   }

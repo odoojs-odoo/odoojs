@@ -125,7 +125,7 @@ https://10.120.140.37:7443/cas/serviceValidate?ticket=xxx&service=https://einvoi
 
 # login = 'UWS87XL'
 
-    # password = 'Witch20210730'
+# password = 'Witch20210730'
 
 https://10.120.140.37:7443/cas/login?service=https://einvoicetest.vwatj.ap.vwg/fapiao/vwat2/user/loginok
 
@@ -133,7 +133,7 @@ https://10.120.140.37:7443/cas/serviceValidate?ticket=ST-79-E9hjkKFYbMwOcq4EsgaT
 
 # login = 'UWS87XL'
 
-    # password = 'Witch20210730'
+# password = 'Witch20210730'
 
 https://einvoicetest.vwatj.ap.vwg/fapiao/vwat2/user/loginok?ticket=ST-79-E9hjkKFYbMwOcq4EsgaT-vwatjportal.ap.vwg
 

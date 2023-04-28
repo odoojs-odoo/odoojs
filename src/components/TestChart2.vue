@@ -1,91 +1,56 @@
 <template>
-  <a-button type="primary" @click="onChangeChart">Change</a-button>
+  <div>
+    <span> set theme </span>
+
+    <a-radio-group
+      v-model:value="themeRef"
+      option-type="button"
+      :options="[ThemeType.Dark, ThemeType.Light, ThemeType.Default]"
+      @change="onChangeTheme"
+    />
+  </div>
+
+  <div>
+    <span> change report </span>
+
+    <a-radio-group
+      v-model:value="reportRef"
+      option-type="button"
+      :options="[
+        { label: 'Default Demo', value: undefined },
+        { label: 'SO Report', value: 'sale.order,report' },
+        { label: 'SO Rank', value: 'sale.order,rank' }
+      ]"
+      @change="onChangeReport"
+    />
+  </div>
+
   <div ref="chartEl" :style="{ width: `600px`, height: `300px` }"></div>
 </template>
 
 <script setup>
-import { onMounted, ref, computed, nextTick } from 'vue'
+import { onMounted, ref, nextTick } from 'vue'
 import useChart, { RenderType, ThemeType } from '@/echart/useChart'
 
-const dataset = {
-  dimensions: ['product', 'amount', 'tax', 'total'],
-  source: [
-    { product: 'Matcha Latte', amount: 43.3, tax: 85.8, total: 93.7 },
-    { product: 'Milk Tea', amount: 83.1, tax: 73.4, total: 55.1 },
-    { product: 'Cheese Cocoa', amount: 86.4, tax: 65.2, total: 82.5 },
-    { product: 'Walnut Brownie', amount: 72.4, tax: 53.9, total: 39.1 }
-  ]
-}
-
-const title = {
-  text: 'ECharts 入门示例'
-}
-
-const serires = [
-  { name: 'amount', type: 'bar' },
-  { name: 'tax', type: 'bar' },
-  { name: 'total', type: 'line' }
-]
-
-const option = computed(() => ({
-  title: { text: 'ECharts 入门示例222' },
-  tooltip: {},
-  dataset: {
-    ...dataset
-  },
-  xAxis: { type: 'category' },
-  yAxis: {},
-  series: [...serires]
-}))
-
 const chartEl = ref()
+const useChartData = useChart(chartEl, true, true, RenderType.SVGRenderer)
+const { resetEcharts, setTheme } = useChartData
 
-const { setOption, showLoading } = useChart(
-  chartEl,
-  true,
-  true,
-  RenderType.SVGRenderer,
-  ThemeType.Dark
-)
+const themeRef = ref(ThemeType.Default)
+const reportRef = ref()
 
-function randInt() {
-  return Math.floor(Math.random() * 1000 + 1)
+function onChangeTheme() {
+  setTheme(themeRef.value)
 }
 
-function onChangeChart() {
-  console.log('onChangeChart')
-  setOption({
-    title: {
-      text: 'ECharts 入门示例2223333'
-    },
-    tooltip: {},
-    dataset: {
-      source: [
-        ['product', 'amount', 'tax'],
-        ['衬衫', randInt(), randInt()],
-        ['羊毛衫', randInt(), randInt()],
-        ['雪纺衫', randInt(), randInt()],
-        ['裤子', randInt(), randInt()]
-      ]
-    },
-    xAxis: {
-      type: 'category'
-    },
-    yAxis: {},
-    series: [
-      { name: 'amount', type: 'bar' },
-      { name: 'tax', type: 'line' }
-    ]
-  })
+async function onChangeReport() {
+  resetEcharts(reportRef.value)
+  // onChangeOption()
 }
 
 onMounted(() => {
-  nextTick(() => {
-    // 显示loading
-    showLoading()
-    // 假装有网络请求 ...
-    // 渲染图表
-    setOption(option.value)
+  nextTick(async () => {
+    onChangeReport()
   })
 })
 </script>

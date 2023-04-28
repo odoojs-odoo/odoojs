@@ -60,9 +60,6 @@ const modules_extend = ['_base', '_product', '_account', '_purchase', '_sale']
 
 export const modules_installed = [...modules_installed_odoo, ...modules_extend]
 
-export const casUrl = 'https://10.120.140.37:7443/cas/login'
-export const cascbUrl = 'https://einvoicetest.vwatj.ap.vwg/fapiao/vwatcb/'
-// export const myUrl = 'https://einvoicetest.vwatj.ap.vwg/fapiao/vwat2/'
-export const myUrl = 'http://localhost:8081'
-
-export const sso_cas = true
+// export const cas_server = 'http://localhost:8081'
+export const cas_server = 'https://10.120.140.37:7443/cas'
+export const sso_cas = 0
