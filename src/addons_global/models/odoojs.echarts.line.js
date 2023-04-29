@@ -75,7 +75,6 @@ export class ExtendModel extends Model {
       return { product, amount, tax }
     })
 
-    console.log(source)
     return {
       dimensions: ['product', 'amount', 'tax'],
       source
@@ -189,7 +188,165 @@ export class ExtendModel extends Model {
       return { product, ...subs }
     })
 
-    console.log(source)
+    return {
+      dimensions: ['product', ...types],
+      source
+    }
+  }
+
+  static async get_echart_option_smooth_stack_area() {
+    return {
+      title: { text: 'Gradient Stacked Area Chart' },
+      color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
+
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: { type: 'cross', label: { backgroundColor: '#6a7985' } }
+      },
+      legend: {
+        data: ['Line 1', 'Line 2', 'Line 3', 'Line 4', 'Line 5']
+      },
+      toolbox: { feature: { saveAsImage: {} } },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: [{ type: 'category', boundaryGap: false }],
+      yAxis: [{ type: 'value' }],
+      series: [
+        {
+          name: 'Line 1',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          lineStyle: { width: 0 },
+          showSymbol: false,
+          areaStyle: {
+            opacity: 0.8
+            // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            //   {
+            //     offset: 0,
+            //     color: 'rgb(128, 255, 165)'
+            //   },
+            //   {
+            //     offset: 1,
+            //     color: 'rgb(1, 191, 236)'
+            //   }
+            // ])
+          },
+          emphasis: { focus: 'series' }
+        },
+        {
+          name: 'Line 2',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          lineStyle: {
+            width: 0
+          },
+          showSymbol: false,
+          areaStyle: {
+            opacity: 0.8
+            // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            //   {
+            //     offset: 0,
+            //     color: 'rgb(0, 221, 255)'
+            //   },
+            //   {
+            //     offset: 1,
+            //     color: 'rgb(77, 119, 255)'
+            //   }
+            // ])
+          },
+          emphasis: { focus: 'series' }
+        },
+        {
+          name: 'Line 3',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          lineStyle: { width: 0 },
+          showSymbol: false,
+          areaStyle: {
+            opacity: 0.8
+            // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            //   {
+            //     offset: 0,
+            //     color: 'rgb(55, 162, 255)'
+            //   },
+            //   {
+            //     offset: 1,
+            //     color: 'rgb(116, 21, 219)'
+            //   }
+            // ])
+          },
+          emphasis: { focus: 'series' }
+        },
+        {
+          name: 'Line 4',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          lineStyle: { width: 0 },
+          showSymbol: false,
+          areaStyle: {
+            opacity: 0.8
+            // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            //   {
+            //     offset: 0,
+            //     color: 'rgb(255, 0, 135)'
+            //   },
+            //   {
+            //     offset: 1,
+            //     color: 'rgb(135, 0, 157)'
+            //   }
+            // ])
+          },
+          emphasis: { focus: 'series' }
+        },
+        {
+          name: 'Line 5',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          lineStyle: {
+            width: 0
+          },
+          showSymbol: false,
+          label: { show: true, position: 'top' },
+          areaStyle: {
+            opacity: 0.8
+            // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            //   {
+            //     offset: 0,
+            //     color: 'rgb(255, 191, 0)'
+            //   },
+            //   {
+            //     offset: 1,
+            //     color: 'rgb(224, 62, 76)'
+            //   }
+            // ])
+          },
+          emphasis: { focus: 'series' }
+        }
+      ]
+    }
+  }
+
+  static async get_echart_data_smooth_stack_area() {
+    const products = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    const types = ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
+
+    const source = products.map(product => {
+      const subs = types.reduce((acc, type) => {
+        acc[type] = randInt()
+        return acc
+      }, {})
+      return { product, ...subs }
+    })
+
     return {
       dimensions: ['product', ...types],
       source
@@ -232,6 +389,7 @@ export class ExtendModel extends Model {
       area: 'get_echart_option_area',
       stack: 'get_echart_option_stack',
       stack_area: 'get_echart_option_stack_area',
+      smooth_stack_area: 'get_echart_option_smooth_stack_area',
       step: 'get_echart_option_step'
     }
     return this[maps[report]]()
@@ -240,10 +398,12 @@ export class ExtendModel extends Model {
   static async get_echart_data(report) {
     const maps = {
       report: 'get_echart_data_report',
-      stack: 'get_echart_data_stack',
-      area: 'get_echart_data_area',
-      stack_area: 'get_echart_data_stack_area',
       smooth: 'get_echart_data_smooth',
+      area: 'get_echart_data_area',
+      stack: 'get_echart_data_stack',
+      stack_area: 'get_echart_data_stack_area',
+      smooth_stack_area: 'get_echart_data_smooth_stack_area',
+
       step: 'get_echart_data_step'
     }
     return this[maps[report]]()
