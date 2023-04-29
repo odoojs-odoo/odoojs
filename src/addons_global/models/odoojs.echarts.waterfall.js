@@ -13,6 +13,28 @@ export class ExtendModel extends Model {
     return {
       odoojs_echarts_type: 'waterfall',
       title: { text: 'Waterfall' },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: { type: 'shadow' },
+        formatter: function (params) {
+          let tar
+          if (params[1] && params[1].value.positive !== '-') {
+            tar = params[1]
+          } else {
+            tar = params[2]
+          }
+          return (
+            tar &&
+            tar.name +
+              '<br/>' +
+              tar.seriesName +
+              ' : ' +
+              (tar.value.positive !== '-'
+                ? tar.value.positive
+                : tar.value.negative)
+          )
+        }
+      },
       grid: {
         left: '3%',
         right: '4%',
@@ -31,8 +53,17 @@ export class ExtendModel extends Model {
             itemStyle: { borderColor: 'rgba(0,0,0,0)', color: 'rgba(0,0,0,0)' }
           }
         },
-        { type: 'bar', stack: 'all' },
-        { type: 'bar', stack: 'all', itemStyle: { color: '#f33' } }
+        {
+          type: 'bar',
+          stack: 'all',
+          label: { show: true, position: 'top' }
+        },
+        {
+          type: 'bar',
+          stack: 'all',
+          label: { show: true, position: 'bottom' },
+          itemStyle: { color: '#f33' }
+        }
       ]
     }
   }
@@ -47,12 +78,13 @@ export class ExtendModel extends Model {
     })()
 
     // const data = [900, 345, 393, -108, -154, 135, 178, 286, -119, -361, -203]
+    const data = [900, 300, 400, -100, -200, 100, 200, 300, -100, -400, -200]
 
     const source = date_month.map((item, index) => {
-      // const amount = data[index]
-      const amount = index
-        ? (Math.random() - 0.5) * 100
-        : Math.random() * 200 + Math.random() * 100 + 100
+      const amount = data[index]
+      // const amount = index
+      //   ? (Math.random() - 0.5) * 100
+      //   : Math.random() * 200 + Math.random() * 100 + 100
 
       return { date_month: item, amount }
     })

@@ -186,6 +186,7 @@ export default function useChart(
       return acc
     }, [])
 
+    // console.log(dataSource, dataSource2)
     const dataset2 = {
       dimensions: [fix_dimesion, 'help', 'positive', 'negative'],
       source: dataSource2
