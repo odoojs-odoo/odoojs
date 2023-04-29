@@ -9,43 +9,6 @@ export class ExtendModel extends Model {
     super(...args)
   }
 
-  static async get_echart_option_report2() {
-    return {
-      title: {
-        text: 'SO Report'
-      },
-      tooltip: {},
-      xAxis: { type: 'category' },
-      yAxis: {},
-      series: [
-        { name: 'amount', type: 'bar', stack: 'x' },
-        { name: 'tax', type: 'bar', stack: 'x' },
-        { name: 'total', type: 'line' }
-      ]
-    }
-  }
-
-  static async get_echart_data_report2() {
-    const products = [
-      'Matcha Latte',
-      'Milk Tea',
-      'Cheese Cocoa',
-      'Walnut Brownie'
-    ]
-
-    const source = products.map(product => {
-      const amount = randInt()
-      const tax = amount * 0.13
-      const total = amount + tax
-      return { product, amount, tax, total }
-    })
-
-    return {
-      dimensions: ['product', 'amount', 'tax', 'total'],
-      source
-    }
-  }
-
   static async get_echart_option_report() {
     const delay = 1000
     return {
@@ -134,7 +97,6 @@ export class ExtendModel extends Model {
   static async get_echart_option(report) {
     const maps = {
       report: 'get_echart_option_report'
-      //   rank: 'get_echart_option_rank'
     }
     return this[maps[report]]()
   }
@@ -142,7 +104,6 @@ export class ExtendModel extends Model {
   static async get_echart_data(report) {
     const maps = {
       report: 'get_echart_data_report'
-      //   rank: 'get_echart_data_rank'
     }
     return this[maps[report]]()
   }

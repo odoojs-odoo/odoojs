@@ -11,15 +11,15 @@ export class ExtendModel extends Model {
 
   static async get_echart_option_report() {
     return {
-      title: { text: 'SO Report' },
-      tooltip: {},
-
+      title: { text: 'Scatter' },
       xAxis: { type: 'category' },
-      yAxis: {},
+      yAxis: { type: 'value' },
+
       series: [
-        { name: 'amount', type: 'bar' },
-        { name: 'tax', type: 'bar' },
-        { name: 'total', type: 'line' }
+        {
+          type: 'scatter'
+          //   data: [220, 182, 191, 234, 290, 330, 310]
+        }
       ]
     }
   }
@@ -29,13 +29,11 @@ export class ExtendModel extends Model {
 
     const source = products.map(product => {
       const amount = randInt()
-      const tax = amount * 0.13
-      const total = amount + tax
-      return { product, amount, tax, total }
+      return { product, amount }
     })
 
     return {
-      dimensions: ['product', 'amount', 'tax', 'total'],
+      dimensions: ['product', 'amount'],
       source
     }
   }
@@ -56,7 +54,7 @@ export class ExtendModel extends Model {
 }
 
 const AddonsModels = {
-  'odoojs.echarts.bar': ExtendModel
+  'odoojs.echarts.scatter': ExtendModel
 }
 
 export default AddonsModels

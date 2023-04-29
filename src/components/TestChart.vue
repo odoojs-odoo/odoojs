@@ -14,114 +14,21 @@ function randInt() {
 
 onMounted(() => {
   var myChart = echarts.init(myCharts.value)
-  // var data = [900, 200, 100, -100, -200, 100, 100, 200, -100, -300, -200]
-
-  var data = [900, 345, 393, -108, -154, 135, 178, 286, -119, -361, -203]
-
-  var help = []
-  var positive = []
-  var negative = []
-
-  for (var i = 0, sum = 0; i < data.length; ++i) {
-    if (data[i] >= 0) {
-      positive.push(data[i])
-      negative.push('-')
-    } else {
-      positive.push('-')
-      negative.push(-data[i])
-    }
-
-    if (i === 0) {
-      help.push(0)
-    } else {
-      sum += data[i - 1]
-      if (data[i] < 0) {
-        help.push(sum + data[i])
-      } else {
-        help.push(sum)
-      }
-    }
-  }
-
-  const date_month = (function () {
-    var list = []
-    for (var i = 1; i <= 11; i++) {
-      list.push('Oct/' + i)
-    }
-    return list
-  })()
-
-  // console.log(data)
-  // console.log(help)
-  // console.log(positive)
-  // console.log(negative)
-  const dataSource = date_month.map((item, index) => ({
-    date_month: item,
-    help: help[index],
-    positive: positive[index],
-    negative: negative[index]
-  }))
-
-  console.log(dataSource)
-
   const option = {
-    title: {
-      text: 'Waterfall'
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true
-    },
-    dataset: {
-      dimensions: ['date_month', 'help', 'positive', 'negative'],
-      source: dataSource
-    },
     xAxis: {
-      type: 'category',
-      splitLine: { show: false }
-      // data: (function () {
-      //   var list = []
-      //   for (var i = 1; i <= 11; i++) {
-      //     list.push('Oct/' + i)
-      //   }
-      //   return list
-      // })()
+      data: ['A', 'B', 'C', 'D', 'E']
     },
-    yAxis: {
-      type: 'value'
-    },
+    yAxis: {},
     series: [
       {
-        type: 'bar',
-        stack: 'all',
-        itemStyle: {
-          borderColor: 'rgba(0,0,0,0)',
-          color: 'rgba(0,0,0,0)'
-        },
-        emphasis: {
-          itemStyle: {
-            borderColor: 'rgba(0,0,0,0)',
-            color: 'rgba(0,0,0,0)'
-          }
-        }
-        // data: help
+        data: [10, 22, 28, 43, 49],
+        type: 'line',
+        stack: 'x'
       },
       {
-        // name: 'positive',
-        type: 'bar',
-        stack: 'all'
-        // data: positive
-      },
-      {
-        // name: 'negative',
-        type: 'bar',
-        stack: 'all',
-        // data: negative,
-        itemStyle: {
-          color: '#f33'
-        }
+        data: [5, 4, 3, 5, 10],
+        type: 'line',
+        stack: 'x'
       }
     ]
   }

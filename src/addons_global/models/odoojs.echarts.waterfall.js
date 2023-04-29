@@ -12,9 +12,7 @@ export class ExtendModel extends Model {
   static async get_echart_option_report() {
     return {
       odoojs_echarts_type: 'waterfall',
-      title: {
-        text: 'Waterfall'
-      },
+      title: { text: 'Waterfall' },
       grid: {
         left: '3%',
         right: '4%',
@@ -22,41 +20,19 @@ export class ExtendModel extends Model {
         containLabel: true
       },
 
-      xAxis: {
-        type: 'category',
-        splitLine: { show: false }
-      },
-      yAxis: {
-        type: 'value'
-      },
+      xAxis: { type: 'category', splitLine: { show: false } },
+      yAxis: { type: 'value' },
       series: [
         {
           type: 'bar',
           stack: 'all',
-          itemStyle: {
-            borderColor: 'rgba(0,0,0,0)',
-            color: 'rgba(0,0,0,0)'
-          },
+          itemStyle: { borderColor: 'rgba(0,0,0,0)', color: 'rgba(0,0,0,0)' },
           emphasis: {
-            itemStyle: {
-              borderColor: 'rgba(0,0,0,0)',
-              color: 'rgba(0,0,0,0)'
-            }
+            itemStyle: { borderColor: 'rgba(0,0,0,0)', color: 'rgba(0,0,0,0)' }
           }
         },
-        {
-          //   name: 'positive',
-          type: 'bar',
-          stack: 'all'
-        },
-        {
-          //   name: 'negative',
-          type: 'bar',
-          stack: 'all',
-          itemStyle: {
-            color: '#f33'
-          }
-        }
+        { type: 'bar', stack: 'all' },
+        { type: 'bar', stack: 'all', itemStyle: { color: '#f33' } }
       ]
     }
   }
