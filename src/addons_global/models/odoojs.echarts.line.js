@@ -75,6 +75,7 @@ export class ExtendModel extends Model {
       return { product, amount, tax }
     })
 
+    console.log(source)
     return {
       dimensions: ['product', 'amount', 'tax'],
       source
@@ -104,6 +105,93 @@ export class ExtendModel extends Model {
 
     return {
       dimensions: ['product', 'amount', 'tax'],
+      source
+    }
+  }
+
+  static async get_echart_option_stack_area() {
+    return {
+      title: { text: 'Stacked Area Chart' },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
+          }
+        }
+      },
+      legend: {
+        data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
+      },
+
+      toolbox: { feature: { saveAsImage: {} } },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+
+      xAxis: [{ type: 'category', boundaryGap: false }],
+      yAxis: [{ type: 'value' }],
+
+      series: [
+        {
+          name: 'Email',
+          type: 'line',
+          stack: 'Total',
+          areaStyle: {},
+          emphasis: { focus: 'series' }
+        },
+        {
+          name: 'Union Ads',
+          type: 'line',
+          stack: 'Total',
+          areaStyle: {},
+          emphasis: { focus: 'series' }
+        },
+        {
+          name: 'Video Ads',
+          type: 'line',
+          stack: 'Total',
+          areaStyle: {},
+          emphasis: { focus: 'series' }
+        },
+        {
+          name: 'Direct',
+          type: 'line',
+          stack: 'Total',
+          areaStyle: {},
+          emphasis: { focus: 'series' }
+        },
+        {
+          name: 'Search Engine',
+          type: 'line',
+          stack: 'Total',
+          label: { show: true, position: 'top' },
+          areaStyle: {},
+          emphasis: { focus: 'series' }
+        }
+      ]
+    }
+  }
+
+  static async get_echart_data_stack_area() {
+    const products = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    const types = ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
+
+    const source = products.map(product => {
+      const subs = types.reduce((acc, type) => {
+        acc[type] = randInt()
+        return acc
+      }, {})
+      return { product, ...subs }
+    })
+
+    console.log(source)
+    return {
+      dimensions: ['product', ...types],
       source
     }
   }
@@ -143,6 +231,7 @@ export class ExtendModel extends Model {
       smooth: 'get_echart_option_smooth',
       area: 'get_echart_option_area',
       stack: 'get_echart_option_stack',
+      stack_area: 'get_echart_option_stack_area',
       step: 'get_echart_option_step'
     }
     return this[maps[report]]()
@@ -153,6 +242,7 @@ export class ExtendModel extends Model {
       report: 'get_echart_data_report',
       stack: 'get_echart_data_stack',
       area: 'get_echart_data_area',
+      stack_area: 'get_echart_data_stack_area',
       smooth: 'get_echart_data_smooth',
       step: 'get_echart_data_step'
     }

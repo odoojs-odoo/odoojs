@@ -35,9 +35,12 @@
 import { onMounted, ref, nextTick } from 'vue'
 import useChart, { RenderType, ThemeType } from '@/echart/useChart'
 
+import useEchartsReport from '@/echart/useEchartsReport'
+
 const chartEl = ref()
 const useChartData = useChart(chartEl, true, true, RenderType.SVGRenderer)
-const { getReports, resetEcharts, setTheme } = useChartData
+const { resetEcharts, setTheme } = useChartData
+const { getReports } = useEchartsReport()
 
 const reportsRef = ref([])
 

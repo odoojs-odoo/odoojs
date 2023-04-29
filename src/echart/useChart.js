@@ -13,27 +13,6 @@ function sleep(millisecond) {
   })
 }
 
-const reports = [
-  { id: 1, name: 'Default Demo', code: 'odoojs.echarts,demo' },
-  { id: 2, name: 'SO Report', code: 'sale.order,report' },
-  {
-    id: 3,
-    name: 'Dynamic Rank Bar',
-    code: 'odoojs.echarts.dynamic_rank_bar,report'
-  },
-  { id: 4, name: 'Bar', code: 'odoojs.echarts.bar,report' },
-  { id: 5, name: 'Waterfall', code: 'odoojs.echarts.waterfall,report' },
-  { id: 16, name: 'Line', code: 'odoojs.echarts.line,report' },
-  { id: 17, name: 'Line Stack', code: 'odoojs.echarts.line,stack' },
-  { id: 18, name: 'Line Area', code: 'odoojs.echarts.line,area' },
-  { id: 19, name: 'Line Smooth', code: 'odoojs.echarts.line,smooth' },
-  { id: 10, name: 'Line Step', code: 'odoojs.echarts.line,step' },
-  { id: 20, name: 'Pie', code: 'odoojs.echarts.pie,report' },
-  { id: 21, name: 'Pie Ring', code: 'odoojs.echarts.pie,ring' },
-  { id: 22, name: 'Pie Rose', code: 'odoojs.echarts.pie,rose' },
-  { id: 30, name: 'Scatter', code: 'odoojs.echarts.scatter,report' }
-]
-
 async function getOption(modelreport) {
   const option = await getOptionRaw(modelreport)
   return {
@@ -98,10 +77,6 @@ export default function useChart(
 
   function start_timer(timer) {
     timers.value.push(timer)
-  }
-
-  async function getReports() {
-    return reports
   }
 
   // 初始化echart
@@ -172,7 +147,7 @@ export default function useChart(
     setOption(option)
     update(dataset, dynamic_datas)
     const timer = setInterval(function () {
-      console.log('1')
+      console.log(timer, currentValue.value)
       update(dataset, dynamic_datas)
     }, delay)
 
@@ -275,7 +250,6 @@ export default function useChart(
     const options = optionRef.value
     const options2 = { ...options, dataset }
 
-    console.log(options2)
     setOption(options2)
     hideLoading()
   }
@@ -343,7 +317,6 @@ export default function useChart(
   })
 
   return {
-    getReports,
     setTheme,
     resetEcharts,
 

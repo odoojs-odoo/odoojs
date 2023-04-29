@@ -1,18 +1,19 @@
 <template>
   <div>
+    <div>-----</div>
     <div>Home page</div>
 
+    <a-button type="primary" @click="onLogout">注销再登录</a-button>
+    <div>odoo version: {{ version_info.server_version }}</div>
+    <div>-----</div>
     <TestChart2 />
 
     <div>-----</div>
 
     <TestChart />
     <div>-----</div>
-
+    <EchartDemo />
     <div></div>
-
-    <a-button type="primary" @click="onLogout">注销再登录</a-button>
-    <div>odoo version: {{ version_info.server_version }}</div>
   </div>
 </template>
 
@@ -23,7 +24,7 @@ import { useRouter } from 'vue-router'
 
 import TestChart from '@/components/TestChart.vue'
 import TestChart2 from '@/components/TestChart2.vue'
-
+import EchartDemo from './EchartDemo.vue'
 const router = useRouter()
 
 const version_info = ref({})

@@ -46,11 +46,13 @@ export class ExtendModel extends Model {
       return list
     })()
 
-    const data = [900, 345, 393, -108, -154, 135, 178, 286, -119, -361, -203]
+    // const data = [900, 345, 393, -108, -154, 135, 178, 286, -119, -361, -203]
 
     const source = date_month.map((item, index) => {
-      const amount = data[index]
-      // const amount = index ? (Math.random() - 0.5) * 100 : Math.random() * 1000
+      // const amount = data[index]
+      const amount = index
+        ? (Math.random() - 0.5) * 100
+        : Math.random() * 200 + Math.random() * 100 + 100
 
       return { date_month: item, amount }
     })
