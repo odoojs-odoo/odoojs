@@ -1,7 +1,6 @@
 <template>
   <div>
-    <span> set theme </span>
-
+    <span> Set theme </span>
     <a-radio-group
       v-model:value="themeRef"
       option-type="button"
@@ -11,18 +10,22 @@
   </div>
 
   <div>
-    <span> change report </span>
-
-    <a-radio-group
-      v-model:value="reportRef"
-      option-type="button"
-      :options="[
-        { label: 'Default Demo', value: undefined },
-        { label: 'SO Report', value: 'sale.order,report' },
-        { label: 'SO Rank', value: 'sale.order,rank' }
-      ]"
-      @change="onChangeReport"
-    />
+    <a-dropdown>
+      <template #overlay>
+        <a-menu @click="onChangeReport">
+          <template v-for="rpt in reportsRef" :key="rpt.code">
+            <a-menu-item>
+              <dot-chart-outlined />
+              {{ rpt.name }}
+            </a-menu-item>
+          </template>
+        </a-menu>
+      </template>
+      <a-button>
+        <span> Change Report </span>
+        <DownOutlined />
+      </a-button>
+    </a-dropdown>
   </div>
 
   <div ref="chartEl" :style="{ width: `600px`, height: `300px` }"></div>
@@ -34,23 +37,24 @@ import useChart, { RenderType, ThemeType } from '@/echart/useChart'
 
 const chartEl = ref()
 const useChartData = useChart(chartEl, true, true, RenderType.SVGRenderer)
-const { resetEcharts, setTheme } = useChartData
+const { getReports, resetEcharts, setTheme } = useChartData
+
+const reportsRef = ref([])
 
 const themeRef = ref(ThemeType.Default)
-const reportRef = ref()
 
 function onChangeTheme() {
   setTheme(themeRef.value)
 }
 
-async function onChangeReport() {
-  resetEcharts(reportRef.value)
-  // onChangeOption()
+async function onChangeReport(menu) {
+  resetEcharts(menu.key)
 }
 
 onMounted(() => {
   nextTick(async () => {
-    onChangeReport()
+    reportsRef.value = await getReports()
+    resetEcharts()
   })
 })
 </script>

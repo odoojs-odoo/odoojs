@@ -9,7 +9,7 @@ export class ExtendModel extends Model {
     super(...args)
   }
 
-  static async get_echart_option_report() {
+  static async get_echart_option_report2() {
     return {
       title: {
         text: 'SO Report'
@@ -25,7 +25,7 @@ export class ExtendModel extends Model {
     }
   }
 
-  static async get_echart_data_report() {
+  static async get_echart_data_report2() {
     const products = [
       'Matcha Latte',
       'Milk Tea',
@@ -46,7 +46,7 @@ export class ExtendModel extends Model {
     }
   }
 
-  static async get_echart_option_rank() {
+  static async get_echart_option_report() {
     const delay = 1000
     return {
       odoojs_echarts_type: {
@@ -86,7 +86,7 @@ export class ExtendModel extends Model {
     }
   }
 
-  static async get_echart_data_rank() {
+  static async get_echart_data_report() {
     const products = [
       '北京',
       '天津',
@@ -133,23 +133,23 @@ export class ExtendModel extends Model {
 
   static async get_echart_option(report) {
     const maps = {
-      report: 'get_echart_option_report',
-      rank: 'get_echart_option_rank'
+      report: 'get_echart_option_report'
+      //   rank: 'get_echart_option_rank'
     }
     return this[maps[report]]()
   }
 
   static async get_echart_data(report) {
     const maps = {
-      report: 'get_echart_data_report',
-      rank: 'get_echart_data_rank'
+      report: 'get_echart_data_report'
+      //   rank: 'get_echart_data_rank'
     }
     return this[maps[report]]()
   }
 }
 
 const AddonsModels = {
-  'sale.order': ExtendModel
+  'odoojs.echarts.dynamic_rank_bar': ExtendModel
 }
 
 export default AddonsModels

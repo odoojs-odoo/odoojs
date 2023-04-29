@@ -1,5 +1,5 @@
 <template>
-  <div ref="myCharts" :style="{ width: `300px`, height: `300px` }"></div>
+  <div ref="myCharts" :style="{ width: `600px`, height: `300px` }"></div>
 </template>
 
 <script setup>
@@ -14,7 +14,10 @@ function randInt() {
 
 onMounted(() => {
   var myChart = echarts.init(myCharts.value)
+  // var data = [900, 200, 100, -100, -200, 100, 100, 200, -100, -300, -200]
+
   var data = [900, 345, 393, -108, -154, 135, 178, 286, -119, -361, -203]
+
   var help = []
   var positive = []
   var negative = []
@@ -40,6 +43,27 @@ onMounted(() => {
     }
   }
 
+  const date_month = (function () {
+    var list = []
+    for (var i = 1; i <= 11; i++) {
+      list.push('Oct/' + i)
+    }
+    return list
+  })()
+
+  // console.log(data)
+  // console.log(help)
+  // console.log(positive)
+  // console.log(negative)
+  const dataSource = date_month.map((item, index) => ({
+    date_month: item,
+    help: help[index],
+    positive: positive[index],
+    negative: negative[index]
+  }))
+
+  console.log(dataSource)
+
   const option = {
     title: {
       text: 'Waterfall'
@@ -50,16 +74,20 @@ onMounted(() => {
       bottom: '3%',
       containLabel: true
     },
+    dataset: {
+      dimensions: ['date_month', 'help', 'positive', 'negative'],
+      source: dataSource
+    },
     xAxis: {
       type: 'category',
-      splitLine: { show: false },
-      data: (function () {
-        var list = []
-        for (var i = 1; i <= 11; i++) {
-          list.push('Oct/' + i)
-        }
-        return list
-      })()
+      splitLine: { show: false }
+      // data: (function () {
+      //   var list = []
+      //   for (var i = 1; i <= 11; i++) {
+      //     list.push('Oct/' + i)
+      //   }
+      //   return list
+      // })()
     },
     yAxis: {
       type: 'value'
@@ -69,28 +97,28 @@ onMounted(() => {
         type: 'bar',
         stack: 'all',
         itemStyle: {
-          normal: {
-            barBorderColor: 'rgba(0,0,0,0)',
-            color: 'rgba(0,0,0,0)'
-          },
-          emphasis: {
-            barBorderColor: 'rgba(0,0,0,0)',
+          borderColor: 'rgba(0,0,0,0)',
+          color: 'rgba(0,0,0,0)'
+        },
+        emphasis: {
+          itemStyle: {
+            borderColor: 'rgba(0,0,0,0)',
             color: 'rgba(0,0,0,0)'
           }
-        },
-        data: help
+        }
+        // data: help
       },
       {
-        name: 'positive',
+        // name: 'positive',
         type: 'bar',
-        stack: 'all',
-        data: positive
+        stack: 'all'
+        // data: positive
       },
       {
-        name: 'negative',
+        // name: 'negative',
         type: 'bar',
         stack: 'all',
-        data: negative,
+        // data: negative,
         itemStyle: {
           color: '#f33'
         }
@@ -98,6 +126,7 @@ onMounted(() => {
     ]
   }
 
+  console.log(option)
   myChart.setOption(option)
 })
 </script>
