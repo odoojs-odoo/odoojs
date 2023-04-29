@@ -28,6 +28,15 @@
     </a-dropdown>
   </div>
 
+  <form>
+    model:
+    <input type="text" name="model" v-model="reportname.model" /><br />
+    report:
+    <input type="text" name="report" v-model="reportname.report" /><br />
+  </form>
+
+  <button @click="onSelectReport">submit</button>
+
   <div ref="chartEl" :style="{ width: `600px`, height: `300px` }"></div>
 </template>
 
@@ -50,6 +59,12 @@ function onChangeTheme() {
   setTheme(themeRef.value)
 }
 
+const reportname = ref({ model: 'odoojs.echarts', report: 'demo' })
+
+function onSelectReport() {
+  const rpt = reportname.value
+  resetEcharts(`${rpt.model},${rpt.report}`)
+}
 async function onChangeReport(menu) {
   resetEcharts(menu.key)
 }
