@@ -2,7 +2,7 @@ const reports = [
   // { id: 2, name: 'Line Race', code: 'odoojs.echarts.line.race,report' },
   // { id: 3, name: 'Bar Race', code: 'odoojs.echarts.bar.race,report' },
   // { id: 3, name: 'Waterfall', code: 'odoojs.echarts.waterfall,report' },
-
+  // { id: 80, name: 'Lines Map', code: 'odoojs.echarts.lines.map,report' },
   // { id: 9, name: 'SO Report', code: 'sale.order,report' },
   // { id: 30, name: 'Pie', code: 'odoojs.echarts.pie,report' },
   // { id: 31, name: 'Doughnut', code: 'odoojs.echarts.pie,doughnut' },
@@ -34,7 +34,10 @@ const reports = [
   // { id: 60, name: 'Heatmap', code: 'odoojs.echarts.heatmap,report' },
 
   // { id: 70, name: 'Graph', code: 'odoojs.echarts.graph,report' },
-  // { id: 80, name: 'Lines Map', code: 'odoojs.echarts.lines.map,report' },
+  // { id: 71, name: 'Graph Cartesian', code: 'odoojs.echarts.graph,cartesian' },
+
+  { id: 80, name: 'sunburst', code: 'odoojs.echarts.sunburst,report' },
+  { id: 81, name: 'sunburst book', code: 'odoojs.echarts.sunburst,book' },
 
   { id: 99999999, name: 'Default Demo', code: 'odoojs.echarts,demo' }
 ]

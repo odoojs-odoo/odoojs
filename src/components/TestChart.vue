@@ -4,7 +4,6 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-
 import * as echarts from 'echarts'
 const myCharts = ref()
 
@@ -14,6 +13,7 @@ function randInt() {
 
 onMounted(() => {
   var myChart = echarts.init(myCharts.value)
+
   const option = {
     xAxis: {
       data: ['A', 'B', 'C', 'D', 'E']

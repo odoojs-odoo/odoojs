@@ -6,7 +6,7 @@
     <a-button type="primary" @click="onLogout">注销再登录</a-button>
     <div>odoo version: {{ version_info.server_version }}</div>
     <div>-----</div>
-    <TestChart2 />
+    <!-- <TestChart2 /> -->
 
     <div>-----</div>
 

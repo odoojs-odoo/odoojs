@@ -203,7 +203,7 @@ export default function useChart(
     if (option.odoojs_echarts_type) {
       setOdoojsEcharts(option, dataset)
     } else {
-      await sleep(10000)
+      // await sleep(10000)
       setOption(option)
       setDataset(dataset)
     }
@@ -233,11 +233,14 @@ export default function useChart(
   // 更新/设置配置
   function setOption(option) {
     optionRef.value = { ...option }
-    nextTick(() => {
+    nextTick(async () => {
       if (!chartInstance) {
         initCharts()
         if (!chartInstance) return
       }
+      // await sleep(10000)
+
+      chartInstance.clear()
 
       chartInstance.setOption(option)
       // hideLoading()
