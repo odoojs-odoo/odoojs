@@ -5,7 +5,8 @@ const reports = [
 
   // { id: 9, name: 'SO Report', code: 'sale.order,report' },
 
-  // { id: 10, name: 'Bar', code: 'odoojs.echarts.bar,report' },
+  { id: 10, name: 'Bar', code: 'odoojs.echarts.bar,report' },
+  { id: 11, name: 'Bar Neg', code: 'odoojs.echarts.bar,neg' },
   // { id: 21, name: 'Line', code: 'odoojs.echarts.line,report' },
   // { id: 22, name: 'Line Stack', code: 'odoojs.echarts.line,stack' },
   // { id: 23, name: 'Line Area', code: 'odoojs.echarts.line,area' },
