@@ -203,6 +203,7 @@ export default function useChart(
     if (option.odoojs_echarts_type) {
       setOdoojsEcharts(option, dataset)
     } else {
+      await sleep(10000)
       setOption(option)
       setDataset(dataset)
     }

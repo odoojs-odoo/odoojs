@@ -26,8 +26,15 @@ const reports = [
   // { id: 26, name: 'Line Smooth', code: 'odoojs.echarts.line,smooth' },
   // { id: 27, name: 'Line Step', code: 'odoojs.echarts.line,step' },
 
-  { id: 40, name: 'Scatter', code: 'odoojs.echarts.scatter,report' },
-  { id: 41, name: 'Bubble', code: 'odoojs.echarts.scatter,bubble' },
+  // { id: 40, name: 'Scatter', code: 'odoojs.echarts.scatter,report' },
+  // { id: 41, name: 'Bubble', code: 'odoojs.echarts.scatter,bubble' },
+  // { id: 50, name: 'Radar', code: 'odoojs.echarts.radar,report' },
+  // { id: 51, name: 'AQI', code: 'odoojs.echarts.radar,aqi' },
+  // { id: 51, name: 'Browser', code: 'odoojs.echarts.radar,browser' },
+  // { id: 60, name: 'Heatmap', code: 'odoojs.echarts.heatmap,report' },
+
+  // { id: 70, name: 'Graph', code: 'odoojs.echarts.graph,report' },
+  // { id: 80, name: 'Lines Map', code: 'odoojs.echarts.lines.map,report' },
 
   { id: 99999999, name: 'Default Demo', code: 'odoojs.echarts,demo' }
 ]
