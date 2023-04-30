@@ -36,8 +36,14 @@ const reports = [
   // { id: 70, name: 'Graph', code: 'odoojs.echarts.graph,report' },
   // { id: 71, name: 'Graph Cartesian', code: 'odoojs.echarts.graph,cartesian' },
 
-  { id: 80, name: 'sunburst', code: 'odoojs.echarts.sunburst,report' },
-  { id: 81, name: 'sunburst book', code: 'odoojs.echarts.sunburst,book' },
+  // { id: 80, name: 'sunburst', code: 'odoojs.echarts.sunburst,report' },
+  // { id: 81, name: 'sunburst book', code: 'odoojs.echarts.sunburst,book' },
+  // { id: 90, name: 'parallel aqi', code: 'odoojs.echarts.parallel,report' },
+  // { id: 91, name: 'parallel aqi2', code: 'odoojs.echarts.parallel,aqi' },
+
+  // { id: 100, name: 'sankey', code: 'odoojs.echarts.sankey,report' },
+  // { id: 101, name: 'sankey vertical', code: 'odoojs.echarts.sankey,vertical' },
+  { id: 102, name: 'sankey rpt1', code: 'odoojs.echarts.sankey,rpt1' },
 
   { id: 99999999, name: 'Default Demo', code: 'odoojs.echarts,demo' }
 ]
