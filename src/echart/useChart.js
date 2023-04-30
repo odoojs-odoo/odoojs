@@ -74,7 +74,7 @@ export default function useChart(
     chartInstance = echarts.init(el, themeRef.value)
   }
 
-  function setDynamicBar(option, dataset) {
+  function setBarRace(option, dataset) {
     function sleep_delay(millisecond) {
       return new Promise(resolve => {
         setTimeout(() => {
@@ -180,7 +180,7 @@ export default function useChart(
         : odoojs_echarts_type.name
 
     const maps = {
-      dynamic_rank_bar: setDynamicBar,
+      bar_race: setBarRace,
       waterfall: setWaterfall
     }
 

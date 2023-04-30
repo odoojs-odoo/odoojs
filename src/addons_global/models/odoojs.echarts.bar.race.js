@@ -44,9 +44,11 @@ export class ExtendModel extends Model {
     const delay = 1000
     return {
       odoojs_echarts_type: {
-        name: 'dynamic_rank_bar',
+        name: 'bar_race',
         delay
       },
+
+      toolbox: { feature: { saveAsImage: {} } },
 
       xAxis: {
         max: 'dataMax'
@@ -115,18 +117,6 @@ export class ExtendModel extends Model {
     return {
       dimensions: ['product', 'amount', 'date_year'],
       source
-      // odoojs_config: {
-      //   dynamic: {
-      //     fix_dimesion: 'product',
-      //     dynamic_dimesion: 'date_year',
-      //     measure: 'amount',
-      //     delay
-      //   }
-      // },
-      // dataset: {
-      //   dimensions: ['product', 'amount'],
-      //   : []
-      // },
     }
   }
 

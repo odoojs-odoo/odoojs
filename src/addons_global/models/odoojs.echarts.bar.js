@@ -42,27 +42,36 @@ export class ExtendModel extends Model {
 
   static async get_echart_option_neg() {
     const option = {
-      title: { text: 'Bar Chart with Negative Value' },
       tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
-      grid: { top: 80, bottom: 30 },
-      xAxis: {
-        type: 'value',
-        position: 'top',
-        splitLine: { lineStyle: { type: 'dashed' } }
+      legend: { data: ['Profit', 'Expenses', 'Income'] },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
       },
-      yAxis: {
-        type: 'category',
-        axisLine: { show: false },
-        axisLabel: { show: false },
-        axisTick: { show: false },
-        splitLine: { show: false }
-      },
+      xAxis: [{ type: 'value' }],
+      yAxis: [{ type: 'category', axisTick: { show: false } }],
       series: [
         {
-          name: 'Cost',
+          name: 'Profit',
+          type: 'bar',
+          label: { show: true, position: 'inside' },
+          emphasis: { focus: 'series' }
+        },
+        {
+          name: 'Income',
           type: 'bar',
           stack: 'Total',
-          label: { show: true, formatter: '{b}' }
+          label: { show: true },
+          emphasis: { focus: 'series' }
+        },
+        {
+          name: 'Expenses',
+          type: 'bar',
+          stack: 'Total',
+          label: { show: true, position: 'left' },
+          emphasis: { focus: 'series' }
         }
       ]
     }
@@ -71,35 +80,77 @@ export class ExtendModel extends Model {
   }
 
   static async get_echart_data_neg() {
-    // const labelRight = { position: 'right' }
-    const products = [
-      'ten',
-      'nine',
-      'eight',
-      'seven',
-      'six',
-      'five',
-      'four',
-      'three',
-      'two',
-      'one'
-    ]
+    const products = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
-    // const amounts = [
-    //   -0.07, -0.09, 0.2, 0.44, -0.23, 0.08, -0.17, 0.47, -0.36, 0.18
-    // ]
-
-    function randval() {
-      return Math.floor(((Math.random() - 0.5) * 1000) / 23)
-    }
+    // function randval() {
+    //   return Math.floor(((Math.random() - 0.5) * 1000) / 23)
+    // }
 
     const source = products.map(product => {
-      const amount = randval()
-      return { product, amount }
+      const Income = randInt()
+      const Expenses = -randInt()
+      const Profit = Income + Expenses
+      return { product, Profit, Income, Expenses }
     })
 
     return {
-      dimensions: ['product', 'amount'],
+      dimensions: ['product', 'Profit', 'Income', 'Expenses'],
+      source
+    }
+  }
+
+  static async get_echart_option_radial() {
+    const option = {
+      legend: { show: true, data: ['A', 'B', 'C'] },
+      angleAxis: { type: 'category' },
+      radiusAxis: {},
+      polar: {},
+      series: [
+        {
+          type: 'bar',
+          coordinateSystem: 'polar',
+          name: 'A',
+          stack: 'a',
+          emphasis: { focus: 'series' }
+        },
+        {
+          type: 'bar',
+          coordinateSystem: 'polar',
+          name: 'B',
+          stack: 'a',
+          emphasis: { focus: 'series' }
+        },
+        {
+          type: 'bar',
+          coordinateSystem: 'polar',
+          name: 'C',
+          stack: 'a',
+          emphasis: {
+            focus: 'series'
+          }
+        }
+      ]
+    }
+
+    return option
+  }
+
+  static async get_echart_data_radial() {
+    const products = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+    function randval() {
+      return Math.floor((Math.random() * 1000) / 23)
+    }
+
+    const source = products.map(product => {
+      const A = randval()
+      const B = randval()
+      const C = randval()
+      return { product, A, B, C }
+    })
+
+    return {
+      dimensions: ['product', 'A', 'B', 'C'],
       source
     }
   }
@@ -107,7 +158,8 @@ export class ExtendModel extends Model {
   static async get_echart_option(report) {
     const maps = {
       report: 'get_echart_option_report',
-      neg: 'get_echart_option_neg'
+      neg: 'get_echart_option_neg',
+      radial: 'get_echart_option_radial'
     }
     return this[maps[report]]()
   }
@@ -115,7 +167,8 @@ export class ExtendModel extends Model {
   static async get_echart_data(report) {
     const maps = {
       report: 'get_echart_data_report',
-      neg: 'get_echart_data_neg'
+      neg: 'get_echart_data_neg',
+      radial: 'get_echart_data_radial'
     }
     return this[maps[report]]()
   }
