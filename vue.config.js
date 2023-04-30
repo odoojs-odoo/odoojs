@@ -24,6 +24,16 @@ module.exports = defineConfig({
             //对路径匹配到的字符串重写
             ['^' + process.env.VUE_APP_BASE_API]: ''
           }
+        },
+
+        '/echarts-examples': {
+          target: 'https://echarts.apache.org/examples', //代理的api地址，就是要跨域的地址
+          changeOrigin: true, // 这个参数可以让target参数是域名
+          // ws: true, //是否启用websockets，用不到可设为false
+          pathRewrite: {
+            //对路径匹配到的字符串重写
+            ['^' + '/echarts-examples']: ''
+          }
         }
       }
     }

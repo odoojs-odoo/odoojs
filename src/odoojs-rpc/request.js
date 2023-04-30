@@ -454,6 +454,28 @@ class ProxyPdf extends Proxy0 {
   }
 }
 
+export class HttpRequest {
+  constructor() {}
+
+  static get baseURL() {
+    return this._baseURL
+  }
+
+  static set baseURL(val) {
+    this._baseURL = val
+  }
+
+  static async call(url, payload = {}) {
+    const req = new ProxyHTTP({
+      baseURL: this.baseURL,
+      timeout: this.timeout
+    })
+
+    const data = await req.call(url, { ...payload })
+    return data
+  }
+}
+
 export class JsonRequest {
   constructor() {}
 

@@ -74,7 +74,7 @@ export default function useChart(
     chartInstance = echarts.init(el, themeRef.value)
   }
 
-  function setBarRace(option, dataset) {
+  function setBarRace(modelreport, option, dataset) {
     function sleep_delay(millisecond) {
       return new Promise(resolve => {
         setTimeout(() => {
@@ -135,56 +135,27 @@ export default function useChart(
     run()
   }
 
-  function setWaterfall(option, dataset) {
-    // const { dimensions, source: dataSource } = dataset
-    // const [fix_dimesion, measure] = dimensions
-    // let sum = 0
-    // const dataSource2 = dataSource.reduce((acc, item, index) => {
-    //   const amount = item[measure]
-    //   function get_help() {
-    //     if (!index) {
-    //       return 0
-    //     } else {
-    //       sum += dataSource[index - 1][measure]
-    //       if (amount < 0) {
-    //         return sum + amount
-    //       } else {
-    //         return sum
-    //       }
-    //     }
-    //   }
-    //   acc.push({
-    //     [fix_dimesion]: item[fix_dimesion],
-    //     help: get_help(),
-    //     positive: amount >= 0 ? amount : '-',
-    //     negative: amount < 0 ? -amount : '-'
-    //   })
-    //   return acc
-    // }, [])
-    // // console.log(dataSource, dataSource2)
-    // const dataset2 = {
-    //   dimensions: [fix_dimesion, 'help', 'positive', 'negative'],
-    //   source: dataSource2
-    // }
-    setOption(option)
-    setDataset(dataset)
+  async function setRunServer(modelreport) {
+    const [model, report] = modelreport.split(',')
+    await api.env.model(model).echart_run(report, chartInstance)
 
-    console.log(option, dataset)
+    hideLoading()
   }
 
-  function setOdoojsEcharts(option, dataset) {
+  function setOdoojsEcharts(modelreport, option, dataset) {
     const odoojs_echarts_type = option.odoojs_echarts_type
     const type_name =
       typeof odoojs_echarts_type === 'string'
         ? odoojs_echarts_type
         : odoojs_echarts_type.name
 
+    console.log(type_name)
     const maps = {
       bar_race: setBarRace,
-      waterfall: setWaterfall
+      run_server: setRunServer
     }
 
-    return maps[type_name](option, dataset)
+    return maps[type_name](modelreport, option, dataset)
   }
 
   async function resetEcharts(modelreport) {
@@ -201,7 +172,7 @@ export default function useChart(
     const dataset = await getDataset(modelreport)
 
     if (option.odoojs_echarts_type) {
-      setOdoojsEcharts(option, dataset)
+      setOdoojsEcharts(modelreport, option, dataset)
     } else {
       // await sleep(10000)
       setOption(option)

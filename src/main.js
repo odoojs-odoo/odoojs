@@ -6,6 +6,8 @@ import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import * as antIcons from '@ant-design/icons-vue'
 
+import 'echarts-gl'
+
 const app = createApp(App)
 
 // 注册组件

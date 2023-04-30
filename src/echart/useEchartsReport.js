@@ -1,11 +1,14 @@
 const reports = [
-  // { id: 2, name: 'Line Race', code: 'odoojs.echarts.line.race,report' },
+  { id: 2, name: 'Line Race', code: 'odoojs.echarts.line.race,report' },
   // { id: 3, name: 'Bar Race', code: 'odoojs.echarts.bar.race,report' },
   // { id: 3, name: 'Waterfall', code: 'odoojs.echarts.waterfall,report' },
   // { id: 80, name: 'Lines Map', code: 'odoojs.echarts.lines.map,report' },
   // { id: 9, name: 'SO Report', code: 'sale.order,report' },
 
-  { id: 4, name: 'dottedbar', code: 'odoojs.echarts.dottedbar,report' },
+  // { id: 5, name: 'earth3d', code: 'odoojs.echarts.test,report' },
+  // { id: 4, name: 'dottedbar', code: 'odoojs.echarts.dottedbar,report' },
+
+  // { id: 5, name: 'earth3d', code: 'odoojs.echarts.earth3d,report' },
 
   // { id: 120, name: 'gauge', code: 'odoojs.echarts.gauge,report' },
   // { id: 121, name: 'gauge progress', code: 'odoojs.echarts.gauge,progress' },
@@ -32,8 +35,35 @@ const reports = [
   //   name: 'pictorialbar spirits',
   //   code: 'odoojs.echarts.pictorialbar,spirits'
   // },
-  { id: 141, name: 'themeriver', code: 'odoojs.echarts.themeriver,report' },
-  { id: 142, name: 'themeriver 2', code: 'odoojs.echarts.themeriver,report2' },
+  // { id: 141, name: 'themeriver', code: 'odoojs.echarts.themeriver,report' },
+  // { id: 142, name: 'themeriver 2', code: 'odoojs.echarts.themeriver,report2' },
+
+  // { id: 151, name: 'calendar', code: 'odoojs.echarts.calendar,report' },
+  // { id: 152, name: 'calendar 2', code: 'odoojs.echarts.calendar,report2' },
+  // { id: 153, name: 'calendar 3', code: 'odoojs.echarts.calendar,report3' },
+  // { id: 154, name: 'calendar 4', code: 'odoojs.echarts.calendar,report4' },
+  // { id: 155, name: 'calendar 5', code: 'odoojs.echarts.calendar,report5' },
+  // { id: 156, name: 'calendar 6', code: 'odoojs.echarts.calendar,report6' },
+  // { id: 157, name: 'calendar 7', code: 'odoojs.echarts.calendar,report7' },
+  // { id: 158, name: 'calendar 8', code: 'odoojs.echarts.calendar,report8' },
+  // { id: 154, name: 'calendar 4', code: 'odoojs.echarts.calendar,report4' },
+
+  // { id: 161, name: 'bar3d', code: 'odoojs.echarts.bar3d,report' },
+
+  // { id: 171, name: 'geo', code: 'odoojs.echarts.geo,report' },
+  // { id: 172, name: 'beef', code: 'odoojs.echarts.geo,beef' },
+  // { id: 173, name: 'organ', code: 'odoojs.echarts.geo,organ' },
+  // { id: 174, name: 'flight', code: 'odoojs.echarts.geo,flight' },
+  // { id: 174, name: 'route', code: 'odoojs.echarts.geo,route' },
+  // { id: 174, name: 'iceland', code: 'odoojs.echarts.geo,iceland' },
+  // { id: 174, name: 'Traffic', code: 'odoojs.echarts.geo,traffic' },
+  // { id: 174, name: 'hk', code: 'odoojs.echarts.geo,hk' },
+  // { id: 174, name: 'usa', code: 'odoojs.echarts.geo,usa' },
+
+  // { id: 174, name: 'Traffic', code: 'odoojs.echarts.geo,traffic' },
+  // { id: 174, name: 'Traffic', code: 'odoojs.echarts.geo,traffic' },
+  // { id: 174, name: 'Traffic', code: 'odoojs.echarts.geo,traffic' },
+  // { id: 174, name: 'Traffic', code: 'odoojs.echarts.geo,traffic' },
 
   // { id: 30, name: 'Pie', code: 'odoojs.echarts.pie,report' },
   // { id: 31, name: 'Doughnut', code: 'odoojs.echarts.pie,doughnut' },

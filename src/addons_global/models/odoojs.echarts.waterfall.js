@@ -11,7 +11,6 @@ export class ExtendModel extends Model {
 
   static async get_echart_option_report() {
     return {
-      // odoojs_echarts_type: 'waterfall',
       title: { text: 'Waterfall' },
       tooltip: {
         trigger: 'axis',
