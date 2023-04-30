@@ -10,7 +10,7 @@
 
     <div>-----</div>
 
-    <TestChart />
+    <!-- <TestChart /> -->
     <div>-----</div>
     <EchartDemo />
     <div></div>
@@ -22,7 +22,7 @@ import api from '@/odoorpc'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import TestChart from '@/components/TestChart.vue'
+// import TestChart from '@/components/TestChart.vue'
 import TestChart2 from '@/components/TestChart2.vue'
 import EchartDemo from './EchartDemo.vue'
 const router = useRouter()
