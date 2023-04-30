@@ -43,7 +43,10 @@ const reports = [
 
   // { id: 100, name: 'sankey', code: 'odoojs.echarts.sankey,report' },
   // { id: 101, name: 'sankey vertical', code: 'odoojs.echarts.sankey,vertical' },
-  { id: 102, name: 'sankey rpt1', code: 'odoojs.echarts.sankey,rpt1' },
+  // { id: 102, name: 'sankey rpt1', code: 'odoojs.echarts.sankey,rpt1' },
+  { id: 110, name: 'funnel', code: 'odoojs.echarts.funnel,report' },
+  { id: 111, name: 'funnel compare', code: 'odoojs.echarts.funnel,compare' },
+  { id: 112, name: 'funnel rpt1', code: 'odoojs.echarts.funnel,rpt1' },
 
   { id: 99999999, name: 'Default Demo', code: 'odoojs.echarts,demo' }
 ]
