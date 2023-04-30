@@ -65,20 +65,6 @@ export default function useChart(
   // echart实例
   let chartInstance = null
 
-  // dynamic rank bar 动态排序柱状图 需要
-  const timers = ref([])
-  function stop_timers() {
-    timers.value.forEach(item => {
-      clearInterval(item)
-    })
-
-    timers.value = []
-  }
-
-  function start_timer(timer) {
-    timers.value.push(timer)
-  }
-
   // 初始化echart
   function initCharts() {
     const el = unref(elRef)
@@ -89,51 +75,18 @@ export default function useChart(
   }
 
   function setDynamicBar(option, dataset) {
-    const currentValue = ref(0)
-
-    function update(dataset, dynamic_datas) {
-      if (dynamic_datas.length <= currentValue.value) {
-        stop_timers()
-        return
-      }
-
-      const { dimensions, source: dataSource } = dataset
-
-      const [fix_dimesion, measure, dynamic_dimesion] = dimensions
-      const filter_val = dynamic_datas[currentValue.value]
-      currentValue.value += 1
-
-      const dataSource_one = dataSource.reduce((acc, one) => {
-        if (one[dynamic_dimesion] <= filter_val) {
-          const old = acc.find(item => item[fix_dimesion] === one[fix_dimesion])
-
-          if (old) {
-            old[measure] += one[measure]
-          } else {
-            acc.push({
-              [fix_dimesion]: one[fix_dimesion],
-              [measure]: one[measure]
-            })
-          }
-        }
-
-        return acc
-      }, [])
-
-      optionRef.value.series[0].name = filter_val
-
-      const dataset2 = {
-        dimensions: [fix_dimesion, measure],
-        source: dataSource_one
-      }
-
-      setDataset(dataset2)
+    function sleep_delay(millisecond) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve()
+        }, millisecond)
+      })
     }
 
     const { dimensions, source: dataSource } = dataset
 
     const delay = option.odoojs_echarts_type.delay
-    const dynamic_dimesion = dimensions[2]
+    const [fix_dimesion, measure, dynamic_dimesion] = dimensions
 
     const dynamic_datas = dataSource.reduce((acc, one) => {
       if (!acc.includes(one[dynamic_dimesion])) {
@@ -144,56 +97,79 @@ export default function useChart(
 
     dynamic_datas.sort()
 
-    setOption(option)
-    update(dataset, dynamic_datas)
-    const timer = setInterval(function () {
-      console.log(timer, currentValue.value)
-      update(dataset, dynamic_datas)
-    }, delay)
+    async function run() {
+      for (const filter_val of dynamic_datas) {
+        const dataSource_one = dataSource.reduce((acc, one) => {
+          if (one[dynamic_dimesion] <= filter_val) {
+            const old = acc.find(
+              item => item[fix_dimesion] === one[fix_dimesion]
+            )
 
-    start_timer(timer)
-  }
-
-  function setWaterfall(option, dataset) {
-    const { dimensions, source: dataSource } = dataset
-    const [fix_dimesion, measure] = dimensions
-
-    let sum = 0
-
-    const dataSource2 = dataSource.reduce((acc, item, index) => {
-      const amount = item[measure]
-
-      function get_help() {
-        if (!index) {
-          return 0
-        } else {
-          sum += dataSource[index - 1][measure]
-          if (amount < 0) {
-            return sum + amount
-          } else {
-            return sum
+            if (old) {
+              old[measure] += one[measure]
+            } else {
+              acc.push({
+                [fix_dimesion]: one[fix_dimesion],
+                [measure]: one[measure]
+              })
+            }
           }
+
+          return acc
+        }, [])
+
+        optionRef.value.series[0].name = filter_val
+
+        const dataset2 = {
+          dimensions: [fix_dimesion, measure],
+          source: dataSource_one
         }
+
+        await sleep_delay(delay)
+
+        setDataset(dataset2)
       }
-
-      acc.push({
-        [fix_dimesion]: item[fix_dimesion],
-        help: get_help(),
-        positive: amount >= 0 ? amount : '-',
-        negative: amount < 0 ? -amount : '-'
-      })
-
-      return acc
-    }, [])
-
-    // console.log(dataSource, dataSource2)
-    const dataset2 = {
-      dimensions: [fix_dimesion, 'help', 'positive', 'negative'],
-      source: dataSource2
     }
 
     setOption(option)
-    setDataset(dataset2)
+    run()
+  }
+
+  function setWaterfall(option, dataset) {
+    // const { dimensions, source: dataSource } = dataset
+    // const [fix_dimesion, measure] = dimensions
+    // let sum = 0
+    // const dataSource2 = dataSource.reduce((acc, item, index) => {
+    //   const amount = item[measure]
+    //   function get_help() {
+    //     if (!index) {
+    //       return 0
+    //     } else {
+    //       sum += dataSource[index - 1][measure]
+    //       if (amount < 0) {
+    //         return sum + amount
+    //       } else {
+    //         return sum
+    //       }
+    //     }
+    //   }
+    //   acc.push({
+    //     [fix_dimesion]: item[fix_dimesion],
+    //     help: get_help(),
+    //     positive: amount >= 0 ? amount : '-',
+    //     negative: amount < 0 ? -amount : '-'
+    //   })
+    //   return acc
+    // }, [])
+    // // console.log(dataSource, dataSource2)
+    // const dataset2 = {
+    //   dimensions: [fix_dimesion, 'help', 'positive', 'negative'],
+    //   source: dataSource2
+    // }
+    setOption(option)
+    setDataset(dataset)
+
+    console.log(option, dataset)
   }
 
   function setOdoojsEcharts(option, dataset) {
@@ -213,8 +189,6 @@ export default function useChart(
 
   async function resetEcharts(modelreport) {
     console.log(modelreport)
-
-    stop_timers()
 
     if (chartInstance) {
       chartInstance.dispose()
