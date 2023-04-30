@@ -26,12 +26,14 @@ const reports = [
   // },
   // { id: 127, name: 'gauge ring', code: 'odoojs.echarts.gauge,ring' },
 
-  { id: 130, name: 'pictorialbar', code: 'odoojs.echarts.pictorialbar,report' },
-  {
-    id: 131,
-    name: 'pictorialbar spirits',
-    code: 'odoojs.echarts.pictorialbar,spirits'
-  },
+  // { id: 130, name: 'pictorialbar', code: 'odoojs.echarts.pictorialbar,report' },
+  // {
+  //   id: 131,
+  //   name: 'pictorialbar spirits',
+  //   code: 'odoojs.echarts.pictorialbar,spirits'
+  // },
+  { id: 141, name: 'themeriver', code: 'odoojs.echarts.themeriver,report' },
+  { id: 142, name: 'themeriver 2', code: 'odoojs.echarts.themeriver,report2' },
 
   // { id: 30, name: 'Pie', code: 'odoojs.echarts.pie,report' },
   // { id: 31, name: 'Doughnut', code: 'odoojs.echarts.pie,doughnut' },
