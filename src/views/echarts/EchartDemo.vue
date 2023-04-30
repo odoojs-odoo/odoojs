@@ -15,7 +15,7 @@ import { onMounted, ref, nextTick } from 'vue'
 
 import useEchartsReport from '@/echart/useEchartsReport'
 
-import EchartsWidget from '@/components/EchartsWidget.vue'
+import EchartsWidget from './EchartsWidget.vue'
 
 const { getReports } = useEchartsReport()
 const reportsRef = ref([])

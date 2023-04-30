@@ -39,6 +39,16 @@ const homeRoutes = [
         component: () => import('@/views/home/error'),
         name: 'error'
       },
+      {
+        path: '/echarts/ctrl',
+        component: () => import('@/views/echarts/EchartsCtrl'),
+        name: '/echarts/ctrl'
+      },
+      {
+        path: '/echarts/examples',
+        component: () => import('@/views/echarts/EchartsExamples'),
+        name: '/echarts/examples'
+      },
       ...webRoutes
     ]
   }
@@ -55,7 +65,7 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   // console.log(to, from)
 
-  const whiteList = ['/user/login']
+  const whiteList = ['/user/login', '/echarts/examples', '/echarts/ctrl']
 
   if (whiteList.includes(to.path)) {
     next()

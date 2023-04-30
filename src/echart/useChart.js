@@ -126,7 +126,6 @@ export default function useChart(
         }
 
         await sleep_delay(delay)
-
         setDataset(dataset2)
       }
     }
@@ -209,10 +208,6 @@ export default function useChart(
         initCharts()
         if (!chartInstance) return
       }
-      // await sleep(10000)
-
-      chartInstance.clear()
-
       chartInstance.setOption(option)
       // hideLoading()
     })

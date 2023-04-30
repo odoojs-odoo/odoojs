@@ -8,7 +8,16 @@
       @change="onChangeTheme"
     />
   </div>
+  <div>=======</div>
+  <form>
+    model:
+    <input type="text" name="model" v-model="reportname.model" /><br />
+    report:
+    <input type="text" name="report" v-model="reportname.report" /><br />
+  </form>
 
+  <button @click="onSelectReport">submit</button>
+  <div>=======</div>
   <div>
     <a-dropdown>
       <template #overlay>
@@ -28,14 +37,7 @@
     </a-dropdown>
   </div>
 
-  <form>
-    model:
-    <input type="text" name="model" v-model="reportname.model" /><br />
-    report:
-    <input type="text" name="report" v-model="reportname.report" /><br />
-  </form>
-
-  <button @click="onSelectReport">submit</button>
+  <div>=======</div>
 
   <div ref="chartEl" :style="{ width: `600px`, height: `300px` }"></div>
 </template>

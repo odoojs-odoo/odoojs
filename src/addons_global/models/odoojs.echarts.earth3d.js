@@ -7,20 +7,19 @@ function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
+const ROOT_PATH = process.env.VUE_APP_ECHARTS
+async function call_echarts_request(url) {
+  const api = HttpRequest
+  api.baseURL = ROOT_PATH
+  return api.call(url)
+}
+
 export class ExtendModel extends Model {
   constructor(...args) {
     super(...args)
   }
 
   static async echart_run_report(myChart) {
-    // const api = HttpRequest
-    const ROOT_PATH = '/echarts-examples'
-    // const url = '/data/asset/data/life-expectancy-table.json'
-
-    // api.baseURL = ROOT_PATH
-    // const _rawData = await api.call(url)
-    // console.log(res)
-
     const option = {
       backgroundColor: '#000',
       globe: {

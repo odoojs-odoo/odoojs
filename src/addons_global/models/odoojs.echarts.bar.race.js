@@ -50,9 +50,7 @@ export class ExtendModel extends Model {
 
       toolbox: { feature: { saveAsImage: {} } },
 
-      xAxis: {
-        max: 'dataMax'
-      },
+      xAxis: { max: 'dataMax' },
       yAxis: {
         type: 'category',
         inverse: true,
@@ -70,11 +68,7 @@ export class ExtendModel extends Model {
               return countryColors[param.value.product] || '#5470c6'
             }
           },
-          label: {
-            show: true,
-            position: 'right',
-            valueAnimation: true
-          }
+          label: { show: true, position: 'right', valueAnimation: true }
         }
       ],
       legend: {

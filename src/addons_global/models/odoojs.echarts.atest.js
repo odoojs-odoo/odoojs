@@ -3,18 +3,22 @@ import * as echarts from 'echarts/core'
 
 import { HttpRequest } from '@/odoojs-rpc/request'
 
+const ROOT_PATH = process.env.VUE_APP_ECHARTS
+async function call_echarts_request(url) {
+  const api = HttpRequest
+  api.baseURL = ROOT_PATH
+  return api.call(url)
+}
+
 export class ExtendModel extends Model {
   constructor(...args) {
     super(...args)
   }
 
   static async echart_run_report(myChart) {
-    const api = HttpRequest
-    const ROOT_PATH = '/echarts-examples'
     const url = '/data/asset/geo/Sicily_prehellenic_topographic_map.svg'
+    const _rawData = await call_echarts_request(url)
 
-    api.baseURL = ROOT_PATH
-    const _rawData = await api.call(url)
     // console.log(_rawData)
 
     run(_rawData)

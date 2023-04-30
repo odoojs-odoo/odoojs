@@ -2,6 +2,12 @@ import { Model } from '@/odoorpc/models'
 import * as echarts from 'echarts/core'
 
 import { HttpRequest } from '@/odoojs-rpc/request'
+const ROOT_PATH = process.env.VUE_APP_ECHARTS
+async function call_echarts_request(url) {
+  const api = HttpRequest
+  api.baseURL = ROOT_PATH
+  return api.call(url)
+}
 
 export class ExtendModel extends Model {
   constructor(...args) {
@@ -9,12 +15,8 @@ export class ExtendModel extends Model {
   }
 
   static async echart_run_report(myChart) {
-    const api = HttpRequest
-    const ROOT_PATH = '/echarts-examples'
     const url = '/data/asset/data/life-expectancy-table.json'
-
-    api.baseURL = ROOT_PATH
-    const _rawData = await api.call(url)
+    const _rawData = await call_echarts_request(url)
     // console.log(res)
 
     run(_rawData)
