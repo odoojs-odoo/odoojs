@@ -4,6 +4,35 @@ const reports = [
   // { id: 3, name: 'Waterfall', code: 'odoojs.echarts.waterfall,report' },
   // { id: 80, name: 'Lines Map', code: 'odoojs.echarts.lines.map,report' },
   // { id: 9, name: 'SO Report', code: 'sale.order,report' },
+
+  { id: 4, name: 'dottedbar', code: 'odoojs.echarts.dottedbar,report' },
+
+  // { id: 120, name: 'gauge', code: 'odoojs.echarts.gauge,report' },
+  // { id: 121, name: 'gauge progress', code: 'odoojs.echarts.gauge,progress' },
+  // { id: 122, name: 'gauge progress1', code: 'odoojs.echarts.gauge,progress1' },
+  // { id: 123, name: 'gauge speed', code: 'odoojs.echarts.gauge,speed' },
+
+  // {
+  //   id: 124,
+  //   name: 'gauge speed_stage',
+  //   code: 'odoojs.echarts.gauge,speed_stage'
+  // },
+
+  // { id: 125, name: 'gauge grade', code: 'odoojs.echarts.gauge,grade' },
+  // {
+  //   id: 126,
+  //   name: 'gauge muiti_title',
+  //   code: 'odoojs.echarts.gauge,muiti_title'
+  // },
+  // { id: 127, name: 'gauge ring', code: 'odoojs.echarts.gauge,ring' },
+
+  { id: 130, name: 'pictorialbar', code: 'odoojs.echarts.pictorialbar,report' },
+  {
+    id: 131,
+    name: 'pictorialbar spirits',
+    code: 'odoojs.echarts.pictorialbar,spirits'
+  },
+
   // { id: 30, name: 'Pie', code: 'odoojs.echarts.pie,report' },
   // { id: 31, name: 'Doughnut', code: 'odoojs.echarts.pie,doughnut' },
   // { id: 31, name: 'Half Doughnut', code: 'odoojs.echarts.pie,half_doughnut' },
@@ -44,9 +73,9 @@ const reports = [
   // { id: 100, name: 'sankey', code: 'odoojs.echarts.sankey,report' },
   // { id: 101, name: 'sankey vertical', code: 'odoojs.echarts.sankey,vertical' },
   // { id: 102, name: 'sankey rpt1', code: 'odoojs.echarts.sankey,rpt1' },
-  { id: 110, name: 'funnel', code: 'odoojs.echarts.funnel,report' },
-  { id: 111, name: 'funnel compare', code: 'odoojs.echarts.funnel,compare' },
-  { id: 112, name: 'funnel rpt1', code: 'odoojs.echarts.funnel,rpt1' },
+  // { id: 110, name: 'funnel', code: 'odoojs.echarts.funnel,report' },
+  // { id: 111, name: 'funnel compare', code: 'odoojs.echarts.funnel,compare' },
+  // { id: 112, name: 'funnel rpt1', code: 'odoojs.echarts.funnel,rpt1' },
 
   { id: 99999999, name: 'Default Demo', code: 'odoojs.echarts,demo' }
 ]
