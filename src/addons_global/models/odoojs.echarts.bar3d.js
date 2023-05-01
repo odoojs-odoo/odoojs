@@ -23,7 +23,6 @@ export class ExtendModel extends Model {
   static async echart_run_report(myChart) {
     const url = '/data/asset/data/life-expectancy-table.json'
     const data = await call_echarts_request(url)
-    console.log(data)
     const option = {
       grid3D: {},
       tooltip: {},

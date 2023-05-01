@@ -3,6 +3,8 @@ import * as echarts from 'echarts/core'
 import {
   BarChart,
   LineChart,
+  TreeChart,
+  TreemapChart,
   LinesChart,
   EffectScatterChart,
   PieChart,
@@ -52,6 +54,8 @@ echarts.use([
   ThemeRiverChart,
   BarChart,
   LineChart,
+  TreeChart,
+  TreemapChart,
   LinesChart,
   EffectScatterChart,
   HeatmapChart,
