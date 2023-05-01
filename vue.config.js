@@ -24,16 +24,6 @@ module.exports = defineConfig({
             //对路径匹配到的字符串重写
             ['^' + process.env.VUE_APP_BASE_API]: ''
           }
-        },
-
-        [process.env.VUE_APP_ECHARTS]: {
-          target: process.env.VUE_APP_ECHARTS_DEV_SERVER_PROXY_TARGET, //代理的api地址，就是要跨域的地址
-          changeOrigin: true, // 这个参数可以让target参数是域名
-          // ws: true, //是否启用websockets，用不到可设为false
-          pathRewrite: {
-            //对路径匹配到的字符串重写
-            ['^' + process.env.VUE_APP_ECHARTS]: ''
-          }
         }
       }
     }

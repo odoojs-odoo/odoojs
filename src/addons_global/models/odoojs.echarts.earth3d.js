@@ -7,11 +7,11 @@ function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-const ROOT_PATH = process.env.VUE_APP_ECHARTS
+const ROOT_PATH = '/echarts/examples'
 async function call_echarts_request(url) {
   const api = HttpRequest
   api.baseURL = ROOT_PATH
-  return api.call(url)
+  return api.call_get(url)
 }
 
 export class ExtendModel extends Model {

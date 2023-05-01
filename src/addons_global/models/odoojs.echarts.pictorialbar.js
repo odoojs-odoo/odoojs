@@ -4,6 +4,8 @@ function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
+const ROOT_PATH = '/echarts/examples'
+
 export class ExtendModel extends Model {
   constructor(...args) {
     super(...args)
@@ -60,8 +62,7 @@ export class ExtendModel extends Model {
             {
               value: 8844,
               symbol:
-                'image://' +
-                'https://echarts.apache.org/examples/data/asset/img/hill-Qomolangma.png',
+                'image://' + ROOT_PATH + '/data/asset/img/hill-Qomolangma.png',
               symbolSize: ['200%', '105%'],
               symbolPosition: 'end',
               z: 10
@@ -69,8 +70,7 @@ export class ExtendModel extends Model {
             {
               value: 5895,
               symbol:
-                'image://' +
-                'https://echarts.apache.org/examples/data/asset/img/hill-Kilimanjaro.png',
+                'image://' + ROOT_PATH + '/data/asset/img/hill-Kilimanjaro.png',
               symbolSize: ['200%', '105%'],
               symbolPosition: 'end'
             }

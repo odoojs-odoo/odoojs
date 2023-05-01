@@ -2,11 +2,11 @@ import { Model } from '@/odoorpc/models'
 import * as echarts from 'echarts/core'
 
 import { HttpRequest } from '@/odoojs-rpc/request'
-const ROOT_PATH = process.env.VUE_APP_ECHARTS
+const ROOT_PATH = '/echarts/examples'
 async function call_echarts_request(url) {
   const api = HttpRequest
   api.baseURL = ROOT_PATH
-  return api.call(url)
+  return api.call_get(url)
 }
 
 export class ExtendModel extends Model {
