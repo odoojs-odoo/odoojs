@@ -7,7 +7,12 @@ const reports = [
   // { id: 3, name: 'Bar Race', code: 'odoojs.echarts.bar.race,report' },
   // { id: 3, name: 'Waterfall', code: 'odoojs.echarts.waterfall,report' },
   // { id: 4, name: 'dottedbar', code: 'odoojs.echarts.dottedbar,report' },
-  // { id: 5, name: 'earth3d', code: 'odoojs.echarts.earth3d,report' },
+
+  // { id: 300, name: 'earth3d', code: 'odoojs.echarts.earth3d,report' },
+  // { id: 300, name: 'earth3d 2', code: 'odoojs.echarts.earth3d,report2' },
+  // { id: 300, name: 'earth3d 3', code: 'odoojs.echarts.earth3d,report3' },
+  { id: 300, name: 'earth3d 4', code: 'odoojs.echarts.earth3d,report4' },
+  // { id: 300, name: 'earth3d 5', code: 'odoojs.echarts.earth3d,report5' },
 
   // { id: 120, name: 'gauge', code: 'odoojs.echarts.gauge,report' },
   // { id: 121, name: 'gauge progress', code: 'odoojs.echarts.gauge,progress' },
@@ -113,7 +118,9 @@ const reports = [
   // { id: 206, name: 'tree 4', code: 'odoojs.echarts.tree,report6' },
   // { id: 207, name: 'tree 4', code: 'odoojs.echarts.tree,report7' },
 
-  { id: 210, name: 'treemap', code: 'odoojs.echarts.treemap,report' },
+  // { id: 210, name: 'treemap', code: 'odoojs.echarts.treemap,report' },
+  // { id: 210, name: 'treemap 2', code: 'odoojs.echarts.treemap,report2' },
+  // { id: 203, name: 'treemap 3', code: 'odoojs.echarts.treemap,report3' },
 
   { id: 99999999, name: 'Default Demo', code: 'odoojs.echarts,demo' }
 ]
