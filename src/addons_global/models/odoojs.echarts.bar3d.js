@@ -7,7 +7,7 @@ function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-const ROOT_PATH = '/echarts/examples'
+const ROOT_PATH = 'echarts/examples'
 
 async function call_echarts_request(url) {
   const api = HttpRequest

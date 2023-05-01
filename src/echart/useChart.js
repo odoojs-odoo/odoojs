@@ -124,8 +124,8 @@ export default function useChart(
           dimensions: [fix_dimesion, measure],
           source: dataSource_one
         }
-
         await sleep_delay(delay)
+
         setDataset(dataset2)
       }
     }

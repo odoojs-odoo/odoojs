@@ -17,8 +17,8 @@ export class ExtendModel extends Model {
       xAxis: { type: 'category' },
       yAxis: {},
       series: [
-        { name: 'amount', type: 'bar' },
-        { name: 'tax', type: 'bar' },
+        { name: 'amount', type: 'line' },
+        { name: 'tax', type: 'line' },
         { name: 'total', type: 'line' }
       ]
     }

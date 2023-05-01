@@ -4,7 +4,7 @@ function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-const ROOT_PATH = '/echarts/examples'
+const ROOT_PATH = 'echarts/examples'
 
 export class ExtendModel extends Model {
   constructor(...args) {

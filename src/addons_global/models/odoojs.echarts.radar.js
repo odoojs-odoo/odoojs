@@ -16,12 +16,12 @@ export class ExtendModel extends Model {
       radar: {
         // shape: 'circle',
         indicator: [
-          { name: 'Sales', max: 6500 },
-          { name: 'Administration', max: 16000 },
-          { name: 'Information Technology', max: 30000 },
-          { name: 'Customer Support', max: 38000 },
-          { name: 'Development', max: 52000 },
-          { name: 'Marketing', max: 25000 }
+          { name: 'Sales' },
+          { name: 'Administration' },
+          { name: 'Information Technology' },
+          { name: 'Customer Support' },
+          { name: 'Development' },
+          { name: 'Marketing' }
         ]
       },
       series: [
@@ -187,12 +187,12 @@ export class ExtendModel extends Model {
       },
       radar: {
         indicator: [
-          { name: 'AQI', max: 300 },
-          { name: 'PM2.5', max: 250 },
-          { name: 'PM10', max: 300 },
-          { name: 'CO', max: 5 },
-          { name: 'NO2', max: 200 },
-          { name: 'SO2', max: 100 }
+          { name: 'AQI' },
+          { name: 'PM2.5' },
+          { name: 'PM10' },
+          { name: 'CO' },
+          { name: 'NO2' },
+          { name: 'SO2' }
         ],
         shape: 'circle',
         splitNumber: 5,
@@ -283,11 +283,11 @@ export class ExtendModel extends Model {
       },
       radar: {
         indicator: [
-          { text: 'IE8-', max: 400 },
-          { text: 'IE9+', max: 400 },
-          { text: 'Safari', max: 400 },
-          { text: 'Firefox', max: 400 },
-          { text: 'Chrome', max: 400 }
+          { name: 'IE8-' },
+          { name: 'IE9+' },
+          { name: 'Safari' },
+          { name: 'Firefox' },
+          { name: 'Chrome' }
         ]
       },
       series: (function () {

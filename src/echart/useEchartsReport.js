@@ -3,9 +3,7 @@ const reports = [
   // { id: 5, name: 'earth3d', code: 'odoojs.echarts.test,report' },
   //  up no
   //
-  // { id: 2, name: 'Line Race', code: 'odoojs.echarts.line.race,report' },
-  //  up error
-  //
+
   { id: 3, name: 'Bar Race', code: 'odoojs.echarts.bar.race,report' },
   { id: 3, name: 'Waterfall', code: 'odoojs.echarts.waterfall,report' },
   { id: 4, name: 'dottedbar', code: 'odoojs.echarts.dottedbar,report' },
@@ -70,6 +68,7 @@ const reports = [
   { id: 10, name: 'Bar', code: 'odoojs.echarts.bar,report' },
   { id: 11, name: 'Bar Neg', code: 'odoojs.echarts.bar,neg' },
   { id: 12, name: 'Bar Radial', code: 'odoojs.echarts.bar,radial' },
+  { id: 2, name: 'Line Race', code: 'odoojs.echarts.line.race,report' },
 
   { id: 21, name: 'Line', code: 'odoojs.echarts.line,report' },
   { id: 22, name: 'Line Stack', code: 'odoojs.echarts.line,stack' },
@@ -85,11 +84,12 @@ const reports = [
 
   { id: 40, name: 'Scatter', code: 'odoojs.echarts.scatter,report' },
   { id: 41, name: 'Bubble', code: 'odoojs.echarts.scatter,bubble' },
+
   { id: 50, name: 'Radar', code: 'odoojs.echarts.radar,report' },
   { id: 51, name: 'AQI', code: 'odoojs.echarts.radar,aqi' },
   { id: 51, name: 'Browser', code: 'odoojs.echarts.radar,browser' },
-  { id: 60, name: 'Heatmap', code: 'odoojs.echarts.heatmap,report' },
 
+  { id: 60, name: 'Heatmap', code: 'odoojs.echarts.heatmap,report' },
   { id: 70, name: 'Graph', code: 'odoojs.echarts.graph,report' },
   { id: 71, name: 'Graph Cartesian', code: 'odoojs.echarts.graph,cartesian' },
 

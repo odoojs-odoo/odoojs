@@ -3,7 +3,7 @@ import { Model } from '@/odoorpc/models'
 
 // import { HttpRequest } from '@/odoojs-rpc/request'
 
-const ROOT_PATH = '/echarts/examples'
+const ROOT_PATH = 'echarts/examples'
 // async function call_echarts_request(url) {
 //   const api = HttpRequest
 //   api.baseURL = ROOT_PATH

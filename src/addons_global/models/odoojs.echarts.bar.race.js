@@ -43,10 +43,7 @@ export class ExtendModel extends Model {
 
     const delay = 1000
     return {
-      odoojs_echarts_type: {
-        name: 'bar_race',
-        delay
-      },
+      odoojs_echarts_type: { name: 'bar_race', delay },
 
       toolbox: { feature: { saveAsImage: {} } },
 
