@@ -31,7 +31,7 @@ export function useMenuController({ router }) {
 
   function onMenuSelect(menu) {
     const currentRoute = router.currentRoute.value
-    // console.log(menu, currentRoute)
+    console.log(menu, currentRoute)
 
     if (menu in no_web_menus) {
       if (currentRoute.name === menu) {
@@ -46,13 +46,26 @@ export function useMenuController({ router }) {
   }
 
   function webMenuSelect(name) {
-    console.log(name)
     const menu = menus_data.value[name]
-    console.log(name, menu, menus_data.value)
-    const action_id = menu.action || name
-    console.log('action_id', action_id)
+    // console.log(name, menu, menus_data.value)
+    if (menu.router) {
+      return routerMenuSelect(menu)
+    } else {
+      return actionMenuSelect(menu)
+    }
+  }
+
+  function routerMenuSelect(menu) {
+    // console.log(menu, menus_data.value)
+    const { path, action } = menu
+    router.push({ path, query: { action } })
+  }
+
+  function actionMenuSelect(menu) {
+    const action_id = menu.action
+    // console.log('action_id', action_id)
     const action = api.env.action_info_get(action_id)
-    console.log('action_id2', action)
+    // console.log('action_id2', action)
 
     if (!action) {
       return
@@ -70,7 +83,7 @@ export function useMenuController({ router }) {
 
     const xml_id = action.xml_id
     const path = ['', 'web', ...xml_id.split('.')].join('/')
-    const query = { view_type: 'tree', menu: name }
+    const query = { view_type: 'tree', menu: menu.xml_id }
 
     const is_me =
       routeVal.path === path &&

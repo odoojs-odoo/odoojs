@@ -3,11 +3,11 @@
     <div>Home page</div>
     <div>-----</div>
     <a-button type="primary" @click="onEchartsCtrl">ECharts</a-button>
-
+    <!-- 
     <div>-----</div>
     <a-button type="primary" @click="onEchartsExamples">
       All Echarts Examples
-    </a-button>
+    </a-button> -->
     <div>-----</div>
 
     <a-button type="primary" @click="onLogout">注销再登录</a-button>
@@ -21,7 +21,6 @@
 import api from '@/odoorpc'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import TestChart2 from '../echarts/TestChart2.vue'
 
 const router = useRouter()
 

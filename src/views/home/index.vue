@@ -23,8 +23,8 @@
 
 <script>
 import api from '@/odoorpc'
-import TestChart from '@/components/TestChart.vue'
-import TestChart2 from '@/components/TestChart2.vue'
+// import TestChart from '@/components/TestChart.vue'
+// import TestChart2 from '@/components/TestChart2.vue'
 
 export default {
   name: 'HomePage',

@@ -11,15 +11,15 @@ export class ExtendModel extends Model {
 
   static async get_echart_option_report() {
     return {
-      title: { text: 'SO Report' },
+      title: { text: 'Bar' },
       tooltip: {},
 
       xAxis: { type: 'category' },
       yAxis: {},
       series: [
-        { name: 'amount', type: 'line' },
-        { name: 'tax', type: 'line' },
-        { name: 'total', type: 'line' }
+        { name: 'amount', type: 'bar' },
+        { name: 'tax', type: 'bar' },
+        { name: 'total', type: 'bar' }
       ]
     }
   }

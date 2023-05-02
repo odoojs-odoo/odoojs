@@ -25,5 +25,6 @@ export const menus_data_get = () => {
 export const menus_tree_get = () => {
   const local_tree = local_menus_tree
   const odoo_menus = odoo_menus_tree_get()
+  // console.log([...local_tree, ...odoo_menus])
   return [...local_tree, ...odoo_menus]
 }

@@ -4,130 +4,189 @@ const reports = [
   //  up no
   //
 
-  // { id: 3, name: 'Bar Race', code: 'odoojs.echarts.bar.race,report' },
-  // { id: 3, name: 'Waterfall', code: 'odoojs.echarts.waterfall,report' },
-  // { id: 4, name: 'dottedbar', code: 'odoojs.echarts.dottedbar,report' },
+  { type: 'bar', name: 'dottedbar', code: 'odoojs.echarts.dottedbar,report' },
+  { type: 'bar', name: 'Bar Race', code: 'odoojs.echarts.bar.race,report' },
+  { type: 'bar', name: 'Waterfall', code: 'odoojs.echarts.waterfall,report' },
+  { type: 'bar', name: 'Bar', code: 'odoojs.echarts.bar,report' },
+  { type: 'bar', name: 'Bar Neg', code: 'odoojs.echarts.bar,neg' },
+  { type: 'bar', name: 'Bar Radial', code: 'odoojs.echarts.bar,radial' },
 
-  // { id: 300, name: 'earth3d', code: 'odoojs.echarts.earth3d,report' },
-  // { id: 300, name: 'earth3d 2', code: 'odoojs.echarts.earth3d,report2' },
-  // { id: 300, name: 'earth3d 3', code: 'odoojs.echarts.earth3d,report3' },
-  { id: 300, name: 'earth3d 4', code: 'odoojs.echarts.earth3d,report4' },
-  // { id: 300, name: 'earth3d 5', code: 'odoojs.echarts.earth3d,report5' },
+  { type: 'globe', name: 'earth3d', code: 'odoojs.echarts.earth3d,report' },
+  { type: 'globe', name: 'earth3d 2', code: 'odoojs.echarts.earth3d,report2' },
+  { type: 'globe', name: 'earth3d 3', code: 'odoojs.echarts.earth3d,report3' },
+  { type: 'globe', name: 'earth3d 4', code: 'odoojs.echarts.earth3d,report4' },
+  { type: 'globe', name: 'earth3d 5', code: 'odoojs.echarts.earth3d,report5' },
 
-  // { id: 120, name: 'gauge', code: 'odoojs.echarts.gauge,report' },
-  // { id: 121, name: 'gauge progress', code: 'odoojs.echarts.gauge,progress' },
-  // { id: 122, name: 'gauge progress1', code: 'odoojs.echarts.gauge,progress1' },
-  // { id: 123, name: 'gauge speed', code: 'odoojs.echarts.gauge,speed' },
+  { type: 'line', name: 'Line Race', code: 'odoojs.echarts.line.race,report' },
 
-  // {
-  //   id: 124,
-  //   name: 'gauge speed_stage',
-  //   code: 'odoojs.echarts.gauge,speed_stage'
-  // },
+  { type: 'line', name: 'Line', code: 'odoojs.echarts.line,report' },
+  { type: 'line', name: 'Line Stack', code: 'odoojs.echarts.line,stack' },
+  { type: 'line', name: 'Line Area', code: 'odoojs.echarts.line,area' },
+  { type: 'line', name: 'Stack Area', code: 'odoojs.echarts.line,stack_area' },
+  {
+    type: 'line',
+    name: 'StackArea2',
+    code: 'odoojs.echarts.line,smooth_stack_area'
+  },
+  { type: 'line', name: 'Line Smooth', code: 'odoojs.echarts.line,smooth' },
+  { type: 'line', name: 'Line Step', code: 'odoojs.echarts.line,step' },
 
-  // { id: 125, name: 'gauge grade', code: 'odoojs.echarts.gauge,grade' },
-  // {
-  //   id: 126,
-  //   name: 'gauge muiti_title',
-  //   code: 'odoojs.echarts.gauge,muiti_title'
-  // },
-  // { id: 127, name: 'gauge ring', code: 'odoojs.echarts.gauge,ring' },
+  { type: 'gauge', name: 'gauge', code: 'odoojs.echarts.gauge,report' },
+  {
+    type: 'gauge',
+    name: 'gauge progress',
+    code: 'odoojs.echarts.gauge,progress'
+  },
+  {
+    type: 'gauge',
+    name: 'gauge progress1',
+    code: 'odoojs.echarts.gauge,progress1'
+  },
+  { type: 'gauge', name: 'gauge speed', code: 'odoojs.echarts.gauge,speed' },
 
-  // { id: 130, name: 'pictorialbar', code: 'odoojs.echarts.pictorialbar,report' },
-  // {
-  //   id: 131,
-  //   name: 'pictorialbar spirits',
-  //   code: 'odoojs.echarts.pictorialbar,spirits'
-  // },
-  // { id: 141, name: 'themeriver', code: 'odoojs.echarts.themeriver,report' },
-  // { id: 142, name: 'themeriver 2', code: 'odoojs.echarts.themeriver,report2' },
+  {
+    type: 'gauge',
+    name: 'gauge speed_stage',
+    code: 'odoojs.echarts.gauge,speed_stage'
+  },
 
-  // { id: 151, name: 'calendar', code: 'odoojs.echarts.calendar,report' },
-  // { id: 152, name: 'calendar 2', code: 'odoojs.echarts.calendar,report2' },
-  // { id: 153, name: 'calendar 3', code: 'odoojs.echarts.calendar,report3' },
-  // { id: 154, name: 'calendar 4', code: 'odoojs.echarts.calendar,report4' },
-  // { id: 155, name: 'calendar 5', code: 'odoojs.echarts.calendar,report5' },
-  // { id: 156, name: 'calendar 6', code: 'odoojs.echarts.calendar,report6' },
-  // { id: 157, name: 'calendar 7', code: 'odoojs.echarts.calendar,report7' },
-  // { id: 158, name: 'calendar 8', code: 'odoojs.echarts.calendar,report8' },
-  // { id: 154, name: 'calendar 4', code: 'odoojs.echarts.calendar,report4' },
+  { type: 'gauge', name: 'gauge grade', code: 'odoojs.echarts.gauge,grade' },
+  {
+    type: 'gauge',
+    name: 'gauge muiti_title',
+    code: 'odoojs.echarts.gauge,muiti_title'
+  },
+  { type: 'gauge', name: 'gauge ring', code: 'odoojs.echarts.gauge,ring' },
 
-  // { id: 161, name: 'bar3d', code: 'odoojs.echarts.bar3d,report' },
+  {
+    type: 'pictorialbar',
+    name: 'pictorialbar',
+    code: 'odoojs.echarts.pictorialbar,report'
+  },
+  {
+    type: 'pictorialbar',
+    name: 'pictorialbar spirits',
+    code: 'odoojs.echarts.pictorialbar,spirits'
+  },
+  {
+    type: 'themeriver',
+    name: 'themeriver',
+    code: 'odoojs.echarts.themeriver,report'
+  },
+  {
+    type: 'themeriver',
+    name: 'themeriver 2',
+    code: 'odoojs.echarts.themeriver,report2'
+  },
 
-  // { id: 171, name: 'geo', code: 'odoojs.echarts.geo,report' },
-  // { id: 172, name: 'beef', code: 'odoojs.echarts.geo,beef' },
-  // { id: 173, name: 'organ', code: 'odoojs.echarts.geo,organ' },
-  // { id: 174, name: 'flight', code: 'odoojs.echarts.geo,flight' },
-  // { id: 174, name: 'route', code: 'odoojs.echarts.geo,route' },
-  // { id: 174, name: 'iceland', code: 'odoojs.echarts.geo,iceland' },
-  // { id: 174, name: 'Traffic', code: 'odoojs.echarts.geo,traffic' },
-  // { id: 174, name: 'hk', code: 'odoojs.echarts.geo,hk' },
-  // { id: 174, name: 'usa', code: 'odoojs.echarts.geo,usa' },
+  { type: 'calendar', name: 'cal', code: 'odoojs.echarts.calendar,report' },
+  { type: 'calendar', name: 'cal 2', code: 'odoojs.echarts.calendar,report2' },
+  { type: 'calendar', name: 'cal 3', code: 'odoojs.echarts.calendar,report3' },
+  { type: 'calendar', name: 'cal 4', code: 'odoojs.echarts.calendar,report4' },
+  { type: 'calendar', name: 'cal 5', code: 'odoojs.echarts.calendar,report5' },
+  { type: 'calendar', name: 'cal 6', code: 'odoojs.echarts.calendar,report6' },
+  { type: 'calendar', name: 'cal 7', code: 'odoojs.echarts.calendar,report7' },
+  { type: 'calendar', name: 'cal8', code: 'odoojs.echarts.calendar,report8' },
 
-  // { id: 30, name: 'Pie', code: 'odoojs.echarts.pie,report' },
-  // { id: 31, name: 'Doughnut', code: 'odoojs.echarts.pie,doughnut' },
-  // { id: 31, name: 'Half Doughnut', code: 'odoojs.echarts.pie,half_doughnut' },
+  { type: 'bar3d', name: 'bar3d', code: 'odoojs.echarts.bar3d,report' },
 
-  // { id: 39, name: 'Pie Rose', code: 'odoojs.echarts.pie,rose' },
+  { type: 'geo', name: 'geo', code: 'odoojs.echarts.geo,report' },
+  { type: 'geo', name: 'beef', code: 'odoojs.echarts.geo,beef' },
+  { type: 'geo', name: 'organ', code: 'odoojs.echarts.geo,organ' },
+  { type: 'geo', name: 'flight', code: 'odoojs.echarts.geo,flight' },
+  { type: 'geo', name: 'route', code: 'odoojs.echarts.geo,route' },
+  { type: 'geo', name: 'iceland', code: 'odoojs.echarts.geo,iceland' },
+  { type: 'geo', name: 'Traffic', code: 'odoojs.echarts.geo,traffic' },
+  { type: 'geo', name: 'hk', code: 'odoojs.echarts.geo,hk' },
+  { type: 'geo', name: 'usa', code: 'odoojs.echarts.geo,usa' },
 
-  // { id: 10, name: 'Bar', code: 'odoojs.echarts.bar,report' },
-  // { id: 11, name: 'Bar Neg', code: 'odoojs.echarts.bar,neg' },
-  // { id: 12, name: 'Bar Radial', code: 'odoojs.echarts.bar,radial' },
-  // { id: 2, name: 'Line Race', code: 'odoojs.echarts.line.race,report' },
+  { type: 'pie', name: 'Pie', code: 'odoojs.echarts.pie,report' },
+  { type: 'pie', name: 'Doughnut', code: 'odoojs.echarts.pie,doughnut' },
+  {
+    type: 'pie',
+    name: 'Half Doughnut',
+    code: 'odoojs.echarts.pie,half_doughnut'
+  },
+  { type: 'pie', name: 'Pie Rose', code: 'odoojs.echarts.pie,rose' },
 
-  // { id: 21, name: 'Line', code: 'odoojs.echarts.line,report' },
-  // { id: 22, name: 'Line Stack', code: 'odoojs.echarts.line,stack' },
-  // { id: 23, name: 'Line Area', code: 'odoojs.echarts.line,area' },
-  // { id: 24, name: 'Stack Area', code: 'odoojs.echarts.line,stack_area' },
-  // {
-  //   id: 25,
-  //   name: 'Gradient Stacked Area',
-  //   code: 'odoojs.echarts.line,smooth_stack_area'
-  // },
-  // { id: 26, name: 'Line Smooth', code: 'odoojs.echarts.line,smooth' },
-  // { id: 27, name: 'Line Step', code: 'odoojs.echarts.line,step' },
+  { type: 'scatter', name: 'Scatter', code: 'odoojs.echarts.scatter,report' },
+  { type: 'scatter', name: 'Bubble', code: 'odoojs.echarts.scatter,bubble' },
 
-  // { id: 40, name: 'Scatter', code: 'odoojs.echarts.scatter,report' },
-  // { id: 41, name: 'Bubble', code: 'odoojs.echarts.scatter,bubble' },
+  { type: 'radar', name: 'Radar', code: 'odoojs.echarts.radar,report' },
+  { type: 'radar', name: 'AQI', code: 'odoojs.echarts.radar,aqi' },
+  { type: 'radar', name: 'Browser', code: 'odoojs.echarts.radar,browser' },
 
-  // { id: 50, name: 'Radar', code: 'odoojs.echarts.radar,report' },
-  // { id: 51, name: 'AQI', code: 'odoojs.echarts.radar,aqi' },
-  // { id: 51, name: 'Browser', code: 'odoojs.echarts.radar,browser' },
+  { type: 'heatmap', name: 'Heatmap', code: 'odoojs.echarts.heatmap,report' },
 
-  // { id: 60, name: 'Heatmap', code: 'odoojs.echarts.heatmap,report' },
-  // { id: 70, name: 'Graph', code: 'odoojs.echarts.graph,report' },
-  // { id: 71, name: 'Graph Cartesian', code: 'odoojs.echarts.graph,cartesian' },
+  { type: 'graph', name: 'Graph', code: 'odoojs.echarts.graph,report' },
+  {
+    type: 'graph',
+    name: 'Graph Cartesian',
+    code: 'odoojs.echarts.graph,cartesian'
+  },
 
-  // { id: 80, name: 'sunburst', code: 'odoojs.echarts.sunburst,report' },
-  // { id: 81, name: 'sunburst book', code: 'odoojs.echarts.sunburst,book' },
-  // { id: 90, name: 'parallel aqi', code: 'odoojs.echarts.parallel,report' },
-  // { id: 91, name: 'parallel aqi2', code: 'odoojs.echarts.parallel,aqi' },
+  {
+    type: 'sunburst',
+    name: 'sunburst',
+    code: 'odoojs.echarts.sunburst,report'
+  },
+  {
+    type: 'sunburst',
+    name: 'sunburst book',
+    code: 'odoojs.echarts.sunburst,book'
+  },
+  {
+    type: 'parallel',
+    name: 'parallel aqi',
+    code: 'odoojs.echarts.parallel,report'
+  },
+  {
+    type: 'parallel',
+    name: 'parallel aqi2',
+    code: 'odoojs.echarts.parallel,aqi'
+  },
 
-  // { id: 100, name: 'sankey', code: 'odoojs.echarts.sankey,report' },
-  // { id: 101, name: 'sankey vertical', code: 'odoojs.echarts.sankey,vertical' },
-  // { id: 102, name: 'sankey rpt1', code: 'odoojs.echarts.sankey,rpt1' },
-  // { id: 110, name: 'funnel', code: 'odoojs.echarts.funnel,report' },
-  // { id: 111, name: 'funnel compare', code: 'odoojs.echarts.funnel,compare' },
-  // { id: 112, name: 'funnel rpt1', code: 'odoojs.echarts.funnel,rpt1' },
+  { type: 'sankey', name: 'sankey', code: 'odoojs.echarts.sankey,report' },
+  {
+    type: 'sankey',
+    name: 'sankey vertical',
+    code: 'odoojs.echarts.sankey,vertical'
+  },
+  { type: 'sankey', name: 'sankey rpt1', code: 'odoojs.echarts.sankey,rpt1' },
+  { type: 'funnel', name: 'funnel', code: 'odoojs.echarts.funnel,report' },
+  {
+    type: 'funnel',
+    name: 'funnel compare',
+    code: 'odoojs.echarts.funnel,compare'
+  },
+  { type: 'funnel', name: 'funnel rpt1', code: 'odoojs.echarts.funnel,rpt1' },
 
-  // { id: 200, name: 'tree', code: 'odoojs.echarts.tree,report' },
-  // { id: 202, name: 'tree 2', code: 'odoojs.echarts.tree,report2' },
-  // { id: 203, name: 'tree 3', code: 'odoojs.echarts.tree,report3' },
-  // { id: 204, name: 'tree 4', code: 'odoojs.echarts.tree,report4' },
-  // { id: 205, name: 'tree 4', code: 'odoojs.echarts.tree,report5' },
-  // { id: 206, name: 'tree 4', code: 'odoojs.echarts.tree,report6' },
-  // { id: 207, name: 'tree 4', code: 'odoojs.echarts.tree,report7' },
+  { type: 'tree', name: 'tree', code: 'odoojs.echarts.tree,report' },
+  { type: 'tree', name: 'tree 2', code: 'odoojs.echarts.tree,report2' },
+  { type: 'tree', name: 'tree 3', code: 'odoojs.echarts.tree,report3' },
+  { type: 'tree', name: 'tree 4', code: 'odoojs.echarts.tree,report4' },
+  { type: 'tree', name: 'tree 4', code: 'odoojs.echarts.tree,report5' },
+  { type: 'tree', name: 'tree 4', code: 'odoojs.echarts.tree,report6' },
+  { type: 'tree', name: 'tree 4', code: 'odoojs.echarts.tree,report7' },
 
-  // { id: 210, name: 'treemap', code: 'odoojs.echarts.treemap,report' },
-  // { id: 210, name: 'treemap 2', code: 'odoojs.echarts.treemap,report2' },
-  // { id: 203, name: 'treemap 3', code: 'odoojs.echarts.treemap,report3' },
+  { type: 'treemap', name: 'treemap', code: 'odoojs.echarts.treemap,report' },
+  {
+    type: 'treemap',
+    name: 'treemap 2',
+    code: 'odoojs.echarts.treemap,report2'
+  },
+  {
+    type: 'treemap',
+    name: 'treemap 3',
+    code: 'odoojs.echarts.treemap,report3'
+  },
 
   { id: 99999999, name: 'Default Demo', code: 'odoojs.echarts,demo' }
 ]
 
 export default function useEchartsReport() {
-  async function getReports() {
-    return reports
+  async function getReports(type) {
+    return reports.filter(item => item.type === type)
   }
 
   return { getReports }

@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import EchartDemo from './EchartDemo.vue'
+import EchartDemo from './Components/EchartDemo.vue'
 </script>
 
 <style type="text/css"></style>
