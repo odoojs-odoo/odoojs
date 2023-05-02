@@ -1,16 +1,35 @@
-import { Model } from '@/odoorpc/models'
+import { EchartsBaseModel, call_echarts_request } from './odoojs.echarts.base'
 
 function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-export class ExtendModel extends Model {
+export class ExtendModel extends EchartsBaseModel {
   constructor(...args) {
     super(...args)
   }
 
-  static async get_echart_option_report() {
+  static async echart_run_report(myChart) {
+    const products = [
+      'Search Engine',
+      'Direct',
+      'Email',
+      'Union Ads',
+      'Video Ads'
+    ]
+
+    const source = products.map(product => {
+      const amount = randInt()
+      return { name: product, value: amount }
+    })
+
+    const dataset = {
+      dimensions: ['name', 'value'],
+      source
+    }
+
     const option = {
+      dataset,
       title: {
         text: 'Referer of a Website',
         subtext: 'Fake Data',
@@ -40,14 +59,10 @@ export class ExtendModel extends Model {
         }
       ]
     }
-    return option
-    // {
-    //   title: { text: 'Pie' },
-    //   series: [{ type: 'pie' }]
-    // }
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report() {
+  static async echart_run_doughnut(myChart) {
     const products = [
       'Search Engine',
       'Direct',
@@ -58,17 +73,16 @@ export class ExtendModel extends Model {
 
     const source = products.map(product => {
       const amount = randInt()
-      return { name: product, value: amount }
+      return { product, amount }
     })
 
-    return {
-      dimensions: ['name', 'value'],
+    const dataset = {
+      dimensions: ['product', 'amount'],
       source
     }
-  }
 
-  static async get_echart_option_doughnut() {
     const option = {
+      dataset,
       tooltip: { trigger: 'item' },
       legend: { top: '5%', left: 'center' },
       series: [
@@ -85,30 +99,10 @@ export class ExtendModel extends Model {
       ]
     }
 
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_doughnut() {
-    const products = [
-      'Search Engine',
-      'Direct',
-      'Email',
-      'Union Ads',
-      'Video Ads'
-    ]
-
-    const source = products.map(product => {
-      const amount = randInt()
-      return { product, amount }
-    })
-
-    return {
-      dimensions: ['product', 'amount'],
-      source
-    }
-  }
-
-  static async get_echart_option_half_doughnut() {
+  static async echart_run_half_doughnut(myChart) {
     const option = {
       tooltip: { trigger: 'item' },
       legend: {
@@ -157,58 +151,24 @@ export class ExtendModel extends Model {
       ]
     }
 
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_half_doughnut() {
-    // const products = [
-    //   'Search Engine',
-    //   'Direct',
-    //   'Email',
-    //   'Union Ads',
-    //   'Video Ads'
-    // ]
+  static async echart_run_rose(myChart) {
+    const products = ['A', 'B', 'C', 'D', 'E']
 
-    // const source = products.map(product => {
-    //   const amount = randInt()
-    //   return { product, amount }
-    // })
+    const source = products.map(product => {
+      const amount = randInt()
+      return { product, amount }
+    })
 
-    // return {
-    //   dimensions: ['product', 'amount'],
-    //   source
-    // }
-
-    const source = [
-      { value: 1048, name: 'Search Engine' },
-      { value: 735, name: 'Direct' },
-      { value: 580, name: 'Email' },
-      { value: 484, name: 'Union Ads' },
-      { value: 300, name: 'Video Ads' },
-      {
-        // make an record to fill the bottom 50%
-        value: 1048 + 735 + 580 + 484 + 300,
-        itemStyle: {
-          // stop the chart from rendering this piece
-          color: 'none',
-          decal: {
-            symbol: 'none'
-          }
-        },
-        label: {
-          show: false
-        }
-      }
-    ]
-
-    return {
-      // dimensions: ['name', 'value', 'itemStyle', 'label'],
-      // source
+    const dataset = {
+      dimensions: ['product', 'amount'],
+      source
     }
-  }
 
-  static async get_echart_option_rose() {
     const option = {
+      dataset,
       legend: { top: 'bottom' },
       toolbox: {
         show: true,
@@ -241,41 +201,7 @@ export class ExtendModel extends Model {
       ]
     }
 
-    return option
-  }
-
-  static async get_echart_data_rose() {
-    const products = ['A', 'B', 'C', 'D', 'E']
-
-    const source = products.map(product => {
-      const amount = randInt()
-      return { product, amount }
-    })
-
-    return {
-      dimensions: ['product', 'amount'],
-      source
-    }
-  }
-
-  static async get_echart_option(report) {
-    const maps = {
-      report: 'get_echart_option_report',
-      doughnut: 'get_echart_option_doughnut',
-      half_doughnut: 'get_echart_option_half_doughnut',
-      rose: 'get_echart_option_rose'
-    }
-    return this[maps[report]]()
-  }
-
-  static async get_echart_data(report) {
-    const maps = {
-      report: 'get_echart_data_report',
-      doughnut: 'get_echart_data_doughnut',
-      half_doughnut: 'get_echart_data_half_doughnut',
-      rose: 'get_echart_data_rose'
-    }
-    return this[maps[report]]()
+    myChart.setOption(option)
   }
 }
 

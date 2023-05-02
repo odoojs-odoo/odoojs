@@ -1,24 +1,37 @@
-import { Model } from '@/odoorpc/models'
+import { EchartsBaseModel, call_echarts_request } from './odoojs.echarts.base'
 
 function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-export class ExtendModel extends Model {
+export class ExtendModel extends EchartsBaseModel {
   constructor(...args) {
     super(...args)
   }
 
-  static async get_echart_option_report() {
-    return {
+  static async echart_run_report(myChart) {
+    const products = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+    const source = products.map(product => {
+      const amount = randInt()
+      return { product, amount }
+    })
+
+    const option = {
+      dataset: {
+        dimensions: ['product', 'amount'],
+        source
+      },
+
       title: { text: 'Line' },
       xAxis: { type: 'category' },
       yAxis: { type: 'value' },
       series: [{ type: 'line' }]
     }
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report() {
+  static async echart_run_smooth(myChart) {
     const products = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
     const source = products.map(product => {
@@ -26,36 +39,36 @@ export class ExtendModel extends Model {
       return { product, amount }
     })
 
-    return {
-      dimensions: ['product', 'amount'],
-      source
-    }
-  }
+    const option = {
+      dataset: {
+        dimensions: ['product', 'amount'],
+        source
+      },
 
-  static async get_echart_option_smooth() {
-    return {
       title: { text: 'Line Smooth' },
       xAxis: { type: 'category' },
       yAxis: { type: 'value' },
       series: [{ type: 'line', smooth: true }]
     }
+
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_smooth() {
-    const products = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  static async echart_run_area(myChart) {
+    const products = ['A', 'B', 'C', 'D', 'E']
 
     const source = products.map(product => {
       const amount = randInt()
-      return { product, amount }
+      const tax = randInt()
+      return { product, amount, tax }
     })
 
-    return {
-      dimensions: ['product', 'amount'],
-      source
-    }
-  }
-  static async get_echart_option_area() {
-    return {
+    const option = {
+      dataset: {
+        dimensions: ['product', 'amount', 'tax'],
+        source
+      },
+
       title: { text: 'Line Area' },
       xAxis: { type: 'category' },
       yAxis: {},
@@ -64,9 +77,11 @@ export class ExtendModel extends Model {
         { type: 'line', areaStyle: { color: '#ff0', opacity: 0.5 } }
       ]
     }
+
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_area() {
+  static async echart_run_stack(myChart) {
     const products = ['A', 'B', 'C', 'D', 'E']
 
     const source = products.map(product => {
@@ -75,14 +90,11 @@ export class ExtendModel extends Model {
       return { product, amount, tax }
     })
 
-    return {
-      dimensions: ['product', 'amount', 'tax'],
-      source
-    }
-  }
-
-  static async get_echart_option_stack() {
-    return {
+    const option = {
+      dataset: {
+        dimensions: ['product', 'amount', 'tax'],
+        source
+      },
       title: { text: 'Line Stack' },
       xAxis: { type: 'category' },
       yAxis: {},
@@ -91,25 +103,28 @@ export class ExtendModel extends Model {
         { type: 'line', stack: 'x' }
       ]
     }
+
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_stack() {
-    const products = ['A', 'B', 'C', 'D', 'E']
+  static async echart_run_stack_area(myChart) {
+    const products = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    const types = ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
 
     const source = products.map(product => {
-      const amount = randInt()
-      const tax = randInt()
-      return { product, amount, tax }
+      const subs = types.reduce((acc, type) => {
+        acc[type] = randInt()
+        return acc
+      }, {})
+      return { product, ...subs }
     })
-
-    return {
-      dimensions: ['product', 'amount', 'tax'],
+    const dataset = {
+      dimensions: ['product', ...types],
       source
     }
-  }
 
-  static async get_echart_option_stack_area() {
-    return {
+    const option = {
+      dataset,
       title: { text: 'Stacked Area Chart' },
       tooltip: {
         trigger: 'axis',
@@ -174,9 +189,11 @@ export class ExtendModel extends Model {
         }
       ]
     }
+
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_stack_area() {
+  static async echart_run_smooth_stack_area(myChart) {
     const products = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
     const types = ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
 
@@ -188,14 +205,12 @@ export class ExtendModel extends Model {
       return { product, ...subs }
     })
 
-    return {
+    const dataset = {
       dimensions: ['product', ...types],
       source
     }
-  }
-
-  static async get_echart_option_smooth_stack_area() {
-    return {
+    const option = {
+      dataset,
       title: { text: 'Gradient Stacked Area Chart' },
       color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
 
@@ -333,40 +348,11 @@ export class ExtendModel extends Model {
         }
       ]
     }
+
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_smooth_stack_area() {
-    const products = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    const types = ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-
-    const source = products.map(product => {
-      const subs = types.reduce((acc, type) => {
-        acc[type] = randInt()
-        return acc
-      }, {})
-      return { product, ...subs }
-    })
-
-    return {
-      dimensions: ['product', ...types],
-      source
-    }
-  }
-
-  static async get_echart_option_step() {
-    return {
-      title: { text: 'Line Step' },
-      xAxis: { type: 'category' },
-      yAxis: { type: 'value' },
-      series: [
-        { name: 'Step Start', type: 'line', step: 'start' },
-        { name: 'Step Middle', type: 'line', step: 'middle' },
-        { name: 'Step End', type: 'line', step: 'end' }
-      ]
-    }
-  }
-
-  static async get_echart_data_step() {
+  static async echart_run_step(myChart) {
     const products = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
     const source = products.map(product => {
@@ -376,37 +362,23 @@ export class ExtendModel extends Model {
       return { product, amount1, amount2, amount3 }
     })
 
-    return {
+    const dataset = {
       dimensions: ['product', 'amount1', 'amount2', 'amount3'],
       source
     }
-  }
 
-  static async get_echart_option(report) {
-    const maps = {
-      report: 'get_echart_option_report',
-      smooth: 'get_echart_option_smooth',
-      area: 'get_echart_option_area',
-      stack: 'get_echart_option_stack',
-      stack_area: 'get_echart_option_stack_area',
-      smooth_stack_area: 'get_echart_option_smooth_stack_area',
-      step: 'get_echart_option_step'
+    const option = {
+      dataset,
+      title: { text: 'Line Step' },
+      xAxis: { type: 'category' },
+      yAxis: { type: 'value' },
+      series: [
+        { name: 'Step Start', type: 'line', step: 'start' },
+        { name: 'Step Middle', type: 'line', step: 'middle' },
+        { name: 'Step End', type: 'line', step: 'end' }
+      ]
     }
-    return this[maps[report]]()
-  }
-
-  static async get_echart_data(report) {
-    const maps = {
-      report: 'get_echart_data_report',
-      smooth: 'get_echart_data_smooth',
-      area: 'get_echart_data_area',
-      stack: 'get_echart_data_stack',
-      stack_area: 'get_echart_data_stack_area',
-      smooth_stack_area: 'get_echart_data_smooth_stack_area',
-
-      step: 'get_echart_data_step'
-    }
-    return this[maps[report]]()
+    myChart.setOption(option)
   }
 }
 

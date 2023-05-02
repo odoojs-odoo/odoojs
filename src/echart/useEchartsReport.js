@@ -1,35 +1,59 @@
 const reports = [
   // { id: 9, name: 'SO Report', code: 'sale.order,report' },
   // { id: 5, name: 'earth3d', code: 'odoojs.echarts.test,report' },
+  // { type: 'geo', name: 'lines.map', code: 'odoojs.echarts.lines.map,report' },
   //  up no
   //
 
-  { type: 'bar', name: 'dottedbar', code: 'odoojs.echarts.dottedbar,report' },
-  { type: 'bar', name: 'Bar Race', code: 'odoojs.echarts.bar.race,report' },
-  { type: 'bar', name: 'Waterfall', code: 'odoojs.echarts.waterfall,report' },
-  { type: 'bar', name: 'Bar', code: 'odoojs.echarts.bar,report' },
-  { type: 'bar', name: 'Bar Neg', code: 'odoojs.echarts.bar,neg' },
-  { type: 'bar', name: 'Bar Radial', code: 'odoojs.echarts.bar,radial' },
+  { type: 'globe', name: 'globe', code: 'odoojs.echarts.globe,report' },
+  { type: 'globe', name: 'globe 2', code: 'odoojs.echarts.globe,report2' },
+  { type: 'globe', name: 'globe 3', code: 'odoojs.echarts.globe,report3' },
+  { type: 'globe', name: 'globe 4', code: 'odoojs.echarts.globe,report4' },
+  { type: 'globe', name: 'globe 5', code: 'odoojs.echarts.globe,report5' },
 
-  { type: 'globe', name: 'earth3d', code: 'odoojs.echarts.earth3d,report' },
-  { type: 'globe', name: 'earth3d 2', code: 'odoojs.echarts.earth3d,report2' },
-  { type: 'globe', name: 'earth3d 3', code: 'odoojs.echarts.earth3d,report3' },
-  { type: 'globe', name: 'earth3d 4', code: 'odoojs.echarts.earth3d,report4' },
-  { type: 'globe', name: 'earth3d 5', code: 'odoojs.echarts.earth3d,report5' },
+  { type: 'calendar', name: 'cal', code: 'odoojs.echarts.calendar,report' },
+  { type: 'calendar', name: 'cal 2', code: 'odoojs.echarts.calendar,report2' },
+  { type: 'calendar', name: 'cal 3', code: 'odoojs.echarts.calendar,report3' },
+  { type: 'calendar', name: 'cal 4', code: 'odoojs.echarts.calendar,report4' },
+  { type: 'calendar', name: 'cal 5', code: 'odoojs.echarts.calendar,report5' },
+  { type: 'calendar', name: 'cal 6', code: 'odoojs.echarts.calendar,report6' },
+  { type: 'calendar', name: 'cal 7', code: 'odoojs.echarts.calendar,report7' },
+  { type: 'calendar', name: 'cal8', code: 'odoojs.echarts.calendar,report8' },
+
+  { type: 'geo', name: 'geo', code: 'odoojs.echarts.geo,report' },
+  { type: 'geo', name: 'beef', code: 'odoojs.echarts.geo,beef' },
+  { type: 'geo', name: 'organ', code: 'odoojs.echarts.geo,organ' },
+  { type: 'geo', name: 'flight', code: 'odoojs.echarts.geo,flight' },
+  { type: 'geo', name: 'route', code: 'odoojs.echarts.geo,route' },
+  { type: 'geo', name: 'iceland', code: 'odoojs.echarts.geo,iceland' },
+  { type: 'geo', name: 'Traffic', code: 'odoojs.echarts.geo,traffic' },
+  { type: 'geo', name: 'hk', code: 'odoojs.echarts.geo,hk' },
+  { type: 'geo', name: 'usa', code: 'odoojs.echarts.geo,usa' },
 
   { type: 'line', name: 'Line Race', code: 'odoojs.echarts.line.race,report' },
 
   { type: 'line', name: 'Line', code: 'odoojs.echarts.line,report' },
-  { type: 'line', name: 'Line Stack', code: 'odoojs.echarts.line,stack' },
+  { type: 'line', name: 'Line Smooth', code: 'odoojs.echarts.line,smooth' },
   { type: 'line', name: 'Line Area', code: 'odoojs.echarts.line,area' },
+  { type: 'line', name: 'Line Stack', code: 'odoojs.echarts.line,stack' },
   { type: 'line', name: 'Stack Area', code: 'odoojs.echarts.line,stack_area' },
   {
     type: 'line',
     name: 'StackArea2',
     code: 'odoojs.echarts.line,smooth_stack_area'
   },
-  { type: 'line', name: 'Line Smooth', code: 'odoojs.echarts.line,smooth' },
   { type: 'line', name: 'Line Step', code: 'odoojs.echarts.line,step' },
+
+  { type: 'bar', name: 'Bar', code: 'odoojs.echarts.bar,report' },
+  { type: 'bar', name: 'Bar Neg', code: 'odoojs.echarts.bar,neg' },
+  { type: 'bar', name: 'Bar Radial', code: 'odoojs.echarts.bar,radial' },
+  { type: 'bar', name: 'dottedbar', code: 'odoojs.echarts.dottedbar,report' },
+  { type: 'bar', name: 'Bar Race', code: 'odoojs.echarts.bar.race,report' },
+  {
+    type: 'bar',
+    name: 'Waterfall',
+    code: 'odoojs.echarts.bar.waterfall,report'
+  },
 
   { type: 'gauge', name: 'gauge', code: 'odoojs.echarts.gauge,report' },
   {
@@ -79,26 +103,7 @@ const reports = [
     code: 'odoojs.echarts.themeriver,report2'
   },
 
-  { type: 'calendar', name: 'cal', code: 'odoojs.echarts.calendar,report' },
-  { type: 'calendar', name: 'cal 2', code: 'odoojs.echarts.calendar,report2' },
-  { type: 'calendar', name: 'cal 3', code: 'odoojs.echarts.calendar,report3' },
-  { type: 'calendar', name: 'cal 4', code: 'odoojs.echarts.calendar,report4' },
-  { type: 'calendar', name: 'cal 5', code: 'odoojs.echarts.calendar,report5' },
-  { type: 'calendar', name: 'cal 6', code: 'odoojs.echarts.calendar,report6' },
-  { type: 'calendar', name: 'cal 7', code: 'odoojs.echarts.calendar,report7' },
-  { type: 'calendar', name: 'cal8', code: 'odoojs.echarts.calendar,report8' },
-
   { type: 'bar3d', name: 'bar3d', code: 'odoojs.echarts.bar3d,report' },
-
-  { type: 'geo', name: 'geo', code: 'odoojs.echarts.geo,report' },
-  { type: 'geo', name: 'beef', code: 'odoojs.echarts.geo,beef' },
-  { type: 'geo', name: 'organ', code: 'odoojs.echarts.geo,organ' },
-  { type: 'geo', name: 'flight', code: 'odoojs.echarts.geo,flight' },
-  { type: 'geo', name: 'route', code: 'odoojs.echarts.geo,route' },
-  { type: 'geo', name: 'iceland', code: 'odoojs.echarts.geo,iceland' },
-  { type: 'geo', name: 'Traffic', code: 'odoojs.echarts.geo,traffic' },
-  { type: 'geo', name: 'hk', code: 'odoojs.echarts.geo,hk' },
-  { type: 'geo', name: 'usa', code: 'odoojs.echarts.geo,usa' },
 
   { type: 'pie', name: 'Pie', code: 'odoojs.echarts.pie,report' },
   { type: 'pie', name: 'Doughnut', code: 'odoojs.echarts.pie,doughnut' },
@@ -186,6 +191,9 @@ const reports = [
 
 export default function useEchartsReport() {
   async function getReports(type) {
+    if (!type) {
+      return reports
+    }
     return reports.filter(item => item.type === type)
   }
 

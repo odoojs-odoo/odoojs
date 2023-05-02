@@ -1,15 +1,15 @@
-import { Model } from '@/odoorpc/models'
+import { EchartsBaseModel, call_echarts_request } from './odoojs.echarts.base'
 
 function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-export class ExtendModel extends Model {
+export class ExtendModel extends EchartsBaseModel {
   constructor(...args) {
     super(...args)
   }
 
-  static async get_echart_option_report() {
+  static async echart_run_report(myChart) {
     const option = {
       tooltip: { formatter: '{a} <br/>{b} : {c}%' },
       series: [
@@ -22,17 +22,10 @@ export class ExtendModel extends Model {
       ]
     }
 
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report() {
-    return {
-      //   dimensions: ['product', 'amount'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_progress() {
+  static async echart_run_progress(myChart) {
     const option = {
       tooltip: { formatter: '{a} <br/>{b} : {c}%' },
       series: [
@@ -45,17 +38,10 @@ export class ExtendModel extends Model {
         }
       ]
     }
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_progress() {
-    return {
-      //   dimensions: ['product', 'amount'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_progress1() {
+  static async echart_run_progress1(myChart) {
     const option = {
       series: [
         {
@@ -82,17 +68,10 @@ export class ExtendModel extends Model {
       ]
     }
 
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_progress1() {
-    return {
-      //   dimensions: ['product', 'amount'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_speed() {
+  static async echart_run_speed(myChart) {
     const option = {
       series: [
         {
@@ -143,17 +122,10 @@ export class ExtendModel extends Model {
         }
       ]
     }
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_speed() {
-    return {
-      //   dimensions: ['product', 'amount'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_speed_stage() {
+  static async echart_run_speed_stage(myChart) {
     const option = {
       series: [
         {
@@ -189,30 +161,24 @@ export class ExtendModel extends Model {
         }
       ]
     }
-    // setInterval(function () {
-    //   myChart.setOption({
-    //     series: [
-    //       {
-    //         data: [
-    //           {
-    //             value: +(Math.random() * 100).toFixed(2)
-    //           }
-    //         ]
-    //       }
-    //     ]
-    //   })
-    // }, 2000)
-    return option
+    myChart.setOption(option)
+
+    setInterval(function () {
+      myChart.setOption({
+        series: [
+          {
+            data: [
+              {
+                value: +(Math.random() * 100).toFixed(2)
+              }
+            ]
+          }
+        ]
+      })
+    }, 2000)
   }
 
-  static async get_echart_data_speed_stage() {
-    return {
-      //   dimensions: ['product', 'amount'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_grade() {
+  static async echart_run_grade(myChart) {
     const option = {
       series: [
         {
@@ -282,17 +248,10 @@ export class ExtendModel extends Model {
         }
       ]
     }
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_grade() {
-    return {
-      //   dimensions: ['product', 'amount'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_muiti_title() {
+  static async echart_run_muiti_title(myChart) {
     const gaugeData = [
       {
         value: 20,
@@ -345,29 +304,23 @@ export class ExtendModel extends Model {
         }
       ]
     }
-    // setInterval(function () {
-    //   gaugeData[0].value = +(Math.random() * 100).toFixed(2)
-    //   gaugeData[1].value = +(Math.random() * 100).toFixed(2)
-    //   gaugeData[2].value = +(Math.random() * 100).toFixed(2)
-    //   myChart.setOption({
-    //     series: [
-    //       {
-    //         data: gaugeData
-    //       }
-    //     ]
-    //   })
-    // }, 2000)
-    return option
+    myChart.setOption(option)
+
+    setInterval(function () {
+      gaugeData[0].value = +(Math.random() * 100).toFixed(2)
+      gaugeData[1].value = +(Math.random() * 100).toFixed(2)
+      gaugeData[2].value = +(Math.random() * 100).toFixed(2)
+      myChart.setOption({
+        series: [
+          {
+            data: gaugeData
+          }
+        ]
+      })
+    }, 2000)
   }
 
-  static async get_echart_data_muiti_title() {
-    return {
-      //   dimensions: ['product', 'amount'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_ring() {
+  static async echart_run_ring(myChart) {
     const gaugeData = [
       {
         value: 20,
@@ -421,57 +374,24 @@ export class ExtendModel extends Model {
         }
       ]
     }
-    // setInterval(function () {
-    //   gaugeData[0].value = +(Math.random() * 100).toFixed(2)
-    //   gaugeData[1].value = +(Math.random() * 100).toFixed(2)
-    //   gaugeData[2].value = +(Math.random() * 100).toFixed(2)
-    //   myChart.setOption({
-    //     series: [
-    //       {
-    //         data: gaugeData,
-    //         pointer: {
-    //           show: false
-    //         }
-    //       }
-    //     ]
-    //   })
-    // }, 2000)
-    return option
-  }
 
-  static async get_echart_data_ring() {
-    return {
-      //   dimensions: ['product', 'amount'],
-      //   source
-    }
-  }
+    myChart.setOption(option)
 
-  static async get_echart_option(report) {
-    const maps = {
-      report: 'get_echart_option_report',
-      progress: 'get_echart_option_progress',
-      progress1: 'get_echart_option_progress1',
-      speed: 'get_echart_option_speed',
-      speed_stage: 'get_echart_option_speed_stage',
-      grade: 'get_echart_option_grade',
-      muiti_title: 'get_echart_option_muiti_title',
-      ring: 'get_echart_option_ring'
-    }
-    return this[maps[report]]()
-  }
-
-  static async get_echart_data(report) {
-    const maps = {
-      report: 'get_echart_data_report',
-      progress: 'get_echart_data_progress',
-      progress1: 'get_echart_data_progress1',
-      speed: 'get_echart_data_speed',
-      speed_stage: 'get_echart_data_speed_stage',
-      grade: 'get_echart_data_grade',
-      muiti_title: 'get_echart_data_muiti_title',
-      ring: 'get_echart_data_ring'
-    }
-    return this[maps[report]]()
+    setInterval(function () {
+      gaugeData[0].value = +(Math.random() * 100).toFixed(2)
+      gaugeData[1].value = +(Math.random() * 100).toFixed(2)
+      gaugeData[2].value = +(Math.random() * 100).toFixed(2)
+      myChart.setOption({
+        series: [
+          {
+            data: gaugeData,
+            pointer: {
+              show: false
+            }
+          }
+        ]
+      })
+    }, 2000)
   }
 }
 

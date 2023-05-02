@@ -1,4 +1,4 @@
-import { Model } from '@/odoorpc/models'
+import { EchartsBaseModel, call_echarts_request } from './odoojs.echarts.base'
 
 import * as echarts from 'echarts/core'
 
@@ -6,12 +6,12 @@ function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-export class ExtendModel extends Model {
+export class ExtendModel extends EchartsBaseModel {
   constructor(...args) {
     super(...args)
   }
 
-  static async get_echart_option_report() {
+  static async echart_run_report(myChart) {
     function getVirtualData(year) {
       const date = +echarts.time.parse(year + '-01-01')
       const end = +echarts.time.parse(year + '-12-31')
@@ -41,17 +41,10 @@ export class ExtendModel extends Model {
       }
     }
 
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report() {
-    return {
-      //   dimensions: ['product', 'amount', 'tax', 'total'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_report2() {
+  static async echart_run_report2(myChart) {
     function getVirtualData(year) {
       const date = +echarts.time.parse(year + '-01-01')
       const end = +echarts.time.parse(+year + 1 + '-01-01')
@@ -97,17 +90,10 @@ export class ExtendModel extends Model {
         data: getVirtualData('2016')
       }
     }
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report2() {
-    return {
-      //   dimensions: ['product', 'amount', 'tax', 'total'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_report3() {
+  static async echart_run_report3(myChart) {
     function getVirtualData(year) {
       const date = +echarts.time.parse(year + '-01-01')
       const end = +echarts.time.parse(+year + 1 + '-01-01')
@@ -183,17 +169,10 @@ export class ExtendModel extends Model {
         }
       ]
     }
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report3() {
-    return {
-      //   dimensions: ['product', 'amount', 'tax', 'total'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_report4() {
+  static async echart_run_report4(myChart) {
     function getVirtualData(year) {
       const date = +echarts.time.parse(year + '-01-01')
       const end = +echarts.time.parse(+year + 1 + '-01-01')
@@ -257,17 +236,10 @@ export class ExtendModel extends Model {
         }
       ]
     }
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report4() {
-    return {
-      //   dimensions: ['product', 'amount', 'tax', 'total'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_report5() {
+  static async echart_run_report5(myChart) {
     const graphData = [
       ['2017-02-01', 260],
       ['2017-02-04', 200],
@@ -363,17 +335,10 @@ export class ExtendModel extends Model {
       ]
     }
 
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report5() {
-    return {
-      //   dimensions: ['product', 'amount', 'tax', 'total'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_report6() {
+  static async echart_run_report6(myChart) {
     const dateList = [
       ['2017-1-1', '初四'],
       ['2017-1-2', '初五'],
@@ -830,17 +795,10 @@ export class ExtendModel extends Model {
       ]
     }
 
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report6() {
-    return {
-      //   dimensions: ['product', 'amount', 'tax', 'total'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_report7() {
+  static async echart_run_report7(myChart) {
     // This example requires ECharts v5.4.0 or later
     const cellSize = [80, 80]
     const pieRadius = 30
@@ -920,17 +878,10 @@ export class ExtendModel extends Model {
         ...pieSeries
       ]
     }
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report7() {
-    return {
-      //   dimensions: ['product', 'amount', 'tax', 'total'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_report8() {
+  static async echart_run_report8(myChart) {
     const layouts = [
       [[0, 0]],
       [
@@ -1065,42 +1016,7 @@ export class ExtendModel extends Model {
         }
       ]
     }
-    return option
-  }
-
-  static async get_echart_data_report8() {
-    return {
-      //   dimensions: ['product', 'amount', 'tax', 'total'],
-      //   source
-    }
-  }
-
-  static async get_echart_option(report) {
-    const maps = {
-      report: 'get_echart_option_report',
-      report2: 'get_echart_option_report2',
-      report3: 'get_echart_option_report3',
-      report4: 'get_echart_option_report4',
-      report5: 'get_echart_option_report5',
-      report6: 'get_echart_option_report6',
-      report7: 'get_echart_option_report7',
-      report8: 'get_echart_option_report8'
-    }
-    return this[maps[report]]()
-  }
-
-  static async get_echart_data(report) {
-    const maps = {
-      report: 'get_echart_data_report',
-      report2: 'get_echart_data_report2',
-      report3: 'get_echart_data_report3',
-      report4: 'get_echart_data_report4',
-      report5: 'get_echart_data_report5',
-      report6: 'get_echart_data_report6',
-      report7: 'get_echart_data_report7',
-      report8: 'get_echart_data_report8'
-    }
-    return this[maps[report]]()
+    myChart.setOption(option)
   }
 }
 

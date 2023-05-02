@@ -1,16 +1,8 @@
-import { Model } from '@/odoorpc/models'
+import { EchartsBaseModel, call_echarts_request } from './odoojs.echarts.base'
+
 import * as echarts from 'echarts/core'
 
-import { HttpRequest } from '@/odoojs-rpc/request'
-
-const ROOT_PATH = 'echarts/examples'
-async function call_echarts_request(url) {
-  const api = HttpRequest
-  api.baseURL = ROOT_PATH
-  return api.call_get(url)
-}
-
-export class ExtendModel extends Model {
+export class ExtendModel extends EchartsBaseModel {
   constructor(...args) {
     super(...args)
   }
@@ -1004,40 +996,6 @@ export class ExtendModel extends Model {
         ]
       }
       myChart.setOption(option)
-    }
-  }
-
-  static async echart_run(report, chartInstance) {
-    const maps = {
-      beef: 'echart_run_beef',
-      organ: 'echart_run_organ',
-      flight: 'echart_run_flight',
-      route: 'echart_run_route',
-      iceland: 'echart_run_iceland',
-      traffic: 'echart_run_traffic',
-      hk: 'echart_run_hk',
-      usa: 'echart_run_usa',
-
-      report: 'echart_run_report'
-    }
-    return this[maps[report]](chartInstance)
-  }
-
-  static async get_echart_option(report) {
-    const maps = {}
-    if (report in maps) {
-      return this[maps[report]]()
-    } else {
-      return { odoojs_echarts_type: { name: 'run_server' } }
-    }
-  }
-
-  static async get_echart_data(report) {
-    const maps = {}
-    if (report in maps) {
-      return this[maps[report]]()
-    } else {
-      return {}
     }
   }
 }

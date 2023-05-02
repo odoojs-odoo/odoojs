@@ -1,15 +1,15 @@
-import { Model } from '@/odoorpc/models'
+import { EchartsBaseModel, call_echarts_request } from './odoojs.echarts.base'
 
 function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-export class ExtendModel extends Model {
+export class ExtendModel extends EchartsBaseModel {
   constructor(...args) {
     super(...args)
   }
 
-  static async get_echart_option_report() {
+  static async echart_run_report(myChart) {
     // Schema:
     // date,AQIindex,PM2.5,PM10,CO,NO2,SO2
     const dataBJ = [
@@ -209,17 +209,10 @@ export class ExtendModel extends Model {
       ]
     }
 
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report() {
-    return {
-      //   dimensions: ['product', 'amount'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_aqi() {
+  static async echart_run_aqi(myChart) {
     // Schema:
     // date,AQIindex,PM2.5,PM10,CO,NO2,SO2
     const schema = [
@@ -514,30 +507,7 @@ export class ExtendModel extends Model {
       ]
     }
 
-    return option
-  }
-
-  static async get_echart_data_aqi() {
-    return {
-      //   dimensions: ['product', 'amount'],
-      //   source
-    }
-  }
-
-  static async get_echart_option(report) {
-    const maps = {
-      report: 'get_echart_option_report',
-      aqi: 'get_echart_option_aqi'
-    }
-    return this[maps[report]]()
-  }
-
-  static async get_echart_data(report) {
-    const maps = {
-      report: 'get_echart_data_report',
-      aqi: 'get_echart_data_aqi'
-    }
-    return this[maps[report]]()
+    myChart.setOption(option)
   }
 }
 

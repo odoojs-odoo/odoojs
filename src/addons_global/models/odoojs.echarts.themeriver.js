@@ -1,15 +1,15 @@
-import { Model } from '@/odoorpc/models'
+import { EchartsBaseModel, call_echarts_request } from './odoojs.echarts.base'
 
 function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-export class ExtendModel extends Model {
+export class ExtendModel extends EchartsBaseModel {
   constructor(...args) {
     super(...args)
   }
 
-  static async get_echart_option_report() {
+  static async echart_run_report(myChart) {
     const option = {
       tooltip: {
         trigger: 'axis',
@@ -166,17 +166,10 @@ export class ExtendModel extends Model {
       ]
     }
 
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report() {
-    return {
-      //   dimensions: ['product', 'amount', 'tax', 'total'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_report2() {
+  static async echart_run_report2(myChart) {
     // From https://github.com/jsundram/streamgraph.js/blob/master/examples/data/lastfm.js
     let rawData = [
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -237,30 +230,7 @@ export class ExtendModel extends Model {
       singleAxis: { max: 'dataMax' },
       series: [{ type: 'themeRiver', data: data, label: { show: false } }]
     }
-    return option
-  }
-
-  static async get_echart_data_report2() {
-    return {
-      //   dimensions: ['product', 'amount', 'tax', 'total'],
-      //   source
-    }
-  }
-
-  static async get_echart_option(report) {
-    const maps = {
-      report: 'get_echart_option_report',
-      report2: 'get_echart_option_report2'
-    }
-    return this[maps[report]]()
-  }
-
-  static async get_echart_data(report) {
-    const maps = {
-      report: 'get_echart_data_report',
-      report2: 'get_echart_data_report2'
-    }
-    return this[maps[report]]()
+    myChart.setOption(option)
   }
 }
 

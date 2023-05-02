@@ -1,15 +1,15 @@
-import { Model } from '@/odoorpc/models'
+import { EchartsBaseModel, call_echarts_request } from './odoojs.echarts.base'
 
 function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-export class ExtendModel extends Model {
+export class ExtendModel extends EchartsBaseModel {
   constructor(...args) {
     super(...args)
   }
 
-  static async get_echart_option_report() {
+  static async echart_run_report(myChart) {
     var data = [
       {
         name: 'Grandpa',
@@ -86,17 +86,10 @@ export class ExtendModel extends Model {
         }
       }
     }
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report() {
-    return {
-      //   dimensions: ['name', 'value'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_book() {
+  static async echart_run_book(myChart) {
     const colors = ['#FFAE57', '#FF7853', '#EA5151', '#CC3F57', '#9A2555']
     const bgColor = '#2E2733'
     const itemStyle = {
@@ -524,30 +517,7 @@ export class ExtendModel extends Model {
       ]
     }
 
-    return option
-  }
-
-  static async get_echart_data_book() {
-    return {
-      //   dimensions: ['product', 'amount'],
-      //   source
-    }
-  }
-
-  static async get_echart_option(report) {
-    const maps = {
-      report: 'get_echart_option_report',
-      book: 'get_echart_option_book'
-    }
-    return this[maps[report]]()
-  }
-
-  static async get_echart_data(report) {
-    const maps = {
-      report: 'get_echart_data_report',
-      book: 'get_echart_data_book'
-    }
-    return this[maps[report]]()
+    myChart.setOption(option)
   }
 }
 

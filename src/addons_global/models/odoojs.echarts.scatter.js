@@ -1,16 +1,28 @@
-import { Model } from '@/odoorpc/models'
+import { EchartsBaseModel, call_echarts_request } from './odoojs.echarts.base'
 
 function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-export class ExtendModel extends Model {
+export class ExtendModel extends EchartsBaseModel {
   constructor(...args) {
     super(...args)
   }
 
-  static async get_echart_option_report() {
-    return {
+  static async echart_run_report(myChart) {
+    const products = ['A', 'B', 'C', 'D']
+
+    const source = products.map(product => {
+      const amount = randInt()
+      return { product, amount }
+    })
+
+    const dataset = {
+      dimensions: ['product', 'amount'],
+      source
+    }
+    const option = {
+      dataset,
       title: { text: 'Scatter' },
       xAxis: { type: 'category' },
       yAxis: { type: 'value' },
@@ -22,23 +34,10 @@ export class ExtendModel extends Model {
         }
       ]
     }
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report() {
-    const products = ['A', 'B', 'C', 'D']
-
-    const source = products.map(product => {
-      const amount = randInt()
-      return { product, amount }
-    })
-
-    return {
-      dimensions: ['product', 'amount'],
-      source
-    }
-  }
-
-  static async get_echart_option_bubble() {
+  static async echart_run_bubble(myChart) {
     const data = [
       [
         [28604, 77, 17096869, 'Australia', 1990],
@@ -173,47 +172,7 @@ export class ExtendModel extends Model {
       ]
     }
 
-    return option
-    // return {
-    //   title: { text: 'Scatter' },
-    //   xAxis: { type: 'category' },
-    //   yAxis: { type: 'value' },
-
-    //   series: [
-    //     {
-    //       type: 'scatter'
-    //     }
-    //   ]
-    // }
-  }
-
-  static async get_echart_data_bubble() {
-    const products = ['A', 'B', 'C', 'D']
-
-    const source = products.map(product => {
-      const amount = randInt()
-      return { product, amount }
-    })
-
-    return {
-      // dimensions: ['product', 'amount'],
-      // source
-    }
-  }
-  static async get_echart_option(report) {
-    const maps = {
-      report: 'get_echart_option_report',
-      bubble: 'get_echart_option_bubble'
-    }
-    return this[maps[report]]()
-  }
-
-  static async get_echart_data(report) {
-    const maps = {
-      report: 'get_echart_data_report',
-      bubble: 'get_echart_data_bubble'
-    }
-    return this[maps[report]]()
+    myChart.setOption(option)
   }
 }
 

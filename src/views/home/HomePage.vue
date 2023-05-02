@@ -39,10 +39,10 @@ async function onEchartsCtrl() {
   router.replace({ path: '/echarts/ctrl' })
 }
 
-async function onEchartsExamples() {
-  await api.web.logout()
-  router.replace({ path: '/echarts/examples' })
-}
+// async function onEchartsExamples() {
+//   await api.web.logout()
+//   router.replace({ path: '/echarts/examples' })
+// }
 </script>
 
 <style type="text/css" scoped></style>

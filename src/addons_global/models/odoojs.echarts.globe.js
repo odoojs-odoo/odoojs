@@ -1,20 +1,10 @@
-import { Model } from '@/odoorpc/models'
-import * as echarts from 'echarts/core'
-
-import { HttpRequest } from '@/odoojs-rpc/request'
+import { EchartsBaseModel, ROOT_PATH } from './odoojs.echarts.base'
 
 function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-const ROOT_PATH = 'echarts/examples'
-async function call_echarts_request(url) {
-  const api = HttpRequest
-  api.baseURL = ROOT_PATH
-  return api.call_get(url)
-}
-
-export class ExtendModel extends Model {
+export class ExtendModel extends EchartsBaseModel {
   constructor(...args) {
     super(...args)
   }
@@ -166,38 +156,10 @@ export class ExtendModel extends Model {
     }
     myChart.setOption(option)
   }
-  static async echart_run(report, chartInstance) {
-    const maps = {
-      report: 'echart_run_report',
-      report2: 'echart_run_report2',
-      report3: 'echart_run_report3',
-      report4: 'echart_run_report4',
-      report5: 'echart_run_report5'
-    }
-    return this[maps[report]](chartInstance)
-  }
-
-  static async get_echart_option(report) {
-    const maps = {}
-    if (report in maps) {
-      return this[maps[report]]()
-    } else {
-      return { odoojs_echarts_type: { name: 'run_server' } }
-    }
-  }
-
-  static async get_echart_data(report) {
-    const maps = {}
-    if (report in maps) {
-      return this[maps[report]]()
-    } else {
-      return {}
-    }
-  }
 }
 
 const AddonsModels = {
-  'odoojs.echarts.earth3d': ExtendModel
+  'odoojs.echarts.globe': ExtendModel
 }
 
 export default AddonsModels

@@ -1,15 +1,15 @@
-import { Model } from '@/odoorpc/models'
+import { EchartsBaseModel, call_echarts_request } from './odoojs.echarts.base'
 
 function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-export class ExtendModel extends Model {
+export class ExtendModel extends EchartsBaseModel {
   constructor(...args) {
     super(...args)
   }
 
-  static async get_echart_option_report() {
+  static async echart_run_report(myChart) {
     const option = {
       title: { text: 'Basic Radar Chart' },
       legend: { data: ['Allocated Budget', 'Actual Spending'] },
@@ -41,34 +41,10 @@ export class ExtendModel extends Model {
         }
       ]
     }
-    return option
-    // {
-    //   title: { text: 'Pie' },
-    //   series: [{ type: 'pie' }]
-    // }
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report() {
-    // const products = [
-    //   'Search Engine',
-    //   'Direct',
-    //   'Email',
-    //   'Union Ads',
-    //   'Video Ads'
-    // ]
-
-    // const source = products.map(product => {
-    //   const amount = randInt()
-    //   return { name: product, value: amount }
-    // })
-
-    return {
-      //   dimensions: ['name', 'value'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_aqi() {
+  static async echart_run_aqi(myChart) {
     // Schema:
     // date,AQIindex,PM2.5,PM10,CO,NO2,SO2
     const dataBJ = [
@@ -245,17 +221,10 @@ export class ExtendModel extends Model {
       ]
     }
 
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_aqi() {
-    return {
-      //   dimensions: ['product', 'amount'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_browser() {
+  static async echart_run_browser(myChart) {
     const option = {
       title: {
         text: 'Proportion of Browsers',
@@ -321,35 +290,7 @@ export class ExtendModel extends Model {
         return series
       })()
     }
-
-    return option
-  }
-
-  static async get_echart_data_browser() {
-    const source = []
-
-    return {
-      // dimensions: ['name', 'value', 'itemStyle', 'label'],
-      // source
-    }
-  }
-
-  static async get_echart_option(report) {
-    const maps = {
-      report: 'get_echart_option_report',
-      aqi: 'get_echart_option_aqi',
-      browser: 'get_echart_option_browser'
-    }
-    return this[maps[report]]()
-  }
-
-  static async get_echart_data(report) {
-    const maps = {
-      report: 'get_echart_data_report',
-      aqi: 'get_echart_data_aqi',
-      browser: 'get_echart_data_browser'
-    }
-    return this[maps[report]]()
+    myChart.setOption(option)
   }
 }
 

@@ -1,15 +1,15 @@
-import { Model } from '@/odoorpc/models'
+import { EchartsBaseModel, call_echarts_request } from './odoojs.echarts.base'
 
 function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-export class ExtendModel extends Model {
+export class ExtendModel extends EchartsBaseModel {
   constructor(...args) {
     super(...args)
   }
 
-  static async get_echart_option_report() {
+  static async echart_run_report(myChart) {
     let noise = getNoiseHelper()
     let xData = []
     let yData = []
@@ -176,32 +176,7 @@ export class ExtendModel extends Model {
         perlin2
       }
     }
-    return option
-    // {
-    //   title: { text: 'Pie' },
-    //   series: [{ type: 'pie' }]
-    // }
-  }
-
-  static async get_echart_data_report() {
-    return {
-      //   dimensions: ['name', 'value'],
-      //   source
-    }
-  }
-
-  static async get_echart_option(report) {
-    const maps = {
-      report: 'get_echart_option_report'
-    }
-    return this[maps[report]]()
-  }
-
-  static async get_echart_data(report) {
-    const maps = {
-      report: 'get_echart_data_report'
-    }
-    return this[maps[report]]()
+    myChart.setOption(option)
   }
 }
 

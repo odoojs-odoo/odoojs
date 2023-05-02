@@ -1,15 +1,15 @@
-import { Model } from '@/odoorpc/models'
+import { EchartsBaseModel, call_echarts_request } from './odoojs.echarts.base'
 
 function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-export class ExtendModel extends Model {
+export class ExtendModel extends EchartsBaseModel {
   constructor(...args) {
     super(...args)
   }
 
-  static async get_echart_option_report() {
+  static async echart_run_report(myChart) {
     const option = {
       series: {
         type: 'sankey',
@@ -34,17 +34,10 @@ export class ExtendModel extends Model {
       }
     }
 
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report() {
-    return {
-      //   dimensions: ['product', 'amount'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_vertical() {
+  static async echart_run_vertical(myChart) {
     const option = {
       tooltip: {
         trigger: 'item',
@@ -78,17 +71,10 @@ export class ExtendModel extends Model {
         }
       ]
     }
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_vertical() {
-    return {
-      //   dimensions: ['product', 'amount'],
-      //   source
-    }
-  }
-
-  static async get_echart_option_rpt1() {
+  static async echart_run_rpt1(myChart) {
     const option = {
       backgroundColor: '#fff',
       title: {
@@ -698,32 +684,7 @@ export class ExtendModel extends Model {
       ],
       tooltip: { trigger: 'item' }
     }
-    return option
-  }
-
-  static async get_echart_data_rpt1() {
-    return {
-      //   dimensions: ['product', 'amount'],
-      //   source
-    }
-  }
-
-  static async get_echart_option(report) {
-    const maps = {
-      report: 'get_echart_option_report',
-      vertical: 'get_echart_option_vertical',
-      rpt1: 'get_echart_option_rpt1'
-    }
-    return this[maps[report]]()
-  }
-
-  static async get_echart_data(report) {
-    const maps = {
-      report: 'get_echart_data_report',
-      vertical: 'get_echart_data_vertical',
-      rpt1: 'get_echart_data_rpt1'
-    }
-    return this[maps[report]]()
+    myChart.setOption(option)
   }
 }
 

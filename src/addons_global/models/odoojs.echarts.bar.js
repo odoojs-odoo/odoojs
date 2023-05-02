@@ -1,16 +1,31 @@
-import { Model } from '@/odoorpc/models'
+import { EchartsBaseModel, call_echarts_request } from './odoojs.echarts.base'
 
 function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-export class ExtendModel extends Model {
+export class ExtendModel extends EchartsBaseModel {
   constructor(...args) {
     super(...args)
   }
 
-  static async get_echart_option_report() {
-    return {
+  static async echart_run_report(myChart) {
+    const products = ['A', 'B', 'C', 'D']
+
+    const source = products.map(product => {
+      const amount = randInt()
+      const tax = amount * 0.13
+      const total = amount + tax
+      return { product, amount, tax, total }
+    })
+
+    const dataset = {
+      dimensions: ['product', 'amount', 'tax', 'total'],
+      source
+    }
+
+    const option = {
+      dataset,
       title: { text: 'Bar' },
       tooltip: {},
 
@@ -22,26 +37,26 @@ export class ExtendModel extends Model {
         { name: 'total', type: 'bar' }
       ]
     }
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_report() {
-    const products = ['A', 'B', 'C', 'D']
+  static async echart_run_neg(myChart) {
+    const products = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
     const source = products.map(product => {
-      const amount = randInt()
-      const tax = amount * 0.13
-      const total = amount + tax
-      return { product, amount, tax, total }
+      const Income = randInt()
+      const Expenses = -randInt()
+      const Profit = Income + Expenses
+      return { product, Profit, Income, Expenses }
     })
 
-    return {
-      dimensions: ['product', 'amount', 'tax', 'total'],
+    const dataset = {
+      dimensions: ['product', 'Profit', 'Income', 'Expenses'],
       source
     }
-  }
 
-  static async get_echart_option_neg() {
     const option = {
+      dataset,
       tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
       legend: { data: ['Profit', 'Expenses', 'Income'] },
       grid: {
@@ -76,31 +91,30 @@ export class ExtendModel extends Model {
       ]
     }
 
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_neg() {
+  static async echart_run_radial(myChart) {
     const products = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
-    // function randval() {
-    //   return Math.floor(((Math.random() - 0.5) * 1000) / 23)
-    // }
+    function randval() {
+      return Math.floor((Math.random() * 1000) / 23)
+    }
 
     const source = products.map(product => {
-      const Income = randInt()
-      const Expenses = -randInt()
-      const Profit = Income + Expenses
-      return { product, Profit, Income, Expenses }
+      const A = randval()
+      const B = randval()
+      const C = randval()
+      return { product, A, B, C }
     })
 
-    return {
-      dimensions: ['product', 'Profit', 'Income', 'Expenses'],
+    const dataset = {
+      dimensions: ['product', 'A', 'B', 'C'],
       source
     }
-  }
 
-  static async get_echart_option_radial() {
     const option = {
+      dataset,
       legend: { show: true, data: ['A', 'B', 'C'] },
       angleAxis: { type: 'category' },
       radiusAxis: {},
@@ -132,46 +146,10 @@ export class ExtendModel extends Model {
       ]
     }
 
-    return option
+    myChart.setOption(option)
   }
 
-  static async get_echart_data_radial() {
-    const products = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-
-    function randval() {
-      return Math.floor((Math.random() * 1000) / 23)
-    }
-
-    const source = products.map(product => {
-      const A = randval()
-      const B = randval()
-      const C = randval()
-      return { product, A, B, C }
-    })
-
-    return {
-      dimensions: ['product', 'A', 'B', 'C'],
-      source
-    }
-  }
-
-  static async get_echart_option(report) {
-    const maps = {
-      report: 'get_echart_option_report',
-      neg: 'get_echart_option_neg',
-      radial: 'get_echart_option_radial'
-    }
-    return this[maps[report]]()
-  }
-
-  static async get_echart_data(report) {
-    const maps = {
-      report: 'get_echart_data_report',
-      neg: 'get_echart_data_neg',
-      radial: 'get_echart_data_radial'
-    }
-    return this[maps[report]]()
-  }
+  static async get_echart_data_radial() {}
 }
 
 const AddonsModels = {

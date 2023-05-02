@@ -1,16 +1,6 @@
-import { Model } from '@/odoorpc/models'
-// import * as echarts from 'echarts/core'
+import { EchartsBaseModel, ROOT_PATH } from './odoojs.echarts.base'
 
-// import { HttpRequest } from '@/odoojs-rpc/request'
-
-const ROOT_PATH = 'echarts/examples'
-// async function call_echarts_request(url) {
-//   const api = HttpRequest
-//   api.baseURL = ROOT_PATH
-//   return api.call_get(url)
-// }
-
-export class ExtendModel extends Model {
+export class ExtendModel extends EchartsBaseModel {
   constructor(...args) {
     super(...args)
   }
@@ -89,41 +79,12 @@ export class ExtendModel extends Model {
     myChart.setOption(option)
     fetchData(0)
   }
-
-  static async get_echart_option(report) {
-    const maps = {
-      // report: 'get_echart_option_report'
-    }
-
-    if (report in maps) {
-      return this[maps[report]]()
-    } else {
-      return { odoojs_echarts_type: { name: 'run_server' } }
-    }
-  }
-
-  static async get_echart_data(report) {
-    const maps = {
-      // report: 'get_echart_data_report'
-    }
-
-    if (report in maps) {
-      return this[maps[report]]()
-    } else {
-      return {}
-    }
-  }
-
-  static async echart_run(report, chartInstance) {
-    const maps = {
-      report: 'echart_run_report'
-    }
-    return this[maps[report]](chartInstance)
-  }
 }
 
 const AddonsModels = {
   'odoojs.echarts.lines.map': ExtendModel
 }
+
+// error of this
 
 export default AddonsModels
