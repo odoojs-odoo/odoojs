@@ -146,6 +146,9 @@ const reports = [
     code: 'odoojs.echarts.surface,report3'
   },
 
+  { type: 'map3d', name: 'map3d', code: 'odoojs.echarts.map3d,report' },
+  { type: 'map3d', name: 'map3d 2', code: 'odoojs.echarts.map3d,report2' },
+
   { type: 'pie', name: 'Pie', code: 'odoojs.echarts.pie,report' },
   { type: 'pie', name: 'Doughnut', code: 'odoojs.echarts.pie,doughnut' },
   {

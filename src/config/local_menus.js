@@ -10,6 +10,7 @@ const echarts_menus_raw = [
   { id: 'echarts.gauge', name: 'gauge', action: 'gauge' },
   { id: 'echarts.graph', name: 'graph', action: 'graph' },
   { id: 'echarts.heatmap', name: 'heatmap', action: 'heatmap' },
+  { id: 'echarts.map3d', name: 'map3d', action: 'map3d' },
   { id: 'echarts.parallel', name: 'parallel', action: 'parallel' },
   { id: 'echarts.pie', name: 'pie', action: 'pie' },
   { id: 'echarts.pictorialbar', name: 'pictorialbar', action: 'pictorialbar' },
