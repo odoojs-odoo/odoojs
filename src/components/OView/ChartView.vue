@@ -1,8 +1,9 @@
 <template>
   <div>
     ChartView
-
-    {{ lang }}
+    <div>
+      {{ lang }}
+    </div>
 
     <div ref="chartEl" :style="{ width: `600px`, height: `300px` }"></div>
   </div>

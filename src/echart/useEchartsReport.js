@@ -103,7 +103,13 @@ const reports = [
     code: 'odoojs.echarts.themeriver,report2'
   },
 
-  { type: 'bar3d', name: 'bar3d', code: 'odoojs.echarts.bar3d,report' },
+  // { type: 'bar3d', name: 'bar3d', code: 'odoojs.echarts.bar3d,report' },
+  // { type: 'bar3d', name: 'bar3d 2', code: 'odoojs.echarts.bar3d,report2' },
+  // { type: 'bar3d', name: 'bar3d 3', code: 'odoojs.echarts.bar3d,report3' },
+  { type: 'bar3d', name: 'bar3d 4', code: 'odoojs.echarts.bar3d,report4' },
+  { type: 'bar3d', name: 'bar3d 5', code: 'odoojs.echarts.bar3d,report5' },
+  { type: 'bar3d', name: 'bar3d 6', code: 'odoojs.echarts.bar3d,report6' },
+  { type: 'bar3d', name: 'bar3d 7', code: 'odoojs.echarts.bar3d,report7' },
 
   { type: 'pie', name: 'Pie', code: 'odoojs.echarts.pie,report' },
   { type: 'pie', name: 'Doughnut', code: 'odoojs.echarts.pie,doughnut' },
