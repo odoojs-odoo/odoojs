@@ -6,6 +6,9 @@ const echarts_menus_raw = [
   { id: 'echarts.bar', name: 'bar', action: 'bar' },
   { id: 'echarts.bar3d', name: 'bar3d', action: 'bar3d' },
   { id: 'echarts.line', name: 'line', action: 'line' },
+  { id: 'echarts.line3d', name: 'line3d', action: 'line3d' },
+  { id: 'echarts.lines3d', name: 'lines3d', action: 'lines3d' },
+
   { id: 'echarts.funnel', name: 'funnel', action: 'funnel' },
   { id: 'echarts.gauge', name: 'gauge', action: 'gauge' },
   { id: 'echarts.graph', name: 'graph', action: 'graph' },

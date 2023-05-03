@@ -58,7 +58,7 @@ export default function useChart(
   render = RenderType.SVGRenderer
 ) {
   const optionRef = ref({})
-  const themeRef = ref(ThemeType.Default)
+  const themeRef = ref(ThemeType.Dark)
 
   // 渲染模式
   echarts.use(render === RenderType.SVGRenderer ? SVGRenderer : CanvasRenderer)
@@ -157,8 +157,12 @@ export default function useChart(
     return maps[type_name](modelreport, option, dataset)
   }
 
+  const modelreportRef = ref()
+
   async function resetEcharts(modelreport) {
     console.log(modelreport)
+
+    modelreportRef.value = modelreport
 
     if (chartInstance) {
       chartInstance.dispose()
@@ -183,11 +187,13 @@ export default function useChart(
     themeRef.value = theme
     console.log(theme)
 
-    chartInstance.dispose()
-    initCharts()
+    resetEcharts(modelreportRef.value)
 
-    const options = optionRef.value
-    setOption(options)
+    // chartInstance.dispose()
+    // initCharts()
+
+    // const options = optionRef.value
+    // setOption(options)
 
     // initCharts()
   }
