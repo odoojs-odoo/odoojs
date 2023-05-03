@@ -16,6 +16,7 @@ const echarts_menus_raw = [
   { id: 'echarts.radar', name: 'radar', action: 'radar' },
   { id: 'echarts.sankey', name: 'sankey', action: 'sankey' },
   { id: 'echarts.scatter', name: 'scatter', action: 'scatter' },
+  { id: 'echarts.scatter3d', name: 'scatter3d', action: 'scatter3d' },
   { id: 'echarts.sunburst', name: 'sunburst', action: 'sunburst' },
   { id: 'echarts.themeriver', name: 'themeriver', action: 'themeriver' },
   { id: 'echarts.tree', name: 'tree', action: 'tree' },
