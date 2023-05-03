@@ -29,6 +29,17 @@ export default {
           }
         }
       },
+
+      menu_sale_analytic: {
+        name: 'Analytic',
+        children: {
+          sale_echart_count: {
+            name: 'By Month',
+            action: 'sale.echart_count'
+          }
+        }
+      },
+
       menu_action_quotations_with_onboarding: {
         name: 'Quotations',
         action: 'sale.action_quotations_with_onboarding'

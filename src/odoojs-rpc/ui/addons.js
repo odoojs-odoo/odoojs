@@ -489,7 +489,8 @@ export class Addons {
       )
       if (search_view_id2) one2.search_view_id = search_view_id2
 
-      const { view_mode = ['tree', 'kanban', 'form'], views = {} } = one
+      const { view_mode = ['tree', 'kanban', 'form', 'chart'], views = {} } =
+        one
       view_mode.forEach(mode => {
         one2.views[mode] = patch_module_name(module_name, views[mode])
       })
@@ -559,7 +560,7 @@ export class Addons {
       const one2 = { ...one, views: { ...(one.views || {}) } }
       const {
         res_model,
-        view_mode = ['tree', 'kanban', 'form'],
+        view_mode = ['tree', 'kanban', 'form', 'chart'],
         views = {}
       } = one
 

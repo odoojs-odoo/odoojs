@@ -4,6 +4,10 @@
     <!-- <component :is="views[viewType]" :actionId="actionId" /> -->
   </template>
 
+  <template v-else-if="viewType === 'chart'">
+    <ChartView :actionId="actionId" />
+  </template>
+
   <template v-else-if="viewType === 'form'">
     <!-- <div>{{ [actionId, viewType] }}</div>
     <div>{{ `${actionId}.form` }}</div>
@@ -30,6 +34,8 @@ import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 import TreeView from '@/components/OView/TreeView.vue'
+import ChartView from './ChartView.vue'
+
 import FormView from '@/components/OView/FormView.vue'
 
 import { OViewComponents as components } from '@/config/local_view'

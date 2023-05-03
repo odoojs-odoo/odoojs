@@ -146,6 +146,11 @@ export class Environment {
     return view
   }
 
+  chartview(action_id) {
+    const view = new ui.ChartView(action_id, { env: this })
+    return view
+  }
+
   kanbanview(action_id) {
     const view = new ui.KanbanView(action_id, { env: this })
     return view

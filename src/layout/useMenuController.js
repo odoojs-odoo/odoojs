@@ -80,10 +80,11 @@ export function useMenuController({ router }) {
 
     const currentRoute = router.currentRoute.value
     const routeVal = currentRoute
-
+    console.log(action)
+    const view_type = action.view_type || 'tree'
     const xml_id = action.xml_id
     const path = ['', 'web', ...xml_id.split('.')].join('/')
-    const query = { view_type: 'tree', menu: menu.xml_id }
+    const query = { view_type, menu: menu.xml_id }
 
     const is_me =
       routeVal.path === path &&

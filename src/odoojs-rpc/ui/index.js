@@ -4,6 +4,8 @@ import { Addons } from './addons'
 
 import { BaseView } from './views/baseview'
 import { TreeView } from './views/treeview'
+import { ChartView } from './views/chartview'
+
 import { KanbanView } from './views/kanbanview'
 import { FormView } from './views/formview'
 import { WizardView } from './views/wizardview'
@@ -20,6 +22,7 @@ export default {
 
   BaseView,
   TreeView,
+  ChartView,
   KanbanView,
   FormView,
   WizardView,
