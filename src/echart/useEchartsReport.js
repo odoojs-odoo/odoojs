@@ -128,6 +128,24 @@ const reports = [
     code: 'odoojs.echarts.scatter3d,report3'
   },
 
+  {
+    type: 'surface',
+    name: 'surface',
+    code: 'odoojs.echarts.surface,report'
+  },
+
+  {
+    type: 'surface',
+    name: 'surface 2',
+    code: 'odoojs.echarts.surface,report2'
+  },
+
+  {
+    type: 'surface',
+    name: 'surface 3',
+    code: 'odoojs.echarts.surface,report3'
+  },
+
   { type: 'pie', name: 'Pie', code: 'odoojs.echarts.pie,report' },
   { type: 'pie', name: 'Doughnut', code: 'odoojs.echarts.pie,doughnut' },
   {

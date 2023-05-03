@@ -11,7 +11,7 @@
     </div>
 
     <a-button @click="onReset"> reset </a-button>
-    <div ref="chartEl" :style="{ width: `600px`, height: `300px` }"></div>
+    <div ref="chartEl" :style="{ width: `800px`, height: `500px` }"></div>
   </div>
 </template>
 
