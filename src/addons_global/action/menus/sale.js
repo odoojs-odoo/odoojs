@@ -33,9 +33,13 @@ export default {
       menu_sale_analytic: {
         name: 'Analytic',
         children: {
-          sale_echart_count: {
+          sale_action_chart_by_date: {
             name: 'By Month',
-            action: 'sale.echart_count'
+            action: 'sale.action_chart_by_date'
+          },
+          sale_action_chart_by_product: {
+            name: 'By Product',
+            action: 'sale.action_chart_by_product'
           }
         }
       },

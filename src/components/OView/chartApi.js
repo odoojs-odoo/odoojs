@@ -14,6 +14,8 @@ function sleep(millisecond) {
   })
 }
 
+const chartInstanceRef = ref()
+
 export function useChartView(props, ctx) {
   const { lang } = useLang()
 
@@ -28,7 +30,11 @@ export function useChartView(props, ctx) {
       const chartview = api.env.chartview(newVal)
       await sleep(100)
       const el = unref(ctx.chartEl)
+      if (chartInstanceRef.value) {
+        chartInstanceRef.value.dispose()
+      }
       const chartInstance = echarts.init(el)
+      chartInstanceRef.value = chartInstance
       await chartview.echart_run(chartInstance)
     },
     { immediate: true }

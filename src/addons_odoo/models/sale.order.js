@@ -1,15 +1,52 @@
 import { Model } from '@/odoorpc/models'
 
-function randInt() {
-  return Math.floor((Math.random() * 1000) / 23)
-}
-
 export class ExtendModel extends Model {
   constructor(...args) {
     super(...args)
   }
 
-  static async echart_run_count(myChart) {
+  static async echart_run_by_product(myChart) {
+    const records = await this.env.model('sale.order.line').search_read({
+      domain: [],
+      fields: ['product_id', 'price_total']
+    })
+
+    const records2 = records
+      .map(item => {
+        const [product_id, product_name] = item.product_id
+
+        return { ...item, product_id, product_name }
+      })
+      .reduce((acc, cur) => {
+        if (!acc[cur.product_name]) {
+          acc[cur.product_name] = {
+            product_name: cur.product_name,
+            price_total: 0
+          }
+        }
+        acc[cur.product_name].price_total += cur.price_total
+
+        return acc
+      }, {})
+
+    const source = Object.values(records2).reverse()
+
+    const option = {
+      dataset: {
+        dimensions: ['product_name', 'price_total'],
+        source
+      },
+      title: { text: 'SO Report' },
+      tooltip: {},
+      // xAxis: { type: 'category' },
+      // yAxis: {},
+      series: [{ name: 'Total', type: 'pie' }]
+    }
+
+    myChart.setOption(option)
+  }
+
+  static async echart_run_by_date(myChart) {
     const records = await this.search_read({
       domain: [],
       fields: ['date_order', 'amount_total']
@@ -56,27 +93,6 @@ export class ExtendModel extends Model {
     }
 
     myChart.setOption(option)
-  }
-
-  static async get_echart_data_report() {
-    const products = [
-      'Matcha Latte',
-      'Milk Tea',
-      'Cheese Cocoa',
-      'Walnut Brownie'
-    ]
-
-    const source = products.map(product => {
-      const amount = randInt()
-      const tax = amount * 0.13
-      const total = amount + tax
-      return { product, amount, tax, total }
-    })
-
-    return {
-      dimensions: ['product', 'amount', 'tax', 'total'],
-      source
-    }
   }
 }
 
