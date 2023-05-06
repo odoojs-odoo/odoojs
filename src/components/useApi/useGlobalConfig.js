@@ -18,7 +18,7 @@ export function useGlobalConfig() {
   })
 
   const mainTitle = computed(() => {
-    return global_config.value.main
+    return global_config.value.main || {}
   })
 
   const viewActions = computed(() => {

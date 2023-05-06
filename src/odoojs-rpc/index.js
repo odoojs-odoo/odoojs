@@ -53,10 +53,7 @@ export class RPC {
     ui.Addons.set_lang(lang, true)
   }
 
-  static async session_check(sso_cas) {
-    if (sso_cas) {
-      return this.cas_session_check()
-    }
+  static async session_check() {
     const info = await this.web.session_check()
     if (info) {
       this.after_session()
@@ -68,26 +65,6 @@ export class RPC {
     const info = await this.web.login(...args)
     this.after_session()
 
-    return info
-  }
-
-  static async cas_redirect(...args) {
-    const url = this.web.cas_redirect(...args)
-    return url
-  }
-
-  static async cas_login(...args) {
-    const info = await this.web.cas_login(...args)
-    this.after_session()
-
-    return info
-  }
-
-  static async cas_session_check() {
-    const info = await this.web.cas_session_check()
-    if (info) {
-      this.after_session()
-    }
     return info
   }
 

@@ -5,7 +5,7 @@ export class ExtendModel extends Model {
     super(...args)
   }
 
-  static async echart_run_by_product(myChart) {
+  static async _data_for_echart_run_by_product() {
     const records = await this.env.model('sale.order.line').search_read({
       domain: [],
       fields: ['product_id', 'price_total']
@@ -31,10 +31,17 @@ export class ExtendModel extends Model {
 
     const source = Object.values(records2).reverse()
 
+    return {
+      dimensions: ['product_name', 'price_total'],
+      source
+    }
+  }
+
+  static async _option_for_echart_run_by_product() {
     const option = {
       dataset: {
-        dimensions: ['product_name', 'price_total'],
-        source
+        dimensions: [],
+        source: []
       },
       title: { text: 'SO Report' },
       tooltip: {},
@@ -43,10 +50,18 @@ export class ExtendModel extends Model {
       series: [{ name: 'Total', type: 'pie' }]
     }
 
+    return option
+  }
+
+  static async echart_run_by_product(myChart) {
+    const dataset = await this._data_for_echart_run_by_product()
+    const option2 = await this._option_for_echart_run_by_product()
+    const option = { ...option2, dataset }
+
     myChart.setOption(option)
   }
 
-  static async echart_run_by_date(myChart) {
+  static async _data_for_echart_run_by_date() {
     const records = await this.search_read({
       domain: [],
       fields: ['date_order', 'amount_total']
@@ -77,10 +92,17 @@ export class ExtendModel extends Model {
 
     const source = Object.values(records2).reverse()
 
+    return {
+      dimensions: ['date_order__day', 'amount_total', 'count'],
+      source
+    }
+  }
+
+  static async _option_echart_run_by_date() {
     const option = {
       dataset: {
-        dimensions: ['date_order__day', 'amount_total', 'count'],
-        source
+        dimensions: [],
+        source: []
       },
       title: { text: 'SO Report' },
       tooltip: {},
@@ -92,6 +114,13 @@ export class ExtendModel extends Model {
       ]
     }
 
+    return option
+  }
+
+  static async echart_run_by_date(myChart) {
+    const dataset = await this._data_for_echart_run_by_date()
+    const option2 = await this._option_echart_run_by_date()
+    const option = { ...option2, dataset }
     myChart.setOption(option)
   }
 }

@@ -31,7 +31,7 @@ export function useMenuController({ router }) {
 
   function onMenuSelect(menu) {
     const currentRoute = router.currentRoute.value
-    console.log(menu, currentRoute)
+    // console.log(menu, currentRoute)
 
     if (menu in no_web_menus) {
       if (currentRoute.name === menu) {
@@ -80,7 +80,7 @@ export function useMenuController({ router }) {
 
     const currentRoute = router.currentRoute.value
     const routeVal = currentRoute
-    console.log(action)
+    // console.log(action)
     const view_type = action.view_type || 'tree'
     const xml_id = action.xml_id
     const path = ['', 'web', ...xml_id.split('.')].join('/')

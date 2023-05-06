@@ -31,7 +31,10 @@ const switch_menus_addons = 'odoodemo_addons'
 
 const addons_for_extend = all_menus[switch_menus_addons]
 
-export const addons_dict = { ...dict_addons_for_model, addons_for_extend }
+export const addons_dict = {
+  ...dict_addons_for_model,
+  addons_for_extend
+}
 
 const modules_installed_odoo = [
   'base',
@@ -59,7 +62,3 @@ const modules_installed_odoo = [
 const modules_extend = ['_base', '_product', '_account', '_purchase', '_sale']
 
 export const modules_installed = [...modules_installed_odoo, ...modules_extend]
-
-// export const cas_server = 'http://localhost:8081'
-export const cas_server = 'https://10.120.140.37:7443/cas'
-export const sso_cas = 0

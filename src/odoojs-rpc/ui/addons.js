@@ -180,9 +180,7 @@ export class Addons {
   }
 
   static load_addons(addons_dict, modules_installed) {
-    const { odoo_addons, ...other_addons } = addons_dict
-    const addons_list = [odoo_addons, ...Object.values(other_addons)]
-
+    const addons_list = Object.values(addons_dict)
     const res = this.load_addons_all(addons_list)
 
     const {
@@ -217,7 +215,7 @@ export class Addons {
       }, {})
     }
 
-    const menus = actions_views_todo.menus
+    const menus = actions_views_todo.menus || {}
     const menus2 = filter_menus(menus)
     // console.log(modules_installed, menus, menus2)
 

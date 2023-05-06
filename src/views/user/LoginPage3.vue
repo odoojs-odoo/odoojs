@@ -1,18 +1,16 @@
 <template>
-  <div v-if="sso_cas">loading</div>
-
-  <LoginPage2 v-else />
+  <LoginPage2 />
 
   <div></div>
 </template>
 
 <script setup>
 import LoginPage2 from './LoginPage2.vue'
-import { useCasLogin } from './userCas'
-import { useRouter } from 'vue-router'
-const router = useRouter()
-const { sso_cas, onCasCall } = useCasLogin(router)
-onCasCall()
+// import { useCasLogin } from './userCas'
+// import { useRouter } from 'vue-router'
+// const router = useRouter()
+// const { onCasCall } = useCasLogin(router)
+// onCasCall()
 </script>
 
 <style type="text/less" scoped></style>

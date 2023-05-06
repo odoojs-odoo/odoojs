@@ -6,7 +6,6 @@ import SpaceLayout from '@/layout/SpaceLayout'
 
 import webRoutes from './web_routes'
 import api from '@/odoorpc'
-import { sso_cas } from '@/config/config'
 
 const userRoutes = [
   {
@@ -15,7 +14,7 @@ const userRoutes = [
     children: [
       {
         path: '/user/login',
-        component: () => import('@/views/user/LoginPage3'),
+        component: () => import('@/views/user/LoginPage2'),
         name: 'user-login'
       }
     ]
@@ -93,13 +92,12 @@ router.beforeEach(async (to, from, next) => {
     return
   }
 
-  const hasToken = await api.session_check(sso_cas)
+  const hasToken = await api.session_check()
 
   if (hasToken) {
     next()
     return
   } else {
-    // next(`/user/login?redirect=${to.path}`)
     next(`/user/login`)
 
     return

@@ -429,7 +429,7 @@ export class ViewHelp {
     const children = children_get(sheet)
 
     // console.log('sheet', sheet)
-    console.log('children', children)
+    // console.log('children', children)
 
     return { children }
   }

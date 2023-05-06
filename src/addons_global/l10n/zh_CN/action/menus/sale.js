@@ -15,6 +15,15 @@ export default {
           res_partner_action_customer: { name: '客户' }
         }
       },
+
+      menu_sale_analytic: {
+        name: '销售分析',
+        children: {
+          sale_action_chart_by_date: { name: '月统计' },
+          sale_action_chart_by_product: { name: '按商品统计' }
+        }
+      },
+
       menu_action_quotations_with_onboarding: { name: '报价单' },
       menu_action_orders: { name: '销售订单' }
     }

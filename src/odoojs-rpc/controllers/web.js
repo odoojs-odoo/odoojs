@@ -249,27 +249,10 @@ class Session extends JsonRequest {
     return { ...info, user_companies }
   }
 
-  static async cas_authenticate({ db, server, service, ticket }) {
-    const url = '/web/session/cas_authenticate'
-    const payload = { db, server, service, ticket }
-    const session_info = await this.json_call(url, payload)
-    const info = this._session_info_get_after(session_info)
-    this._session_info = info
-    return info
-  }
-
   static async authenticate({ db, login, password }) {
     const url = '/web/session/authenticate'
     const payload = { db, login, password }
     const session_info = await this.json_call(url, payload)
-    const info = this._session_info_get_after(session_info)
-    this._session_info = info
-    return info
-  }
-
-  static async cas_get_session_info() {
-    const url = '/web/session/cas_get_session_info'
-    const session_info = await this.json_call(url, {})
     const info = this._session_info_get_after(session_info)
     this._session_info = info
     return info
@@ -531,32 +514,6 @@ class Home extends FileRequest {
     return await this.json_call(url, payload)
   }
 
-  static async cas_redirect({ server, service }) {
-    const url = '/web/session/cas_redirect'
-    const payload = { server, service }
-    return await this.json_call(url, payload)
-  }
-
-  static async cas_login({ db, server, service, ticket }) {
-    console.log('login by ticket', db, server, service, ticket)
-
-    const session = await Session.cas_authenticate({
-      db,
-      server,
-      service,
-      ticket
-    })
-    console.log('login by ticket', session)
-
-    const info = await this._get_user_info(session)
-
-    return {
-      session,
-      context: Session.user_context,
-      ...info
-    }
-  }
-
   static async login({ db, login, password }) {
     return this._login({ db, login, password })
   }
@@ -755,13 +712,6 @@ class Home extends FileRequest {
     return { is_user, groups, modules }
   }
 
-  static async cas_get_session() {
-    // if (!this.session_info) {
-    //   await Session.get_session_info()
-    // }
-    await Session.cas_get_session_info()
-    return this._after_get_session()
-  }
   static async get_session() {
     // if (!this.session_info) {
     //   await Session.get_session_info()
@@ -782,18 +732,6 @@ class Home extends FileRequest {
       session,
       context: Session.user_context,
       ...login_info
-    }
-  }
-
-  static async cas_session_check() {
-    try {
-      // if (this.session_info && this._login_info) {
-      //   await Session.check()
-      // }
-      await this.cas_get_session()
-      return 1
-    } catch (error) {
-      return 0
     }
   }
 
