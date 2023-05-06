@@ -1,3 +1,3 @@
-import rpc from '@/odoojs-rpc'
+import rpc from 'odoojs'
 
 export default rpc

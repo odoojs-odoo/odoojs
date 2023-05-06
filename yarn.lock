@@ -2073,6 +2073,15 @@ axios@^1.3.0:
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
+axios@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npmmirror.com/axios/-/axios-1.4.0.tgz#38a7bf1224cd308de271146038b551d725f0be1f"
+  integrity sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==
+  dependencies:
+    follow-redirects "^1.15.0"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
+
 babel-loader@^8.2.2:
   version "8.3.0"
   resolved "https://registry.npmmirror.com/babel-loader/-/babel-loader-8.3.0.tgz#124936e841ba4fe8176786d6ff28add1f134d6a8"
@@ -4596,6 +4605,13 @@ obuf@^1.0.0, obuf@^1.1.2:
   version "1.1.2"
   resolved "https://registry.npmmirror.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
+
+odoojs@^16.0.3:
+  version "16.0.3"
+  resolved "https://registry.npmmirror.com/odoojs/-/odoojs-16.0.3.tgz#de6f7588871ff0f9596f140b3235f9977e0b0b55"
+  integrity sha512-c7ZZ3NkpApdeDnzxyFKg4h1wI9gHqRm6m+oWwSUWU1xRflaTijDS00MzTB2NTirZcXWmhA+ERRvrdT47XrjaDQ==
+  dependencies:
+    axios "^1.4.0"
 
 on-finished@2.4.1:
   version "2.4.1"

@@ -1,6 +1,6 @@
 import { Model } from '@/odoorpc/models'
 
-import { HttpRequest } from '@/odoojs-rpc/request'
+import { HttpRequest } from 'odoojs'
 
 function randInt() {
   return Math.floor((Math.random() * 1000) / 23)

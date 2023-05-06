@@ -1,3 +1,3 @@
-import { Model as BaseModel } from '@/odoojs-rpc/models'
+import { Model as BaseModel } from 'odoojs'
 
 export const Model = BaseModel

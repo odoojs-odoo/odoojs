@@ -1,7 +1,7 @@
 import { Model } from '@/odoorpc/models'
 import * as echarts from 'echarts/core'
 
-import { HttpRequest } from '@/odoojs-rpc/request'
+import { HttpRequest } from 'odoojs'
 
 const ROOT_PATH = 'echarts/examples'
 async function call_echarts_request(url) {
