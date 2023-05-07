@@ -12,31 +12,57 @@ export function messageError(error) {
 // 这里如果 有重名的  model 构成继承关系, 则必须 按照顺序. 后者覆盖前者
 // todo. 考虑 用其他方法, 搞定继承关系. 从而这里不要求顺序
 // actions 和 fields 的处理 无先后顺序
-// odoo_addons 必须提供? todo check why
 
-const odoo_addons = require.context('@/addons_odoo', true, /\.js$/)
-const fapiao_addons = require.context('@/addons_fapiao', true, /\.js$/)
-const dict_addons_for_model = { odoo_addons, fapiao_addons }
+const addons_odoo = require.context('@/addons_odoo', true, /\.js$/)
+const addons_l10n_zh_CN_odoo = require.context(
+  '@/addons_l10n_zh_CN_odoo',
+  true,
+  /\.js$/
+)
 
-const minierp_addons = require.context('@/addons_minierp', true, /\.js$/)
-const odoodemo_addons = require.context('@/addons_global', true, /\.js$/)
+const addons_fapiao = require.context('@/addons_fapiao', true, /\.js$/)
 
-const all_menus = {
-  minierp_addons,
-  odoodemo_addons
-}
+const addons_global_minierp = require.context(
+  '@/addons_global_minierp',
+  true,
+  /\.js$/
+)
 
-// const switch_menus_addons = 'minierp_addons'
-const switch_menus_addons = 'odoodemo_addons'
+const addons_l10n_zh_CN_global_minierp = require.context(
+  '@/addons_l10n_zh_CN_global_minierp',
+  true,
+  /\.js$/
+)
 
-const addons_for_extend = all_menus[switch_menus_addons]
+const addons_global_odoodemo = require.context('@/addons_global', true, /\.js$/)
+const addons_l10n_zh_CN_global_odoodemo = require.context(
+  '@/addons_l10n_zh_CN_global',
+  true,
+  /\.js$/
+)
+
+// const addons_global_selected = 'minierp'
+const addons_global_selected = 'odoodemo'
+
+const addons_globals =
+  addons_global_selected === 'odoodemo'
+    ? {
+        addons_global: addons_global_odoodemo,
+        addons_l10n_zh_CN_global: addons_l10n_zh_CN_global_odoodemo
+      }
+    : {
+        addons_global: addons_global_minierp,
+        addons_l10n_zh_CN_global: addons_l10n_zh_CN_global_minierp
+      }
 
 export const addons_dict = {
-  ...dict_addons_for_model,
-  addons_for_extend
+  addons_odoo,
+  addons_l10n_zh_CN_odoo,
+  addons_fapiao,
+  ...addons_globals
 }
 
-const modules_installed_odoo = [
+export const modules_installed = [
   'base',
   'contacts',
   'fapiao_base',
@@ -58,7 +84,3 @@ const modules_installed_odoo = [
   'hr_expense'
   //
 ]
-
-const modules_extend = ['_base', '_product', '_account', '_purchase', '_sale']
-
-export const modules_installed = [...modules_installed_odoo, ...modules_extend]

@@ -1,4 +1,4 @@
-import { Model } from '@/odoorpc/models'
+import { Model } from '@/odoorpc'
 
 export class ResUsers extends Model {
   constructor() {

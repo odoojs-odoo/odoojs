@@ -4597,10 +4597,10 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.npmmirror.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-odoojs@^16.0.3:
-  version "16.0.3"
-  resolved "https://registry.npmmirror.com/odoojs/-/odoojs-16.0.3.tgz#de6f7588871ff0f9596f140b3235f9977e0b0b55"
-  integrity sha512-c7ZZ3NkpApdeDnzxyFKg4h1wI9gHqRm6m+oWwSUWU1xRflaTijDS00MzTB2NTirZcXWmhA+ERRvrdT47XrjaDQ==
+odoojs@^16.0.5:
+  version "16.0.5"
+  resolved "https://registry.npmmirror.com/odoojs/-/odoojs-16.0.5.tgz#685d9a8b56e0974447a098bb21af0d8c857fa574"
+  integrity sha512-9CQqmHnvuAyhJ1CGBrpQkOn4lme0nex3g2CsMuGODBikL98+aU9yce0BcnUF9FqXhFtsE4lDW9sTaHLALU6P5A==
   dependencies:
     axios "^1.4.0"
 

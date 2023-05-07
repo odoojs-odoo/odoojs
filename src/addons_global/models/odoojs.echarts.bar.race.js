@@ -1,4 +1,4 @@
-import { Model } from '@/odoorpc/models'
+import { Model } from '@/odoorpc'
 
 function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
