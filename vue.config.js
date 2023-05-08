@@ -27,5 +27,12 @@ module.exports = defineConfig({
         }
       }
     }
+  },
+  chainWebpack: config => {
+    config.plugin('html').tap(args => {
+      args[0].title = 'Odoo-JS'
+      // args[0].title = t('timeSearch.today')
+      return args
+    })
   }
 })
