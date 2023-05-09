@@ -1,8 +1,7 @@
 ## contact
 
-1. contact us:
-2. odoojs@outlook.com
-3. you are welcome.
+1. contact us: odoojs@outlook.com
+2. Let's maintain odoojs together. The Odoojs Team welcomes you.
 
 ## Introduce of odoojs
 
