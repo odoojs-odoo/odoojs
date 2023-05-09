@@ -1,45 +1,105 @@
-## odoojs 介绍
-
-1. odoojs 是一个 javascript 类库, 是前端访问 odoo 的接口.
-2. 同时 odoojs 提供基于 antd-vue 的 odoo web 组件.
-3. odoojs 的接口部分 包括 odoorpc / odooui
-4. odoorpc 包括基础的访问接口.包括 session/dataset/model
-5. odoorpc 包括 action/view/view 的逻辑处理
-6. odooui 是 odoojs 前端组件的核心代码.
-7. 基于 antd-vue 的 odoo web 组件. 实现 odoojs 的前端功能
-
-## 学习交流
+## 联系我们
 
 1. QQ 群 2684913
-2. 北京斑马线科技有限公司负责维护 odoojs 的所有代码
-3. 欢迎有志于 odoo 前后端分离项目的 个人/团队, 共同维护 odoojs
+2. odoojs@outlook.com
+3. 北京斑马线科技有限公司负责维护 odoojs 的所有代码
+4. 欢迎有志于 odoo 前后端分离项目的 个人/团队, 共同维护 odoojs
 
-## 技术路线
+## odoojs 介绍
+
+1. odoojs 是 odoo 前后端分离解决方案
+2. odoojs 以 odoo 为服务端. 全新实现独立的前端
+3. 依赖核心模块 odoojs-rpc,
+4. odoojs-rpc 是一个 javascript 库, 是前端访问 odoo 的接口. npm 包名字为 odoojs.
+5. 导入 odoo-rpc. "import rpc from 'odoojs'"
+6. odoojs 通过 odoojs-rpc 从 odoo 服务端获取所有的数据.
+7. odoojs 自定义 所有的 menu, action, view.
+8. odoojs 基于 vue3 前端架构.
+9. odoojs 选择 ant-design-vue v3 作为 ui 库.
+10. odoojs 实现了 官方 odoo 前端的所有功能.
+11. odoojs 自动识别 odoo 服务端已安装的模块.
+12. odoojs 根据已经安装模块, 自行处理相应的 menu, action, view.
+13. 非 odoo 官方的自定义模块. 需要在 odoo 服务端安装.
+14. 同时 使用 odoojs 提供的 addons 扩展功能, 定义相应的 menu, action, view.
+15. 因此 odoojs 适配 自定义模块的扩展.
+16. odoojs 可以选择 ant-design-vue 之外的 ui 库.
+17. 仅需替换 odoojs 中相应的 ui 组件即可.
+18. odoojs 可以选择 vue3 之外的 其他前端架构.
+19. 而保持 odoojs-rpc, menu, action, view 不变.
+20. odoojs 支持多语言. 仅需 增加相应语言的 addons 补丁包.
+
+## 规划
+
+1. 建立 基于 odoojs 的中国本地化 ERP 产品
+2. 建立 基于 odoojs 的开发模式. 服务于广大 odoo 实施团队
+3. 建立 基于 odoojs 的服务模式. 为 ERP 使用方提供 自定义 ERP 系统的解决方案
+
+## odoojs 技术原理
+
+### 技术路线
 
 1. odoo 官方源码做服务端
 2. odoojs 实现前后端分离
 3. odoojs 前端 暂时选择 vue 架构. 但不限. 可以选择 react
 4. odoojs 前端 暂时选择 UI 库 antd-vue. 但不限. 可选择其他常用的 UI 库
 5. odoojs 完全支持 移动 web 端. 只需选择适用的 UI 库即可
-6. odoojs 完全支持 移动端 app. 只需直接使用 odoorpc 做 服务端访问接口即可
+6. odoojs 完全支持 移动端 app. 只需直接使用 odoojs-rpc 做 服务端访问接口即可
 7. odoojs 完全支持小程序等特定的客户端. 只需要使用 小程序专用的组件即可
 
-## 短期规划
+### odoojs 流程
 
-1. 完善 odoojs 前端架构.
-2. 在 odoojs 前端中, 实现 odoo 官方已有模块的功能
+1. odoojs 前端程序, 启动后, 首先加载所有自定义的 menu, action, view.
+2. 渲染 menu.
+3. 在一个 menu 选中后, 获取到对应的 action.
+4. 根据 action, 获取 相应的 tree view 或者 form view.
+5. 根据 view, 获取对应的 model, fields. 以及 html 要素.
+6. 根据 model, fields 从 odoo 服务端获取数据.
+7. 获取到的数据, 在 view 中, 各 field 自行使用相应组件进行渲染显示.
+8. view 中的 field, 支持 readonly, visible, required, domain 等属性.
 
-## 中长期规划
+### odoojs 编辑页面的流程
 
-1. 建立 基于 odoojs 的中国本地化 ERP 产品
-2. 建立 基于 odoojs 的开发模式. 服务于广大 odoo 实施团队
-3. 建立 基于 odoojs 的服务模式. 为 ERP 使用方提供 自定义 ERP 系统的解决方案
+1. 需要编辑数据时, 将 view 设置为编辑状态.
+2. 在编辑状态下, 创建一个 editmodel.
+3. editmodel 由 odoojs-rpc 进行管理, 在前端页面中无需额外关心.
+4. 该 editmodel 管理所有的编辑中的数据.
+5. view 中某个字段 field 编辑后, 触发 onchange.
+6. onchange 在 editmodel 中进行排队. 以确保 onchange 顺序依次触发.
+7. onchange 访问 odoo 服务端, 获取数据. 更新到 editmodel. 并返回到 view.
+8. view 渲染数据.
+9. view 编辑完成, 触发 commit.
+10. commit 与 onchang 一样 在 editmodel 中排队.
+11. commit 访问 odoo 服务端, 发送 create or write 请求, 更新数据到服务端.
+12. commit 之后, 销毁 editmodel, view 回到只读状态.
+13. view 发送 read 请求, 重新获取数据, 并渲染到 view 中.
+
+### odoojs one2many 字段的处理
+
+1. main view 渲染显示数据.
+2. main view 中, 各 field 由相应的 field 组件进行渲染.
+3. one2many 字段的 sub tree view, sub form view 在 main view 中已定义
+4. one2many 字段 已获得 main view 传递过来的数据 ids, fieldinfo, 及 sub fields.
+5. one2many 字段根据 ids, feildinfo, sub fields 访问服务端 获取数据.
+6. one2many 字段 sub tree view 渲染数据.
+7. one2many 字段 sub form view 以弹窗方式 显示单条数据.
+
+### odoojs one2many 字段的编辑处理
+
+1. main view 进入编辑状态.
+2. one2many 字段 sub tree view 为编辑状态, 显示 create 按钮.
+3. pick one sub record or new sub record, 创建 sub form view.
+4. sub form view 创建 sub editmodel.
+5. sub form view 触发 onchange, 访问 odoo 服务端, 更新到 sub editmodel.
+6. sub form view 触发 commit. 销毁 sub editmodel. 更新数据到 sub tree view.
+7. sub tree view 触发 main view 的 onchage.
+8. main view 的 commit 之前, 从 sub tree view 获取 one2many 字段的数据.
+9. main view 触发 commit
 
 ## 分支管理
 
 ### master 分支
 
-1. 基于 vue 3.2.13 和 antv 3.2.15
+1. 基于 vue 3.2.x 和 antv 3.2.x
 
 ### odoojs-vue2 分支
 

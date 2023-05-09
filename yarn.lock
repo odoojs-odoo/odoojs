@@ -1957,10 +1957,10 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-ant-design-vue@^3.2.15:
-  version "3.2.15"
-  resolved "https://registry.npmmirror.com/ant-design-vue/-/ant-design-vue-3.2.15.tgz#eab52877fa08a9e4c8cb311ea479a90203dcb302"
-  integrity sha512-sJfE7LWimSdAPe4dzNyQBrmVMnOTNQTkG9oOyr+7W8qIYrX8sYWyC68Nn1uum4KBJUSZUa/BU6dohvTG0urBhA==
+ant-design-vue@^3.2.20:
+  version "3.2.20"
+  resolved "https://registry.npmmirror.com/ant-design-vue/-/ant-design-vue-3.2.20.tgz#552f5f08e2acbcc10bd4089145d4cc2b15d4cfec"
+  integrity sha512-YWpMfGaGoRastIXEYfCoJiaRiDHk4chqtYhlKQM5GqPt6NfvrM1Vg2e60yHtjxlZjed91wCMm0rAmyUr7Hwzdg==
   dependencies:
     "@ant-design/colors" "^6.0.0"
     "@ant-design/icons-vue" "^6.1.0"
@@ -4597,10 +4597,10 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.npmmirror.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-odoojs@^16.0.6:
-  version "16.0.6"
-  resolved "https://registry.npmmirror.com/odoojs/-/odoojs-16.0.6.tgz#b3a3dde0b5cc2b0f8bd49fa0b650039d95d758a8"
-  integrity sha512-wCpjbRKzi7uiTt1IQzGoVWwzpCS5nhFdbsQGy3mW0y+2wQvgqEtsxySermlUf1uB6iRlVXPifMiq3nv31PZYrA==
+odoojs@^16.0.8:
+  version "16.0.8"
+  resolved "https://registry.npmmirror.com/odoojs/-/odoojs-16.0.8.tgz#a327c3ff2233256aa3fa3791de7721345bd21a0c"
+  integrity sha512-Cl2XQsin071hBD4rDI3uEph8VLaiZsWnx6lSDDhxCNSfNLpKSV2eSBbY63uGFezlqqANobBTnl2c8gQIv7C28Q==
   dependencies:
     axios "^1.4.0"
 

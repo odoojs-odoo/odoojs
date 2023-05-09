@@ -9,11 +9,11 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
-    "ant-design-vue": "^3.2.15",
+    "ant-design-vue": "^3.2.20",
     "core-js": "^3.8.3",
     "echarts": "^5.4.2",
     "echarts-gl": "^2.0.9",
-    "odoojs": "^16.0.6",
+    "odoojs": "^16.0.8",
     "vue": "^3.2.13",
     "vue-router": "^4.1.6"
   },
