@@ -10,8 +10,8 @@
 2. odoo is backend. odoojs has a frontend separated from odoo.
 3. odoojs-rpc is odoojs core module.
 4. odoojs-rpc is a javascript lib. npm package named 'odoojs'.
-5. can be imported just like. "import rpc from 'odoojs'"
-6. odoojs required data from odoo server via odoojs-rpc.
+5. can be imported just like: import rpc from 'odoojs'
+6. odoojs fetch data from odoo server via odoojs-rpc.
 7. odoojs define all menu, action, viwe.
 8. odoojs base on VUE v3 Framework
 9. odoojs use ant-design-vue v3 as ui lib.
@@ -42,11 +42,11 @@
 1. run odoojs web app, load all menu, action, view.
 2. shou menus.
 3. pick one menu. get action.
-4. form action, get tree view and form view.
+4. from action, get tree view and form view.
 5. from view, get model and fields.
 6. fetch data from odoo server with model and fields.
 7. show data in view with field ui component.
-8. field ui component has attr readonly, visible, required, domain.
+8. field ui component has attr: readonly, visible, required, domain.
 
 ### odoojs editable view
 
@@ -57,31 +57,31 @@
 5. one field value is changed. trigger onchange event
 6. push onchange in editmodel event queue. so all onchange is step by step.
 7. fetch data from odoo by onchange. udpate data in editmodel.
-8. view show data onchanged
-9. view trigger commit event.
+8. form view show data onchanged
+9. from view trigger commit event.
 10. commit event is also in editmodel event queue.
-11. update data in odoo server with create or write method
-12. delete editmodel. view set no editable.
-13. view call read method from odoo server. show data
+11. update data to odoo server with create or write method
+12. delete editmodel. form view set no editable.
+13. form view call read method from odoo server. show data
 
 ### odoojs one2many field
 
-1. main view show data
+1. main form view show data
 2. field ui component show data
-3. sub tree view and sub form view of one2many field definded in main view.
-4. one2many field get ids, fieldinfo, sub fields from main view.
+3. sub tree view and sub form view of one2many field definded in main form view.
+4. one2many field get ids, fieldinfo, sub fields from main form view.
 5. one2many field fetch data from odoo server with ids, feildinfo, sub fields.
 6. sub tree view show sub data.
 7. sub form view show one record of sub data.
 
 ### odoojs one2many field editble
 
-1. main view set editble.
+1. main form view set editble.
 2. sub tree view of one2many, set editble. show create button.
 3. pick one record or new record. show sub form view.
 4. sub form view create sub editmodel.
 5. sub form view trigger onchange. update data to sub editmodel and odoo server
 6. sub form view trigger commit. update data to sub tree view
-7. sub tree view trigger onchange to main view
-8. main view get data from sub tree view for commit
-9. main view trigger commit
+7. sub tree view trigger onchange to main form view
+8. main form view get data from sub tree view for commit
+9. main form view trigger commit
