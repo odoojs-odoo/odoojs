@@ -6,7 +6,7 @@ export function useGlobalConfig() {
 
   // 页面刷新时, 首次进入 . 初始化语言
   // 页面跳转时, 不加载菜单.
-  lang.value = api.env.lang
+  // lang.value = api.env.lang
 
   function check_lang() {
     return lang.value

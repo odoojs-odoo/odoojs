@@ -51,7 +51,6 @@ const reports_bar = [
 
 const reports_line_parallel = [
   { type: 'line', name: 'Line Race', code: 'odoojs.echarts.line.race,report' },
-
   { type: 'line', name: 'Line', code: 'odoojs.echarts.line,report' },
   { type: 'line', name: 'Line Smooth', code: 'odoojs.echarts.line,smooth' },
   { type: 'line', name: 'Line Area', code: 'odoojs.echarts.line,area' },
@@ -63,7 +62,6 @@ const reports_line_parallel = [
     code: 'odoojs.echarts.line,smooth_stack_area'
   },
   { type: 'line', name: 'Line Step', code: 'odoojs.echarts.line,step' },
-
   {
     type: 'parallel',
     name: 'parallel aqi',

@@ -121,6 +121,7 @@ export function useMenuController({ router }) {
   }
 
   return {
+    lang,
     selectedKeys,
     openKeys,
     menus_tree,

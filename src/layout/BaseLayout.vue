@@ -57,7 +57,7 @@
             font-weight: bold;
           "
         >
-          {{ mainTitle.project }}
+          {{ mainTitle.project }} {{ [lang] }}
         </div>
         <!-- 下拉 -->
         <Lang class="langSelect" />
@@ -141,7 +141,7 @@ const router = useRouter()
 
 // global config
 const useDataConfig = useGlobalConfig()
-const { mainTitle, session_info } = useDataConfig
+const { lang, mainTitle, session_info } = useDataConfig
 
 // menu collaosed controlle
 const collapsed = ref(false)

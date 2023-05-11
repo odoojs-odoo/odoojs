@@ -1,6 +1,7 @@
 // import rpc, { Model, HttpRequest } from '@/odoojs-rpc'
-import rpc, { Model, HttpRequest } from 'odoojs'
+// import addons_odoo from '@/addons_odoo'
 
-export default rpc
+//
+import rpc, { Model, HttpRequest, addons_odoo } from 'odoojs'
 
-export { Model, HttpRequest }
+export { rpc as default, Model, HttpRequest, addons_odoo }

@@ -1,56 +1,68 @@
-import { Model } from '@/odoorpc'
-import { HttpRequest } from '@/odoorpc'
+// import { Model } from '@/odoorpc'
+// import { HttpRequest } from '@/odoorpc'
 
 function randInt() {
   return Math.floor((Math.random() * 1000) / 23)
 }
 
-export const ROOT_PATH = 'echarts/examples'
+const ROOT_PATH = 'echarts/examples'
 
-export async function call_echarts_request(url) {
-  const api = HttpRequest
-  api.baseURL = ROOT_PATH
-  return api.call_get(url)
-}
+// export async function call_echarts_request(url) {
+//   const api = HttpRequest
+//   api.baseURL = ROOT_PATH
+//   return api.call_get(url)
+// }
 
-export class EchartsBaseModel extends Model {
-  constructor(...args) {
-    super(...args)
-  }
+export function EchartsBaseModelCreator(Model, { HttpRequest }) {
+  class EchartsBaseModel extends Model {
+    static async call_echarts_request(url) {
+      const api = HttpRequest
+      api.baseURL = ROOT_PATH
+      return api.call_get(url)
+    }
 
-  static async echart_run(report, chartInstance) {
-    const fn_name = `echart_run_${report}`
+    constructor(...args) {
+      super(...args)
+    }
 
-    if (this[fn_name]) {
-      return this[fn_name](chartInstance)
-    } else {
-      console.log(fn_name, 'todo')
-      //   alert(`${fn_name} todo`)
+    static async echart_run(report, chartInstance) {
+      const fn_name = `echart_run_${report}`
+
+      if (this[fn_name]) {
+        return this[fn_name](chartInstance)
+      } else {
+        console.log(fn_name, 'todo')
+        //   alert(`${fn_name} todo`)
+      }
+    }
+
+    static async get_echart_option(report) {
+      // console.log(report)
+      const maps = {}
+      if (report in maps) {
+        return this[maps[report]]()
+      } else {
+        return { odoojs_echarts_type: { name: 'run_server' } }
+      }
+    }
+
+    static async get_echart_data(report) {
+      const maps = {}
+      if (report in maps) {
+        return this[maps[report]]()
+      } else {
+        return {}
+      }
     }
   }
 
-  static async get_echart_option(report) {
-    // console.log(report)
-    const maps = {}
-    if (report in maps) {
-      return this[maps[report]]()
-    } else {
-      return { odoojs_echarts_type: { name: 'run_server' } }
-    }
-  }
+  EchartsBaseModel.ROOT_PATH = ROOT_PATH
 
-  static async get_echart_data(report) {
-    const maps = {}
-    if (report in maps) {
-      return this[maps[report]]()
-    } else {
-      return {}
-    }
-  }
+  return EchartsBaseModel
 }
 
 const AddonsModels = {
-  'odoojs.echarts.base': EchartsBaseModel
+  'odoojs.echarts.base': EchartsBaseModelCreator
 }
 
 export default AddonsModels

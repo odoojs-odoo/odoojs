@@ -6,9 +6,7 @@ import { modules_installed } from '@/config/config'
 
 api.init({ baseURL, timeout, messageError, addons_dict, modules_installed })
 
-const addons_data = api.addons_data
-
-const actions = addons_data.actions
+const actions = api.all_actions
 
 const default_component = () => import('@/components/OView/WebView')
 

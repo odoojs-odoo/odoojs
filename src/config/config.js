@@ -1,5 +1,7 @@
 import { message } from 'ant-design-vue'
 
+import { addons_odoo } from '@/odoorpc'
+
 export const baseURL = process.env.VUE_APP_BASE_API
 export const timeout = 50000
 
@@ -13,7 +15,6 @@ export function messageError(error) {
 // todo. 考虑 用其他方法, 搞定继承关系. 从而这里不要求顺序
 // actions 和 fields 的处理 无先后顺序
 
-const addons_odoo = require.context('@/addons_odoo', true, /\.js$/)
 const addons_l10n_zh_CN_odoo = require.context(
   '@/addons_l10n_zh_CN_odoo',
   true,
@@ -62,25 +63,28 @@ export const addons_dict = {
   ...addons_globals
 }
 
+// 这个是 前端的过滤选择.
+// 实际 菜单显示的是  odoo server 端 已经安装模块与 这里选择的模块之间的交集
+// 约定 若这里不做过滤. 选择所有 服务端已经安装的模块
 export const modules_installed = [
-  'base',
-  'contacts',
-  'fapiao_base',
-  'fapiao_bill',
-  'fapiao_invoice',
-  'uom',
-  'product',
-  'analytic',
-  'account',
-  'account_wizard',
-  'sales_team',
-  'sale',
-  'purchase',
-  'stock',
-  'stock_wizard',
-  'stock_sms',
-  'hr',
-  'hr_contract',
-  'hr_expense'
+  // 'base',
+  // 'contacts'
+  // 'fapiao_base',
+  // 'fapiao_bill',
+  // 'fapiao_invoice',
+  // 'uom',
+  // 'product',
+  // 'analytic',
+  // 'account',
+  // 'account_wizard',
+  // 'sales_team',
+  // 'sale',
+  // 'purchase',
+  // 'stock',
+  // 'stock_wizard',
+  // 'stock_sms',
+  // 'hr',
+  // 'hr_contract',
+  // 'hr_expense'
   //
 ]
