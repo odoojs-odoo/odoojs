@@ -17,13 +17,17 @@ import en_US from 'ant-design-vue/es/locale/en_US'
 
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
-import api from '@/odoorpc'
+// import api from '@/odoorpc'
+
+import { lang_default } from '@/config/config'
 
 const ant_langs = { zh_CN, en_US }
 
-const api_lang = api.env.lang
+// const api_lang = api.env.lang
+
+const api_lang = lang_default
+
 const lang = ref(api_lang)
-console.log(lang)
 provide('lang', lang)
 
 const dayjs_langs = { zh_CN: 'zh-cn', en_US: 'en' }

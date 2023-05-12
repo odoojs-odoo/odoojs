@@ -2,6 +2,8 @@ import { message } from 'ant-design-vue'
 
 import { addons_odoo } from '@/odoorpc'
 
+export const lang_default = 'zh_CN'
+
 export const baseURL = process.env.VUE_APP_BASE_API
 export const timeout = 50000
 
@@ -43,8 +45,8 @@ const addons_l10n_zh_CN_global_odoodemo = require.context(
   /\.js$/
 )
 
-// const addons_global_selected = 'minierp'
-const addons_global_selected = 'odoodemo'
+const addons_global_selected = 'minierp'
+// const addons_global_selected = 'odoodemo'
 
 const addons_globals =
   addons_global_selected === 'odoodemo'
