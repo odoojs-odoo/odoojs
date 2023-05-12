@@ -22,6 +22,7 @@ const addons_l10n_zh_CN_odoo = require.context(
 )
 
 const addons_fapiao = require.context('@/addons_fapiao', true, /\.js$/)
+const addons_echarts = require.context('@/addons_echarts', true, /\.js$/)
 
 const addons_global_minierp = require.context(
   '@/addons_global_minierp',
@@ -60,6 +61,7 @@ export const addons_dict = {
   addons_odoo,
   addons_l10n_zh_CN_odoo,
   addons_fapiao,
+  addons_echarts,
   ...addons_globals
 }
 
