@@ -1,32 +1,22 @@
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-  <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   <a-config-provider :locale="ant_langs[lang]">
     <router-view />
-    <!-- <TestAPI /> -->
   </a-config-provider>
 </template>
 
 <script setup>
-// import HelloWorld from './components/HelloWorld.vue'
-// import TestAPI from '@/components/TestAPI.vue'
-
 import { provide, ref, watch } from 'vue'
 import zh_CN from 'ant-design-vue/es/locale/zh_CN'
 import en_US from 'ant-design-vue/es/locale/en_US'
 
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
-// import api from '@/odoorpc'
 
 import { lang_default } from '@/config/config'
 
 const ant_langs = { zh_CN, en_US }
 
-// const api_lang = api.env.lang
-
 const api_lang = lang_default
-
 const lang = ref(api_lang)
 provide('lang', lang)
 

@@ -1,27 +1,15 @@
 <!--
- * @Author: Nxf
- * @Date: 2023-02-04 22:18:39
- * @LastEditors: Nxf
- * @LastEditTime: 2023-02-04 23:25:42
- * @Descripttion: 
+ * @Author: Nn
+ * @Date: 2023-05-06 18:11:34
+ * @LastEditors: Nn
+ * @LastEditTime: 2023-05-06 18:13:12
+ * @Description: 
 -->
 <template>
-  <div>
-    <!-- SpaceLayout -->
     <router-view />
-  </div>
 </template>
+<script setup>
 
-<script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'SpaceLayout',
-
-  setup() {
-    return {}
-  }
-})
 </script>
 
 <style scoped></style>

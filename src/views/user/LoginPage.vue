@@ -61,7 +61,7 @@
         </a-form-item>
       </a-form>
       {{ lang }}
-      <LangMenu class="langSelect" />
+      <LangMenu class="langSelect" :logoName="logoName" />
     </div>
   </div>
 </template>
@@ -77,6 +77,8 @@ const router = useRouter()
 const useData = useLogin()
 const { show_db, lang, formState, databaseOptions, codeNum } = useData
 const { load_databaseOptions, onClickCodeNum, handleLogin } = useData
+
+let logoName = 'lang.png'
 
 async function onFinish(values) {
   const info = await handleLogin(values)

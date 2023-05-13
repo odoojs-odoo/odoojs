@@ -6,6 +6,7 @@ import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import * as antIcons from '@ant-design/icons-vue'
 
+// echarts 需要
 import 'echarts-gl'
 
 const app = createApp(App)

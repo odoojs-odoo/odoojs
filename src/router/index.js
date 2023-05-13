@@ -14,7 +14,7 @@ const userRoutes = [
     children: [
       {
         path: '/user/login',
-        component: () => import('@/views/user/LoginPage2'),
+        component: () => import('@/views/user/LoginPage'),
         name: 'user-login'
       }
     ]
@@ -73,7 +73,6 @@ const allRoutes = [...userRoutes, ...homeRoutes, ...echartsRoutes]
 
 const router = createRouter({
   history: createWebHashHistory(),
-  // history: createWebHistory(),
   routes: allRoutes
 })
 

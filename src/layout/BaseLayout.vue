@@ -46,9 +46,9 @@
         <MenuUnfoldOutlined
           class="triggerIcon"
           v-if="collapsed"
-          @click="onMenuCollaosed"
+          @click="onMenuCollapsed"
         />
-        <MenuFoldOutlined class="triggerIcon" v-else @click="onMenuCollaosed" />
+        <MenuFoldOutlined class="triggerIcon" v-else @click="onMenuCollapsed" />
         <div
           style="
             color: white;
@@ -60,7 +60,8 @@
           {{ mainTitle.project }} {{ [lang] }}
         </div>
         <!-- 下拉 -->
-        <Lang class="langSelect" />
+        <Lang class="langSelect" :logoName="logoName" />
+        <!-- 用户信息 -->
         <a-dropdown>
           <a class="userInfo" @click.prevent>
             {{ session_info.name || 'to login' }}
@@ -142,13 +143,13 @@ const router = useRouter()
 // global config
 const useDataConfig = useGlobalConfig()
 const { lang, mainTitle, session_info } = useDataConfig
+let logoName = 'lang_white.png'
 
-// menu collaosed controlle
+// menu collapsed controlle
 const collapsed = ref(false)
-function onMenuCollaosed() {
+function onMenuCollapsed() {
   collapsed.value = !collapsed.value
 }
-
 // menu controlle
 const useDataMenu = useMenuController({ router })
 const { selectedKeys, openKeys, menus_tree } = useDataMenu
@@ -195,6 +196,7 @@ function onUserMenuClick(e) {
   console.log('==== onUserMenuClick =====', e)
 }
 
+// logout
 async function onLogout() {
   await api.web.logout()
   router.replace({ path: '/user/login' })
